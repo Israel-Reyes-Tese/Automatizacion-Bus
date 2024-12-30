@@ -20,9 +20,17 @@ sub agentes_home_image_path {
     return RUTA_IMAGENES . 'agentes_home.gif';  # Cambia la extensión si es necesario
 }
 
+# Función para obtener la ruta completa a la imagena Agente SNMP
+sub agentes_snmp_image_path {
+    return RUTA_IMAGENES . 'agentes_snmp.gif';  # Cambia la extensión si es necesario
+}
+
 # Función para obtener la ruta completa a la imagen de salida
 sub exit_image_path {
     return RUTA_IMAGENES . 'exit.gif';  # Cambia la extensión si es necesario
 }
+
+
+
 
 1;  # Fin del módulo

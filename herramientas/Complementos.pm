@@ -29,7 +29,111 @@ sub create_label {
 }
 
 
+# Función para crear un botón con imagen y etiqueta
+sub create_button_with_picture_and_label {
+    my ($self, $parent, $label_text, $image_path, $command) = @_;
+    my $image;
+    eval {
+        $image = $parent->Photo(-file => $image_path);  # Cargar la imagen desde la ruta
+        1;
+    } or do {
+        my $error = $@ || 'Unknown error';
+        die "Error al cargar la imagen en create_button_with_label: $error";
+    };
 
+    eval {
+        # Crear un frame para contener el botón y el label
+        my $button_frame = $self->{toolbar}->Frame(-bg => '#723185');
+        $button_frame->pack(-side => 'left', -padx => 5, -pady => 5);
+
+        my $button = $button_frame->Button(
+            -image => $image,
+            -command => $command,
+            -bg => '#723185',
+            -fg => 'white',
+            -activebackground => '#5b2b6e',
+            -borderwidth => 0,
+        );
+        $button->pack(-side => 'top');
+
+        my $label = $button_frame->Label(
+            -text => $label_text,
+            -bg => '#723185',
+            -fg => 'white',
+        );
+        $label->pack(-side => 'top');
+        1;
+    } or do {
+        my $error = $@ || 'Unknown error';
+        die "Error al crear el botón y el label en create_button_with_label: $error";
+    };
+}
+
+# Función para crear un botón con imagen y etiqueta
+sub create_button_with_picture_and_label_main_window {
+    my ($parent, $frame, $label_text, $image_path, $command) = @_;
+    my $image;
+    eval {
+        $image = $parent->Photo(-file => $image_path);  # Cargar la imagen desde la ruta
+        1;
+    } or do {
+        my $error = $@ || 'Unknown error';
+        die "Error al cargar la imagen en create_button_with_label: $error";
+    };
+
+    eval {
+        # Crear un frame para contener el botón y el label
+        my $button_frame = $frame->Frame(-bg => '#723185');
+        $button_frame->pack(-side => 'left', -padx => 5, -pady => 5);
+
+        my $button = $button_frame->Button(
+            -image => $image,
+            -command => $command,
+            -bg => '#723185',
+            -fg => 'white',
+            -activebackground => '#5b2b6e',
+            -borderwidth => 0,
+        );
+        $button->pack(-side => 'top');
+
+        my $label = $button_frame->Label(
+            -text => $label_text,
+            -bg => '#723185',
+            -fg => 'white',
+        );
+        $label->pack(-side => 'top');
+        1;
+    } or do {
+        my $error = $@ || 'Unknown error';
+        die "Error al crear el botón y el label en create_button_with_label: $error";
+    };
+}
+
+
+# Subrutina para crear un botón con un label debajo
+sub create_button_with_label {
+    my ($parent, $label_text, $command) = @_;
+
+    my $button_frame = $parent->Frame(-bg => $herramientas::Estilos::bg_color);
+    $button_frame->pack(-side => 'left', -padx => 10);
+
+    my $button = $button_frame->Button(
+        -text => $label_text,
+        -command => $command,
+        -bg => $herramientas::Estilos::button_color,
+        -fg => $herramientas::Estilos::fg_color,
+        -font => ['Verdana', 16, 'bold']
+    );
+    $button->pack(-side => 'top');
+
+    my $label = $button_frame->Label(
+        -text => $label_text,
+        -bg => $herramientas::Estilos::bg_color,
+        -fg => $herramientas::Estilos::fg_color,
+        -font => ['Verdana', 12]
+    );
+    $label->pack(-side => 'top');
+}
 
 
 
