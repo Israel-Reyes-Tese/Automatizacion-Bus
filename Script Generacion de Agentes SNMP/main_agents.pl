@@ -18,11 +18,6 @@ use Complementos;  # Importar el módulo Complementos
 use Rutas; # Importar el módulo de rutas
 use Crear_agente_snmp; # Importar el módulo crear_agente_snmp
 
-# Colores de la paleta
-my $bg_color = '#723185';      # Color de fondo
-my $fg_color = 'white';        # Color de texto
-my $button_color = '#5b2b6e';  # Color del botón
-
 # Función principal para iniciar la aplicación
 sub main {
     eval {
@@ -35,7 +30,7 @@ sub main {
         $mw->state('zoomed');
 
         # Configurar el color de fondo de la ventana
-        $mw->configure(bg => $bg_color);
+        $mw->configure(bg => $herramientas::Estilos::bg_color);
 
         # Crear la barra de herramientas
         my $toolbar = herramientas::Toolbar->new($mw);

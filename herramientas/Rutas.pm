@@ -30,7 +30,41 @@ sub exit_image_path {
     return RUTA_IMAGENES . 'exit.gif';  # Cambia la extensión si es necesario
 }
 
+# Función para obtener la ruta completa a la imagen de ayuda
+sub help_image_path {
+    return RUTA_IMAGENES . 'help.gif';  # Cambia la extensión si es necesario
+}
 
+# Función para obtener la ruta completa a la imagen de acerca de
+sub about_image_path {
+    return RUTA_IMAGENES . 'info.gif';  # Cambia la extensión si es necesario
+}
+
+# Función para obtener la ruta completa a la imagen error
+sub error_image_path {
+    return RUTA_IMAGENES . 'error.gif';  # Cambia la extensión si es necesario
+}
+
+# Función para obtener la ruta completa a la imagen de éxito
+sub success_image_path {
+    return RUTA_IMAGENES . 'success.gif';  # Cambia la extensión si es necesario
+}
+
+# Función para obtener la ruta completa a la imagen de advertencia
+sub warning_image_path {
+    return RUTA_IMAGENES . 'warning.gif';  # Cambia la extensión si es necesario
+}
+
+
+# Función para obtener la ruta completa a la imagen de configuración
+sub settings_image_path {
+    return RUTA_IMAGENES . 'settings.gif';  # Cambia la extensión si es necesario
+}
+
+# Función para obtener la ruta completa a la imagen de pregunta
+sub question_image_path {
+    return RUTA_IMAGENES . 'question.gif';  # Cambia la extensión si es necesario
+}
 
 
 1;  # Fin del módulo
