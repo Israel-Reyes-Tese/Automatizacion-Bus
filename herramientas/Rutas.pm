@@ -66,5 +66,9 @@ sub question_image_path {
     return RUTA_IMAGENES . 'question.gif';  # Cambia la extensión si es necesario
 }
 
+# Función para obtener la ruta completa a la imagen de editar
+sub edit_image_path {
+    return RUTA_IMAGENES . 'edit.gif';  # Cambia la extensión si es necesario
+}
 
 1;  # Fin del módulo

@@ -2,62 +2,78 @@ package Logic;
 
 use strict;
 use warnings;
-use File::Path qw(make_path rmtree);
-use File::Spec;
 
 # Añadir la carpeta donde se encuentran los módulos
 use lib $FindBin::Bin . "/herramientas";
 use Data::Dumper; # Importar el módulo Data::Dumper
-# Importar el módulos axuliares
-use Toolbar; # Importar el módulo Toolbar
-use Estilos; # Importar todas las variables de Estilos
-use Complementos;  # Importar el módulo Complementos
-use Rutas; # Importar el módulo de rutas
 
-# Función para crear el árbol de directorios y archivos
+
+use File::Path qw(make_path rmtree);
+use File::Spec;
+use FindBin;
+use Data::Dumper;
+use Toolbar;
+use Estilos;
+use Complementos;
+use Rutas;
+
+# Function to create the directory tree and files
 sub crear_arbol_directorio {
     my ($parent, $ruta_principal, $nombre_agente) = @_;
 
-    # Ruta completa del agente
     my $ruta_agente = File::Spec->catdir($ruta_principal, $nombre_agente);
 
-    # Verificar si el agente ya existe
     if (-d $ruta_agente) {
-        my $title = "Agente Existente";
-        my $message = "El agente '$nombre_agente' ya existe.¿Desea reemplazarlo?";
-        my $type = 'question';
-
-        my $response = herramientas::Complementos::create_alert_with_picture_label_and_button($parent, $title, $message, $type);
-        # Si la respuesta es 'No', detener el proceso
-        if (!$response) {
-            return 0;
-        }
-        # Si la respuesta es 'Sí', eliminar el directorio existente
-        eval {
-            rmtree($ruta_agente);
-        };
-        if ($@) {
-            die "Error al eliminar el directorio existente en la función crear_arbol_directorio: $@";
-        }
-   
+        my $response = _handle_existing_agent($parent, $nombre_agente, $ruta_agente);
+        return 0 unless $response;
     }
 
-    # Crear directorios
-    my @directorios = (
+    my @directorios = _get_directories($ruta_agente);
+    _create_directories(@directorios);
+
+    _create_files($ruta_agente, $nombre_agente);
+    _create_conf_files($ruta_agente);
+    _create_abr_files($ruta_agente);
+
+    return 1;
+}
+
+# Handle existing agent directory
+sub _handle_existing_agent {
+    my ($parent, $nombre_agente, $ruta_agente) = @_;
+    my $title = "Agente Existente";
+    my $message = "El agente '$nombre_agente' ya existe.¿Desea reemplazarlo?";
+    my $type = 'question';
+
+    my $response = herramientas::Complementos::create_alert_with_picture_label_and_button($parent, $title, $message, $type);
+    if ($response) {
+        eval { rmtree($ruta_agente); };
+        die "Error al eliminar el directorio existente en la función _handle_existing_agent: $@" if $@;
+    }
+    return $response;
+}
+
+# Get directories to create
+sub _get_directories {
+    my ($ruta_agente) = @_;
+    return (
         $ruta_agente,
         File::Spec->catdir($ruta_agente, 'CONF'),
         File::Spec->catdir($ruta_agente, 'ABR'),
         File::Spec->catdir($ruta_agente, 'ExampleTrapAlarm')
     );
+}
 
-    eval {
-        make_path(@directorios);
-    };
-    if ($@) {
-        die "Error al crear directorios en la función crear_arbol_directorio: $@";
-    }
+# Create directories
+sub _create_directories {
+    my @directorios = @_;
+    eval { make_path(@directorios); };
+    die "Error al crear directorios en la función _create_directories: $@" if $@;
+}
 
-    # Crear archivos en la raíz del agente
+# Create root files for the agent
+sub _create_files {
+    my ($ruta_agente, $nombre_agente) = @_;
     my $archivo_agente = File::Spec->catfile($ruta_agente, "agente_$nombre_agente.pl");
     my $archivo_properties = File::Spec->catfile($ruta_agente, "AGENT.properties");
 
@@ -67,11 +83,12 @@ sub crear_arbol_directorio {
         open $fh, '>', $archivo_properties or die "Error al crear $archivo_properties: $!";
         close $fh;
     };
-    if ($@) {
-        die "Error al crear archivos en la función crear_arbol_directorio: $@";
-    }
+    die "Error al crear archivos en la función _create_files: $@" if $@;
+}
 
-    # Crear archivos en la carpeta CONF
+# Create files in the CONF directory
+sub _create_conf_files {
+    my ($ruta_agente) = @_;
     my @archivos_conf = qw(
         FB_AGENTE FB_all FC_PrependAdditionalText FC_SetEventSeverity
         FC_SetGrupos FC_SetIncidentType FC_SetIncidentType_NonCascade
@@ -84,12 +101,13 @@ sub crear_arbol_directorio {
             open my $fh, '>', $ruta_archivo or die "Error al crear $ruta_archivo: $!";
             close $fh;
         };
-        if ($@) {
-            die "Error al crear archivos en la carpeta CONF en la función crear_arbol_directorio: $@";
-        }
+        die "Error al crear archivos en la carpeta CONF en la función _create_conf_files: $@" if $@;
     }
+}
 
-    # Crear archivos en la carpeta ABR
+# Create files in the ABR directory
+sub _create_abr_files {
+    my ($ruta_agente) = @_;
     my @archivos_abr = qw(
         ExampleTrapAlarm CONFIGURATOR.pm CorrectiveFilter.pm EXAMPLE.pm
         FILE_HANDLER.pm llenaComun.pm MICROTIME.pm Parser_aux.pm
@@ -102,12 +120,269 @@ sub crear_arbol_directorio {
             open my $fh, '>', $ruta_archivo or die "Error al crear $ruta_archivo: $!";
             close $fh;
         };
-        if ($@) {
-            die "Error al crear archivos en la carpeta ABR en la función crear_arbol_directorio: $@";
+        die "Error al crear archivos en la carpeta ABR en la función _create_abr_files: $@" if $@;
+    }
+}
+
+# Function to destroy the last child if it contains the property -scrollbars => 'osoe'
+sub destruir_ultimo_hijo_con_scrollbars {
+    my ($frame_personalizacion) = @_;
+    foreach my $child ($frame_personalizacion->children) {
+        if ($child->isa('Tk::Frame') && defined $child->cget('-scrollbars') && $child->cget('-scrollbars') eq 'osoe') {
+            $child->destroy;
         }
     }
+}
 
+# Function to update the customization frame and return the field information
+sub actualizar_frame_agent_properties {
+    my ($ventana_principal, $frame_personalizacion, $modo, $agente, $ruta_agente) = @_;
+
+    destruir_ultimo_hijo_con_scrollbars($frame_personalizacion);
+
+    my $frame_agent_properties = $frame_personalizacion->Scrolled(
+        'Frame',
+        -scrollbars => 'osoe',
+        -bg => $herramientas::Estilos::bg_color_snmp // 'white',
+        -background => $herramientas::Estilos::scroll_bg_color_snmp // 'white',
+        -foreground => $herramientas::Estilos::scroll_fg_color_snmp // 'black'
+    )->pack(-pady => 20, -fill => 'both', -expand => 1);
+
+    my @fields = _get_fields($modo);
+    my %field_vars = _create_field_entries($frame_agent_properties, @fields);
+
+    my $guardo_correctamente = 0;
+
+    my $button_siguiente = $frame_agent_properties->Button(
+        -text => 'Siguiente Paso',
+        -bg => $herramientas::Estilos::next_button_bg,
+        -fg => $herramientas::Estilos::next_button_fg,
+        -activebackground => $herramientas::Estilos::next_button_active_bg,
+        -activeforeground => $herramientas::Estilos::next_button_active_fg,
+        -font => $herramientas::Estilos::next_button_font,
+        -state => 'disabled',  # Initially disabled
+        -command => sub { 
+            # Lógica para el siguiente paso
+        }
+    )->pack(-side => 'left', -pady => 10);
+
+    my $button_guardar = $frame_agent_properties->Button(
+        -text => 'Guardar',
+        -bg => $herramientas::Estilos::modern_button_bg,
+        -fg => $herramientas::Estilos::modern_button_fg,
+        -activebackground => $herramientas::Estilos::modern_button_active_bg,
+        -activeforeground => $herramientas::Estilos::modern_button_active_fg,
+        -font => $herramientas::Estilos::modern_button_font,
+        -command => sub { 
+            $guardo_correctamente = guardar_informacion($ventana_principal, \%field_vars, $agente, $ruta_agente, 'agent_properties'); 
+            if ($guardo_correctamente) {
+                $button_siguiente->configure(-state => 'normal');  # Enable the "Next Step" button
+            }
+        }
+    )->pack(-side => 'right', -pady => 10);
+
+    return \%field_vars;
+}
+
+# Get fields for the customization frame
+sub _get_fields {
+    my ($modo) = @_;
+    my @fields = (
+        { label => 'host', default => '' },
+        { label => 'port', default => '' },
+        { label => 'MIN_REREAD_FILE', default => 10 },
+        { label => 'ALARM_PRINTS', default => 1 },
+        { label => 'SOM_EOM', default => 'som_eom.abr' },
+        { label => 'HOST', default => 'CONF/MAP_HostName' },
+        { label => 'Severity', default => 'CONF/MAP_Severity' },
+        { label => 'ExternalMap', default => 'CONF/MAP_ExampleExternal' },
+        { label => 'FB_AGENTE', default => 'CONF/FB_AGENTE' },
+        { label => 'FB_all', default => 'CONF/FB_all' },
+        { label => 'FC_PrependAdditionalText', default => 'CONF/FC_PrependAdditionalText' },
+        { label => 'FC_SetEventSeverity', default => 'CONF/FC_SetEventSeverity' },
+        { label => 'FC_SetGrupos', default => 'CONF/FC_SetGrupos' },
+        { label => 'FC_SetIncidentType', default => 'CONF/FC_SetIncidentType' },
+        { label => 'FC_SetIncidentType_NonCascade', default => 'CONF/FC_SetIncidentType_NonCascade' },
+        { label => 'FC_SetUserText', default => 'CONF/FC_SetUserText' },
+    );
+
+    if ($modo eq 'local') {
+        $fields[0]->{default} = 'localhost';
+        $fields[1]->{default} = 12345;
+        $fields[5]->{default} = $FindBin::Bin . "/CONF/MAP_HostName";
+        $fields[6]->{default} = $FindBin::Bin . "/CONF/MAP_Severity";
+    }
+
+    return @fields;
+}
+
+# Create field entries in the customization frame
+sub _create_field_entries {
+    my ($frame_agent_properties, @fields) = @_;
+
+    my $image_edit;
+    eval {
+        $image_edit = $frame_agent_properties->Photo(-file => Rutas::edit_image_path());  # Cargar la imagen desde la ruta
+        1;
+    } or do {
+        my $error = $@ || 'Unknown error';
+        die "Error al cargar la imagen en _create_field_entries: $error";
+    };
+
+    my %field_vars;
+    my @active_fields = qw(
+        MIN_REREAD_FILE ALARM_PRINTS SOM_EOM ExternalMap FB_AGENTE
+        FB_all FC_PrependAdditionalText FC_SetEventSeverity FC_SetGrupos
+        FC_SetIncidentType FC_SetIncidentType_NonCascade FC_SetUserText
+    );
+
+    foreach my $field (@fields) {
+        my $frame_field = $frame_agent_properties->Frame(
+            -bg => $herramientas::Estilos::bg_color_snmp // 'white'
+        )->pack(-side => 'top', -fill => 'x', -padx => 5, -pady => 5);
+
+        my $label = $frame_field->Label(
+            -text => $field->{label},
+            -bg => $herramientas::Estilos::bg_color_snmp // 'white',
+            -fg => $herramientas::Estilos::fg_color_snmp // 'black',
+            -font => $herramientas::Estilos::label_font_snmp // 'Arial 10'
+        )->pack(-side => 'left');
+
+        my $entry_var = $field->{default};
+        $field_vars{$field->{label}} = \$entry_var;
+
+        my $state_entry = (grep { $_ eq $field->{label} } @active_fields) ? 'disabled' : 'normal';
+
+        my $entry = $frame_field->Entry(
+            -bg => $herramientas::Estilos::entry_bg_color_snmp // 'white',
+            -fg => $herramientas::Estilos::entry_fg_color_snmp // 'black',
+            -font => $herramientas::Estilos::entry_font_snmp // 'Arial 10',
+            -textvariable => \$entry_var,
+            -state => $state_entry
+        )->pack(-side => 'left', -padx => 5);
+
+        my $button = $frame_field->Button(
+            -image => $image_edit,
+            -command => sub {
+                if ($entry->cget('-state') eq 'disabled') {
+                    $entry->configure(-state => 'normal');
+                } else {
+                    $entry->configure(-state => 'disabled');
+                }
+            }
+        )->pack(-side => 'left', -padx => 5);
+
+        my $checkbutton_var = (grep { $_ eq $field->{label} } @active_fields) ? 1 : 0;
+
+        my $checkbutton_comment = $frame_field->Checkbutton(
+            -text => 'comment',
+            -bg => $herramientas::Estilos::bg_color_snmp // 'white',
+            -fg => $herramientas::Estilos::fg_color_snmp // 'black',
+            -font => $herramientas::Estilos::label_font_snmp // 'Arial 10',
+            -variable => \$checkbutton_var
+        )->pack(-side => 'right', -padx => 5);
+
+        $field_vars{"comment_$field->{label}"} = \$checkbutton_var;
+    }
+
+    return %field_vars;
+}
+
+# Function to save the field information
+sub guardar_informacion {
+    my ($ventana_principal, $field_vars, $agente, $ruta_agente, $tipo) = @_;
+    foreach my $key (keys %$field_vars) {
+        if (${$field_vars->{$key}} eq '') {
+            herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "Error: El campo '$key' no puede estar vacío.", 'error');
+            return;
+        }
+    }
+    # Aviso de se guardó la información
+    herramientas::Complementos::show_alert($ventana_principal, 'info', "Se guardo la informacion correctamente", 'info');
+    # Actualizar el archivo AGENT.properties
+    if ($tipo eq 'agent_properties') {
+        actualizar_archivo_properties($ventana_principal, $ruta_agente, $agente, $field_vars);
+    }
+}
+
+# Function to update the AGENT.properties file
+sub actualizar_archivo_properties {
+    my ($ventana_principal, $ruta_agente, $nombre_agente, $field_vars) = @_;
+    my $archivo_properties = File::Spec->catfile($ruta_agente, "AGENT.properties");
+    # Check if the file exists
+    unless (-e $archivo_properties) {
+        herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se pudo encontrar el archivo AGENT.properties en la ruta: $archivo_properties", 'error');
+        return;
+    }
+    # Open the file for writing
+    open my $fh, '>', $archivo_properties or die "Error al abrir $archivo_properties: $!";    
+    # Write the formatted output
+    print $fh "#############################################################################\n";
+    print $fh "# --------------------------------MANDATORY---------------------------------\n";
+    print $fh "#############################################################################\n";
+    print $fh "# --- AGENT NAME\n";
+    print $fh "agt:=$nombre_agente\n";
+    print $fh "# --- WHERE THIS AGENT WILL LISTEN FOR TRAPS OR ALARMS\n";
+    print_field($fh, $field_vars, 'host');
+    print_field($fh, $field_vars, 'port');
+    print $fh "# --- TIME TO CHECK AND UPDATE \"CONF/\" DIRECTORY FILES\n";
+    print $fh "# --- TIME IN MINUTES\n";
+    print_field($fh, $field_vars, 'MIN_REREAD_FILE');
+    print $fh "# --- \"1\" to activate alarm prints and \"0\" to deactivate alarm prints\n";
+    print_field($fh, $field_vars, 'ALARM_PRINTS');
+    print $fh "#\n";
+    print $fh "#############################################################################\n";
+    print $fh "# -------------------------------- SOM EOM ----------------------------------\n";
+    print $fh "#############################################################################\n";
+    print_field($fh, $field_vars, 'SOM_EOM');
+    print $fh "#\n";
+    print $fh "#############################################################################\n";
+    print $fh "# ------------------------------EXTERNAL MAPS-------------------------------\n";
+    print $fh "#############################################################################\n";
+    print $fh "# --- Host Name Table (HostName)\n";
+    print_field($fh, $field_vars, 'HOST');
+    print $fh "# --- External Map Example\n";
+    print_field($fh, $field_vars, 'Severity');
+    print_field($fh, $field_vars, 'ExternalMap');
+    print $fh "#\n";
+    print $fh "#############################################################################\n";
+    print $fh "# -----------------------------BLOCKING FILTERS-----------------------------\n";
+    print $fh "#############################################################################\n";
+    print $fh "# --- Filter used just in this agent\n";
+    print_field($fh, $field_vars, 'FB_AGENTE');
+    print_field($fh, $field_vars, 'FB_all');
+    print $fh "#############################################################################\n";
+    print $fh "# ----------------------------CORRECTIVE FILTERS----------------------------\n";
+    print $fh "#############################################################################\n";
+    print_field($fh, $field_vars, 'FC_PrependAdditionalText');
+    print_field($fh, $field_vars, 'FC_SetEventSeverity');
+    print_field($fh, $field_vars, 'FC_SetGrupos');
+    print_field($fh, $field_vars, 'FC_SetIncidentType');
+    print_field($fh, $field_vars, 'FC_SetIncidentType_NonCascade');
+    print_field($fh, $field_vars, 'FC_SetUserText');
+    close $fh or die "Error al cerrar $archivo_properties: $!";
+}
+
+# Function to validate the existence of AGENT.properties file
+sub validar_existencia_archivo_properties {
+    my ($ventana_principal, $ruta_agente) = @_;
+    my $archivo_properties = File::Spec->catfile($ruta_agente, "AGENT.properties");
+    unless (-e $archivo_properties) {
+        herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se pudo encontrar el archivo AGENT.properties en la ruta: $archivo_properties", 'error');
+        return 0;
+    }
     return 1;
+}
+
+# Subroutine to print a field with comment validation
+sub print_field {
+    my ($fh, $field_vars, $key) = @_;
+    my $comment_key = "comment_$key";
+    if (exists $field_vars->{$comment_key} && ${$field_vars->{$comment_key}} == 1) {
+        print $fh "#$key:=${$field_vars->{$key}}\n";
+    } else {
+        print $fh "$key:=${$field_vars->{$key}}\n";
+    }
 }
 
 1;

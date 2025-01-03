@@ -213,7 +213,7 @@ sub create_alert_with_picture_label_and_button {
         $image_path = Rutas::warning_image_path();
     } elsif ($type eq 'info') {
         $bg_color = $herramientas::Estilos::bg_color_info;
-        $image_path = Rutas::info_image_path();
+        $image_path = Rutas::about_image_path();
     } elsif ($type eq 'question') {
         $bg_color = $herramientas::Estilos::bg_color_question;
         $image_path = Rutas::question_image_path();
@@ -225,18 +225,24 @@ sub create_alert_with_picture_label_and_button {
     $frame->Label(-image => $alert_window->Photo(-file => $image_path), -bg => $bg_color)->pack(-side => 'top', -pady => 10);
     $frame->Label(-text => $message, -bg => $bg_color, -fg => 'white', -font => $herramientas::Estilos::label_font_alert)->pack(-side => 'top', -pady => 10);
 
+    # Capture all events to this window
+    $alert_window->grab();
+
     if ($type eq 'success' || $type eq 'error') {
         $frame->Button(-text => 'Aceptar', -command => sub { $alert_window->destroy() }, -bg => 'white', -fg => $bg_color)->pack(-side => 'top', -pady => 10);
     } elsif ($type eq 'question') {
         my $response;
         $frame->Button(-text => 'Si', -command => sub { $alert_window->destroy(); $response = 1; }, -bg => 'white', -fg => $bg_color)->pack(-side => 'left', -padx => 10, -pady => 10);
         $frame->Button(-text => 'No', -command => sub { $alert_window->destroy(); $response = 0; }, -bg => 'white', -fg => $bg_color)->pack(-side => 'right', -padx => 10, -pady => 10);
-         # Wait for the window to be destroyed before returning the response
+        # Wait for the window to be destroyed before returning the response
         $alert_window->waitWindow();
         return $response;
-    } elsif ($type eq 'warning' || $type eq 'info') {
+    } elsif ($type eq 'warning' || $type eq 'info' || $type eq 'WARNING' || $type eq 'INFO') {
         $frame->Button(-text => 'Aceptar', -command => sub { $alert_window->destroy() }, -bg => 'white', -fg => $bg_color)->pack(-side => 'top', -pady => 10);
     }
+
+    # Release the grab when the window is destroyed
+    $alert_window->waitWindow();
 }
 # Subrutina para crear el campo de entrada de directorio
 sub register_directory {
