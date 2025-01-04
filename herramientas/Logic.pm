@@ -5,6 +5,12 @@ use warnings;
 
 # Añadir la carpeta donde se encuentran los módulos
 use lib $FindBin::Bin . "/herramientas";
+use lib $FindBin::Bin . "./Script Generacion de Agentes SNMP/utilidades";
+
+# Ventanas secundarias
+use MIB_utils;
+
+
 use Data::Dumper; # Importar el módulo Data::Dumper
 
 
@@ -162,7 +168,11 @@ sub actualizar_frame_agent_properties {
         -font => $herramientas::Estilos::next_button_font,
         -state => 'disabled',  # Initially disabled
         -command => sub { 
-            # Lógica para el siguiente paso
+            # Pasar a la siguiente ventana MIBS
+            # utilidades::Crear_agente_snmp::crear_agente_snmp(), $mw->destroy(); # Llamar a la subrutina crear_agente_snmp - Destruir la ventana principal
+            utilidades::MIB_utils
+
+
         }
     )->pack(-side => 'left', -pady => 10);
 
