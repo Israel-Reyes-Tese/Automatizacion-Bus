@@ -169,10 +169,7 @@ sub actualizar_frame_agent_properties {
         -state => 'disabled',  # Initially disabled
         -command => sub { 
             # Pasar a la siguiente ventana MIBS
-            # utilidades::Crear_agente_snmp::crear_agente_snmp(), $mw->destroy(); # Llamar a la subrutina crear_agente_snmp - Destruir la ventana principal
-            utilidades::MIB_utils
-
-
+            utilidades::MIB_utils::Inicio_MIBS(), $ventana_principal->destroy(); # Llamar a la subrutina crear_agente_snmp - Destruir la ventana principal
         }
     )->pack(-side => 'left', -pady => 10);
 

@@ -11,6 +11,7 @@ our $bg_color = '#723185';
 our $fg_color = 'white';
 our $button_color = '#5b2b6e';
 our $insertbackground = '#302c44';
+
 # Paleta de colores snmp (Domine el violeta - obscuro)
 our $bg_color_snmp = '#302c44';
 our $fg_color_snmp = '#e5d0bf';
@@ -26,6 +27,18 @@ our $label_fg_color_snmp = '#302c44';
 
 our $entry_bg_color_snmp = '#7a748e';
 our $entry_fg_color_snmp = '#f2e6da';
+
+# Nueva paleta de colores (Arboles)
+our $corteza_marron = '#8B4513';
+our $hoja_verde = '#228B22';
+our $wood_beige = '#D2B48C';
+our $dark_moss = '#556B2F';
+our $pine_green = '#01796F';
+our $forest_shadow = '#2E3D30';
+our $amarillo_savia = '#FFD700';
+our $rojo_otono = '#A52A2A';
+our $twilight_grey = '#696969';
+our $soil_black = '#1C1C1C';
 
 # Estilo de fuente para los input
 our $input_font = ['Verdana', 16, 'bold'];
@@ -102,6 +115,7 @@ our @EXPORT_OK = qw(
     $bg_color_success $bg_color_error $bg_color_warning $bg_color_info $bg_color_question $label_font_alert
     $modern_button_bg $modern_button_fg $modern_button_active_bg $modern_button_active_fg $modern_button_font
     $next_button_bg $next_button_fg $next_button_active_bg $next_button_active_fg $next_button_font
+    $corteza_marron $hoja_verde $wood_beige $dark_moss $pine_green $forest_shadow $amarillo_savia $rojo_otoño $twilight_grey $soil_black
 );
 
 1;  # Finalizar el módulo con un valor verdadero

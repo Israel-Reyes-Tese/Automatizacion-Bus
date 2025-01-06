@@ -20,6 +20,11 @@ sub agentes_home_image_path {
     return RUTA_IMAGENES . 'agentes_home.gif';  # Cambia la extensión si es necesario
 }
 
+# Función para obtener la ruta completa imagen de Inicio MIB
+sub mib_home_image_path {
+    return RUTA_IMAGENES . 'MIB.gif';  # Cambia la extensión si es necesario
+}
+
 # Función para obtener la ruta completa a la imagena Agente SNMP
 sub agentes_snmp_image_path {
     return RUTA_IMAGENES . 'agentes_snmp.gif';  # Cambia la extensión si es necesario
@@ -54,7 +59,6 @@ sub success_image_path {
 sub warning_image_path {
     return RUTA_IMAGENES . 'warning.gif';  # Cambia la extensión si es necesario
 }
-
 
 # Función para obtener la ruta completa a la imagen de configuración
 sub settings_image_path {

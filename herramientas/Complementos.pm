@@ -321,7 +321,8 @@ sub show_alert {
 
 # Crear ventan principal y retornar el objeto
 sub create_main_window {
-    my ($title, $estado, $toolbar, $menu, $create_label_text, $create_label_position) = @_;
+    my ($title, $estado, $toolbar, $menu, $create_label_text, $create_label_position, $exit) = @_;
+    $exit = 1 unless defined $exit;
     # Inicializar la ventana principal
     my $mw = MainWindow->new();
     # Establecer el título de la ventana
@@ -334,7 +335,7 @@ sub create_main_window {
     }
     # Crear la barra de herramientas
     if ($toolbar) {
-        my $toolbar = herramientas::Toolbar->new($mw);
+        my $toolbar = herramientas::Toolbar->new($mw, $exit);
     }
     # Menu ...............................................
     if ($menu) {
