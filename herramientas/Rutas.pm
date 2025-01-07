@@ -7,8 +7,18 @@ use FindBin;
 
 # Definición de rutas constantes
 use constant {
-    RUTA_IMAGENES => "./static/imagenes/",  # Actualiza esta ruta
+    RUTA_IMAGENES => "./static/imagenes/",  # Imágenes de la aplicación
+    RUTA_MODULOS_MIB => "./herramientas/Modulos_MIB/",  # Módulos de MIB
 };
+
+
+
+
+
+
+
+
+#                                                       RUTAS IMAGENES                                   #
 
 # Función para obtener la ruta completa a la imagen de inicio
 sub home_image_path {
@@ -73,6 +83,20 @@ sub question_image_path {
 # Función para obtener la ruta completa a la imagen de editar
 sub edit_image_path {
     return RUTA_IMAGENES . 'edit.gif';  # Cambia la extensión si es necesario
+}
+#                                                       RUTAS IMAGENES                                   #
+
+
+#                                                      RUTAS MODULOS MIB                                #
+
+# Función para obtener la ruta completa a un módulo MIB v1
+sub mib_module_v1_path {
+    return RUTA_MODULOS_MIB . '/SMIv1';  
+}
+
+# Función para obtener la ruta completa a un módulo MIB v2
+sub mib_module_v2_path {
+    return RUTA_MODULOS_MIB . '/SMIv2'; 
 }
 
 1;  # Fin del módulo

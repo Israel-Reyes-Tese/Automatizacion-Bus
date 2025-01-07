@@ -10,7 +10,7 @@ use Tk::FileSelect;
 
 use FindBin;
 use lib $FindBin::Bin . "/../herramientas";
-use lib $FindBin::Bin . "/../../herramientas";  # Añadir la carpeta donde se encuentran los módulos
+use lib $FindBin::Bin . "/../../herramientas";  # Añadir la carpeta donde se encuentran los modulos
 use File::Spec;
 
 use Estilos;
@@ -43,7 +43,7 @@ sub Inicio_MIBS {
     my $extension_txt = 0;
 
 
-    # Check button para confirmar si se busca todos los archivos con extensión .mib - Por defecto activado - Ubicado en el panel de resultados hasta arriba
+    # Check button para confirmar si se busca todos los archivos con extension .mib - Por defecto activado - Ubicado en el panel de resultados hasta arriba
     my $check_button_mib = $result_table_pane->Checkbutton(
         -text => 'Buscar todos los archivos con extension .mib',
         -bg => $herramientas::Estilos::forest_shadow,
@@ -51,7 +51,7 @@ sub Inicio_MIBS {
         -font => $herramientas::Estilos::button_font,
         -variable => \$extension_mib,
     )->pack(-side => 'left', -padx => 5, -pady => 5);
-        # Check button para confirmar si se busca todos los archivos con extensión .txt - Por defecto activado - Ubicado en el panel de resultados hasta arriba
+        # Check button para confirmar si se busca todos los archivos con extension .txt - Por defecto activado - Ubicado en el panel de resultados hasta arriba
     my $check_button_txt = $result_table_pane->Checkbutton(
         -text => 'Buscar todos los archivos con extension .txt',
         -bg => $herramientas::Estilos::forest_shadow,
@@ -78,37 +78,37 @@ sub Inicio_MIBS {
 # Funciones de manejo de menús
 sub listar_modulos_mib {
     my ($parent) = @_;
-    # Implementar la lógica para listar módulos MIB
+    # Implementar la logica para listar modulos MIB
 }
 
 sub cambiar_direccion_servidor {
     my ($parent) = @_;
-    # Implementar la lógica para cambiar la dirección del servidor
+    # Implementar la logica para cambiar la direccion del servidor
 }
 
 sub abrir_sesion {
     my ($parent) = @_;
-    # Implementar la lógica para abrir una sesión
+    # Implementar la logica para abrir una sesion
 }
 
 sub abrir_datos_grafico {
     my ($parent) = @_;
-    # Implementar la lógica para abrir datos de gráfico
+    # Implementar la logica para abrir datos de gráfico
 }
 
 sub guardar_sesion {
     my ($parent) = @_;
-    # Implementar la lógica para guardar una sesión
+    # Implementar la logica para guardar una sesion
 }
 
 sub buscar_en_arbol_mib {
     my ($parent) = @_;
-    # Implementar la lógica para buscar en el árbol MIB
+    # Implementar la logica para buscar en el árbol MIB
 }
 
 sub buscar_en_tabla_resultados {
     my ($parent) = @_;
-    # Implementar la lógica para buscar en la tabla de resultados
+    # Implementar la logica para buscar en la tabla de resultados
 }
 
 1;

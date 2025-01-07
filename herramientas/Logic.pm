@@ -392,4 +392,7 @@ sub print_field {
     }
 }
 
+# Subroutine para listar todos los modulos locales disponibles MIBS
+
+
 1;
