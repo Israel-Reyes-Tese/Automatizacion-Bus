@@ -201,44 +201,84 @@ sub create_alert_with_picture_label_and_button {
     $alert_window->geometry('300x200+400+200');
 
     my $bg_color;
+    my $bg_color_canvas;
     my $image_path;
     if ($type eq 'success') {
         $bg_color = $herramientas::Estilos::bg_color_success;
+        $bg_color_canvas = $herramientas::Estilos::forest_shadow;
         $image_path = Rutas::success_image_path();
     } elsif ($type eq 'error') {
         $bg_color = $herramientas::Estilos::bg_color_error;
+        $bg_color_canvas = $herramientas::Estilos::forest_shadow;
         $image_path = Rutas::error_image_path();
     } elsif ($type eq 'warning') {
         $bg_color = $herramientas::Estilos::bg_color_warning;
+        $bg_color_canvas = $herramientas::Estilos::forest_shadow;
         $image_path = Rutas::warning_image_path();
     } elsif ($type eq 'info') {
         $bg_color = $herramientas::Estilos::bg_color_info;
+        $bg_color_canvas = $herramientas::Estilos::forest_shadow;
         $image_path = Rutas::about_image_path();
     } elsif ($type eq 'question') {
         $bg_color = $herramientas::Estilos::bg_color_question;
+        $bg_color_canvas = $herramientas::Estilos::forest_shadow;
         $image_path = Rutas::question_image_path();
     }
 
     $alert_window->configure(-bg => $bg_color);
-
     my $frame = $alert_window->Frame(-bg => $bg_color)->pack(-expand => 1, -fill => 'both');
     $frame->Label(-image => $alert_window->Photo(-file => $image_path), -bg => $bg_color)->pack(-side => 'top', -pady => 10);
-    $frame->Label(-text => $message, -bg => $bg_color, -fg => 'white', -font => $herramientas::Estilos::label_font_alert)->pack(-side => 'top', -pady => 10);
+    my $button_frame = $frame->Frame(-bg => $bg_color, -relief => 'flat')->pack(-side => 'top', -fill => 'x', -pady => 10);
+
+    # Frame for the message establecer un dimensiones maximas para el frame que no se expanda por toda la pantalla que deje espacio para el botones y scroll
+    my $message_frame = $frame->Frame(-bg => $bg_color)->pack(-expand => 1, -fill => 'both');
+    my $canvas = $message_frame->Canvas(-bg => $bg_color_canvas, -highlightthickness => 0)->pack(-expand => 1, -fill => 'both');
+    my $scroll = $message_frame->Scrollbar(-command => ['yview', $canvas], -bg => $bg_color_canvas)->pack(-side => 'right', -fill => 'y');
+    $canvas->configure(-yscrollcommand => ['set', $scroll]);
+    my $text = $canvas->Text(-bg => $bg_color_canvas, -fg => $herramientas::Estilos::fg_color, -font => $herramientas::Estilos::label_font_alert);
+    $text->pack(-expand => 1, -fill => 'both');
+    $canvas->createWindow(0, 0, -window => $text, -anchor => 'nw');
+    $text->insert('end', $message);
+    
 
     # Capture all events to this window
     $alert_window->grab();
 
     if ($type eq 'success' || $type eq 'error') {
-        $frame->Button(-text => 'Aceptar', -command => sub { $alert_window->destroy() }, -bg => 'white', -fg => $bg_color)->pack(-side => 'top', -pady => 10);
+        $button_frame->Button(-text => 'Aceptar', -command => sub { $alert_window->destroy() }, 
+        -bg => $herramientas::Estilos::modern_button_bg, 
+        -fg => $herramientas::Estilos::modern_button_fg, 
+        -font => $herramientas::Estilos::modern_button_font,
+        -activebackground => $herramientas::Estilos::modern_button_active_bg, 
+        -activeforeground => $herramientas::Estilos::modern_button_active_fg
+        )->pack(-side => 'top', -padx => 10, -pady => 5);
     } elsif ($type eq 'question') {
         my $response;
-        $frame->Button(-text => 'Si', -command => sub { $alert_window->destroy(); $response = 1; }, -bg => 'white', -fg => $bg_color)->pack(-side => 'left', -padx => 10, -pady => 10);
-        $frame->Button(-text => 'No', -command => sub { $alert_window->destroy(); $response = 0; }, -bg => 'white', -fg => $bg_color)->pack(-side => 'right', -padx => 10, -pady => 10);
+        $button_frame->Button(-text => 'Si', -command => sub { $alert_window->destroy(); $response = 1; }, 
+            -bg => $herramientas::Estilos::modern_button_bg, 
+            -fg => $herramientas::Estilos::modern_button_fg, 
+            -font => $herramientas::Estilos::modern_button_font,
+            -activebackground => $herramientas::Estilos::modern_button_active_bg, 
+            -activeforeground => $herramientas::Estilos::modern_button_active_fg
+        )->pack(-side => 'left', -padx => 10, -pady => 5);
+        $button_frame->Button(-text => 'No', -command => sub { $alert_window->destroy(); $response = 0; }, 
+            -bg => $herramientas::Estilos::modern_button_bg, 
+            -fg => $herramientas::Estilos::modern_button_fg, 
+            -font => $herramientas::Estilos::modern_button_font,
+            -activebackground => $herramientas::Estilos::modern_button_active_bg, 
+            -activeforeground => $herramientas::Estilos::modern_button_active_fg
+        )->pack(-side => 'right', -padx => 10, -pady => 5);
         # Wait for the window to be destroyed before returning the response
         $alert_window->waitWindow();
         return $response;
     } elsif ($type eq 'warning' || $type eq 'info' || $type eq 'WARNING' || $type eq 'INFO') {
-        $frame->Button(-text => 'Aceptar', -command => sub { $alert_window->destroy() }, -bg => 'white', -fg => $bg_color)->pack(-side => 'top', -pady => 10);
+        $button_frame->Button(-text => 'Aceptar', -command => sub { $alert_window->destroy() }, 
+            -bg => $herramientas::Estilos::modern_button_bg, 
+            -fg => $herramientas::Estilos::modern_button_fg, 
+            -font => $herramientas::Estilos::modern_button_font,
+            -activebackground => $herramientas::Estilos::modern_button_active_bg, 
+            -activeforeground => $herramientas::Estilos::modern_button_active_fg
+        )->pack(-side => 'right', -padx => 10, -pady => 5);
     }
 
     # Release the grab when the window is destroyed

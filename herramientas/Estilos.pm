@@ -107,6 +107,17 @@ our $bg_color_info = '#17a2b8';
 our $bg_color_question = '#007bff';
 our $label_font_alert = ['Verdana', 14, 'bold'];
 
+# Estilos para la ventana de selección de archivos MIB
+our $mib_selection_bg = '#f0f0f0';
+our $mib_selection_fg = '#000000';
+our $mib_selection_button_bg = '#4CAF50';
+our $mib_selection_button_fg = 'white';
+our $mib_selection_button_active_bg = '#45a049';
+our $mib_selection_button_active_fg = 'white';
+our $mib_selection_button_font = ['Helvetica', 12, 'bold'];
+our $mib_selection_label_font = ['Arial', 14, 'bold'];
+our $mib_selection_checkbutton_font = ['Arial', 12];
+
 # Export all variables
 our @EXPORT_OK = qw(
     $bg_color $fg_color $button_color $label_font $button_font $toolbar_button_font $agents_button_font
@@ -116,6 +127,9 @@ our @EXPORT_OK = qw(
     $modern_button_bg $modern_button_fg $modern_button_active_bg $modern_button_active_fg $modern_button_font
     $next_button_bg $next_button_fg $next_button_active_bg $next_button_active_fg $next_button_font
     $corteza_marron $hoja_verde $wood_beige $dark_moss $pine_green $forest_shadow $amarillo_savia $rojo_otoño $twilight_grey $soil_black
+    $mib_selection_bg $mib_selection_fg $mib_selection_button_bg $mib_selection_button_fg
+    $mib_selection_button_active_bg $mib_selection_button_active_fg $mib_selection_button_font
+    $mib_selection_label_font $mib_selection_checkbutton_font
 );
 
 1;  # Finalizar el módulo con un valor verdadero

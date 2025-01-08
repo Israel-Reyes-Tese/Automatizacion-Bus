@@ -41,7 +41,7 @@ sub Inicio_MIBS {
 
     my $extension_mib = 1;
     my $extension_txt = 0;
-
+    my $extension_vacio = 0;
 
     # Check button para confirmar si se busca todos los archivos con extension .mib - Por defecto activado - Ubicado en el panel de resultados hasta arriba
     my $check_button_mib = $result_table_pane->Checkbutton(
@@ -59,12 +59,20 @@ sub Inicio_MIBS {
         -font => $herramientas::Estilos::button_font,
         -variable => \$extension_txt,
     )->pack(-side => 'left', -padx => 5, -pady => 5);
+    # Check button para confirmar si se busca todos los archivos con extension vacia - Por defecto activado - Ubicado en el panel de resultados hasta arriba
+    my $check_button_vacio = $result_table_pane->Checkbutton(
+        -text => 'Buscar todos los archivos sin extension',
+        -bg => $herramientas::Estilos::forest_shadow,
+        -fg => $herramientas::Estilos::soil_black,
+        -font => $herramientas::Estilos::button_font,
+        -variable => \$extension_vacio,
+    )->pack(-side => 'left', -padx => 5, -pady => 5);
 
 
     # Crear botones de acciones
     $actions_frame->Button(
         -text => 'Cargar MIB',
-        -command => sub { LogicMIB::cargar_mib($main_frame, $result_table_pane, $mib_tree_pane, $extension_mib, $extension_txt) },
+        -command => sub { LogicMIB::cargar_mib($main_frame, $result_table_pane, $mib_tree_pane, $extension_mib, $extension_txt, $extension_vacio) },
         -bg => $herramientas::Estilos::hoja_verde,
         -fg => $herramientas::Estilos::soil_black,
         -font => $herramientas::Estilos::button_font
