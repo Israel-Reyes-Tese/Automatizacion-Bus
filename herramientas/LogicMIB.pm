@@ -119,11 +119,10 @@ sub cargar_mib {
     # Extract OID nodes
     my $oid_nodes = extraer_nodos_oid(\%mib_files);
     if ($oid_nodes->{enterprise_oid}) {
-        print "Enterprise OID: $oid_nodes->{enterprise_oid} found in file: $oid_nodes->{enterprise_file}\n";
     } else {
-        # Logica para crear una ventana emergente para ingresar el OID de la empresaa
-        mostrar_ventana_seleccion_empresa($ventana_principal);
-
+        # Logica para crear una ventana emergente para ingresar el OID de la empresa
+        my $selected_company = mostrar_ventana_seleccion_empresa($ventana_principal);
+        print "Empresa seleccionada: ", Dumper($selected_company);
     }
 
 }
@@ -687,7 +686,8 @@ sub mostrar_ventana_seleccion_empresa {
     my $page_size = 50;
     my $current_page = 0;
     my $selected_row;
-
+    my @filtered_enterprise_hash;
+    my $selected_company; 
     # Read enterprise data from file
     open my $fh, '<', $file_path or do {
         warn "No se pudo abrir el archivo $file_path: $!";
@@ -711,6 +711,7 @@ sub mostrar_ventana_seleccion_empresa {
             Seleccionado => 0
         };
     }
+    @filtered_enterprise_hash = @enterprise_hash;
 
     # Create the main window
     my $mw = $ventana_principal->Toplevel();
@@ -719,15 +720,20 @@ sub mostrar_ventana_seleccion_empresa {
     # Maximize the window
     $mw->state('zoomed');
 
-    # Create a frame for the table and scrollbar
-    
     # Create search entry and button
     my $search_frame = $mw->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'top', -fill => 'x');
     my $search_entry = $search_frame->Entry(-font => $herramientas::Estilos::input_font)->pack(-side => 'left', -fill => 'x', -expand => 1, -padx => 10, -pady => 10);
     $search_frame->Button(
         -text => "Buscar",
         -command => sub {
-            print "Buscar\n";
+            my $search_term = $search_entry->get();
+            @filtered_enterprise_hash = grep {
+                $_->{ID} =~ /\Q$search_term\E/i ||
+                $_->{Organization} =~ /\Q$search_term\E/i ||
+                $_->{Email} =~ /\Q$search_term\E/i
+            } @enterprise_hash;
+            $current_page = 0;
+            populate_table($current_page);
         },
         -background => $herramientas::Estilos::mib_selection_button_bg,
         -foreground => $herramientas::Estilos::mib_selection_button_fg,
@@ -735,7 +741,6 @@ sub mostrar_ventana_seleccion_empresa {
         -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
         -font => $herramientas::Estilos::mib_selection_button_font
     )->pack(-side => 'right', -padx => 10, -pady => 10);
-    # Create a frame for the table and scrollbar and headers
 
     # Create a frame for the table and scrollbar
     my $table_frame = $mw->Frame(-background => $herramientas::Estilos::pine_green)->pack(-side => 'top', -fill => 'both', -expand => 1);
@@ -751,34 +756,95 @@ sub mostrar_ventana_seleccion_empresa {
             -background => $herramientas::Estilos::table_header_bg,
             -foreground => $herramientas::Estilos::table_header_fg,
             -font => $herramientas::Estilos::table_header_font, 
-            # Contorno de la celda
             -relief => 'raised',
             -borderwidth => 3
         )->pack(-side => 'left', -fill => 'x');
     }
 
+    # Create the navigation buttons panel
+    my $nav_buttons_frame = $mw->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'top', -fill => 'x');
+    sub update_nav_buttons {
+        $nav_buttons_frame->packForget();
+        $nav_buttons_frame = $mw->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'top', -fill => 'x');
+        $nav_buttons_frame->Button(
+            -text => "Inicio",
+            -command => sub {
+                $current_page = 0;
+                populate_table($current_page);
+            },
+            -background => $herramientas::Estilos::mib_selection_button_bg,
+            -foreground => $herramientas::Estilos::mib_selection_button_fg,
+            -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
+            -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
+            -font => $herramientas::Estilos::mib_selection_button_font
+        )->pack(-side => 'left', -padx => 5, -pady => 5);
+
+        for my $i (-3 .. 3) {
+            my $page = $current_page + $i;
+            next if $page < 0 || $page * $page_size >= @filtered_enterprise_hash;
+            $nav_buttons_frame->Button(
+                -text => $page + 1,
+                -command => sub {
+                    $current_page = $page;
+                    populate_table($current_page);
+                },
+                -background => $herramientas::Estilos::mib_selection_button_bg,
+                -foreground => $herramientas::Estilos::mib_selection_button_fg,
+                -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
+                -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
+                -font => $herramientas::Estilos::mib_selection_button_font
+            )->pack(-side => 'left', -padx => 5, -pady => 5);
+        }
+
+        $nav_buttons_frame->Button(
+            -text => "Final",
+            -command => sub {
+                $current_page = int(@filtered_enterprise_hash / $page_size);
+                populate_table($current_page);
+            },
+            -background => $herramientas::Estilos::mib_selection_button_bg,
+            -foreground => $herramientas::Estilos::mib_selection_button_fg,
+            -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
+            -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
+            -font => $herramientas::Estilos::mib_selection_button_font
+        )->pack(-side => 'left', -padx => 5, -pady => 5);
+    }
+    update_nav_buttons();
+
     # Create the data panel
     my $result_table_pane = $table_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::forest_shadow)->pack(-side => 'top', -fill => 'both', -expand => 1);
 
-    # Populate the data panel with rows
-    foreach my $row (@enterprise_hash) {
-        my $row_frame = $result_table_pane->Frame(-background => $herramientas::Estilos::table_row_bg)->pack(-side => 'top', -fill => 'x');
-        foreach my $key (qw(ID Organization Contact Email)) {
-            $row_frame->Label(
-                -text => $row->{$key},
+    # Function to populate the data panel with rows
+    sub populate_table {
+        my ($page) = @_;
+        $result_table_pane->packForget();
+        $result_table_pane = $table_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::forest_shadow)->pack(-side => 'top', -fill => 'both', -expand => 1);
+        my $start = $page * $page_size;
+        my $end = $start + $page_size - 1;
+        $end = $#filtered_enterprise_hash if $end > $#filtered_enterprise_hash;
+        for my $i ($start .. $end) {
+            my $row = $filtered_enterprise_hash[$i];
+            my $row_frame = $result_table_pane->Frame(-background => $herramientas::Estilos::table_row_bg)->pack(-side => 'top', -fill => 'x');
+            foreach my $key (qw(ID Organization Contact Email)) {
+                $row_frame->Label(
+                    -text => $row->{$key},
+                    -background => $herramientas::Estilos::table_row_bg,
+                    -foreground => $herramientas::Estilos::table_fg,
+                    -font => $herramientas::Estilos::table_font
+                )->pack(-side => 'left', -fill => 'x', -expand => 1);
+            }
+            my $checkbutton = $row_frame->Checkbutton(
+                -variable => \$row->{Seleccionado},
                 -background => $herramientas::Estilos::table_row_bg,
                 -foreground => $herramientas::Estilos::table_fg,
-                -font => $herramientas::Estilos::table_font
+                -font => $herramientas::Estilos::table_font,
             )->pack(-side => 'left', -fill => 'x', -expand => 1);
         }
-        my $checkbutton = $row_frame->Checkbutton(
-            -variable => \$row->{Seleccionado},
-            -background => $herramientas::Estilos::table_row_bg,
-            -foreground => $herramientas::Estilos::table_fg,
-            -font => $herramientas::Estilos::table_font,
-            -command => sub { seleccionar_fila($row, \$selected_row, \@enterprise_hash) }
-        )->pack(-side => 'left', -fill => 'x', -expand => 1);
+        update_nav_buttons();
     }
+
+    # Populate the initial table
+    populate_table($current_page);
 
     # Create the button panel
     my $button_panel = $table_frame->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'bottom', -fill => 'x');
@@ -786,7 +852,12 @@ sub mostrar_ventana_seleccion_empresa {
     # Add buttons to the button panel
     $button_panel->Button(
         -text => "Anterior",
-        -command => sub {  },
+        -command => sub {
+            if ($current_page > 0) {
+                $current_page--;
+                populate_table($current_page);
+            }
+        },
         -background => $herramientas::Estilos::mib_selection_button_bg,
         -foreground => $herramientas::Estilos::mib_selection_button_fg,
         -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
@@ -796,7 +867,26 @@ sub mostrar_ventana_seleccion_empresa {
 
     $button_panel->Button(
         -text => "Siguiente",
-        -command => sub {  },
+        -command => sub {
+            if (($current_page + 1) * $page_size < @filtered_enterprise_hash) {
+                $current_page++;
+                populate_table($current_page);
+            }
+        },
+        -background => $herramientas::Estilos::mib_selection_button_bg,
+        -foreground => $herramientas::Estilos::mib_selection_button_fg,
+        -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
+        -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
+        -font => $herramientas::Estilos::mib_selection_button_font
+    )->pack(-side => 'left', -padx => 10, -pady => 10);
+
+    $button_panel->Button(
+        -text => "Refrescar",
+        -command => sub {
+            @filtered_enterprise_hash = @enterprise_hash;
+            $current_page = 0;
+            populate_table($current_page);
+        },
         -background => $herramientas::Estilos::mib_selection_button_bg,
         -foreground => $herramientas::Estilos::mib_selection_button_fg,
         -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
@@ -806,7 +896,35 @@ sub mostrar_ventana_seleccion_empresa {
 
     $button_panel->Button(
         -text => "Guardar",
-        -command => sub {  },
+        -command => sub {
+            my @selected_data = grep { $_->{Seleccionado} } @filtered_enterprise_hash;
+            if (scalar @selected_data > 1) {
+                herramientas::Complementos::show_alert(
+                    $mw, 'Advertencia', 
+                    "Solo se puede seleccionar una empresa. Se seleccionaron más de una.", 'warning'
+                );
+                @filtered_enterprise_hash = @enterprise_hash;
+                $current_page = 0;
+                populate_table($current_page);
+            } elsif (scalar @selected_data == 1) {
+                 $selected_company = $selected_data[0];
+                my $message = "Empresa seleccionada:\n" .
+                              "ID: $selected_company->{ID}\n" .
+                              "Organizacion: $selected_company->{Organization}\n" .
+                              "Contacto: $selected_company->{Contact}\n" .
+                              "Email: $selected_company->{Email}";
+                herramientas::Complementos::show_alert(
+                    $mw, 'Éxito', 
+                    $message, 'success'
+                );
+                $mw->destroy();
+            } else {
+                herramientas::Complementos::show_alert(
+                    $mw, 'Advertencia', 
+                    "No se seleccionó ninguna empresa.", 'warning'
+                );
+            }
+        },
         -background => $herramientas::Estilos::next_button_bg,
         -foreground => $herramientas::Estilos::next_button_fg,
         -activebackground => $herramientas::Estilos::next_button_active_bg,
@@ -814,13 +932,9 @@ sub mostrar_ventana_seleccion_empresa {
         -font => $herramientas::Estilos::next_button_font
     )->pack(-side => 'right', -padx => 10, -pady => 10);
 
-
-
-
     $mw->waitWindow(); # Esperar a que el usuario seleccione algún botón
+    return $selected_company;
 }
-
-
 
 
 1;
