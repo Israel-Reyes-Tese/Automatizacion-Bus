@@ -3,6 +3,9 @@ package LogicMIB;
 use strict;
 use warnings;
 
+use Tk;
+use TK::Table;
+
 # Añadir la carpeta donde se encuentran los modulos
 use lib $FindBin::Bin . "/herramientas";
 use lib $FindBin::Bin . "./Script Generacion de Agentes SNMP/utilidades";
@@ -37,7 +40,6 @@ sub cargar_mib {
     my ($ventana_principal, $result_table_pane, $mib_tree_pane, $buscar_ext_mib, $buscar_ext_txt, $buscar_sin_ext) = @_;
     my %mib_files;
     my @selected_files = "";
-    my %object_types; # Hash para almacenar los OBJECT-TYPE
 
     # Crear una ventana de seleccion de archivos
     my $fs = $result_table_pane->FileSelect(
@@ -71,6 +73,7 @@ sub cargar_mib {
     foreach my $file (@selected_files) {
         $mib_files{abs_path($file)} = 1;
     }
+    
 
     # Validar los archivos MIB
     foreach my $file (keys %mib_files) {
@@ -97,9 +100,30 @@ sub cargar_mib {
         $mib_tree_pane->Label(-text => $relative_path, -bg => $herramientas::Estilos::twilight_grey)->pack(-side => 'top', -anchor => 'w');
     }
     # Extraer la información de los archivos MIB seleccionados
+    my %object_types;
     # Datos OBJECT-TYPE
     foreach my $file (keys %mib_files) {
-        extraer_object_types($file, \%object_types);
+        # Extraer OBJECT-TYPE y añadir al hash object_types
+        my $extracted_object_types = extraer_object_types($file);
+        @object_types{keys %$extracted_object_types} = values %$extracted_object_types;
+
+    }
+    # Datos de las alarmas NOTIFICATION-TYPE o TRAP-TYPE
+    my %alarm_traps;
+    foreach my $file (keys %mib_files) {
+        # Extraer OBJECT-TYPE y añadir al hash object_types
+        my $extracted_alarm_traps = extraer_alarm_traps($file);
+        @alarm_traps{keys %$extracted_alarm_traps} = values %$extracted_alarm_traps;
+    }
+
+    # Extract OID nodes
+    my $oid_nodes = extraer_nodos_oid(\%mib_files);
+    if ($oid_nodes->{enterprise_oid}) {
+        print "Enterprise OID: $oid_nodes->{enterprise_oid} found in file: $oid_nodes->{enterprise_file}\n";
+    } else {
+        # Logica para crear una ventana emergente para ingresar el OID de la empresaa
+        mostrar_ventana_seleccion_empresa($ventana_principal);
+
     }
 
 }
@@ -423,29 +447,38 @@ sub buscar_archivos_por_extension {
 
     return @additional_files;
 }
-# Función para extraer OBJECT-TYPE de un archivo MIB
-sub extraer_object_types {
-    my ($file, $object_types) = @_;
-    
+# Función principal para verificar y transformar archivos MIB a TXT
+sub transformar_mib_a_txt {
+    my ($file) = @_;
+
     # Verificar si el archivo tiene extensión .mib
     if ($file =~ /\.mib$/i) {
         # Crear un archivo temporal .txt
         my ($fh_temp, $filename_temp) = tempfile(SUFFIX => '.txt');
-        
+
         # Copiar el contenido del archivo .mib al archivo temporal .txt
         open my $fh_mib, '<', $file or do {
-            warn "No se pudo abrir el archivo $file: $!";
+            warn "Error al abrir el archivo $file en la función transformar_mib_a_txt: $!";
             return;
         };
         while (my $line = <$fh_mib>) {
             print $fh_temp $line;
         }
-        close $fh_mib;
-        close $fh_temp;
-        
+        close $fh_mib or warn "Error al cerrar el archivo $file en la función transformar_mib_a_txt: $!";
+        close $fh_temp or warn "Error al cerrar el archivo temporal en la función transformar_mib_a_txt: $!";
+
         # Reemplazar el archivo original por el archivo temporal
         $file = $filename_temp;
     }
+
+    return $file;
+}
+
+# Función para extraer OBJECT-TYPE de un archivo MIB
+sub extraer_object_types {
+    my ($file) = @_;
+    
+    $file = transformar_mib_a_txt($file);
     
     open my $fh, '<', $file or do {
         warn "No se pudo abrir el archivo $file: $!";
@@ -503,8 +536,291 @@ sub extraer_object_types {
         }
     }
     close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
+    #print Dumper(\%object_types);
     return \%object_types;
 }
+
+# Función para extraer la información de los traps de las alarmas
+sub extraer_alarm_traps {
+    my ($file) = @_;
+    
+    $file = transformar_mib_a_txt($file);
+
+    open my $fh, '<', $file or do {
+        warn "No se pudo abrir el archivo $file: $!";
+        return;
+    };
+    
+    my %alarm_traps;
+    my $current_alarm = '';
+    my $in_description = 0;
+    my $description = '';
+    my $in_objects = 0;
+    my @objects;
+    my $objects_accumulator = '';
+
+    while (<$fh>) {
+        chomp;
+        next if /^\s*$/ || /^--/; # Saltar líneas vacías y comentarios
+
+        if (/(\w+)\s+(NOTIFICATION-TYPE|TRAP-TYPE)/) {
+            $current_alarm = $1;
+            $alarm_traps{$current_alarm} = {
+                TYPE => $2,
+                OBJECTS => '',
+                STATUS => '',
+                DESCRIPTION => '',
+                OID => ''
+            };
+            $in_objects = 0;
+            $in_description = 0;
+            $objects_accumulator = '';
+        }
+        elsif ($current_alarm) {
+            if (/OBJECTS\s*{\s*(.*)/) {
+                $in_objects = 1;
+                $objects_accumulator = $1;
+            } elsif (/OBJECTS\s*$/) {
+                $in_objects = 1;
+                $objects_accumulator = '';
+            } elsif ($in_objects) {
+                if (/^\s*{\s*(.*)/) {
+                    $objects_accumulator .= " $1";
+                } elsif (/(.*)\s*}/) {
+                    $objects_accumulator .= " $1";
+                    $alarm_traps{$current_alarm}->{OBJECTS} = $objects_accumulator;
+                    $in_objects = 0;
+                } else {
+                    $objects_accumulator .= " $_";
+                }
+            } elsif (/STATUS\s+(.*)/) {
+                $alarm_traps{$current_alarm}->{STATUS} = $1;
+            } elsif (/DESCRIPTION\s+["'](.*)/) {
+                $description = $1;
+                $in_description = 1;
+            } elsif (/DESCRIPTION\s*$/){
+                $description = $1;
+                $in_description = 1;
+                
+            }          
+            elsif ($in_description) {
+                if (/["]\s*::=\s*\{(.*)\}/) {
+                    $description .= " $1";
+                    $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
+                    $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
+                    $in_description = 0;
+                } elsif (/}/)  {
+                    $description .= " $_";
+                    if ($description =~ /::=\s*\{(.*)\}/) {
+                        $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
+                    }
+                    $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
+                    $in_description = 0;
+                } else {
+                    $description .= " $_";
+                }
+            }
+        }
+    }
+    close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
+    # Eliminar ::= { contenido } de la descripción y limpiar espacios y caracteres especiales
+    foreach my $alarm (keys %alarm_traps) {
+        if (exists $alarm_traps{$alarm}->{'DESCRIPTION'}) {
+            $alarm_traps{$alarm}->{'DESCRIPTION'} =~ s/\s*::=\s*\{.*\}//;
+            $alarm_traps{$alarm}->{'DESCRIPTION'} =~ s/^\s+|\s+$//g; # Eliminar espacios al inicio y al final
+            $alarm_traps{$alarm}->{'DESCRIPTION'} =~ s/^["']|["']$//g; # Eliminar caracteres especiales al inicio y al final
+            $alarm_traps{$alarm}->{'DESCRIPTION'} =~ s/\s+/ /g; # Eliminar mas de un espacio
+        }
+        # Objetos de alarma
+        if (exists $alarm_traps{$alarm}->{'OBJECTS'}) {
+            $alarm_traps{$alarm}->{'OBJECTS'} =~ s/\s*::=\s*\{.*\}//;
+            $alarm_traps{$alarm}->{'OBJECTS'} =~ s/^\s+|\s+$//g; # Eliminar espacios al inicio y al final
+            $alarm_traps{$alarm}->{'OBJECTS'} =~ s/^["']|["']$//g; # Eliminar caracteres especiales al inicio y al final
+            # Eliminar mas de un espacio
+            $alarm_traps{$alarm}->{'OBJECTS'} =~ s/\s+/ /g;
+        }
+    }
+    return \%alarm_traps;
+}
+
+# Function to extract and identify OID nodes
+sub extraer_nodos_oid {
+    my ($mib_files) = @_;
+    my $root_oid = "1.3.6.1";
+    my $private_enterprises_oid = "4.1";
+    my $enterprise_oid;
+    my $enterprise_file;
+
+    foreach my $file (keys %$mib_files) {
+        open my $fh, '<', $file or do {
+            warn "No se pudo abrir el archivo $file: $!";
+            next;
+        };
+        while (my $line = <$fh>) {
+            if ($line =~ /::=\s*\{\s*enterprises\s+(\d+)\s*\}/) {
+                $enterprise_oid = $1;
+                $enterprise_file = $file;
+                last;
+            }
+        }
+        close $fh;
+        last if $enterprise_oid;
+    }
+
+    unless ($enterprise_oid) {
+        warn "No se pudo encontrar el ID único de la empresa o proveedor. Ingréselo manualmente o busque en los archivos locales.";
+    }
+
+    return {
+        root_oid => $root_oid,
+        private_enterprises_oid => $private_enterprises_oid,
+        enterprise_oid => $enterprise_oid,
+        enterprise_file => $enterprise_file,
+    };
+}
+
+# Function to display a paginated table of enterprise IDs
+sub mostrar_ventana_seleccion_empresa {
+    my ($ventana_principal) = @_;
+    my $file_path = Rutas::id_empresa_path();
+    my @enterprise_data;
+    my $page_size = 50;
+    my $current_page = 0;
+    my $selected_row;
+
+    # Read enterprise data from file
+    open my $fh, '<', $file_path or do {
+        warn "No se pudo abrir el archivo $file_path: $!";
+        return;
+    };
+    while (my $line = <$fh>) {
+        chomp $line;
+        next if $line =~ /^\s*$/ || $line =~ /^Decimal/; # Skip empty lines and header
+        push @enterprise_data, $line;
+    }
+    close $fh;
+
+    # Convert enterprise data to hash
+    my @enterprise_hash;
+    for (my $i = 0; $i < @enterprise_data; $i += 4) {
+        push @enterprise_hash, {
+            ID => $enterprise_data[$i],
+            Organization => $enterprise_data[$i + 1],
+            Contact => $enterprise_data[$i + 2],
+            Email => $enterprise_data[$i + 3],
+            Seleccionado => 0
+        };
+    }
+
+    # Create the main window
+    my $mw = $ventana_principal->Toplevel();
+    $mw->title("Seleccionar Empresa");
+    $mw->configure(-background => $herramientas::Estilos::twilight_grey);
+    # Maximize the window
+    $mw->state('zoomed');
+
+    # Create a frame for the table and scrollbar
+    
+    # Create search entry and button
+    my $search_frame = $mw->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'top', -fill => 'x');
+    my $search_entry = $search_frame->Entry(-font => $herramientas::Estilos::input_font)->pack(-side => 'left', -fill => 'x', -expand => 1, -padx => 10, -pady => 10);
+    $search_frame->Button(
+        -text => "Buscar",
+        -command => sub {
+            print "Buscar\n";
+        },
+        -background => $herramientas::Estilos::mib_selection_button_bg,
+        -foreground => $herramientas::Estilos::mib_selection_button_fg,
+        -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
+        -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
+        -font => $herramientas::Estilos::mib_selection_button_font
+    )->pack(-side => 'right', -padx => 10, -pady => 10);
+    # Create a frame for the table and scrollbar and headers
+
+    # Create a frame for the table and scrollbar
+    my $table_frame = $mw->Frame(-background => $herramientas::Estilos::pine_green)->pack(-side => 'top', -fill => 'both', -expand => 1);
+
+    # Create the header panel
+    my $encabezado_table_panel = $table_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::twilight_grey)->pack(-side => 'top', -fill => 'x');
+
+    # Add headers to the header panel
+    my $header_frame = $encabezado_table_panel->Frame(-background => $herramientas::Estilos::twilight_grey)->pack(-side => 'top', -fill => 'x');
+    foreach my $header (qw(Decimal Organization Contact Email Seleccionar)) {
+        $header_frame->Label(
+            -text => $header,
+            -background => $herramientas::Estilos::table_header_bg,
+            -foreground => $herramientas::Estilos::table_header_fg,
+            -font => $herramientas::Estilos::table_header_font, 
+            # Contorno de la celda
+            -relief => 'raised',
+            -borderwidth => 3
+        )->pack(-side => 'left', -fill => 'x');
+    }
+
+    # Create the data panel
+    my $result_table_pane = $table_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::forest_shadow)->pack(-side => 'top', -fill => 'both', -expand => 1);
+
+    # Populate the data panel with rows
+    foreach my $row (@enterprise_hash) {
+        my $row_frame = $result_table_pane->Frame(-background => $herramientas::Estilos::table_row_bg)->pack(-side => 'top', -fill => 'x');
+        foreach my $key (qw(ID Organization Contact Email)) {
+            $row_frame->Label(
+                -text => $row->{$key},
+                -background => $herramientas::Estilos::table_row_bg,
+                -foreground => $herramientas::Estilos::table_fg,
+                -font => $herramientas::Estilos::table_font
+            )->pack(-side => 'left', -fill => 'x', -expand => 1);
+        }
+        my $checkbutton = $row_frame->Checkbutton(
+            -variable => \$row->{Seleccionado},
+            -background => $herramientas::Estilos::table_row_bg,
+            -foreground => $herramientas::Estilos::table_fg,
+            -font => $herramientas::Estilos::table_font,
+            -command => sub { seleccionar_fila($row, \$selected_row, \@enterprise_hash) }
+        )->pack(-side => 'left', -fill => 'x', -expand => 1);
+    }
+
+    # Create the button panel
+    my $button_panel = $table_frame->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'bottom', -fill => 'x');
+
+    # Add buttons to the button panel
+    $button_panel->Button(
+        -text => "Anterior",
+        -command => sub {  },
+        -background => $herramientas::Estilos::mib_selection_button_bg,
+        -foreground => $herramientas::Estilos::mib_selection_button_fg,
+        -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
+        -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
+        -font => $herramientas::Estilos::mib_selection_button_font
+    )->pack(-side => 'left', -padx => 10, -pady => 10);
+
+    $button_panel->Button(
+        -text => "Siguiente",
+        -command => sub {  },
+        -background => $herramientas::Estilos::mib_selection_button_bg,
+        -foreground => $herramientas::Estilos::mib_selection_button_fg,
+        -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
+        -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
+        -font => $herramientas::Estilos::mib_selection_button_font
+    )->pack(-side => 'left', -padx => 10, -pady => 10);
+
+    $button_panel->Button(
+        -text => "Guardar",
+        -command => sub {  },
+        -background => $herramientas::Estilos::next_button_bg,
+        -foreground => $herramientas::Estilos::next_button_fg,
+        -activebackground => $herramientas::Estilos::next_button_active_bg,
+        -activeforeground => $herramientas::Estilos::next_button_active_fg,
+        -font => $herramientas::Estilos::next_button_font
+    )->pack(-side => 'right', -padx => 10, -pady => 10);
+
+
+
+
+    $mw->waitWindow(); # Esperar a que el usuario seleccione algún botón
+}
+
+
 
 
 1;

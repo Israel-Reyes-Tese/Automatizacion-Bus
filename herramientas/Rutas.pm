@@ -9,6 +9,7 @@ use FindBin;
 use constant {
     RUTA_IMAGENES => "./static/imagenes/",  # Imágenes de la aplicación
     RUTA_MODULOS_MIB => "./herramientas/Modulos_MIB/",  # Módulos de MIB
+    RUTA_ID_EMPRESA => "./herramientas/IDs_empresas_proveedores/",  # ID de la empresa
 };
 
 
@@ -98,5 +99,14 @@ sub mib_module_v1_path {
 sub mib_module_v2_path {
     return RUTA_MODULOS_MIB . '/SMIv2'; 
 }
+
+
+#                                                      RUTAS ID EMPRESAS                                #
+# Función para obtener la ruta completa de los ID de empresas
+sub id_empresa_path {
+    return RUTA_ID_EMPRESA . '/enterprise-numbers.txt';  
+}
+#                                                      RUTAS ID EMPRESAS                                #
+
 
 1;  # Fin del módulo

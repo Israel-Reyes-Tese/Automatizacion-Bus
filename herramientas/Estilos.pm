@@ -40,6 +40,15 @@ our $rojo_otono = '#A52A2A';
 our $twilight_grey = '#696969';
 our $soil_black = '#1C1C1C';
 
+# Nueva paleta de colores (Rosa Pink)
+our $rosa_pink = '#FFC0CB';
+our $rosa_pink_oscuro = '#FF1493';
+our $rosa_pink_claro = '#FF69B4';
+our $rosa_pink_medio = '#FFC0CB';
+our $rosa_pink_palo = '#FF91A4';
+
+
+
 # Estilo de fuente para los input
 our $input_font = ['Verdana', 16, 'bold'];
 # Estilo de fuente para los input SNMP
@@ -118,6 +127,16 @@ our $mib_selection_button_font = ['Helvetica', 12, 'bold'];
 our $mib_selection_label_font = ['Arial', 14, 'bold'];
 our $mib_selection_checkbutton_font = ['Arial', 12];
 
+# Styles for modern and scrollable table
+our $table_bg = '#f0f0f0';
+our $table_fg = '#000000';
+our $table_header_bg = '#4CAF50';
+our $table_header_fg = 'white';
+our $table_row_bg = '#ffffff';
+our $table_row_alt_bg = '#f9f9f9';
+our $table_font = ['Arial', 12];
+our $table_header_font = ['Helvetica', 20, 'bold'];
+
 # Export all variables
 our @EXPORT_OK = qw(
     $bg_color $fg_color $button_color $label_font $button_font $toolbar_button_font $agents_button_font
@@ -130,6 +149,7 @@ our @EXPORT_OK = qw(
     $mib_selection_bg $mib_selection_fg $mib_selection_button_bg $mib_selection_button_fg
     $mib_selection_button_active_bg $mib_selection_button_active_fg $mib_selection_button_font
     $mib_selection_label_font $mib_selection_checkbutton_font
+    $table_bg $table_fg $table_header_bg $table_header_fg $table_row_bg $table_row_alt_bg $table_font $table_header_font
 );
 
 1;  # Finalizar el módulo con un valor verdadero
