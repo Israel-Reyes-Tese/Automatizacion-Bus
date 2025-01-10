@@ -100,15 +100,62 @@ sub cargar_mib {
         $mib_tree_pane->Label(-text => $relative_path, -bg => $herramientas::Estilos::twilight_grey)->pack(-side => 'top', -anchor => 'w');
     }
     # Extraer la información de los archivos MIB seleccionados
-    my %object_types;
+    # Datos OBJECT-IDENTITY
+    my %object_identities;
+    foreach my $file (keys %mib_files) {
+        # Extraer OBJECT-IDENTITY y añadir al hash object_identities
+        my $extracted_object_identities = extraer_object_identities($file);
+        @object_identities{keys %$extracted_object_identities} = values %$extracted_object_identities;
+    }
+    #print Dumper(\%object_identities);
+    
+    
     # Datos OBJECT-TYPE
+    my %object_types;
     foreach my $file (keys %mib_files) {
         # Extraer OBJECT-TYPE y añadir al hash object_types
         my $extracted_object_types = extraer_object_types($file);
         @object_types{keys %$extracted_object_types} = values %$extracted_object_types;
 
     }
+    #print Dumper(\%object_types);
 
+    # Datos OBJECT IDENTIFIER
+    my %object_identifiers;
+    foreach my $file (keys %mib_files) {
+        # Extraer OBJECT IDENTIFIER y añadir al hash object_identifiers
+        my $extracted_object_identifiers = extraer_object_identifiers($file);
+        @object_identifiers{keys %$extracted_object_identifiers} = values %$extracted_object_identifiers;
+    }
+    #print Dumper(\%object_identifiers);
+
+    # Datos MODULE-IDENTITY
+    my %module_identities;
+    foreach my $file (keys %mib_files) {
+        # Extraer MODULE-IDENTITY y añadir al hash module_identities
+        my $extracted_module_identities = extraer_module_identities($file);
+        @module_identities{keys %$extracted_module_identities} = values %$extracted_module_identities;
+    }
+    print Dumper(\%module_identities);
+
+
+    # Datos de las alarmas NOTIFICATION-TYPE o TRAP-TYPE
+    my %alarm_traps;
+    foreach my $file (keys %mib_files) {
+        # Extraer OBJECT-TYPE y añadir al hash object_types
+        my $extracted_alarm_traps = extraer_alarm_traps($file);
+        @alarm_traps{keys %$extracted_alarm_traps} = values %$extracted_alarm_traps;
+    }
+    #print Dumper(\%alarm_traps);
+
+    # Extract OID nodes
+    my $oid_nodes = extraer_nodos_oid(\%mib_files);
+    if ($oid_nodes->{enterprise_oid}) {
+    } else {
+        # Logica para crear una ventana emergente para ingresar el OID de la empresa
+        $oid_nodes = mostrar_ventana_seleccion_empresa($ventana_principal);
+    }
+    #print "Nodos OID: ", Dumper($oid_nodes);
 
 }
 
@@ -484,7 +531,14 @@ sub validar_o_crear_archivo_temporal {
 
 # Función para recondicionar el archivo temporal copiando el contenido de $file
 sub recondicionar_archivo_temporal {
-    my ($file, $temp_file) = @_;
+    my ($file, $temp_file, $original_file) = @_;
+
+    # Obtener la ruta absoluta del archivo original
+    my $abs_path = abs_path($original_file);
+    # Obtener el la ruta relativa del archivo original
+    my $relative_path = File::Spec->abs2rel($abs_path);
+    # Obtener el nombre del archivo original
+    my $file_name = basename($abs_path);
 
     open my $fh_in, '<', $file or do {
         warn "No se pudo abrir el archivo $file: $!";
@@ -496,10 +550,10 @@ sub recondicionar_archivo_temporal {
         close $fh_in;
         return;
     };
-
+    # Añadir al inicio del archivo temporal la ruta del archivo original
+    print $fh_out "Archivo original: $file_name\n\n";
     while (my $line = <$fh_in>) {
         $line =~ s/^\s+//;   # Eliminar espacios al inicio de la línea
-
         print $fh_out $line; # Imprimir la línea tal cual, conservando los saltos de línea originales
     }
 
@@ -508,9 +562,81 @@ sub recondicionar_archivo_temporal {
 
     return $temp_file;
 }
+
+
+# Función para extraer OBJECT-IDENTITY de un archivo MIB
+sub extraer_object_identities {
+    my ($file) = @_;
+
+    my $original_file = $file;
+
+    # Archivo temporal para almacenar cómo se extraen los datos
+    my $temp_file = Rutas::temp_files_path() . '/object_identities.txt';
+
+    $file = transformar_mib_a_txt($file);
+    # Validar si el archivo temporal existe, si no, crearlo
+    $temp_file = validar_o_crear_archivo_temporal($temp_file);
+    # Recondicionar el archivo temporal copiando el contenido de $file
+    $temp_file = recondicionar_archivo_temporal($file, $temp_file, $original_file); 
+
+    open my $fh, '<', $temp_file or do {
+        warn "No se pudo abrir el archivo $file: $!";
+        return;
+    };
+    my %object_identities;
+    my $current_object = '';
+    my $in_description = 0;
+    my $description = '';
+    my $nombre_archivo = '';
+    my $segment = '';
+    my $in_segment = 0;
+
+    while (<$fh>) {
+        chomp;
+        next if /^\s*$/ || /^--/; # Saltar líneas vacías y comentarios
+        # Extraer la primera línea del archivo que es el nombre del archivo original y guardarlo en el hash
+        if (/Archivo original:\s+(.*)/) {
+            $nombre_archivo = $1;
+        }
+        # Identificar el inicio del segmento
+        if (/(\S+)\s+OBJECT-IDENTITY/) {
+            $current_object = $1;
+            $in_segment = 1;
+            $segment = $_ . "\n"; # Incluir la línea actual en el segmento
+            next;
+        }
+        # Continuar extrayendo líneas hasta encontrar "}"
+        if ($in_segment) {
+            $segment .= $_ . "\n";
+            if (/}/) {
+                my ($status) = $segment =~ /STATUS\s+(\S+)/;
+                my ($description) = $segment =~ /DESCRIPTION\s+"(.*)"/s;
+                my ($oid) = $segment =~ /::=\s*{([^}]+)}/;
+
+                $object_identities{$current_object} = {
+                    TYPE => 'OBJECT-IDENTITY',
+                    STATUS => $status,
+                    DESCRIPTION => $description,
+                    ARCHIVO => $nombre_archivo,
+                    OID => $oid,
+
+                };
+                $in_segment = 0;
+                $segment = '';
+            }
+        }
+    }
+
+    close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
+    #print Dumper(\%object_identities);
+    return \%object_identities;
+}
+
 # Función para extraer OBJECT-TYPE de un archivo MIB
 sub extraer_object_types {
     my ($file) = @_;
+
+    my $original_file = $file;
 
     # Archivo temporal para almacenar cómo se extraen los datos
     my $temp_file = Rutas::temp_files_path() . '/object_types.txt';
@@ -520,9 +646,9 @@ sub extraer_object_types {
     # Validar si el archivo temporal existe, si no, crearlo
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
     # Recondicionar el archivo temporal copiando el contenido de $file
-    $temp_file = recondicionar_archivo_temporal($file, $temp_file); 
+    $temp_file = recondicionar_archivo_temporal($file, $temp_file, $original_file); 
 
-    open my $fh, '<', $file or do {
+    open my $fh, '<', $temp_file or do {
         warn "No se pudo abrir el archivo $file: $!";
         return;
     };
@@ -531,14 +657,18 @@ sub extraer_object_types {
     my $current_object = '';
     my $in_description = 0;
     my $description = '';
-
+    my $nombre_archivo = '';
     while (<$fh>) {
         chomp;
         next if /^\s*$/ || /^--/; # Saltar líneas vacías y comentarios
-
+        # Extraer la primera línea del archivo que es el nombre del archivo original y guardarlo en el hash
+        if (/Archivo original:\s+(.*)/) {
+            $nombre_archivo = $1;
+        }
         if (/(\w+)\s+OBJECT-TYPE/) {
             $current_object = $1;
             $object_types{$current_object} = {};
+            $object_types{$current_object} -> {'ARCHIVO'} = $nombre_archivo;
         }
         elsif ($current_object) {
             if (/SYNTAX\s+(.*)/) {
@@ -586,6 +716,143 @@ sub extraer_object_types {
     #print Dumper(\%object_types);
     return \%object_types;
 }
+
+# Función para extraer OBJECT IDENTIFIER de un archivo MIB
+sub extraer_object_identifiers {
+    my ($file) = @_;
+
+    my $original_file = $file;
+
+    # Archivo temporal para almacenar cómo se extraen los datos
+    my $temp_file = Rutas::temp_files_path() . '/object_identifiers.txt';
+
+    # Validar si el archivo temporal existe, si no, crearlo
+    $temp_file = validar_o_crear_archivo_temporal($temp_file);
+    # Recondicionar el archivo temporal copiando el contenido de $file
+    $temp_file = recondicionar_archivo_temporal($file, $temp_file, $original_file); 
+
+    open my $fh, '<', $temp_file or do {
+        warn "No se pudo abrir el archivo $file: $!";
+        return;
+    };
+    my %object_identifiers;
+    my $nombre_archivo = '';
+
+    while (<$fh>) {
+        chomp;
+        next if /^\s*$/ || /^--/; # Saltar líneas vacías y comentarios
+        # Extraer la primera línea del archivo que es el nombre del archivo original y guardarlo en el hash
+        if (/Archivo original:\s+(.*)/) {
+            $nombre_archivo = $1;
+        }
+        # Identificar el OBJECT IDENTIFIER
+        if (/(\S+)\s+OBJECT IDENTIFIER\s+::=\s*{([^}]+)}/) {
+            my $name = $1;
+            my $oid = $2;
+            $object_identifiers{$name} = {
+                TYPE => 'OBJECT IDENTIFIER',
+                OID => $oid,
+                ARCHIVO => $nombre_archivo
+            };
+        }
+    }
+
+    # Eliminar ::= { contenido } de la descripción y limpiar espacios y caracteres especiales
+    foreach my $object (keys %object_identifiers) {
+        foreach my $field (qw(OID TYPE ARCHIVO)) {
+            if (exists $object_identifiers{$object}->{$field}) {
+                $object_identifiers{$object}->{$field} =~ s/\s*::=\s*\{.*\}//;
+                $object_identifiers{$object}->{$field} =~ s/^\s+|\s+$//g; # Eliminar espacios al inicio y al final
+                $object_identifiers{$object}->{$field} =~ s/^["']|["']$//g; # Eliminar caracteres especiales al inicio y al final
+            }
+        }
+    }
+
+    close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
+    #print Dumper(\%object_identifiers);
+    return \%object_identifiers;
+}
+
+# Función para extraer MODULE-IDENTITY de un archivo MIB
+sub extraer_module_identities {
+    my ($file) = @_;
+
+    my $original_file = $file;
+
+    # Archivo temporal para almacenar cómo se extraen los datos
+    my $temp_file = Rutas::temp_files_path() . '/module_identities.txt';
+
+    # Validar si el archivo temporal existe, si no, crearlo
+    $temp_file = validar_o_crear_archivo_temporal($temp_file);
+    # Recondicionar el archivo temporal copiando el contenido de $file
+    $temp_file = recondicionar_archivo_temporal($file, $temp_file, $original_file); 
+
+    open my $fh, '<', $temp_file or do {
+        warn "No se pudo abrir el archivo $file: $!";
+        return;
+    };
+    my %module_identities;
+    my $current_object = '';
+    my $in_segment = 0;
+    my $segment = '';
+    my $nombre_archivo = '';
+
+    while (<$fh>) {
+        chomp;
+        next if /^\s*$/ || /^--/; # Saltar líneas vacías y comentarios
+        # Extraer la primera línea del archivo que es el nombre del archivo original y guardarlo en el hash
+        if (/Archivo original:\s+(.*)/) {
+            $nombre_archivo = $1;
+        }
+        # Identificar el inicio del segmento
+        if (/(\S+)\s+MODULE-IDENTITY/) {
+            $current_object = $1;
+            $in_segment = 1;
+            $segment = $_ . "\n"; # Incluir la línea actual en el segmento
+            next;
+        }
+        # Continuar extrayendo líneas hasta encontrar "}"
+        if ($in_segment) {
+            $segment .= $_ . "\n";
+            if (/}/) {
+                my ($last_updated) = $segment =~ /LAST-UPDATED\s+"([^"]+)"/;
+                my ($organization) = $segment =~ /ORGANIZATION\s+"([^"]+)"/;
+                my ($contact_info) = $segment =~ /CONTACT-INFO\s+"([^"]+)"/s;
+                my @descriptions = $segment =~ /DESCRIPTION\s+"(.*?)"/sg;
+                my @revisions = $segment =~ /REVISION\s+"([^"]+)"/g;
+                my ($oid) = $segment =~ /::=\s*{([^}]+)}/;
+
+                my %descriptions_hash;
+                for my $i (0..$#descriptions) {
+                    $descriptions_hash{"DESCRIPTION_" . ($i + 1)} = $descriptions[$i];
+                }
+
+                my %revisions_hash;
+                for my $i (0..$#revisions) {
+                    $revisions_hash{"REVISION_" . ($i + 1)} = $revisions[$i];
+                }
+
+                $module_identities{$current_object} = {
+                    TYPE => 'MODULE-IDENTITY',
+                    LAST_UPDATED => $last_updated,
+                    ORGANIZATION => $organization,
+                    CONTACT_INFO => $contact_info,
+                    %descriptions_hash,
+                    %revisions_hash,
+                    OID => $oid,
+                    ARCHIVO => $nombre_archivo
+                };
+                $in_segment = 0;
+                $segment = '';
+            }
+        }
+    }
+
+    close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
+    #print Dumper(\%module_identities);
+    return \%module_identities;
+}
+
 
 # Función para extraer la información de los traps de las alarmas
 sub extraer_alarm_traps {
