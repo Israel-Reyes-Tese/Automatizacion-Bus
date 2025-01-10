@@ -108,22 +108,7 @@ sub cargar_mib {
         @object_types{keys %$extracted_object_types} = values %$extracted_object_types;
 
     }
-    # Datos de las alarmas NOTIFICATION-TYPE o TRAP-TYPE
-    my %alarm_traps;
-    foreach my $file (keys %mib_files) {
-        # Extraer OBJECT-TYPE y añadir al hash object_types
-        my $extracted_alarm_traps = extraer_alarm_traps($file);
-        @alarm_traps{keys %$extracted_alarm_traps} = values %$extracted_alarm_traps;
-    }
 
-    # Extract OID nodes
-    my $oid_nodes = extraer_nodos_oid(\%mib_files);
-    if ($oid_nodes->{enterprise_oid}) {
-    } else {
-        # Logica para crear una ventana emergente para ingresar el OID de la empresa
-        $oid_nodes = mostrar_ventana_seleccion_empresa($ventana_principal);
-    }
-    print "Nodos OID: ", Dumper($oid_nodes);
 
 }
 
@@ -473,12 +458,70 @@ sub transformar_mib_a_txt {
     return $file;
 }
 
+# Función para validar o crear un archivo temporal
+sub validar_o_crear_archivo_temporal {
+    my ($temp_file) = @_;
+
+    # Verificar si el archivo temporal existe
+    if (-e $temp_file) {
+        # Limpiar el archivo si ya existe
+        open my $fh_temp, '>', $temp_file or do {
+            warn "No se pudo limpiar el archivo temporal $temp_file: $!";
+            return;
+        };
+        close $fh_temp or warn "Advertencia: No se pudo cerrar el archivo temporal $temp_file: $!";
+    } else {
+        # Crear el archivo temporal si no existe
+        open my $fh_temp, '>', $temp_file or do {
+            warn "No se pudo crear el archivo temporal $temp_file: $!";
+            return;
+        };
+        close $fh_temp or warn "Advertencia: No se pudo cerrar el archivo temporal $temp_file: $!";
+    }
+
+    return $temp_file;
+}
+
+# Función para recondicionar el archivo temporal copiando el contenido de $file
+sub recondicionar_archivo_temporal {
+    my ($file, $temp_file) = @_;
+
+    open my $fh_in, '<', $file or do {
+        warn "No se pudo abrir el archivo $file: $!";
+        return;
+    };
+
+    open my $fh_out, '>', $temp_file or do {
+        warn "No se pudo abrir el archivo temporal $temp_file: $!";
+        close $fh_in;
+        return;
+    };
+
+    while (my $line = <$fh_in>) {
+        $line =~ s/^\s+//;   # Eliminar espacios al inicio de la línea
+
+        print $fh_out $line; # Imprimir la línea tal cual, conservando los saltos de línea originales
+    }
+
+    close $fh_in or warn "Advertencia: No se pudo cerrar el archivo $file: $!";
+    close $fh_out or warn "Advertencia: No se pudo cerrar el archivo temporal $temp_file: $!";
+
+    return $temp_file;
+}
 # Función para extraer OBJECT-TYPE de un archivo MIB
 sub extraer_object_types {
     my ($file) = @_;
+
+    # Archivo temporal para almacenar cómo se extraen los datos
+    my $temp_file = Rutas::temp_files_path() . '/object_types.txt';
+
     
     $file = transformar_mib_a_txt($file);
-    
+    # Validar si el archivo temporal existe, si no, crearlo
+    $temp_file = validar_o_crear_archivo_temporal($temp_file);
+    # Recondicionar el archivo temporal copiando el contenido de $file
+    $temp_file = recondicionar_archivo_temporal($file, $temp_file); 
+
     open my $fh, '<', $file or do {
         warn "No se pudo abrir el archivo $file: $!";
         return;
@@ -507,6 +550,9 @@ sub extraer_object_types {
             } elsif (/DESCRIPTION\s+["'](.*)/) {
                 $description = $1;
                 $in_description = 1;
+            } elsif (/DESCRIPTION\s*$/) {
+                $description = $1;
+                $in_description = 1;
             } elsif ($in_description) {
                 if (/["]\s*::=\s*\{(.*)\}/) {
                     $description .= " $1";
@@ -528,10 +574,12 @@ sub extraer_object_types {
     }
     # Eliminar ::= { contenido } de la descripción y limpiar espacios y caracteres especiales
     foreach my $object (keys %object_types) {
-        if (exists $object_types{$object}->{'DESCRIPTION'}) {
-            $object_types{$object}->{'DESCRIPTION'} =~ s/\s*::=\s*\{.*\}//;
-            $object_types{$object}->{'DESCRIPTION'} =~ s/^\s+|\s+$//g; # Eliminar espacios al inicio y al final
-            $object_types{$object}->{'DESCRIPTION'} =~ s/^["']|["']$//g; # Eliminar caracteres especiales al inicio y al final
+        foreach my $field (qw(DESCRIPTION SYNTAX MAX-ACCESS STATUS OID)) {
+            if (exists $object_types{$object}->{$field}) {
+                $object_types{$object}->{$field} =~ s/\s*::=\s*\{.*\}//;
+                $object_types{$object}->{$field} =~ s/^\s+|\s+$//g; # Eliminar espacios al inicio y al final
+                $object_types{$object}->{$field} =~ s/^["']|["']$//g; # Eliminar caracteres especiales al inicio y al final
+            }
         }
     }
     close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";

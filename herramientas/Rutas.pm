@@ -10,6 +10,7 @@ use constant {
     RUTA_IMAGENES => "./static/imagenes/",  # Imágenes de la aplicación
     RUTA_MODULOS_MIB => "./herramientas/Modulos_MIB/",  # Módulos de MIB
     RUTA_ID_EMPRESA => "./herramientas/IDs_empresas_proveedores/",  # ID de la empresa
+    RUTA_ARCHIVOS_TEMP => "./herramientas/Archivos_temporales/",  # Archivos temporales
 };
 
 
@@ -107,6 +108,13 @@ sub id_empresa_path {
     return RUTA_ID_EMPRESA . '/enterprise-numbers.txt';  
 }
 #                                                      RUTAS ID EMPRESAS                                #
+
+#                                                      RUTAS ARCHIVOS TEMPORALES                        #
+# Función para obtener la ruta completa de los archivos temporales
+sub temp_files_path {
+    return RUTA_ARCHIVOS_TEMP;  
+}
+#                                                      RUTAS ARCHIVOS TEMPORALES                        #
 
 
 1;  # Fin del módulo
