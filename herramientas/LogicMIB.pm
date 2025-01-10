@@ -121,9 +121,9 @@ sub cargar_mib {
     if ($oid_nodes->{enterprise_oid}) {
     } else {
         # Logica para crear una ventana emergente para ingresar el OID de la empresa
-        my $selected_company = mostrar_ventana_seleccion_empresa($ventana_principal);
-        print "Empresa seleccionada: ", Dumper($selected_company);
+        $oid_nodes = mostrar_ventana_seleccion_empresa($ventana_principal);
     }
+    print "Nodos OID: ", Dumper($oid_nodes);
 
 }
 
@@ -648,7 +648,12 @@ sub extraer_nodos_oid {
     my $root_oid = "1.3.6.1";
     my $private_enterprises_oid = "4.1";
     my $enterprise_oid;
+
     my $enterprise_file;
+    my @filtered_enterprise_hash;
+
+    my @enterprise_hash = extraer_datos_empresas();
+    @filtered_enterprise_hash = @enterprise_hash;
 
     foreach my $file (keys %$mib_files) {
         open my $fh, '<', $file or do {
@@ -670,51 +675,64 @@ sub extraer_nodos_oid {
         warn "No se pudo encontrar el ID único de la empresa o proveedor. Ingréselo manualmente o busque en los archivos locales.";
     }
 
+    my $enterprise_info;
+    foreach my $enterprise (@filtered_enterprise_hash) {
+        if (defined $enterprise_oid && $enterprise->{ID} == $enterprise_oid) {
+            $enterprise_info = {
+                ID => $enterprise->{ID},
+                Organization => $enterprise->{Organization},
+                Email => $enterprise->{Email},
+                Seleccionado => $enterprise->{Seleccionado},
+                Contact => $enterprise->{Contact},
+            };
+            last;
+        }
+    }
+
+    unless ($enterprise_info) {
+        warn "No se encontró el ID en la lista de empresas. Construyendo datos constantes.";
+        $enterprise_info = {
+            ID => $enterprise_oid,
+            Organization => 'Desconocido',
+            Email => '-',
+            Seleccionado => '1',
+            Contact => 'Desconocido',
+        };
+    }
+
     return {
         root_oid => $root_oid,
         private_enterprises_oid => $private_enterprises_oid,
         enterprise_oid => $enterprise_oid,
         enterprise_file => $enterprise_file,
+        enterprise_info_ID => $enterprise_info->{ID},
+        enterprise_info_Organization => $enterprise_info->{Organization},
+        enterprise_info_Email => $enterprise_info->{Email},
+        enterprise_info_Contact => $enterprise_info->{Contact},
+        enterprise_info_Seleccionado => $enterprise_info->{Seleccionado},
     };
 }
 
 # Function to display a paginated table of enterprise IDs
 sub mostrar_ventana_seleccion_empresa {
     my ($ventana_principal) = @_;
-    my $file_path = Rutas::id_empresa_path();
-    my @enterprise_data;
-    my $page_size = 50;
-    my $current_page = 0;
-    my $selected_row;
-    my @filtered_enterprise_hash;
-    my $selected_company; 
-    # Read enterprise data from file
-    open my $fh, '<', $file_path or do {
-        warn "No se pudo abrir el archivo $file_path: $!";
-        return;
-    };
-    while (my $line = <$fh>) {
-        chomp $line;
-        next if $line =~ /^\s*$/ || $line =~ /^Decimal/; # Skip empty lines and header
-        push @enterprise_data, $line;
-    }
-    close $fh;
+    our @enterprise_data;
+    our $page_size = 50;
+    our $current_page = 0;
+    our $selected_row;
+    our @filtered_enterprise_hash;
+    our $selected_company; 
+    our $return_value_company;
 
-    # Convert enterprise data to hash
-    my @enterprise_hash;
-    for (my $i = 0; $i < @enterprise_data; $i += 4) {
-        push @enterprise_hash, {
-            ID => $enterprise_data[$i],
-            Organization => $enterprise_data[$i + 1],
-            Contact => $enterprise_data[$i + 2],
-            Email => $enterprise_data[$i + 3],
-            Seleccionado => 0
-        };
-    }
+    my $root_oid = "1.3.6.1";
+    my $private_enterprises_oid = "4.1";
+    my $enterprise_oid;
+
+    my @enterprise_hash = extraer_datos_empresas();
     @filtered_enterprise_hash = @enterprise_hash;
 
     # Create the main window
-    my $mw = $ventana_principal->Toplevel();
+    our $mw = $ventana_principal->Toplevel();
     $mw->title("Seleccionar Empresa");
     $mw->configure(-background => $herramientas::Estilos::twilight_grey);
     # Maximize the window
@@ -743,11 +761,10 @@ sub mostrar_ventana_seleccion_empresa {
     )->pack(-side => 'right', -padx => 10, -pady => 10);
 
     # Create a frame for the table and scrollbar
-    my $table_frame = $mw->Frame(-background => $herramientas::Estilos::pine_green)->pack(-side => 'top', -fill => 'both', -expand => 1);
+    our $table_frame = $mw->Frame(-background => $herramientas::Estilos::pine_green)->pack(-side => 'top', -fill => 'both', -expand => 1);
 
     # Create the header panel
     my $encabezado_table_panel = $table_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::twilight_grey)->pack(-side => 'top', -fill => 'x');
-
     # Add headers to the header panel
     my $header_frame = $encabezado_table_panel->Frame(-background => $herramientas::Estilos::twilight_grey)->pack(-side => 'top', -fill => 'x');
     foreach my $header (qw(Decimal Organization Contact Email Seleccionar)) {
@@ -760,95 +777,16 @@ sub mostrar_ventana_seleccion_empresa {
             -borderwidth => 3
         )->pack(-side => 'left', -fill => 'x');
     }
-
     # Create the navigation buttons panel
-    my $nav_buttons_frame = $mw->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'top', -fill => 'x');
-    sub update_nav_buttons {
-        $nav_buttons_frame->packForget();
-        $nav_buttons_frame = $mw->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'top', -fill => 'x');
-        $nav_buttons_frame->Button(
-            -text => "Inicio",
-            -command => sub {
-                $current_page = 0;
-                populate_table($current_page);
-            },
-            -background => $herramientas::Estilos::mib_selection_button_bg,
-            -foreground => $herramientas::Estilos::mib_selection_button_fg,
-            -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
-            -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
-            -font => $herramientas::Estilos::mib_selection_button_font
-        )->pack(-side => 'left', -padx => 5, -pady => 5);
+    our $nav_buttons_frame = $mw->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'top', -fill => 'x');
 
-        for my $i (-3 .. 3) {
-            my $page = $current_page + $i;
-            next if $page < 0 || $page * $page_size >= @filtered_enterprise_hash;
-            $nav_buttons_frame->Button(
-                -text => $page + 1,
-                -command => sub {
-                    $current_page = $page;
-                    populate_table($current_page);
-                },
-                -background => $herramientas::Estilos::mib_selection_button_bg,
-                -foreground => $herramientas::Estilos::mib_selection_button_fg,
-                -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
-                -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
-                -font => $herramientas::Estilos::mib_selection_button_font
-            )->pack(-side => 'left', -padx => 5, -pady => 5);
-        }
-
-        $nav_buttons_frame->Button(
-            -text => "Final",
-            -command => sub {
-                $current_page = int(@filtered_enterprise_hash / $page_size);
-                populate_table($current_page);
-            },
-            -background => $herramientas::Estilos::mib_selection_button_bg,
-            -foreground => $herramientas::Estilos::mib_selection_button_fg,
-            -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
-            -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
-            -font => $herramientas::Estilos::mib_selection_button_font
-        )->pack(-side => 'left', -padx => 5, -pady => 5);
-    }
     update_nav_buttons();
-
     # Create the data panel
-    my $result_table_pane = $table_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::forest_shadow)->pack(-side => 'top', -fill => 'both', -expand => 1);
-
-    # Function to populate the data panel with rows
-    sub populate_table {
-        my ($page) = @_;
-        $result_table_pane->packForget();
-        $result_table_pane = $table_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::forest_shadow)->pack(-side => 'top', -fill => 'both', -expand => 1);
-        my $start = $page * $page_size;
-        my $end = $start + $page_size - 1;
-        $end = $#filtered_enterprise_hash if $end > $#filtered_enterprise_hash;
-        for my $i ($start .. $end) {
-            my $row = $filtered_enterprise_hash[$i];
-            my $row_frame = $result_table_pane->Frame(-background => $herramientas::Estilos::table_row_bg)->pack(-side => 'top', -fill => 'x');
-            foreach my $key (qw(ID Organization Contact Email)) {
-                $row_frame->Label(
-                    -text => $row->{$key},
-                    -background => $herramientas::Estilos::table_row_bg,
-                    -foreground => $herramientas::Estilos::table_fg,
-                    -font => $herramientas::Estilos::table_font
-                )->pack(-side => 'left', -fill => 'x', -expand => 1);
-            }
-            my $checkbutton = $row_frame->Checkbutton(
-                -variable => \$row->{Seleccionado},
-                -background => $herramientas::Estilos::table_row_bg,
-                -foreground => $herramientas::Estilos::table_fg,
-                -font => $herramientas::Estilos::table_font,
-            )->pack(-side => 'left', -fill => 'x', -expand => 1);
-        }
-        update_nav_buttons();
-    }
-
+    our $result_table_pane = $table_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::forest_shadow)->pack(-side => 'top', -fill => 'both', -expand => 1);
     # Populate the initial table
     populate_table($current_page);
-
     # Create the button panel
     my $button_panel = $table_frame->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'bottom', -fill => 'x');
-
     # Add buttons to the button panel
     $button_panel->Button(
         -text => "Anterior",
@@ -904,10 +842,22 @@ sub mostrar_ventana_seleccion_empresa {
                     "Solo se puede seleccionar una empresa. Se seleccionaron más de una.", 'warning'
                 );
                 @filtered_enterprise_hash = @enterprise_hash;
+
+
                 $current_page = 0;
                 populate_table($current_page);
             } elsif (scalar @selected_data == 1) {
                  $selected_company = $selected_data[0];
+                # Agregar datos de la empresa seleccionada
+                $return_value_company->{root_oid} = $root_oid;
+                $return_value_company->{private_enterprises_oid} = $private_enterprises_oid;
+                $return_value_company->{enterprise_info_ID} = $selected_company->{ID};
+                $return_value_company->{enterprise_file} = "-";
+                $return_value_company->{enterprise_oid} = $selected_company->{ID};
+                $return_value_company->{enterprise_info_Organization} = $selected_company->{Organization};
+                $return_value_company->{enterprise_info_Contact} = $selected_company->{Contact};
+                $return_value_company->{enterprise_info_Email} = $selected_company->{Email};
+                $return_value_company->{enterprise_info_Seleccionado} = $selected_company->{Seleccionado};
                 my $message = "Empresa seleccionada:\n" .
                               "ID: $selected_company->{ID}\n" .
                               "Organizacion: $selected_company->{Organization}\n" .
@@ -933,8 +883,117 @@ sub mostrar_ventana_seleccion_empresa {
     )->pack(-side => 'right', -padx => 10, -pady => 10);
 
     $mw->waitWindow(); # Esperar a que el usuario seleccione algún botón
-    return $selected_company;
+
+    # Function to update the navigation buttons
+    sub update_nav_buttons {
+        $nav_buttons_frame->packForget();
+        $nav_buttons_frame = $mw->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'top', -fill => 'x');
+        $nav_buttons_frame->Button(
+            -text => "Inicio",
+            -command => sub {
+                $current_page = 0;
+                populate_table($current_page);
+            },
+            -background => $herramientas::Estilos::mib_selection_button_bg,
+            -foreground => $herramientas::Estilos::mib_selection_button_fg,
+            -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
+            -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
+            -font => $herramientas::Estilos::mib_selection_button_font
+        )->pack(-side => 'left', -padx => 5, -pady => 5);
+
+        for my $i (-3 .. 3) {
+            my $page = $current_page + $i;
+            next if $page < 0 || $page * $page_size >= @filtered_enterprise_hash;
+            $nav_buttons_frame->Button(
+                -text => $page + 1,
+                -command => sub {
+                    $current_page = $page;
+                    populate_table($current_page);
+                },
+                -background => $herramientas::Estilos::mib_selection_button_bg,
+                -foreground => $herramientas::Estilos::mib_selection_button_fg,
+                -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
+                -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
+                -font => $herramientas::Estilos::mib_selection_button_font
+            )->pack(-side => 'left', -padx => 5, -pady => 5);
+        }
+
+        $nav_buttons_frame->Button(
+            -text => "Final",
+            -command => sub {
+                $current_page = int(@filtered_enterprise_hash / $page_size);
+                populate_table($current_page);
+            },
+            -background => $herramientas::Estilos::mib_selection_button_bg,
+            -foreground => $herramientas::Estilos::mib_selection_button_fg,
+            -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
+            -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
+            -font => $herramientas::Estilos::mib_selection_button_font
+        )->pack(-side => 'left', -padx => 5, -pady => 5);
+    }
+
+
+    # Function to populate the data panel with rows
+    sub populate_table {
+        my ($page) = @_;
+        $result_table_pane->packForget();
+        $result_table_pane = $table_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::forest_shadow)->pack(-side => 'top', -fill => 'both', -expand => 1);
+        my $start = $page * $page_size;
+        my $end = $start + $page_size - 1;
+        $end = $#filtered_enterprise_hash if $end > $#filtered_enterprise_hash;
+        for my $i ($start .. $end) {
+            my $row = $filtered_enterprise_hash[$i];
+            my $row_frame = $result_table_pane->Frame(-background => $herramientas::Estilos::table_row_bg)->pack(-side => 'top', -fill => 'x');
+            foreach my $key (qw(ID Organization Contact Email)) {
+                $row_frame->Label(
+                    -text => $row->{$key},
+                    -background => $herramientas::Estilos::table_row_bg,
+                    -foreground => $herramientas::Estilos::table_fg,
+                    -font => $herramientas::Estilos::table_font
+                )->pack(-side => 'left', -fill => 'x', -expand => 1);
+            }
+            my $checkbutton = $row_frame->Checkbutton(
+                -variable => \$row->{Seleccionado},
+                -background => $herramientas::Estilos::table_row_bg,
+                -foreground => $herramientas::Estilos::table_fg,
+                -font => $herramientas::Estilos::table_font,
+            )->pack(-side => 'left', -fill => 'x', -expand => 1);
+        }
+        update_nav_buttons();
+    }
+    return $return_value_company;
 }
 
+# Subroutine to extract enterprise data from file
+sub extraer_datos_empresas {
+    my $file_path = Rutas::id_empresa_path();
+    my @enterprise_data;
+
+    # Read enterprise data from file
+    open my $fh, '<', $file_path or do {
+        warn "No se pudo abrir el archivo $file_path: $!";
+        return;
+    };
+    while (my $line = <$fh>) {
+        chomp $line;
+        next if $line =~ /^\s*$/ || $line =~ /^Decimal/; # Skip empty lines and header
+        push @enterprise_data, $line;
+    }
+    close $fh;
+
+    # Convert enterprise data to hash
+    my @enterprise_hash;
+    for (my $i = 0; $i < @enterprise_data; $i += 4) {
+        push @enterprise_hash, {
+            ID => $enterprise_data[$i],
+            Organization => $enterprise_data[$i + 1],
+            Contact => $enterprise_data[$i + 2],
+            Email => $enterprise_data[$i + 3],
+            Seleccionado => 0
+        };
+    }
+
+    return @enterprise_hash;
+}
 
 1;
