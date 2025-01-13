@@ -429,9 +429,27 @@ sub create_search_bar {
     return $search_frame;
 }
 
+# Function to update the results frame with a title based on the selected key
+sub update_results_frame {
+    my ($results_frame, $key) = @_;
+    
+    # Clear the frame without destroying it
+    foreach my $widget ($results_frame->children) {
+        $widget->destroy();
+    }
+    
+    # Create a title label with the key name
+    $results_frame->Label(
+        -text => $key,
+        -bg => $herramientas::Estilos::bg_color,
+        -fg => $herramientas::Estilos::fg_color,
+        -font => $herramientas::Estilos::title_font
+    )->pack(-side => 'top', -pady => 20);
+}
+
 # Function to create the navigation menu
 sub create_navigation_menu {
-    my ($parent, $data_ref) = @_;
+    my ($parent, $data_ref, $results_frame) = @_;
     my %data = %{$data_ref};
     my $nav_frame = $parent->Frame(-background => $herramientas::Estilos::nav_bg)->pack(-side => 'left', -fill => 'y');
     foreach my $key (keys %data) {
@@ -439,6 +457,7 @@ sub create_navigation_menu {
             -text => $key,
             -command => sub {
                 print "Navigating to: $key\n";
+                update_results_frame($results_frame, $key);
             },
             -background => $herramientas::Estilos::nav_button_bg,
             -foreground => $herramientas::Estilos::nav_button_fg,
@@ -482,7 +501,7 @@ sub create_footer {
 # Function to create the results frame
 sub create_results_frame {
     my ($parent) = @_;
-    my $results_frame = $parent->Frame(-background => $herramientas::Estilos::results_bg)->pack(-side => 'top', -fill => 'both', -expand => 1);
+    my $results_frame = $parent->Frame(-background => $herramientas::Estilos::modern_button_bg)->pack(-side => 'top', -fill => 'both', -expand => 1);
     return $results_frame;
 }
 
@@ -499,14 +518,14 @@ sub create_table {
     # Create the search bar
     create_search_bar($mw);
 
+    # Create the frame for displaying results
+    my $results_frame = create_results_frame($mw);
+
     # Create the navigation menu
-    create_navigation_menu($mw, \%data);
+    create_navigation_menu($mw, \%data, $results_frame);
 
     # Create the footer with pagination and example buttons
     create_footer($mw);
-
-    # Create the frame for displaying results
-    create_results_frame($mw);
 
     # Add logic to populate results based on search and navigation
 }
