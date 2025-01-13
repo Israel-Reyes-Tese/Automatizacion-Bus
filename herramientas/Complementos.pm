@@ -447,37 +447,69 @@ sub update_results_frame {
     )->pack(-side => 'top', -pady => 20);
 }
 
-# Function to update the results frame with a table based on the selected key and its data
 sub update_results_frame_with_table {
     my ($results_frame, $key, $data_ref) = @_;
     my %data = %{$data_ref};
 
     # Clear the frame without destroying it
-    foreach my $widget ($results_frame->children) {
-        $widget->destroy();
-    }
+    clear_frame($results_frame);
 
     # Create a title label with the key name
-    $results_frame->Label(
-        -text => $key,
+    create_title_label($results_frame, $key);
+
+    # Create a scrollable pane for the table
+    my $scrollable_pane = create_scrollable_pane($results_frame);
+
+    # Determine the headers and rows based on the key
+    my ($headers_ref, $rows_ref) = determine_headers_and_rows($key, \%data);
+    my @headers = @{$headers_ref};
+    my @rows = @{$rows_ref};
+
+    # Calculate the maximum width for each column
+    my @max_widths = calculate_max_widths(\@headers, \@rows);
+
+    # Create the table headers
+    create_table_headers($scrollable_pane, \@headers, \@max_widths);
+
+    # Create the table rows
+    create_table_rows($scrollable_pane, \@rows, \@max_widths);
+}
+
+sub clear_frame {
+    my ($frame) = @_;
+    foreach my $widget ($frame->children) {
+        $widget->destroy();
+    }
+}
+
+sub create_title_label {
+    my ($frame, $text) = @_;
+    $frame->Label(
+        -text => $text,
         -bg => $herramientas::Estilos::bg_color,
         -fg => $herramientas::Estilos::fg_color,
         -font => $herramientas::Estilos::title_font
     )->pack(-side => 'top', -pady => 20);
+}
 
-    # Create a scrollable pane for the table
-    my $scrollable_pane = $results_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::bg_color)->pack(-side => 'top', -fill => 'both', -expand => 1);
+sub create_scrollable_pane {
+    my ($frame) = @_;
+    return $frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::bg_color)->pack(-side => 'top', -fill => 'both', -expand => 1);
+}
 
-    # Determine the headers and rows based on the key
+sub determine_headers_and_rows {
+    my ($key, $data_ref) = @_;
+    my %data = %{$data_ref};
     my @headers;
     my @rows;
+
     if (exists $data{$key}) {
         if (ref $data{$key} eq 'HASH') {
             my $first_entry = (values %{$data{$key}})[0];
             if (ref $first_entry eq 'HASH') {
-                @headers = keys %{$first_entry};
+                @headers = ('Object Name', keys %{$first_entry});
                 foreach my $sub_key (keys %{$data{$key}}) {
-                    my @row = map { $data{$key}{$sub_key}{$_} // '' } @headers;
+                    my @row = ($sub_key, map { $data{$key}{$sub_key}{$_} // '' } keys %{$first_entry});
                     push @rows, \@row;
                 }
             } else {
@@ -487,26 +519,64 @@ sub update_results_frame_with_table {
         }
     }
 
-    # Create the table headers
-    my $header_frame = $scrollable_pane->Frame(-bg => $herramientas::Estilos::header_bg)->pack(-side => 'top', -fill => 'x');
-    foreach my $header (@headers) {
-        $header_frame->Label(
-            -text => $header,
-            -bg => $herramientas::Estilos::header_bg,
-            -fg => $herramientas::Estilos::header_fg,
-            -font => $herramientas::Estilos::header_font
-        )->pack(-side => 'left', -expand => 1, -fill => 'x', -padx => 5, -pady => 5);
+    return (\@headers, \@rows);
+}
+
+sub calculate_max_widths {
+    my ($headers_ref, $rows_ref) = @_;
+    my @headers = @{$headers_ref};
+    my @rows = @{$rows_ref};
+    my @max_widths = map { 0 } @headers;
+
+    foreach my $row (@rows) {
+        for my $i (0 .. $#headers) {
+            my $cell_length = length($row->[$i] // '');
+            $max_widths[$i] = $cell_length if $cell_length > $max_widths[$i];
+        }
+    }
+    for my $i (0 .. $#headers) {
+        my $header_length = length($headers[$i]);
+        $max_widths[$i] = $header_length if $header_length > $max_widths[$i];
     }
 
-    # Create the table rows
+    return @max_widths;
+}
+
+sub create_table_headers {
+    my ($pane, $headers_ref, $max_widths_ref) = @_;
+    my @headers = @{$headers_ref};
+    my @max_widths = @{$max_widths_ref};
+
+    my $header_frame = $pane->Frame(-bg => $herramientas::Estilos::header_bg)->pack(-side => 'top', -fill => 'x');
+    foreach my $i (0 .. $#headers) {
+        $header_frame->Label(
+            -text => $headers[$i],
+            -bg => $herramientas::Estilos::header_bg,
+            -fg => $herramientas::Estilos::header_fg,
+            -font => $herramientas::Estilos::header_font,
+            -borderwidth => 1,
+            -relief => 'solid',
+            -width => $max_widths[$i] + 2  # Add some padding
+        )->pack(-side => 'left', -expand => 1, -fill => 'x', -padx => 5, -pady => 5);
+    }
+}
+
+sub create_table_rows {
+    my ($pane, $rows_ref, $max_widths_ref) = @_;
+    my @rows = @{$rows_ref};
+    my @max_widths = @{$max_widths_ref};
+
     foreach my $row (@rows) {
-        my $row_frame = $scrollable_pane->Frame(-bg => $herramientas::Estilos::row_bg)->pack(-side => 'top', -fill => 'x');
-        foreach my $cell (@{$row}) {
+        my $row_frame = $pane->Frame(-bg => $herramientas::Estilos::row_bg)->pack(-side => 'top', -fill => 'x');
+        foreach my $i (0 .. $#{$row}) {
             $row_frame->Label(
-                -text => $cell,
+                -text => $row->[$i],
                 -bg => $herramientas::Estilos::row_bg,
                 -fg => $herramientas::Estilos::row_fg,
-                -font => $herramientas::Estilos::row_font
+                -font => $herramientas::Estilos::row_font,
+                -borderwidth => 1,
+                -relief => 'solid',
+                -width => $max_widths[$i] + 2  # Add some padding
             )->pack(-side => 'left', -expand => 1, -fill => 'x', -padx => 5, -pady => 5);
         }
     }
