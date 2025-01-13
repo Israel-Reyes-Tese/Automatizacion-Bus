@@ -5,7 +5,9 @@ use strict;
 use warnings;
 use Tk;
 use Tk::FileDialog;
+use Tk::TableMatrix;
 
+use Data::Dumper;
 use FindBin;  # Añadir FindBin para obtener la ruta del script
 use lib $FindBin::Bin . "/herramientas";  # Añadir la carpeta donde se encuentran los módulos
 
@@ -396,6 +398,117 @@ sub create_main_window {
     }
     # Retornar la ventana principal
     return $mw;
+}
+
+# Function to create the main window
+sub create_extra_principal_window {
+    my ($main_window) = @_;
+    my $mw = $main_window->Toplevel();
+    $mw->title("ARBOL DE MIBS");
+    $mw->configure(-background => $herramientas::Estilos::twilight_grey);
+    $mw->state('zoomed');
+    return $mw;
+}
+
+# Function to create the search bar
+sub create_search_bar {
+    my ($parent) = @_;
+    my $search_frame = $parent->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'top', -fill => 'x');
+    my $search_entry = $search_frame->Entry(-font => $herramientas::Estilos::input_font)->pack(-side => 'left', -fill => 'x', -expand => 1, -padx => 10, -pady => 10);
+    $search_frame->Button(
+        -text => "Buscar",
+        -command => sub {
+            print "Searching for: " . $search_entry->get() . "\n";
+        },
+        -background => $herramientas::Estilos::mib_selection_button_bg,
+        -foreground => $herramientas::Estilos::mib_selection_button_fg,
+        -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
+        -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
+        -font => $herramientas::Estilos::mib_selection_button_font
+    )->pack(-side => 'right', -padx => 10, -pady => 10);
+    return $search_frame;
+}
+
+# Function to create the navigation menu
+sub create_navigation_menu {
+    my ($parent, $data_ref) = @_;
+    my %data = %{$data_ref};
+    my $nav_frame = $parent->Frame(-background => $herramientas::Estilos::nav_bg)->pack(-side => 'left', -fill => 'y');
+    foreach my $key (keys %data) {
+        $nav_frame->Button(
+            -text => $key,
+            -command => sub {
+                print "Navigating to: $key\n";
+            },
+            -background => $herramientas::Estilos::nav_button_bg,
+            -foreground => $herramientas::Estilos::nav_button_fg,
+            -activebackground => $herramientas::Estilos::nav_button_active_bg,
+            -activeforeground => $herramientas::Estilos::nav_button_active_fg,
+            -font => $herramientas::Estilos::nav_button_font
+        )->pack(-side => 'top', -fill => 'x', -padx => 5, -pady => 5);
+    }
+    return $nav_frame;
+}
+
+# Function to create the footer with pagination and example buttons
+sub create_footer {
+    my ($parent) = @_;
+    my $footer_frame = $parent->Frame(-background => $herramientas::Estilos::footer_bg)->pack(-side => 'bottom', -fill => 'x');
+    $footer_frame->Button(
+        -text => "Anterior",
+        -command => sub {
+            print "Previous page\n";
+        },
+        -background => $herramientas::Estilos::footer_button_bg,
+        -foreground => $herramientas::Estilos::footer_button_fg,
+        -activebackground => $herramientas::Estilos::footer_button_active_bg,
+        -activeforeground => $herramientas::Estilos::footer_button_active_fg,
+        -font => $herramientas::Estilos::footer_button_font
+    )->pack(-side => 'left', -padx => 10, -pady => 10);
+    $footer_frame->Button(
+        -text => "Siguiente",
+        -command => sub {
+            print "Next page\n";
+        },
+        -background => $herramientas::Estilos::footer_button_bg,
+        -foreground => $herramientas::Estilos::footer_button_fg,
+        -activebackground => $herramientas::Estilos::footer_button_active_bg,
+        -activeforeground => $herramientas::Estilos::footer_button_active_fg,
+        -font => $herramientas::Estilos::footer_button_font
+    )->pack(-side => 'right', -padx => 10, -pady => 10);
+    return $footer_frame;
+}
+
+# Function to create the results frame
+sub create_results_frame {
+    my ($parent) = @_;
+    my $results_frame = $parent->Frame(-background => $herramientas::Estilos::results_bg)->pack(-side => 'top', -fill => 'both', -expand => 1);
+    return $results_frame;
+}
+
+# Function to create a table with search bar, navigation menu, and footer
+sub create_table {
+    my ($main_window, $records_per_page, $data_ref, $search_fields_ref, $header_fields_ref) = @_;
+    my %data = %{$data_ref};
+    my @search_fields = @{$search_fields_ref};
+    my @header_fields = @{$header_fields_ref};
+
+    # Create the main window
+    my $mw = create_extra_principal_window($main_window);
+
+    # Create the search bar
+    create_search_bar($mw);
+
+    # Create the navigation menu
+    create_navigation_menu($mw, \%data);
+
+    # Create the footer with pagination and example buttons
+    create_footer($mw);
+
+    # Create the frame for displaying results
+    create_results_frame($mw);
+
+    # Add logic to populate results based on search and navigation
 }
 
 # Funciones de apoyo

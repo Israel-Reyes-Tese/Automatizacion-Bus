@@ -137,6 +137,35 @@ our $table_row_alt_bg = '#f9f9f9';
 our $table_font = ['Arial', 12];
 our $table_header_font = ['Helvetica', 20, 'bold'];
 
+# Titles
+our $title_font = ['Arial', 24, 'bold'];
+our $title_bg = '#302c44';
+our $title_fg = '#e5d0bf';
+
+# Footer
+our $footer_font = ['Arial', 12, 'bold'];
+our $footer_button_font = ['Arial', 12, 'bold'];
+our $footer_bg = '#302c44';
+our $footer_fg = '#e5d0bf';
+our $footer_button_bg = '#7a748e';
+our $footer_button_fg = '#f2e6da';
+our $footer_button_active_bg = '#5e5673';
+our $footer_button_active_fg = '#f2e6da';
+
+# Navigation
+our $nav_bg = '#302c44';
+our $nav_fg = '#e5d0bf';
+our $nav_button_bg = '#7a748e';
+our $nav_button_fg = '#f2e6da';
+our $nav_button_active_bg = '#5e5673';
+our $nav_button_active_fg = '#f2e6da';
+our $nav_button_font = ['Arial', 12, 'bold'];
+
+# Result
+our $result_bg = '#f0f0f0';
+our $result_fg = '#000000';
+
+
 # Export all variables
 our @EXPORT_OK = qw(
     $bg_color $fg_color $button_color $label_font $button_font $toolbar_button_font $agents_button_font

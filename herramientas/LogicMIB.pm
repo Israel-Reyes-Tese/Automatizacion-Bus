@@ -136,7 +136,7 @@ sub cargar_mib {
         my $extracted_module_identities = extraer_module_identities($file);
         @module_identities{keys %$extracted_module_identities} = values %$extracted_module_identities;
     }
-    print Dumper(\%module_identities);
+    #print Dumper(\%module_identities);
 
 
     # Datos de las alarmas NOTIFICATION-TYPE o TRAP-TYPE
@@ -156,6 +156,28 @@ sub cargar_mib {
         $oid_nodes = mostrar_ventana_seleccion_empresa($ventana_principal);
     }
     #print "Nodos OID: ", Dumper($oid_nodes);
+
+
+    # Juntar todos los datos extraidos en un solo hash
+    my %data = (
+        OBJECT_IDENTITIES => \%object_identities,
+        OBJECT_TYPES => \%object_types,
+        OBJECT_IDENTIFIERS => \%object_identifiers,
+        MODULE_IDENTITIES => \%module_identities,
+        ALARM_TRAPS => \%alarm_traps,
+        OID_NODES => $oid_nodes,
+    );
+    
+    my @search_fields = ('enterprise_info_ID', 'enterprise_file', 'enterprise_info_Contact',
+    'enterprise_info_Seleccionado', 'enterprise_oid', 'enterprise_info_Email', 'private_enterprises_oid', 'root_oid',
+    'enterprise_info_Organization', 'STATUS', 'MAX-ACCESS', 'SYNTAX', 'DESCRIPTION', 'OID', 'ARCHIVO', 'TYPE'); # Campos en los que se realizará la búsqueda
+
+    my @header_fields = ("Nodos OID", "Alarmas", "Módulos", "Objetos", "Identificadores de Objetos", "Identidades de Módulos", "Alarmas", "OID de la Empresa", "Empresa", "Contacto", "Email", "Organización", "Archivo", "Tipo", "OID", "Descripción", "Sintaxis", "Acceso Máximo", "Estado");
+
+
+    my $records_per_page = 20;
+
+    herramientas::Complementos::create_table($ventana_principal, $records_per_page, \%data, \@search_fields, \@header_fields);
 
 }
 
@@ -1310,5 +1332,8 @@ sub extraer_datos_empresas {
 
     return @enterprise_hash;
 }
+
+
+
 
 1;
