@@ -447,6 +447,71 @@ sub update_results_frame {
     )->pack(-side => 'top', -pady => 20);
 }
 
+# Function to update the results frame with a table based on the selected key and its data
+sub update_results_frame_with_table {
+    my ($results_frame, $key, $data_ref) = @_;
+    my %data = %{$data_ref};
+
+    # Clear the frame without destroying it
+    foreach my $widget ($results_frame->children) {
+        $widget->destroy();
+    }
+
+    # Create a title label with the key name
+    $results_frame->Label(
+        -text => $key,
+        -bg => $herramientas::Estilos::bg_color,
+        -fg => $herramientas::Estilos::fg_color,
+        -font => $herramientas::Estilos::title_font
+    )->pack(-side => 'top', -pady => 20);
+
+    # Create a scrollable pane for the table
+    my $scrollable_pane = $results_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::bg_color)->pack(-side => 'top', -fill => 'both', -expand => 1);
+
+    # Determine the headers and rows based on the key
+    my @headers;
+    my @rows;
+    if (exists $data{$key}) {
+        if (ref $data{$key} eq 'HASH') {
+            my $first_entry = (values %{$data{$key}})[0];
+            if (ref $first_entry eq 'HASH') {
+                @headers = keys %{$first_entry};
+                foreach my $sub_key (keys %{$data{$key}}) {
+                    my @row = map { $data{$key}{$sub_key}{$_} // '' } @headers;
+                    push @rows, \@row;
+                }
+            } else {
+                @headers = keys %{$data{$key}};
+                @rows = [values %{$data{$key}}];
+            }
+        }
+    }
+
+    # Create the table headers
+    my $header_frame = $scrollable_pane->Frame(-bg => $herramientas::Estilos::header_bg)->pack(-side => 'top', -fill => 'x');
+    foreach my $header (@headers) {
+        $header_frame->Label(
+            -text => $header,
+            -bg => $herramientas::Estilos::header_bg,
+            -fg => $herramientas::Estilos::header_fg,
+            -font => $herramientas::Estilos::header_font
+        )->pack(-side => 'left', -expand => 1, -fill => 'x', -padx => 5, -pady => 5);
+    }
+
+    # Create the table rows
+    foreach my $row (@rows) {
+        my $row_frame = $scrollable_pane->Frame(-bg => $herramientas::Estilos::row_bg)->pack(-side => 'top', -fill => 'x');
+        foreach my $cell (@{$row}) {
+            $row_frame->Label(
+                -text => $cell,
+                -bg => $herramientas::Estilos::row_bg,
+                -fg => $herramientas::Estilos::row_fg,
+                -font => $herramientas::Estilos::row_font
+            )->pack(-side => 'left', -expand => 1, -fill => 'x', -padx => 5, -pady => 5);
+        }
+    }
+}
+
 # Function to create the navigation menu
 sub create_navigation_menu {
     my ($parent, $data_ref, $results_frame) = @_;
@@ -457,7 +522,7 @@ sub create_navigation_menu {
             -text => $key,
             -command => sub {
                 print "Navigating to: $key\n";
-                update_results_frame($results_frame, $key);
+                update_results_frame_with_table($results_frame, $key, $data_ref);
             },
             -background => $herramientas::Estilos::nav_button_bg,
             -foreground => $herramientas::Estilos::nav_button_fg,

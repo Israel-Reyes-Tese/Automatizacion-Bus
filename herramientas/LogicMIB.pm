@@ -1102,8 +1102,10 @@ sub mostrar_ventana_seleccion_empresa {
 
     # Create the header panel
     my $encabezado_table_panel = $table_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::twilight_grey)->pack(-side => 'top', -fill => 'x');
+    
     # Add headers to the header panel
     my $header_frame = $encabezado_table_panel->Frame(-background => $herramientas::Estilos::twilight_grey)->pack(-side => 'top', -fill => 'x');
+   
     foreach my $header (qw(Decimal Organization Contact Email Seleccionar)) {
         $header_frame->Label(
             -text => $header,

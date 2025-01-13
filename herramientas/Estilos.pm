@@ -137,6 +137,11 @@ our $table_row_alt_bg = '#f9f9f9';
 our $table_font = ['Arial', 12];
 our $table_header_font = ['Helvetica', 20, 'bold'];
 
+
+our $row_bg = '#f0f0f0';
+our $row_fg = '#000000';
+our $row_font = ['Arial', 12];
+
 # Titles
 our $title_font = ['Arial', 24, 'bold'];
 our $title_bg = '#302c44';
@@ -164,6 +169,12 @@ our $nav_button_font = ['Arial', 12, 'bold'];
 # Result
 our $result_bg = '#f0f0f0';
 our $result_fg = '#000000';
+
+
+# Header
+our $header_bg = '#302c44';
+our $header_fg = '#e5d0bf';
+our $header_font = ['Arial', 16, 'bold'];
 
 
 # Export all variables
