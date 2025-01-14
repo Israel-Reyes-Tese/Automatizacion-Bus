@@ -6,6 +6,7 @@ use warnings;
 use Tk;
 use Tk::FileDialog;
 use Tk::TableMatrix;
+use Tk::Pane;
 
 use Data::Dumper;
 use FindBin;  # Añadir FindBin para obtener la ruta del script
@@ -400,25 +401,35 @@ sub create_main_window {
     return $mw;
 }
 
+
 # Function to create the main window
-sub create_extra_principal_window {
-    my ($main_window) = @_;
+sub create_top_level_window {
+    my ($main_window, $title, $estado) = @_;
     my $mw = $main_window->Toplevel();
-    $mw->title("ARBOL DE MIBS");
+    $mw->title($title);
     $mw->configure(-background => $herramientas::Estilos::twilight_grey);
-    $mw->state('zoomed');
+    if ($estado eq 'maximizada') {
+        $mw->state('zoomed');
+    }
     return $mw;
 }
 
-# Function to create the search bar
-sub create_search_bar {
-    my ($parent) = @_;
-    my $search_frame = $parent->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'top', -fill => 'x');
+
+# Tabla
+
+sub create_table {
+    my ($ventana_principal, $records_per_page, $data_ref, $search_fields) = @_;
+
+    my $mv = create_top_level_window($ventana_principal, 'ARBOL MIB', 'maximizada');
+
+    # Create search entry and button
+    my $search_frame = $mv->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'top', -fill => 'x');
     my $search_entry = $search_frame->Entry(-font => $herramientas::Estilos::input_font)->pack(-side => 'left', -fill => 'x', -expand => 1, -padx => 10, -pady => 10);
     $search_frame->Button(
         -text => "Buscar",
         -command => sub {
-            print "Searching for: " . $search_entry->get() . "\n";
+            my $search_term = $search_entry->get();
+            search_and_display_results($mv, $data_ref, $search_fields, $search_term, $records_per_page);
         },
         -background => $herramientas::Estilos::mib_selection_button_bg,
         -foreground => $herramientas::Estilos::mib_selection_button_fg,
@@ -426,243 +437,257 @@ sub create_search_bar {
         -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
         -font => $herramientas::Estilos::mib_selection_button_font
     )->pack(-side => 'right', -padx => 10, -pady => 10);
-    return $search_frame;
-}
 
-# Function to update the results frame with a title based on the selected key
-sub update_results_frame {
-    my ($results_frame, $key) = @_;
-    
-    # Clear the frame without destroying it
-    foreach my $widget ($results_frame->children) {
-        $widget->destroy();
-    }
-    
-    # Create a title label with the key name
-    $results_frame->Label(
-        -text => $key,
-        -bg => $herramientas::Estilos::bg_color,
-        -fg => $herramientas::Estilos::fg_color,
-        -font => $herramientas::Estilos::title_font
-    )->pack(-side => 'top', -pady => 20);
-}
+    # Create home button
+    $search_frame->Button(
+        -text => "Inicio",
+        -command => sub {
+            $mv->destroy();
+            create_table($ventana_principal, $records_per_page, $data_ref, $search_fields);
+        },
+        -background => $herramientas::Estilos::nav_button_bg,
+        -foreground => $herramientas::Estilos::nav_button_fg,
+        -activebackground => $herramientas::Estilos::nav_button_active_bg,
+        -activeforeground => $herramientas::Estilos::nav_button_active_fg,
+        -font => $herramientas::Estilos::nav_button_font
+    )->pack(-side => 'right', -padx => 10, -pady => 10);
 
-sub update_results_frame_with_table {
-    my ($results_frame, $key, $data_ref) = @_;
-    my %data = %{$data_ref};
+    my $frame = $mv->Frame(-background => $herramientas::Estilos::table_fg)->pack(-side => 'top', -fill => 'both', -expand => 1);
+    my $scrolled_table = $frame->Scrolled(
+        'TableMatrix',
+        -rows => $records_per_page + 1,  # +1 for header row
+        -cols => 0,  # Se actualizará dinámicamente
+        -cache => 1,
+        -scrollbars => 'osoe',  # 'osoe' means both horizontal and vertical scrollbars
+        -background => $herramientas::Estilos::pine_green,
+        -foreground => $herramientas::Estilos::table_fg,
+        -font => $herramientas::Estilos::table_font,
+    )->pack(-side => 'top', -fill => 'both', -expand => 1);
 
-    # Clear the frame without destroying it
-    clear_frame($results_frame);
+    my $table = $scrolled_table->Subwidget('scrolled');
 
-    # Create a title label with the key name
-    create_title_label($results_frame, $key);
-
-    # Create a scrollable pane for the table
-    my $scrollable_pane = create_scrollable_pane($results_frame);
-
-    # Determine the headers and rows based on the key
-    my ($headers_ref, $rows_ref) = determine_headers_and_rows($key, \%data);
-    my @headers = @{$headers_ref};
-    my @rows = @{$rows_ref};
-
-    # Calculate the maximum width for each column
-    my @max_widths = calculate_max_widths(\@headers, \@rows);
-
-    # Create the table headers
-    create_table_headers($scrollable_pane, \@headers, \@max_widths);
-
-    # Create the table rows
-    create_table_rows($scrollable_pane, \@rows, \@max_widths);
-}
-
-sub clear_frame {
-    my ($frame) = @_;
-    foreach my $widget ($frame->children) {
-        $widget->destroy();
-    }
-}
-
-sub create_title_label {
-    my ($frame, $text) = @_;
-    $frame->Label(
-        -text => $text,
-        -bg => $herramientas::Estilos::bg_color,
-        -fg => $herramientas::Estilos::fg_color,
-        -font => $herramientas::Estilos::title_font
-    )->pack(-side => 'top', -pady => 20);
-}
-
-sub create_scrollable_pane {
-    my ($frame) = @_;
-    return $frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::bg_color)->pack(-side => 'top', -fill => 'both', -expand => 1);
-}
-
-sub determine_headers_and_rows {
-    my ($key, $data_ref) = @_;
-    my %data = %{$data_ref};
-    my @headers;
-    my @rows;
-
-    if (exists $data{$key}) {
-        if (ref $data{$key} eq 'HASH') {
-            my $first_entry = (values %{$data{$key}})[0];
-            if (ref $first_entry eq 'HASH') {
-                @headers = ('Object Name', keys %{$first_entry});
-                foreach my $sub_key (keys %{$data{$key}}) {
-                    my @row = ($sub_key, map { $data{$key}{$sub_key}{$_} // '' } keys %{$first_entry});
-                    push @rows, \@row;
-                }
-            } else {
-                @headers = keys %{$data{$key}};
-                @rows = [values %{$data{$key}}];
+    # Function to clear the table
+    my $clear_table = sub {
+        my $rows = $table->cget('-rows');
+        my $cols = $table->cget('-cols');
+        for my $row (1 .. $rows - 1) {
+            for my $col (0 .. $cols - 1) {
+                $table->set("$row,$col", '');
             }
         }
-    }
+    };
 
-    return (\@headers, \@rows);
-}
-
-sub calculate_max_widths {
-    my ($headers_ref, $rows_ref) = @_;
-    my @headers = @{$headers_ref};
-    my @rows = @{$rows_ref};
-    my @max_widths = map { 0 } @headers;
-
-    foreach my $row (@rows) {
-        for my $i (0 .. $#headers) {
-            my $cell_length = length($row->[$i] // '');
-            $max_widths[$i] = $cell_length if $cell_length > $max_widths[$i];
+    # Function to adjust column widths
+    my $adjust_column_widths = sub {
+        my $cols = $table->cget('-cols');
+        for my $col (0 .. $cols - 1) {
+            my $max_width = 0;
+            for my $row (0 .. $table->cget('-rows') - 1) {
+                my $cell_value = $table->get("$row,$col");
+                my $cell_width = length($cell_value);
+                $max_width = $cell_width if $cell_width > $max_width;
+            }
+            $table->colWidth($col, $max_width + 2);  # Add some padding
         }
-    }
-    for my $i (0 .. $#headers) {
-        my $header_length = length($headers[$i]);
-        $max_widths[$i] = $header_length if $header_length > $max_widths[$i];
-    }
+    };
 
-    return @max_widths;
-}
+    # Function to populate table with data
+    my $populate_table = sub {
+        my ($data_key) = @_;
+        $clear_table->();  # Limpiar la tabla antes de mostrar nuevos datos
 
-sub create_table_headers {
-    my ($pane, $headers_ref, $max_widths_ref) = @_;
-    my @headers = @{$headers_ref};
-    my @max_widths = @{$max_widths_ref};
+        my $data = $data_ref->{$data_key};
+        my @header_fields;
+        my $is_single_record = 0;
 
-    my $header_frame = $pane->Frame(-bg => $herramientas::Estilos::header_bg)->pack(-side => 'top', -fill => 'x');
-    foreach my $i (0 .. $#headers) {
-        $header_frame->Label(
-            -text => $headers[$i],
-            -bg => $herramientas::Estilos::header_bg,
-            -fg => $herramientas::Estilos::header_fg,
-            -font => $herramientas::Estilos::header_font,
-            -borderwidth => 1,
-            -relief => 'solid',
-            -width => $max_widths[$i] + 2  # Add some padding
-        )->pack(-side => 'left', -expand => 1, -fill => 'x', -padx => 5, -pady => 5);
-    }
-}
-
-sub create_table_rows {
-    my ($pane, $rows_ref, $max_widths_ref) = @_;
-    my @rows = @{$rows_ref};
-    my @max_widths = @{$max_widths_ref};
-
-    foreach my $row (@rows) {
-        my $row_frame = $pane->Frame(-bg => $herramientas::Estilos::row_bg)->pack(-side => 'top', -fill => 'x');
-        foreach my $i (0 .. $#{$row}) {
-            $row_frame->Label(
-                -text => $row->[$i],
-                -bg => $herramientas::Estilos::row_bg,
-                -fg => $herramientas::Estilos::row_fg,
-                -font => $herramientas::Estilos::row_font,
-                -borderwidth => 1,
-                -relief => 'solid',
-                -width => $max_widths[$i] + 2  # Add some padding
-            )->pack(-side => 'left', -expand => 1, -fill => 'x', -padx => 5, -pady => 5);
+        # Determine if the data is a single record or multiple records
+        if (ref $data eq 'HASH') {
+            my ($first_key, $first_value) = each %$data;
+            if (ref $first_value ne 'HASH') {
+                @header_fields = keys %$data;
+                $is_single_record = 1;
+            } else {
+                @header_fields = keys %$first_value;
+                push @header_fields, 'OBJETO PRINCIPAL';
+            }
         }
-    }
-}
 
-# Function to create the navigation menu
-sub create_navigation_menu {
-    my ($parent, $data_ref, $results_frame) = @_;
-    my %data = %{$data_ref};
-    my $nav_frame = $parent->Frame(-background => $herramientas::Estilos::nav_bg)->pack(-side => 'left', -fill => 'y');
-    foreach my $key (keys %data) {
-        $nav_frame->Button(
+        # Actualizar el número de columnas
+        $table->configure(-cols => scalar(@header_fields));
+
+        # Create header row
+        for my $col (0 .. $#header_fields) {
+            $table->set("0,$col", $header_fields[$col]);
+        }
+
+        my $row = 1;
+        if ($is_single_record) {
+            my $col = 0;
+            foreach my $field (@header_fields) {
+                my $value = $data->{$field} // '';
+                $table->set("$row,$col", $value);
+                $col++;
+            }
+        } else {
+            foreach my $key (keys %$data) {
+                my $col = 0;
+                foreach my $field (@header_fields) {
+                    my $value = $field eq 'OBJETO PRINCIPAL' ? $key : $data->{$key}{$field} // '';
+                    $table->set("$row,$col", $value);
+                    $col++;
+                }
+                $row++;
+                last if $row > $records_per_page;
+            }
+        }
+
+        $adjust_column_widths->();  # Adjust column widths after populating the table
+    };
+
+    # Create buttons to switch data
+    my $button_frame = $mv->Frame()->pack(-side => 'bottom', -fill => 'x');
+    foreach my $key (keys %$data_ref) {
+        $button_frame->Button(
             -text => $key,
-            -command => sub {
-                print "Navigating to: $key\n";
-                update_results_frame_with_table($results_frame, $key, $data_ref);
-            },
+            -command => sub { $populate_table->($key) },
             -background => $herramientas::Estilos::nav_button_bg,
             -foreground => $herramientas::Estilos::nav_button_fg,
             -activebackground => $herramientas::Estilos::nav_button_active_bg,
             -activeforeground => $herramientas::Estilos::nav_button_active_fg,
             -font => $herramientas::Estilos::nav_button_font
-        )->pack(-side => 'top', -fill => 'x', -padx => 5, -pady => 5);
+        )->pack(-side => 'left', -padx => 10, -pady => 10);
     }
-    return $nav_frame;
+
+    # Populate table with initial data
+    $populate_table->((keys %$data_ref)[0]);
 }
 
-# Function to create the footer with pagination and example buttons
-sub create_footer {
-    my ($parent) = @_;
-    my $footer_frame = $parent->Frame(-background => $herramientas::Estilos::footer_bg)->pack(-side => 'bottom', -fill => 'x');
-    $footer_frame->Button(
-        -text => "Anterior",
-        -command => sub {
-            print "Previous page\n";
-        },
-        -background => $herramientas::Estilos::footer_button_bg,
-        -foreground => $herramientas::Estilos::footer_button_fg,
-        -activebackground => $herramientas::Estilos::footer_button_active_bg,
-        -activeforeground => $herramientas::Estilos::footer_button_active_fg,
-        -font => $herramientas::Estilos::footer_button_font
-    )->pack(-side => 'left', -padx => 10, -pady => 10);
-    $footer_frame->Button(
-        -text => "Siguiente",
-        -command => sub {
-            print "Next page\n";
-        },
-        -background => $herramientas::Estilos::footer_button_bg,
-        -foreground => $herramientas::Estilos::footer_button_fg,
-        -activebackground => $herramientas::Estilos::footer_button_active_bg,
-        -activeforeground => $herramientas::Estilos::footer_button_active_fg,
-        -font => $herramientas::Estilos::footer_button_font
-    )->pack(-side => 'right', -padx => 10, -pady => 10);
-    return $footer_frame;
-}
+# Function to search and display results
+sub search_and_display_results {
+    my ($parent, $data_ref, $search_fields, $search_term, $records_per_page) = @_;
 
-# Function to create the results frame
-sub create_results_frame {
-    my ($parent) = @_;
-    my $results_frame = $parent->Frame(-background => $herramientas::Estilos::modern_button_bg)->pack(-side => 'top', -fill => 'both', -expand => 1);
-    return $results_frame;
-}
+    my $results_window = create_top_level_window($parent, 'Resultados de la Búsqueda', 'maximizada');
 
-# Function to create a table with search bar, navigation menu, and footer
-sub create_table {
-    my ($main_window, $records_per_page, $data_ref, $search_fields_ref, $header_fields_ref) = @_;
-    my %data = %{$data_ref};
-    my @search_fields = @{$search_fields_ref};
-    my @header_fields = @{$header_fields_ref};
+    my $frame = $results_window->Frame(-background => $herramientas::Estilos::table_fg)->pack(-side => 'top', -fill => 'both', -expand => 1);
+    my $scrolled_table = $frame->Scrolled(
+        'TableMatrix',
+        -rows => $records_per_page + 1,  # +1 for header row
+        -cols => 0,  # Se actualizará dinámicamente
+        -cache => 1,
+        -scrollbars => 'osoe',  # 'osoe' means both horizontal and vertical scrollbars
+        -background => $herramientas::Estilos::pine_green,
+        -foreground => $herramientas::Estilos::table_fg,
+        -font => $herramientas::Estilos::table_font,
+    )->pack(-side => 'top', -fill => 'both', -expand => 1);
 
-    # Create the main window
-    my $mw = create_extra_principal_window($main_window);
+    my $table = $scrolled_table->Subwidget('scrolled');
 
-    # Create the search bar
-    create_search_bar($mw);
+    # Function to clear the table
+    my $clear_table = sub {
+        my $rows = $table->cget('-rows');
+        my $cols = $table->cget('-cols');
+        for my $row (1 .. $rows - 1) {
+            for my $col (0 .. $cols - 1) {
+                $table->set("$row,$col", '');
+            }
+        }
+    };
 
-    # Create the frame for displaying results
-    my $results_frame = create_results_frame($mw);
+    # Function to adjust column widths
+    my $adjust_column_widths = sub {
+        my $cols = $table->cget('-cols');
+        for my $col (0 .. $cols - 1) {
+            my $max_width = 0;
+            for my $row (0 .. $table->cget('-rows') - 1) {
+                my $cell_value = $table->get("$row,$col");
+                my $cell_width = length($cell_value);
+                $max_width = $cell_width if $cell_width > $max_width;
+            }
+            $table->colWidth($col, $max_width + 2);  # Add some padding
+        }
+    };
 
-    # Create the navigation menu
-    create_navigation_menu($mw, \%data, $results_frame);
+    # Function to populate table with search results
+    my $populate_search_results = sub {
+        my ($filtered_data) = @_;
 
-    # Create the footer with pagination and example buttons
-    create_footer($mw);
+        $clear_table->();  # Limpiar la tabla antes de mostrar nuevos datos
 
-    # Add logic to populate results based on search and navigation
+        my @header_fields;
+        my $is_single_record = 0;
+
+        # Determine if the data is a single record or multiple records
+        if (ref $filtered_data eq 'HASH') {
+            my ($first_key, $first_value) = each %$filtered_data;
+            if (ref $first_value ne 'HASH') {
+                @header_fields = keys %$filtered_data;
+                $is_single_record = 1;
+            } else {
+                @header_fields = keys %$first_value;
+                push @header_fields, 'OBJETO PRINCIPAL';
+            }
+        }
+
+        # Actualizar el número de columnas
+        $table->configure(-cols => scalar(@header_fields));
+
+        # Create header row
+        for my $col (0 .. $#header_fields) {
+            $table->set("0,$col", $header_fields[$col]);
+        }
+
+        my $row = 1;
+        if ($is_single_record) {
+            my $col = 0;
+            foreach my $field (@header_fields) {
+                my $value = $filtered_data->{$field} // '';
+                $table->set("$row,$col", $value);
+                $col++;
+            }
+        } else {
+            foreach my $key (keys %$filtered_data) {
+                my $col = 0;
+                foreach my $field (@header_fields) {
+                    my $value = $field eq 'OBJETO PRINCIPAL' ? $key : $filtered_data->{$key}{$field} // '';
+                    $table->set("$row,$col", $value);
+                    $col++;
+                }
+                $row++;
+                last if $row > $records_per_page;
+            }
+        }
+
+        $adjust_column_widths->();  # Adjust column widths after populating the table
+    };
+
+    # Filter data based on search term
+    my %filtered_data;
+    foreach my $key (keys %$data_ref) {
+        my $data = $data_ref->{$key};
+        if (ref $data eq 'HASH') {
+            my ($first_key, $first_value) = each %$data;
+            if (ref $first_value eq 'HASH') {
+                foreach my $sub_key (keys %$data) {
+                    foreach my $field (@$search_fields) {
+                        if ($data->{$sub_key}{$field} && $data->{$sub_key}{$field} =~ /\Q$search_term\E/i) {
+                            $filtered_data{$key}{$sub_key} = $data->{$sub_key};
+                            last;
+                        }
+                    }
+                }
+            } else {
+                foreach my $field (@$search_fields) {
+                    if ($data->{$field} && $data->{$field} =~ /\Q$search_term\E/i) {
+                        $filtered_data{$key} = $data;
+                        last;
+                    }
+                }
+            }
+        }
+    }
+
+    # Populate table with search results
+    $populate_search_results->(\%filtered_data);
 }
 
 # Funciones de apoyo
