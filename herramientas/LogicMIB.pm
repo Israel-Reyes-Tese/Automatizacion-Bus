@@ -175,6 +175,12 @@ sub cargar_mib {
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
     escribir_datos_en_archivo($temp_file, \%data);
     
+    # Construir el árbol de MIBs
+    my $arbol_mibs = construir_arbol_mibs(\%data);
+
+    # Mostrar el árbol de MIBs
+    print Dumper($arbol_mibs);
+    
     if ($response) {
         
         my @search_fields = ('enterprise_info_ID', 'enterprise_file', 'enterprise_info_Contact',
@@ -1390,5 +1396,81 @@ sub escribir_oid_nodes {
     }
 }
 
+# Función para construir el OID completo de un objeto
+sub construir_oid_completo {
+    my ($nombre, $data) = @_;
+    my @oid_parts;
+    my $current_name = $nombre;
+
+    while ($current_name) {
+        my $found = 0;
+        print "\n Buscando OID para: $current_name\n";
+        foreach my $type (qw(ALARM_TRAPS OBJECT_IDENTITIES OBJECT_TYPES OBJECT_IDENTIFIERS MODULE_IDENTITIES)) {
+            if (exists $data->{$type}{$current_name}) {
+                my $oid_part = $data->{$type}{$current_name}{OID};
+                print "Encontrado en $type: $oid_part\n";
+                if ($oid_part =~ /^\s*(\S+)\s+(\d+)\s*$/) {
+                    my $oid_search = $1;
+                    my $oid_number = $2;
+                    print "Parte de string: $oid_search, Numero del OID: $oid_number\n";
+                    unshift @oid_parts, $oid_number;
+                    if ($oid_search =~ /^\d+(\.\d+)*$/) {
+                        unshift @oid_parts, split(/\./, $oid_search);
+                        $current_name = undef;
+                        print "El undef or undefined: $current_name\n";
+                    } else {
+                        $current_name = $oid_search;
+                        print "El nombre actual (1): $current_name\n";
+                    }
+                    $found = 1;
+                    last;
+                } elsif ($oid_part =~ /^\s*(\d+(\.\d+)*)\s*$/) {
+                    my $oid_number = $1;
+                    print "Número del OID: $oid_number\n";
+                    unshift @oid_parts, split(/\./, $oid_number);
+                    $current_name = undef;
+                    $found = 1;
+                    last;
+                } # Validar si  oid_part es un OID numérico 1 3 6 1 4 1 20858 10 104 101
+                elsif  ($oid_part =~ /^\s*(\d+(\s+\d+)*)\s*$/) {
+                    my $oid_number = $1;
+                    print "Número del OID: $oid_number\n";
+                    unshift @oid_parts, split(/\s+/, $oid_number);
+                    $current_name = undef;
+                    $found = 1;
+                    last;
+                }
+                
+                else {
+                    warn "OID no numerico encontrado para $current_name";
+                    return;
+                }
+            }
+        }
+        last unless $found;
+    }
+    #print "Partes del OID: @oid_parts\n";
+    my $complete_oid = join('.', @oid_parts);
+    return $complete_oid;
+}
+
+# Función para construir el árbol de MIBs
+sub construir_arbol_mibs {
+    my ($data) = @_;
+    my %arbol_mibs;
+
+    foreach my $nombre (keys %{$data->{ALARM_TRAPS}}) {
+        my $oid_completo = construir_oid_completo($nombre, $data);
+        if ($oid_completo) {
+            $arbol_mibs{$nombre} = {
+                DESCRIPTION => $data->{ALARM_TRAPS}{$nombre}{DESCRIPTION},
+                OID => $oid_completo,
+                OBJECTS => $data->{ALARM_TRAPS}{$nombre}{OBJECTS},
+            };
+        }
+    }
+
+    return \%arbol_mibs;
+}
 
 1;
