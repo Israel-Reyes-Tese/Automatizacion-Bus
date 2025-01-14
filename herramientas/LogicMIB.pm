@@ -157,7 +157,10 @@ sub cargar_mib {
     }
     #print "Nodos OID: ", Dumper($oid_nodes);
 
-
+    my $response = herramientas::Complementos::create_alert_with_picture_label_and_button(
+        $ventana_principal, 'Advertencias', 
+        "Deseas visualizar la informacion extraida?", 'question'
+    );
     # Juntar todos los datos extraidos en un solo hash
     my %data = (
         OBJECT_IDENTITIES => \%object_identities,
@@ -167,17 +170,29 @@ sub cargar_mib {
         ALARM_TRAPS => \%alarm_traps,
         OID_NODES => $oid_nodes,
     );
+    # Archivo temporal para almacenar cómo se extraen los datos
+    my $temp_file = Rutas::temp_files_logs_objects_mibs_path(). '/mibs_objects.logs';
+    $temp_file = validar_o_crear_archivo_temporal($temp_file);
+    escribir_datos_en_archivo($temp_file, \%data);
     
-    my @search_fields = ('enterprise_info_ID', 'enterprise_file', 'enterprise_info_Contact',
-    'enterprise_info_Seleccionado', 'enterprise_oid', 'enterprise_info_Email', 'private_enterprises_oid', 'root_oid',
-    'enterprise_info_Organization', 'STATUS', 'MAX-ACCESS', 'SYNTAX', 'DESCRIPTION', 'OID', 'ARCHIVO', 'TYPE'); # Campos en los que se realizará la búsqueda
+    if ($response) {
+        
+        my @search_fields = ('enterprise_info_ID', 'enterprise_file', 'enterprise_info_Contact',
+        'enterprise_info_Seleccionado', 'enterprise_oid', 'enterprise_info_Email', 'private_enterprises_oid', 'root_oid',
+        'enterprise_info_Organization', 'STATUS', 'MAX-ACCESS', 'SYNTAX', 'DESCRIPTION', 'OID', 'ARCHIVO', 'TYPE'); # Campos en los que se realizará la búsqueda
 
-    my @header_fields = ("Nodos OID", "Alarmas", "Módulos", "Objetos", "Identificadores de Objetos", "Identidades de Módulos", "Alarmas", "OID de la Empresa", "Empresa", "Contacto", "Email", "Organización", "Archivo", "Tipo", "OID", "Descripción", "Sintaxis", "Acceso Máximo", "Estado");
+        my @header_fields = ("Nodos OID", "Alarmas", "Módulos", "Objetos", "Identificadores de Objetos", "Identidades de Módulos", "Alarmas", "OID de la Empresa", "Empresa", "Contacto", "Email", "Organización", "Archivo", "Tipo", "OID", "Descripción", "Sintaxis", "Acceso Máximo", "Estado");
+
+        my $records_per_page = 20;
+
+        herramientas::Complementos::create_table($ventana_principal, $records_per_page, \%data, \@search_fields, \@header_fields);    
+    }
 
 
-    my $records_per_page = 20;
 
-    herramientas::Complementos::create_table($ventana_principal, $records_per_page, \%data, \@search_fields, \@header_fields);
+
+
+
 
 }
 
@@ -1335,7 +1350,45 @@ sub extraer_datos_empresas {
     return @enterprise_hash;
 }
 
+# Función para escribir datos en el archivo temporal
+sub escribir_datos_en_archivo {
+    my ($temp_file, $data) = @_;
+    
+    open my $fh, '>', $temp_file or die "No se pudo abrir el archivo temporal $temp_file: $!";
+    
+    escribir_seccion($fh, "OBJECT_IDENTITIES", $data->{OBJECT_IDENTITIES});
+    escribir_seccion($fh, "OBJECT_TYPES", $data->{OBJECT_TYPES});
+    escribir_seccion($fh, "OBJECT_IDENTIFIERS", $data->{OBJECT_IDENTIFIERS});
+    escribir_seccion($fh, "MODULE_IDENTITIES", $data->{MODULE_IDENTITIES});
+    escribir_seccion($fh, "ALARM_TRAPS", $data->{ALARM_TRAPS});
+    escribir_oid_nodes($fh, "OID_NODES", $data->{OID_NODES});
+    
+    close $fh or warn "Advertencia: No se pudo cerrar el archivo temporal $temp_file: $!";
+}
 
+# Función para escribir una sección en el archivo
+sub escribir_seccion {
+    my ($fh, $titulo, $seccion) = @_;
+    
+    print $fh "----------------------------------- $titulo ---------------------------\n";
+    foreach my $key (keys %$seccion) {
+        print $fh "$key:\n";
+        foreach my $sub_key (keys %{$seccion->{$key}}) {
+            print $fh "  $sub_key: $seccion->{$key}{$sub_key}\n";
+        }
+        print $fh "\n";
+    }
+}
+
+# Función para escribir OID_NODES en el archivo
+sub escribir_oid_nodes {
+    my ($fh, $titulo, $oid_nodes) = @_;
+    
+    print $fh "----------------------------------- $titulo ---------------------------\n";
+    foreach my $key (keys %$oid_nodes) {
+        print $fh "$key: $oid_nodes->{$key}\n";
+    }
+}
 
 
 1;

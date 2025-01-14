@@ -11,15 +11,8 @@ use constant {
     RUTA_MODULOS_MIB => "./herramientas/Modulos_MIB/",  # Módulos de MIB
     RUTA_ID_EMPRESA => "./herramientas/IDs_empresas_proveedores/",  # ID de la empresa
     RUTA_ARCHIVOS_TEMP => "./herramientas/Archivos_temporales/",  # Archivos temporales
+    RUTA_ARCHIVOS_TEMP_LOGS => "./herramientas/Archivos_temporales/logs/",  # Archivos temporales
 };
-
-
-
-
-
-
-
-
 #                                                       RUTAS IMAGENES                                   #
 
 # Función para obtener la ruta completa a la imagen de inicio
@@ -115,6 +108,13 @@ sub temp_files_path {
     return RUTA_ARCHIVOS_TEMP;  
 }
 #                                                      RUTAS ARCHIVOS TEMPORALES                        #
+
+#                                                      RUTAS ARCHIVOS TEMPORALES LOGS                   #
+# Función para obtener la ruta completa de los archivos temporales
+sub temp_files_logs_objects_mibs_path {
+    return RUTA_ARCHIVOS_TEMP_LOGS;  
+}
+#                                                      RUTAS ARCHIVOS TEMPORALES LOGS                   #
 
 
 1;  # Fin del módulo
