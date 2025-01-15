@@ -39,6 +39,8 @@ use Rutas;
 sub cargar_mib {
     my ($ventana_principal, $result_table_pane, $mib_tree_pane, $buscar_ext_mib, $buscar_ext_txt, $buscar_sin_ext) = @_;
     my %mib_files;
+    my %mib_files_extras;
+
     my @selected_files = "";
 
     # Crear una ventana de seleccion de archivos
@@ -65,7 +67,7 @@ sub cargar_mib {
         push @selected_files, buscar_archivos_por_extension(\@selected_files, 'txt');
     }
     if ($buscar_sin_ext) {
-        print "Buscar archivos sin extension\n";
+        #print "Buscar archivos sin extension\n";
         push @selected_files, buscar_archivos_por_extension(\@selected_files, '');
     }
 
@@ -74,30 +76,39 @@ sub cargar_mib {
         $mib_files{abs_path($file)} = 1;
     }
     
-
+    #print "Archivos seleccionados: ", Dumper(\%mib_files);
     # Validar los archivos MIB
     foreach my $file (keys %mib_files) {
         unless (validar_mib($file, $ventana_principal)) {
             warn "Archivo MIB no valido: $file";
             next;
         }
-        unless (validar_importaciones($file, \%mib_files, $ventana_principal)) {
+        my ($is_valid, $mib_files_extras_hash) = validar_importaciones($file, \%mib_files, $ventana_principal);
+        # Concatenar los mib_files_extras_hash al hash principal
+        %mib_files_extras = (%mib_files_extras, %$mib_files_extras_hash);
+        unless ($is_valid) {
             warn "Importaciones no validas en el archivo MIB: $file";
             next;
         }
-
     }
 
-    # Crear ventana de selección si hay más de un archivo MIB
+    # Fusionar los archivos extras seleccionados con los archivos seleccionados
+    %mib_files = (%mib_files, %mib_files_extras);
+
+
     if (keys %mib_files > 1) {
         my $selected_files = crear_ventana_seleccion_mib(\%mib_files, $ventana_principal);
         %mib_files = map { $_ => 1 } @$selected_files;
+
+
     }
 
     # Mostrar los archivos seleccionados en el panel
     foreach my $file (keys %mib_files) {
         my $relative_path = File::Spec->abs2rel($file);
         $mib_tree_pane->Label(-text => $relative_path, -bg => $herramientas::Estilos::twilight_grey)->pack(-side => 'top', -anchor => 'w');
+
+
     }
     # Extraer la información de los archivos MIB seleccionados
     # Datos OBJECT-IDENTITY
@@ -193,12 +204,6 @@ sub cargar_mib {
 
         herramientas::Complementos::create_table($ventana_principal, $records_per_page, \%data, \@search_fields, \@header_fields);    
     }
-
-
-
-
-
-
 
 }
 
@@ -383,6 +388,8 @@ sub validar_mib {
 sub validar_importaciones {
     my ($file, $mib_files, $ventana_principal) = @_;
     my $is_valid = 1;
+    my @mib_files_extras;
+    my %mib_files_extras_hash;
     my @missing_imports;
     # Ruta relativa del archivo MIB
     my $relative_path = File::Spec->abs2rel($file);
@@ -435,6 +442,7 @@ sub validar_importaciones {
         }
     }
 
+
     # Generar una alerta si hay importaciones faltantes y preguntar si se desea buscar localmente
     if (!$is_valid) {
         my $missing_imports = join ', ', @missing_imports;
@@ -444,15 +452,25 @@ sub validar_importaciones {
         );
 
         if ($response) {
-            my @local_modules = buscar_modulos_localmente();
+            my @local_modules = buscar_modulos_localmente(1);
+            @mib_files_extras = @missing_imports;
             @available_modules = (@available_modules, @local_modules);
             # Eliminar los modulos encontrados de missing_imports
             @missing_imports = grep { my $import = $_; !grep { $_ eq $import } @available_modules } @missing_imports;
+            # Añadis los modulos encontrados a mib_files_extras
+            @local_modules = buscar_modulos_localmente(0);
+            # Comparar los modulos faltantes con los mib files extras y validar que eston no se en encuentren en modulos faltantes
+            @mib_files_extras = grep { my $import = $_; !grep { $_ eq $import } @missing_imports } @mib_files_extras;
+            # Retornar los nombres originales de los modulos mib files extras - con sus modulos locales 
+            @mib_files_extras = map { my $import = $_; grep { lc($_) =~ /\\$import$/i } @local_modules } @mib_files_extras;            
+            
+            # Crear un hash con los modulos extras
+            @mib_files_extras_hash{@mib_files_extras} = 1;
 
             if (@missing_imports) {
                 herramientas::Complementos::show_alert(
                     $ventana_principal, 'ERROR', 
-                    "Error: Los siguientes modulos no estan disponibles: " . join(', ', @missing_imports) . "\narchivo: $relative_path", 'error'
+                    "Error: Los siguientes modulos no estan disponibles: " . join(',y ', @missing_imports) . "\narchivo: $relative_path", 'error'
                 );
             } else {
                 herramientas::Complementos::show_alert(
@@ -468,11 +486,14 @@ sub validar_importaciones {
             );
         }
     }
-    return $is_valid;
+
+    #print "Mib files extras: ", Dumper(\%mib_files_extras_hash);
+    return ($is_valid, \%mib_files_extras_hash);
 }
 
 # Funcion para buscar modulos localmente en las rutas especificadas
 sub buscar_modulos_localmente {
+    my ($reformatear) = @_;
     my @local_modules;
     my @paths = (Rutas::mib_module_v1_path(), Rutas::mib_module_v2_path());
 
@@ -484,7 +505,13 @@ sub buscar_modulos_localmente {
 
         while (my $entry = readdir($dh)) {
             next if $entry =~ /^\./; # Ignorar archivos ocultos
-            push @local_modules, lc($entry =~ s/\.[^.]+$//r);
+            if ($reformatear) {
+                push @local_modules, lc($entry =~ s/\.[^.]+$//r);
+            } else {
+                # Añadir la ruta completa del archivo
+            
+                push @local_modules, File::Spec->catfile($path, $entry);
+            }
         }
         closedir($dh);
     }
@@ -797,6 +824,21 @@ sub extraer_object_identifiers {
                 OID => $oid,
                 ARCHIVO => $nombre_archivo
             };
+        } elsif (/(\S+)\s+OBJECT IDENTIFIER\s*$/) {
+            my $name = $1;
+            my $oid;
+            while (<$fh>) {
+                chomp;
+                if (/::=\s*{([^}]+)}/) {
+                    $oid = $1;
+                    last;
+                }
+            }
+            $object_identifiers{$name} = {
+                TYPE => 'OBJECT IDENTIFIER',
+                OID => $oid,
+                ARCHIVO => $nombre_archivo
+            };
         }
     }
 
@@ -895,7 +937,6 @@ sub extraer_module_identities {
     #print Dumper(\%module_identities);
     return \%module_identities;
 }
-
 
 # Función para extraer la información de los traps de las alarmas
 sub extraer_alarm_traps {
@@ -1404,29 +1445,29 @@ sub construir_oid_completo {
 
     while ($current_name) {
         my $found = 0;
-        print "\n Buscando OID para: $current_name\n";
+        #print "\n Buscando OID para: $current_name\n";
         foreach my $type (qw(ALARM_TRAPS OBJECT_IDENTITIES OBJECT_TYPES OBJECT_IDENTIFIERS MODULE_IDENTITIES)) {
             if (exists $data->{$type}{$current_name}) {
                 my $oid_part = $data->{$type}{$current_name}{OID};
-                print "Encontrado en $type: $oid_part\n";
+                #print "Encontrado en $type: $oid_part\n";
                 if ($oid_part =~ /^\s*(\S+)\s+(\d+)\s*$/) {
                     my $oid_search = $1;
                     my $oid_number = $2;
-                    print "Parte de string: $oid_search, Numero del OID: $oid_number\n";
+                    #print "Parte de string: $oid_search, Numero del OID: $oid_number\n";
                     unshift @oid_parts, $oid_number;
                     if ($oid_search =~ /^\d+(\.\d+)*$/) {
                         unshift @oid_parts, split(/\./, $oid_search);
                         $current_name = undef;
-                        print "El undef or undefined: $current_name\n";
+                        #print "El undef or undefined: $current_name\n";
                     } else {
                         $current_name = $oid_search;
-                        print "El nombre actual (1): $current_name\n";
+                        #print "El nombre actual (1): $current_name\n";
                     }
                     $found = 1;
                     last;
                 } elsif ($oid_part =~ /^\s*(\d+(\.\d+)*)\s*$/) {
                     my $oid_number = $1;
-                    print "Número del OID: $oid_number\n";
+                    #print "Número del OID: $oid_number\n";
                     unshift @oid_parts, split(/\./, $oid_number);
                     $current_name = undef;
                     $found = 1;
@@ -1434,7 +1475,7 @@ sub construir_oid_completo {
                 } # Validar si  oid_part es un OID numérico 1 3 6 1 4 1 20858 10 104 101
                 elsif  ($oid_part =~ /^\s*(\d+(\s+\d+)*)\s*$/) {
                     my $oid_number = $1;
-                    print "Número del OID: $oid_number\n";
+                    #print "Número del OID: $oid_number\n";
                     unshift @oid_parts, split(/\s+/, $oid_number);
                     $current_name = undef;
                     $found = 1;
