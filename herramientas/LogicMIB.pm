@@ -190,7 +190,7 @@ sub cargar_mib {
     my $arbol_mibs = construir_arbol_mibs(\%data);
 
     # Mostrar el árbol de MIBs
-    print Dumper($arbol_mibs);
+    #print Dumper($arbol_mibs);
     
     if ($response) {
         
@@ -942,13 +942,21 @@ sub extraer_module_identities {
 sub extraer_alarm_traps {
     my ($file) = @_;
     
-    $file = transformar_mib_a_txt($file);
+    my $original_file = $file;
 
-    open my $fh, '<', $file or do {
+    # Archivo temporal para almacenar cómo se extraen los datos
+    my $temp_file = Rutas::temp_files_path() . '/alarm_traps.txt';
+
+    # Validar si el archivo temporal existe, si no, crearlo
+    $temp_file = validar_o_crear_archivo_temporal($temp_file);
+    # Recondicionar el archivo temporal copiando el contenido de $file
+    $temp_file = recondicionar_archivo_temporal($file, $temp_file, $original_file); 
+
+    open my $fh, '<', $temp_file or do {
         warn "No se pudo abrir el archivo $file: $!";
         return;
     };
-    
+
     my %alarm_traps;
     my $current_alarm = '';
     my $in_description = 0;
@@ -968,56 +976,118 @@ sub extraer_alarm_traps {
                 OBJECTS => '',
                 STATUS => '',
                 DESCRIPTION => '',
-                OID => ''
+                OID => '',
+                VARIABLES => '',
+                ENTERPRISE => ''
             };
             $in_objects = 0;
             $in_description = 0;
             $objects_accumulator = '';
-        }
-        elsif ($current_alarm) {
-            if (/OBJECTS\s*{\s*(.*)/) {
-                $in_objects = 1;
-                $objects_accumulator = $1;
-            } elsif (/OBJECTS\s*$/) {
-                $in_objects = 1;
-                $objects_accumulator = '';
-            } elsif ($in_objects) {
-                if (/^\s*{\s*(.*)/) {
-                    $objects_accumulator .= " $1";
-                } elsif (/(.*)\s*}/) {
-                    $objects_accumulator .= " $1";
-                    $alarm_traps{$current_alarm}->{OBJECTS} = $objects_accumulator;
-                    $in_objects = 0;
-                } else {
-                    $objects_accumulator .= " $_";
-                }
-            } elsif (/STATUS\s+(.*)/) {
-                $alarm_traps{$current_alarm}->{STATUS} = $1;
-            } elsif (/DESCRIPTION\s+["'](.*)/) {
-                $description = $1;
-                $in_description = 1;
-            } elsif (/DESCRIPTION\s*$/){
-                $description = $1;
-                $in_description = 1;
-                
-            }          
-            elsif ($in_description) {
-                if (/["]\s*::=\s*\{(.*)\}/) {
-                    $description .= " $1";
-                    $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
-                    $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
-                    $in_description = 0;
-                } elsif (/}/)  {
-                    $description .= " $_";
-                    if ($description =~ /::=\s*\{(.*)\}/) {
-                        $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
+            $description = '';
+            my $segment = "$_"; # Iniciar el segmento con la línea actual
+            while (<$fh>) {
+                chomp;
+                $segment .= "\n$_"; # Agregar la línea actual al segmento
+                last if ($2 eq 'NOTIFICATION-TYPE' && / }\s*$/) || ($2 eq 'TRAP-TYPE' && /::=\s*\d+\s*$/); # Terminar el segmento según el tipo
+            }
+            #print "Segmento trabajado:\n$segment\n"; # Imprimir el segmento trabajado
+
+            # Procesar el segmento extraído
+            foreach my $line (split /\n/, $segment) {
+                if ($2 eq 'NOTIFICATION-TYPE') {
+                    if ($line =~ /OBJECTS\s*{\s*(.*)/) {
+                        $in_objects = 1;
+                        $objects_accumulator = $1;
+                    } elsif ($line =~ /OBJECTS\s*$/) {
+                        $in_objects = 1;
+                        $objects_accumulator = '';
+                    } elsif ($in_objects) {
+                        if ($line =~ /^\s*{\s*(.*)/) {
+                            $objects_accumulator .= " $1";
+                        } elsif ($line =~ /(.*)\s*}/) {
+                            $objects_accumulator .= " $1";
+                            $alarm_traps{$current_alarm}->{OBJECTS} = $objects_accumulator;
+                            $in_objects = 0;
+                        } else {
+                            $objects_accumulator .= " $line";
+                        }
+                    } elsif ($line =~ /STATUS\s+(.*)/) {
+                        $alarm_traps{$current_alarm}->{STATUS} = $1;
+                    } elsif ($line =~ /DESCRIPTION\s+["'](.*)/) {
+                        $description = $1;
+                        $in_description = 1;
+                    } elsif ($line =~ /DESCRIPTION\s*$/) {
+                        $description = '';
+                        $in_description = 1;
+                    } elsif ($in_description) {
+                        if ($line =~ /["]\s*::=\s*\{(.*)\}/) {
+                            $description .= " $1";
+                            $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
+                            $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
+                            $in_description = 0;
+                        } elsif ($line =~ /}/) {
+                            $description .= " $line";
+                            if ($description =~ /::=\s*\{(.*)\}/) {
+                                $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
+                            }
+                            $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
+                            $in_description = 0;
+                        } else {
+                            $description .= " $line";
+                        }
                     }
-                    $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
-                    $in_description = 0;
-                } else {
-                    $description .= " $_";
+                } elsif ($2 eq 'TRAP-TYPE') {
+                    if ($line =~ /ENTERPRISE\s+(.*)/) {
+                        $alarm_traps{$current_alarm}->{ENTERPRISE} = $1;
+                    }  elsif ($line =~ /VARIABLES\s*{\s*(.*)/) {
+                        $in_objects = 1;
+                        $objects_accumulator = $1;
+                    } elsif ($line =~ /VARIABLES\s*$/) {
+                        $in_objects = 1;
+                        $objects_accumulator = '';
+                    } elsif ($in_objects) {
+                        if ($line =~ /^\s*{\s*(.*)/) {
+                            $objects_accumulator .= " $1";
+                        } elsif ($line =~ /(.*)\s*}/) {
+                            $objects_accumulator .= " $1";
+                            $alarm_traps{$current_alarm}->{VARIABLES} = $objects_accumulator;
+                            $in_objects = 0;
+                        } else {
+                            $objects_accumulator .= " $line";
+                        }
+                    }           
+                    elsif ($line =~ /DESCRIPTION\s+["'](.*)/) {
+                        $description = $1;
+                        $in_description = 1;
+                    } elsif ($line =~ /DESCRIPTION\s*$/) {
+                        $description = '';
+                        $in_description = 1;
+                    } elsif ($in_description) {
+                        if ($line =~ /["]\s*::=\s*\d+\s*$/) {
+                            $description .= " $line";
+                            $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
+                            if ($description =~ /::=\s*\{(.*)\}/) {
+                                $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
+                            } elsif ($description =~ /::=\s*(\d+)\s*$/) {
+                                $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
+                            }
+                            $in_description = 0;
+                        } elsif ($line =~ /::=\s*\d+\s*$/) {
+                            $description .= " $line";
+                            $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
+                            if ($description =~ /::=\s*\{(.*)\}/) {
+                                $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
+                            } elsif ($description =~ /::=\s*(\d+)\s*$/) {
+                                $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
+                            }
+                            $in_description = 0;
+                        } else {
+                            $description .= " $line";
+                        }
+                    }
                 }
             }
+            $current_alarm = undef; # Finalizar el segmento
         }
     }
     close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
@@ -1038,6 +1108,8 @@ sub extraer_alarm_traps {
             $alarm_traps{$alarm}->{'OBJECTS'} =~ s/\s+/ /g;
         }
     }
+
+    print Dumper(\%alarm_traps);
     return \%alarm_traps;
 }
 
