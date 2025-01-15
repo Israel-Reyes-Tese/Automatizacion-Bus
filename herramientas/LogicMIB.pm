@@ -166,7 +166,7 @@ sub cargar_mib {
         # Logica para crear una ventana emergente para ingresar el OID de la empresa
         $oid_nodes = mostrar_ventana_seleccion_empresa($ventana_principal);
     }
-    #print "Nodos OID: ", Dumper($oid_nodes);
+    print "Nodos OID: ", Dumper($oid_nodes);
 
     my $response = herramientas::Complementos::create_alert_with_picture_label_and_button(
         $ventana_principal, 'Advertencias', 
@@ -187,7 +187,7 @@ sub cargar_mib {
     escribir_datos_en_archivo($temp_file, \%data);
     
     # Construir el árbol de MIBs
-    my $arbol_mibs = construir_arbol_mibs(\%data);
+    my $arbol_mibs = construir_arbol_mibs(\%data, $oid_nodes);
 
     # Mostrar el árbol de MIBs
     #print Dumper($arbol_mibs);
@@ -1092,24 +1092,18 @@ sub extraer_alarm_traps {
     }
     close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
     # Eliminar ::= { contenido } de la descripción y limpiar espacios y caracteres especiales
-    foreach my $alarm (keys %alarm_traps) {
-        if (exists $alarm_traps{$alarm}->{'DESCRIPTION'}) {
-            $alarm_traps{$alarm}->{'DESCRIPTION'} =~ s/\s*::=\s*\{.*\}//;
-            $alarm_traps{$alarm}->{'DESCRIPTION'} =~ s/^\s+|\s+$//g; # Eliminar espacios al inicio y al final
-            $alarm_traps{$alarm}->{'DESCRIPTION'} =~ s/^["']|["']$//g; # Eliminar caracteres especiales al inicio y al final
-            $alarm_traps{$alarm}->{'DESCRIPTION'} =~ s/\s+/ /g; # Eliminar mas de un espacio
-        }
-        # Objetos de alarma
-        if (exists $alarm_traps{$alarm}->{'OBJECTS'}) {
-            $alarm_traps{$alarm}->{'OBJECTS'} =~ s/\s*::=\s*\{.*\}//;
-            $alarm_traps{$alarm}->{'OBJECTS'} =~ s/^\s+|\s+$//g; # Eliminar espacios al inicio y al final
-            $alarm_traps{$alarm}->{'OBJECTS'} =~ s/^["']|["']$//g; # Eliminar caracteres especiales al inicio y al final
-            # Eliminar mas de un espacio
-            $alarm_traps{$alarm}->{'OBJECTS'} =~ s/\s+/ /g;
+    foreach my $object (keys %alarm_traps) {
+        foreach my $field (qw(TYPE VARIABLES DESCRIPTION ENTERPRISE OID STATUS)) {
+            if (exists $alarm_traps{$object}->{$field}) {
+                $alarm_traps{$object}->{$field} =~ s/\s*::=\s*\{.*\}//;
+                # Eliminar " ::= 
+                $alarm_traps{$object}->{$field} =~ s/\s*::=\s*\d+\s*//;
+                $alarm_traps{$object}->{$field} =~ s/^\s+|\s+$//g; # Eliminar espacios al inicio y al final
+                $alarm_traps{$object}->{$field} =~ s/^["']|["']$//g; # Eliminar caracteres especiales al inicio y al final
+            }
         }
     }
-
-    print Dumper(\%alarm_traps);
+    #print Dumper(\%alarm_traps);
     return \%alarm_traps;
 }
 
@@ -1145,6 +1139,8 @@ sub extraer_nodos_oid {
     unless ($enterprise_oid) {
         warn "No se pudo encontrar el ID único de la empresa o proveedor. Ingréselo manualmente o busque en los archivos locales.";
     }
+
+    print "Enterprise OID: $enterprise_oid\n";
 
     my $enterprise_info;
     foreach my $enterprise (@filtered_enterprise_hash) {
@@ -1511,7 +1507,7 @@ sub escribir_oid_nodes {
 
 # Función para construir el OID completo de un objeto
 sub construir_oid_completo {
-    my ($nombre, $data) = @_;
+    my ($nombre, $data, $oid_data) = @_;
     my @oid_parts;
     my $current_name = $nombre;
 
@@ -1564,16 +1560,21 @@ sub construir_oid_completo {
     }
     #print "Partes del OID: @oid_parts\n";
     my $complete_oid = join('.', @oid_parts);
+    #print "OID completo: $complete_oid\n";
+
+    $complete_oid = validar_y_complementar_oid($complete_oid, $oid_data);
+    #print "OID completo validado: $complete_oid\n";
+
     return $complete_oid;
 }
 
 # Función para construir el árbol de MIBs
 sub construir_arbol_mibs {
-    my ($data) = @_;
+    my ($data, $oid_data) = @_;
     my %arbol_mibs;
 
     foreach my $nombre (keys %{$data->{ALARM_TRAPS}}) {
-        my $oid_completo = construir_oid_completo($nombre, $data);
+        my $oid_completo = construir_oid_completo($nombre, $data, $oid_data);
         if ($oid_completo) {
             $arbol_mibs{$nombre} = {
                 DESCRIPTION => $data->{ALARM_TRAPS}{$nombre}{DESCRIPTION},
@@ -1584,6 +1585,41 @@ sub construir_arbol_mibs {
     }
 
     return \%arbol_mibs;
+}
+
+# Function to validate and complete the OID
+sub validar_y_complementar_oid {
+    my ($complete_oid, $oid_data) = @_;
+    
+    # Split the OID into parts
+    my @oid_parts = split(/\./, $complete_oid);
+    
+    # Validate and complete the root OID
+    my @root_oid_parts = split(/\./, $oid_data->{root_oid});
+    for my $i (0..$#root_oid_parts) {
+        if (!defined $oid_parts[$i] || $oid_parts[$i] != $root_oid_parts[$i]) {
+            splice(@oid_parts, $i, 0, $root_oid_parts[$i]);
+        }
+    }
+    
+    # Validate and complete the private enterprises OID
+    my @private_enterprises_oid_parts = split(/\./, $oid_data->{private_enterprises_oid});
+    for my $i (scalar(@root_oid_parts)..scalar(@root_oid_parts) + $#private_enterprises_oid_parts) {
+        if (!defined $oid_parts[$i] || $oid_parts[$i] != $private_enterprises_oid_parts[$i - scalar(@root_oid_parts)]) {
+            splice(@oid_parts, $i, 0, $private_enterprises_oid_parts[$i - scalar(@root_oid_parts)]);
+        }
+    }
+    
+    # Validate and complete the enterprise OID
+    my $enterprise_oid_index = scalar(@root_oid_parts) + scalar(@private_enterprises_oid_parts);
+    if (!defined $oid_parts[$enterprise_oid_index] || $oid_parts[$enterprise_oid_index] != $oid_data->{enterprise_oid}) {
+        splice(@oid_parts, $enterprise_oid_index, 0, $oid_data->{enterprise_oid});
+    }
+    
+    # Join the OID parts back into a complete OID
+    $complete_oid = join('.', @oid_parts);
+    
+    return $complete_oid;
 }
 
 1;
