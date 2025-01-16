@@ -176,6 +176,13 @@ our $header_bg = '#302c44';
 our $header_fg = '#e5d0bf';
 our $header_font = ['Arial', 16, 'bold'];
 
+# Buttons cancel and back
+our $cancel_button_bg = '#f44336';
+our $cancel_button_fg = 'white';
+our $cancel_button_active_bg = '#e53935';
+our $cancel_button_active_fg = 'white';
+our $cancel_button_font = ['Helvetica', 16, 'bold'];
+
 
 # Export all variables
 our @EXPORT_OK = qw(

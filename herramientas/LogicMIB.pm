@@ -182,13 +182,13 @@ sub cargar_mib {
     # Archivo temporal para almacenar cómo se extraen los datos
     my $temp_file = Rutas::temp_files_logs_objects_mibs_path(). '/mibs_objects.logs';
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
-    escribir_datos_en_archivo($temp_file, \%data);
+    escribir_datos_en_archivo($temp_file, \%data, "OBJECTS_INFO");
     
     # Construir el árbol de MIBs
-    my $arbol_mibs = construir_arbol_mibs(\%data, $oid_nodes);
+    my $arbol_mibs_principales = construir_arbol_mibs(\%data, $oid_nodes);
 
     # Mostrar el árbol de MIBs
-    print Dumper($arbol_mibs);
+    #print Dumper($arbol_mibs_principales);
     
     if ($response) {
         
@@ -1352,6 +1352,23 @@ sub mostrar_ventana_seleccion_empresa {
         -font => $herramientas::Estilos::next_button_font
     )->pack(-side => 'right', -padx => 10, -pady => 10);
 
+
+    $button_panel->Button(
+        -text => "Sin seleccion",
+        -command => sub {
+        herramientas::Complementos::show_alert(
+            $mw, 'Advertencia', 
+            "No selecciono una empresa", 'warning'
+        );
+            $mw->destroy();
+        },
+        -background => $herramientas::Estilos::cancel_button_bg,
+        -foreground => $herramientas::Estilos::cancel_button_fg,
+        -activebackground => $herramientas::Estilos::cancel_button_active_bg,
+        -activeforeground => $herramientas::Estilos::cancel_button_active_fg,
+        -font => $herramientas::Estilos::cancel_button_font
+    )->pack(-side => 'right', -padx => 10, -pady => 10);
+
     $mw->waitWindow(); # Esperar a que el usuario seleccione algún botón
 
     # Function to update the navigation buttons
@@ -1468,16 +1485,22 @@ sub extraer_datos_empresas {
 
 # Función para escribir datos en el archivo temporal
 sub escribir_datos_en_archivo {
-    my ($temp_file, $data) = @_;
+    my ($temp_file, $data, $tipo) = @_;
     
     open my $fh, '>', $temp_file or die "No se pudo abrir el archivo temporal $temp_file: $!";
     
-    escribir_seccion($fh, "OBJECT_IDENTITIES", $data->{OBJECT_IDENTITIES});
-    escribir_seccion($fh, "OBJECT_TYPES", $data->{OBJECT_TYPES});
-    escribir_seccion($fh, "OBJECT_IDENTIFIERS", $data->{OBJECT_IDENTIFIERS});
-    escribir_seccion($fh, "MODULE_IDENTITIES", $data->{MODULE_IDENTITIES});
-    escribir_seccion($fh, "ALARM_TRAPS", $data->{ALARM_TRAPS});
-    escribir_oid_nodes($fh, "OID_NODES", $data->{OID_NODES});
+    if ($tipo eq 'OBJECTS_INFO') {
+            escribir_seccion($fh, "OBJECT_IDENTITIES", $data->{OBJECT_IDENTITIES});
+            escribir_seccion($fh, "OBJECT_TYPES", $data->{OBJECT_TYPES});
+            escribir_seccion($fh, "OBJECT_IDENTIFIERS", $data->{OBJECT_IDENTIFIERS});
+            escribir_seccion($fh, "MODULE_IDENTITIES", $data->{MODULE_IDENTITIES});
+            escribir_seccion($fh, "ALARM_TRAPS", $data->{ALARM_TRAPS});
+            escribir_oid_nodes($fh, "OID_NODES", $data->{OID_NODES});
+    } elsif ($tipo eq 'ALARM_TRAPS') {
+            escribir_seccion($fh, "ALARM_TRAPS", $data);
+    }
+       
+
     
     close $fh or warn "Advertencia: No se pudo cerrar el archivo temporal $temp_file: $!";
 }
@@ -1551,34 +1574,27 @@ sub construir_oid_completo {
     }
 
     # Validar y reemplazar el ID de empresa si es necesario
-    print "OID parcial para $nombre: @oid_parts\n";
-
-    foreach my $part (@oid_parts) {
-        if (exists $oid_data->{$part}) {
-            # Validar si part es un ID de empresa y si esta en la data
-            print "Parte de OID (exist): $part\n";
-            if ($oid_data->{$part}{'enterprise_info_Seleccionado'} == 1) {
-                print "Parte de OID (seleccionado): $part\n";
-                $part = $oid_data->{$part}{'enterprise_oid'};
-            } else {
-                # Si no es la empresa seleccionada, buscar la empresa seleccionada y asignarla
-                print "Parte de OID (no seleccionado): $part\n";
-                foreach my $key (keys %$oid_data) {
-                    if ($oid_data->{$key}{'enterprise_info_Seleccionado'} == 1) {
-                        $part = $oid_data->{$key}{'enterprise_oid'};
-                        last;
+    if ($oid_data) {
+        foreach my $part (@oid_parts) {
+            if (exists $oid_data->{$part}) {
+                # Validar si part es un ID de empresa y si esta en la data
+                if ($oid_data->{$part}{'enterprise_info_Seleccionado'} == 1) {
+                    $part = $oid_data->{$part}{'enterprise_oid'};
+                } else {
+                    # Si no es la empresa seleccionada, buscar la empresa seleccionada y asignarla
+                    foreach my $key (keys %$oid_data) {
+                        if ($oid_data->{$key}{'enterprise_info_Seleccionado'} == 1) {
+                            $part = $oid_data->{$key}{'enterprise_oid'};
+                            last;
+                        }
                     }
                 }
             }
         }
     }
 
-
     my $complete_oid = join('.', @oid_parts);
-    $complete_oid = validar_y_complementar_oid($complete_oid, $oid_data);
-
-    print "Construido OID completo para $nombre: $complete_oid\n";
-
+    $complete_oid = validar_y_complementar_oid($complete_oid, $oid_data) if $oid_data;
     return $complete_oid;
 }
 
@@ -1586,6 +1602,8 @@ sub construir_oid_completo {
 sub construir_arbol_mibs {
     my ($data, $oid_data) = @_;
     my %arbol_mibs;
+    # Archivo temporal para almacenar cómo se extraen los datos
+    my $temp_file = Rutas::temp_files_logs_objects_mibs_path(). '/Alarmas_principales.logs';
 
     foreach my $nombre (keys %{$data->{ALARM_TRAPS}}) {
         my $oid_completo = construir_oid_completo($nombre, $data, $oid_data);
@@ -1598,22 +1616,35 @@ sub construir_arbol_mibs {
         }
     }
 
+    $temp_file = validar_o_crear_archivo_temporal($temp_file);
+    escribir_datos_en_archivo($temp_file, \%arbol_mibs, "ALARM_TRAPS");
+
     return \%arbol_mibs;
 }
 
 # Function to validate and complete the OID
 sub validar_y_complementar_oid {
     my ($complete_oid, $oid_data) = @_;
+    return $complete_oid unless $oid_data;
+
+    my $selected_oid_data;
     
-    # Encontrar el registro seleccionado
-    my @selected_records = grep { $oid_data->{$_}{'enterprise_info_Seleccionado'} == 1 } keys %$oid_data;
-    
-    if (scalar(@selected_records) > 1) {
-        warn "Más de un registro seleccionado. Utilizando el primero en la lista.";
+    # Check if $oid_data has a single record or multiple records
+    if (exists $oid_data->{'enterprise_info_ID'}) {
+        # Single record case
+        $selected_oid_data = $oid_data;
+    } else {
+        # Multiple records case
+        # Encontrar el registro seleccionado
+        my @selected_records = grep { $oid_data->{$_}{'enterprise_info_Seleccionado'} == 1 } keys %$oid_data;
+        
+        if (scalar(@selected_records) > 1) {
+            warn "Más de un registro seleccionado. Utilizando el primero en la lista.";
+        }
+        
+        my $selected_key = $selected_records[0];
+        $selected_oid_data = $oid_data->{$selected_key};
     }
-    
-    my $selected_key = $selected_records[0];
-    my $selected_oid_data = $oid_data->{$selected_key};
     
     # Split the OID into parts
     my @oid_parts = split(/\./, $complete_oid);

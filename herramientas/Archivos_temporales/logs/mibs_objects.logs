@@ -1,6778 +1,110 @@
 ----------------------------------- OBJECT_IDENTITIES ---------------------------
-OBJECT-TYPE,:
-  DESCRIPTION: The SNMP Management Architecture MIB"
-REVISION     "9901190000Z"            -- 19 January 2014
-DESCRIPTION  "Updated editors' addresses, fixed typos.
-Published as RFC2571.
-"
-REVISION     "9711200000Z"            -- 20 November 1997
-DESCRIPTION  "The initial version, published in RFC 2271.
-
-  TYPE: OBJECT-IDENTITY
-  STATUS: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  OID:  snmpModules 10 
-
-products:
-  TYPE: OBJECT-IDENTITY
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  OID:  zte 3 
-  DESCRIPTION: Sub-tree for specific object and event definitions
-
 zeroDotZero:
-  TYPE: OBJECT-IDENTITY
-  STATUS: current
   OID:  0 0 
+  STATUS: current
+  TYPE: OBJECT-IDENTITY
   ARCHIVO: SNMPv2-SMI
   DESCRIPTION: A value used for null identifiers.
 
-dcim:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  OID:  products 1 
-  STATUS: current
-  TYPE: OBJECT-IDENTITY
-  DESCRIPTION: Description: ZTE dcim.
-
-zte:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  OID:  enterprises 39026 
-  STATUS: current
-  TYPE: OBJECT-IDENTITY
-  DESCRIPTION: The root of the OID sub-tree assigned to Company by the Internet Assigned Numbers Authority (IANA)
-
 ----------------------------------- OBJECT_TYPES ---------------------------
-branchCurrent2:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 10
-
-aPositiveReactiveEnergy:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 35
-  DESCRIPTION: Description: 
-
-activePower:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMPndcEntry 7
-
-ofSwiftState6:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 96
-  DESCRIPTION: Description: 
-
-branchActivePower88:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 355
-
-dcimSysName:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: DisplayString
-  STATUS: current
-  DESCRIPTION: Description: dcim system name. 
-  OID: dcimSystem 1
-
-branchVoltage106:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 425
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-alarmEventType:
-  OID: currentAlarmEntry 4
-  DESCRIPTION: This object represents the type of event.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  SYNTAX: TypeOfEvent
-  MAX-ACCESS: read-only
-
-branchActiveEnergy70:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 284
-
-ofSwiftState34:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 124
-
-branchCurrent18:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 74
-
-ofSwiftState2:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 92
-  DESCRIPTION: Description: 
-
-bLineVoltage23:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 42
-
-alarmTrapStatus:
-  OID: alarmTrapEntry 5
-  DESCRIPTION: Description: Alarm type Values: 1-alarm, 2-restore
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActiveEnergy92:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 372
-
-branchCurrent64:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 258
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActivePower74:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 299
-
-systemDN:
-  DESCRIPTION: This object carries the Distinguished Name (DN) of the system  which generates the Notification. The combination of notificationId and systemDN uniquely  identifies each notification.
-  OID: alarmIRPInfo 3
-  MAX-ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: ManagedObjectInstance
-  STATUS: current
-
-branchActiveEnergy17:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 72
-
-branchVoltage77:
-  OID: powerMeterAMYDBEntry 309
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActiveEnergy19:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 80
-  DESCRIPTION: Description: 
-
-aCurrentUnbalance:
-  OID: powerMeterAMYDMEntry 32
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-bVoltageUnbalance:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 63
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-ofSwiftState78:
-  OID: powerMeterAMYDMEntry 168
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchCurrent101:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 406
-
-fanSpeed:
-  OID: acSCUIEntry 25
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-ofSwiftState14:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 104
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchVoltage16:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 65
-  DESCRIPTION: Description: 
-
-branchActivePower48:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 195
-  DESCRIPTION: Description: 
-
-alarmCriticalNumber:
-  DESCRIPTION: This object determines the number of currently  active alarms with perceived severity 'critical'.
-  OID: alarmCount 2
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-
-branchCurrent89:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 358
-
-pmYdbEquipOid:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: DisplayString
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 2
-  DESCRIPTION: Description: 
-
-aReactivePower1:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 22
-
-branchVoltage61:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 245
-
-ofSwiftState12:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 102
-
-branchCurrent97:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 390
-
-bFundamentalV2OrV23:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 78
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActivePower102:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 411
-
-alarmTrapTime:
-  DESCRIPTION: Description: Alarm time.
-  OID: alarmTrapEntry 7
-  MAX-ACCESS: read-only
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActivePower67:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 271
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-ofSwiftState108:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 198
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy65:
-  OID: powerMeterAMYDBEntry 264
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-ofSwiftState32:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 122
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchActivePower29:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 119
-
-wlIndex:
-  OID: waterLeakageEntry 1
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchVoltage82:
-  OID: powerMeterAMYDBEntry 329
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActivePower73:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 295
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchVoltage60:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 241
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-zxEmsEventConfirmTime:
-  DESCRIPTION: The confirmed time.For example,2005-10-11 17:34:11.471
-  OID: zxNetEmsNbiEventObject 15
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: DisplayString
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-
-branchCurrent63:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 254
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchCurrent4:
-  OID: powerMeterAMYDBEntry 18
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-alarmSpecificProblem:
-  DESCRIPTION: This object represents the vendor specific problem  .
-  OID: currentAlarmEntry 7
-  MAX-ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: DisplayString (SIZE (0..255))
-  STATUS: current
-
-delHumState:
-  DESCRIPTION: Description: 
-  OID: acSCUIEntry 17
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-totalElectricPower:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMPndcEntry 14
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage36:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 145
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy74:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 300
-  DESCRIPTION: Description: 
-
-alarmCode:
-  OID: currentAlarmEntry 11
-  DESCRIPTION: This object represents an alarm code
-  STATUS: current
-  SYNTAX: DisplayString (SIZE (0..50))
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  MAX-ACCESS: read-only
-
-ofSwiftState89:
-  OID: powerMeterAMYDMEntry 179
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActiveEnergy45:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 184
-  DESCRIPTION: Description: 
-
-branchVoltage75:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 301
-
-alarmMinorNumber:
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: alarmCount 4
-  DESCRIPTION: This object determines the number of currently  active alarms with perceived severity 'minor'.
-
-branchVoltage69:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 277
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActivePower17:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 71
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActivePower50:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 203
-
-equipIndex:
-  DESCRIPTION: Description: Equipment index. Used to uniquely identify a device. starting from 1.
-  OID: dcimEquipsEntry 1
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32 (1..2147483647)
-
-ofSwiftState26:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 116
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchCurrent38:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 154
-
-aFundamentalV2OrV23:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 70
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActivePower25:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 103
-
-branchActiveEnergy13:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 56
-
-ofSwiftState58:
-  OID: powerMeterAMYDMEntry 148
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-ofSwiftState66:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 156
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchVoltage84:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 337
-  DESCRIPTION: Description: 
-
-bReactivePower1:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 56
-  DESCRIPTION: Description: 
-
-branchActivePower38:
-  OID: powerMeterAMYDBEntry 155
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-relayPath:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMPndcEntry 13
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchCurrent56:
-  OID: powerMeterAMYDBEntry 226
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchCurrent104:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 418
-
-id:
-  DESCRIPTION: This object represents the number id of the alarm. 
-  OID: currentAlarmEntry 24
-  MAX-ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: DisplayString (SIZE (0..50))
-  STATUS: current
-
-branchCurrent80:
-  OID: powerMeterAMYDBEntry 322
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-zxEmsEventSourceName:
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  SYNTAX: DisplayString
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: zxNetEmsNbiEventObject 5
-  DESCRIPTION: he NE Name which sends the event.
-
-branchCurrent62:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 250
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy52:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 212
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-coolState:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: acSCUIEntry 15
-  DESCRIPTION: Description: 
-
-branchActivePower51:
-  OID: powerMeterAMYDBEntry 207
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchVoltage83:
-  OID: powerMeterAMYDBEntry 333
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-bCurrentUnbalance:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 64
-  DESCRIPTION: Description: 
-
-aVoltageUnbalance:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 31
-  DESCRIPTION: Description: 
-
-dSTSaving:
-  DESCRIPTION: This object represents the NE's DSTSaving. 
-  OID: currentAlarmEntry 22
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-
-branchActivePower76:
-  OID: powerMeterAMYDBEntry 307
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-aLineVoltage23:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 10
-  DESCRIPTION: Description: 
-
-branchVoltage58:
-  OID: powerMeterAMYDBEntry 233
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-outHumSet:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: acSCUIEntry 20
-  DESCRIPTION: Description: 
-
-branchCurrent81:
-  OID: powerMeterAMYDBEntry 326
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-bPositiveReactiveEnergy:
-  OID: powerMeterAMYDMEntry 67
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-ofSwiftState49:
-  OID: powerMeterAMYDMEntry 139
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActiveEnergy78:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 316
-  DESCRIPTION: Description: 
-
-branchCurrent95:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 382
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActiveEnergy35:
-  OID: powerMeterAMYDBEntry 144
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchVoltage46:
-  OID: powerMeterAMYDBEntry 185
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActivePower19:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 79
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActivePower84:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 339
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-pmPndcEquipName:
-  OID: powerMeterAMPndcEntry 3
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-ofSwiftState11:
-  OID: powerMeterAMYDMEntry 101
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchCurrent71:
-  OID: powerMeterAMYDBEntry 286
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-returnWindHum:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: acSCUIEntry 9
-
-ofSwiftState8:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 98
-  DESCRIPTION: Description: 
-
-cReactivePower1:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 24
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy94:
-  OID: powerMeterAMYDBEntry 380
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-ofSwiftState30:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 120
-
-branchActivePower78:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 315
-
-branchActivePower108:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 435
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchCurrent48:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 194
-  DESCRIPTION: Description: 
-
-ofSwiftState31:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 121
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-equipInst:
-  DESCRIPTION: Description: The name of the device belongs to the micro module or the name of the room
-  OID: dcimEquipsEntry 10
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: DisplayString
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-bCurrent3:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 47
-
-aVoltage3:
-  OID: powerMeterAMYDMEntry 7
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-dcimSysDesc:
-  DESCRIPTION: Description: MDC system description.
-  OID: dcimSystem 2
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: DisplayString
-
-branchCurrent94:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 378
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-aAvgVoltage:
-  OID: powerMeterAMYDMEntry 8
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-pmPndcCollectionTime:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMPndcEntry 4
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-alarmTrapEnable:
-  DESCRIPTION: This object enable alarm trap.1 means enable alarm trap,while 0 means disable alarm trap.
-  OID: alarmOperation 3
-  MAX-ACCESS: read-write
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: INTEGER {
-  STATUS: current
-
-branchCurrent70:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 282
-  DESCRIPTION: Description: 
-
-branchActivePower44:
-  OID: powerMeterAMYDBEntry 179
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchVoltage73:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 293
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-bActivePower2:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 51
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActivePower65:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 263
-
-branchActiveEnergy1:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 8
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-ofSwiftState10:
-  OID: powerMeterAMYDMEntry 100
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActivePower36:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 147
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent1:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 6
-
-branchActiveEnergy50:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 204
-
-pmPndcIndex:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMPndcEntry 1
-
-branchCurrent28:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 114
-  DESCRIPTION: Description: 
-
-ofSwiftState57:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 147
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchActivePower43:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 175
-  DESCRIPTION: Description: 
-
-branchCurrent93:
-  OID: powerMeterAMYDBEntry 374
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchVoltage90:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 361
-
-equipName:
-  OID: dcimEquipsEntry 3
-  DESCRIPTION: Description: The device name.
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActivePower104:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 419
-
-current:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMPndcEntry 5
-  DESCRIPTION: Description: 
-
-branchVoltage74:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 297
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage91:
-  OID: powerMeterAMYDBEntry 365
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchCurrent67:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 270
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActiveEnergy98:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 396
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActivePower83:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 335
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-aMianThunderPreventerSwift:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 87
-  DESCRIPTION: Description: 
-
-ofSwiftState4:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 94
-
-branchVoltage85:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 341
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-pmYdmIndex:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 1
-  DESCRIPTION: Description: 
-
-equipOid:
-  OID: dcimEquipsEntry 9
-  DESCRIPTION: Description: The equip oid in iDCIM.
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: DisplayString
-  MAX-ACCESS: read-only
-
-aAvgLineVoltage:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 12
-  DESCRIPTION: Description: 
-
-branchVoltage26:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 105
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy72:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 292
-
-ofSwiftState29:
-  OID: powerMeterAMYDMEntry 119
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-bAvgLineVoltage:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 44
-  DESCRIPTION: Description: 
-
-alarmTrapUserAction:
-  OID: alarmTrapEntry 10
-  DESCRIPTION: Description: Some suggestions for user handling.
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: DisplayString
-  MAX-ACCESS: read-only
-
-branchActiveEnergy90:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 364
-
-bMianThunderPreventerSwift:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 90
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActiveEnergy85:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 344
-  DESCRIPTION: Description: 
-
-ofSwiftState69:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 159
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage72:
-  OID: powerMeterAMYDBEntry 289
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-ofSwiftState33:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 123
-  DESCRIPTION: Description: 
-
-branchActivePower90:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 363
-
-branchActiveEnergy26:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 108
-  DESCRIPTION: Description: 
-
-alarmTrapEquipType:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: DisplayString
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: alarmTrapEntry 2
-  DESCRIPTION: Description: The classification of equipment. As defined in the iDCIM.
-
-branchActiveEnergy58:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 236
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-csIRPHeartbeatPeriod:
-  DESCRIPTION: If the value of csIRPHeartbeatPeriod equals 0,then  no heartbeat notification will be generated. If the value of csIRPHeartbeatPeriod is bigger than 0 ,the heartbeat notification should be issued when the inner timer of heartbeat has reached ,and the timer  would be resetted.
-  OID: csNotificationProfile 1
-  MAX-ACCESS: read-write
-  SYNTAX: INTEGER
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-
-ofSwiftState86:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 176
-  DESCRIPTION: Description: 
-
-equipCommStat:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: dcimEquipsEntry 6
-  DESCRIPTION: Description: Communication status. Values: 0-ok, 1-Interrupt
-
-warterValveSignal:
-  OID: acSCUIEntry 23
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-acEquipOid:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: acSCUIEntry 2
-  DESCRIPTION: Description: 
-
-branchVoltage5:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 21
-
-branchVoltage99:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 397
-  DESCRIPTION: Description: 
-
-ofSwiftState13:
-  OID: powerMeterAMYDMEntry 103
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActivePower34:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 139
-  DESCRIPTION: Description: 
-
-branchActivePower46:
-  OID: powerMeterAMYDBEntry 187
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-bAvgVoltage:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 40
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage87:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 349
-  DESCRIPTION: Description: 
-
-branchActivePower15:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 63
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActivePower100:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 403
-
-aActivePower2:
-  OID: powerMeterAMYDMEntry 19
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-chilledWaterOutTemp:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: acSCUIEntry 29
-  DESCRIPTION: Description: 
-
-pmYdbCollectionTime:
-  OID: powerMeterAMYDBEntry 4
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: DisplayString
-  MAX-ACCESS: read-only
-
-ofSwiftState77:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 167
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-currentAlarmTable:
-  MAX-ACCESS: not-accessible
-  SYNTAX: SEQUENCE OF AlarmEntry
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: Table with information about the current alarms in the system.
-  OID: alarmIRP 3
-
-branchActivePower33:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 135
-
-branchActiveEnergy11:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 48
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-ofSwiftState46:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 136
-
-alarmEventTime:
-  OID: currentAlarmEntry 3
-  DESCRIPTION: This object represents the time of occurrence of the  alarm.
-  SYNTAX: DateAndTime
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  MAX-ACCESS: read-only
-
-branchCurrent65:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 262
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-aCurrent3:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 15
-
-bVoltage3:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 39
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-equipProtocolType:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: DisplayString
-  MAX-ACCESS: read-only
-  OID: dcimEquipsEntry 12
-  DESCRIPTION: Description: The equip ProtocolType. eg. 20100607T152000+08
-
-branchCurrent79:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 318
-
-branchActiveEnergy54:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 220
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActivePower91:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 367
-  DESCRIPTION: Description: 
-
-alarmKey:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: DisplayString
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: Used to uniquely identify a alarm.
-  OID: alarmTrapEntry 13
-
-branchActivePower27:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 111
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchActivePower86:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 347
-  DESCRIPTION: Description: 
-
-branchVoltage105:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 421
-  DESCRIPTION: Description: 
-
-ofSwiftState95:
-  OID: powerMeterAMYDMEntry 185
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchCurrent3:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 14
-
-branchCurrent92:
-  OID: powerMeterAMYDBEntry 370
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchActivePower69:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 279
-
-branchActiveEnergy101:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 408
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy81:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 328
-  DESCRIPTION: Description: 
-
-alarmFilterEnable:
-  OID: alarmFilter 1
-  DESCRIPTION: Alarm Filter enable or false,0 means false,while 1 means true.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-write
-
-branchActiveEnergy33:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 136
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchActiveEnergy67:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 272
-  DESCRIPTION: Description: 
-
-branchActivePower54:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 219
-  DESCRIPTION: Description: 
-
-ofSwiftState64:
-  OID: powerMeterAMYDMEntry 154
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchActiveEnergy69:
-  OID: powerMeterAMYDBEntry 280
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchActiveEnergy106:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 428
-  DESCRIPTION: Description: 
-
-aHarmonicsDistortion2:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 74
-  DESCRIPTION: Description: 
-
-ofSwiftState3:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 93
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-ofSwiftState24:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 114
-  DESCRIPTION: Description: 
-
-ofSwiftState80:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 170
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-alarmAck:
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: AckStatus
-  STATUS: current
-  MAX-ACCESS: read-write
-  OID: currentAlarmEntry 18
-  DESCRIPTION: Ack AlarmData or UnAckAlarmData
-
-branchCurrent22:
-  OID: powerMeterAMYDBEntry 90
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchVoltage57:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 229
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-ofSwiftState98:
-  OID: powerMeterAMYDMEntry 188
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-ofSwiftState105:
-  OID: powerMeterAMYDMEntry 195
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActivePower6:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 27
-
-ofSwiftState81:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 171
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage49:
-  OID: powerMeterAMYDBEntry 197
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-equipManufacturer:
-  MAX-ACCESS: read-only
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: Equipment manufacturers.
-  OID: dcimEquipsEntry 4
-
-envTemp:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: envThEntry 5
-
-branchActivePower98:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 395
-
-pmPndcEquipOid:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMPndcEntry 2
-  DESCRIPTION: Description: 
-
-ofSwiftState1:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 91
-  DESCRIPTION: Description: 
-
-branchActiveEnergy15:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 64
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-zxEmsEventConfirmer:
-  DESCRIPTION: Confirmer of the event.
-  OID: zxNetEmsNbiEventObject 16
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  STATUS: current
-  SYNTAX: DisplayString
-
-openState:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: acSCUIEntry 12
-  DESCRIPTION: Description: 
-
-branchVoltage29:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 117
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-aLineVoltage31:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 11
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent37:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 150
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-alarmEquipName:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: DisplayString
-  MAX-ACCESS: read-only
-  OID: alarmTrapEntry 12
-  DESCRIPTION: Description: Equipment name.
-
-branchCurrent15:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 62
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-ofSwiftState41:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 131
-  DESCRIPTION: Description: 
-
-alarmTrapEquipOid:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: DisplayString
-  DESCRIPTION: Description: Equipment OID. Used to uniquely identify a device. 
-  OID: alarmTrapEntry 3
-
-branchCurrent42:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 170
-  DESCRIPTION: Description: 
-
-ofSwiftState22:
-  OID: powerMeterAMYDMEntry 112
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActivePower53:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 215
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy43:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 176
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-csIRPVersion:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: DisplayString (SIZE (0..20))
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  DESCRIPTION: This object represents the version of the CS IRP SNMPv2 Solution Set supported by the agent.
-  OID: csIRPInfo 1
-
-branchVoltage8:
-  OID: powerMeterAMYDBEntry 33
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-ofSwiftState40:
-  OID: powerMeterAMYDMEntry 130
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-alarmSystemType:
-  MAX-ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: DisplayString (SIZE (0..5))
-  STATUS: current
-  DESCRIPTION: This object represents systemtype.
-  OID: currentAlarmEntry 16
-
-aActivePower:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 21
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-ofSwiftState62:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 152
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-bMianSwiftOf:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 88
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-cabTemp2:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: acSCUIEntry 27
-  DESCRIPTION: Description: 
-
-branchVoltage21:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 85
-
-ofSwiftState16:
-  OID: powerMeterAMYDMEntry 106
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActiveEnergy76:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 308
-
-waterLeakageEntry:
-  SYNTAX: waterLeakageEntry
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description." INDEX { wlIndex }
-  MAX-ACCESS: not-accessible
-
-aMianSwiftOf:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 85
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-zxEmsSyncTrapErrorCode:
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: zxNetEmsNbiSyncObject 1
-  DESCRIPTION: Operation error code of trap synchronization.  3 means ne dos not exist,4 means program has internal error
-
-powerMeterAMPNDCTable:
-  STATUS: current
-  SYNTAX: SEQUENCE OF powerMeterAMPndcEntry
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: not-accessible
-  OID: powerMeter 3
-  DESCRIPTION: Description.
-
-lastSendNotificationId:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
+eventType:
+  ARCHIVO: casa-hems-alarm.mib
   MAX-ACCESS: accessible-for-notify
-  OID: alarmIRPInfo 4
-  DESCRIPTION: This object represent the notification identifier of last send notification ( AlarmNew, AlarmCleared,AlarmAckChange,AlarmCommentChange) The agent shall store the notification identifier of the last send FM notification in this object immediately after sending the notification. The manager can retrieve the current value of this object to detect lost notifications. This mechanism can be used by the manager when no notification is received for a certain time (e.g. 10 minutes) to evaluate whether a synchronization should be performed. 
-
-ofSwiftState83:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 173
-  DESCRIPTION: Description: 
-
-acIndex:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: acSCUIEntry 1
-
-ofSwiftState107:
-  OID: powerMeterAMYDMEntry 197
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-alarmProbableCause:
-  MAX-ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  SYNTAX: ProbableCause
-  DESCRIPTION: This object represents the probable cause  of the current.
-  OID: currentAlarmEntry 5
-
-branchActiveEnergy63:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 256
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchVoltage96:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 385
-  DESCRIPTION: Description: 
-
-bActivePower:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 53
-
-branchActiveEnergy37:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 152
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy22:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 92
-  DESCRIPTION: Description: 
-
-alarmComment:
-  OID: currentAlarmEntry 10
-  DESCRIPTION: This object represents alarm comment.
-  STATUS: current
-  SYNTAX: DisplayString (SIZE (0..255))
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  MAX-ACCESS: read-write
-
-branchActiveEnergy39:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 160
-  DESCRIPTION: Description: 
-
-reactivePower:
-  OID: powerMeterAMPndcEntry 8
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-bLineVoltage31:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 43
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-ofSwiftState36:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 126
-
-branchVoltage55:
-  OID: powerMeterAMYDBEntry 221
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchCurrent44:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 178
-  DESCRIPTION: Description: 
-
-alarmCodesExcludeFilter:
-  OID: alarmFilterCondition 6
-  DESCRIPTION: This object filters alarm according to the alarm code.  uses ',' as splitter between alarm codes .for example: 10001,10002 means :The alarm of specifical  code of 10001 and 10002 will not be sent. 
-  SYNTAX: OCTET STRING (SIZE (0..512))
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  MAX-ACCESS: read-write
-
-branchCurrent98:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 394
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActivePower70:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 283
-
-rowStatus:
-  OID: currentAlarmEntry 13
-  DESCRIPTION: TControls and reflects the  status  of  rows  in   this table 
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: RowStatus
-  STATUS: current
-  MAX-ACCESS: not-accessible
-
-branchCurrent23:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 94
-  DESCRIPTION: Description: 
-
-zxEmsEventServerIP:
-  MAX-ACCESS: read-only
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  DESCRIPTION: The IP address of NMS server which sends the event.
-  OID: zxNetEmsNbiEventObject 3
-
-envThTable:
-  DESCRIPTION: Description.
-  OID: env 1
-  MAX-ACCESS: not-accessible
-  STATUS: current
-  SYNTAX: SEQUENCE OF envThEntry
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage20:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 81
-  DESCRIPTION: Description: 
-
-acSCUITable:
-  OID: airConditoner 1
-  DESCRIPTION: Description.
-  STATUS: current
-  SYNTAX: SEQUENCE OF acSCUIEntry
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: not-accessible
-
-branchVoltage40:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 161
-  DESCRIPTION: Description: 
-
-zxEmsEventDescription:
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  MAX-ACCESS: read-only
-  OID: zxNetEmsNbiEventObject 10
-  DESCRIPTION: The additional description of the event,which can  contain specific information of the type of NE.
-
-branchActivePower71:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 287
-  DESCRIPTION: Description: 
-
-branchCurrent6:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 26
-
-branchCurrent43:
-  OID: powerMeterAMYDBEntry 174
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-addHumCurrent:
-  OID: acSCUIEntry 10
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchCurrent24:
-  OID: powerMeterAMYDBEntry 98
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchActivePower1:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 7
-
-alarmOtherInfo:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: DisplayString (SIZE (0..255))
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents the custom properity of the alarm. 
-  OID: currentAlarmEntry 25
-
-branchVoltage78:
-  OID: powerMeterAMYDBEntry 313
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-alarmIrpVersion:
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  SYNTAX: DisplayString (SIZE (0..20))
-  MAX-ACCESS: read-only
-  OID: alarmIRPInfo 1
-  DESCRIPTION: This object represents the version of the Alarm IRP SNMPv2 Solution Set supported by the agent.
-
-branchCurrent35:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 142
-
-ofSwiftState43:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 133
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchActiveEnergy8:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 36
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActivePower22:
-  OID: powerMeterAMYDBEntry 91
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-timeZoneID:
-  MAX-ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: DisplayString (SIZE (0..50))
-  STATUS: current
-  DESCRIPTION: This object represents the NE's TimeZoneID. 
-  OID: currentAlarmEntry 20
-
-dcimLoadall:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: total load.
-  OID: dcimStatistic 3
-
-bHarmonicsDistortion2:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 82
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchCurrent17:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 70
-
-branchActivePower56:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 227
-
-branchActiveEnergy49:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 200
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchCurrent76:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 306
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-alarmTrapValue:
-  DESCRIPTION: Description: Values in the alarm occurs.
-  OID: alarmTrapEntry 8
-  MAX-ACCESS: read-only
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy47:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 192
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage41:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 165
-
-ofSwiftState60:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 150
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-aNegativeActiveEnergy:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 34
-  DESCRIPTION: Description: 
-
-branchVoltage53:
-  OID: powerMeterAMYDBEntry 213
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActiveEnergy41:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 168
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent50:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 202
-  DESCRIPTION: Description: 
-
-switchPathD1:
-  OID: powerMeterAMPndcEntry 12
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActiveEnergy20:
-  OID: powerMeterAMYDBEntry 84
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActivePower58:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 235
-
-ofSwiftState84:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 174
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent86:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 346
-
-envHum:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: envThEntry 6
-  DESCRIPTION: Description: 
-
-ofSwiftState20:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 110
-  DESCRIPTION: Description: 
-
-branchActivePower30:
-  OID: powerMeterAMYDBEntry 123
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActiveEnergy6:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 28
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchVoltage19:
-  OID: powerMeterAMYDBEntry 77
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-bActivePower1:
-  OID: powerMeterAMYDMEntry 50
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActiveEnergy96:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 388
-
-ofSwiftState42:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 132
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchCurrent25:
-  OID: powerMeterAMYDBEntry 102
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-ofSwiftState102:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 192
-
-ofSwiftState21:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 111
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage107:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 429
-  DESCRIPTION: Description: 
-
-bHarmonicsDistortion1:
-  OID: powerMeterAMYDMEntry 81
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchCurrent34:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 138
-  DESCRIPTION: Description: 
-
-pmYdbEquipName:
-  OID: powerMeterAMYDBEntry 3
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: DisplayString
-  STATUS: current
-  MAX-ACCESS: read-only
-
-cabTemp1:
-  OID: acSCUIEntry 24
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-dcimLoadrate:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: dcimStatistic 5
-
-branchCurrent51:
-  OID: powerMeterAMYDBEntry 206
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActivePower94:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 379
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-bActivePower3:
-  OID: powerMeterAMYDMEntry 52
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-ofSwiftState61:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 151
-
-aLineVoltage12:
-  OID: powerMeterAMYDMEntry 9
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-equipType:
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: dcimEquipsEntry 2
-  DESCRIPTION: Description: The classification of equipment. As defined in the relevant conventions.
-
-branchVoltage88:
-  OID: powerMeterAMYDBEntry 353
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-alarmNetype:
-  DESCRIPTION: This object represents an alarm netype
-  OID: currentAlarmEntry 12
-  MAX-ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: DisplayString (SIZE (0..50))
-  STATUS: current
-
-branchVoltage30:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 121
-
-branchCurrent33:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 134
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-wlEquipOid:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: waterLeakageEntry 2
-
-chilledWaterInTemp:
-  DESCRIPTION: Description: 
-  OID: acSCUIEntry 28
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchCurrent12:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 50
-
-alarmIndeterminateNumber:
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: alarmCount 1
-  DESCRIPTION: This object determines the number of currently  active alarms with perceived severity 'indeterminate'.
-
-branchActivePower93:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 375
-
-dcimEquipsEntry:
-  DESCRIPTION: Description." INDEX { equipIndex }
-  MAX-ACCESS: not-accessible
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: DcimEquipsEntry
-  STATUS: current
-
-branchActivePower106:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 427
-
-branchCurrent45:
-  OID: powerMeterAMYDBEntry 182
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-ofSwiftState44:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 134
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchVoltage54:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 217
-
-branchActiveEnergy83:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 336
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-ofSwiftState55:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 145
-
-equipAlarmStat:
-  DESCRIPTION: Description: Alarm status. Values: 0-ok, 1-Alarm
-  OID: dcimEquipsEntry 7
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy31:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 128
-
-branchActivePower31:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 127
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-ofSwiftState82:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 172
-  DESCRIPTION: Description: 
-
-alarmTrapTable:
-  DESCRIPTION: Description.
-  OID: dcimNotifications 3
-  MAX-ACCESS: not-accessible
-  STATUS: current
-  SYNTAX: SEQUENCE OF AlarmTrapEntry
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-zxEmsEventSource:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  STATUS: current
-  SYNTAX: DisplayString
-  DESCRIPTION: The NE ID which sends the event.
-  OID: zxNetEmsNbiEventObject 4
-
-ctRatio:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMPndcEntry 17
-
-branchVoltage31:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 125
-  DESCRIPTION: Description: 
-
-branchActivePower62:
-  OID: powerMeterAMYDBEntry 251
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActivePower12:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 51
-  DESCRIPTION: Description: 
-
-branchActiveEnergy3:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 16
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-waterAlarm:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: waterLeakageEntry 5
-
-branchVoltage7:
-  OID: powerMeterAMYDBEntry 29
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-ofSwiftState39:
-  OID: powerMeterAMYDMEntry 129
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-ofSwiftState63:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 153
-  DESCRIPTION: Description: 
-
-ofSwiftState103:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 193
-
-branchVoltage108:
-  OID: powerMeterAMYDBEntry 433
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchCurrent14:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 58
-
-branchActivePower40:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 163
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-ofSwiftState23:
-  OID: powerMeterAMYDMEntry 113
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActiveEnergy24:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 100
-  DESCRIPTION: Description: 
-
-branchCurrent68:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 274
-  DESCRIPTION: Description: 
-
-alarmNeIP:
-  DESCRIPTION: This object identifies the IP of  network resource to which the alarm is  related.
-  OID: currentAlarmEntry 17
-  MAX-ACCESS: read-only
-  SYNTAX: DisplayString (SIZE (0..60))
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-
-branchCurrent102:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 410
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActivePower80:
-  OID: powerMeterAMYDBEntry 323
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-ofSwiftState19:
-  OID: powerMeterAMYDMEntry 109
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchCurrent27:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 110
-  DESCRIPTION: Description: 
-
-branchVoltage52:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 209
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchVoltage39:
-  OID: powerMeterAMYDBEntry 157
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-clearAlarm:
-  MAX-ACCESS: read-write
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: OCTET STRING (SIZE (0..1024))
-  STATUS: current
-  DESCRIPTION: A collection of mandatory alarm notifications.
-  OID: alarmGroups 5
-
-bCurAvgHarmonicsDistortion:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 84
-
-dcimPUE:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: The current PUE.
-  OID: dcimStatistic 1
-
-branchVoltage66:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 265
-  DESCRIPTION: Description: 
-
-branchActivePower2:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 11
-
-dcimMaxpower:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: dcimStatistic 4
-
-frequency:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMPndcEntry 10
-
-branchActiveEnergy102:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 412
-  DESCRIPTION: Description: 
-
-aActivePower3:
-  OID: powerMeterAMYDMEntry 20
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchVoltage11:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 45
-
-bLineVoltage12:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 41
-  DESCRIPTION: Description: 
-
-ofSwiftState97:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 187
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy107:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 432
-  DESCRIPTION: Description: 
-
-branchActivePower96:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 387
-  DESCRIPTION: Description: 
-
-alarmManagedObjectInstance:
-  OID: currentAlarmEntry 2
-  DESCRIPTION: This object identifies the MO instance of  network resource to which the alarm is  related.
-  STATUS: current
-  SYNTAX: ManagedObjectInstance
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  MAX-ACCESS: read-only
-
-branchCurrent47:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 190
-  DESCRIPTION: Description: 
-
-aHarmonicsDistortion1:
-  OID: powerMeterAMYDMEntry 73
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchCurrent103:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 414
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActiveEnergy56:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 228
-
-branchActivePower81:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 327
-
-branchVoltage100:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 401
-
-aActivePower1:
-  OID: powerMeterAMYDMEntry 18
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActiveEnergy28:
-  OID: powerMeterAMYDBEntry 116
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchCurrent32:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 130
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchCurrent59:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 238
-
-branchCurrent9:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 38
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy4:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 20
-  DESCRIPTION: Description: 
-
-envCollectionTime:
-  OID: envThEntry 4
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-ofSwiftState104:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 194
-
-branchActivePower41:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 167
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-alarmServerityExcludeFilter:
-  OID: alarmFilterCondition 8
-  DESCRIPTION: This object filters alarm according to the alarm serverity.  uses ',' as splitter between alarm serverity .for example: 1,2 means : The alarms of specifical  serverity of 1 and 2 will not  be sent. 
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  SYNTAX: OCTET STRING (SIZE (0..512))
-  MAX-ACCESS: read-write
-
-dcimSysManufacturer:
-  OID: dcimSystem 4
-  DESCRIPTION: Description: MDC manufacturer.
-  STATUS: current
-  SYNTAX: DisplayString
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActiveEnergy89:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 360
-  DESCRIPTION: Description: 
-
-ofSwiftState75:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 165
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchCurrent13:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 54
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-zxEmsEventSeverity:
-  DESCRIPTION: Severity of a event.
-  OID: zxNetEmsNbiEventObject 11
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  SYNTAX: INTEGER
-  STATUS: current
-
-bNegativeActiveEnergy:
-  OID: powerMeterAMYDMEntry 66
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActiveEnergy87:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 352
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchVoltage10:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 41
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
+  DESCRIPTION: alarm eventType: 'Communication Alarm', 'Processing error Alarm', 'Equipment Alarm', 'Environmental Alarm', 'Quality of Service Alarm', 'Integrity Violation', 'Operational Violation', 'Physical Violation', 'Security Service or Mechanism Violation'
   STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
+  OID: casaHeMSAlarmObjects 4
+  SYNTAX: OCTET STRING
 
-branchActiveEnergy61:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 248
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchCurrent87:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 350
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-zxEmsEventAid64:
-  DESCRIPTION: The whole Event ID.It is not be reported by default,and it can be reported by modifying the configuration file.
-  OID: zxNetEmsNbiEventObject 19
-  MAX-ACCESS: read-only
-  SYNTAX: Counter64
-  STATUS: current
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-
-aMianSwiftSd:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 86
-  DESCRIPTION: Description: 
-
-branchActivePower39:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 159
-  DESCRIPTION: Description: 
-
-branchVoltage65:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 261
-
-branchVoltage79:
-  OID: powerMeterAMYDBEntry 317
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-ofSwiftState35:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 125
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActivePower92:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 371
-  DESCRIPTION: Description: 
-
-aid:
-  DESCRIPTION: This object represents an alarm AID
-  OID: currentAlarmEntry 23
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: DisplayString (SIZE (0..255))
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-
-branchActiveEnergy40:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 164
-  DESCRIPTION: Description: 
-
-branchActiveEnergy21:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 88
-  DESCRIPTION: Description: 
-
-ofSwiftState27:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 117
-
-branchActivePower77:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 311
-
-bPowerFactor:
-  OID: powerMeterAMYDMEntry 61
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-envIndex:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: envThEntry 1
-  DESCRIPTION: Description: 
-
-branchCurrent105:
-  OID: powerMeterAMYDBEntry 422
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchActiveEnergy68:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 276
-
-ofSwiftState15:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 105
-
-branchVoltage92:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 369
-
-ofSwiftState67:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 157
-
-branchVoltage3:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 13
-
-branchActivePower63:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 255
-  DESCRIPTION: Description: 
-
-powerFactor:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMPndcEntry 9
-  DESCRIPTION: Description: 
-
-alarmTrapEntry:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: AlarmTrapEntry
-  DESCRIPTION: Description." INDEX { alarmTrapIndex }
-  MAX-ACCESS: not-accessible
-
-branchActiveEnergy64:
-  OID: powerMeterAMYDBEntry 260
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActiveEnergy30:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 124
-  DESCRIPTION: Description: 
-
-branchActivePower64:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 259
-  DESCRIPTION: Description: 
-
-branchActivePower16:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 67
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchActivePower45:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 183
-  DESCRIPTION: Description: 
-
-acEquipName:
-  OID: acSCUIEntry 3
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-aCurrent2:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 14
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-bVoltage2:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 38
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchCurrent72:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 290
-  DESCRIPTION: Description: 
-
-cleiCode:
-  MAX-ACCESS: read-only
-  SYNTAX: DisplayString (SIZE (0..50))
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents the CLEI Code of the MO instance of  network resource. 
-  OID: currentAlarmEntry 19
-
-pmYdbIndex:
-  OID: powerMeterAMYDBEntry 1
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-aVolAvgHarmonicsDistortion:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 72
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-ofSwiftState79:
-  OID: powerMeterAMYDMEntry 169
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActiveEnergy16:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 68
-
-branchActivePower85:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 343
-
-switchPathD0:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMPndcEntry 11
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchCurrent5:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 22
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchActivePower5:
-  OID: powerMeterAMYDBEntry 23
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchCurrent99:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 398
-
-ofSwiftState93:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 183
-
-acCollectionTime:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: acSCUIEntry 4
-
-aZeroLineCurrent:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 17
-
-branchVoltage1:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 5
-  DESCRIPTION: Description: 
-
-bZeroLineCurrent:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 49
-
-inputElectricPower:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMPndcEntry 15
-  DESCRIPTION: Description: 
-
-branchActivePower49:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 199
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-envThEntry:
-  DESCRIPTION: Description." INDEX { envIndex }
-  MAX-ACCESS: not-accessible
-  SYNTAX: envThEntry
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-alarmTableFilter:
-  MAX-ACCESS: read-write
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  SYNTAX: OCTET STRING (SIZE (0..1024))
-  DESCRIPTION: This object filters alarm according to serverity,type,code,position.The format is : 'PerceivedSeverity:1,3; TypeOfEvent:1,2; ProbableCause��1001,1002;Position:COMM:EMS=0806164728805,CommonTopoObject=123'
-  OID: alarmOperation 2
-
-branchVoltage93:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 373
-
-branchVoltage28:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 113
-  DESCRIPTION: Description: 
-
-sendNotificationId:
-  OID: alarmIRPInfo 2
-  DESCRIPTION: This object represent the notification identifier of current send notification ( AlarmNew,AlarmCleared,AlarmAckChange,AlarmCommentChange,AlarmSync) The agent shall store the notification identifier of the last send FM notification in this object immediately after sending the notification. The manager can retrieve the current value of this object to detect lost notifications. This mechanism can be used by the manager when no notification is received for a certain time (e.g. 10 minutes) to evaluate whether a synchronization should be performed. 
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  SYNTAX: Integer32
+probableCause:
+  DESCRIPTION: alarm probableCause
   MAX-ACCESS: accessible-for-notify
-
-branchActiveEnergy103:
-  OID: powerMeterAMYDBEntry 416
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchCurrent90:
-  OID: powerMeterAMYDBEntry 362
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-outTemp:
-  DESCRIPTION: Description: 
-  OID: acSCUIEntry 21
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent74:
-  OID: powerMeterAMYDBEntry 298
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-bCurrent2:
-  OID: powerMeterAMYDMEntry 46
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-aVoltage2:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 6
-
-equipTimestamp:
-  DESCRIPTION: Description: The timestamp of the last update. eg. 20100607T152000+08
-  OID: dcimEquipsEntry 8
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: DisplayString
-  STATUS: current
-
-branchActiveEnergy75:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 304
-  DESCRIPTION: Description: 
-
-branchCurrent91:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 366
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActivePower89:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 359
-
-branchVoltage67:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 269
-  DESCRIPTION: Description: 
-
-branchActiveEnergy38:
-  OID: powerMeterAMYDBEntry 156
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActivePower66:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 267
-
-branchActivePower14:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 59
-
-ofSwiftState48:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 138
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent85:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 342
-  DESCRIPTION: Description: 
-
-branchActiveEnergy82:
-  OID: powerMeterAMYDBEntry 332
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActiveEnergy44:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 180
-  DESCRIPTION: Description: 
-
-currentAlarmEntry:
-  SYNTAX: AlarmEntry
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: One entry in the table holds one current alarm." INDEX { alarmIndex }
-  MAX-ACCESS: not-accessible
-
-branchCurrent26:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 106
-  DESCRIPTION: Description: 
-
-branchActiveEnergy108:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 436
-  DESCRIPTION: Description: 
-
-alarmSeverityFilter:
-  OID: alarmFilterCondition 5
-  DESCRIPTION: This object filters alarm according to the alarm severity.The alarm of specifical severity will be sent.
-  STATUS: current
-  SYNTAX: SeverityFilter
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  MAX-ACCESS: read-write
-
-branchActivePower13:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 55
-  DESCRIPTION: Description: 
-
-returnWindTemp:
-  DESCRIPTION: Description: 
-  OID: acSCUIEntry 8
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent46:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 186
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-ofSwiftState88:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 178
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActivePower28:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 115
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-aPowerFactor:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 29
-
-branchActiveEnergy2:
-  OID: powerMeterAMYDBEntry 12
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActiveEnergy48:
-  OID: powerMeterAMYDBEntry 196
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-ofSwiftState91:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 181
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchVoltage71:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 285
-  DESCRIPTION: Description: 
-
-outputElectricPower:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMPndcEntry 16
-  DESCRIPTION: Description: 
-
-alarmCodeName:
-  DESCRIPTION: This object represents an alarm code name
-  OID: currentAlarmEntry 14
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: DisplayString (SIZE (0..255))
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-
-branchActivePower35:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 143
-
-branchActiveEnergy34:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 140
-
-branchActiveEnergy60:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 244
-  DESCRIPTION: Description: 
-
-bMianSwiftSd:
-  OID: powerMeterAMYDMEntry 89
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-pmYdmCollectionTime:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 4
-
-branchVoltage48:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 193
-
-dcimSysTime:
-  DESCRIPTION: Description: The current system time. eg. 20100607T152000+08
-  OID: dcimSystem 5
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: DisplayString
-
-branchVoltage94:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 377
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage70:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 281
-
-ofSwiftState59:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 149
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent73:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 294
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-ofSwiftState90:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 180
-  DESCRIPTION: Description: 
-
-branchActivePower47:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 191
-
-branchVoltage56:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 225
-  DESCRIPTION: Description: 
-
-acSCUIEntry:
-  DESCRIPTION: Description." INDEX { acIndex }
-  MAX-ACCESS: not-accessible
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: acSCUIEntry
-
-bCurrent1:
-  OID: powerMeterAMYDMEntry 45
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-alarmManagedObjectInstanceName:
-  MAX-ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  SYNTAX: DisplayString (SIZE (0..255))
-  DESCRIPTION: This object identifies the MO instance name of  network resource to which the alarm is  related.
-  OID: currentAlarmEntry 15
-
-aVoltage1:
-  OID: powerMeterAMYDMEntry 5
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchVoltage104:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 417
-  DESCRIPTION: Description: 
-
-powerMeterAMYDBEntry:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: powerMeterAMYDBEntry
-  MAX-ACCESS: not-accessible
-  DESCRIPTION: Description." INDEX { pmYdbIndex }
-
-branchVoltage80:
-  OID: powerMeterAMYDBEntry 321
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchVoltage62:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 249
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-envEquipName:
-  DESCRIPTION: Description: 
-  OID: envThEntry 3
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchCurrent83:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 334
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActivePower52:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 211
-
-branchCurrent58:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 234
-
-branchActiveEnergy80:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 324
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-returnWindHumSet:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: acSCUIEntry 7
-
-alarmIndex:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32(0..2147483647)
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object uniquely identifies an entry in the  Active Alarm Table. It increases every time a new alarm  occurs. Due to cleared alarms the index will not be  contiguous. When the maximum is reached of  Integer32, the value of this object rolls over to 1.  The actor must use 'alarmEventTime' to sort on  chronological order. The alarmIndex object is read-only ,and it is used as index in the Active Alarm Table.  The alarmIndex facilities the way to extract  the corresponding value from a notification where  the object is included.
-  OID: currentAlarmEntry 9
-
-ofSwiftState87:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 177
-  DESCRIPTION: Description: 
-
-branchVoltage81:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 325
-  DESCRIPTION: Description: 
-
-dcimITEnergy:
-  OID: dcimStatistic 7
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-zxEmsEventConfirmInfo:
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  SYNTAX: DisplayString
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: zxNetEmsNbiEventObject 18
-  DESCRIPTION: Confirmation information.
-
-branchActivePower87:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 351
-
-branchActivePower26:
-  OID: powerMeterAMYDBEntry 107
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchVoltage95:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 381
-  DESCRIPTION: Description: 
-
-branchActiveEnergy95:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 384
-  DESCRIPTION: Description: 
-
-fanState:
-  DESCRIPTION: Description: 
-  OID: acSCUIEntry 13
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-aHarmonicsDistortion3:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 75
-  DESCRIPTION: Description: 
-
-branchCurrent36:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 146
-
-branchActiveEnergy23:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 96
-
-aPowerFactor1:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 26
-
-zxEmsSyncTrapByName:
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  STATUS: current
-  SYNTAX: DisplayString
-  MAX-ACCESS: read-write
-  OID: zxNetEmsGroups 3
-  DESCRIPTION: The Ems Event Trap Notification Group.
-
-branchActivePower9:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 39
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-zxEmsSyncTrapByIP:
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  STATUS: current
-  SYNTAX: IpAddress
-  MAX-ACCESS: read-write
-  OID: zxNetEmsNbiSyncObject 2
-  DESCRIPTION: Synchronize trap of NE specified by NE ip. If value is 0.0.0.0, it means to synchronize all NE's traps in the network.
-
-alarmEquipIndex:
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: alarmTrapEntry 15
-  DESCRIPTION: Description: The equip index
-
-branchActiveEnergy62:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 252
-  DESCRIPTION: Description: 
-
-ofSwiftState76:
-  OID: powerMeterAMYDMEntry 166
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchActivePower68:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 275
-  DESCRIPTION: Description: 
-
-ofSwiftState47:
-  OID: powerMeterAMYDMEntry 137
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchCurrent75:
-  OID: powerMeterAMYDBEntry 302
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchCurrent69:
-  OID: powerMeterAMYDBEntry 278
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-aNegativeReactiveEnergy:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 36
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-zxEmsEventType:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: INTEGER
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  DESCRIPTION: event type.
-  OID: zxNetEmsNbiEventObject 13
-
-aPowerFactor3:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 28
-
-ofSwiftState5:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 95
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage38:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 153
-
-pmYdmEquipOid:
-  OID: powerMeterAMYDMEntry 2
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-heatState:
-  OID: acSCUIEntry 14
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-voltage:
-  OID: powerMeterAMPndcEntry 6
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-alarmTypeFilter:
-  DESCRIPTION: This object filters alarm according to the alarm type.The alarm of specifical type will be sent.
-  OID: alarmFilterCondition 4
-  MAX-ACCESS: read-write
-  STATUS: current
-  SYNTAX: TypeFilter
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-
-branchActivePower75:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 303
-
-branchCurrent84:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 338
-
-branchActivePower105:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 423
-
-ofSwiftState106:
-  OID: powerMeterAMYDMEntry 196
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-alarmNumber:
-  DESCRIPTION: This object determines the total number of  currently active alarms, i.e. the total number of entries in the Active Alarm Table.
-  OID: alarmCount 6
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-
-ofSwiftState92:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 182
-  DESCRIPTION: Description: 
-
-branchCurrent61:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 246
-  DESCRIPTION: Description: 
-
-branchActivePower37:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 151
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage97:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 389
-
-bPowerFactor3:
-  OID: powerMeterAMYDMEntry 60
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActivePower23:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 95
-
-powerFrequency:
-  OID: acSCUIEntry 30
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-bNegativeReactiveEnergy:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 68
-
-branchActivePower18:
-  OID: powerMeterAMYDBEntry 75
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-alarmWarningNumber:
-  DESCRIPTION: This object determines the number of currently  active alarms with perceived severity 'warning'.
-  OID: alarmCount 5
-  MAX-ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  SYNTAX: Integer32
-
-branchActiveEnergy42:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 172
-
-branchCurrent82:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 330
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-bHarmonicsDistortion3:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 83
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy84:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 340
-  DESCRIPTION: Description: 
-
-branchCurrent60:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 242
-  DESCRIPTION: Description: 
-
-branchActivePower79:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 319
-  DESCRIPTION: Description: 
-
-branchVoltage63:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 253
-  DESCRIPTION: Description: 
-
-outHum:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: acSCUIEntry 22
-  DESCRIPTION: Description: 
-
-branchVoltage4:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 17
-
-bPowerFactor1:
-  OID: powerMeterAMYDMEntry 58
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchVoltage2:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 9
-  DESCRIPTION: Description: 
-
-branchActivePower24:
-  OID: powerMeterAMYDBEntry 99
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-equipModel:
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: dcimEquipsEntry 5
-  DESCRIPTION: Description: Equipment model.
-
-branchActiveEnergy88:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 356
-  DESCRIPTION: Description: 
-
-branchCurrent106:
-  OID: powerMeterAMYDBEntry 426
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-ofSwiftState28:
-  OID: powerMeterAMYDMEntry 118
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchVoltage18:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 73
-  DESCRIPTION: Description: 
-
-ofSwiftState56:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 146
-  DESCRIPTION: Description: 
-
-branchActiveEnergy27:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 112
-  DESCRIPTION: Description: 
-
-ofSwiftState68:
-  OID: powerMeterAMYDMEntry 158
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-powerMeterAMYDMEntry:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: powerMeterAMYDMEntry
-  STATUS: current
-  DESCRIPTION: Description." INDEX { pmYdmIndex }
-  MAX-ACCESS: not-accessible
-
-powerMeterAMPndcEntry:
-  MAX-ACCESS: not-accessible
-  DESCRIPTION: Description." INDEX { pmPndcIndex }
-  SYNTAX: powerMeterAMPndcEntry
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy29:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 120
-  DESCRIPTION: Description: 
-
-branchVoltage64:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 257
-  DESCRIPTION: Description: 
-
-branchActiveEnergy32:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 132
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchCurrent77:
-  OID: powerMeterAMYDBEntry 310
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchVoltage101:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 405
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-ofSwiftState7:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 97
-
-ofSwiftState94:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 184
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-aCurrent1:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 13
-
-bVoltage1:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 37
-  DESCRIPTION: Description: 
-
-branchCurrent16:
-  OID: powerMeterAMYDBEntry 66
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActiveEnergy55:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 224
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage89:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 357
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent11:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 46
-
-branchActivePower10:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 43
-  DESCRIPTION: Description: 
-
-syncAlarm:
-  DESCRIPTION: This object sync alarm ,once successfully set,ems will send alarm.The format is :'position:a,c;', 'a' and 'c' is Moc's Id.
-  OID: alarmOperation 1
-  MAX-ACCESS: read-write
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: OCTET STRING (SIZE (0..1024))
-  STATUS: current
-
-pmYdmEquipName:
-  OID: powerMeterAMYDMEntry 3
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-ofSwiftState65:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 155
-  DESCRIPTION: Description: 
-
-ofSwiftState17:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 107
-
-zxEmsEventConfirmType:
-  OID: zxNetEmsNbiEventObject 14
-  DESCRIPTION: Confirmation Type of the event.
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  SYNTAX: INTEGER
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchVoltage47:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 189
-  DESCRIPTION: Description: 
-
-branchActivePower42:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 171
-  DESCRIPTION: Description: 
-
-powerMeterAMYDBTable:
-  MAX-ACCESS: not-accessible
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: SEQUENCE OF powerMeterAMYDBEntry
-  DESCRIPTION: Description.
-  OID: powerMeter 2
-
-ofSwiftState25:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 115
-  DESCRIPTION: Description: 
-
-branchVoltage103:
-  OID: powerMeterAMYDBEntry 413
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-dcimEnergy:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: dcimStatistic 6
-
-branchCurrent100:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 402
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy18:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 76
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-zxEmsEventSystemType:
-  DESCRIPTION: The end realignment trap of alarm synchronization that is generated by the EMS of NetNumenN31. It is not be reported by default,and it can be reported by modifying the configuration file.
-  OID: zxNetEmsNbiTrapObject 7
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
+  ARCHIVO: casa-hems-alarm.mib
+  SYNTAX: OCTET STRING
   STATUS: current
-  SYNTAX: INTEGER
+  OID: casaHeMSAlarmObjects 5
 
-messageCode:
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
+perceivedSeverity:
   STATUS: current
-  SYNTAX: Integer32
+  OID: casaHeMSAlarmObjects 7
+  SYNTAX: OCTET STRING
+  ARCHIVO: casa-hems-alarm.mib
   MAX-ACCESS: accessible-for-notify
-  OID: alarmIRPInfo 5
-  DESCRIPTION: the ems error code.
-
-branchVoltage9:
-  OID: powerMeterAMYDBEntry 37
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchVoltage59:
-  OID: powerMeterAMYDBEntry 237
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-ofSwiftState37:
-  OID: powerMeterAMYDMEntry 127
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchVoltage32:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 129
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchActivePower82:
-  OID: powerMeterAMYDBEntry 331
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchVoltage13:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 53
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchCurrent10:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 42
-  DESCRIPTION: Description: 
-
-aAvgCurrent:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 16
-  DESCRIPTION: Description: 
-
-branchActivePower57:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 231
-
-ofSwiftState100:
-  OID: powerMeterAMYDMEntry 190
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActiveEnergy9:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 40
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent7:
-  OID: powerMeterAMYDBEntry 30
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchActiveEnergy66:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 268
-  DESCRIPTION: Description: 
-
-branchVoltage14:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 57
-
-branchCurrent108:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 434
-  DESCRIPTION: Description: 
-
-branchActiveEnergy73:
-  OID: powerMeterAMYDBEntry 296
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-aPositiveActiveEnergy:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 33
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-ofSwiftState51:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 141
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-alarmTrapText:
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: alarmTrapEntry 9
-  DESCRIPTION: Description: Warning description information.
-
-branchActivePower95:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 383
-
-branchVoltage68:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 273
-
-aFrequency:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 30
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActiveEnergy14:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 60
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActivePower7:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 31
-  DESCRIPTION: Description: 
-
-branchVoltage102:
-  OID: powerMeterAMYDBEntry 409
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchCurrent39:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 158
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-ofSwiftState99:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 189
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage27:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 109
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent52:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 210
-  DESCRIPTION: Description: 
-
-ofSwiftState50:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 140
-
-branchActiveEnergy51:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 208
-
-alarmAdditionalText:
-  OID: currentAlarmEntry 8
-  DESCRIPTION: This object represents some arbitrary additional  information of the alarm.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: DisplayString (SIZE (0..255))
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchCurrent66:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 266
-
-alarmPerceivedSeverity:
-  OID: currentAlarmEntry 6
-  DESCRIPTION: This object represents the perceived severity of  the alarm.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  SYNTAX: PerceivedSeverity
-  MAX-ACCESS: read-write
-
-ofSwiftState101:
-  OID: powerMeterAMYDMEntry 191
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-zxEmsEventAid:
-  OID: zxNetEmsNbiEventObject 1
-  DESCRIPTION: Event ID.
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  STATUS: current
-  SYNTAX: Counter32
-  MAX-ACCESS: read-only
-
-branchActiveEnergy100:
-  OID: powerMeterAMYDBEntry 404
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActivePower11:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 47
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-alarmMocObjectInstance:
-  MAX-ACCESS: read-only
-  SYNTAX: DisplayString (SIZE (0..255))
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object identifies the SUB MO instance of  network resource to which the alarm is  related.
-  OID: currentAlarmEntry 26
-
-ofSwiftState73:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 163
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActiveEnergy5:
-  OID: powerMeterAMYDBEntry 24
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchCurrent30:
-  OID: powerMeterAMYDBEntry 122
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActivePower61:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 247
-
-equipIpAddress:
-  DESCRIPTION: Description: The equip Ip Address. eg. 20100607T152000+08
-  OID: dcimEquipsEntry 13
-  MAX-ACCESS: read-only
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage33:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 133
-
-branchActivePower32:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 131
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-bFrequency:
-  OID: powerMeterAMYDMEntry 62
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchVoltage12:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 49
-
-wlCollectionTime:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: waterLeakageEntry 4
-
-branchActivePower99:
-  OID: powerMeterAMYDBEntry 399
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchCurrent54:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 218
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchVoltage45:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 181
-
-alarmMajorNumber:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object determines the number of currently  active alarms with perceived severity 'major'.
-  OID: alarmCount 3
-
-branchActiveEnergy91:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 368
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-bPositiveActiveEnergy:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 65
-  DESCRIPTION: Description: 
-
-dcimEquipsTable:
-  MAX-ACCESS: not-accessible
-  STATUS: current
-  SYNTAX: SEQUENCE OF DcimEquipsEntry
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description.
-  OID: dcimSystem 6
-
-wlEquipName:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: waterLeakageEntry 3
-  DESCRIPTION: Description: 
-
-envEquipOid:
-  OID: envThEntry 2
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActiveEnergy46:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 188
-  DESCRIPTION: Description: 
-
-alarmTrapOid:
-  MAX-ACCESS: read-only
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: Alarm object OID.
-  OID: alarmTrapEntry 4
-
-alarmId:
-  DESCRIPTION: This object represents an alarm in EMS using  the private format of vendor
-  OID: currentAlarmEntry 1
-  MAX-ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: DisplayString (SIZE (0..50))
-  STATUS: current
-
-branchCurrent31:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 126
-
-ofSwiftState71:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 161
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActiveEnergy79:
-  OID: powerMeterAMYDBEntry 320
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchCurrent53:
-  OID: powerMeterAMYDBEntry 214
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActiveEnergy77:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 312
-
-branchVoltage50:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 201
-
-bAvgCurrent:
-  OID: powerMeterAMYDMEntry 48
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchVoltage86:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 345
-
-branchCurrent19:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 78
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-equipPort:
-  OID: dcimNotifications 1
-  DESCRIPTION: Description: trap oid.
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActiveEnergy36:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 148
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-returnWindTempSet:
-  OID: acSCUIEntry 6
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-powerMeterAMYDMTable:
-  STATUS: current
-  SYNTAX: SEQUENCE OF powerMeterAMYDMEntry
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: not-accessible
-  OID: powerMeter 1
-  DESCRIPTION: Description.
-
-branchVoltage25:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 101
-
-zxEmsEventName:
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  SYNTAX: DisplayString
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: zxNetEmsNbiEventObject 8
-  DESCRIPTION: The name of the event.
-
-dcimSysLocation:
-  OID: dcimSystem 3
-  DESCRIPTION: Description: The location of the MDC, using IDC encoding: room number-MDC number.
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: DisplayString
-  MAX-ACCESS: read-only
-
-branchCurrent107:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 430
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-ofSwiftState53:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 143
-  DESCRIPTION: Description: 
-
-branchVoltage34:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 137
-  DESCRIPTION: Description: 
-
-branchActivePower101:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 407
-
-branchVoltage51:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 205
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy10:
-  OID: powerMeterAMYDBEntry 44
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-alarmTrapInst:
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: alarmTrapEntry 11
-  DESCRIPTION: Description: The mdc's name or room's name.
-
-ofSwiftState70:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 160
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent88:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 354
-  DESCRIPTION: Description: 
-
-branchActivePower60:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 243
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-zxEmsEventNeType:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  STATUS: current
-  SYNTAX: DisplayString
-  DESCRIPTION: NE Type.
-  OID: zxNetEmsNbiEventObject 2
-
-branchCurrent40:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 162
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchActivePower97:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 391
-
-branchVoltage6:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 25
-  DESCRIPTION: Description: 
-
-aReactivePower:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 25
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-branchActiveEnergy53:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 216
-  DESCRIPTION: Description: 
-
-branchVoltage43:
-  OID: powerMeterAMYDBEntry 173
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActivePower21:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 87
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-timeZoneOffset:
-  MAX-ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: This object represents the NE's TimeZoneOffset. 
-  OID: currentAlarmEntry 21
-
-branchVoltage24:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 97
-
-electronicConductivity:
-  DESCRIPTION: Description: 
-  OID: acSCUIEntry 11
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-zxEmsEventProbableCause:
-  DESCRIPTION: The probable cause of the event..
-  OID: zxNetEmsNbiEventObject 9
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: DisplayString
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-
-ofSwiftState85:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 175
-
-ofSwiftState52:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 142
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent78:
-  OID: powerMeterAMYDBEntry 314
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActivePower107:
-  OID: powerMeterAMYDBEntry 431
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-zxEmsEventRestoreTime:
-  DESCRIPTION: The restored time of the event.
-  OID: zxNetEmsNbiEventObject 12
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: DisplayString
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-
-alarmTypeExcludeFilter:
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  SYNTAX: OCTET STRING (SIZE (0..512))
-  MAX-ACCESS: read-write
-  OID: alarmFilterCondition 7
-  DESCRIPTION: This object filters alarm according to the alarm type.  uses ',' as splitter between alarm types .for example: 1,2 means :The alarms of specifical type  of 1 and 2,those will not be sent. 
-
-branchVoltage35:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 141
-  DESCRIPTION: Description: 
-
-branchVoltage17:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 69
-
-addHumState:
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: acSCUIEntry 16
-  DESCRIPTION: Description: 
-
-branchActivePower72:
-  OID: powerMeterAMYDBEntry 291
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActiveEnergy71:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 288
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchVoltage76:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 305
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-bFundamentalV1OrV12:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 77
-  DESCRIPTION: Description: 
-
-branchCurrent41:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 166
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-groupControlMode:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: acSCUIEntry 18
-
-branchActivePower4:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 19
-  DESCRIPTION: Description: 
-
-ofSwiftState96:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 186
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent21:
-  OID: powerMeterAMYDBEntry 86
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchCurrent96:
-  OID: powerMeterAMYDBEntry 386
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-branchActiveEnergy99:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 400
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-openOperation:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: acSCUIEntry 5
-  DESCRIPTION: Description: 
-
-branchActiveEnergy97:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 392
-
-bFundamentalV3OrV31:
-  OID: powerMeterAMYDMEntry 79
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-ofSwiftState54:
-  OID: powerMeterAMYDMEntry 144
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-aPowerFactor2:
-  OID: powerMeterAMYDMEntry 27
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchActivePower55:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 223
-
-aCurAvgHarmonicsDistortion:
-  OID: powerMeterAMYDMEntry 76
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActiveEnergy12:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 52
-  DESCRIPTION: Description: 
-
-ofSwiftState45:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 135
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchVoltage44:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 177
-
-branchActivePower20:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 83
-
-bVolAvgHarmonicsDistortion:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 80
-  DESCRIPTION: Description: 
-
-branchCurrent55:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 222
-
-branchActivePower8:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 35
-  DESCRIPTION: Description: 
-
-branchVoltage23:
-  OID: powerMeterAMYDBEntry 93
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchVoltage98:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 393
-
-warterValveRate:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: acSCUIEntry 26
-
-branchCurrent20:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 82
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-alarmTrapLevel:
-  DESCRIPTION: Description: Alarm level, as defined in the iDCIM.
-  OID: alarmTrapEntry 6
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-ofSwiftState72:
-  OID: powerMeterAMYDMEntry 162
-  DESCRIPTION: Description: 
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActivePower103:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 415
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-bPowerFactor2:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 59
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchVoltage37:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 149
-  DESCRIPTION: Description: 
-
-branchCurrent29:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 118
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-aFundamentalV3OrV31:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 71
-
-branchActiveEnergy59:
-  OID: powerMeterAMYDBEntry 240
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-branchVoltage15:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 61
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchActiveEnergy57:
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 232
-
-branchVoltage42:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 169
-  DESCRIPTION: Description: 
-
-branchActivePower59:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 239
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchCurrent8:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 34
-  DESCRIPTION: Description: 
-
-branchActiveEnergy86:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 348
-
-branchActiveEnergy25:
-  OID: powerMeterAMYDBEntry 104
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-ofSwiftState38:
-  MAX-ACCESS: read-only
-  SYNTAX: Integer32
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 128
-
-aFundamentalV1OrV12:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 69
-
-branchActivePower3:
-  OID: powerMeterAMYDBEntry 15
-  DESCRIPTION: Description: 
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-
-branchActiveEnergy93:
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 376
-  DESCRIPTION: Description: 
-
-zxEmsEventEntity:
-  OID: zxNetEmsNbiEventObject 6
-  DESCRIPTION: The detail position information of the event.
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  MAX-ACCESS: read-only
-
-dcimLoad:
-  DESCRIPTION: Description: The current system load.
-  OID: dcimStatistic 2
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-branchActiveEnergy7:
-  OID: powerMeterAMYDBEntry 32
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-
-zxEmsEventConfirmSystemIP:
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  STATUS: current
-  SYNTAX: DisplayString
-  DESCRIPTION: The IP address of the NMS server,by which the user confirmed the event.
-  OID: zxNetEmsNbiEventObject 17
-
-zxEmsEventHappenTime:
-  DESCRIPTION: The happened time of the event. It is a string,for example,2005-09-15 11:13:54.428 .
-  OID: zxNetEmsNbiEventObject 7
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: DisplayString
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-
-branchCurrent57:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 230
-  DESCRIPTION: Description: 
-
-branchVoltage22:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDBEntry 89
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-
-ofSwiftState18:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 108
-  DESCRIPTION: Description: 
-
-outTempSet:
-  DESCRIPTION: Description: 
-  OID: acSCUIEntry 19
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-branchCurrent49:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDBEntry 198
-  DESCRIPTION: Description: 
-
-waterLeakageTable:
-  DESCRIPTION: Description.
-  OID: waterLeakage 1
-  MAX-ACCESS: not-accessible
-  SYNTAX: SEQUENCE OF waterLeakageEntry
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-alarmTrapIndex:
-  SYNTAX: Integer32 (1..2147483647)
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  MAX-ACCESS: read-only
-  OID: alarmTrapEntry 1
-  DESCRIPTION: Description: The serial number, starting from 1.
-
-branchActiveEnergy105:
-  OID: powerMeterAMYDBEntry 424
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-
-bReactivePower:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
-  OID: powerMeterAMYDMEntry 57
-  DESCRIPTION: Description: 
-
-ofSwiftState74:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 164
-  MAX-ACCESS: read-only
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  SYNTAX: Integer32
-  STATUS: current
-
-ofSwiftState9:
-  DESCRIPTION: Description: 
-  OID: powerMeterAMYDMEntry 99
-  MAX-ACCESS: read-only
-  STATUS: current
-  SYNTAX: Integer32
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-equipPosition:
-  MAX-ACCESS: read-only
-  SYNTAX: DisplayString
-  STATUS: current
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  DESCRIPTION: Description: The equip position. eg. 20100607T152000+08
-  OID: dcimEquipsEntry 11
-
-branchActiveEnergy104:
-  OID: powerMeterAMYDBEntry 420
-  DESCRIPTION: Description: 
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  STATUS: current
-  SYNTAX: Integer32
-  MAX-ACCESS: read-only
+  DESCRIPTION: alarm perceivedSeverity: 'Critical, 'Major', 'Minor', 'Warning', 'Indeterminate'
+
+notificationType:
+  DESCRIPTION: alarm notificationType: 'NewAlarm', 'ChangedAlarm', 'ClearedAlarm'
+  ARCHIVO: casa-hems-alarm.mib
+  MAX-ACCESS: accessible-for-notify
+  SYNTAX: OCTET STRING
+  OID: casaHeMSAlarmObjects 3
+  STATUS: current
+
+specificProblem:
+  DESCRIPTION: alarm specificProblem
+  MAX-ACCESS: accessible-for-notify
+  ARCHIVO: casa-hems-alarm.mib
+  SYNTAX: OCTET STRING
+  OID: casaHeMSAlarmObjects 6
+  STATUS: current
+
+alarmID:
+  SYNTAX: OCTET STRING
+  STATUS: current
+  OID: casaHeMSAlarmObjects 2
+  DESCRIPTION: alarm ID
+  MAX-ACCESS: accessible-for-notify
+  ARCHIVO: casa-hems-alarm.mib
+
+neIdentity:
+  STATUS: current
+  OID: casaHeMSAlarmObjects 1
+  SYNTAX: OCTET STRING
+  MAX-ACCESS: accessible-for-notify
+  ARCHIVO: casa-hems-alarm.mib
+  DESCRIPTION: Ne Identity
+
+additionalInformation:
+  SYNTAX: OCTET STRING
+  OID: casaHeMSAlarmObjects 9
+  STATUS: current
+  DESCRIPTION: This contains additional information about the alarm and is vendor defined.
+  MAX-ACCESS: accessible-for-notify
+  ARCHIVO: casa-hems-alarm.mib
+
+additionalText:
+  DESCRIPTION: This provides a textual string which is vendor defined.
+  ARCHIVO: casa-hems-alarm.mib
+  MAX-ACCESS: accessible-for-notify
+  SYNTAX: OCTET STRING
+  STATUS: current
+  OID: casaHeMSAlarmObjects 8
+
+eventTime:
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 50
+  SYNTAX: OCTET STRING
+  MAX-ACCESS: accessible-for-notify
+  ARCHIVO: casa-hems-alarm.mib
+  DESCRIPTION: System raises the alarm when the eNB cannot connect to AeMS server
 
 ----------------------------------- OBJECT_IDENTIFIERS ---------------------------
-transmission:
-  TYPE: OBJECT IDENTIFIER
+mib-2:
   ARCHIVO: SNMPv2-SMI
-  OID: mib-2 10
-
-alarmIRPInfo:
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  OID: alarmIRP 1
   TYPE: OBJECT IDENTIFIER
-
-mgmt:
-  ARCHIVO: SNMPv2-SMI
-  OID: internet 2
-  TYPE: OBJECT IDENTIFIER
-
-zxNetEmsGroups:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  OID: zxNetEmsConformance 10
-
-dod:
-  TYPE: OBJECT IDENTIFIER
-  OID: org 6
-  ARCHIVO: SNMPv2-SMI
-
-dcimAlarm:
-  OID: dcim 2
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  TYPE: OBJECT IDENTIFIER
-
-SYNTAX:
-  ARCHIVO: SNMPv2-TC
-  OID: 
-  TYPE: OBJECT IDENTIFIER
-
-alarmIRP:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  OID: alarm 1
-
-csNotificationProfile:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID: csNotifications 1
-
-dcimStatistic:
-  OID: dcim 3
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  TYPE: OBJECT IDENTIFIER
-
-waterLeakage:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  OID: dcimMonObjects 4
-
-powerMeter:
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  OID: dcimMonObjects 1
-  TYPE: OBJECT IDENTIFIER
-
-org:
-  TYPE: OBJECT IDENTIFIER
-  OID: iso 3
-  ARCHIVO: SNMPv2-SMI
-
-alarmFilterCondition:
-  TYPE: OBJECT IDENTIFIER
-  OID: alarmFilter 3
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-
-dcimSystem:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  OID: dcim 1
-
-snmpModules:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID: snmpV2 3
-
-zte:
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  OID: enterprises 3902
-  TYPE: OBJECT IDENTIFIER
-
-security:
-  ARCHIVO: SNMPv2-SMI
-  OID: internet 5
-  TYPE: OBJECT IDENTIFIER
-
-dcimMonObjects:
-  TYPE: OBJECT IDENTIFIER
-  OID: dcim 4
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-zxNetEmsNbiEventObject:
-  TYPE: OBJECT IDENTIFIER
-  OID: zxNetEms 52
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-
-zxNetEmsNbiTrapObject:
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  OID: zxNetEms 50
-  TYPE: OBJECT IDENTIFIER
-
-env:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  OID: dcimMonObjects 3
-
-alarmConformance:
-  TYPE: OBJECT IDENTIFIER
-  OID: alarmIRP 5
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-
-zteEmsProducts:
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  OID: zteProducts 1
-  TYPE: OBJECT IDENTIFIER
-
-alarmNotificationProfile:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  OID: alarmNotifications 1
-
-airConditoner:
-  OID: dcimMonObjects 2
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-  TYPE: OBJECT IDENTIFIER
-
-csNotifications:
-  OID: csIRP 2
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  TYPE: OBJECT IDENTIFIER
+  OID: mgmt 1
 
 snmpV2:
   TYPE: OBJECT IDENTIFIER
   ARCHIVO: SNMPv2-SMI
   OID: internet 6
 
-zxNetEms:
-  OID: zteEmsProducts 1
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
+mgmt:
+  OID: internet 2
   TYPE: OBJECT IDENTIFIER
-
-alarmGroups:
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  OID: alarmConformance 2
-  TYPE: OBJECT IDENTIFIER
-
-zxNetEmsNbiSyncObject:
-  OID: zxNetEms 55
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  TYPE: OBJECT IDENTIFIER
-
-csIRPInfo:
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID: csIRP 1
-  TYPE: OBJECT IDENTIFIER
-
-snmpDomains:
   ARCHIVO: SNMPv2-SMI
-  OID: snmpV2 1
-  TYPE: OBJECT IDENTIFIER
 
-alarmCount:
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  OID: alarmIRP 2
-  TYPE: OBJECT IDENTIFIER
-
-zteProducts:
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  OID: zte 701
-  TYPE: OBJECT IDENTIFIER
-
-alarmOperation:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  OID: alarmIRP 7
-
-zxNetEmsConformance:
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
-  OID: zxNetEms 70
-  TYPE: OBJECT IDENTIFIER
-
-internet:
-  OID: dod 1
+transmission:
+  OID: mib-2 10
   ARCHIVO: SNMPv2-SMI
   TYPE: OBJECT IDENTIFIER
 
@@ -6781,233 +113,693 @@ private:
   ARCHIVO: SNMPv2-SMI
   OID: internet 4
 
-alarmCompliances:
-  OID: alarmConformance 1
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  TYPE: OBJECT IDENTIFIER
-
 enterprises:
   TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
   OID: private 1
+
+snmpDomains:
+  OID: snmpV2 1
+  TYPE: OBJECT IDENTIFIER
   ARCHIVO: SNMPv2-SMI
 
-alarmNotifications:
+casaHeMSSystemAlarm:
+  OID: casaHeMSAlarmTraps 1
   TYPE: OBJECT IDENTIFIER
-  OID: alarmIRP 4
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
+  ARCHIVO: casa-hems-alarm.mib
 
-alarm:
-  ARCHIVO: zxcomc-snmp-irp-common-mib.txt
-  OID: zteMIB 4101
-  TYPE: OBJECT IDENTIFIER
-
-mib-2:
-  TYPE: OBJECT IDENTIFIER
-  OID: mgmt 1
+org:
   ARCHIVO: SNMPv2-SMI
+  TYPE: OBJECT IDENTIFIER
+  OID: iso 3
+
+casaHeMSAlarmTraps:
+  OID: casaHeMSAlarmMib 2
+  ARCHIVO: casa-hems-alarm.mib
+  TYPE: OBJECT IDENTIFIER
+
+internet:
+  ARCHIVO: SNMPv2-SMI
+  TYPE: OBJECT IDENTIFIER
+  OID: dod 1
+
+snmpProxys:
+  ARCHIVO: SNMPv2-SMI
+  TYPE: OBJECT IDENTIFIER
+  OID: snmpV2 2
+
+casaHeMSSmallCellAlarm:
+  ARCHIVO: casa-hems-alarm.mib
+  TYPE: OBJECT IDENTIFIER
+  OID: casaHeMSAlarmTraps 2
 
 experimental:
+  TYPE: OBJECT IDENTIFIER
   ARCHIVO: SNMPv2-SMI
   OID: internet 3
+
+dod:
+  ARCHIVO: SNMPv2-SMI
   TYPE: OBJECT IDENTIFIER
+  OID: org 6
+
+security:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID: internet 5
 
 directory:
   TYPE: OBJECT IDENTIFIER
   ARCHIVO: SNMPv2-SMI
   OID: internet 1
 
-csIRP:
+casaHeMSAlarmObjects:
+  OID: casaHeMSAlarmMib 1
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID: alarm 4
+  ARCHIVO: casa-hems-alarm.mib
 
-alarmFilter:
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  OID: alarmIRP 6
-  TYPE: OBJECT IDENTIFIER
-
-dcimNotifications:
-  TYPE: OBJECT IDENTIFIER
-  OID: dcimAlarm 1
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-snmpProxys:
+snmpModules:
   ARCHIVO: SNMPv2-SMI
-  OID: snmpV2 2
   TYPE: OBJECT IDENTIFIER
-
-zxNetEmsManagedObject:
-  TYPE: OBJECT IDENTIFIER
-  OID: zxNetEms 1
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
+  OID: snmpV2 3
 
 ----------------------------------- MODULE_IDENTITIES ---------------------------
-zteSnmpMIB:
-  CONTACT_INFO: iDCIM 
-  ORGANIZATION: iDCIM Working Group
-  DESCRIPTION_2: Updated editors' addresses, fixed typos.
-Published as RFC2571.
-
-  REVISION_1: 9901190000Z
-  REVISION_2: 9711200000Z
-  LAST_UPDATED: 9901190000Z
-  OID:  snmpModules 10 
-  DESCRIPTION_3: The initial version, published in RFC 2271.
-
-  DESCRIPTION_1: The SNMP Management Architecture MIB
+casaHeMSAlarmMib:
+  ORGANIZATION: CASA Systems Inc.
+  ARCHIVO: casa-hems-alarm.mib
+  DESCRIPTION_1: The Casa HeMS ALARM  MIB
+  OID:  1 3 6 1 4 1 20858 10 104 101 
+  LAST_UPDATED: 201804300000Z
+  CONTACT_INFO: Casa Systems Inc.     
+100 Old River Road, Suite 100           
+Andover, MA 01810     
+TEL: +1 978 688 6706     
+FAX: +1 978 688 6584		
+E-mail: support@casa-systems.com
   TYPE: MODULE-IDENTITY
-  ARCHIVO: ZTE-MDC-MIB_V3.0.mib
-
-zteMIB:
-  ORGANIZATION: ZTE Corp. Ltd .
-  CONTACT_INFO: E-mail: wu.chunhui@mail.zte.com.cn
-  REVISION_1: 200512310000Z
-  DESCRIPTION_2: Alarm IRP V2.0
-  LAST_UPDATED: 200512310000Z
-  OID:  enterprises 3902 
-  TYPE: MODULE-IDENTITY
-  DESCRIPTION_1: This SNMP MIB-module specifies the SNMP Solution Set
-of 3GPP Alarm Integration Reference Point (IRP),
-this MIB-module complies with the SNMPV2C
-  ARCHIVO: zxcomc-snmp-irp-common-mib.txt
-
-zxNetEmsMib:
-  LAST_UPDATED: 200908250900Z
-  OID:  zxNetEms 200 
-  ORGANIZATION: ZTE Corporation
-  CONTACT_INFO: ZTE NMS dept. 
-Su Chunshan   68896292
-  TYPE: MODULE-IDENTITY
-  DESCRIPTION_1: The MIB module which provides a ZTE access node nms mib.
-  ARCHIVO: ZTE-NET-EMS-MIB.mib
 
 ----------------------------------- ALARM_TRAPS ---------------------------
-messageInfo:
-  OID: alarmNotificationProfile 7
-  DESCRIPTION: This notification is sent when ems on an abnormal situation.
-  VARIABLES: 
+flashMemoryUsage:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Flash memory usage
   STATUS: current
+  OID: casaHeMSSmallCellAlarm 4
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+
+radioOffAlarm:
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  STATUS: current
+  OID: casaHeMSSystemAlarm 10
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Small Cell radioOff alarm
+
+maxMMEAttemptsExceeded:
+  VARIABLES: 
   TYPE: NOTIFICATION-TYPE
   ENTERPRISE: 
-  OBJECTS: systemDN, messageCode  
+  DESCRIPTION: L3 process is responsible to handle connection with MME, so it raises the alarm if the connection is lost with all MMEs and the maximum number of retries is reached
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 42
+  STATUS: current
 
-zxEmsStartRealignmentTrap:
+synchronizationLostWithAllSources:
+  DESCRIPTION: the synchornization is lost and the eNB passes to holdover mode
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 29
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
   ENTERPRISE: 
+
+l1StartTimeout:
+  DESCRIPTION: the protocol stack cannot start L1 process in DSPs
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 26
+  STATUS: current
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+
+configurationOrCustomizingErrror:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: The configuration received from OAM interfaces (EMS, CLI, HTTP etc) is wrong
+  OID: casaHeMSSmallCellAlarm 18
+  STATUS: current
+
+cellSynchronizationFailure:
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 12
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Cell synchronization failure
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+unauthorisedAccessAttempt:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+  DESCRIPTION: Someone or some process did attempt unsuccesfully to login the web interface
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 17
+
+clockSynchronizationProblem:
+  OID: casaHeMSSmallCellAlarm 28
+  STATUS: current
+  DESCRIPTION: Cell not synchronized
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+
+casaHeMSHeartBeatMsg:
+  OID: casaHeMSAlarmTraps 4
+  STATUS: current
+  DESCRIPTION: Casa HeMS HeartBeat Msg
   OBJECTS: 
-  TYPE: NOTIFICATION-TYPE
-  STATUS: current
-  DESCRIPTION: The start realignment trap of alarm synchronization that is generated by the EMS of NetNumenN31. It is not be reported by default,and it can be reported by modifying the configuration file.
-  VARIABLES: 
-  OID: zxNetEmsNbiTrapObject 6
-
-alarmNew:
   ENTERPRISE: 
-  OBJECTS: alarmEventTime, sendNotificationId, lastSendNotificationId, systemDN, alarmCode, alarmManagedObjectInstance, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem , alarmAdditionalText,                     alarmNetype, alarmIndex, alarmId, alarmCodeName, alarmManagedObjectInstanceName, alarmSystemType, alarmNeIP, alarmAck, cleiCode, timeZoneID, timeZoneOffset, dSTSaving, aid, id, alarmMocObjectInstance, alarmComment, alarmOtherInfo 
-  TYPE: NOTIFICATION-TYPE
-  STATUS: current
-  DESCRIPTION: This notification is sent when a new Alarm is  generated and stored in the Active Alarm Table.  Note that the notification does not include all objects for the corresponding entry in the Alarm  Table. The reason is that some environments may have  problems with large PDUs. Thus, the notification  receiver must get the missing objects from the Active Alarm Table. The value 'cleared' for the PerceivedSeverity is not allowed for an alarm notification.
   VARIABLES: 
-  OID: alarmNotificationProfile 1
-
-zxEmsHeartBeatTrap:
-  OBJECTS: 
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  STATUS: current
-  VARIABLES: 
-  DESCRIPTION: The heartbeat trap that is generated by the EMS of NetNumenN31. It is not be reported by default,and it can be reported by modifying the configuration file.
-  OID: zxNetEmsNbiTrapObject 5
-
-heartbeatNotification:
-  TYPE: NOTIFICATION-TYPE
-  STATUS: current
-  ENTERPRISE: 
-  OBJECTS:  csIRPHeartbeatPeriod 
-  OID: csNotificationProfile 1
-  DESCRIPTION: If the value of csIRPHeartbeatPeriod equals 0,then  no heartbeat notification will be generated. If the value of csIRPHeartbeatPeriod is bigger than 0 ,the heartbeat notification should be issued when the inner timer of heartbeat has reached ,and the timer  would be resetted.
-  VARIABLES: 
-
-alarmSync:
-  DESCRIPTION: This notification is generated when set syncAlarm successfully.  The alarmManagedObjectInstance of all alarms are in line with user setting.
-  VARIABLES: 
-  OID: alarmNotificationProfile 6
-  ENTERPRISE: 
-  OBJECTS:  alarmEventTime, sendNotificationId, lastSendNotificationId, systemDN,             alarmCode,                     alarmManagedObjectInstance, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem, alarmAdditionalText,      alarmNetype, alarmIndex, alarmId, alarmCodeName, alarmManagedObjectInstanceName, alarmSystemType, alarmNeIP, alarmAck, cleiCode, timeZoneID, timeZoneOffset, dSTSaving, aid, id, alarmMocObjectInstance, alarmComment, alarmOtherInfo 
-  STATUS: current
   TYPE: NOTIFICATION-TYPE
 
-dcimAlarmTrapDefine:
-  VARIABLES: 
-  DESCRIPTION: Description: trap oid.
-  OID: dcimNotifications 1
-  OBJECTS: alarmTrapIndex,alarmTrapEquipType,alarmTrapEquipOid,alarmTrapOid,alarmTrapStatus,alarmTrapLevel,alarmTrapTime,alarmTrapValue,alarmTrapText, alarmTrapUserAction,alarmTrapInst,alarmEquipName,alarmKey,alarmCode,alarmEquipIndex
+ipsecTunnelIsDown:
+  OID: casaHeMSSmallCellAlarm 35
+  STATUS: current
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel fails
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
   ENTERPRISE: 
   TYPE: NOTIFICATION-TYPE
-  STATUS: current
-
-alarmSeverityChange:
-  DESCRIPTION: This notification is sent when alarm's severity was changed.
-  VARIABLES: 
-  OID: alarmNotificationProfile 8
-  ENTERPRISE: 
-  OBJECTS: alarmEventTime, sendNotificationId, lastSendNotificationId, systemDN, alarmCode, alarmManagedObjectInstance, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem , alarmAdditionalText,                     alarmNetype, alarmIndex, alarmId, alarmCodeName, alarmManagedObjectInstanceName, alarmSystemType, alarmNeIP, alarmAck, cleiCode, timeZoneID, timeZoneOffset, dSTSaving, aid, id, alarmMocObjectInstance, alarmComment, alarmOtherInfo                 
-  TYPE: NOTIFICATION-TYPE
-  STATUS: current
-
-alarmAckChange:
-  ENTERPRISE: 
-  OBJECTS: alarmEventTime, sendNotificationId, lastSendNotificationId, systemDN, alarmCode, alarmManagedObjectInstance, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem , alarmAdditionalText,                     alarmNetype, alarmIndex, alarmId, alarmCodeName, alarmManagedObjectInstanceName, alarmSystemType, alarmNeIP, alarmAck, cleiCode, timeZoneID, timeZoneOffset, dSTSaving, aid, id, alarmMocObjectInstance, alarmComment, alarmOtherInfo 
-  STATUS: current
-  TYPE: NOTIFICATION-TYPE
-  DESCRIPTION: This notification is sent when alarm's status was changed,acknowledged or unacknowledged.
-  VARIABLES: 
-  OID: alarmNotificationProfile 3
-
-zxEmsEndRealignmentTrap:
-  STATUS: current
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  OBJECTS: 
-  OID: zxNetEmsNbiTrapObject 7
-  DESCRIPTION: The end realignment trap of alarm synchronization that is generated by the EMS of NetNumenN31. It is not be reported by default,and it can be reported by modifying the configuration file.
   VARIABLES: 
 
-alarmListRebuild:
-  TYPE: NOTIFICATION-TYPE
+deviceOfflineAlarm:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Small Cell offline alarm
   STATUS: current
-  OBJECTS: systemDN 
-  ENTERPRISE: 
-  OID: alarmNotificationProfile 5
+  OID: casaHeMSSystemAlarm 8
+  TYPE: NOTIFICATION-TYPE
   VARIABLES: 
-  DESCRIPTION: This notification is sent when ems re-establish the connection to nms.
+  ENTERPRISE: 
 
-alarmCommentChange:
-  OBJECTS: alarmEventTime, sendNotificationId, lastSendNotificationId, systemDN, alarmCode, alarmManagedObjectInstance, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem , alarmAdditionalText,                     alarmNetype, alarmIndex, alarmId, alarmCodeName, alarmManagedObjectInstanceName, alarmSystemType, alarmNeIP, alarmAck, cleiCode, timeZoneID, timeZoneOffset, dSTSaving, aid, id, alarmMocObjectInstance, alarmComment, alarmOtherInfo                 
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
+holdoverPeriodExpiration:
+  DESCRIPTION: L3 process raises the alarm when the eNB is working for all the holdover time without re-synchronizing
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 39
   STATUS: current
+  TYPE: NOTIFICATION-TYPE
   VARIABLES: 
-  DESCRIPTION: This notification is sent when alarm's content of comment was changed.
-  OID: alarmNotificationProfile 4
+  ENTERPRISE: 
 
-zxEmsEventTrap:
-  TYPE: NOTIFICATION-TYPE
-  STATUS: current
-  OBJECTS:   zxEmsEventAid , zxEmsEventNeType , zxEmsEventServerIP , zxEmsEventSource , zxEmsEventSourceName , zxEmsEventEntity , zxEmsEventHappenTime , zxEmsEventName , zxEmsEventProbableCause , zxEmsEventDescription , zxEmsEventSeverity , zxEmsEventRestoreTime , zxEmsEventType , zxEmsEventConfirmType , zxEmsEventConfirmTime , zxEmsEventConfirmer , zxEmsEventConfirmSystemIP , zxEmsEventConfirmInfo, zxEmsEventAid64, zxEmsEventSystemType 
+singleMmeConnectionIsDown:
   ENTERPRISE: 
-  OID: zxNetEmsNbiTrapObject 4
+  TYPE: NOTIFICATION-TYPE
   VARIABLES: 
-  DESCRIPTION: The event that is generated by the EMS of NetNumenN31.
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 34
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Single MME connection is down
 
-alarmCleared:
-  OBJECTS: alarmEventTime, sendNotificationId, lastSendNotificationId,    systemDN,                     alarmCode,                     alarmManagedObjectInstance, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem, alarmAdditionalText,      alarmNetype, alarmIndex, alarmId, alarmCodeName, alarmManagedObjectInstanceName, alarmSystemType, alarmNeIP, alarmAck, cleiCode, timeZoneID, timeZoneOffset, dSTSaving, aid, id, alarmMocObjectInstance, alarmComment, alarmOtherInfo 
+haCommunicationAlarm:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: AeMS HA communication alarm
+  OID: casaHeMSSystemAlarm 4
+  STATUS: current
+
+criticalConfigurationFailure:
   ENTERPRISE: 
   TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 47
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: L3 process detects this situation and raises alarm if mandatory EPC configuration parameters are not configured
+
+systemInformationConfigurationFailure:
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 31
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: System information configuration failure
+
+ipsecTunnelIkeSaExpiry:
+  OID: casaHeMSSmallCellAlarm 37
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the IKE rekeying fails
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+cpuTemperatureUnacceptable:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: CPU Temperature exceeds defined threshold
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 15
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+
+pciConfusion:
+  DESCRIPTION: The eNB detects that it is configurted with the same PCI as another neighbor of second ring cell
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 24
+  STATUS: current
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+
+networkInterfaceAlarm:
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  OID: casaHeMSSystemAlarm 7
+  STATUS: current
+  DESCRIPTION: AeMS Network interface alarm
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+dspOrPhyCrash:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+  DESCRIPTION: the DSPs running the PHY crashes
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 27
+
+cellOnAlarm:
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  STATUS: current
+  OID: casaHeMSSystemAlarm 13
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Small Cell cellOn alarm
+
+lanError:
+  OID: casaHeMSSmallCellAlarm 14
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Ethernet error
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+invalidPhyOrRfConfiguration:
+  OID: casaHeMSSmallCellAlarm 30
+  STATUS: current
+  DESCRIPTION: Invalid PHY or RF configuration
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+memoryUsageIsHigh:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+  DESCRIPTION: AeMS Memory usage is high
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSystemAlarm 1
+  STATUS: current
+
+forcedReboot:
+  OID: casaHeMSSmallCellAlarm 41
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Self-healing agent raises this alarm upon detection of major failure requiring a reboot
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+
+tr069NotDetected:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Self-healing agent monitors processes and raises alarm if it detects the process dying
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 45
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+
+cpuCyclesLimitExceeded:
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  OID: casaHeMSSmallCellAlarm 8
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: CPU usage exceeds defined threshold
+
+administrativeReboot:
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 40
+  DESCRIPTION: OAM process will send this informational alarm upon administrative reboot
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+sctpFailure:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: SCTP connection failure
+  OID: casaHeMSSmallCellAlarm 13
   STATUS: current
   VARIABLES: 
-  DESCRIPTION: This notification is generated when an alarm is  cleared. A cleared alarm is removed from the  Active Alarm Table and is no longer accessible. It's impossible to retrieve an cleared alarm from Active Alarm Table any more.
-  OID: alarmNotificationProfile 2
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+
+oOAMProxyRestarted:
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 48
+  DESCRIPTION: Kill OAM proxy process to force the generation of the alarm
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+paTemperatureUnacceptable:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: The tempeature in the PA exceeds the defined threshold
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 16
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+
+rebootLoop:
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 43
+  DESCRIPTION: System raises this alarm upon detection of several continious reboots in a short period of time
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+outOfMemory:
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 19
+  DESCRIPTION: RAM usage is high and surpassed the defined threshold
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+thresholdCrossedRLF:
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 20
+  DESCRIPTION: The MAC has too many RLF s
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+dbReplicationAlarm:
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  OID: casaHeMSSystemAlarm 14
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: DB replication failed
+
+mmeConnectionIsDown:
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  OID: casaHeMSSmallCellAlarm 5
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: MME connection is down
+
+aAeMSConnectionNoResponse:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: System raises the alarm when the eNB cannot connect to AeMS server
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 50
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+
+deviceOnlineAlarm:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Small Cell online alarm
+  OID: casaHeMSSystemAlarm 9
+  STATUS: current
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+
+cCMSServerConnectionFailure:
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 49
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: System raises the alarm when the Operator certificate server cannot be connected. This alarm has been deprecated on AeMS.
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+operatorCertificateExpired:
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 38
+  DESCRIPTION: System raises the alarm when the Operator certificate cannot be renewed
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+remoteAeMSsStatusAlarm:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Remote AeMSs down
+  STATUS: current
+  OID: casaHeMSSystemAlarm 15
+
+overTheAirSynchronizationLost:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Syncrhonization with the macro OTA is lost
+  OID: casaHeMSSmallCellAlarm 10
+  STATUS: current
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+
+killSwitch:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+  DESCRIPTION: An external signal is activated when detetecting power supply outage, and this signal reaches the self-healing process, which raises alarm and gracefully halts the eNB
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 25
+  STATUS: current
+
+cpuUsageIsHigh:
+  DESCRIPTION: AeMS CPU usage is high
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSystemAlarm 2
+  STATUS: current
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+
+l3NotDetected:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: L3 not detected
+  OID: casaHeMSSmallCellAlarm 1
+  STATUS: current
+
+gpsSynchronizationLost:
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OID: casaHeMSSmallCellAlarm 11
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: GPS synchronization lost
+
+failedBackingUpConfigurationFile:
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 32
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Any process of eNB raises this alarm if it gets error while backing up a file
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+
+paBiasingFailure:
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 22
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: The PA board was not able to properly biasing
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+
+cellOffAlarm:
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OID: casaHeMSSystemAlarm 12
+  STATUS: current
+  DESCRIPTION: Small Cell cellOff alarm
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+dbSlaveConnectionAlarm:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+  DESCRIPTION: AeMS DB slave connection alarm
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
+  OID: casaHeMSSystemAlarm 5
+
+watchdogNotDetected:
+  DESCRIPTION: Linux system monitorize system self-healing agent and reboots the eNB
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 46
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+
+reTransmissionRateExcessive:
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 9
+  DESCRIPTION: The MAC has an excessive rate of NACKs
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+pciCollision:
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 23
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: The eNB is configured with the same PCI as another neighbor cell
+
+errorAccessingFile:
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OID: casaHeMSSmallCellAlarm 7
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Error accessing file
+
+thresholdCrossedLowSINR:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: The MAC has too many low SINR events
+  OID: casaHeMSSmallCellAlarm 21
+  STATUS: current
+
+l2NotDetected:
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 2
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: L2 not detected
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+radioOnAlarm:
+  STATUS: current
+  OID: casaHeMSSystemAlarm 11
+  DESCRIPTION: Small Cell radioOn alarm
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+
+failedRestoringConfigurationFile:
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 33
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Any process of eNB raises this alarm if it gets error while restoring a corrupted configuration file
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+casaHeMSSmallCellGWAlarm:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Casa HeMS SmallCell-GW Alarm
+  STATUS: current
+  OID: casaHeMSAlarmTraps 3
+
+kpiAgentNotDetected:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: KPI Agent not detected
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 3
+
+hardDiskUsageIsHigh:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: AeMS Hard disk usage is high
+  STATUS: current
+  OID: casaHeMSSystemAlarm 3
+
+congestion:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+  DESCRIPTION: RRM overload
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 6
+
+dnsResolutionFailure:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: System raises this alarm upon failure to resolve the IP addresses of a FQDN
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 44
+
+ipsecTunnelExpiry:
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 36
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel rekeying fails
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+dbArbiterConnectionAlarm:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: AeMS DB arbiter connection alarm
+  STATUS: current
+  OID: casaHeMSSystemAlarm 6
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
 
 ----------------------------------- OID_NODES ---------------------------
-3902: HASH(0x18d6173f0c8)
-39026: HASH(0x18d61a82de8)
