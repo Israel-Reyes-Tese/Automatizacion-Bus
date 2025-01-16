@@ -161,16 +161,11 @@ sub cargar_mib {
     # Extract OID nodes
     my $oid_nodes = extraer_nodos_oid(\%mib_files, $ventana_principal);
 
-    print "Nodos OID: ", Dumper($oid_nodes);
     # Validar si existe y tiene la información de la empresa
     if (!$oid_nodes || !%$oid_nodes) {
         # Logica para crear una ventana emergente para ingresar el OID de la empresa
         $oid_nodes = mostrar_ventana_seleccion_empresa($ventana_principal);
     }
-
-    
-    print "Nodos OID: ", Dumper($oid_nodes);
-
     my $response = herramientas::Complementos::create_alert_with_picture_label_and_button(
         $ventana_principal, 'Advertencias', 
         "Deseas visualizar la informacion extraida?", 'question'
@@ -193,7 +188,7 @@ sub cargar_mib {
     my $arbol_mibs = construir_arbol_mibs(\%data, $oid_nodes);
 
     # Mostrar el árbol de MIBs
-    #print Dumper($arbol_mibs);
+    print Dumper($arbol_mibs);
     
     if ($response) {
         
@@ -1173,19 +1168,16 @@ sub extraer_nodos_oid {
 
     if (keys %enterprise_oids > 1) {
         my $selected_oid = herramientas::Complementos::mostrar_ventana_seleccion_empresa_oid($ventana_principal, \%enterprise_info);
-        %enterprise_oids = ($selected_oid => $enterprise_oids{$selected_oid});
-       # Comparar %enterprise_oids, con enterprise_info y donde coincida, asignar Elegido = 1 y el resto Elegido = 0
-        foreach my $enterprise_oid (keys %enterprise_info) {
-            if (exists $enterprise_oids{$enterprise_oid}) {
-                $enterprise_info{$enterprise_oid}->{enterprise_info_Seleccionado} = 1;
+        # Comparar la informacion de la empresa seleccionada con la informacion de las empresas
+        foreach my $key (keys %enterprise_info) {
+            if ($enterprise_info{$key}{'enterprise_info_ID'} == $selected_oid->{'enterprise_info_ID'} || 
+                $enterprise_info{$key}{'enterprise_oid'} == $selected_oid->{'enterprise_oid'}) {
+                $enterprise_info{$key}{'enterprise_info_Seleccionado'} = 1;
             } else {
-                $enterprise_info{$enterprise_oid}->{enterprise_info_Seleccionado} = 0;
+                $enterprise_info{$key}{'enterprise_info_Seleccionado'} = 0;
             }
         }
     }
-
-
-
     return \%enterprise_info;
 }
 
@@ -1522,44 +1514,34 @@ sub construir_oid_completo {
 
     while ($current_name) {
         my $found = 0;
-        #print "\n Buscando OID para: $current_name\n";
         foreach my $type (qw(ALARM_TRAPS OBJECT_IDENTITIES OBJECT_TYPES OBJECT_IDENTIFIERS MODULE_IDENTITIES)) {
             if (exists $data->{$type}{$current_name}) {
                 my $oid_part = $data->{$type}{$current_name}{OID};
-                #print "Encontrado en $type: $oid_part\n";
                 if ($oid_part =~ /^\s*(\S+)\s+(\d+)\s*$/) {
                     my $oid_search = $1;
                     my $oid_number = $2;
-                    #print "Parte de string: $oid_search, Numero del OID: $oid_number\n";
                     unshift @oid_parts, $oid_number;
                     if ($oid_search =~ /^\d+(\.\d+)*$/) {
                         unshift @oid_parts, split(/\./, $oid_search);
                         $current_name = undef;
-                        #print "El undef or undefined: $current_name\n";
                     } else {
                         $current_name = $oid_search;
-                        #print "El nombre actual (1): $current_name\n";
                     }
                     $found = 1;
                     last;
                 } elsif ($oid_part =~ /^\s*(\d+(\.\d+)*)\s*$/) {
                     my $oid_number = $1;
-                    #print "Número del OID: $oid_number\n";
                     unshift @oid_parts, split(/\./, $oid_number);
                     $current_name = undef;
                     $found = 1;
                     last;
-                } # Validar si  oid_part es un OID numérico 1 3 6 1 4 1 20858 10 104 101
-                elsif  ($oid_part =~ /^\s*(\d+(\s+\d+)*)\s*$/) {
+                } elsif ($oid_part =~ /^\s*(\d+(\s+\d+)*)\s*$/) {
                     my $oid_number = $1;
-                    #print "Número del OID: $oid_number\n";
                     unshift @oid_parts, split(/\s+/, $oid_number);
                     $current_name = undef;
                     $found = 1;
                     last;
-                }
-                
-                else {
+                } else {
                     warn "OID no numerico encontrado para $current_name";
                     return;
                 }
@@ -1567,12 +1549,35 @@ sub construir_oid_completo {
         }
         last unless $found;
     }
-    #print "Partes del OID: @oid_parts\n";
-    my $complete_oid = join('.', @oid_parts);
-    #print "OID completo: $complete_oid\n";
 
+    # Validar y reemplazar el ID de empresa si es necesario
+    print "OID parcial para $nombre: @oid_parts\n";
+
+    foreach my $part (@oid_parts) {
+        if (exists $oid_data->{$part}) {
+            # Validar si part es un ID de empresa y si esta en la data
+            print "Parte de OID (exist): $part\n";
+            if ($oid_data->{$part}{'enterprise_info_Seleccionado'} == 1) {
+                print "Parte de OID (seleccionado): $part\n";
+                $part = $oid_data->{$part}{'enterprise_oid'};
+            } else {
+                # Si no es la empresa seleccionada, buscar la empresa seleccionada y asignarla
+                print "Parte de OID (no seleccionado): $part\n";
+                foreach my $key (keys %$oid_data) {
+                    if ($oid_data->{$key}{'enterprise_info_Seleccionado'} == 1) {
+                        $part = $oid_data->{$key}{'enterprise_oid'};
+                        last;
+                    }
+                }
+            }
+        }
+    }
+
+
+    my $complete_oid = join('.', @oid_parts);
     $complete_oid = validar_y_complementar_oid($complete_oid, $oid_data);
-    #print "OID completo validado: $complete_oid\n";
+
+    print "Construido OID completo para $nombre: $complete_oid\n";
 
     return $complete_oid;
 }
@@ -1600,11 +1605,21 @@ sub construir_arbol_mibs {
 sub validar_y_complementar_oid {
     my ($complete_oid, $oid_data) = @_;
     
+    # Encontrar el registro seleccionado
+    my @selected_records = grep { $oid_data->{$_}{'enterprise_info_Seleccionado'} == 1 } keys %$oid_data;
+    
+    if (scalar(@selected_records) > 1) {
+        warn "Más de un registro seleccionado. Utilizando el primero en la lista.";
+    }
+    
+    my $selected_key = $selected_records[0];
+    my $selected_oid_data = $oid_data->{$selected_key};
+    
     # Split the OID into parts
     my @oid_parts = split(/\./, $complete_oid);
     
     # Validate and complete the root OID
-    my @root_oid_parts = split(/\./, $oid_data->{root_oid});
+    my @root_oid_parts = split(/\./, $selected_oid_data->{root_oid});
     for my $i (0..$#root_oid_parts) {
         if (!defined $oid_parts[$i] || $oid_parts[$i] != $root_oid_parts[$i]) {
             splice(@oid_parts, $i, 0, $root_oid_parts[$i]);
@@ -1612,7 +1627,7 @@ sub validar_y_complementar_oid {
     }
     
     # Validate and complete the private enterprises OID
-    my @private_enterprises_oid_parts = split(/\./, $oid_data->{private_enterprises_oid});
+    my @private_enterprises_oid_parts = split(/\./, $selected_oid_data->{private_enterprises_oid});
     for my $i (scalar(@root_oid_parts)..scalar(@root_oid_parts) + $#private_enterprises_oid_parts) {
         if (!defined $oid_parts[$i] || $oid_parts[$i] != $private_enterprises_oid_parts[$i - scalar(@root_oid_parts)]) {
             splice(@oid_parts, $i, 0, $private_enterprises_oid_parts[$i - scalar(@root_oid_parts)]);
@@ -1621,8 +1636,8 @@ sub validar_y_complementar_oid {
     
     # Validate and complete the enterprise OID
     my $enterprise_oid_index = scalar(@root_oid_parts) + scalar(@private_enterprises_oid_parts);
-    if (!defined $oid_parts[$enterprise_oid_index] || $oid_parts[$enterprise_oid_index] != $oid_data->{enterprise_oid}) {
-        splice(@oid_parts, $enterprise_oid_index, 0, $oid_data->{enterprise_oid});
+    if (!defined $oid_parts[$enterprise_oid_index] || $oid_parts[$enterprise_oid_index] != $selected_oid_data->{enterprise_oid}) {
+        splice(@oid_parts, $enterprise_oid_index, 0, $selected_oid_data->{enterprise_oid});
     }
     
     # Join the OID parts back into a complete OID
