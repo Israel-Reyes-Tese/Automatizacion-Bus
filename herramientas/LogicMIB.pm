@@ -84,7 +84,6 @@ sub cargar_mib {
             next;
         }
         my ($is_valid, $mib_files_extras_hash) = validar_importaciones($file, \%mib_files, $ventana_principal);
-        # Concatenar los mib_files_extras_hash al hash principal
         %mib_files_extras = (%mib_files_extras, %$mib_files_extras_hash);
         unless ($is_valid) {
             warn "Importaciones no validas en el archivo MIB: $file";
@@ -160,12 +159,16 @@ sub cargar_mib {
     #print Dumper(\%alarm_traps);
 
     # Extract OID nodes
-    my $oid_nodes = extraer_nodos_oid(\%mib_files);
-    if ($oid_nodes->{enterprise_oid}) {
-    } else {
+    my $oid_nodes = extraer_nodos_oid(\%mib_files, $ventana_principal);
+
+    print "Nodos OID: ", Dumper($oid_nodes);
+    # Validar si existe y tiene la información de la empresa
+    if (!$oid_nodes || !%$oid_nodes) {
         # Logica para crear una ventana emergente para ingresar el OID de la empresa
         $oid_nodes = mostrar_ventana_seleccion_empresa($ventana_principal);
     }
+
+    
     print "Nodos OID: ", Dumper($oid_nodes);
 
     my $response = herramientas::Complementos::create_alert_with_picture_label_and_button(
@@ -1109,16 +1112,13 @@ sub extraer_alarm_traps {
 
 # Function to extract and identify OID nodes
 sub extraer_nodos_oid {
-    my ($mib_files) = @_;
+    my ($mib_files, $ventana_principal) = @_;
     my $root_oid = "1.3.6.1";
     my $private_enterprises_oid = "4.1";
-    my $enterprise_oid;
-
+    my %enterprise_oids;
     my $enterprise_file;
-    my @filtered_enterprise_hash;
 
-    my @enterprise_hash = extraer_datos_empresas();
-    @filtered_enterprise_hash = @enterprise_hash;
+    my @filtered_enterprise_hash = extraer_datos_empresas();
 
     foreach my $file (keys %$mib_files) {
         open my $fh, '<', $file or do {
@@ -1127,57 +1127,66 @@ sub extraer_nodos_oid {
         };
         while (my $line = <$fh>) {
             if ($line =~ /::=\s*\{\s*enterprises\s+(\d+)\s*\}/) {
-                $enterprise_oid = $1;
-                $enterprise_file = $file;
-                last;
+                $enterprise_oids{$1} = $file;
             }
         }
         close $fh;
-        last if $enterprise_oid;
     }
 
-    unless ($enterprise_oid) {
+    unless (%enterprise_oids) {
         warn "No se pudo encontrar el ID único de la empresa o proveedor. Ingréselo manualmente o busque en los archivos locales.";
     }
 
-    print "Enterprise OID: $enterprise_oid\n";
+    my %enterprise_info;
+    foreach my $enterprise_oid (keys %enterprise_oids) {
+        foreach my $enterprise (@filtered_enterprise_hash) {
+            if ($enterprise->{ID} == $enterprise_oid) {
+                $enterprise_info{$enterprise_oid} = {
+                    enterprise_info_ID => $enterprise->{ID},
+                    enterprise_info_Organization => $enterprise->{Organization},
+                    enterprise_info_Email => $enterprise->{Email},
+                    enterprise_info_Contact => $enterprise->{Contact},
+                    enterprise_file => $enterprise_oids{$enterprise_oid},
+                    enterprise_oid =>  $enterprise->{ID},
+                    root_oid => $root_oid,
+                    private_enterprises_oid => $private_enterprises_oid,
+                    enterprise_info_Seleccionado => 1,
 
-    my $enterprise_info;
-    foreach my $enterprise (@filtered_enterprise_hash) {
-        if (defined $enterprise_oid && $enterprise->{ID} == $enterprise_oid) {
-            $enterprise_info = {
-                ID => $enterprise->{ID},
-                Organization => $enterprise->{Organization},
-                Email => $enterprise->{Email},
-                Seleccionado => $enterprise->{Seleccionado},
-                Contact => $enterprise->{Contact},
+                };
+                last;
+            }
+        }
+        unless ($enterprise_info{$enterprise_oid}) {
+            warn "No se encontró el ID en la lista de empresas. Construyendo datos constantes.";
+            $enterprise_info{$enterprise_oid} = {
+                enterprise_info_ID => $enterprise_oid,
+                enterprise_info_Organization => 'Desconocido',
+                enterprise_info_Email => '-',
+                enterprise_info_Contact => 'Desconocido',
+                enterprise_file => $enterprise_oids{$enterprise_oid},
+                root_oid => $root_oid,
+                private_enterprises_oid => $private_enterprises_oid,
+                enterprise_info_Seleccionado => 1,
             };
-            last;
         }
     }
 
-    unless ($enterprise_info) {
-        warn "No se encontró el ID en la lista de empresas. Construyendo datos constantes.";
-        $enterprise_info = {
-            ID => $enterprise_oid,
-            Organization => 'Desconocido',
-            Email => '-',
-            Seleccionado => '1',
-            Contact => 'Desconocido',
-        };
+    if (keys %enterprise_oids > 1) {
+        my $selected_oid = herramientas::Complementos::mostrar_ventana_seleccion_empresa_oid($ventana_principal, \%enterprise_info);
+        %enterprise_oids = ($selected_oid => $enterprise_oids{$selected_oid});
+       # Comparar %enterprise_oids, con enterprise_info y donde coincida, asignar Elegido = 1 y el resto Elegido = 0
+        foreach my $enterprise_oid (keys %enterprise_info) {
+            if (exists $enterprise_oids{$enterprise_oid}) {
+                $enterprise_info{$enterprise_oid}->{enterprise_info_Seleccionado} = 1;
+            } else {
+                $enterprise_info{$enterprise_oid}->{enterprise_info_Seleccionado} = 0;
+            }
+        }
     }
 
-    return {
-        root_oid => $root_oid,
-        private_enterprises_oid => $private_enterprises_oid,
-        enterprise_oid => $enterprise_oid,
-        enterprise_file => $enterprise_file,
-        enterprise_info_ID => $enterprise_info->{ID},
-        enterprise_info_Organization => $enterprise_info->{Organization},
-        enterprise_info_Email => $enterprise_info->{Email},
-        enterprise_info_Contact => $enterprise_info->{Contact},
-        enterprise_info_Seleccionado => $enterprise_info->{Seleccionado},
-    };
+
+
+    return \%enterprise_info;
 }
 
 # Function to display a paginated table of enterprise IDs

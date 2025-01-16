@@ -709,6 +709,47 @@ sub choose_directory {
     return $var_entry;
 }
 
+# Function to display a selection window for enterprise OIDs
+sub mostrar_ventana_seleccion_empresa_oid {
+    my ($ventana_principal, $enterprise_info) = @_;
+    my $mw = $ventana_principal->Toplevel();
+    $mw->title("Seleccionar Empresa OID");
+    $mw->configure(-background => $herramientas::Estilos::twilight_grey);
+    $mw->geometry('400x600');
 
+    my $frame = $mw->Frame(-background => $herramientas::Estilos::twilight_grey)->pack(-side => 'top', -fill => 'both', -expand => 1);
+    my $scroll = $frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::twilight_grey)->pack(-side => 'top', -fill => 'both', -expand => 1);
+
+    my $selected_info;
+    foreach my $oid (keys %$enterprise_info) {
+        my $info = $enterprise_info->{$oid};
+        my $card = $scroll->Frame(-background => $herramientas::Estilos::pine_green, -relief => 'raised', -borderwidth => 2)->pack(-side => 'top', -fill => 'x', -pady => 5, -padx => 5);
+        
+        foreach my $key (keys %$info) {
+            $card->Label(
+                -text => "$key: $info->{$key}",
+                -background => $herramientas::Estilos::pine_green,
+                -foreground => $herramientas::Estilos::fg_color,
+                -font => $herramientas::Estilos::label_font
+            )->pack(-side => 'top', -anchor => 'w');
+        }
+        
+        $card->Button(
+            -text => "Elegir",
+            -command => sub {
+                $selected_info = $info;
+                $mw->destroy;
+            },
+            -background => $herramientas::Estilos::next_button_bg,
+            -foreground => $herramientas::Estilos::next_button_fg,
+            -activebackground => $herramientas::Estilos::next_button_active_bg,
+            -activeforeground => $herramientas::Estilos::next_button_active_fg,
+            -font => $herramientas::Estilos::next_button_font
+        )->pack(-side => 'bottom', -pady => 10);
+    }
+
+    $mw->waitWindow;
+    return $selected_info;
+}
 
 1;  # Finalizar el módulo con un valor verdadero
