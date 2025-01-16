@@ -185,10 +185,11 @@ sub cargar_mib {
     escribir_datos_en_archivo($temp_file, \%data, "OBJECTS_INFO");
     
     # Construir el árbol de MIBs
-    my $arbol_mibs_principales = construir_arbol_mibs(\%data, $oid_nodes);
+    my ($arbol_mibs_principales, $arbol_mibs_secundarias) = construir_arbol_mibs(\%data, $oid_nodes);
 
     # Mostrar el árbol de MIBs
     #print Dumper($arbol_mibs_principales);
+    #print Dumper($arbol_mibs_secundarias);
     
     if ($response) {
         
@@ -1358,7 +1359,7 @@ sub mostrar_ventana_seleccion_empresa {
         -command => sub {
         herramientas::Complementos::show_alert(
             $mw, 'Advertencia', 
-            "No selecciono una empresa", 'warning'
+            "No se selecciono una empresa", 'warning'
         );
             $mw->destroy();
         },
@@ -1619,7 +1620,36 @@ sub construir_arbol_mibs {
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
     escribir_datos_en_archivo($temp_file, \%arbol_mibs, "ALARM_TRAPS");
 
-    return \%arbol_mibs;
+    # Construir el árbol de MIBs secundarios
+    my $arbol_mibs_secundarios = construir_arbol_mibs_secundarios($data, $oid_data);
+
+    return \%arbol_mibs, $arbol_mibs_secundarios;
+}
+
+# Función para construir el árbol de MIBs secundarios
+sub construir_arbol_mibs_secundarios {
+    my ($data, $oid_data) = @_;
+    my %arbol_mibs_secundarios;
+    # Archivo temporal para almacenar cómo se extraen los datos
+    my $temp_file = Rutas::temp_files_logs_objects_mibs_path(). '/Objetos_principales.logs';
+
+    foreach my $nombre (keys %{$data->{ALARM_TRAPS}}) {
+        my $oid_completo = construir_oid_completo($nombre, $data, $oid_data);
+        if ($oid_completo) {
+            my @objects = split /,\s*/, $data->{ALARM_TRAPS}{$nombre}{OBJECTS};
+            foreach my $object (@objects) {
+                # Quita espacios en blanco al inicio y al final
+                $object =~ s/^\s+|\s+$//g;
+                my $object_oid = construir_oid_completo($object, $data, $oid_data);
+                $arbol_mibs_secundarios{$nombre}{$object} = $object_oid if $object_oid;
+            }
+        }
+    }
+
+    $temp_file = validar_o_crear_archivo_temporal($temp_file);
+    escribir_datos_en_archivo($temp_file, \%arbol_mibs_secundarios, "ALARM_TRAPS");
+
+    return \%arbol_mibs_secundarios;
 }
 
 # Function to validate and complete the OID
