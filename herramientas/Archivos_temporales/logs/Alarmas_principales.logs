@@ -1,336 +1,141 @@
 ----------------------------------- ALARM_TRAPS ---------------------------
-synchronizationLostWithAllSources:
-  DESCRIPTION: the synchornization is lost and the eNB passes to holdover mode
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.29
-
-cellOnAlarm:
-  DESCRIPTION: Small Cell cellOn alarm
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.13
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-holdoverPeriodExpiration:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.39
-  DESCRIPTION: L3 process raises the alarm when the eNB is working for all the holdover time without re-synchronizing
-
-systemInformationConfigurationFailure:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.31
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: System information configuration failure
-
-dnsResolutionFailure:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.44
-  DESCRIPTION: System raises this alarm upon failure to resolve the IP addresses of a FQDN
-
-networkInterfaceAlarm:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.7
-  DESCRIPTION: AeMS Network interface alarm
-
-dbReplicationAlarm:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.14
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: DB replication failed
-
-ipsecTunnelExpiry:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.36
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel rekeying fails
-
-dspOrPhyCrash:
-  DESCRIPTION: the DSPs running the PHY crashes
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.27
-
-thresholdCrossedLowSINR:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.21
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: The MAC has too many low SINR events
-
-gpsSynchronizationLost:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.11
-  DESCRIPTION: GPS synchronization lost
-
-administrativeReboot:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.40
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: OAM process will send this informational alarm upon administrative reboot
-
-kpiAgentNotDetected:
-  DESCRIPTION: KPI Agent not detected
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.3
-
-deviceOnlineAlarm:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.9
-  DESCRIPTION: Small Cell online alarm
-
-rebootLoop:
-  DESCRIPTION: System raises this alarm upon detection of several continious reboots in a short period of time
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.43
-
-remoteAeMSsStatusAlarm:
-  DESCRIPTION: Remote AeMSs down
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.15
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-sctpFailure:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.13
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: SCTP connection failure
-
-unauthorisedAccessAttempt:
-  DESCRIPTION: Someone or some process did attempt unsuccesfully to login the web interface
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.17
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-pciCollision:
-  DESCRIPTION: The eNB is configured with the same PCI as another neighbor cell
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.23
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-reTransmissionRateExcessive:
-  DESCRIPTION: The MAC has an excessive rate of NACKs
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.9
-
-operatorCertificateExpired:
-  DESCRIPTION: System raises the alarm when the Operator certificate cannot be renewed
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.38
-
-cCMSServerConnectionFailure:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.49
-  DESCRIPTION: System raises the alarm when the Operator certificate server cannot be connected. This alarm has been deprecated on AeMS.
-
-l3NotDetected:
-  DESCRIPTION: L3 not detected
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.1
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-cellOffAlarm:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.12
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Small Cell cellOff alarm
-
-ipsecTunnelIkeSaExpiry:
-  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the IKE rekeying fails
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.37
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-criticalConfigurationFailure:
-  DESCRIPTION: L3 process detects this situation and raises alarm if mandatory EPC configuration parameters are not configured
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.47
-
-failedBackingUpConfigurationFile:
-  DESCRIPTION: Any process of eNB raises this alarm if it gets error while backing up a file
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.32
-
-failedRestoringConfigurationFile:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.33
-  DESCRIPTION: Any process of eNB raises this alarm if it gets error while restoring a corrupted configuration file
-
-l1StartTimeout:
-  DESCRIPTION: the protocol stack cannot start L1 process in DSPs
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.26
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-invalidPhyOrRfConfiguration:
-  DESCRIPTION: Invalid PHY or RF configuration
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.30
-
-cpuUsageIsHigh:
-  DESCRIPTION: AeMS CPU usage is high
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.2
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-aAeMSConnectionNoResponse:
-  DESCRIPTION: System raises the alarm when the eNB cannot connect to AeMS server
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-
-thresholdCrossedRLF:
-  DESCRIPTION: The MAC has too many RLF s
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.20
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-congestion:
-  DESCRIPTION: RRM overload
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.6
-
-paTemperatureUnacceptable:
-  DESCRIPTION: The tempeature in the PA exceeds the defined threshold
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.16
-
-watchdogNotDetected:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.46
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Linux system monitorize system self-healing agent and reboots the eNB
-
-haCommunicationAlarm:
-  DESCRIPTION: AeMS HA communication alarm
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.4
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-memoryUsageIsHigh:
-  DESCRIPTION: AeMS Memory usage is high
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.1
-
-outOfMemory:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.19
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: RAM usage is high and surpassed the defined threshold
-
-singleMmeConnectionIsDown:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.34
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Single MME connection is down
-
-lanError:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.14
-  DESCRIPTION: Ethernet error
-
-cellSynchronizationFailure:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.12
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Cell synchronization failure
-
-mmeConnectionIsDown:
-  DESCRIPTION: MME connection is down
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.5
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-casaHeMSSmallCellGWAlarm:
-  DESCRIPTION: Casa HeMS SmallCell-GW Alarm
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.3
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-radioOffAlarm:
-  DESCRIPTION: Small Cell radioOff alarm
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.10
-
-clockSynchronizationProblem:
-  DESCRIPTION: Cell not synchronized
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.28
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-configurationOrCustomizingErrror:
-  DESCRIPTION: The configuration received from OAM interfaces (EMS, CLI, HTTP etc) is wrong
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.18
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-overTheAirSynchronizationLost:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.10
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Syncrhonization with the macro OTA is lost
-
-radioOnAlarm:
-  DESCRIPTION: Small Cell radioOn alarm
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.11
-
-ipsecTunnelIsDown:
-  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel fails
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.35
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-forcedReboot:
-  DESCRIPTION: Self-healing agent raises this alarm upon detection of major failure requiring a reboot
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.41
-
-cpuCyclesLimitExceeded:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.8
-  DESCRIPTION: CPU usage exceeds defined threshold
-
-killSwitch:
-  DESCRIPTION: An external signal is activated when detetecting power supply outage, and this signal reaches the self-healing process, which raises alarm and gracefully halts the eNB
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.25
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-maxMMEAttemptsExceeded:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.42
-  DESCRIPTION: L3 process is responsible to handle connection with MME, so it raises the alarm if the connection is lost with all MMEs and the maximum number of retries is reached
-
-dbSlaveConnectionAlarm:
-  DESCRIPTION: AeMS DB slave connection alarm
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.5
-
-l2NotDetected:
-  DESCRIPTION: L2 not detected
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.2
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-dbArbiterConnectionAlarm:
-  DESCRIPTION: AeMS DB arbiter connection alarm
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.6
-
-casaHeMSHeartBeatMsg:
-  DESCRIPTION: Casa HeMS HeartBeat Msg
-  OBJECTS: 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.4
-
-errorAccessingFile:
-  DESCRIPTION: Error accessing file
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.7
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-paBiasingFailure:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.22
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: The PA board was not able to properly biasing
-
-oOAMProxyRestarted:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.48
-  DESCRIPTION: Kill OAM proxy process to force the generation of the alarm
-
-hardDiskUsageIsHigh:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.3
-  DESCRIPTION: AeMS Hard disk usage is high
-
-tr069NotDetected:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.45
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Self-healing agent monitors processes and raises alarm if it detects the process dying
-
-flashMemoryUsage:
-  DESCRIPTION: Flash memory usage
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.4
-
-pciConfusion:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.24
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: The eNB detects that it is configurted with the same PCI as another neighbor of second ring cell
-
-deviceOfflineAlarm:
-  DESCRIPTION: Small Cell offline alarm
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.8
-
-cpuTemperatureUnacceptable:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.15
-  DESCRIPTION: CPU Temperature exceeds defined threshold
+eriAlarmXCritical:
+  OID: 1.3.6.1.4.1.193.183.6.2.0.5
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity critical. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
+
+eriAlarmWarning:
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity warning. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
+  OID: 1.3.6.1.4.1.193.183.4.2.0.2
+
+eriAlarmHeartBeatNotif:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.20
+  OBJECTS:  eriAlarmActiveLastSequenceNo, eriAlarmAlertLastSequenceNo, eriAlarmActiveLastChanged, eriAlarmAlertLastChanged 
+  DESCRIPTION: This is a heartbeat notification with interval according to the eriAlarmHbInterval. It contains the last sequence numbers used for alarms and alarm events. These varbinds can be used to detect lost notifications. The notification eriAlarmHeartBeatNotif will be sent every eriAlarmHbInterval. Managers can subscribe to the notification using the SNMP framework MIBS by using the snmpNotifyName 'heartbeat'. (SNMP-NOTIFICATION-MIB, snmpNotifyTable).
+
+eriAlarmMajor:
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity major. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+  OID: 1.3.6.1.4.1.193.183.4.2.0.4
+
+eriAlarmMinor:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.3
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity minor. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
+
+eriAlarmXMajor:
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity major. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
+  OID: 1.3.6.1.4.1.193.183.6.2.0.4
+
+eriAlarmAppendInfo:
+  DESCRIPTION: This notification is sent in order to append further info to an alarm notification. It might be additional text, additional info or a resource ID (OID) identifying the alarming resource using an OID. If additional text/info is sent, do not confuse this with an actual change of additional text/info which is reported using the eriAlarm<severity> notification. A zero-length string value for eriAlarmNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmNObjAppendedAdditionalInfo means that no appended additional info is being sent in this notification. A null OID (0.0) value for eriAlarmActiveResourceId means that no resource ID is being sent in this notification.
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmNObjAdditionalText, eriAlarmActiveResourceId, eriAlarmNObjAppendedAdditionalInfo 
+  OID: 1.3.6.1.4.1.193.183.4.2.0.8
+
+eriAlarmXMinor:
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity minor. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
+  OID: 1.3.6.1.4.1.193.183.6.2.0.3
+
+eriAlarmXIndeterminate:
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity indeterminate. The notification is also used to change severity, additional text and/or additional  info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance  and MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table. The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
+  OID: 1.3.6.1.4.1.193.183.6.2.0.1
+
+eriAlarmXIndAlert:
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity indeterminate. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OID: 1.3.6.1.4.1.193.183.6.2.0.10
+
+eriAlarmXHeartBeatNotif:
+  OBJECTS: eriAlarmXActiveTableURL, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This is a heartbeat notification with interval according to the eriAlarmXHbInterval. It contains the last sequence numbers used for alarms and alarm events. These varbinds can be used to detect lost notifications. The notification eriAlarmXHeartBeatNotif will be sent every eriAlarmXHbInterval. Managers can subscribe to the notification using the SNMP framework MIBS by using the snmpNotifyName 'heartbeat'. (SNMP-NOTIFICATION-MIB, snmpNotifyTable).
+  OID: 1.3.6.1.4.1.193.183.6.2.0.20
+
+eriAlarmXCriticalAlert:
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity critical. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OID: 1.3.6.1.4.1.193.183.6.2.0.14
+
+eriAlarmWarnAlert:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.11
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity warning. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+
+eriAlarmXMinorAlert:
+  OID: 1.3.6.1.4.1.193.183.6.2.0.12
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity minor. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+
+eriAlarmCritical:
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity critical. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
+  OID: 1.3.6.1.4.1.193.183.4.2.0.5
+
+eriAlarmXMajorAlert:
+  OID: 1.3.6.1.4.1.193.183.6.2.0.13
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity major. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+
+eriAlarmCriticalAlert:
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity critical. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+  OID: 1.3.6.1.4.1.193.183.4.2.0.14
+
+eriAlarmXAppendInfo:
+  OID: 1.3.6.1.4.1.193.183.6.2.0.8
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXNObjAdditionalText, eriAlarmXActiveResourceId, eriAlarmXNObjAppendedAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent in order to append further info to an alarm notification. It might be additional text, additional info or a resource ID  (OID) identifying the alarming resource using an OID. If additional text/info is sent, do not confuse this with an actual change of additional text/info which  is reported using the eriAlarmX<severity> notification.  A zero-length string value for eriAlarmXNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmXNObjAppendedAdditionalInfo means that no additional info is being sent in this notification. A null OID (0.0) value for eriAlarmXActiveResourceId means that no resource ID is being sent in this notification.
+
+eriAlarmCleared:
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+  DESCRIPTION: This notification is sent when a resource detects a cleared alarm state. The combination of ManagedObject and MajorType/MinorType is always unique and shall be used by management systems to correlate alarm and alarm clear. The corresponding row in the alarm table will be deleted, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. Note that it should not be required to send an append trap for a cleared alarm. Those varbinds which flag that an append trap will follow are kept here for backward compatibility reasons.
+  OID: 1.3.6.1.4.1.193.183.4.2.0.7
+
+eriAlarmXAppendAlertInfo:
+  DESCRIPTION: This notification is sent in order to append further info to an alert notification. It might be additional text or a resource ID (OID) identifying the alarming resource using an OID. This complements information sent in a previous notification. If additional text/info is sent, do not confuse this with an actual change of additional text/info which is reported using the eriAlarmXAlert<severity> notification. A zero-length string value for eriAlarmXNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmXNObjAppendedAdditionalInfo means that no additional info is being sent in this notification. A null OID (0.0) value for eriAlarmXAlertResourceId means that no resource ID is being sent in this notification.
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXNObjAdditionalText, eriAlarmXAlertResourceId, eriAlarmXNObjAppendedAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  OID: 1.3.6.1.4.1.193.183.6.2.0.15
+
+eriAlarmXWarning:
+  OID: 1.3.6.1.4.1.193.183.6.2.0.2
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity warning. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
+
+eriAlarmXWarnAlert:
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity warning. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  OID: 1.3.6.1.4.1.193.183.6.2.0.11
+
+eriAlarmIndeterminate:
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity indeterminate. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table. The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
+  OID: 1.3.6.1.4.1.193.183.4.2.0.1
+
+eriAlarmAppendAlertInfo:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.15
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmNObjAdditionalText, eriAlarmAlertResourceId, eriAlarmNObjAppendedAdditionalInfo 
+  DESCRIPTION: This notification is sent in order to append further info to an alert notification. It might be additional text or a resource ID (OID) identifying the alarming resource using an OID. This complements information sent in a previous notification. If additional text/info is sent, do not confuse this with an actual change of additional text/info which is reported using the eriAlarmAlert<severity> notification. A zero-length string value for eriAlarmNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmNObjAppendedAdditionalInfo means that no additional info is being sent in this notification. A null OID (0.0) value for eriAlarmAlertResourceId means that no resource ID is being sent in this notification.
+
+eriAlarmXCleared:
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a cleared alarm state. The combination of YangNodeInstance and MajorType/MinorType is always unique and shall be used by management systems to correlate alarm and alarm clear.  The corresponding row in the alarm table will be deleted, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications.  Note that it should not be required to send an append trap for a cleared alarm. Those varbinds which flag that an append trap will follow are  kept here for backward compatibility reasons.
+  OID: 1.3.6.1.4.1.193.183.6.2.0.7
+
+eriAlarmMajorAlert:
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity major. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OID: 1.3.6.1.4.1.193.183.4.2.0.13
+
+eriAlarmMinorAlert:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.12
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity minor. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+
+eriAlarmIndAlert:
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity indeterminate. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OID: 1.3.6.1.4.1.193.183.4.2.0.10
 
