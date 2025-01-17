@@ -21,6 +21,18 @@ use LogicMIB;
 use Validaciones;
 
 sub Inicio_MIBS {
+
+    my ($agente, $ruta_agente) = @_;
+    # Establecer la ruta del agente y el nombre del agente si no se ha establecido
+    if (!$agente) {
+        $agente = 'Agente SNMP';
+    }
+
+    if (!$ruta_agente) {
+        $ruta_agente = Rutas::temp_agents_path();
+    }
+
+
     my $mw = herramientas::Complementos::create_main_window('Inicio MIB', 'maximizada', 1 , 0 , 'MIB', 'Titulo-Principal', 0);
 
     # Crear un frame principal para el menú
@@ -81,7 +93,20 @@ sub Inicio_MIBS {
                     # Colocar un boton para el siguiente paso
                     $actions_frame->Button(
                         -text => 'Siguiente Paso',
-                        -command => sub { },
+                        -command => sub {
+                            if ($ruta_agente eq Rutas::temp_agents_path() && $agente eq 'Agente SNMP') {
+                                $check_button_mib->destroy();
+                                $check_button_txt->destroy();
+                                $check_button_vacio->destroy();                                
+                                # Crear una alerta para indicar que no se ha creado un agente
+                                herramientas::Complementos::show_alert($mw, 'ERROR', 'No se ha creado un agente SNMP\n
+                                Eliga la ruta y el nombre del agente', 'error');
+                                my $entry_nombre_agente = herramientas::Complementos::create_entry_with_label_and_button($result_table_pane, 'Ingresa el nombre del agente', 'Guardar');
+                                my $entry_ruta_agente = herramientas::Complementos::register_directory($result_table_pane, 'Selecciona donde se esta el agente', "Buscar");
+                            }
+                            
+
+                         },
                         -bg => $herramientas::Estilos::hoja_verde,
                         -fg => $herramientas::Estilos::soil_black,
                         -font => $herramientas::Estilos::button_font

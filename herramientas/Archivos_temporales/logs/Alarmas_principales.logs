@@ -1,323 +1,78 @@
 ----------------------------------- ALARM_TRAPS ---------------------------
-holdoverPeriodExpiration:
-  DESCRIPTION: L3 process raises the alarm when the eNB is working for all the holdover time without re-synchronizing
+cellOffAlarm:
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.39
+  DESCRIPTION: Small Cell cellOff alarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.12
 
-pciConfusion:
+thresholdCrossedLowSINR:
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.24
-  DESCRIPTION: The eNB detects that it is configurted with the same PCI as another neighbor of second ring cell
-
-paBiasingFailure:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.22
-  DESCRIPTION: The PA board was not able to properly biasing
-
-failedRestoringConfigurationFile:
-  DESCRIPTION: Any process of eNB raises this alarm if it gets error while restoring a corrupted configuration file
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.33
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-killSwitch:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.25
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: An external signal is activated when detetecting power supply outage, and this signal reaches the self-healing process, which raises alarm and gracefully halts the eNB
-
-watchdogNotDetected:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.46
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Linux system monitorize system self-healing agent and reboots the eNB
-
-synchronizationLostWithAllSources:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.29
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: the synchornization is lost and the eNB passes to holdover mode
-
-dnsResolutionFailure:
-  DESCRIPTION: System raises this alarm upon failure to resolve the IP addresses of a FQDN
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.44
-
-kpiAgentNotDetected:
-  DESCRIPTION: KPI Agent not detected
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.3
-
-outOfMemory:
-  DESCRIPTION: RAM usage is high and surpassed the defined threshold
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.19
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-deviceOnlineAlarm:
-  DESCRIPTION: Small Cell online alarm
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.9
-
-lanError:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.14
-  DESCRIPTION: Ethernet error
-
-aAeMSConnectionNoResponse:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  DESCRIPTION: System raises the alarm when the eNB cannot connect to AeMS server
-
-casaHeMSSmallCellGWAlarm:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.3
-  DESCRIPTION: Casa HeMS SmallCell-GW Alarm
-
-radioOnAlarm:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.11
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Small Cell radioOn alarm
-
-hardDiskUsageIsHigh:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.3
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: AeMS Hard disk usage is high
-
-clockSynchronizationProblem:
-  DESCRIPTION: Cell not synchronized
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.28
-
-memoryUsageIsHigh:
-  DESCRIPTION: AeMS Memory usage is high
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.1
-
-tr069NotDetected:
-  DESCRIPTION: Self-healing agent monitors processes and raises alarm if it detects the process dying
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.45
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: The MAC has too many low SINR events
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.21
 
 cellOnAlarm:
   OID: 1.3.6.1.4.1.20858.10.104.101.2.1.13
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
   DESCRIPTION: Small Cell cellOn alarm
 
-pciCollision:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.23
+gpsSynchronizationLost:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.11
+  DESCRIPTION: GPS synchronization lost
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: The eNB is configured with the same PCI as another neighbor cell
 
-oOAMProxyRestarted:
+overTheAirSynchronizationLost:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.10
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.48
-  DESCRIPTION: Kill OAM proxy process to force the generation of the alarm
+  DESCRIPTION: Syncrhonization with the macro OTA is lost
 
-invalidPhyOrRfConfiguration:
+pciConfusion:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.24
+  DESCRIPTION: The eNB detects that it is configurted with the same PCI as another neighbor of second ring cell
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.30
-  DESCRIPTION: Invalid PHY or RF configuration
 
-casaHeMSHeartBeatMsg:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.4
-  OBJECTS: 
-  DESCRIPTION: Casa HeMS HeartBeat Msg
-
-deviceOfflineAlarm:
+watchdogNotDetected:
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.8
-  DESCRIPTION: Small Cell offline alarm
+  DESCRIPTION: Linux system monitorize system self-healing agent and reboots the eNB
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.46
 
-radioOffAlarm:
+holdoverPeriodExpiration:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.39
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.10
-  DESCRIPTION: Small Cell radioOff alarm
+  DESCRIPTION: L3 process raises the alarm when the eNB is working for all the holdover time without re-synchronizing
 
-dbArbiterConnectionAlarm:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.6
+hardDiskUsageIsHigh:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.3
+  DESCRIPTION: AeMS Hard disk usage is high
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: AeMS DB arbiter connection alarm
 
-dbReplicationAlarm:
+remoteAeMSsStatusAlarm:
+  DESCRIPTION: Remote AeMSs down
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.14
-  DESCRIPTION: DB replication failed
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.15
 
-ipsecTunnelIkeSaExpiry:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.37
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the IKE rekeying fails
-
-cCMSServerConnectionFailure:
-  DESCRIPTION: System raises the alarm when the Operator certificate server cannot be connected. This alarm has been deprecated on AeMS.
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.49
+failedRestoringConfigurationFile:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.33
+  DESCRIPTION: Any process of eNB raises this alarm if it gets error while restoring a corrupted configuration file
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
 
 reTransmissionRateExcessive:
-  DESCRIPTION: The MAC has an excessive rate of NACKs
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
   OID: 1.3.6.1.4.1.20858.10.104.101.2.2.9
-
-unauthorisedAccessAttempt:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.17
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Someone or some process did attempt unsuccesfully to login the web interface
-
-remoteAeMSsStatusAlarm:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.15
-  DESCRIPTION: Remote AeMSs down
-
-forcedReboot:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.41
-  DESCRIPTION: Self-healing agent raises this alarm upon detection of major failure requiring a reboot
-
-dspOrPhyCrash:
-  DESCRIPTION: the DSPs running the PHY crashes
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.27
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-cellOffAlarm:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.12
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Small Cell cellOff alarm
-
-criticalConfigurationFailure:
-  DESCRIPTION: L3 process detects this situation and raises alarm if mandatory EPC configuration parameters are not configured
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.47
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: The MAC has an excessive rate of NACKs
 
 networkInterfaceAlarm:
-  DESCRIPTION: AeMS Network interface alarm
   OID: 1.3.6.1.4.1.20858.10.104.101.2.1.7
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: AeMS Network interface alarm
+
+rebootLoop:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.43
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: System raises this alarm upon detection of several continious reboots in a short period of time
 
 congestion:
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.6
   DESCRIPTION: RRM overload
-
-rebootLoop:
-  DESCRIPTION: System raises this alarm upon detection of several continious reboots in a short period of time
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.43
-
-l2NotDetected:
-  DESCRIPTION: L2 not detected
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.2
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-configurationOrCustomizingErrror:
-  DESCRIPTION: The configuration received from OAM interfaces (EMS, CLI, HTTP etc) is wrong
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.18
-
-thresholdCrossedRLF:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.20
-  DESCRIPTION: The MAC has too many RLF s
-
-cpuUsageIsHigh:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.2
-  DESCRIPTION: AeMS CPU usage is high
-
-mmeConnectionIsDown:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.5
-  DESCRIPTION: MME connection is down
-
-overTheAirSynchronizationLost:
-  DESCRIPTION: Syncrhonization with the macro OTA is lost
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.10
-
-singleMmeConnectionIsDown:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.34
-  DESCRIPTION: Single MME connection is down
-
-cellSynchronizationFailure:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.12
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Cell synchronization failure
-
-dbSlaveConnectionAlarm:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.5
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: AeMS DB slave connection alarm
-
-thresholdCrossedLowSINR:
-  DESCRIPTION: The MAC has too many low SINR events
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.21
-
-ipsecTunnelExpiry:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.36
-  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel rekeying fails
-
-cpuTemperatureUnacceptable:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.15
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: CPU Temperature exceeds defined threshold
-
-gpsSynchronizationLost:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.11
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: GPS synchronization lost
-
-failedBackingUpConfigurationFile:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.32
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Any process of eNB raises this alarm if it gets error while backing up a file
-
-cpuCyclesLimitExceeded:
-  DESCRIPTION: CPU usage exceeds defined threshold
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.8
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-maxMMEAttemptsExceeded:
-  DESCRIPTION: L3 process is responsible to handle connection with MME, so it raises the alarm if the connection is lost with all MMEs and the maximum number of retries is reached
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.42
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-systemInformationConfigurationFailure:
-  DESCRIPTION: System information configuration failure
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.31
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-haCommunicationAlarm:
-  DESCRIPTION: AeMS HA communication alarm
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.4
-
-flashMemoryUsage:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.4
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Flash memory usage
-
-l3NotDetected:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.1
-  DESCRIPTION: L3 not detected
-
-l1StartTimeout:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.26
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: the protocol stack cannot start L1 process in DSPs
-
-paTemperatureUnacceptable:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.16
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: The tempeature in the PA exceeds the defined threshold
-
-errorAccessingFile:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.7
-  DESCRIPTION: Error accessing file
-
-ipsecTunnelIsDown:
-  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel fails
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.35
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.6
 
 administrativeReboot:
   DESCRIPTION: OAM process will send this informational alarm upon administrative reboot
@@ -325,12 +80,257 @@ administrativeReboot:
   OID: 1.3.6.1.4.1.20858.10.104.101.2.2.40
 
 sctpFailure:
-  DESCRIPTION: SCTP connection failure
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
   OID: 1.3.6.1.4.1.20858.10.104.101.2.2.13
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: SCTP connection failure
+
+criticalConfigurationFailure:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.47
+  DESCRIPTION: L3 process detects this situation and raises alarm if mandatory EPC configuration parameters are not configured
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+outOfMemory:
+  DESCRIPTION: RAM usage is high and surpassed the defined threshold
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.19
+
+dbArbiterConnectionAlarm:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: AeMS DB arbiter connection alarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.6
+
+flashMemoryUsage:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.4
+  DESCRIPTION: Flash memory usage
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+clockSynchronizationProblem:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Cell not synchronized
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.28
+
+paTemperatureUnacceptable:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.16
+  DESCRIPTION: The tempeature in the PA exceeds the defined threshold
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+maxMMEAttemptsExceeded:
+  DESCRIPTION: L3 process is responsible to handle connection with MME, so it raises the alarm if the connection is lost with all MMEs and the maximum number of retries is reached
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.42
+
+dnsResolutionFailure:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: System raises this alarm upon failure to resolve the IP addresses of a FQDN
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.44
+
+ipsecTunnelIkeSaExpiry:
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the IKE rekeying fails
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.37
+
+oOAMProxyRestarted:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.48
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Kill OAM proxy process to force the generation of the alarm
+
+killSwitch:
+  DESCRIPTION: An external signal is activated when detetecting power supply outage, and this signal reaches the self-healing process, which raises alarm and gracefully halts the eNB
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.25
+
+haCommunicationAlarm:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.4
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: AeMS HA communication alarm
+
+systemInformationConfigurationFailure:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: System information configuration failure
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.31
+
+radioOnAlarm:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.11
+  DESCRIPTION: Small Cell radioOn alarm
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+cCMSServerConnectionFailure:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.49
+  DESCRIPTION: System raises the alarm when the Operator certificate server cannot be connected. This alarm has been deprecated on AeMS.
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+l3NotDetected:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.1
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: L3 not detected
+
+cpuCyclesLimitExceeded:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: CPU usage exceeds defined threshold
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.8
+
+synchronizationLostWithAllSources:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.29
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: the synchornization is lost and the eNB passes to holdover mode
+
+lanError:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.14
+  DESCRIPTION: Ethernet error
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+forcedReboot:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.41
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Self-healing agent raises this alarm upon detection of major failure requiring a reboot
+
+radioOffAlarm:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Small Cell radioOff alarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.10
+
+mmeConnectionIsDown:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.5
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: MME connection is down
+
+singleMmeConnectionIsDown:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Single MME connection is down
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.34
+
+l2NotDetected:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.2
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: L2 not detected
+
+kpiAgentNotDetected:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: KPI Agent not detected
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.3
+
+casaHeMSHeartBeatMsg:
+  DESCRIPTION: Casa HeMS HeartBeat Msg
+  OBJECTS: 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.4
+
+cpuUsageIsHigh:
+  DESCRIPTION: AeMS CPU usage is high
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.2
+
+casaHeMSSmallCellGWAlarm:
+  DESCRIPTION: Casa HeMS SmallCell-GW Alarm
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.3
+
+ipsecTunnelIsDown:
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel fails
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.35
+
+thresholdCrossedRLF:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.20
+  DESCRIPTION: The MAC has too many RLF s
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+failedBackingUpConfigurationFile:
+  DESCRIPTION: Any process of eNB raises this alarm if it gets error while backing up a file
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.32
+
+deviceOfflineAlarm:
+  DESCRIPTION: Small Cell offline alarm
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.8
+
+pciCollision:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: The eNB is configured with the same PCI as another neighbor cell
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.23
+
+l1StartTimeout:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.26
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: the protocol stack cannot start L1 process in DSPs
+
+errorAccessingFile:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.7
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Error accessing file
+
+configurationOrCustomizingErrror:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.18
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: The configuration received from OAM interfaces (EMS, CLI, HTTP etc) is wrong
+
+deviceOnlineAlarm:
+  DESCRIPTION: Small Cell online alarm
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.9
 
 operatorCertificateExpired:
-  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.38
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
   DESCRIPTION: System raises the alarm when the Operator certificate cannot be renewed
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.38
+
+cellSynchronizationFailure:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.12
+  DESCRIPTION: Cell synchronization failure
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+aAeMSConnectionNoResponse:
+  DESCRIPTION: System raises the alarm when the eNB cannot connect to AeMS server
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+
+dspOrPhyCrash:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.27
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: the DSPs running the PHY crashes
+
+invalidPhyOrRfConfiguration:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.30
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Invalid PHY or RF configuration
+
+tr069NotDetected:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.45
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Self-healing agent monitors processes and raises alarm if it detects the process dying
+
+ipsecTunnelExpiry:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.36
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel rekeying fails
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+unauthorisedAccessAttempt:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Someone or some process did attempt unsuccesfully to login the web interface
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.17
+
+memoryUsageIsHigh:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.1
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: AeMS Memory usage is high
+
+paBiasingFailure:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: The PA board was not able to properly biasing
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.22
+
+dbSlaveConnectionAlarm:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.5
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: AeMS DB slave connection alarm
+
+dbReplicationAlarm:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: DB replication failed
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.14
+
+cpuTemperatureUnacceptable:
+  DESCRIPTION: CPU Temperature exceeds defined threshold
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.15
 

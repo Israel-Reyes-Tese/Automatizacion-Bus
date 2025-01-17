@@ -10,6 +10,9 @@ use constant {
     RUTA_IMAGENES => "./static/imagenes/",  # Imágenes de la aplicación
     RUTA_MODULOS_MIB => "./herramientas/Modulos_MIB/",  # Módulos de MIB
     RUTA_ID_EMPRESA => "./herramientas/IDs_empresas_proveedores/",  # ID de la empresa
+
+    RUTA_AGENTES_TEMP => "./herramientas/Archivos_temporales/Agentes_temporales/",  # Agentes temporales
+
     RUTA_ARCHIVOS_TEMP => "./herramientas/Archivos_temporales/",  # Archivos temporales
     RUTA_ARCHIVOS_TEMP_LOGS => "./herramientas/Archivos_temporales/logs/",  # Archivos temporales
 };
@@ -115,6 +118,13 @@ sub temp_files_logs_objects_mibs_path {
     return RUTA_ARCHIVOS_TEMP_LOGS;  
 }
 #                                                      RUTAS ARCHIVOS TEMPORALES LOGS                   #
+
+#                                                     RUTAS AGENTES TEMPORALES                         #
+# Función para obtener la ruta completa de los agentes temporales
+sub temp_agents_path {
+    return RUTA_AGENTES_TEMP;  
+}
+#                                                     RUTAS AGENTES TEMPORALES                         #
 
 
 1;  # Fin del módulo
