@@ -1,793 +1,793 @@
 ----------------------------------- ALARM_TRAPS ---------------------------
-invalidPhyOrRfConfiguration:
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+oOAMProxyRestarted:
   additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
   perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-
-cpuCyclesLimitExceeded:
   eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
   notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
   neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-
-pciConfusion:
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
   eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-
-errorAccessingFile:
   additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
   specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
   alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-
-memoryUsageIsHigh:
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
   probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-
-reTransmissionRateExcessive:
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-
-l2NotDetected:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-
-configurationOrCustomizingErrror:
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-
-cellOnAlarm:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-
-paBiasingFailure:
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
 
 networkInterfaceAlarm:
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
   alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
   probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-
-dbSlaveConnectionAlarm:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
   eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
   specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-
-ipsecTunnelIsDown:
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
   additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
   neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
   perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
   eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-
-aAeMSConnectionNoResponse:
   notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
 
-cellSynchronizationFailure:
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+paTemperatureUnacceptable:
   alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-
-radioOnAlarm:
   probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
   specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
   additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
   neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-
-congestion:
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
   additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-
-l1StartTimeout:
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-
-clockSynchronizationProblem:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-
-dnsResolutionFailure:
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-
-lanError:
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-
-watchdogNotDetected:
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-
-forcedReboot:
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-
-deviceOnlineAlarm:
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-
-dbArbiterConnectionAlarm:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-
-cpuTemperatureUnacceptable:
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
   perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
   notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
   eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
 
-l3NotDetected:
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+l1StartTimeout:
   probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
   alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-
-unauthorisedAccessAttempt:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
   eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
   neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-
-synchronizationLostWithAllSources:
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-
-gpsSynchronizationLost:
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-
-systemInformationConfigurationFailure:
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-
-pciCollision:
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-
-outOfMemory:
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-
-kpiAgentNotDetected:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-
-tr069NotDetected:
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
   notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
   eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-
-dbReplicationAlarm:
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
   perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-
-killSwitch:
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
   additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
 
-rebootLoop:
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+maxMMEAttemptsExceeded:
   eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
   notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
   perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-
-administrativeReboot:
   neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
   additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
   specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
   eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
   alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
 
 thresholdCrossedLowSINR:
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
   notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-
-paTemperatureUnacceptable:
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
   eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
   perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
   alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
   eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
 
-oOAMProxyRestarted:
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+administrativeReboot:
   specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
   additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
   eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-
-haCommunicationAlarm:
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
   eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
   notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
   perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
   additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-
-dspOrPhyCrash:
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
   neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
 
-operatorCertificateExpired:
+forcedReboot:
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
   additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
   neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
   additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-
-maxMMEAttemptsExceeded:
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-
-hardDiskUsageIsHigh:
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
   perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
   eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-
-sctpFailure:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
   notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-
-radioOffAlarm:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-
-casaHeMSSmallCellGWAlarm:
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-
-overTheAirSynchronizationLost:
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-
-failedRestoringConfigurationFile:
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-
-cellOffAlarm:
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-
-cCMSServerConnectionFailure:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-
-thresholdCrossedRLF:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-
-deviceOfflineAlarm:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-
-ipsecTunnelIkeSaExpiry:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-
-flashMemoryUsage:
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-
-cpuUsageIsHigh:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-
-ipsecTunnelExpiry:
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-
-failedBackingUpConfigurationFile:
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-
-holdoverPeriodExpiration:
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-
-singleMmeConnectionIsDown:
-  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
-  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
 
 mmeConnectionIsDown:
   neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
-  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
   eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
   notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
   perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
   eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+
+clockSynchronizationProblem:
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+
+rebootLoop:
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+
+pciConfusion:
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+
+watchdogNotDetected:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+
+lanError:
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+
+haCommunicationAlarm:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+
+ipsecTunnelIkeSaExpiry:
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+
+aAeMSConnectionNoResponse:
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+
+radioOffAlarm:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+
+radioOnAlarm:
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+
+hardDiskUsageIsHigh:
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+
+criticalConfigurationFailure:
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+
+holdoverPeriodExpiration:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+
+deviceOfflineAlarm:
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+
+gpsSynchronizationLost:
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+
+configurationOrCustomizingErrror:
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+
+thresholdCrossedRLF:
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+
+paBiasingFailure:
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+
+cellOnAlarm:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+
+deviceOnlineAlarm:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+
+cellSynchronizationFailure:
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+
+synchronizationLostWithAllSources:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+
+cCMSServerConnectionFailure:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+
+congestion:
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+
+dnsResolutionFailure:
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+
+flashMemoryUsage:
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+
+cellOffAlarm:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+
+errorAccessingFile:
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+
+casaHeMSSmallCellGWAlarm:
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+
+l2NotDetected:
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+
+failedRestoringConfigurationFile:
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+
+reTransmissionRateExcessive:
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+
+kpiAgentNotDetected:
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+
+tr069NotDetected:
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+
+memoryUsageIsHigh:
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+
+ipsecTunnelExpiry:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+
+dspOrPhyCrash:
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+
+dbSlaveConnectionAlarm:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+
+l3NotDetected:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+
+singleMmeConnectionIsDown:
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+
+outOfMemory:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+
+dbReplicationAlarm:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+
+operatorCertificateExpired:
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+
+pciCollision:
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+
+sctpFailure:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+
+cpuCyclesLimitExceeded:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+
+unauthorisedAccessAttempt:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+
+invalidPhyOrRfConfiguration:
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+
+dbArbiterConnectionAlarm:
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
   alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
 
 remoteAeMSsStatusAlarm:
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
   eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+
+overTheAirSynchronizationLost:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+
+ipsecTunnelIsDown:
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
   perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
   notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
   eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+
+systemInformationConfigurationFailure:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
   additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
   additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+
+killSwitch:
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
   neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
 
-criticalConfigurationFailure:
+failedBackingUpConfigurationFile:
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+
+cpuUsageIsHigh:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+
+cpuTemperatureUnacceptable:
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
   eventTime: 1.3.6.1.4.1.20858.10.104.101.2.2.50
   notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
   perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
-  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
-  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
-  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
-  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
   additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
-  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
-  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
 

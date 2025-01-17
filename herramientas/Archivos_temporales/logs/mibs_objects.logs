@@ -1,176 +1,101 @@
 ----------------------------------- OBJECT_IDENTITIES ---------------------------
 zeroDotZero:
   DESCRIPTION: A value used for null identifiers.
-  TYPE: OBJECT-IDENTITY
   ARCHIVO: SNMPv2-SMI
-  OID:  0 0 
   STATUS: current
+  OID:  0 0 
+  TYPE: OBJECT-IDENTITY
 
 ----------------------------------- OBJECT_TYPES ---------------------------
-additionalInformation:
-  DESCRIPTION: This contains additional information about the alarm and is vendor defined.
-  OID: casaHeMSAlarmObjects 9
-  ARCHIVO: casa-hems-alarm.mib
+neIdentity:
   MAX-ACCESS: accessible-for-notify
+  DESCRIPTION: Ne Identity
+  OID: casaHeMSAlarmObjects 1
   STATUS: current
+  ARCHIVO: casa-hems-alarm.mib
   SYNTAX: OCTET STRING
 
-specificProblem:
-  DESCRIPTION: alarm specificProblem
+additionalInformation:
   ARCHIVO: casa-hems-alarm.mib
-  OID: casaHeMSAlarmObjects 6
-  MAX-ACCESS: accessible-for-notify
   STATUS: current
   SYNTAX: OCTET STRING
+  MAX-ACCESS: accessible-for-notify
+  DESCRIPTION: This contains additional information about the alarm and is vendor defined.
+  OID: casaHeMSAlarmObjects 9
+
+perceivedSeverity:
+  MAX-ACCESS: accessible-for-notify
+  OID: casaHeMSAlarmObjects 7
+  DESCRIPTION: alarm perceivedSeverity: 'Critical, 'Major', 'Minor', 'Warning', 'Indeterminate'
+  SYNTAX: OCTET STRING
+  STATUS: current
+  ARCHIVO: casa-hems-alarm.mib
+
+eventTime:
+  SYNTAX: OCTET STRING
+  ARCHIVO: casa-hems-alarm.mib
+  STATUS: current
+  MAX-ACCESS: accessible-for-notify
+  OID: casaHeMSSmallCellAlarm 50
+  DESCRIPTION: System raises the alarm when the eNB cannot connect to AeMS server
+
+notificationType:
+  SYNTAX: OCTET STRING
+  STATUS: current
+  ARCHIVO: casa-hems-alarm.mib
+  OID: casaHeMSAlarmObjects 3
+  DESCRIPTION: alarm notificationType: 'NewAlarm', 'ChangedAlarm', 'ClearedAlarm'
+  MAX-ACCESS: accessible-for-notify
+
+alarmID:
+  SYNTAX: OCTET STRING
+  ARCHIVO: casa-hems-alarm.mib
+  STATUS: current
+  OID: casaHeMSAlarmObjects 2
+  DESCRIPTION: alarm ID
+  MAX-ACCESS: accessible-for-notify
 
 probableCause:
   DESCRIPTION: alarm probableCause
-  SYNTAX: OCTET STRING
-  STATUS: current
-  MAX-ACCESS: accessible-for-notify
   OID: casaHeMSAlarmObjects 5
-  ARCHIVO: casa-hems-alarm.mib
-
-neIdentity:
-  OID: casaHeMSAlarmObjects 1
-  ARCHIVO: casa-hems-alarm.mib
   MAX-ACCESS: accessible-for-notify
-  SYNTAX: OCTET STRING
-  STATUS: current
-  DESCRIPTION: Ne Identity
-
-additionalText:
-  MAX-ACCESS: accessible-for-notify
+  ARCHIVO: casa-hems-alarm.mib
   STATUS: current
   SYNTAX: OCTET STRING
-  ARCHIVO: casa-hems-alarm.mib
-  OID: casaHeMSAlarmObjects 8
-  DESCRIPTION: This provides a textual string which is vendor defined.
-
-notificationType:
-  ARCHIVO: casa-hems-alarm.mib
-  OID: casaHeMSAlarmObjects 3
-  SYNTAX: OCTET STRING
-  STATUS: current
-  MAX-ACCESS: accessible-for-notify
-  DESCRIPTION: alarm notificationType: 'NewAlarm', 'ChangedAlarm', 'ClearedAlarm'
-
-perceivedSeverity:
-  DESCRIPTION: alarm perceivedSeverity: 'Critical, 'Major', 'Minor', 'Warning', 'Indeterminate'
-  ARCHIVO: casa-hems-alarm.mib
-  OID: casaHeMSAlarmObjects 7
-  SYNTAX: OCTET STRING
-  STATUS: current
-  MAX-ACCESS: accessible-for-notify
 
 eventType:
-  STATUS: current
-  SYNTAX: OCTET STRING
   MAX-ACCESS: accessible-for-notify
-  ARCHIVO: casa-hems-alarm.mib
   OID: casaHeMSAlarmObjects 4
   DESCRIPTION: alarm eventType: 'Communication Alarm', 'Processing error Alarm', 'Equipment Alarm', 'Environmental Alarm', 'Quality of Service Alarm', 'Integrity Violation', 'Operational Violation', 'Physical Violation', 'Security Service or Mechanism Violation'
-
-alarmID:
-  ARCHIVO: casa-hems-alarm.mib
-  OID: casaHeMSAlarmObjects 2
-  MAX-ACCESS: accessible-for-notify
   SYNTAX: OCTET STRING
+  ARCHIVO: casa-hems-alarm.mib
   STATUS: current
-  DESCRIPTION: alarm ID
 
-eventTime:
-  OID: casaHeMSSmallCellAlarm 50
+additionalText:
+  DESCRIPTION: This provides a textual string which is vendor defined.
+  OID: casaHeMSAlarmObjects 8
+  MAX-ACCESS: accessible-for-notify
+  STATUS: current
   ARCHIVO: casa-hems-alarm.mib
   SYNTAX: OCTET STRING
+
+specificProblem:
+  ARCHIVO: casa-hems-alarm.mib
   STATUS: current
+  SYNTAX: OCTET STRING
   MAX-ACCESS: accessible-for-notify
-  DESCRIPTION: System raises the alarm when the eNB cannot connect to AeMS server
+  DESCRIPTION: alarm specificProblem
+  OID: casaHeMSAlarmObjects 6
 
 ----------------------------------- OBJECT_IDENTIFIERS ---------------------------
-snmpDomains:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID: snmpV2 1
-
-enterprises:
-  ARCHIVO: SNMPv2-SMI
-  OID: private 1
-  TYPE: OBJECT IDENTIFIER
-
-security:
-  OID: internet 5
-  ARCHIVO: SNMPv2-SMI
-  TYPE: OBJECT IDENTIFIER
-
 experimental:
-  ARCHIVO: SNMPv2-SMI
+  TYPE: OBJECT IDENTIFIER
   OID: internet 3
-  TYPE: OBJECT IDENTIFIER
-
-snmpV2:
-  TYPE: OBJECT IDENTIFIER
-  OID: internet 6
   ARCHIVO: SNMPv2-SMI
-
-casaHeMSAlarmObjects:
-  ARCHIVO: casa-hems-alarm.mib
-  OID: casaHeMSAlarmMib 1
-  TYPE: OBJECT IDENTIFIER
 
 casaHeMSSystemAlarm:
-  TYPE: OBJECT IDENTIFIER
   ARCHIVO: casa-hems-alarm.mib
   OID: casaHeMSAlarmTraps 1
-
-snmpModules:
-  ARCHIVO: SNMPv2-SMI
-  OID: snmpV2 3
-  TYPE: OBJECT IDENTIFIER
-
-snmpProxys:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID: snmpV2 2
-
-org:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID: iso 3
-
-transmission:
-  OID: mib-2 10
-  ARCHIVO: SNMPv2-SMI
-  TYPE: OBJECT IDENTIFIER
-
-casaHeMSAlarmTraps:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: casa-hems-alarm.mib
-  OID: casaHeMSAlarmMib 2
-
-mgmt:
-  OID: internet 2
-  ARCHIVO: SNMPv2-SMI
-  TYPE: OBJECT IDENTIFIER
-
-mib-2:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID: mgmt 1
-
-internet:
-  ARCHIVO: SNMPv2-SMI
-  OID: dod 1
-  TYPE: OBJECT IDENTIFIER
-
-private:
-  ARCHIVO: SNMPv2-SMI
-  OID: internet 4
-  TYPE: OBJECT IDENTIFIER
-
-dod:
-  ARCHIVO: SNMPv2-SMI
-  OID: org 6
   TYPE: OBJECT IDENTIFIER
 
 directory:
@@ -178,628 +103,703 @@ directory:
   OID: internet 1
   ARCHIVO: SNMPv2-SMI
 
+enterprises:
+  ARCHIVO: SNMPv2-SMI
+  OID: private 1
+  TYPE: OBJECT IDENTIFIER
+
+snmpModules:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID: snmpV2 3
+
+mib-2:
+  TYPE: OBJECT IDENTIFIER
+  OID: mgmt 1
+  ARCHIVO: SNMPv2-SMI
+
+org:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID: iso 3
+
+casaHeMSAlarmTraps:
+  TYPE: OBJECT IDENTIFIER
+  OID: casaHeMSAlarmMib 2
+  ARCHIVO: casa-hems-alarm.mib
+
 casaHeMSSmallCellAlarm:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: casa-hems-alarm.mib
   OID: casaHeMSAlarmTraps 2
+  ARCHIVO: casa-hems-alarm.mib
+
+snmpProxys:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID: snmpV2 2
+
+internet:
+  TYPE: OBJECT IDENTIFIER
+  OID: dod 1
+  ARCHIVO: SNMPv2-SMI
+
+dod:
+  TYPE: OBJECT IDENTIFIER
+  OID: org 6
+  ARCHIVO: SNMPv2-SMI
+
+snmpV2:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID: internet 6
+
+transmission:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID: mib-2 10
+
+snmpDomains:
+  TYPE: OBJECT IDENTIFIER
+  OID: snmpV2 1
+  ARCHIVO: SNMPv2-SMI
+
+mgmt:
+  ARCHIVO: SNMPv2-SMI
+  OID: internet 2
+  TYPE: OBJECT IDENTIFIER
+
+casaHeMSAlarmObjects:
+  ARCHIVO: casa-hems-alarm.mib
+  OID: casaHeMSAlarmMib 1
+  TYPE: OBJECT IDENTIFIER
+
+private:
+  OID: internet 4
+  ARCHIVO: SNMPv2-SMI
+  TYPE: OBJECT IDENTIFIER
+
+security:
+  TYPE: OBJECT IDENTIFIER
+  OID: internet 5
+  ARCHIVO: SNMPv2-SMI
 
 ----------------------------------- MODULE_IDENTITIES ---------------------------
 casaHeMSAlarmMib:
-  ORGANIZATION: CASA Systems Inc.
-  TYPE: MODULE-IDENTITY
   LAST_UPDATED: 201804300000Z
   OID:  1 3 6 1 4 1 20858 10 104 101 
-  ARCHIVO: casa-hems-alarm.mib
   CONTACT_INFO: Casa Systems Inc.     
 100 Old River Road, Suite 100           
 Andover, MA 01810     
 TEL: +1 978 688 6706     
 FAX: +1 978 688 6584		
 E-mail: support@casa-systems.com
+  TYPE: MODULE-IDENTITY
+  ORGANIZATION: CASA Systems Inc.
+  ARCHIVO: casa-hems-alarm.mib
   DESCRIPTION_1: The Casa HeMS ALARM  MIB
 
 ----------------------------------- ALARM_TRAPS ---------------------------
-congestion:
+errorAccessingFile:
   TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  DESCRIPTION: RRM overload
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
   VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 6
-  STATUS: current
-
-l1StartTimeout:
-  DESCRIPTION: the protocol stack cannot start L1 process in DSPs
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 26
+  OID: casaHeMSSmallCellAlarm 7
   STATUS: current
-
-clockSynchronizationProblem:
-  STATUS: current
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 28
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Cell not synchronized
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-
-radioOnAlarm:
-  OID: casaHeMSSystemAlarm 11
-  VARIABLES: 
-  STATUS: current
-  DESCRIPTION: Small Cell radioOn alarm
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: Error accessing file
   ENTERPRISE: 
 
-deviceOnlineAlarm:
+casaHeMSSmallCellGWAlarm:
   TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  DESCRIPTION: Small Cell online alarm
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: casaHeMSSystemAlarm 9
   VARIABLES: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSAlarmTraps 3
+  DESCRIPTION: Casa HeMS SmallCell-GW Alarm
   STATUS: current
+  ENTERPRISE: 
 
-dbArbiterConnectionAlarm:
-  VARIABLES: 
-  OID: casaHeMSSystemAlarm 6
-  STATUS: current
-  TYPE: NOTIFICATION-TYPE
+flashMemoryUsage:
   ENTERPRISE: 
-  DESCRIPTION: AeMS DB arbiter connection alarm
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: Flash memory usage
+  STATUS: current
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 4
 
-cpuTemperatureUnacceptable:
-  STATUS: current
+cellOffAlarm:
   VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 15
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: CPU Temperature exceeds defined threshold
-  ENTERPRISE: 
   TYPE: NOTIFICATION-TYPE
-
-lanError:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Ethernet error
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: Small Cell cellOff alarm
   STATUS: current
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 14
+  OID: casaHeMSSystemAlarm 12
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  ENTERPRISE: 
 
 dnsResolutionFailure:
-  STATUS: current
+  ENTERPRISE: 
   OID: casaHeMSSmallCellAlarm 44
-  VARIABLES: 
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
   DESCRIPTION: System raises this alarm upon failure to resolve the IP addresses of a FQDN
-
-forcedReboot:
-  DESCRIPTION: Self-healing agent raises this alarm upon detection of major failure requiring a reboot
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
   TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 41
-  STATUS: current
-
-watchdogNotDetected:
-  STATUS: current
-  OID: casaHeMSSmallCellAlarm 46
-  VARIABLES: 
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Linux system monitorize system self-healing agent and reboots the eNB
-
-unauthorisedAccessAttempt:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Someone or some process did attempt unsuccesfully to login the web interface
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  STATUS: current
-  OID: casaHeMSSmallCellAlarm 17
   VARIABLES: 
 
-synchronizationLostWithAllSources:
+congestion:
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  STATUS: current
+  DESCRIPTION: RRM overload
+  OID: casaHeMSSmallCellAlarm 6
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+memoryUsageIsHigh:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OID: casaHeMSSystemAlarm 1
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: AeMS Memory usage is high
+  STATUS: current
+  ENTERPRISE: 
+
+ipsecTunnelExpiry:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel rekeying fails
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 36
+  ENTERPRISE: 
+
+dspOrPhyCrash:
+  ENTERPRISE: 
+  STATUS: current
+  DESCRIPTION: the DSPs running the PHY crashes
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 27
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+
+tr069NotDetected:
+  STATUS: current
+  DESCRIPTION: Self-healing agent monitors processes and raises alarm if it detects the process dying
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 45
+  VARIABLES: 
   TYPE: NOTIFICATION-TYPE
   ENTERPRISE: 
-  DESCRIPTION: the synchornization is lost and the eNB passes to holdover mode
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: casaHeMSSmallCellAlarm 29
+
+reTransmissionRateExcessive:
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
   VARIABLES: 
+  OID: casaHeMSSmallCellAlarm 9
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: The MAC has an excessive rate of NACKs
   STATUS: current
 
-l3NotDetected:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: L3 not detected
+failedRestoringConfigurationFile:
   ENTERPRISE: 
+  VARIABLES: 
   TYPE: NOTIFICATION-TYPE
   STATUS: current
-  OID: casaHeMSSmallCellAlarm 1
-  VARIABLES: 
-
-outOfMemory:
+  DESCRIPTION: Any process of eNB raises this alarm if it gets error while restoring a corrupted configuration file
+  OID: casaHeMSSmallCellAlarm 33
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: RAM usage is high and surpassed the defined threshold
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  STATUS: current
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 19
 
 kpiAgentNotDetected:
   STATUS: current
-  OID: casaHeMSSmallCellAlarm 3
-  VARIABLES: 
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
   DESCRIPTION: KPI Agent not detected
+  OID: casaHeMSSmallCellAlarm 3
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
   ENTERPRISE: 
+
+l2NotDetected:
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  STATUS: current
+  DESCRIPTION: L2 not detected
+  OID: casaHeMSSmallCellAlarm 2
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+l3NotDetected:
+  DESCRIPTION: L3 not detected
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 1
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+
+singleMmeConnectionIsDown:
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: Single MME connection is down
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 34
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+dbSlaveConnectionAlarm:
+  STATUS: current
+  DESCRIPTION: AeMS DB slave connection alarm
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSystemAlarm 5
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+
+dbReplicationAlarm:
+  ENTERPRISE: 
+  DESCRIPTION: DB replication failed
+  STATUS: current
+  OID: casaHeMSSystemAlarm 14
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  VARIABLES: 
   TYPE: NOTIFICATION-TYPE
 
-gpsSynchronizationLost:
-  DESCRIPTION: GPS synchronization lost
+outOfMemory:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OID: casaHeMSSmallCellAlarm 19
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: RAM usage is high and surpassed the defined threshold
+  STATUS: current
+  ENTERPRISE: 
+
+unauthorisedAccessAttempt:
+  ENTERPRISE: 
+  STATUS: current
+  DESCRIPTION: Someone or some process did attempt unsuccesfully to login the web interface
+  OID: casaHeMSSmallCellAlarm 17
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+
+invalidPhyOrRfConfiguration:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: Invalid PHY or RF configuration
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 30
+  ENTERPRISE: 
+
+cpuCyclesLimitExceeded:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  STATUS: current
+  DESCRIPTION: CPU usage exceeds defined threshold
+  OID: casaHeMSSmallCellAlarm 8
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  ENTERPRISE: 
+
+operatorCertificateExpired:
+  DESCRIPTION: System raises the alarm when the Operator certificate cannot be renewed
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 38
+  VARIABLES: 
   TYPE: NOTIFICATION-TYPE
   ENTERPRISE: 
-  OID: casaHeMSSmallCellAlarm 11
+
+pciCollision:
+  ENTERPRISE: 
+  OID: casaHeMSSmallCellAlarm 23
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: The eNB is configured with the same PCI as another neighbor cell
+  STATUS: current
+  TYPE: NOTIFICATION-TYPE
   VARIABLES: 
+
+sctpFailure:
+  DESCRIPTION: SCTP connection failure
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 13
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+
+remoteAeMSsStatusAlarm:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OID: casaHeMSSystemAlarm 15
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
+  DESCRIPTION: Remote AeMSs down
+  ENTERPRISE: 
+
+dbArbiterConnectionAlarm:
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSystemAlarm 6
+  STATUS: current
+  DESCRIPTION: AeMS DB arbiter connection alarm
+
+casaHeMSHeartBeatMsg:
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OBJECTS: 
+  OID: casaHeMSAlarmTraps 4
+  DESCRIPTION: Casa HeMS HeartBeat Msg
+  STATUS: current
+
+failedBackingUpConfigurationFile:
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OID: casaHeMSSmallCellAlarm 32
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
+  DESCRIPTION: Any process of eNB raises this alarm if it gets error while backing up a file
+
+ipsecTunnelIsDown:
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OID: casaHeMSSmallCellAlarm 35
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel fails
   STATUS: current
 
 systemInformationConfigurationFailure:
   ENTERPRISE: 
+  VARIABLES: 
   TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
   DESCRIPTION: System information configuration failure
-  STATUS: current
   OID: casaHeMSSmallCellAlarm 31
-  VARIABLES: 
-
-pciCollision:
-  OID: casaHeMSSmallCellAlarm 23
-  VARIABLES: 
-  STATUS: current
-  DESCRIPTION: The eNB is configured with the same PCI as another neighbor cell
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-
-errorAccessingFile:
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Error accessing file
-  STATUS: current
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 7
-
-pciConfusion:
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 24
-  STATUS: current
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  DESCRIPTION: The eNB detects that it is configurted with the same PCI as another neighbor of second ring cell
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-memoryUsageIsHigh:
-  STATUS: current
-  OID: casaHeMSSystemAlarm 1
-  VARIABLES: 
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: AeMS Memory usage is high
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-
-invalidPhyOrRfConfiguration:
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Invalid PHY or RF configuration
-  STATUS: current
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 30
-
-cpuCyclesLimitExceeded:
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  DESCRIPTION: CPU usage exceeds defined threshold
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 8
-  STATUS: current
-
-reTransmissionRateExcessive:
-  OID: casaHeMSSmallCellAlarm 9
-  VARIABLES: 
-  STATUS: current
-  DESCRIPTION: The MAC has an excessive rate of NACKs
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-
-networkInterfaceAlarm:
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: AeMS Network interface alarm
-  STATUS: current
-  OID: casaHeMSSystemAlarm 7
-  VARIABLES: 
-
-dbSlaveConnectionAlarm:
-  STATUS: current
-  OID: casaHeMSSystemAlarm 5
-  VARIABLES: 
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: AeMS DB slave connection alarm
-
-l2NotDetected:
-  OID: casaHeMSSmallCellAlarm 2
-  VARIABLES: 
-  STATUS: current
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  DESCRIPTION: L2 not detected
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-
-configurationOrCustomizingErrror:
-  STATUS: current
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 18
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: The configuration received from OAM interfaces (EMS, CLI, HTTP etc) is wrong
-
-cellOnAlarm:
-  STATUS: current
-  OID: casaHeMSSystemAlarm 13
-  VARIABLES: 
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Small Cell cellOn alarm
-
-paBiasingFailure:
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  DESCRIPTION: The PA board was not able to properly biasing
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 22
-  STATUS: current
-
-cellSynchronizationFailure:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Cell synchronization failure
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  STATUS: current
-  OID: casaHeMSSmallCellAlarm 12
-  VARIABLES: 
-
-ipsecTunnelIsDown:
-  STATUS: current
-  OID: casaHeMSSmallCellAlarm 35
-  VARIABLES: 
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel fails
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-
-aAeMSConnectionNoResponse:
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  DESCRIPTION: System raises the alarm when the eNB cannot connect to AeMS server
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: casaHeMSSmallCellAlarm 50
-  VARIABLES: 
-  STATUS: current
-
-cellOffAlarm:
-  STATUS: current
-  VARIABLES: 
-  OID: casaHeMSSystemAlarm 12
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Small Cell cellOff alarm
-
-cCMSServerConnectionFailure:
-  DESCRIPTION: System raises the alarm when the Operator certificate server cannot be connected. This alarm has been deprecated on AeMS.
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 49
-  STATUS: current
-
-thresholdCrossedRLF:
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  DESCRIPTION: The MAC has too many RLF s
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: casaHeMSSmallCellAlarm 20
-  VARIABLES: 
-  STATUS: current
-
-deviceOfflineAlarm:
-  STATUS: current
-  OID: casaHeMSSystemAlarm 8
-  VARIABLES: 
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Small Cell offline alarm
-
-ipsecTunnelIkeSaExpiry:
-  STATUS: current
-  OID: casaHeMSSmallCellAlarm 37
-  VARIABLES: 
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the IKE rekeying fails
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-
-casaHeMSSmallCellGWAlarm:
-  STATUS: current
-  OID: casaHeMSAlarmTraps 3
-  VARIABLES: 
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Casa HeMS SmallCell-GW Alarm
-
-overTheAirSynchronizationLost:
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  DESCRIPTION: Syncrhonization with the macro OTA is lost
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 10
-  STATUS: current
-
-failedRestoringConfigurationFile:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Any process of eNB raises this alarm if it gets error while restoring a corrupted configuration file
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  STATUS: current
-  OID: casaHeMSSmallCellAlarm 33
-  VARIABLES: 
-
-cpuUsageIsHigh:
-  STATUS: current
-  VARIABLES: 
-  OID: casaHeMSSystemAlarm 2
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: AeMS CPU usage is high
-
-flashMemoryUsage:
-  DESCRIPTION: Flash memory usage
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 4
-  STATUS: current
-
-ipsecTunnelExpiry:
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel rekeying fails
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 36
-  STATUS: current
-
-failedBackingUpConfigurationFile:
-  DESCRIPTION: Any process of eNB raises this alarm if it gets error while backing up a file
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 32
-  STATUS: current
-
-holdoverPeriodExpiration:
-  DESCRIPTION: L3 process raises the alarm when the eNB is working for all the holdover time without re-synchronizing
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 39
-  STATUS: current
-
-criticalConfigurationFailure:
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 47
-  STATUS: current
-  DESCRIPTION: L3 process detects this situation and raises alarm if mandatory EPC configuration parameters are not configured
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-
-mmeConnectionIsDown:
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  DESCRIPTION: MME connection is down
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: casaHeMSSmallCellAlarm 5
-  VARIABLES: 
-  STATUS: current
-
-singleMmeConnectionIsDown:
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  DESCRIPTION: Single MME connection is down
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: casaHeMSSmallCellAlarm 34
-  VARIABLES: 
-  STATUS: current
-
-remoteAeMSsStatusAlarm:
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Remote AeMSs down
-  STATUS: current
-  VARIABLES: 
-  OID: casaHeMSSystemAlarm 15
-
-casaHeMSHeartBeatMsg:
-  DESCRIPTION: Casa HeMS HeartBeat Msg
-  OBJECTS: 
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  VARIABLES: 
-  OID: casaHeMSAlarmTraps 4
-  STATUS: current
-
-rebootLoop:
-  STATUS: current
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 43
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: System raises this alarm upon detection of several continious reboots in a short period of time
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-
-paTemperatureUnacceptable:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: The tempeature in the PA exceeds the defined threshold
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  STATUS: current
-  OID: casaHeMSSmallCellAlarm 16
-  VARIABLES: 
-
-administrativeReboot:
-  STATUS: current
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 40
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: OAM process will send this informational alarm upon administrative reboot
-
-thresholdCrossedLowSINR:
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  DESCRIPTION: The MAC has too many low SINR events
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  OID: casaHeMSSmallCellAlarm 21
-  VARIABLES: 
-  STATUS: current
-
-oOAMProxyRestarted:
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Kill OAM proxy process to force the generation of the alarm
-  STATUS: current
-  OID: casaHeMSSmallCellAlarm 48
-  VARIABLES: 
-
-tr069NotDetected:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: Self-healing agent monitors processes and raises alarm if it detects the process dying
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
-  STATUS: current
-  OID: casaHeMSSmallCellAlarm 45
-  VARIABLES: 
 
 killSwitch:
-  ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
+  OID: casaHeMSSmallCellAlarm 25
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
   DESCRIPTION: An external signal is activated when detetecting power supply outage, and this signal reaches the self-healing process, which raises alarm and gracefully halts the eNB
   STATUS: current
+  TYPE: NOTIFICATION-TYPE
   VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 25
+  ENTERPRISE: 
 
-dbReplicationAlarm:
-  OID: casaHeMSSystemAlarm 14
-  VARIABLES: 
+overTheAirSynchronizationLost:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 10
   STATUS: current
+  DESCRIPTION: Syncrhonization with the macro OTA is lost
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+
+cpuTemperatureUnacceptable:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 15
+  STATUS: current
+  DESCRIPTION: CPU Temperature exceeds defined threshold
+  ENTERPRISE: 
+
+cpuUsageIsHigh:
+  ENTERPRISE: 
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OID: casaHeMSSystemAlarm 2
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
+  DESCRIPTION: AeMS CPU usage is high
+
+maxMMEAttemptsExceeded:
+  STATUS: current
+  DESCRIPTION: L3 process is responsible to handle connection with MME, so it raises the alarm if the connection is lost with all MMEs and the maximum number of retries is reached
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 42
+  VARIABLES: 
   TYPE: NOTIFICATION-TYPE
   ENTERPRISE: 
-  DESCRIPTION: DB replication failed
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
 
-dspOrPhyCrash:
+l1StartTimeout:
+  ENTERPRISE: 
+  DESCRIPTION: the protocol stack cannot start L1 process in DSPs
+  STATUS: current
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: the DSPs running the PHY crashes
+  OID: casaHeMSSmallCellAlarm 26
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+
+paTemperatureUnacceptable:
+  ENTERPRISE: 
+  OID: casaHeMSSmallCellAlarm 16
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: The tempeature in the PA exceeds the defined threshold
+  STATUS: current
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+networkInterfaceAlarm:
+  STATUS: current
+  DESCRIPTION: AeMS Network interface alarm
+  OID: casaHeMSSystemAlarm 7
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+
+oOAMProxyRestarted:
+  ENTERPRISE: 
+  DESCRIPTION: Kill OAM proxy process to force the generation of the alarm
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 48
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+
+clockSynchronizationProblem:
+  ENTERPRISE: 
+  DESCRIPTION: Cell not synchronized
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 28
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+
+forcedReboot:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: Self-healing agent raises this alarm upon detection of major failure requiring a reboot
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 41
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  ENTERPRISE: 
+
+mmeConnectionIsDown:
+  OID: casaHeMSSmallCellAlarm 5
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: MME connection is down
+  STATUS: current
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+
+administrativeReboot:
+  ENTERPRISE: 
+  OID: casaHeMSSmallCellAlarm 40
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
+  DESCRIPTION: OAM process will send this informational alarm upon administrative reboot
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+thresholdCrossedLowSINR:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 21
+  STATUS: current
+  DESCRIPTION: The MAC has too many low SINR events
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+
+lanError:
+  ENTERPRISE: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 14
+  DESCRIPTION: Ethernet error
+  STATUS: current
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+pciConfusion:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: The eNB detects that it is configurted with the same PCI as another neighbor of second ring cell
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 24
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  ENTERPRISE: 
+
+rebootLoop:
+  OID: casaHeMSSmallCellAlarm 43
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
+  DESCRIPTION: System raises this alarm upon detection of several continious reboots in a short period of time
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+
+watchdogNotDetected:
   ENTERPRISE: 
   TYPE: NOTIFICATION-TYPE
-  STATUS: current
-  OID: casaHeMSSmallCellAlarm 27
   VARIABLES: 
+  OID: casaHeMSSmallCellAlarm 46
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
+  DESCRIPTION: Linux system monitorize system self-healing agent and reboots the eNB
+
+ipsecTunnelIkeSaExpiry:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the IKE rekeying fails
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 37
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  ENTERPRISE: 
 
 haCommunicationAlarm:
   DESCRIPTION: AeMS HA communication alarm
+  STATUS: current
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
-  VARIABLES: 
   OID: casaHeMSSystemAlarm 4
-  STATUS: current
-
-operatorCertificateExpired:
-  DESCRIPTION: System raises the alarm when the Operator certificate cannot be renewed
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  VARIABLES: 
   TYPE: NOTIFICATION-TYPE
   ENTERPRISE: 
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 38
-  STATUS: current
 
-maxMMEAttemptsExceeded:
+aAeMSConnectionNoResponse:
   ENTERPRISE: 
-  TYPE: NOTIFICATION-TYPE
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: L3 process is responsible to handle connection with MME, so it raises the alarm if the connection is lost with all MMEs and the maximum number of retries is reached
+  OID: casaHeMSSmallCellAlarm 50
+  DESCRIPTION: System raises the alarm when the eNB cannot connect to AeMS server
   STATUS: current
-  VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 42
-
-sctpFailure:
-  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
-  DESCRIPTION: SCTP connection failure
-  ENTERPRISE: 
   TYPE: NOTIFICATION-TYPE
-  STATUS: current
   VARIABLES: 
-  OID: casaHeMSSmallCellAlarm 13
 
 radioOffAlarm:
-  OID: casaHeMSSystemAlarm 10
-  VARIABLES: 
-  STATUS: current
-  TYPE: NOTIFICATION-TYPE
   ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
   DESCRIPTION: Small Cell radioOff alarm
+  STATUS: current
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSystemAlarm 10
+
+criticalConfigurationFailure:
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 47
+  STATUS: current
+  DESCRIPTION: L3 process detects this situation and raises alarm if mandatory EPC configuration parameters are not configured
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
 
 hardDiskUsageIsHigh:
+  VARIABLES: 
   TYPE: NOTIFICATION-TYPE
-  ENTERPRISE: 
+  STATUS: current
   DESCRIPTION: AeMS Hard disk usage is high
   OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
   OID: casaHeMSSystemAlarm 3
+  ENTERPRISE: 
+
+radioOnAlarm:
   VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: Small Cell radioOn alarm
   STATUS: current
+  OID: casaHeMSSystemAlarm 11
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  ENTERPRISE: 
+
+thresholdCrossedRLF:
+  OID: casaHeMSSmallCellAlarm 20
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
+  DESCRIPTION: The MAC has too many RLF s
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  ENTERPRISE: 
+
+gpsSynchronizationLost:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OID: casaHeMSSmallCellAlarm 11
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: GPS synchronization lost
+  STATUS: current
+  ENTERPRISE: 
+
+deviceOfflineAlarm:
+  ENTERPRISE: 
+  OID: casaHeMSSystemAlarm 8
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  DESCRIPTION: Small Cell offline alarm
+  STATUS: current
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+configurationOrCustomizingErrror:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 18
+  DESCRIPTION: The configuration received from OAM interfaces (EMS, CLI, HTTP etc) is wrong
+  STATUS: current
+  ENTERPRISE: 
+
+holdoverPeriodExpiration:
+  STATUS: current
+  DESCRIPTION: L3 process raises the alarm when the eNB is working for all the holdover time without re-synchronizing
+  OID: casaHeMSSmallCellAlarm 39
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+
+cCMSServerConnectionFailure:
+  ENTERPRISE: 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: System raises the alarm when the Operator certificate server cannot be connected. This alarm has been deprecated on AeMS.
+  STATUS: current
+  OID: casaHeMSSmallCellAlarm 49
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+
+cellSynchronizationFailure:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: Cell synchronization failure
+  STATUS: current
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSmallCellAlarm 12
+  ENTERPRISE: 
+
+deviceOnlineAlarm:
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: Small Cell online alarm
+  STATUS: current
+  OID: casaHeMSSystemAlarm 9
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  ENTERPRISE: 
+
+synchronizationLostWithAllSources:
+  STATUS: current
+  DESCRIPTION: the synchornization is lost and the eNB passes to holdover mode
+  OID: casaHeMSSmallCellAlarm 29
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  VARIABLES: 
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: 
+
+cellOnAlarm:
+  ENTERPRISE: 
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  OID: casaHeMSSystemAlarm 13
+  DESCRIPTION: Small Cell cellOn alarm
+  STATUS: current
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+
+paBiasingFailure:
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: 
+  OID: casaHeMSSmallCellAlarm 22
+  OBJECTS:   neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime 
+  STATUS: current
+  DESCRIPTION: The PA board was not able to properly biasing
+  ENTERPRISE: 
 
 ----------------------------------- OID_NODES ---------------------------

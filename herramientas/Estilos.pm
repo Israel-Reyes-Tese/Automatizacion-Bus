@@ -136,6 +136,20 @@ our $table_row_bg = '#ffffff';
 our $table_row_alt_bg = '#f9f9f9';
 our $table_font = ['Arial', 12];
 our $table_header_font = ['Helvetica', 20, 'bold'];
+# Checkbutton
+our $checkbutton_bg = '#f0f0f0';
+our $checkbutton_fg = '#000000';
+our $checkbutton_active_bg = '#5e5673';
+our $checkbutton_active_fg = '#f2e6da';
+our $checkbutton_font = ['Arial', 12];
+
+# Save button
+our $save_button_bg = '#4CAF50';
+our $save_button_fg = 'white';
+our $save_button_active_bg = '#45a049';
+our $save_button_active_fg = 'white';
+our $save_button_font = ['Helvetica', 12, 'bold'];
+
 
 
 our $row_bg = '#f0f0f0';

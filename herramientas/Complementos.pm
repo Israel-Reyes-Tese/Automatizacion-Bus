@@ -582,6 +582,11 @@ sub create_table_doble_data {
     my $table = $scrolled_table->Subwidget('scrolled');
     my $current_page = 1;
     my $current_data_ref = $data_principal_ref;
+    my %selected_principal;
+    my %selected_secundaria;
+
+    my $selected_data_principal;
+    my $selected_data_secundaria;
 
     # Function to clear the table
     my $clear_table = sub {
@@ -590,6 +595,7 @@ sub create_table_doble_data {
         for my $row (1 .. $rows - 1) {
             for my $col (0 .. $cols - 1) {
                 $table->set("$row,$col", '');
+                $table->windowConfigure("$row,$col", -window => '');
             }
         }
     };
@@ -613,7 +619,7 @@ sub create_table_doble_data {
         my ($data_ref, $page) = @_;
         $clear_table->();  # Limpiar la tabla antes de mostrar nuevos datos
 
-        my @header_fields = @{$data_ref->[0]};
+        my @header_fields = (@{$data_ref->[0]}, 'Seleccionar');
         my @data_rows = @{$data_ref}[1 .. $#$data_ref];
 
         # Actualizar el número de columnas
@@ -635,6 +641,41 @@ sub create_table_doble_data {
             foreach my $value (@$data_row) {
                 $table->set("$row,$col", $value);
                 $col++;
+            }
+            my $checkbutton_var = 1;
+            if ($data_ref == $data_secundaria_ref) {
+                $checkbutton_var = 0;
+            }
+            $table->windowConfigure("$row,$col", -window => $frame->Checkbutton(
+                -variable => \$checkbutton_var,
+                -background => $herramientas::Estilos::checkbutton_bg,
+                -activebackground => $herramientas::Estilos::checkbutton_active_bg,
+                -foreground => $herramientas::Estilos::checkbutton_active_fg,
+                -activeforeground => $herramientas::Estilos::checkbutton_fg,
+                -selectcolor => $herramientas::Estilos::table_header_bg,
+                -font => $herramientas::Estilos::checkbutton_font,
+                -command => sub {
+                    if ($checkbutton_var) {
+                        if ($data_ref == $data_principal_ref) {
+                            $selected_principal{$data_row->[0]} = { map { $header_fields[$_] => $data_row->[$_] } (1 .. $#header_fields - 1) };
+                        } else {
+                            $selected_secundaria{$data_row->[0]} = { map { $header_fields[$_] => $data_row->[$_] } (1 .. $#header_fields - 1) };
+                        }
+                    } else {
+                        if ($data_ref == $data_principal_ref) {
+                            delete $selected_principal{$data_row->[0]};
+                        } else {
+                            delete $selected_secundaria{$data_row->[0]};
+                        }
+                    }
+                }
+            ));
+            if ($checkbutton_var) {
+                if ($data_ref == $data_principal_ref) {
+                    $selected_principal{$data_row->[0]} = { map { $header_fields[$_] => $data_row->[$_] } (1 .. $#header_fields - 1) };
+                } else {
+                    $selected_secundaria{$data_row->[0]} = { map { $header_fields[$_] => $data_row->[$_] } (1 .. $#header_fields - 1) };
+                }
             }
             $row++;
         }
@@ -719,8 +760,40 @@ sub create_table_doble_data {
         -font => $herramientas::Estilos::mib_selection_button_font
     )->pack(-side => 'right', -padx => 10, -pady => 10);
 
+    # Create save button
+    $button_frame->Button(
+        -text => 'Guardar',
+        -command => sub {
+            $selected_data_principal = \%selected_principal;
+            $selected_data_secundaria = \%selected_secundaria;
+            # Advetir si no se ha seleccionado ningún dato
+            if (!%$selected_data_principal && !%$selected_data_secundaria) {
+                show_alert($mv, 'Error', 'No se ha seleccionado ningún dato', 'error');
+                return;
+            }
+            # Confirmar si se desea guardar los datos seleccionados
+            my $response = show_alert($mv, 'Confirmar', 'Desea guardar los datos seleccionados?', 'question');
+            if ($response) {
+                show_alert($mv, 'Guardado', 'Datos guardados con exito', 'success');
+                # Cerrar la ventana después de guardar los datos
+                $mv->destroy();
+                return ($selected_data_principal, $selected_data_secundaria);
+            }
+        },
+        -background => $herramientas::Estilos::save_button_bg,
+        -foreground => $herramientas::Estilos::save_button_fg,
+        -activebackground => $herramientas::Estilos::save_button_active_bg,
+        -activeforeground => $herramientas::Estilos::save_button_active_fg,
+        -font => $herramientas::Estilos::save_button_font
+    )->pack(-side => 'bottom', -padx => 10, -pady => 10);
+
     # Populate table with initial data
     $populate_table->($data_principal_ref, 1);
+
+    # Esperar a que la ventana sea destruida antes de retornar los datos seleccionados
+    $mv->waitWindow();
+    return ($selected_data_principal, $selected_data_secundaria);
+
 }
 
 # Function to search and display results
@@ -777,7 +850,7 @@ sub search_and_display_results {
         my @header_fields = @{$filtered_data->[0]};
         my @data_rows = @{$filtered_data}[1 .. $#$filtered_data];
 
-        # Actualizar el número de columnas
+        # Actualizar el número de columnasvcw
         $table->configure(-cols => scalar(@header_fields));
 
         # Create header row

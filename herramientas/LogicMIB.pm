@@ -208,11 +208,6 @@ sub cargar_mib {
             $entry->{neIdentity},
         ];
     }
-    #print Dumper(\@data_principal);
-    #print Dumper(\@data_secundaria);
-    # Mostrar el árbol de MIBs
-    #print Dumper($arbol_mibs_principales);
-    #print Dumper($arbol_mibs_secundarias);
     if ($response) {
         my @search_fields = ('enterprise_info_ID', 'enterprise_file', 'enterprise_info_Contact',
         'enterprise_info_Seleccionado', 'enterprise_oid', 'enterprise_info_Email', 'private_enterprises_oid', 'root_oid',
@@ -223,8 +218,7 @@ sub cargar_mib {
     }
         my $records_per_page = 20;
 
-    herramientas::Complementos::create_table_doble_data($ventana_principal, $records_per_page, \@data_principal, \@data_secundaria);
-
+    my ($selected_data_principal, $selected_data_secundaria) = herramientas::Complementos::create_table_doble_data($ventana_principal, $records_per_page, \@data_principal, \@data_secundaria);
 
 
 }
