@@ -567,6 +567,8 @@ sub create_table_doble_data {
     my ($ventana_principal, $records_per_page, $data_principal_ref, $data_secundaria_ref) = @_;
     my $mv = create_top_level_window($ventana_principal, 'Listado de alarmas', 'maximizada');
 
+    #print "DATA SECUNDARIA: " . Dumper($data_secundaria_ref);
+
     my $frame = $mv->Frame(-background => $herramientas::Estilos::table_fg)->pack(-side => 'top', -fill => 'both', -expand => 1);
     my $scrolled_table = $frame->Scrolled(
         'TableMatrix',

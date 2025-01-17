@@ -170,44 +170,51 @@ sub cargar_mib {
     escribir_datos_en_archivo($temp_file, \%data, "OBJECTS_INFO");
     # Construir el árbol de MIBs
     my ($arbol_mibs_principales, $arbol_mibs_secundarias) = construir_arbol_mibs(\%data, $oid_nodes);
+    # Extraer las cabeceras dinámicamente para la tabla principal
+    my %cabeceras_principales;
+    foreach my $key (keys %$arbol_mibs_principales) {
+        my $entry = $arbol_mibs_principales->{$key};
+        @cabeceras_principales{keys %$entry} = values %$entry;
+    }
+    # Extraer las cabeceras dinámicamente para la tabla secundaria
+    my %cabeceras_secundarias;
+    foreach my $key (keys %$arbol_mibs_secundarias) {
+        my $entry = $arbol_mibs_secundarias->{$key};
+        @cabeceras_secundarias{keys %$entry} = values %$entry;
+    }
+    # Convertir las cabeceras a una lista y agregar ID y Nombre
+    my @cabeceras_principales = (qw(ID Nombre), keys %cabeceras_principales);
+    my @cabeceras_secundarias = (qw(ID Nombre), keys %cabeceras_secundarias);
+
     my @data_principal = (
-    [qw(ID Nombre OID OBJECTS DESCRIPTION)],
+         \@cabeceras_principales,
     );
     # Datos iniciales para la tabla secundaria
     my @data_secundaria = (
-        [qw(ID Nombre specificProblem perceivedSeverity additionalText alarmID eventTime additionalInformation notificationType eventType probableCause neIdentity)],
+        \@cabeceras_secundarias,
     );
     # Transformar el árbol principal
     my $id_principal = 1;
     foreach my $key (keys %$arbol_mibs_principales) {
         my $entry = $arbol_mibs_principales->{$key};
-        push @data_principal, [
-            $id_principal++,
-            $key,
-            $entry->{OID},
-            $entry->{OBJECTS},
-            $entry->{DESCRIPTION},
-        ];
+        my @row = ($id_principal++, $key);
+        foreach my $header (@cabeceras_principales[2..$#cabeceras_principales]) {
+            push @row, $entry->{$header} // '';
+        }
+        push @data_principal, \@row;
     }
+
     # Transformar el árbol secundario
     my $id_secundario = 1;
     foreach my $key (keys %$arbol_mibs_secundarias) {
         my $entry = $arbol_mibs_secundarias->{$key};
-        push @data_secundaria, [
-            $id_secundario++,
-            $key,
-            $entry->{specificProblem},
-            $entry->{perceivedSeverity},
-            $entry->{additionalText},
-            $entry->{alarmID},
-            $entry->{eventTime},
-            $entry->{additionalInformation},
-            $entry->{notificationType},
-            $entry->{eventType},
-            $entry->{probableCause},
-            $entry->{neIdentity},
-        ];
+        my @row = ($id_secundario++, $key);
+        foreach my $header (@cabeceras_secundarias[2..$#cabeceras_secundarias]) {
+            push @row, $entry->{$header} // '';
+        }
+        push @data_secundaria, \@row;
     }
+
     if ($response) {
         my @search_fields = ('enterprise_info_ID', 'enterprise_file', 'enterprise_info_Contact',
         'enterprise_info_Seleccionado', 'enterprise_oid', 'enterprise_info_Email', 'private_enterprises_oid', 'root_oid',
@@ -729,7 +736,6 @@ sub extraer_object_types {
     # Archivo temporal para almacenar cómo se extraen los datos
     my $temp_file = Rutas::temp_files_path() . '/object_types.txt';
 
-    
     $file = transformar_mib_a_txt($file);
     # Validar si el archivo temporal existe, si no, crearlo
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
@@ -787,12 +793,17 @@ sub extraer_object_types {
                 } else {
                     $description .= " $_";
                 }
-            } 
+            } elsif (/INDEX\s+\{(.*)\}/) {
+                $object_types{$current_object}->{'INDEX'} = $1;
+            } elsif (/::=\s*\{(.*)\}/) {
+                $object_types{$current_object}->{'OID'} = $1; # Extraer y asignar OID
+            }
         } 
     }
+    
     # Eliminar ::= { contenido } de la descripción y limpiar espacios y caracteres especiales
     foreach my $object (keys %object_types) {
-        foreach my $field (qw(DESCRIPTION SYNTAX MAX-ACCESS STATUS OID)) {
+        foreach my $field (qw(DESCRIPTION SYNTAX MAX-ACCESS STATUS OID INDEX)) {
             if (exists $object_types{$object}->{$field}) {
                 $object_types{$object}->{$field} =~ s/\s*::=\s*\{.*\}//;
                 $object_types{$object}->{$field} =~ s/^\s+|\s+$//g; # Eliminar espacios al inicio y al final
@@ -804,7 +815,6 @@ sub extraer_object_types {
     #print Dumper(\%object_types);
     return \%object_types;
 }
-
 # Función para extraer OBJECT IDENTIFIER de un archivo MIB
 sub extraer_object_identifiers {
     my ($file) = @_;
