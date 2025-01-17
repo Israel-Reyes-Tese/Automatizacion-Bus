@@ -93,21 +93,15 @@ sub cargar_mib {
 
     # Fusionar los archivos extras seleccionados con los archivos seleccionados
     %mib_files = (%mib_files, %mib_files_extras);
-
-
     if (keys %mib_files > 1) {
         my $selected_files = crear_ventana_seleccion_mib(\%mib_files, $ventana_principal);
         %mib_files = map { $_ => 1 } @$selected_files;
-
-
     }
 
     # Mostrar los archivos seleccionados en el panel
     foreach my $file (keys %mib_files) {
         my $relative_path = File::Spec->abs2rel($file);
         $mib_tree_pane->Label(-text => $relative_path, -bg => $herramientas::Estilos::twilight_grey)->pack(-side => 'top', -anchor => 'w');
-
-
     }
     # Extraer la información de los archivos MIB seleccionados
     # Datos OBJECT-IDENTITY
@@ -118,18 +112,14 @@ sub cargar_mib {
         @object_identities{keys %$extracted_object_identities} = values %$extracted_object_identities;
     }
     #print Dumper(\%object_identities);
-    
-    
     # Datos OBJECT-TYPE
     my %object_types;
     foreach my $file (keys %mib_files) {
         # Extraer OBJECT-TYPE y añadir al hash object_types
         my $extracted_object_types = extraer_object_types($file);
         @object_types{keys %$extracted_object_types} = values %$extracted_object_types;
-
     }
     #print Dumper(\%object_types);
-
     # Datos OBJECT IDENTIFIER
     my %object_identifiers;
     foreach my $file (keys %mib_files) {
@@ -138,7 +128,6 @@ sub cargar_mib {
         @object_identifiers{keys %$extracted_object_identifiers} = values %$extracted_object_identifiers;
     }
     #print Dumper(\%object_identifiers);
-
     # Datos MODULE-IDENTITY
     my %module_identities;
     foreach my $file (keys %mib_files) {
@@ -147,8 +136,6 @@ sub cargar_mib {
         @module_identities{keys %$extracted_module_identities} = values %$extracted_module_identities;
     }
     #print Dumper(\%module_identities);
-
-
     # Datos de las alarmas NOTIFICATION-TYPE o TRAP-TYPE
     my %alarm_traps;
     foreach my $file (keys %mib_files) {
@@ -157,10 +144,8 @@ sub cargar_mib {
         @alarm_traps{keys %$extracted_alarm_traps} = values %$extracted_alarm_traps;
     }
     #print Dumper(\%alarm_traps);
-
     # Extract OID nodes
     my $oid_nodes = extraer_nodos_oid(\%mib_files, $ventana_principal);
-
     # Validar si existe y tiene la información de la empresa
     if (!$oid_nodes || !%$oid_nodes) {
         # Logica para crear una ventana emergente para ingresar el OID de la empresa
@@ -183,26 +168,64 @@ sub cargar_mib {
     my $temp_file = Rutas::temp_files_logs_objects_mibs_path(). '/mibs_objects.logs';
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
     escribir_datos_en_archivo($temp_file, \%data, "OBJECTS_INFO");
-    
     # Construir el árbol de MIBs
     my ($arbol_mibs_principales, $arbol_mibs_secundarias) = construir_arbol_mibs(\%data, $oid_nodes);
-
+    my @data_principal = (
+    [qw(ID Nombre OID OBJECTS DESCRIPTION)],
+    );
+    # Datos iniciales para la tabla secundaria
+    my @data_secundaria = (
+        [qw(ID Nombre specificProblem perceivedSeverity additionalText alarmID eventTime additionalInformation notificationType eventType probableCause neIdentity)],
+    );
+    # Transformar el árbol principal
+    my $id_principal = 1;
+    foreach my $key (keys %$arbol_mibs_principales) {
+        my $entry = $arbol_mibs_principales->{$key};
+        push @data_principal, [
+            $id_principal++,
+            $key,
+            $entry->{OID},
+            $entry->{OBJECTS},
+            $entry->{DESCRIPTION},
+        ];
+    }
+    # Transformar el árbol secundario
+    my $id_secundario = 1;
+    foreach my $key (keys %$arbol_mibs_secundarias) {
+        my $entry = $arbol_mibs_secundarias->{$key};
+        push @data_secundaria, [
+            $id_secundario++,
+            $key,
+            $entry->{specificProblem},
+            $entry->{perceivedSeverity},
+            $entry->{additionalText},
+            $entry->{alarmID},
+            $entry->{eventTime},
+            $entry->{additionalInformation},
+            $entry->{notificationType},
+            $entry->{eventType},
+            $entry->{probableCause},
+            $entry->{neIdentity},
+        ];
+    }
+    #print Dumper(\@data_principal);
+    #print Dumper(\@data_secundaria);
     # Mostrar el árbol de MIBs
     #print Dumper($arbol_mibs_principales);
     #print Dumper($arbol_mibs_secundarias);
-    
     if ($response) {
-        
         my @search_fields = ('enterprise_info_ID', 'enterprise_file', 'enterprise_info_Contact',
         'enterprise_info_Seleccionado', 'enterprise_oid', 'enterprise_info_Email', 'private_enterprises_oid', 'root_oid',
         'enterprise_info_Organization', 'STATUS', 'MAX-ACCESS', 'SYNTAX', 'DESCRIPTION', 'OID', 'ARCHIVO', 'TYPE'); # Campos en los que se realizará la búsqueda
-
         my @header_fields = ("Nodos OID", "Alarmas", "Módulos", "Objetos", "Identificadores de Objetos", "Identidades de Módulos", "Alarmas", "OID de la Empresa", "Empresa", "Contacto", "Email", "Organización", "Archivo", "Tipo", "OID", "Descripción", "Sintaxis", "Acceso Máximo", "Estado");
-
         my $records_per_page = 20;
-
         herramientas::Complementos::create_table($ventana_principal, $records_per_page, \%data, \@search_fields, \@header_fields);    
     }
+        my $records_per_page = 20;
+
+    herramientas::Complementos::create_table_doble_data($ventana_principal, $records_per_page, \@data_principal, \@data_secundaria);
+
+
 
 }
 

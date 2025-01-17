@@ -415,7 +415,7 @@ sub create_top_level_window {
 }
 
 
-# Tabla
+# Tabla con solo data set
 
 sub create_table {
     my ($ventana_principal, $records_per_page, $data_ref, $search_fields) = @_;
@@ -562,9 +562,170 @@ sub create_table {
     $populate_table->((keys %$data_ref)[0]);
 }
 
+# Tabla con dos data sets
+sub create_table_doble_data {
+    my ($ventana_principal, $records_per_page, $data_principal_ref, $data_secundaria_ref) = @_;
+    my $mv = create_top_level_window($ventana_principal, 'Listado de alarmas', 'maximizada');
+
+    my $frame = $mv->Frame(-background => $herramientas::Estilos::table_fg)->pack(-side => 'top', -fill => 'both', -expand => 1);
+    my $scrolled_table = $frame->Scrolled(
+        'TableMatrix',
+        -rows => $records_per_page + 1,  # +1 for header row
+        -cols => 0,  # Se actualizará dinámicamente
+        -cache => 1,
+        -scrollbars => 'osoe',  # 'osoe' means both horizontal and vertical scrollbars
+        -background => $herramientas::Estilos::pine_green,
+        -foreground => $herramientas::Estilos::table_fg,
+        -font => $herramientas::Estilos::table_font,
+    )->pack(-side => 'top', -fill => 'both', -expand => 1);
+
+    my $table = $scrolled_table->Subwidget('scrolled');
+    my $current_page = 1;
+    my $current_data_ref = $data_principal_ref;
+
+    # Function to clear the table
+    my $clear_table = sub {
+        my $rows = $table->cget('-rows');
+        my $cols = $table->cget('-cols');
+        for my $row (1 .. $rows - 1) {
+            for my $col (0 .. $cols - 1) {
+                $table->set("$row,$col", '');
+            }
+        }
+    };
+
+    # Function to adjust column widths
+    my $adjust_column_widths = sub {
+        my $cols = $table->cget('-cols');
+        for my $col (0 .. $cols - 1) {
+            my $max_width = 0;
+            for my $row (0 .. $table->cget('-rows') - 1) {
+                my $cell_value = $table->get("$row,$col");
+                my $cell_width = length($cell_value);
+                $max_width = $cell_width if $cell_width > $max_width;
+            }
+            $table->colWidth($col, $max_width + 2);  # Add some padding
+        }
+    };
+
+    # Function to populate table with data
+    my $populate_table = sub {
+        my ($data_ref, $page) = @_;
+        $clear_table->();  # Limpiar la tabla antes de mostrar nuevos datos
+
+        my @header_fields = @{$data_ref->[0]};
+        my @data_rows = @{$data_ref}[1 .. $#$data_ref];
+
+        # Actualizar el número de columnas
+        $table->configure(-cols => scalar(@header_fields));
+
+        # Create header row
+        for my $col (0 .. $#header_fields) {
+            $table->set("0,$col", $header_fields[$col]);
+        }
+
+        my $start_index = ($page - 1) * $records_per_page;
+        my $end_index = $start_index + $records_per_page - 1;
+        $end_index = $#data_rows if $end_index > $#data_rows;
+
+        my $row = 1;
+        for my $i ($start_index .. $end_index) {
+            my $data_row = $data_rows[$i];
+            my $col = 0;
+            foreach my $value (@$data_row) {
+                $table->set("$row,$col", $value);
+                $col++;
+            }
+            $row++;
+        }
+
+        $adjust_column_widths->();  # Adjust column widths after populating the table
+    };
+
+    # Create buttons to switch data
+    my $button_frame = $mv->Frame()->pack(-side => 'bottom', -fill => 'x');
+    $button_frame->Button(
+        -text => 'Data Principal',
+        -command => sub {
+            $current_data_ref = $data_principal_ref;
+            $current_page = 1;
+            $populate_table->($current_data_ref, $current_page);
+        },
+        -background => $herramientas::Estilos::nav_button_bg,
+        -foreground => $herramientas::Estilos::nav_button_fg,
+        -activebackground => $herramientas::Estilos::nav_button_active_bg,
+        -activeforeground => $herramientas::Estilos::nav_button_active_fg,
+        -font => $herramientas::Estilos::nav_button_font
+    )->pack(-side => 'left', -padx => 10, -pady => 10);
+
+    $button_frame->Button(
+        -text => "Anterior",
+        -command => sub {
+            if ($current_page > 1) {
+                $current_page--;
+                $populate_table->($current_data_ref, $current_page);
+            }
+        },
+        -background => $herramientas::Estilos::mib_selection_button_bg,
+        -foreground => $herramientas::Estilos::mib_selection_button_fg,
+        -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
+        -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
+        -font => $herramientas::Estilos::mib_selection_button_font
+    )->pack(-side => 'left', -padx => 10, -pady => 10);
+
+    $button_frame->Button(
+        -text => "Siguiente",
+        -command => sub {
+            my $total_pages = int((scalar(@{$current_data_ref}) - 2) / $records_per_page) + 1;
+            if ($current_page < $total_pages) {
+                $current_page++;
+                $populate_table->($current_data_ref, $current_page);
+            }
+        },
+        -background => $herramientas::Estilos::mib_selection_button_bg,
+        -foreground => $herramientas::Estilos::mib_selection_button_fg,
+        -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
+        -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
+        -font => $herramientas::Estilos::mib_selection_button_font
+    )->pack(-side => 'left', -padx => 10, -pady => 10);
+
+    $button_frame->Button(
+        -text => 'Data Secundaria',
+        -command => sub {
+            $current_data_ref = $data_secundaria_ref;
+            $current_page = 1;
+            $populate_table->($current_data_ref, $current_page);
+        },
+        -background => $herramientas::Estilos::nav_button_bg,
+        -foreground => $herramientas::Estilos::nav_button_fg,
+        -activebackground => $herramientas::Estilos::nav_button_active_bg,
+        -activeforeground => $herramientas::Estilos::nav_button_active_fg,
+        -font => $herramientas::Estilos::nav_button_font
+    )->pack(-side => 'right', -padx => 10, -pady => 10);
+
+    # Create search entry and button
+    my $search_frame = $mv->Frame(-background => $herramientas::Estilos::mib_selection_bg)->pack(-side => 'top', -fill => 'x');
+    my $search_entry = $search_frame->Entry(-font => $herramientas::Estilos::input_font)->pack(-side => 'left', -fill => 'x', -expand => 1, -padx => 10, -pady => 10);
+    $search_frame->Button(
+        -text => "Buscar",
+        -command => sub {
+            my $search_term = $search_entry->get();
+            search_and_display_results($mv, $data_principal_ref, $data_secundaria_ref, $search_term, $records_per_page);
+        },
+        -background => $herramientas::Estilos::mib_selection_button_bg,
+        -foreground => $herramientas::Estilos::mib_selection_button_fg,
+        -activebackground => $herramientas::Estilos::mib_selection_button_active_bg,
+        -activeforeground => $herramientas::Estilos::mib_selection_button_active_fg,
+        -font => $herramientas::Estilos::mib_selection_button_font
+    )->pack(-side => 'right', -padx => 10, -pady => 10);
+
+    # Populate table with initial data
+    $populate_table->($data_principal_ref, 1);
+}
+
 # Function to search and display results
 sub search_and_display_results {
-    my ($parent, $data_ref, $search_fields, $search_term, $records_per_page) = @_;
+    my ($parent, $data_principal_ref, $data_secundaria_ref, $search_term, $records_per_page) = @_;
 
     my $results_window = create_top_level_window($parent, 'Resultados de la Búsqueda', 'maximizada');
 
@@ -613,20 +774,8 @@ sub search_and_display_results {
 
         $clear_table->();  # Limpiar la tabla antes de mostrar nuevos datos
 
-        my @header_fields;
-        my $is_single_record = 0;
-
-        # Determine if the data is a single record or multiple records
-        if (ref $filtered_data eq 'HASH') {
-            my ($first_key, $first_value) = each %$filtered_data;
-            if (ref $first_value ne 'HASH') {
-                @header_fields = keys %$filtered_data;
-                $is_single_record = 1;
-            } else {
-                @header_fields = keys %$first_value;
-                push @header_fields, 'OBJETO PRINCIPAL';
-            }
-        }
+        my @header_fields = @{$filtered_data->[0]};
+        my @data_rows = @{$filtered_data}[1 .. $#$filtered_data];
 
         # Actualizar el número de columnas
         $table->configure(-cols => scalar(@header_fields));
@@ -637,57 +786,31 @@ sub search_and_display_results {
         }
 
         my $row = 1;
-        if ($is_single_record) {
+        foreach my $data_row (@data_rows) {
             my $col = 0;
-            foreach my $field (@header_fields) {
-                my $value = $filtered_data->{$field} // '';
+            foreach my $value (@$data_row) {
                 $table->set("$row,$col", $value);
                 $col++;
             }
-        } else {
-            foreach my $key (keys %$filtered_data) {
-                my $col = 0;
-                foreach my $field (@header_fields) {
-                    my $value = $field eq 'OBJETO PRINCIPAL' ? $key : $filtered_data->{$key}{$field} // '';
-                    $table->set("$row,$col", $value);
-                    $col++;
-                }
-                $row++;
-                last if $row > $records_per_page;
-            }
+            $row++;
+            last if $row > $records_per_page;
         }
 
         $adjust_column_widths->();  # Adjust column widths after populating the table
     };
 
     # Filter data based on search term
-    my %filtered_data;
-    foreach my $key (keys %$data_ref) {
-        my $data = $data_ref->{$key};
-        if (ref $data eq 'HASH') {
-            my ($first_key, $first_value) = each %$data;
-            if (ref $first_value eq 'HASH') {
-                foreach my $sub_key (keys %$data) {
-                    foreach my $field (@$search_fields) {
-                        if ($data->{$sub_key}{$field} && $data->{$sub_key}{$field} =~ /\Q$search_term\E/i) {
-                            $filtered_data{$key}{$sub_key} = $data->{$sub_key};
-                            last;
-                        }
-                    }
-                }
-            } else {
-                foreach my $field (@$search_fields) {
-                    if ($data->{$field} && $data->{$field} =~ /\Q$search_term\E/i) {
-                        $filtered_data{$key} = $data;
-                        last;
-                    }
-                }
-            }
-        }
-    }
+    my @filtered_data_principal = grep { join(' ', @$_) =~ /\Q$search_term\E/i } @$data_principal_ref;
+    my @filtered_data_secundaria = grep { join(' ', @$_) =~ /\Q$search_term\E/i } @$data_secundaria_ref;
 
     # Populate table with search results
-    $populate_search_results->(\%filtered_data);
+    if (@filtered_data_principal) {
+        $populate_search_results->(\@filtered_data_principal);
+    } elsif (@filtered_data_secundaria) {
+        $populate_search_results->(\@filtered_data_secundaria);
+    } else {
+        $clear_table->();
+    }
 }
 
 # Funciones de apoyo
