@@ -43,6 +43,9 @@ sub Inicio_MIBS {
     my $extension_txt = 0;
     my $extension_vacio = 0;
 
+    my $selected_data_principal;
+    my $selected_data_secundaria;
+
     # Check button para confirmar si se busca todos los archivos con extension .mib - Por defecto activado - Ubicado en el panel de resultados hasta arriba
     my $check_button_mib = $result_table_pane->Checkbutton(
         -text => 'Buscar todos los archivos con extension .mib',
@@ -68,16 +71,27 @@ sub Inicio_MIBS {
         -variable => \$extension_vacio,
     )->pack(-side => 'left', -padx => 5, -pady => 5);
 
-
     # Crear botones de acciones
     $actions_frame->Button(
         -text => 'Cargar MIB',
-        -command => sub { LogicMIB::cargar_mib($main_frame, $result_table_pane, $mib_tree_pane, $extension_mib, $extension_txt, $extension_vacio) },
+        -command => sub { 
+              my ($selected_data_principal, $selected_data_secundaria) = LogicMIB::cargar_mib($main_frame, $result_table_pane, $mib_tree_pane, $extension_mib, $extension_txt, $extension_vacio);
+                # Validar si el retorno de la funcion cargar_mib es correcto
+                if ($selected_data_principal || $selected_data_principal){
+                    # Colocar un boton para el siguiente paso
+                    $actions_frame->Button(
+                        -text => 'Siguiente Paso',
+                        -command => sub { },
+                        -bg => $herramientas::Estilos::hoja_verde,
+                        -fg => $herramientas::Estilos::soil_black,
+                        -font => $herramientas::Estilos::button_font
+                    )->pack(-side => 'left', -padx => 5, -pady => 5);
+                }
+             },
         -bg => $herramientas::Estilos::hoja_verde,
         -fg => $herramientas::Estilos::soil_black,
         -font => $herramientas::Estilos::button_font
     )->pack(-side => 'left', -padx => 5, -pady => 5);
-
     MainLoop();
 }
 

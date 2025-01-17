@@ -221,7 +221,9 @@ sub cargar_mib {
     my ($selected_data_principal, $selected_data_secundaria) = herramientas::Complementos::create_table_doble_data($ventana_principal, $records_per_page, \@data_principal, \@data_secundaria);
 
 
+    return ($selected_data_principal, $selected_data_secundaria);
 }
+
 
 # Ventana de selección de archivos MIB Emergente
 sub crear_ventana_seleccion_mib {
