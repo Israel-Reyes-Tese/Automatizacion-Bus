@@ -9,6 +9,7 @@ use Tk;
 use Rutas; # Importar el módulo de rutas
 # Ventanas secundarias
 use MIB_utils;
+use Crear_Codigo;
 
 # Constructor
 sub new {
@@ -54,6 +55,16 @@ sub new {
     };
 
 
+
+    eval {
+        # Crear el botón de codificación con el label
+        $self->herramientas::Complementos::create_button_with_picture_and_label($parent, 'Codigo', Rutas::codificacion_image_path(), \&go_to_codificacion);
+        1;
+    } or do {
+        my $error = $@ || 'Unknown error';
+        die "Error al crear el botón de codificación en el constructor: $error";
+    };
+
     eval {
         # Crear el botón de salir con el label
         $self->herramientas::Complementos::create_button_with_picture_and_label($parent, 'Salir', Rutas::exit_image_path(), sub { 
@@ -95,6 +106,18 @@ sub go_to_mib {
     } or do {
         my $error = $@ || 'Unknown error';
         die "Error al redirigir a la ventana de MIB: $error";
+    };
+}
+
+# Función para redirigir a la ventana de codificación
+sub go_to_codificacion {
+    eval {
+        utilidades::Crear_Codigo::Inicio_Crear_Codigo();
+        #system($^X, "./Script Generacion de Agentes SNMP/utilidades/Crear_Codigo.pm");
+        1;
+    } or do {
+        my $error = $@ || 'Unknown error';
+        die "Error al redirigir a la ventana de codificacion: $error";
     };
 }
 

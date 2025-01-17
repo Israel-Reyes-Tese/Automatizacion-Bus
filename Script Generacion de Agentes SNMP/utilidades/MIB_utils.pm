@@ -11,6 +11,9 @@ use Tk::FileSelect;
 use FindBin;
 use lib $FindBin::Bin . "/../herramientas";
 use lib $FindBin::Bin . "/../../herramientas";  # Añadir la carpeta donde se encuentran los modulos
+use lib $FindBin::Bin . "../utilidades";
+
+
 use File::Spec;
 
 use Estilos;
@@ -19,6 +22,9 @@ use Rutas;
 use Logic;
 use LogicMIB;
 use Validaciones;
+
+use Crear_Codigo;
+
 
 sub Inicio_MIBS {
 
@@ -103,10 +109,29 @@ sub Inicio_MIBS {
                                 Eliga la ruta y el nombre del agente', 'error');
                                 my $entry_nombre_agente = herramientas::Complementos::create_entry_with_label_and_button($result_table_pane, 'Ingresa el nombre del agente', 'Guardar');
                                 my $entry_ruta_agente = herramientas::Complementos::register_directory($result_table_pane, 'Selecciona donde se esta el agente', "Buscar");
-                                if ($entry_nombre_agente && $entry_ruta_agente){
- 
-                                }
 
+                                my $boton_crear_agente = $result_table_pane->Button(
+                                    -text => 'Creacion de codigo', 
+                                    -bg => $herramientas::Estilos::bg_color_snmp, 
+                                    -fg => $herramientas::Estilos::fg_color_snmp, 
+                                    -font => $herramientas::Estilos::agents_button_font, 
+                                    -command => sub {
+                                        # Validar si el nombre del agente y la ruta del agente no estan vacios
+                                        if ($entry_nombre_agente->get() eq '' || $entry_ruta_agente->get() eq '') {
+                                            # Crear una alerta para indicar que no se ha ingresado el nombre del agente o la ruta del agente
+                                            herramientas::Complementos::show_alert($mw, 'ERROR', 'No se ha ingresado el nombre del agente o la ruta del agente', 'error');
+                                        } else {
+                                            # Crear el codigo del agente
+                                            utilidades::Crear_Codigo::Inicio_Crear_Codigo($entry_nombre_agente, $entry_ruta_agente, $selected_data_principal, $selected_data_secundaria);
+                                            # Destruir la ventana principal
+                                            $mw->destroy();
+                                        }
+                                    }
+                                )->pack(-side => 'top', -padx => 5, -pady => 5);
+
+                            } else {
+                                    utilidades::Crear_Codigo::Inicio_Crear_Codigo($agente, $ruta_agente, $selected_data_principal, $selected_data_secundaria);
+                                    $mw->destroy(); 
                             }
                             
                          },
@@ -120,6 +145,9 @@ sub Inicio_MIBS {
         -fg => $herramientas::Estilos::soil_black,
         -font => $herramientas::Estilos::button_font
     )->pack(-side => 'left', -padx => 5, -pady => 5);
+
+
+
     MainLoop();
 }
 

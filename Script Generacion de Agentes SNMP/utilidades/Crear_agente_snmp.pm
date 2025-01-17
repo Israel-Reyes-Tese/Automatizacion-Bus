@@ -47,6 +47,11 @@ sub procesar_creacion_agente {
     my $nombre_agente = $entry_nombre_agente->get();
     my $ruta_agente = $entry_ruta_agente->get();
     my $ruta_agente_ruta = File::Spec->catfile($ruta_agente, $nombre_agente);
+    # Normalizar el nombre del agente
+    $nombre_agente =~ s/^\s+|\s+$//g;  # Eliminar espacios en blanco al principio y al final
+    $nombre_agente =~ s/\s+/ /g;  # Eliminar espacios en blanco duplicados
+    $nombre_agente =~ s/\s+/_/g;  # Reemplazar espacios en blanco por guiones bajos
+    $nombre_agente = lc($nombre_agente);  # Convertir a minúsculas
 
     my $respuesta_arbol = Logic::crear_arbol_directorio($mw, $ruta_agente, $nombre_agente);
     if ($respuesta_arbol) {

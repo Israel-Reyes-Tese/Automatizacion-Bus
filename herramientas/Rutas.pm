@@ -38,6 +38,12 @@ sub agentes_snmp_image_path {
     return RUTA_IMAGENES . 'agentes_snmp.gif';  # Cambia la extensión si es necesario
 }
 
+# Función para obtener la ruta completa a la imagen de codificación
+sub codificacion_image_path {
+    return RUTA_IMAGENES . 'codificacion.gif';  # Cambia la extensión si es necesario
+}
+
+
 # Función para obtener la ruta completa a la imagen de salida
 sub exit_image_path {
     return RUTA_IMAGENES . 'exit.gif';  # Cambia la extensión si es necesario
