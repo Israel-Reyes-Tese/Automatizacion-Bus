@@ -103,9 +103,12 @@ sub Inicio_MIBS {
                                 Eliga la ruta y el nombre del agente', 'error');
                                 my $entry_nombre_agente = herramientas::Complementos::create_entry_with_label_and_button($result_table_pane, 'Ingresa el nombre del agente', 'Guardar');
                                 my $entry_ruta_agente = herramientas::Complementos::register_directory($result_table_pane, 'Selecciona donde se esta el agente', "Buscar");
+                                if ($entry_nombre_agente && $entry_ruta_agente){
+ 
+                                }
+
                             }
                             
-
                          },
                         -bg => $herramientas::Estilos::hoja_verde,
                         -fg => $herramientas::Estilos::soil_black,

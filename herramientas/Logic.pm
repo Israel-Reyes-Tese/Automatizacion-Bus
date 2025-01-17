@@ -10,9 +10,7 @@ use lib $FindBin::Bin . "./Script Generacion de Agentes SNMP/utilidades";
 # Ventanas secundarias
 use MIB_utils;
 
-
 use Data::Dumper; # Importar el módulo Data::Dumper
-
 
 use File::Path qw(make_path rmtree);
 use File::Spec;
@@ -34,12 +32,12 @@ sub crear_arbol_directorio {
         return 0 unless $response;
     }
 
-    my @directorios = _get_directories($ruta_agente);
+    my @directorios = _get_directories($ruta_agente, $nombre_agente);
     _create_directories(@directorios);
 
     _create_files($ruta_agente, $nombre_agente);
-    _create_conf_files($ruta_agente);
-    _create_abr_files($ruta_agente);
+    _create_conf_files($ruta_agente, $nombre_agente);
+    _create_abr_files($ruta_agente, $nombre_agente);
 
     return 1;
 }
@@ -61,12 +59,12 @@ sub _handle_existing_agent {
 
 # Get directories to create
 sub _get_directories {
-    my ($ruta_agente) = @_;
+    my ($ruta_agente, $nombre_agente) = @_;
     return (
         $ruta_agente,
         File::Spec->catdir($ruta_agente, 'CONF'),
         File::Spec->catdir($ruta_agente, 'ABR'),
-        File::Spec->catdir($ruta_agente, 'ExampleTrapAlarm')
+        File::Spec->catdir($ruta_agente, "${nombre_agente}TrapAlarm")
     );
 }
 
@@ -94,7 +92,7 @@ sub _create_files {
 
 # Create files in the CONF directory
 sub _create_conf_files {
-    my ($ruta_agente) = @_;
+    my ($ruta_agente, $nombre_agente) = @_;
     my @archivos_conf = qw(
         FB_AGENTE FB_all FC_PrependAdditionalText FC_SetEventSeverity
         FC_SetGrupos FC_SetIncidentType FC_SetIncidentType_NonCascade
@@ -113,11 +111,11 @@ sub _create_conf_files {
 
 # Create files in the ABR directory
 sub _create_abr_files {
-    my ($ruta_agente) = @_;
-    my @archivos_abr = qw(
-        ExampleTrapAlarm CONFIGURATOR.pm CorrectiveFilter.pm EXAMPLE.pm
-        FILE_HANDLER.pm llenaComun.pm MICROTIME.pm Parser_aux.pm
-        SNMPAgente.pm TapFilter.pm
+    my ($ruta_agente, $nombre_agente) = @_;
+    my @archivos_abr = (
+        "${nombre_agente}TrapAlarm", "CONFIGURATOR.pm", "CorrectiveFilter.pm", "${nombre_agente}.pm",
+        "FILE_HANDLER.pm", "llenaComun.pm", "MICROTIME.pm", "Parser_aux.pm",
+        "SNMPAgente.pm", "TapFilter.pm"
     );
 
     foreach my $archivo (@archivos_abr) {
@@ -154,7 +152,7 @@ sub actualizar_frame_agent_properties {
         -foreground => $herramientas::Estilos::scroll_fg_color_snmp // 'black'
     )->pack(-pady => 20, -fill => 'both', -expand => 1);
 
-    my @fields = _get_fields($modo);
+    my @fields = _get_fields($modo, $agente);
     my %field_vars = _create_field_entries($frame_agent_properties, @fields);
 
     my $guardo_correctamente = 0;
@@ -193,7 +191,7 @@ sub actualizar_frame_agent_properties {
 
 # Get fields for the customization frame
 sub _get_fields {
-    my ($modo) = @_;
+    my ($modo, $agente) = @_;
     my @fields = (
         { label => 'host', default => '' },
         { label => 'port', default => '' },
@@ -202,7 +200,7 @@ sub _get_fields {
         { label => 'SOM_EOM', default => 'som_eom.abr' },
         { label => 'HOST', default => 'CONF/MAP_HostName' },
         { label => 'Severity', default => 'CONF/MAP_Severity' },
-        { label => 'ExternalMap', default => 'CONF/MAP_ExampleExternal' },
+        { label => 'ExternalMap', default => "CONF/MAP_${agente}External" },
         { label => 'FB_AGENTE', default => 'CONF/FB_AGENTE' },
         { label => 'FB_all', default => 'CONF/FB_all' },
         { label => 'FC_PrependAdditionalText', default => 'CONF/FC_PrependAdditionalText' },
@@ -348,7 +346,7 @@ sub actualizar_archivo_properties {
     print $fh "#############################################################################\n";
     print $fh "# --- Host Name Table (HostName)\n";
     print_field($fh, $field_vars, 'HOST');
-    print $fh "# --- External Map Example\n";
+    print $fh "# --- External Map ${nombre_agente}\n";
     print_field($fh, $field_vars, 'Severity');
     print_field($fh, $field_vars, 'ExternalMap');
     print $fh "#\n";
