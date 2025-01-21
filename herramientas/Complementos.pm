@@ -414,6 +414,7 @@ sub create_top_level_window {
     return $mw;
 }
 # Nueva función para crear un panel scrolleable con checkboxes, entradas de texto y combo boxes
+# Nueva función para crear un panel scrolleable con checkboxes, entradas de texto y combo boxes
 sub create_scrollable_panel_with_checkboxes_and_entries {
     my ($ventana_principal, $titulo_principal, $checkbox_data, $entry_data, $combo_box_data) = @_;
     
@@ -433,13 +434,26 @@ sub create_scrollable_panel_with_checkboxes_and_entries {
 
     # Añadir tarjetas con labels y checkboxes si se proporciona checkbox_data
     if ($checkbox_data) {
-        foreach my $nombre (@{$checkbox_data->{opciones}}) {
-            my $card_frame = $scroll->Frame(-bg => $herramientas::Estilos::card_frame_bg)->grid(-row => $row, -column => 0, -padx => 10, -pady => 10);
-            my $label = $card_frame->Label(-text => $nombre, -font => $herramientas::Estilos::label_font, -bg => $herramientas::Estilos::label_bg_color, -fg => $herramientas::Estilos::label_fg_color)->pack(-side => 'left');
-            my $checkbox = $card_frame->Checkbutton(-bg => $herramientas::Estilos::checkbox_bg, 
-            -activebackground => $herramientas::Estilos::checkbox_active_bg,
-             -selectcolor => $herramientas::Estilos::checkbox_selectcolor,
-             )->pack(-side => 'right');
+        foreach my $nombre (keys %{$checkbox_data->{opciones}}) {
+            my $card_frame = $scroll->Frame(-bg => $herramientas::Estilos::card_frame_bg, -borderwidth => 2, -relief => 'solid')->grid(-row => $row, -column => 0, -padx => 10, -pady => 10);
+            my $label = $card_frame->Label(
+                -text => $nombre,
+                -font => $herramientas::Estilos::label_font,
+                -bg => $herramientas::Estilos::label_bg_color,
+                -fg => $herramientas::Estilos::label_fg_color,
+                -relief => 'raised',
+                -borderwidth => 3
+                )->pack(-side => 'left');
+            my $checkbox = $card_frame->Checkbutton(
+                -bg => $herramientas::Estilos::checkbox_bg, 
+                -activebackground => $herramientas::Estilos::checkbox_active_bg,
+                -selectcolor => $herramientas::Estilos::checkbox_selectcolor,
+                -relief => 'flat', 
+                -highlightthickness => 0, 
+                -padx => 10, 
+                -pady => 5, 
+                -variable => \$checkbox_data->{opciones}{$nombre}
+            )->pack(-side => 'right');
             $checkboxes{$nombre} = $checkbox;
             $row++;
         }
@@ -447,13 +461,22 @@ sub create_scrollable_panel_with_checkboxes_and_entries {
 
     # Añadir tarjetas con labels y entradas de texto si se proporciona entry_data
     if ($entry_data) {
-        foreach my $nombre (@{$entry_data->{opciones}}) {
-            my $card_frame = $scroll->Frame(-bg => $herramientas::Estilos::entry_card_frame_bg)->grid(-row => $row, -column => 0, -padx => 10, -pady => 10);
-            my $label = $card_frame->Label(-text => $nombre, -font => $herramientas::Estilos::label_font, -bg => $herramientas::Estilos::label_bg_color, -fg => $herramientas::Estilos::label_fg_color)->pack(-side => 'left');
-            my $entry = $card_frame->Entry(-bg => $herramientas::Estilos::entry_bg, -fg => $herramientas::Estilos::entry_fg)->pack(-side => 'right');
-            # Valor predeterminado para la entrada de texto
+        foreach my $nombre (keys %{$entry_data->{opciones}}) {
+            my $card_frame = $scroll->Frame(-bg => $herramientas::Estilos::entry_card_frame_bg, -borderwidth => 2, -relief => 'solid')->grid(-row => $row, -column => 0, -padx => 10, -pady => 10);
+            my $label = $card_frame->Label(
+                -text => $nombre, 
+                -font => $herramientas::Estilos::label_font, 
+                -bg => $herramientas::Estilos::label_bg_color, 
+                -fg => $herramientas::Estilos::label_fg_color
+
+                )->pack(-side => 'left');
+
+            my $entry = $card_frame->Entry(
+                -bg => $herramientas::Estilos::entry_bg, 
+                -fg => $herramientas::Estilos::entry_fg,
+                -textvariable => \$entry_data->{opciones}{$nombre}
+            )->pack(-side => 'right');
             $entries{$nombre} = $entry;
-        
             $row++;
         }
     }
@@ -461,9 +484,25 @@ sub create_scrollable_panel_with_checkboxes_and_entries {
     # Añadir tarjetas con labels y combo boxes si se proporciona combo_box_data
     if ($combo_box_data) {
         foreach my $nombre (keys %{$combo_box_data->{opciones}}) {
-            my $card_frame = $scroll->Frame(-bg => $herramientas::Estilos::combo_box_card_frame_bg)->grid(-row => $row, -column => 0, -padx => 10, -pady => 10);
-            my $label = $card_frame->Label(-text => $nombre, -font => $herramientas::Estilos::label_font, -bg => $herramientas::Estilos::label_bg_color, -fg => $herramientas::Estilos::label_fg_color)->pack(-side => 'left');
-            my $combo_box = $card_frame->BrowseEntry(-choices => $combo_box_data->{opciones}{$nombre}, -bg => $herramientas::Estilos::combo_box_bg, -fg => $herramientas::Estilos::combo_box_fg)->pack(-side => 'right');
+            my $card_frame = $scroll->Frame(
+                -bg => $herramientas::Estilos::combo_box_card_frame_bg,
+                -borderwidth => 2,
+                -relief => 'solid'
+                )->grid(-row => $row, -column => 0, -padx => 10, -pady => 10);
+            my $label = $card_frame->Label(
+            -text => $nombre, 
+            -font => $herramientas::Estilos::label_font,
+            -bg => $herramientas::Estilos::label_bg_color,
+            -fg => $herramientas::Estilos::label_fg_color,
+
+            )->pack(-side => 'left');
+
+            my $combo_box = $card_frame->BrowseEntry(
+                -choices => $combo_box_data->{opciones}{$nombre},
+                -bg => $herramientas::Estilos::combo_box_bg,
+                -fg => $herramientas::Estilos::combo_box_fg
+                )->pack(-side => 'right');
+
             $combo_box->insert(0, $combo_box_data->{opciones}{$nombre}[0]); # Valor predeterminado
             $combo_boxes{$nombre} = $combo_box;
             $row++;
@@ -481,16 +520,16 @@ sub create_scrollable_panel_with_checkboxes_and_entries {
                 my %combo_box_values;
                 # Iterar sobre el hash %checkboxes y extraer los valores
                 foreach my $key (keys %checkboxes) {
-                    my $value = $checkboxes{$key}{'Value'};
-                    if ($value == 1 || $value eq '1') {
-                        $selected{$key} = 1;
-                    } else {
-                        $selected{$key} = 0;
-                    }
+                    my $value = $checkboxes{$key}->cget('-variable');
+                    $selected{$key} = $$value;
                 }
                 # Iterar sobre el hash %entries y extraer los valores
                 foreach my $key (keys %entries) {
                     my $value = $entries{$key}->get();
+                    # Convertir a número entero si es posible
+                    if ($value =~ /^\d+$/) {
+                        $value = int($value);
+                    }
                     $entry_values{$key} = $value;
                 }
                 # Iterar sobre el hash %combo_boxes y extraer los valores

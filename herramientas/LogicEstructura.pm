@@ -47,9 +47,6 @@ sub crear_codigo_parseador {
 sub crear_archivo_subrutinas {
     my ($ventana_principal, $agente, $ruta_agente, $alarmas_principales, $alarmas_secundarias) = @_;
     $agente ||= 'agente_snmp';
-    my $alarmar_principales = Rutas::temp_files_logs_objects_mibs_path(). '/Alarmas_principales.logs';
-    my $alarmar_secundarias = Rutas::temp_files_logs_objects_mibs_path(). '/Objetos_principales.logs';
-    # my $objeto_alarmas = Rutas::temp_files_logs_objects_mibs_path(). '/mibs_objects';
 
     my $ruta_agente_completa = File::Spec->catfile($ruta_agente, $agente);
     # Validar si el nombre del agente se repite en la ruta completa
@@ -67,17 +64,22 @@ sub crear_archivo_subrutinas {
     }
     
     my %lista_opciones_checkbox = (
-        opciones => ['Agregar (description) Adiccional Text', 'Agregar (TrapName)  Adiccional Text', 'Asignar Severidad (description)' ]
+        opciones => {
+        'Agregar (description) Adiccional Text'          => 0, 
+        'Agregar (TrapName)  Adiccional Text'            => 0,   
+        'Asignar Severidad (description)'                => 0,
+        
+        }
     );
 
     my %lista_opciones_entry = (
         opciones => {
-            'Esteblecer Severidad' = 2, 
-            'Establecer Probable Cause' = 0, 
-            'Establecer Event Type' = 10 , , 
-            'Establecer Specific Problem' = 0,
-            'Establecer Notification ID (sucesivo)' = 1300,
-           }
+            'Esteblecer Severidad'                => 2,
+            'Establecer Probable Cause'           => 0,
+            'Establecer Event Type'               => 10,
+            'Establecer Specific Problem'         => 0,
+            'Establecer Notification ID (sucesivo)' => 1300,
+        }
     );
 
     my %lista_opciones_combo_box = (
@@ -88,8 +90,6 @@ sub crear_archivo_subrutinas {
     );
 
     my $data_extra = herramientas::Complementos::create_scrollable_panel_with_checkboxes_and_entries($ventana_principal, "Opciones de estructura",  \%lista_opciones_checkbox, \%lista_opciones_entry, \%lista_opciones_combo_box);
-
-    print "Data-extra: " . Dumper($data_extra) . "\n";
 
     my $archivo_agente = File::Spec->catfile($ruta_agente_completa, 'ABR', "$agente.pm");
     
@@ -220,9 +220,9 @@ END_CODE
         
         my $mo = '';
         if ($data_extra->{combo_boxes}->{'Establecer Managed Object'} eq 'Host + Agent address + MO') {
-            $mo = "get_managed_object(\$hostname, \$agent_address, \$mo)"
+            $mo = "get_managed_object(\$hostname, \$agent_address, \$mo)";
         } elsif ($data_extra->{combo_boxes}->{'Establecer Managed Object'} eq 'Entrada generica') {
-            $mo = '\$entrada->{"1.3.6.1.6.3.18.1.3"}'
+            $mo = '\$entrada->{"1.3.6.1.6.3.18.1.3"}';
         }
 
         print $fh <<"END_SUB";
@@ -235,26 +235,65 @@ sub _$oid {
 
     my \$alarm_txt;
 
-    my \$dat_severity = "$var_ps";
-    my \$dat_specific_problem = "$var_sp";
-    my \$dat_probable_cause = "$var_pc";
-    my \$dat_event_type = "$var_EventType";
+    my \$dat_severity = $var_ps;
+    my \$dat_specific_problem = $var_sp;
+    my \$dat_probable_cause = $var_pc;
+    my \$dat_event_type = $var_EventType;
     my \$dat_managed_object = $mo;
     my \$dat_additional_text = "$addTxt";
     
-    my \$dat_notification_id = "$notification_id";
+    my \$dat_notification_id = $notification_id;
     my \$dat_correlated_notification_id = "";
 
     my \$agent_address = \$entrada->{"IPADDR"};
     my \$dat_event_time = \$llena->fecha();
     my \$hostname = HostRegex(\$config{"HOST"}, \$agent_address);
-    ################################################################################### 
-    
-    #---------- Personalizacion del trap 
     
     ################################################################################### 
+    
+    #---------- (INICIO) Personalizacion del trap 
+    
+    ###################################################################################
+END_SUB
+        if (exists $alarmas_secundarias->{$alarm_name}) {
+            foreach my $sec_alarm (keys %{$alarmas_secundarias->{$alarm_name}}) {
+                my $oid_sec = $alarmas_secundarias->{$alarm_name}->{$sec_alarm};
+                print $fh <<"END_SEC_ALARM";
+    if (ifexists(\$entrada->{"$oid_sec"})) {
+        \$dat_additional_text .= "\\n$sec_alarm = " . \$entrada->{"$oid_sec"} . ",\\n";
+    }
+END_SEC_ALARM
+            }
+        }
+
+        print $fh <<"END_SUB";
+    ################################################################################### 
+    
+    #---------- (TERMINO) Personalizacion del trap 
+    
+    ###################################################################################
+    ################################################################################### 
+    
+    #----------  Llenado de campos de la alarma
+    ###################################################################################
+
+    \$llena->llenaMO("MO:" . \$dat_managed_object) if (ifexists(\$dat_managed_object));
+    \$llena->llenaPC("PC:" . \$dat_probable_cause) if (ifexists(\$dat_probable_cause));
+    \$llena->llenaSP("SP:" . \$dat_specific_problem) if (ifexists(\$dat_specific_problem));
+    \$llena->llenaPS("PS:" . \$dat_severity) if (ifexists(\$dat_severity));
+    \$llena->llenaNI("NID:" . \$dat_notification_id) if (ifexists(\$dat_notification_id));
+    \$llena->llenaAT("AddTxt:" . \$dat_additional_text) if (ifexists(\$dat_additional_text));
+    \$llena->EventTime("ETime:" . \$dat_event_time) if (ifexists(\$dat_event_time));
+    \$llena->EventType("EType:" . \$dat_event_type) if (ifexists(\$dat_event_type));
+
+    \$alarm_txt = \${ \$llena->{mensaje_x733} };
+    \$llena->vacia_mensaje_x733();
+    \$alarm_txt = "###START###" . \$alarm_txt . "###END###";
+
+    return \$alarm_txt;
 }
 
+1;
 END_SUB
         $notification_id++;
     }
