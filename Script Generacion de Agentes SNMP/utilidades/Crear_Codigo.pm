@@ -31,6 +31,31 @@ use Validaciones;
 use Data::Dumper; # Importar el modulo Data::Dumper
 
 
+# Function to extract alarm information from log files
+sub extraer_informacion_alarmas {
+    my ($file_path) = @_;
+    my %alarmas;
+
+    if (-e $file_path && -s $file_path) {
+        open my $fh, '<', $file_path or die "Error al abrir el archivo $file_path: $!";
+        my $current_alarm;
+        while (my $line = <$fh>) {
+            chomp $line;
+            if ($line =~ /^(\w+):$/) {
+                $current_alarm = $1;
+                $alarmas{$current_alarm} = {};
+            } elsif ($line =~ /^\s*(\w+):\s*(.+)$/) {
+                $alarmas{$current_alarm}{$1} = $2 if $current_alarm;
+            }
+        }
+        close $fh;
+    } else {
+        die "El archivo $file_path no existe o está vacío.";
+    }
+
+    return \%alarmas;
+}
+
 sub Inicio_Crear_Codigo {
     my ($agente, $ruta_agente, $alarmas_principales, $alarmas_secundarias) = @_;
     if (!$agente) {
@@ -39,64 +64,19 @@ sub Inicio_Crear_Codigo {
     if (!$ruta_agente) {
         $ruta_agente = Rutas::temp_agents_path();
     }
-    print "Nombre del agente: $agente\n";
-    print "Ruta del agente: $ruta_agente\n";
 
-    if (!$alarmas_principales) {
-        $alarmas_principales = {
-          'networkInterfaceAlarm' => {
-                                       'OID' => '1.3.6.1.4.1.20858.10.104.101.2.1.7',
-                                       'OBJECTS' => '  neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime ',
-                                       'DESCRIPTION' => 'AeMS Network interface alarm'
-                                     },
+    # Extract alarm information from log files
+    my $alarmas_principales_path = Rutas::temp_files_logs_objects_mibs_path(). '/Alarmas_principales.logs';
+    my $alarmas_secundarias_path = Rutas::temp_files_logs_objects_mibs_path(). '/Objetos_principales.logs';
 
-          'forcedReboot' => {
-                              'OID' => '1.3.6.1.4.1.20858.10.104.101.2.2.41',
-                              'DESCRIPTION' => 'Self-healing agent raises this alarm upon detection of major failure requiring a reboot',   
-                              'OBJECTS' => '  neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime '
-                            },
-        };
-    }
-
-
-    if (!$alarmas_secundarias)  {
-         $alarmas_secundarias = { 
-            'congestion' => {
-                            'specificProblem' => '1.3.6.1.4.1.20858.10.104.101.1.6',
-                            'perceivedSeverity' => '1.3.6.1.4.1.20858.10.104.101.1.7',
-                            'additionalText' => '1.3.6.1.4.1.20858.10.104.101.1.8',
-                            'alarmID' => '1.3.6.1.4.1.20858.10.104.101.1.2',
-                            'eventTime' => '1.3.6.1.4.1.20858.10.104.101.2.2.50',
-                            'additionalInformation' => '1.3.6.1.4.1.20858.10.104.101.1.9',
-                            'notificationType' => '1.3.6.1.4.1.20858.10.104.101.1.3',
-                            'eventType' => '1.3.6.1.4.1.20858.10.104.101.1.4',
-                            'probableCause' => '1.3.6.1.4.1.20858.10.104.101.1.5',
-                            'neIdentity' => '1.3.6.1.4.1.20858.10.104.101.1.1'
-                          },
-          'casaHeMSSmallCellGWAlarm' => {
-                                          'eventType' => '1.3.6.1.4.1.20858.10.104.101.1.4',
-                                          'notificationType' => '1.3.6.1.4.1.20858.10.104.101.1.3',
-                                          'probableCause' => '1.3.6.1.4.1.20858.10.104.101.1.5',
-                                          'neIdentity' => '1.3.6.1.4.1.20858.10.104.101.1.1',
-                                          'specificProblem' => '1.3.6.1.4.1.20858.10.104.101.1.6',
-                                          'alarmID' => '1.3.6.1.4.1.20858.10.104.101.1.2',
-                                          'additionalInformation' => '1.3.6.1.4.1.20858.10.104.101.1.9',
-                                          'eventTime' => '1.3.6.1.4.1.20858.10.104.101.2.2.50',
-                                          'perceivedSeverity' => '1.3.6.1.4.1.20858.10.104.101.1.7',
-                                          'additionalText' => '1.3.6.1.4.1.20858.10.104.101.1.8'
-                                        },
-        };
-    }
+    $alarmas_principales = extraer_informacion_alarmas($alarmas_principales_path);
+    $alarmas_secundarias = extraer_informacion_alarmas($alarmas_secundarias_path);
 
     my $mw = herramientas::Complementos::create_main_window('Creacion de codigo', 'maximizada', 1 , 0 , 'Codigo', 'Titulo-Principal', 0);
     
     my $existe_agente = 1;
 
-
-    print "Creando codigo del agente SNMP\n";
     crear_panel_scrolleable($mw, $agente, $ruta_agente, $alarmas_principales, $alarmas_secundarias);
-
-
 }
 
 # Function to create a scrollable panel with cards

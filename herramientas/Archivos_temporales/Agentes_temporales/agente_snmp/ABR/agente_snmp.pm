@@ -94,8 +94,8 @@ sub trapSeverity {
     return $severity;
 }
 
-# forcedReboot
-sub _1_3_6_1_4_1_20858_10_104_101_2_2_41 {
+# eriAlarmAppendAlertInfo
+sub _1_3_6_1_4_1_193_183_4_2_0_15 {
     my $entrada = shift;
     my $trap_name = shift;
     my $config_ref = shift;
@@ -112,15 +112,15 @@ sub _1_3_6_1_4_1_20858_10_104_101_2_2_41 {
     my $dat_correlated_notification_id = "";
     my $agent_address = $entrada->{"IPADDR"};
     my $hostname = HostRegex($config{"HOST"}, $agent_address);
-
-    # Personalización del trap
-    # ...additional code...
-
-    return $alarm_txt;
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
 }
 
-# networkInterfaceAlarm
-sub _1_3_6_1_4_1_20858_10_104_101_2_1_7 {
+# eriAlarmMinor
+sub _1_3_6_1_4_1_193_183_4_2_0_3 {
     my $entrada = shift;
     my $trap_name = shift;
     my $config_ref = shift;
@@ -137,10 +137,660 @@ sub _1_3_6_1_4_1_20858_10_104_101_2_1_7 {
     my $dat_correlated_notification_id = "";
     my $agent_address = $entrada->{"IPADDR"};
     my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
 
-    # Personalización del trap
-    # ...additional code...
+# eriAlarmAppendInfo
+sub _1_3_6_1_4_1_193_183_4_2_0_8 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
 
-    return $alarm_txt;
+# eriAlarmXWarning
+sub _1_3_6_1_4_1_193_183_6_2_0_2 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmMinorAlert
+sub _1_3_6_1_4_1_193_183_4_2_0_12 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmXCleared
+sub _1_3_6_1_4_1_193_183_6_2_0_7 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmCleared
+sub _1_3_6_1_4_1_193_183_4_2_0_7 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmIndAlert
+sub _1_3_6_1_4_1_193_183_4_2_0_10 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmMajorAlert
+sub _1_3_6_1_4_1_193_183_4_2_0_13 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmXCriticalAlert
+sub _1_3_6_1_4_1_193_183_6_2_0_14 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmIndeterminate
+sub _1_3_6_1_4_1_193_183_4_2_0_1 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmXHeartBeatNotif
+sub _1_3_6_1_4_1_193_183_6_2_0_20 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmWarning
+sub _1_3_6_1_4_1_193_183_4_2_0_2 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmCriticalAlert
+sub _1_3_6_1_4_1_193_183_4_2_0_14 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmMajor
+sub _1_3_6_1_4_1_193_183_4_2_0_4 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmXIndAlert
+sub _1_3_6_1_4_1_193_183_6_2_0_10 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmCritical
+sub _1_3_6_1_4_1_193_183_4_2_0_5 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmXMajorAlert
+sub _1_3_6_1_4_1_193_183_6_2_0_13 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmXMajor
+sub _1_3_6_1_4_1_193_183_6_2_0_4 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmXAppendInfo
+sub _1_3_6_1_4_1_193_183_6_2_0_8 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmHeartBeatNotif
+sub _1_3_6_1_4_1_193_183_4_2_0_20 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmXIndeterminate
+sub _1_3_6_1_4_1_193_183_6_2_0_1 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmXMinor
+sub _1_3_6_1_4_1_193_183_6_2_0_3 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmXCritical
+sub _1_3_6_1_4_1_193_183_6_2_0_5 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmXWarnAlert
+sub _1_3_6_1_4_1_193_183_6_2_0_11 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmXAppendAlertInfo
+sub _1_3_6_1_4_1_193_183_6_2_0_15 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmWarnAlert
+sub _1_3_6_1_4_1_193_183_4_2_0_11 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
+}
+
+# eriAlarmXMinorAlert
+sub _1_3_6_1_4_1_193_183_6_2_0_12 {
+    my $entrada = shift;
+    my $trap_name = shift;
+    my $config_ref = shift;
+    my %config = %$config_ref;
+    my $alarm_txt;
+    my $dat_specific_problem = "";
+    my $dat_severity = 0;
+    my $dat_probable_cause = 0;
+    my $dat_event_type = 10;
+    my $dat_managed_object;
+    my $dat_additional_text;
+    my $dat_event_time = $llena->fecha();
+    my $dat_notification_id = "";
+    my $dat_correlated_notification_id = "";
+    my $agent_address = $entrada->{"IPADDR"};
+    my $hostname = HostRegex($config{"HOST"}, $agent_address);
+    ################################################################################### 
+    
+    #---------- Personalizacion del trap 
+    
+    ################################################################################### 
 }
 

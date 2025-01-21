@@ -28,6 +28,9 @@ our $label_fg_color_snmp = '#302c44';
 our $entry_bg_color_snmp = '#7a748e';
 our $entry_fg_color_snmp = '#f2e6da';
 
+our $entry_bg = '#f0f0f0';
+our $entry_fg = '#000000';
+
 # Nueva paleta de colores (Arboles)
 our $corteza_marron = '#8B4513';
 our $hoja_verde = '#228B22';
@@ -56,6 +59,8 @@ our $input_font_snmp = ['Courier', 20, 'bold'];
 
 # Estilo de fuente para las etiquetas
 our $label_font = ['Verdana', 16, 'bold'];
+our $label_bg_color = '#302c44';
+our $label_fg_color = '#e5d0bf';
 # Estilo de fuente para las etiquetas SNMP
 our $label_font_snmp = ['Courier', 16, 'bold'];
 
@@ -142,6 +147,13 @@ our $checkbutton_fg = '#000000';
 our $checkbutton_active_bg = '#5e5673';
 our $checkbutton_active_fg = '#f2e6da';
 our $checkbutton_font = ['Arial', 12];
+
+
+our $checkbox_selectcolor = '#302c44';
+our $checkbox_bg = '#f0f0f0';
+our $checkbox_fg = '#000000';
+our $checkbox_active_bg = '#5e5673';
+our $checkbox_active_fg = '#f2e6da';
 
 # Save button
 our $save_button_bg = '#4CAF50';

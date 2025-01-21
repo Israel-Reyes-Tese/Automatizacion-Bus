@@ -4,18 +4,11 @@ use strict;
 use warnings;
 
 use Tk;
-use TK::Table;
+use Tk::FileDialog;
+use Tk::TableMatrix;
+use Tk::Pane;
 
-# Añadir la carpeta donde se encuentran los modulos
-use lib $FindBin::Bin . "/herramientas";
-use lib $FindBin::Bin . "./Script Generacion de Agentes SNMP/utilidades";
-
-
-use SNMP::MIB::Compiler;
-
-# Ventanas secundarias
-use MIB_utils;
-
+use FindBin;  # Añadir FindBin para obtener la ruta del script
 use Data::Dumper; # Importar el modulo Data::Dumper
 
 use File::Path qw(make_path rmtree);
@@ -26,13 +19,19 @@ use File::Basename;
 
 use Cwd 'abs_path';
 
-use FindBin;
+# Añadir la carpeta donde se encuentran los modulos
+use lib $FindBin::Bin . "/herramientas";
+use lib $FindBin::Bin . "./Script Generacion de Agentes SNMP/utilidades";
 
-use Data::Dumper;
+# Ventanas secundarias
+use MIB_utils;
+
 use Toolbar;
 use Estilos;
 use Complementos;
 use Rutas;
+
+use SNMP::MIB::Compiler;
 
 
 
@@ -48,15 +47,15 @@ sub crear_codigo_parseador {
 sub crear_archivo_subrutinas {
     my ($ventana_principal, $agente, $ruta_agente, $alarmas_principales, $alarmas_secundarias) = @_;
     $agente ||= 'agente_snmp';
-    print "Nombre del agente: $agente\n";
-    print "Ruta del agente: $ruta_agente\n";
-    
+    my $alarmar_principales = Rutas::temp_files_logs_objects_mibs_path(). '/Alarmas_principales.logs';
+    my $alarmar_secundarias = Rutas::temp_files_logs_objects_mibs_path(). '/Objetos_principales.logs';
+    # my $objeto_alarmas = Rutas::temp_files_logs_objects_mibs_path(). '/mibs_objects';
+
     my $ruta_agente_completa = File::Spec->catfile($ruta_agente, $agente);
     # Validar si el nombre del agente se repite en la ruta completa
     if ($ruta_agente_completa =~ /$agente.*$agente/) {
         $ruta_agente_completa =~ s/\\$agente//;
     }
-    print "Ruta del agente completa: $ruta_agente_completa\n";
 
     unless (-d $ruta_agente_completa) {
         my $entry_ruta_agente = herramientas::Complementos::register_directory($ventana_principal, 'Selecciona la ruta donde se creara el agente', "Buscar");
@@ -67,6 +66,20 @@ sub crear_archivo_subrutinas {
         }
     }
     
+    my %lista_opciones_checkbox = (
+        opciones => ['Agregar (description) Adiccional Text', 'Agregar (TrapName)  Adiccional Text', 'Asignar Severidad (description)' ]
+    );
+
+    my %lista_opciones_entry = (
+        opciones => ['Esteblecer Severidad', 'Establecer Probable Cause', 'Establecer Event Type', 'Establecer Specific Problem',
+                     'Establecer Additional Text', 'Establecer Event Time', 'Establecer Notification ID (sucesivo)',
+                     ]
+    );
+
+    my $data_extra = herramientas::Complementos::create_scrollable_panel_with_checkboxes_and_entries($ventana_principal, "Opciones de estructura",  \%lista_opciones_checkbox, \%lista_opciones_entry);
+
+    print Dumper($data_extra);
+
     my $archivo_agente = File::Spec->catfile($ruta_agente_completa, 'ABR', "$agente.pm");
     
     if (-e $archivo_agente) {

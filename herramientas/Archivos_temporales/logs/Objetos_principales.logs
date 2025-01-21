@@ -1,410 +1,410 @@
 ----------------------------------- ALARM_TRAPS ---------------------------
-eriAlarmMajorAlert:
-  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
-  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-  eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
-  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
-  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
-  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
-
-eriAlarmMajor:
-  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
+eriAlarmHeartBeatNotif:
+  eriAlarmAlertLastChanged: 1.3.6.1.4.1.193.183.4.1.4.2
   eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
-  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
-  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
-  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
-  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-
-eriAlarmXCritical:
-  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
-  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
-  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
-  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
-  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
+  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
+  eriAlarmActiveLastChanged: 1.3.6.1.4.1.193.183.4.1.3.2
 
 eriAlarmXCleared:
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
   eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
   eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
   eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
   eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
+  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
   eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
   eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
-
-eriAlarmXMinor:
-  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
-  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
-  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
-  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
   eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
+  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
   eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
   eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
 
-eriAlarmWarnAlert:
-  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
-  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
+eriAlarmCriticalAlert:
   eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
+  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
+  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
   eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
   eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
   eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
-  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-
-eriAlarmMinorAlert:
-  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
   eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
-  eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
+  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
   eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-  eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
-  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
 
 eriAlarmMinor:
-  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
-  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
-  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
   eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
-  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
-  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
-
-eriAlarmXHeartBeatNotif:
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXActiveTableURL: 1.3.6.1.4.1.193.183.6.1.3.4
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-
-eriAlarmXCriticalAlert:
-  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
-  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
-  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
-  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
-  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-
-eriAlarmWarning:
-  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
-  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
-  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
-  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
-  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
-  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
-
-eriAlarmXMajorAlert:
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
-  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
-  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
-  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
-  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-
-eriAlarmXWarnAlert:
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
-  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
-  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
-  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
-  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
-
-eriAlarmXAppendAlertInfo:
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.7
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
-  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
-  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
-  eriAlarmXAlertResourceId: 1.3.6.1.4.1.193.183.6.1.4.5.1.11
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-
-eriAlarmCleared:
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
-  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
-  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
   eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
   eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
-  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
-  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
-  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-
-eriAlarmIndeterminate:
-  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
-  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
-  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
   eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
   eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
+  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
+  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
   eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
   eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
-  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
 
-eriAlarmAppendInfo:
-  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
-  eriAlarmNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.7
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmActiveResourceId: 1.3.6.1.4.1.193.183.4.1.3.5.1.14
-  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
-  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
+eriAlarmXWarning:
+  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
+  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
+  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
+  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
+  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
 
 eriAlarmIndAlert:
   eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
   eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
-  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
-  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
   eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
   eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
+  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
+  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
   eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
+  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
+  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
+
+eriAlarmCleared:
+  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
+  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
+  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
+  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
+
+eriAlarmWarning:
+  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
+  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
+  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
+  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
+  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
+
+eriAlarmAppendAlertInfo:
+  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
+  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.7
+  eriAlarmAlertResourceId: 1.3.6.1.4.1.193.183.4.1.4.5.1.11
+  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
+
+eriAlarmXIndeterminate:
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
+  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
+  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
+  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
+  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
+  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
+
+eriAlarmXMinorAlert:
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
+  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
+  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
+  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
+
+eriAlarmCritical:
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
+  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
+  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
+  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
+  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
+  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
+
+eriAlarmXHeartBeatNotif:
+  eriAlarmXActiveTableURL: 1.3.6.1.4.1.193.183.6.1.3.4
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+
+eriAlarmXCritical:
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
+  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
+  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
+  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
+  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
+  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
+
+eriAlarmXWarnAlert:
+  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
+  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
+  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
+  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+
+eriAlarmXIndAlert:
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
+  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
+  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
+  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+
+eriAlarmXMajor:
+  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
+  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
+  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
+  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
+  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
+  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+
+eriAlarmIndeterminate:
+  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
+  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
+  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
+  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
+  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+
+eriAlarmXAppendAlertInfo:
+  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.7
+  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
+  eriAlarmXAlertResourceId: 1.3.6.1.4.1.193.183.6.1.4.5.1.11
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
+
+eriAlarmMajor:
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
+  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
+  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
   eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
   eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
+  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
+  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
+  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
+  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+
+eriAlarmMajorAlert:
   eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
+  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
+  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
+  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
   eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
+  eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+
+eriAlarmWarnAlert:
+  eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
+  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
+  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
+  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
+  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+
+eriAlarmXMajorAlert:
+  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
+  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
+  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
+
+eriAlarmAppendInfo:
+  eriAlarmNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.7
+  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
+  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmActiveResourceId: 1.3.6.1.4.1.193.183.4.1.3.5.1.14
+  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
+
+eriAlarmXCriticalAlert:
+  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
+  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
+  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
 
 eriAlarmXAppendInfo:
   eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
   eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
-  eriAlarmXActiveResourceId: 1.3.6.1.4.1.193.183.6.1.3.5.1.14
   eriAlarmXNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.7
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
   eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
   eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
+  eriAlarmXActiveResourceId: 1.3.6.1.4.1.193.183.6.1.3.5.1.14
   eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
 
-eriAlarmXMajor:
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
-  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
-  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
-  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
-  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-
-eriAlarmXIndAlert:
-  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
-  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
-  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
-  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
-  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-
-eriAlarmCritical:
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
-  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
-  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
-  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
-  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
-  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
-  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-
-eriAlarmXIndeterminate:
-  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
-  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
-  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
-  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
-  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-
-eriAlarmXWarning:
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
-  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
-  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
-  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
-
-eriAlarmHeartBeatNotif:
-  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
-  eriAlarmAlertLastChanged: 1.3.6.1.4.1.193.183.4.1.4.2
-  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
-  eriAlarmActiveLastChanged: 1.3.6.1.4.1.193.183.4.1.3.2
-
-eriAlarmAppendAlertInfo:
-  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
-  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
-  eriAlarmNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.7
-  eriAlarmAlertResourceId: 1.3.6.1.4.1.193.183.4.1.4.5.1.11
-
-eriAlarmCriticalAlert:
+eriAlarmMinorAlert:
   eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
   eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
-  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
-  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
-  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
-  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
   eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
   eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
+  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
+  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
+  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
+  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
 
-eriAlarmXMinorAlert:
-  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
-  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
-  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
-  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+eriAlarmXMinor:
   eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
+  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
+  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
+  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
+  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
+  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
   eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
 

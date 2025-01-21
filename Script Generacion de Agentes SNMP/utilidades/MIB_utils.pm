@@ -25,6 +25,8 @@ use Validaciones;
 
 use Crear_Codigo;
 
+use Data::Dumper; # Importar el modulo Data::Dumper
+
 
 sub Inicio_MIBS {
 
@@ -93,7 +95,7 @@ sub Inicio_MIBS {
     $actions_frame->Button(
         -text => 'Cargar MIB',
         -command => sub { 
-              my ($selected_data_principal, $selected_data_secundaria) = LogicMIB::cargar_mib($main_frame, $result_table_pane, $mib_tree_pane, $extension_mib, $extension_txt, $extension_vacio);
+                my ($selected_data_principal, $selected_data_secundaria) = LogicMIB::cargar_mib($main_frame, $result_table_pane, $mib_tree_pane, $extension_mib, $extension_txt, $extension_vacio);
                 # Validar si el retorno de la funcion cargar_mib es correcto
                 if ($selected_data_principal || $selected_data_principal){
                     # Colocar un boton para el siguiente paso

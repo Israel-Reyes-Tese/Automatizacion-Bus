@@ -413,8 +413,88 @@ sub create_top_level_window {
     }
     return $mw;
 }
+# Nueva función para crear un panel scrolleable con checkboxes y entradas de texto
+sub create_scrollable_panel_with_checkboxes_and_entries {
+    my ($ventana_principal, $titulo_principal, $checkbox_data, $entry_data) = @_;
+    
+    # Crear la ventana principal
+    my $mw = create_top_level_window($ventana_principal, $titulo_principal, 'maximizada');
+    
+    # Crear un frame con scrollbar
+    my $scroll_frame = $mw->Frame(-bg => $herramientas::Estilos::bg_color)->pack(-side => 'top', -fill => 'both', -expand => 1);
+    my $scroll = $scroll_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::bg_color)->pack(-side => 'top', -fill => 'both', -expand => 1);
+    
+    my %checkboxes;
+    my %entries;
+    my $row = 0;
+    # Crear el hash con el formato requerido
+    my %lista_opciones;
 
+    # Añadir tarjetas con labels y checkboxes si se proporciona checkbox_data
+    if ($checkbox_data) {
+        foreach my $nombre (@{$checkbox_data->{opciones}}) {
+            my $card_frame = $scroll->Frame(-bg => $herramientas::Estilos::card_frame_bg)->grid(-row => $row, -column => 0, -padx => 10, -pady => 10);
+            my $label = $card_frame->Label(-text => $nombre, -font => $herramientas::Estilos::label_font, -bg => $herramientas::Estilos::label_bg_color, -fg => $herramientas::Estilos::label_fg_color)->pack(-side => 'left');
+            my $checkbox = $card_frame->Checkbutton(-bg => $herramientas::Estilos::checkbox_bg, 
+            -activebackground => $herramientas::Estilos::checkbox_active_bg,
+             -selectcolor => $herramientas::Estilos::checkbox_selectcolor,
+             )->pack(-side => 'right');
+            $checkboxes{$nombre} = $checkbox;
+            $row++;
+        }
+    }
 
+    # Añadir tarjetas con labels y entradas de texto si se proporciona entry_data
+    if ($entry_data) {
+        foreach my $nombre (@{$entry_data->{opciones}}) {
+            my $card_frame = $scroll->Frame(-bg => $herramientas::Estilos::entry_card_frame_bg)->grid(-row => $row, -column => 0, -padx => 10, -pady => 10);
+            my $label = $card_frame->Label(-text => $nombre, -font => $herramientas::Estilos::label_font, -bg => $herramientas::Estilos::label_bg_color, -fg => $herramientas::Estilos::label_fg_color)->pack(-side => 'left');
+            my $entry = $card_frame->Entry(-bg => $herramientas::Estilos::entry_bg, -fg => $herramientas::Estilos::entry_fg)->pack(-side => 'right');
+            # Valor predeterminado para la entrada de texto
+            $entries{$nombre} = $entry;
+        
+            $row++;
+        }
+    }
+    
+    # Crear el footer con el botón de guardar
+    my $footer = $mw->Frame(-bg => $herramientas::Estilos::footer_bg)->pack(-side => 'bottom', -fill => 'x');
+    my $save_button = $footer->Button(
+        -text => 'Guardar', 
+        -command => sub { 
+                my %selected;
+                my @selected_names;
+                my %entry_values;
+                # Iterar sobre el hash %checkboxes y extraer los valores
+                foreach my $key (keys %checkboxes) {
+                    my $value = $checkboxes{$key}{'Value'};
+                    if ($value == 1 || $value eq '1') {
+                        $selected{$key} = 1;
+                    } else {
+                        $selected{$key} = 0;
+                    }
+                }
+                # Iterar sobre el hash %entries y extraer los valores
+                foreach my $key (keys %entries) {
+                    my $value = $entries{$key}->get();
+                    $entry_values{$key} = $value;
+                }
+                $lista_opciones{opciones} = \%selected if %selected;
+                $lista_opciones{entries} = \%entry_values if %entry_values;
+                show_alert($ventana_principal, 'Guardado', 'Los datos se han guardado correctamente.', 'info');
+                # Cerrar la ventana
+                $mw->destroy();
+         },
+        -bg => $herramientas::Estilos::save_button_bg,
+        -fg => $herramientas::Estilos::save_button_fg,
+        -font => $herramientas::Estilos::save_button_font,
+        -activebackground => $herramientas::Estilos::save_button_active_bg,
+        -activeforeground => $herramientas::Estilos::save_button_active_fg
+    )->pack(-side => 'right', -padx => 10, -pady => 10);
+    # Esperar hasta que la ventana se cierre
+    $mw->waitWindow();
+    return \%lista_opciones;
+}
 # Tabla con solo data set
 
 sub create_table {
@@ -645,9 +725,9 @@ sub create_table_doble_data {
                 $col++;
             }
             my $checkbutton_var = 1;
-            if ($data_ref == $data_secundaria_ref) {
-                $checkbutton_var = 0;
-            }
+            #if ($data_ref == $data_secundaria_ref) {
+            #    $checkbutton_var = 0;
+            #}
             $table->windowConfigure("$row,$col", -window => $frame->Checkbutton(
                 -variable => \$checkbutton_var,
                 -background => $herramientas::Estilos::checkbutton_bg,
