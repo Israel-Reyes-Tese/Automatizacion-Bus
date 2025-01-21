@@ -113,6 +113,12 @@ our $label_font_directory = ['Arial', 16, 'bold'];
 our $input_font_directory = ['Arial', 14];
 our $entry_font_snmp = ['Courier', 14, 'bold'];
 
+# ComboBox
+our $combo_box_bg = '#f0f0f0';
+our $combo_box_fg = '#000000';
+our $combo_box_active_bg = '#5e5673';
+our $combo_box_active_fg = '#f2e6da';
+
 # Styles for alert windows
 our $bg_color_success = '#28a745';
 our $bg_color_error = '#dc3545';

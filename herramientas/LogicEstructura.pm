@@ -71,14 +71,25 @@ sub crear_archivo_subrutinas {
     );
 
     my %lista_opciones_entry = (
-        opciones => ['Esteblecer Severidad', 'Establecer Probable Cause', 'Establecer Event Type', 'Establecer Specific Problem',
-                     'Establecer Additional Text', 'Establecer Event Time', 'Establecer Notification ID (sucesivo)',
-                     ]
+        opciones => {
+            'Esteblecer Severidad' = 2, 
+            'Establecer Probable Cause' = 0, 
+            'Establecer Event Type' = 10 , , 
+            'Establecer Specific Problem' = 0,
+            'Establecer Notification ID (sucesivo)' = 1300,
+           }
     );
 
-    my $data_extra = herramientas::Complementos::create_scrollable_panel_with_checkboxes_and_entries($ventana_principal, "Opciones de estructura",  \%lista_opciones_checkbox, \%lista_opciones_entry);
+    my %lista_opciones_combo_box = (
+        opciones => {
+            'Establecer Additional Text'  => ['Vacio', 'Descripcion', 'Descripcion + TrapName'],
+            'Establecer Managed Object'   => ['Vacio', 'Host + Agent address + MO', 'Entrada generica'],
+        }
+    );
 
-    print Dumper($data_extra);
+    my $data_extra = herramientas::Complementos::create_scrollable_panel_with_checkboxes_and_entries($ventana_principal, "Opciones de estructura",  \%lista_opciones_checkbox, \%lista_opciones_entry, \%lista_opciones_combo_box);
+
+    print "Data-extra: " . Dumper($data_extra) . "\n";
 
     my $archivo_agente = File::Spec->catfile($ruta_agente_completa, 'ABR', "$agente.pm");
     
@@ -188,11 +199,32 @@ sub trapSeverity {
 
 END_CODE
 
-    # Add subroutines for each alarm in alarmas_principales
+    my $notification_id = $data_extra->{entries}->{'Establecer Notification ID (sucesivo)'} || 1300;
+
     foreach my $alarm_name (keys %$alarmas_principales) {
         my $oid = $alarmas_principales->{$alarm_name}->{OID};
+        my $description = $alarmas_principales->{$alarm_name}->{DESCRIPTION};
         $oid =~ s/\./_/g;  # Replace dots with underscores for subroutine name
         
+        my $var_ps = $data_extra->{entries}->{'Esteblecer Severidad'};
+        my $var_sp = $data_extra->{entries}->{'Establecer Specific Problem'};
+        my $var_pc = $data_extra->{entries}->{'Establecer Probable Cause'};
+        my $var_EventType = $data_extra->{entries}->{'Establecer Event Type'};
+        
+        my $addTxt = '';
+        if ($data_extra->{combo_boxes}->{'Establecer Additional Text'} eq 'Descripcion') {
+            $addTxt = $description . ",\n";
+        } elsif ($data_extra->{combo_boxes}->{'Establecer Additional Text'} eq 'Descripcion + TrapName') {
+            $addTxt = $description . "\\nTrapName = " . $alarm_name . ",\\n";
+        }
+        
+        my $mo = '';
+        if ($data_extra->{combo_boxes}->{'Establecer Managed Object'} eq 'Host + Agent address + MO') {
+            $mo = "get_managed_object(\$hostname, \$agent_address, \$mo)"
+        } elsif ($data_extra->{combo_boxes}->{'Establecer Managed Object'} eq 'Entrada generica') {
+            $mo = '\$entrada->{"1.3.6.1.6.3.18.1.3"}'
+        }
+
         print $fh <<"END_SUB";
 # $alarm_name
 sub _$oid {
@@ -200,17 +232,21 @@ sub _$oid {
     my \$trap_name = shift;
     my \$config_ref = shift;
     my %config = %\$config_ref;
+
     my \$alarm_txt;
-    my \$dat_specific_problem = "";
-    my \$dat_severity = 0;
-    my \$dat_probable_cause = 0;
-    my \$dat_event_type = 10;
-    my \$dat_managed_object;
-    my \$dat_additional_text;
-    my \$dat_event_time = \$llena->fecha();
-    my \$dat_notification_id = "";
+
+    my \$dat_severity = "$var_ps";
+    my \$dat_specific_problem = "$var_sp";
+    my \$dat_probable_cause = "$var_pc";
+    my \$dat_event_type = "$var_EventType";
+    my \$dat_managed_object = $mo;
+    my \$dat_additional_text = "$addTxt";
+    
+    my \$dat_notification_id = "$notification_id";
     my \$dat_correlated_notification_id = "";
+
     my \$agent_address = \$entrada->{"IPADDR"};
+    my \$dat_event_time = \$llena->fecha();
     my \$hostname = HostRegex(\$config{"HOST"}, \$agent_address);
     ################################################################################### 
     
@@ -220,6 +256,7 @@ sub _$oid {
 }
 
 END_SUB
+        $notification_id++;
     }
 
     close $fh;
