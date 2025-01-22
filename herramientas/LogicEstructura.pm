@@ -498,6 +498,7 @@ sub crear_archivos_genericos {
     crear_corrective_filter($ventana_principal, $agente, $ruta_agente_abr);
     crear_file_handler($ventana_principal, $agente, $ruta_agente_abr);
     #create_hashorder($ventana_principal, $agente, $ruta_agente_abr);
+    create_llenaComun($ventana_principal, $agente, $ruta_agente_abr);
     # Add calls to other functions to create additional generic files here
 }
 
@@ -1197,6 +1198,145 @@ END_CODE
 
     close $fh;
     herramientas::Complementos::show_alert($ventana_principal, 'EXITO', "Se creo correctamente el archivo $archivo_hashorder", 'success');
+    return 1;
+}
+
+
+sub create_llenaComun {
+    my ($ventana_principal, $agente, $ruta_agente_abr) = @_;
+
+    my $archivo_llena_comun = File::Spec->catfile($ruta_agente_abr, "llenaComun.pm");
+
+    if (-e $archivo_llena_comun) {
+        open my $fh, '>', $archivo_llena_comun or do {
+            herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se puede abrir el archivo: $!", 'error');
+            return;
+        };
+        close $fh;
+    }
+
+    open my $fh, '>', $archivo_llena_comun or do {
+        herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se puede abrir el archivo: $!", 'error');
+        return;
+    };
+
+    print $fh <<"END_CODE";
+package ABR::llenaComun;
+# Version=1.0
+use POSIX qw(strftime);
+use warnings;
+use strict;
+
+sub new {
+    my \$class = shift;
+    my \$mensaje_x733;
+    return bless { mensaje_x733 => \\\$mensaje_x733 }, \$class;
+}
+
+sub vacia_mensaje_x733 {
+    my \$self = shift;
+    \${\$self->{mensaje_x733}} = "";
+}
+
+sub llenaEN {
+    my (\$self, \$en_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$en_list#\$%";
+}
+
+sub llenaMO {
+    my (\$self, \$mo_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$mo_list#\$%";
+}
+
+sub llenaPC {
+    my (\$self, \$pc_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$pc_list#\$%";
+}
+
+sub llenaSP {
+    my (\$self, \$ps_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$ps_list#\$%";
+}
+
+sub llenaPS {
+    my (\$self, \$ps_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$ps_list#\$%";
+}
+
+sub llenaBUS {
+    my (\$self, \$bus_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$bus_list#\$%";
+}
+
+sub llenaBAO {
+    my (\$self, \$bao_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$bao_list#\$%";
+}
+
+sub llenaTrendI {
+    my (\$self, \$trendi_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$trendi_list#\$%";
+}
+
+sub llenaThresholdI {
+    my (\$self, \$thresholdi_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$thresholdi_list#\$%";
+}
+
+sub llenaNI {
+    my (\$self, \$ni_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$ni_list#\$%";
+}
+
+sub llenaCN {
+    my (\$self, \$cn_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$cn_list#\$%";
+}
+
+sub llenaSCD {
+    my (\$self, \$scd_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$scd_list#\$%";
+}
+
+sub llenaMA {
+    my (\$self, \$ma_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$ma_list#\$%";
+}
+
+sub llenaPRA {
+    my (\$self, \$pra_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$pra_list#\$%";
+}
+
+sub llenaAT {
+    my (\$self, \$at_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$at_list#\$%";
+}
+
+sub llenaAI {
+    my (\$self, \$ai_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$ai_list#\$%";
+}
+
+sub EventTime {
+    my (\$self, \$et_list) = \@_;
+    \${\$self->{mensaje_x733}} .= "\$et_list#\$%";
+}
+
+sub EventType {
+    my (\$self, \$ety_list) =\ \@_;
+    \${\$self->{mensaje_x733}} .= \$ety_list;
+}
+
+sub fecha {
+    return strftime "\%b \%e \%H:\%M:\%S \%Z \%Y", localtime;
+}
+
+1;
+END_CODE
+
+    close $fh;
+    herramientas::Complementos::show_alert($ventana_principal, 'EXITO', "Se creo correctamente el archivo $archivo_llena_comun", 'success');
     return 1;
 }
 
