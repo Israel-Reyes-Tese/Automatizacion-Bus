@@ -497,6 +497,7 @@ sub crear_archivos_genericos {
     crear_configurator($ventana_principal, $agente, $ruta_agente_abr);
     crear_corrective_filter($ventana_principal, $agente, $ruta_agente_abr);
     crear_file_handler($ventana_principal, $agente, $ruta_agente_abr);
+    #create_hashorder($ventana_principal, $agente, $ruta_agente_abr);
     # Add calls to other functions to create additional generic files here
 }
 
@@ -1098,5 +1099,105 @@ END_CODE
     return 1;
 }
 
+
+
+sub create_hashorder {
+    my ($ventana_principal, $agente, $ruta_agente_abr) = @_;
+    my $self;
+    my $archivo_hashorder = File::Spec->catfile($ruta_agente_abr, "HashOrder.pm");
+
+    if (-e $archivo_hashorder) {
+        open my $fh, '>', $archivo_hashorder or do {
+            herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se puede abrir el archivo: $!", 'error');
+            return;
+        };
+        close $fh;
+    }
+
+    open my $fh, '>', $archivo_hashorder or do {
+        herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se puede abrir el archivo: $!", 'error');
+        return;
+    };
+
+    print $fh <<"END_CODE";
+package ABR::HashOrder;
+# Version=1.0
+use warnings;
+use strict;
+
+sub ifexists {
+    my \$variable = shift;
+    return defined \$variable && \$variable ne "";
+}
+
+
+sub new {
+    my \$class = shift;
+    my \$args  = {\@_};
+    my \%hash;
+    my \@array;
+
+    if (ifexists(\$args)) {
+        if (ref(\$args) eq 'HASH') {
+            foreach my \$x (keys %{\$args}) {
+                push(\@array, \$x);
+                \$hash{\$x} = \$args->{\$x};
+            }
+        }
+    }
+
+    return bless { hash_ref => \%hash, array_ref => \@array }, \$class;
+}
+
+sub exists {
+    my (\$self, \$key) = \@_;
+    return ifexists(\$key) && ifexists(\$self->{hash_ref}{\$key});
+}
+
+sub delete {
+    my (\$self, \$key) = \@_;
+    return unless ifexists(\$key) && ifexists(\$self->{hash_ref}{\$key});
+
+    delete \$self->{hash_ref}{\$key};
+    my \$size_arr = \@{\$self->{array_ref}};
+    for (my \$var = 0; \$var < \$size_arr; \$var++) {
+        if (\$self->{array_ref}[\$var] eq \$key) {
+            splice(@{\$self->{array_ref}}, \$var, 1);
+            last;
+        }
+    }
+}
+
+sub get {
+    my (\$self, \$key) = \@_;
+    return ifexists(\$key) && ifexists(\$self->{hash_ref}{\$key}) ? \$self->{hash_ref}{\$key} : "";
+}
+
+sub set {
+    my (\$self, \$input1, \$input2) = \@_;
+    return unless ifexists(\$input1) && ifexists(\$input2);
+
+    push(@{\$self->{array_ref}}, \$input1);
+    \$self->{hash_ref}{\$input1} = \$input2;
+}
+
+sub keys {
+    my \$self = shift;
+    return \@{\$self->{array_ref}} if \@{\$self->{array_ref}};
+    return "";
+}
+
+sub getSize {
+    my \$self = shift;
+    return scalar \@{\$self->{array_ref}};
+}
+
+1;
+END_CODE
+
+    close $fh;
+    herramientas::Complementos::show_alert($ventana_principal, 'EXITO', "Se creo correctamente el archivo $archivo_hashorder", 'success');
+    return 1;
+}
 
 1;

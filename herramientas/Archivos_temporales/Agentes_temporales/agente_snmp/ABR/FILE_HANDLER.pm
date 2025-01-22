@@ -12,7 +12,7 @@ sub new {
 }
 
 sub write_file {
-    my ($self, $file_name, $file_content) = MainWindow=HASH(0x294de083f40) agente_snmp herramientas\Archivos_temporales\Agentes_temporales\agente_snmp\ABR;
+    my ($self, $file_name, $file_content) = MainWindow=HASH(0x2148c8041a0) agente_snmp herramientas\Archivos_temporales\Agentes_temporales\agente_snmp\ABR;
     my $file_path = "$self->{gluster_dir}/$file_name";
     my $emergency_path = "$self->{auxiliary_dir}/$file_name";
 
