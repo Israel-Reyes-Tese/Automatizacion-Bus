@@ -92,7 +92,7 @@ sub crear_panel_scrolleable {
         { title => 'Crear Codigo Principal', button_text => 'Ejecutar', command => sub { LogicEstructura::crear_codigo_principal() } },
         { title => 'Crear Codigo Parseador', button_text => 'Ejecutar', command => sub { LogicEstructura::crear_codigo_parseador($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias) } },
         { title => 'Crear Archivo de Subrutinas', button_text => 'Ejecutar', command => sub { LogicEstructura::crear_archivo_subrutinas($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias) } },
-        { title => 'Crear Archivos Genericos', button_text => 'Ejecutar', command => sub { LogicEstructura::crear_archivos_genericos() } },
+        { title => 'Crear Archivos Genericos', button_text => 'Ejecutar', command => sub { LogicEstructura::crear_archivos_genericos($parent, $agente, $ruta_agente_ruta) } },
     );
 
     foreach my $card (@cards) {
