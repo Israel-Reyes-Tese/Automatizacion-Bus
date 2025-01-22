@@ -499,6 +499,7 @@ sub crear_archivos_genericos {
     crear_file_handler($ventana_principal, $agente, $ruta_agente_abr);
     #create_hashorder($ventana_principal, $agente, $ruta_agente_abr);
     create_llenaComun($ventana_principal, $agente, $ruta_agente_abr);
+    create_microtime($ventana_principal, $agente, $ruta_agente_abr);
     # Add calls to other functions to create additional generic files here
 }
 
@@ -1337,6 +1338,46 @@ END_CODE
 
     close $fh;
     herramientas::Complementos::show_alert($ventana_principal, 'EXITO', "Se creo correctamente el archivo $archivo_llena_comun", 'success');
+    return 1;
+}
+
+
+sub create_microtime {
+    my ($ventana_principal, $agente, $ruta_agente_abr) = @_;
+
+    my $archivo_microtime = File::Spec->catfile($ruta_agente_abr, "MICROTIME.pm");
+
+    if (-e $archivo_microtime) {
+        open my $fh, '>', $archivo_microtime or do {
+            herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se puede abrir el archivo: $!", 'error');
+            return;
+        };
+        close $fh;
+    }
+
+    open my $fh, '>', $archivo_microtime or do {
+        herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se puede abrir el archivo: $!", 'error');
+        return;
+    };
+
+    print $fh <<"END_CODE";
+package ABR::MICROTIME;
+# Version=1.0
+use Time::HiRes qw(gettimeofday);
+use bignum;
+
+sub getmicro {
+    my \$micros;
+    (my \$ts, my \$tm) = gettimeofday();
+    \$micros = (\$ts + \$tm / 1000000) * 1000000;
+    return \$micros;
+}
+
+1;
+END_CODE
+
+    close $fh;
+    herramientas::Complementos::show_alert($ventana_principal, 'EXITO', "Se creo correctamente el archivo $archivo_microtime", 'success');
     return 1;
 }
 
