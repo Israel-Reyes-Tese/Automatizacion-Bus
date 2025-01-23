@@ -13,6 +13,7 @@ use FindBin;
 use lib $FindBin::Bin . "/../herramientas";
 use lib $FindBin::Bin . "/../../herramientas";  # Añadir la carpeta donde se encuentran los modulos
 use lib $FindBin::Bin . "../utilidades";
+use lib $FindBin::Bin . "../terminal";
 
 use File::Path qw(make_path rmtree);
 use File::Temp qw(tempfile);
@@ -27,6 +28,7 @@ use LogicMIB;
 use LogicEstructura;
 use Validaciones;
 
+use Create_terminal;
 
 use Data::Dumper; # Importar el modulo Data::Dumper
 
@@ -77,6 +79,7 @@ sub Inicio_Crear_Codigo {
     my $existe_agente = 1;
 
     crear_panel_scrolleable($mw, $agente, $ruta_agente, $alarmas_principales, $alarmas_secundarias);
+
 }
 
 # Function to create a scrollable panel with cards
@@ -86,6 +89,8 @@ sub crear_panel_scrolleable {
     # Create a frame for the scrollable panel
     my $scroll_frame = $parent->Frame(-background => $herramientas::Estilos::bg_color)->pack(-side => 'top', -fill => 'both', -expand => 1);
     my $scroll = $scroll_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::bg_color)->pack(-side => 'top', -fill => 'both', -expand => 1);
+
+    my $comando_ejecutar_local_agente = "perl $ruta_agente_ruta/$agente.pl";
 
     # Create cards
     my @cards = (
@@ -113,7 +118,35 @@ sub crear_panel_scrolleable {
             -activeforeground => $herramientas::Estilos::activeforeground_button_color_snmp
         )->pack(-side => 'bottom', -padx => 10, -pady => 5);
     }
+
+    my $footer = $scroll_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::bg_color)->pack(-side => 'top', -fill => 'both', -expand => 1);
+
+    # Buttons
+    $footer->Button(
+        -text => 'Abrir Carpeta',
+        -command => sub { Logic::abrir_carpeta($parent, $ruta_agente_ruta) },
+        -background => $herramientas::Estilos::button_color,
+        -foreground => $herramientas::Estilos::fg_color,
+        -font => $herramientas::Estilos::button_font,
+        -activebackground => $herramientas::Estilos::activebackground_button_color_snmp,
+        -activeforeground => $herramientas::Estilos::activeforeground_button_color_snmp
+    )->pack(-side => 'left', -padx => 10, -pady => 5);
+
+    $footer->Button(
+        -text => 'Pruebas Locales',
+        -command => sub { 
+            terminal::Create_terminal::create_terminal_window(0, $comando_ejecutar_local_agente, "Agente escuchando.."),
+            $parent->destroy();
+        },
+        -background => $herramientas::Estilos::button_color,
+        -foreground => $herramientas::Estilos::fg_color,
+        -font => $herramientas::Estilos::button_font,
+        -activebackground => $herramientas::Estilos::activebackground_button_color_snmp,
+        -activeforeground => $herramientas::Estilos::activeforeground_button_color_snmp
+    )->pack(-side => 'right', -padx => 10, -pady => 5);
+
 }
+
 
 
 1;

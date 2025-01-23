@@ -45,6 +45,11 @@ sub codificacion_image_path {
     return RUTA_IMAGENES . 'codificacion.gif';  # Cambia la extensión si es necesario
 }
 
+# Función para obtener la ruta completa a la imagen terminal
+sub terminal_image_path {
+    return RUTA_IMAGENES . 'terminal.gif';  # Cambia la extensión si es necesario
+}
+
 
 # Función para obtener la ruta completa a la imagen de salida
 sub exit_image_path {

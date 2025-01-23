@@ -1327,7 +1327,7 @@ sub new {
 }
 
 sub write_file {
-    my (\$self, \$file_name, \$file_content) = @_;
+    my (\$self, \$file_name, \$file_content) = \@_;
     my \$file_path = "\$self->{gluster_dir}/\$file_name";
     my \$emergency_path = "\$self->{auxiliary_dir}/\$file_name";
 

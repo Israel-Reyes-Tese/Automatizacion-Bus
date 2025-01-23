@@ -1,7 +1,9 @@
 # herramientas/Toolbar.pm
 package herramientas::Toolbar;
 use lib $FindBin::Bin . "/herramientas";  # Añadir la carpeta donde se encuentran los módulos
+use lib $FindBin::Bin . "./Script Generacion de Agentes SNMP/";
 use lib $FindBin::Bin . "./Script Generacion de Agentes SNMP/utilidades";
+use lib $FindBin::Bin . "./Script Generacion de Agentes SNMP/terminal";
 
 use strict;
 use warnings;
@@ -10,6 +12,8 @@ use Rutas; # Importar el módulo de rutas
 # Ventanas secundarias
 use MIB_utils;
 use Crear_Codigo;
+use Create_terminal;
+
 
 # Constructor
 sub new {
@@ -63,6 +67,17 @@ sub new {
     } or do {
         my $error = $@ || 'Unknown error';
         die "Error al crear el botón de codificación en el constructor: $error";
+    };
+
+
+
+    eval {
+        # Crear el botón de terminal con el label
+        $self->herramientas::Complementos::create_button_with_picture_and_label($parent, 'Terminal', Rutas::terminal_image_path(), \&go_to_terminal);
+        1;
+    } or do {
+        my $error = $@ || 'Unknown error';
+        die "Error al crear el botón de terminal en el constructor: $error";
     };
 
     eval {
@@ -121,5 +136,17 @@ sub go_to_codificacion {
     };
 }
 
+# Función para redirigir a la terminal
+sub go_to_terminal {
+    eval {
+        terminal::Create_terminal::create_terminal_window();
+        #system($^X, "./Script Generacion de Agentes SNMP/terminal/terminal.pm");
+        1;
+    } or do {
+        my $error = $@ || 'Unknown error';
+        die "Error al redirigir a la terminal: $error";
+    };
+
+}
 
 1;  # Fin del módulo

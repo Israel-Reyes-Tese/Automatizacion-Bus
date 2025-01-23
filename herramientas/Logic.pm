@@ -14,8 +14,12 @@ use Data::Dumper; # Importar el módulo Data::Dumper
 
 use File::Path qw(make_path rmtree);
 use File::Spec;
+use File::Basename;
+
 use FindBin;
+
 use Data::Dumper;
+
 use Toolbar;
 use Estilos;
 use Complementos;
@@ -391,6 +395,35 @@ sub print_field {
 }
 
 # Subroutine para listar todos los modulos locales disponibles MIBS
+# Función principal para abrir una carpeta en el explorador de archivos
+sub abrir_carpeta {
+    my ($ventana_principal, $directorio) = @_;
+
+
+    
+    # Validar que se proporcionó un directorio
+    unless ($directorio) {
+        herramientas::Complementos::show_alert($ventana_principal, 'Advertencia', "No se proporcionó un directorio", 'warning');
+        return;
+    }
+
+    # Validar que el directorio exista
+    unless (-d $directorio) {
+        herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "El directorio no existe: $directorio", 'error');
+        return;
+    }
+
+    # Intentar abrir el directorio en el explorador de archivos
+    my $command = "explorer " . File::Spec->rel2abs($directorio);
+    my $result = system($command);
+
+    # Manejo de errores
+    if ($result == 0 || $result == 256) {
+        herramientas::Complementos::show_alert($ventana_principal, 'EXITO', "Se abrió correctamente el directorio $directorio", 'success');
+    } else {
+        herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se puede abrir el directorio: $!", 'error');
+    }
+}
 
 
 1;
