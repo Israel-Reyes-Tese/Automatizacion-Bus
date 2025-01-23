@@ -11,6 +11,8 @@ use constant {
     RUTA_MODULOS_MIB => "./herramientas/Modulos_MIB/",  # Módulos de MIB
     RUTA_ID_EMPRESA => "./herramientas/IDs_empresas_proveedores/",  # ID de la empresa
 
+    RUTA_DIRECCIONES_IP => "./herramientas/IP/",  # Direcciones IP
+
     RUTA_AGENTES_TEMP => "./herramientas/Archivos_temporales/Agentes_temporales/",  # Agentes temporales
 
     RUTA_ARCHIVOS_TEMP => "./herramientas/Archivos_temporales/",  # Archivos temporales
@@ -90,6 +92,11 @@ sub edit_image_path {
 }
 #                                                       RUTAS IMAGENES                                   #
 
+#                                                     RUTAS DIRECCIONES IP                              #
+# Función para obtener la ruta completa de las direcciones IP
+sub ip_generales_path {
+    return RUTA_DIRECCIONES_IP . 'Direcciones_IP.txt';  
+}
 
 #                                                      RUTAS MODULOS MIB                                #
 

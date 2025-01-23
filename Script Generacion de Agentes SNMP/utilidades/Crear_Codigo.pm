@@ -69,8 +69,8 @@ sub Inicio_Crear_Codigo {
     my $alarmas_principales_path = Rutas::temp_files_logs_objects_mibs_path(). '/Alarmas_principales.logs';
     my $alarmas_secundarias_path = Rutas::temp_files_logs_objects_mibs_path(). '/Objetos_principales.logs';
 
-    $alarmas_principales = extraer_informacion_alarmas($alarmas_principales_path);
-    $alarmas_secundarias = extraer_informacion_alarmas($alarmas_secundarias_path);
+    $alarmas_principales = herramientas::Complementos::extraer_informacion_alarmas($alarmas_principales_path);
+    $alarmas_secundarias = herramientas::Complementos::extraer_informacion_alarmas($alarmas_secundarias_path);
 
     my $mw = herramientas::Complementos::create_main_window('Creacion de codigo', 'maximizada', 1 , 0 , 'Codigo', 'Titulo-Principal', 0);
     

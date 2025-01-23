@@ -414,7 +414,6 @@ sub create_top_level_window {
     return $mw;
 }
 # Nueva función para crear un panel scrolleable con checkboxes, entradas de texto y combo boxes
-# Nueva función para crear un panel scrolleable con checkboxes, entradas de texto y combo boxes
 sub create_scrollable_panel_with_checkboxes_and_entries {
     my ($ventana_principal, $titulo_principal, $checkbox_data, $entry_data, $combo_box_data) = @_;
     
@@ -1088,5 +1087,57 @@ sub mostrar_ventana_seleccion_empresa_oid {
     $mw->waitWindow;
     return $selected_info;
 }
+
+
+# Function to extract alarm information from log files
+sub extraer_informacion_alarmas {
+    my ($file_path) = @_;
+    my %alarmas;
+
+    if (-e $file_path && -s $file_path) {
+        open my $fh, '<', $file_path or die "Error al abrir el archivo $file_path: $!";
+        my $current_alarm;
+        while (my $line = <$fh>) {
+            chomp $line;
+            if ($line =~ /^(\w+):$/) {
+                $current_alarm = $1;
+                $alarmas{$current_alarm} = {};
+            } elsif ($line =~ /^\s*(\w+):\s*(.+)$/) {
+                $alarmas{$current_alarm}{$1} = $2 if $current_alarm;
+            }
+        }
+        close $fh;
+    } else {
+        die "El archivo $file_path no existe o está vacío.";
+    }
+
+    return \%alarmas;
+}
+
+# Extraer informacion de un archivo
+
+sub parse_file {
+    my ($filename) = @_;
+    my %ip_data;
+    my $key;
+
+    open my $fh, '<', $filename or die "Could not open file '$filename' $!";
+
+    while (my $line = <$fh>) {
+        chomp $line;
+        if ($line =~ /^\s*$/) {
+            $key = undef;
+        } elsif (!defined $key) {
+            $key = $line;
+            $ip_data{$key} = [];
+        } else {
+            push @{$ip_data{$key}}, $line;
+        }
+    }
+
+    close $fh;
+    return \%ip_data;
+}
+
 
 1;  # Finalizar el módulo con un valor verdadero
