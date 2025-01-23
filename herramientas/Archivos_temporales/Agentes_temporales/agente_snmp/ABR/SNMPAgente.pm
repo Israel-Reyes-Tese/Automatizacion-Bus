@@ -16,7 +16,7 @@ sub new {
         $local_port = $args[2];
     } else {
         $local_port = 3434;
-        my $hostname = "10.152.74.250";
+        my $hostname = "10.152.74.249";
         ( my $nombre, my $alias, my $addr_tipo, my $largo, my @direcciones )= gethostbyname($hostname);
         ( my $a, my $e, my $i, my $o )  = unpack("C4", $direcciones[0]);
         $local_address = $a . "." . $e . "." . $i ."." . $o;

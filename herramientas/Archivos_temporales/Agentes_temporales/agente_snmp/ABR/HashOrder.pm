@@ -42,10 +42,8 @@ sub new {
 sub exists{
   my $self = shift;
   my $key  = shift;
-
   if(ifexists($key)){
     if(ifexists($self -> {hash_ref}{$key})){
-      # print "funcion existe: " . $self -> {hash_ref} -> {$key} . "\n";
       return 1;
     }else{
       return 0;

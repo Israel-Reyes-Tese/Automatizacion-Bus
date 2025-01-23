@@ -49,7 +49,7 @@ sub get_managed_object {
     }
     if (ifexists($dat_MO)) {
         $dat_MO =~ s/"//g;
-        $dat_MO = "\" . $dat_MO . "\"";
+        $dat_MO = "\"" . $dat_MO . "\"";
     }
     return $dat_MO;
 }
@@ -107,7 +107,7 @@ sub _1_3_6_1_4_1_193_183_4_2_0_12 {
     my $dat_specific_problem = 0;
     my $dat_probable_cause = 0;
     my $dat_event_type = 10;
-    my $dat_managed_object = ;
+    my $dat_managed_object = "";
     my $dat_additional_text = "";
     
     my $dat_notification_id = 1300;
@@ -201,7 +201,7 @@ sub _1_3_6_1_4_1_193_183_6_2_0_11 {
     my $dat_specific_problem = 0;
     my $dat_probable_cause = 0;
     my $dat_event_type = 10;
-    my $dat_managed_object = ;
+    my $dat_managed_object = "";
     my $dat_additional_text = "";
     
     my $dat_notification_id = 1301;
