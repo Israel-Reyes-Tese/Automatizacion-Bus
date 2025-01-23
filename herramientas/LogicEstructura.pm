@@ -105,11 +105,14 @@ my \$message;
 my \$trap_ref;
 my \$rtrn;
 
+open my \$fh, '>', \$FindBin::Bin . "/output.log" or die "Could not open file: \$!";
+\$fh->autoflush(1);
+
 FuncInfo(\\\@ARGV,\$FindBin::Bin);
 
-for (keys(\\\%{\$hash_ref})){
-  \$hashOrdered = \\\$\$hash_ref{\$_};
-  for my \$key (\\\@{\$hashOrdered -> keys}){
+for (keys(\%{\$hash_ref})){
+  \$hashOrdered = \$\$hash_ref{\$_};
+  for my \$key (\@{\$hashOrdered -> keys}){
     my \$value = \$hashOrdered -> get(\$key);
     if (\$value =~ /CONF\\/MAP.+/) {
       if(FileExists(\$FindBin::Bin . "/" . \$value) && FileIsEmpty(\$FindBin::Bin . "/" . \$value)){
@@ -117,8 +120,8 @@ for (keys(\\\%{\$hash_ref})){
         if(ifexists(\$hash_ref -> {\$key})){
           \$maps .= "\$key,";
           \$abstract_global_hash .= "\\n > MAPA EXTERNO \\t'\$key'";
-          for (\\\@{\$\\\$hash_ref{\$key} -> keys}){
-            print \$fh "\\n   > KEY: '\$_'    VALUE:    '" . \\\$\$hash_ref{\$key} -> get(\$_) . "'";
+          for (\@{\$\$hash_ref{\$key} -> keys}){
+            print \$fh "\\n   > KEY: '\$_'    VALUE:    '" . \$\$hash_ref{\$key} -> get(\$_) . "'";
           }
         } else {
           \$warning .= "\\nThe file '\$FindBin::Bin/\$value' with key '\$key' is empty and generate an empty hash. The key '\$key' will be removed from the hash";
@@ -131,8 +134,8 @@ for (keys(\\\%{\$hash_ref})){
         if(ifexists(\$hash_ref -> {\$key})){
           \$bFilters .= "\$key,";
           \$abstract_global_hash .= "\\n > FILTRO DE BLOQUEO \\t'\$key'";
-          for (\\\@{\$\\\$hash_ref{\$key} -> keys}){
-            print \$fh "\\n   > KEY: '\$_'    VALUE:    '" . \\\$\$hash_ref{\$key} -> get(\$_) . "'";
+          for (\@{\$\$hash_ref{\$key} -> keys}){
+            print \$fh "\\n   > KEY: '\$_'    VALUE:    '" . \$\$hash_ref{\$key} -> get(\$_) . "'";
           }
         } else {
           \$warning .= "\\nThe file '\$FindBin::Bin/\$value' with key '\$key' is empty and generate an empty hash. The key '\$key' will be removed from the hash";
@@ -145,8 +148,8 @@ for (keys(\\\%{\$hash_ref})){
         if(ifexists(\$hash_ref -> {\$key})){
           \$cFilters .= "\$key,";
           \$abstract_global_hash .= "\\n > FILTRO CORRECTIVO \\t'\$key'";
-          for (\\\@{\$\\\$hash_ref{\$key} -> keys}){
-            print \$fh "\\n   > KEY: '\$_'    VALUE:    '" . \\\$\$hash_ref{\$key} -> get(\$_) . "'";
+          for (\@{\$\$hash_ref{\$key} -> keys}){
+            print \$fh "\\n   > KEY: '\$_'    VALUE:    '" . \$\$hash_ref{\$key} -> get(\$_) . "'";
           }
         } else {
           \$warning .= "\\nThe file '\$FindBin::Bin/\$value' with key '\$key' is empty and generate an empty hash. The key '\$key' will be removed from the hash";
@@ -162,10 +165,13 @@ for (keys(\\\%{\$hash_ref})){
   chop(\$maps);
 }
 
+print \$fh "########################## RESUMEN DE DATOS DEL AGENTE ########################## \\n";
+print \$fh "\\n\\nNOMBRE DEL AGENTE: ". \$hashOrdered -> get('agt') ."\\n";
+
 my \$host = \$hashOrdered -> get('host');
 my \$port = \$hashOrdered -> get('port');
 my \$glustDir = "/mnt/umplogic/" . \$hashOrdered -> get('agt');
-my \$auxDir = "/tmp/gestor_200";
+my \$auxDir =  "/mnt/umpemergency/" . \$hashOrdered -> get('agt');
 
 my \$trapd = ABR::SNMPAgente->new(
   \$host, \$port
@@ -174,6 +180,9 @@ my \$fhandler = ABR::FILE_HANDLER->new(
   gluster_dir =>   \$glustDir,
   auxiliary_dir => \$auxDir
 );
+
+print \$fh "EL DIRECTORIO GLUSTER ESTA EN: \$glustDir\\n";
+print \$fh "EL DIRECTORIO AUXILIARY ESTA EN: \$auxDir\\n";
 
 if(ifexists(\$maps))    { print \$fh "LOS EXTERNAL MAPS SON: \$maps\\n";}
 if(ifexists(\$bFilters)){ print \$fh "LOS BLOCKING FILTERS SON: \$bFilters\\n";}
@@ -187,7 +196,10 @@ if(ifexists(\$warning)){
     }
   }
 }
+##################################### Tap Filters #####################################
 
+print \$fh "LOS FILTROS DE BLOQUEO SON: \$bFilters\\n";
+print \$fh "LOS FILTROS CORRECTIVOS SON: \$cFilters\\n";
 my \$filter = ABR::TapFilter -> new(
   hash_ref      => \\\%\$hash_ref,
   config_index  => "\$bFilters",
@@ -215,6 +227,10 @@ while (1) {
     \$fhandler->dummy_write();
   }
 }
+
+
+  close \$fh or warn "Advertencia: No se pudo cerrar el archivo log: \$!";
+
 
 sub FileExists{
   my \$file = shift;
@@ -250,7 +266,7 @@ sub FuncInfo{
   my \$path    = shift;
   my \@files   = ("TapFilter.pm","CorrectiveFilter.pm","HashOrder.pm","SNMPAgente.pm","Parser_aux.pm","MICROTIME.pm","LogsFile.pm","llenaComun.pm","FILE_HANDLER.pm");
   my \$command = "";
-  foreach(\\\@{\$input}){
+  foreach(\@{\$input}){
     if(ifexists(\$_)){
       if(\$_ =~ /--version/){
         foreach my \$f(\@files){
@@ -258,7 +274,7 @@ sub FuncInfo{
             \$command = `cat \$path/ABR/\$f | grep 'Version='`;
             chop(\$command);
             if(ifexists(\$command)){if(\$command =~ /#\\s*(Version=.*)/i){print \$fh "   -\$f -> " . \$1 . "\\n";}}
-            else{print \$fh "   -\$f -> \"is not define version\"\\n";}
+            else{print \$fh "   -\$f -> \\"is not define version\\"\\n";}
           }
         }
         die;
@@ -370,7 +386,7 @@ END_CODE
     print $fh <<"END_CODE";
     );
 
-    \$self = bless( { find_hash => \%find_hash, mensaje_x733 => \\\$mensaje_x733 }, \$class );
+    \$self = bless( { find_hash => \\\%find_hash, mensaje_x733 => \\\$mensaje_x733 }, \$class );
 }
 
 sub formatter {
@@ -576,7 +592,7 @@ sub get_managed_object {
     }
     if (ifexists(\$dat_MO)) {
         \$dat_MO =~ s/"//g;
-        \$dat_MO = "\\" . \$dat_MO . "\\"";
+        \$dat_MO = "\\"" . \$dat_MO . "\\"";
     }
     return \$dat_MO;
 }
@@ -644,7 +660,7 @@ END_CODE
         
         my $mo = '';
         if ($data_extra->{combo_boxes}->{'Establecer Managed Object'} eq 'Host + Agent address + MO') {
-            $mo = "get_managed_object(\$hostname, \$agent_address, \$mo)";
+            $mo = 'get_managed_object(\$hostname, \$agent_address, \$entrada -> {"1.3.6.1.6.3.18.1.3"})';
         } elsif ($data_extra->{combo_boxes}->{'Establecer Managed Object'} eq 'Entrada generica') {
             $mo = '\$entrada->{"1.3.6.1.6.3.18.1.3"}';
         }
@@ -655,24 +671,26 @@ sub _$oid {
     my \$entrada = shift;
     my \$trap_name = shift;
     my \$config_ref = shift;
-    my %config = %\$config_ref;
+    my \%config = %\$config_ref;
 
     my \$alarm_txt;
+
+    my \$agent_address = \$entrada->{"IPADDR"};
+    my \$dat_event_time = \$llena->fecha();
+    
 
     my \$dat_severity = $var_ps;
     my \$dat_specific_problem = $var_sp;
     my \$dat_probable_cause = $var_pc;
     my \$dat_event_type = $var_EventType;
-    my \$dat_managed_object = $mo;
     my \$dat_additional_text = "$addTxt";
     
     my \$dat_notification_id = $notification_id;
     my \$dat_correlated_notification_id = "";
 
-    my \$agent_address = \$entrada->{"IPADDR"};
-    my \$dat_event_time = \$llena->fecha();
     my \$hostname = HostRegex(\$config{"HOST"}, \$agent_address);
-    
+    my \$dat_managed_object = $mo;
+
     ################################################################################### 
     
     #---------- (INICIO) Personalizacion del trap 
@@ -826,7 +844,7 @@ sub new {
         }
     }
 
-    return bless { config_file => \$config_file, hash_read => \%hash_read };
+    return bless { config_file => \$config_file, hash_read => \\\%hash_read };
 }
 
 sub read_config {
@@ -1330,7 +1348,8 @@ sub write_file {
     my (\$self, \$file_name, \$file_content) = \@_;
     my \$file_path = "\$self->{gluster_dir}/\$file_name";
     my \$emergency_path = "\$self->{auxiliary_dir}/\$file_name";
-
+    my \$em_fh;
+    my \$fh;
     unless (open my \$fh, '>', \$file_path) {
         unless (open my \$em_fh, '>', \$emergency_path) {
             die "The emergency directory does not exist or is not accessible";
@@ -1439,7 +1458,7 @@ sub new {
     }
   }
 
-  \$self = {hash_ref => \%hash, array_ref => \\\@array};
+  \$self = {hash_ref => \\\%hash, array_ref => \\\@array};
   return bless \$self,\$class;
 }
 
@@ -1789,6 +1808,9 @@ sub new {
     \$args = {\@_};
     \$hash_ref = \$args->{hash_ref};
     \@array = split(',', \$args->{config_index});
+
+    print "\\n------------------ Cargando y verificando sintaxis del filtro ------------------\\n";
+
     eval {
         foreach my \$FilterName (\@array) {
             foreach my \$index (%{\$hash_ref}) {
@@ -1796,9 +1818,9 @@ sub new {
                     \$hashOrdered = \$\$hash_ref{\$index};
                     my \$SF = ABR::HashOrder->new(); # Subfilter HashOrder
                     foreach my \$subFilter (\@{\$hashOrdered->keys}) {
-                        if (\$hashOrdered->get(\$subFilter) !~ /.*Action\<\>Blocking|Passing\<\>.*/) {
+                        if (\$hashOrdered->get(\$subFilter) !~ /.*Action\\<\\>Blocking|Passing\\<\\>.*/) {
                             my \$rW = "";
-                            if (\$subFilter =~ m/(.*)_\d+\$/) {
+                            if (\$subFilter =~ m/(.*)_\\d+\$/) {
                                 \$rW = \$hashOrdered->get(\$subFilter) . "<&&>Action<>Blocking<>" . \$1;
                                 \$hashOrdered->set(\$subFilter => \$rW);
                             }
@@ -1811,7 +1833,7 @@ sub new {
                                     if (\$splitted_2[1] eq \$_) {
                                         if (\$splitted_2[0] eq "PS") {
                                             if (!(isInteger(\$splitted_2[2]))) {
-                                                \$InfoErrors = "Error in the file " . \$FilterName . " and Index " . \$subFilter . ": No accepted value \"" . \$splitted_2[2] . "\" in \"" . \$splitted_2[0] . "\" -> " . \$hashOrdered->get(\$subFilter) . "\\n";
+                                                \$InfoErrors = "Error in the file " . \$FilterName . " and Index " . \$subFilter . ": No accepted value \\"" . \$splitted_2[2] . "\\" in \\"" . \$splitted_2[0] . "\\" -> " . \$hashOrdered->get(\$subFilter) . "\\n";
                                                 
                                                 die;
                                             } else {
@@ -1819,21 +1841,21 @@ sub new {
                                                     if (\$splitted_2[2] eq "5") {
                                                         print "[WARN]: In the file " . \$FilterName . " and Index " . \$subFilter . ":\\n";
                                                         print "[WARN]: " . \$hashOrdered->get(\$subFilter) . ",\\n";
-                                                        print "[WARN]: you used severity \"5 -> Clear\" on this filter, check that it's not on a blocking filter or that the operation is different of \"eq\".\\n";
+                                                        print "[WARN]: you used severity \\"5 -> Clear\\" on this filter, check that it's not on a blocking filter or that the operation is different of \\"eq\\".\\n";
                                                     }
                                                 } else {
-                                                    \$InfoErrors = "Error in the file " . \$FilterName . " and Index " . \$subFilter . ": No accepted value \"" . \$splitted_2[2] . "\" in \"" . \$splitted_2[0] . "\" -> " . \$hashOrdered->get(\$subFilter) . "\\n";
+                                                    \$InfoErrors = "Error in the file " . \$FilterName . " and Index " . \$subFilter . ": No accepted value \\"" . \$splitted_2[2] . "\\" in \\"" . \$splitted_2[0] . "\\" -> " . \$hashOrdered->get(\$subFilter) . "\\n";
                                                     die;
                                                 }
                                             }
                                         } elsif (\$splitted_2[0] eq "PC") {
                                             if (!(isInteger(\$splitted_2[2]))) {
-                                                \$InfoErrors = "Error in the file " . \$FilterName . " and Index " . \$subFilter . ": No accepted value \"" . \$splitted_2[2] . "\" in \"" . \$splitted_2[0] . "\" -> " . \$hashOrdered->get(\$subFilter) . "\\n";
+                                                \$InfoErrors = "Error in the file " . \$FilterName . " and Index " . \$subFilter . ": No accepted value \\"" . \$splitted_2[2] . "\\" in \\"" . \$splitted_2[0] . "\\" -> " . \$hashOrdered->get(\$subFilter) . "\\n";
                                                 die;
                                             }
                                         } else {
                                             if (!(ifexists \$splitted_2[2])) {
-                                                \$InfoErrors = "Error in the file " . \$FilterName . " and Index " . \$subFilter . ": value is empty\"" . \$splitted_2[2] . "\" in \"" . \$splitted_2[0] . "\" -> " . \$hashOrdered->get(\$subFilter) . "\\n";
+                                                \$InfoErrors = "Error in the file " . \$FilterName . " and Index " . \$subFilter . ": value is empty\\"" . \$splitted_2[2] . "\\" in \\"" . \$splitted_2[0] . "\\" -> " . \$hashOrdered->get(\$subFilter) . "\\n";
                                                 die;
                                             }
                                         }
@@ -1841,12 +1863,12 @@ sub new {
                                     }
                                 }
                                 if (\$Error) {
-                                    \$InfoErrors = "Error in the file " . \$FilterName . " and Index " . \$subFilter . ": No accepted operation \"" . \$splitted_2[1] . "\" in \"" . \$splitted_2[0] . "\" -> " . \$hashOrdered->get(\$subFilter) . "\\n";
+                                    \$InfoErrors = "Error in the file " . \$FilterName . " and Index " . \$subFilter . ": No accepted operation \\"" . \$splitted_2[1] . "\\" in \\"" . \$splitted_2[0] . "\\" -> " . \$hashOrdered->get(\$subFilter) . "\\n";
                                     die;
                                 }
                                 \$Error = 1;
                             } else {
-                                \$InfoErrors = "Error in the file " . \$FilterName . " and Index " . \$subFilter . ": No accepted parameter \"" . \$splitted_2[0] . "\" -> " . \$hashOrdered->get(\$subFilter) . "\\n";
+                                \$InfoErrors = "Error in the file " . \$FilterName . " and Index " . \$subFilter . ": No accepted parameter \\"" . \$splitted_2[0] . "\\" -> " . \$hashOrdered->get(\$subFilter) . "\\n";
                                 die;
                             }
                         }
@@ -1859,11 +1881,14 @@ sub new {
                 }
             }
         }
+        print ">> No hay Errores de sintaxis en el filtro de bloqueo(s)\\n";
+        print "--------------------------------------------------------------------------------\\n";
+
     } or do {
         die "[ERR ]: TapFilter.pm, " . \$InfoErrors;
     };
 
-    \$self = { hash_filter => \%hash_filter, status => \$stausFileFilter, match_text => \$match_text, separator => \$args->{split_filter2} };
+    \$self = { hash_filter => \\\%hash_filter, status => \$stausFileFilter, match_text => \$match_text, separator => \$args->{split_filter2} };
     return bless \$self, \$class;
 }
 
@@ -1890,9 +1915,9 @@ sub ProcessingFilters{
     \$hash_ref = ProcessingTextAlarm(\$textAlarm);
     foreach my \$filter (keys \%hash_ref_filter) {
       foreach my \$subFilter (\@{\$hash_ref_filter{\$filter} -> keys}) {
-        if(\$subFilter !~ /\$PFString\_\d+\$/ ){
+        if(\$subFilter !~ /\$PFString\\_\\d+\$/ ){
           if(ifexists \$SubFbefore){
-            if(\$subFilter !~ /\$SubFbefore\_\d+\$/){
+            if(\$subFilter !~ /\$SubFbefore\\_\\d+\$/){
               if((\$PF eq 0) and (\$statusPF eq 1)){
                 return changeFileName(\$file_Alarm);
               }
@@ -2341,7 +2366,12 @@ use strict;
 use Net::SNMPTrapd;
 use Sys::Hostname;
 
+
+
 sub new {
+    open my \$fh, '>', \$FindBin::Bin . "/output.log" or die "Could not open file: \$!";
+    \$fh->autoflush(1);
+
     my \$local_address;
     my \$local_port;
     my \$self;
@@ -2358,6 +2388,9 @@ sub new {
         \$local_address = \$a . "." . \$e . "." . \$i ."." . \$o;
     }
 
+    print \$fh "Local Address: \$local_address\\n";
+    print \$fh "Local Port: \$local_port\\n";
+
     my \$snmptrapd = Net::SNMPTrapd -> new( -LocalAddr=>\$local_address, -LocalPort=>\$local_port, -timeout=>1);
 
     if(!defined(\$snmptrapd)) {
@@ -2365,6 +2398,8 @@ sub new {
     } else {
       \$self = bless({ snmptrapd => \$snmptrapd }, \$class);
     }
+
+    close \$fh or warn "Advertencia: No se pudo cerrar el archivo log: \$!";
 
     return \$self;
 }
@@ -2477,6 +2512,8 @@ sub processV2 {
 
     return \@varbinds;
 }
+
+
 
 1;
 END_CODE

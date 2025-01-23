@@ -44,6 +44,9 @@ sub new {
     $args = {@_};
     $hash_ref = $args->{hash_ref};
     @array = split(',', $args->{config_index});
+
+    print "\n------------------ Cargando y verificando sintaxis del filtro ------------------\n";
+
     eval {
         foreach my $FilterName (@array) {
             foreach my $index (%{$hash_ref}) {
@@ -51,9 +54,9 @@ sub new {
                     $hashOrdered = $$hash_ref{$index};
                     my $SF = ABR::HashOrder->new(); # Subfilter HashOrder
                     foreach my $subFilter (@{$hashOrdered->keys}) {
-                        if ($hashOrdered->get($subFilter) !~ /.*Action<>Blocking|Passing<>.*/) {
+                        if ($hashOrdered->get($subFilter) !~ /.*Action\<\>Blocking|Passing\<\>.*/) {
                             my $rW = "";
-                            if ($subFilter =~ m/(.*)_d+$/) {
+                            if ($subFilter =~ m/(.*)_\d+$/) {
                                 $rW = $hashOrdered->get($subFilter) . "<&&>Action<>Blocking<>" . $1;
                                 $hashOrdered->set($subFilter => $rW);
                             }
@@ -66,7 +69,7 @@ sub new {
                                     if ($splitted_2[1] eq $_) {
                                         if ($splitted_2[0] eq "PS") {
                                             if (!(isInteger($splitted_2[2]))) {
-                                                $InfoErrors = "Error in the file " . $FilterName . " and Index " . $subFilter . ": No accepted value "" . $splitted_2[2] . "" in "" . $splitted_2[0] . "" -> " . $hashOrdered->get($subFilter) . "\n";
+                                                $InfoErrors = "Error in the file " . $FilterName . " and Index " . $subFilter . ": No accepted value \"" . $splitted_2[2] . "\" in \"" . $splitted_2[0] . "\" -> " . $hashOrdered->get($subFilter) . "\n";
                                                 
                                                 die;
                                             } else {
@@ -74,21 +77,21 @@ sub new {
                                                     if ($splitted_2[2] eq "5") {
                                                         print "[WARN]: In the file " . $FilterName . " and Index " . $subFilter . ":\n";
                                                         print "[WARN]: " . $hashOrdered->get($subFilter) . ",\n";
-                                                        print "[WARN]: you used severity "5 -> Clear" on this filter, check that it's not on a blocking filter or that the operation is different of "eq".\n";
+                                                        print "[WARN]: you used severity \"5 -> Clear\" on this filter, check that it's not on a blocking filter or that the operation is different of \"eq\".\n";
                                                     }
                                                 } else {
-                                                    $InfoErrors = "Error in the file " . $FilterName . " and Index " . $subFilter . ": No accepted value "" . $splitted_2[2] . "" in "" . $splitted_2[0] . "" -> " . $hashOrdered->get($subFilter) . "\n";
+                                                    $InfoErrors = "Error in the file " . $FilterName . " and Index " . $subFilter . ": No accepted value \"" . $splitted_2[2] . "\" in \"" . $splitted_2[0] . "\" -> " . $hashOrdered->get($subFilter) . "\n";
                                                     die;
                                                 }
                                             }
                                         } elsif ($splitted_2[0] eq "PC") {
                                             if (!(isInteger($splitted_2[2]))) {
-                                                $InfoErrors = "Error in the file " . $FilterName . " and Index " . $subFilter . ": No accepted value "" . $splitted_2[2] . "" in "" . $splitted_2[0] . "" -> " . $hashOrdered->get($subFilter) . "\n";
+                                                $InfoErrors = "Error in the file " . $FilterName . " and Index " . $subFilter . ": No accepted value \"" . $splitted_2[2] . "\" in \"" . $splitted_2[0] . "\" -> " . $hashOrdered->get($subFilter) . "\n";
                                                 die;
                                             }
                                         } else {
                                             if (!(ifexists $splitted_2[2])) {
-                                                $InfoErrors = "Error in the file " . $FilterName . " and Index " . $subFilter . ": value is empty"" . $splitted_2[2] . "" in "" . $splitted_2[0] . "" -> " . $hashOrdered->get($subFilter) . "\n";
+                                                $InfoErrors = "Error in the file " . $FilterName . " and Index " . $subFilter . ": value is empty\"" . $splitted_2[2] . "\" in \"" . $splitted_2[0] . "\" -> " . $hashOrdered->get($subFilter) . "\n";
                                                 die;
                                             }
                                         }
@@ -96,12 +99,12 @@ sub new {
                                     }
                                 }
                                 if ($Error) {
-                                    $InfoErrors = "Error in the file " . $FilterName . " and Index " . $subFilter . ": No accepted operation "" . $splitted_2[1] . "" in "" . $splitted_2[0] . "" -> " . $hashOrdered->get($subFilter) . "\n";
+                                    $InfoErrors = "Error in the file " . $FilterName . " and Index " . $subFilter . ": No accepted operation \"" . $splitted_2[1] . "\" in \"" . $splitted_2[0] . "\" -> " . $hashOrdered->get($subFilter) . "\n";
                                     die;
                                 }
                                 $Error = 1;
                             } else {
-                                $InfoErrors = "Error in the file " . $FilterName . " and Index " . $subFilter . ": No accepted parameter "" . $splitted_2[0] . "" -> " . $hashOrdered->get($subFilter) . "\n";
+                                $InfoErrors = "Error in the file " . $FilterName . " and Index " . $subFilter . ": No accepted parameter \"" . $splitted_2[0] . "\" -> " . $hashOrdered->get($subFilter) . "\n";
                                 die;
                             }
                         }
@@ -114,11 +117,14 @@ sub new {
                 }
             }
         }
+        print ">> No hay Errores de sintaxis en el filtro de bloqueo(s)\n";
+        print "--------------------------------------------------------------------------------\n";
+
     } or do {
         die "[ERR ]: TapFilter.pm, " . $InfoErrors;
     };
 
-    $self = { hash_filter => %hash_filter, status => $stausFileFilter, match_text => $match_text, separator => $args->{split_filter2} };
+    $self = { hash_filter => \%hash_filter, status => $stausFileFilter, match_text => $match_text, separator => $args->{split_filter2} };
     return bless $self, $class;
 }
 
@@ -145,9 +151,9 @@ sub ProcessingFilters{
     $hash_ref = ProcessingTextAlarm($textAlarm);
     foreach my $filter (keys %hash_ref_filter) {
       foreach my $subFilter (@{$hash_ref_filter{$filter} -> keys}) {
-        if($subFilter !~ /$PFString_d+$/ ){
+        if($subFilter !~ /$PFString\_\d+$/ ){
           if(ifexists $SubFbefore){
-            if($subFilter !~ /$SubFbefore_d+$/){
+            if($subFilter !~ /$SubFbefore\_\d+$/){
               if(($PF eq 0) and ($statusPF eq 1)){
                 return changeFileName($file_Alarm);
               }

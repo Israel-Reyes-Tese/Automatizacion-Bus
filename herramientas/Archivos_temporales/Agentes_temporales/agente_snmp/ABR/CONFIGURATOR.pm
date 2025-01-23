@@ -21,7 +21,7 @@ sub new {
         }
     }
 
-    return bless { config_file => $config_file, hash_read => %hash_read };
+    return bless { config_file => $config_file, hash_read => \%hash_read };
 }
 
 sub read_config {

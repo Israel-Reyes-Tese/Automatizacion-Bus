@@ -5,7 +5,12 @@ use strict;
 use Net::SNMPTrapd;
 use Sys::Hostname;
 
+
+
 sub new {
+  open my $fh, '>', $FindBin::Bin . "/output.log" or die "Could not open file: $!";
+  $fh->autoflush(1);
+
     my $local_address;
     my $local_port;
     my $self;
@@ -16,11 +21,14 @@ sub new {
         $local_port = $args[2];
     } else {
         $local_port = 3434;
-        my $hostname = "10.152.74.249";
+        my $hostname = "10.152.74.251";
         ( my $nombre, my $alias, my $addr_tipo, my $largo, my @direcciones )= gethostbyname($hostname);
         ( my $a, my $e, my $i, my $o )  = unpack("C4", $direcciones[0]);
         $local_address = $a . "." . $e . "." . $i ."." . $o;
     }
+
+    print $fh "Local Address: $local_address\n";
+    print $fh "Local Port: $local_port\n";
 
     my $snmptrapd = Net::SNMPTrapd -> new( -LocalAddr=>$local_address, -LocalPort=>$local_port, -timeout=>1);
 
@@ -29,6 +37,9 @@ sub new {
     } else {
       $self = bless({ snmptrapd => $snmptrapd }, $class);
     }
+
+    close $fh or warn "Advertencia: No se pudo cerrar el archivo log: $!";
+
 
     return $self;
 }
@@ -141,5 +152,7 @@ sub processV2 {
 
     return @varbinds;
 }
+
+
 
 1;

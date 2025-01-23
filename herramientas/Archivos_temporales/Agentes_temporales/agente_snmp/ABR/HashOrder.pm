@@ -34,7 +34,7 @@ sub new {
     }
   }
 
-  $self = {hash_ref => %hash, array_ref => \@array};
+  $self = {hash_ref => \%hash, array_ref => \@array};
   return bless $self,$class;
 }
 

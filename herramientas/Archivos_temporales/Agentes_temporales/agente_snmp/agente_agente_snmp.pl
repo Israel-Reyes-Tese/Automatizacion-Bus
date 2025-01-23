@@ -31,11 +31,14 @@ my $message;
 my $trap_ref;
 my $rtrn;
 
+open my $fh, '>', $FindBin::Bin . "/output.log" or die "Could not open file: $!";
+$fh->autoflush(1);
+
 FuncInfo(\@ARGV,$FindBin::Bin);
 
-for (keys(\%{$hash_ref})){
-  $hashOrdered = \$$hash_ref{$_};
-  for my $key (\@{$hashOrdered -> keys}){
+for (keys(%{$hash_ref})){
+  $hashOrdered = $$hash_ref{$_};
+  for my $key (@{$hashOrdered -> keys}){
     my $value = $hashOrdered -> get($key);
     if ($value =~ /CONF\/MAP.+/) {
       if(FileExists($FindBin::Bin . "/" . $value) && FileIsEmpty($FindBin::Bin . "/" . $value)){
@@ -43,8 +46,8 @@ for (keys(\%{$hash_ref})){
         if(ifexists($hash_ref -> {$key})){
           $maps .= "$key,";
           $abstract_global_hash .= "\n > MAPA EXTERNO \t'$key'";
-          for (\@{$\$hash_ref{$key} -> keys}){
-            print $fh "\n   > KEY: '$_'    VALUE:    '" . \$$hash_ref{$key} -> get($_) . "'";
+          for (@{$$hash_ref{$key} -> keys}){
+            print $fh "\n   > KEY: '$_'    VALUE:    '" . $$hash_ref{$key} -> get($_) . "'";
           }
         } else {
           $warning .= "\nThe file '$FindBin::Bin/$value' with key '$key' is empty and generate an empty hash. The key '$key' will be removed from the hash";
@@ -57,8 +60,8 @@ for (keys(\%{$hash_ref})){
         if(ifexists($hash_ref -> {$key})){
           $bFilters .= "$key,";
           $abstract_global_hash .= "\n > FILTRO DE BLOQUEO \t'$key'";
-          for (\@{$\$hash_ref{$key} -> keys}){
-            print $fh "\n   > KEY: '$_'    VALUE:    '" . \$$hash_ref{$key} -> get($_) . "'";
+          for (@{$$hash_ref{$key} -> keys}){
+            print $fh "\n   > KEY: '$_'    VALUE:    '" . $$hash_ref{$key} -> get($_) . "'";
           }
         } else {
           $warning .= "\nThe file '$FindBin::Bin/$value' with key '$key' is empty and generate an empty hash. The key '$key' will be removed from the hash";
@@ -71,8 +74,8 @@ for (keys(\%{$hash_ref})){
         if(ifexists($hash_ref -> {$key})){
           $cFilters .= "$key,";
           $abstract_global_hash .= "\n > FILTRO CORRECTIVO \t'$key'";
-          for (\@{$\$hash_ref{$key} -> keys}){
-            print $fh "\n   > KEY: '$_'    VALUE:    '" . \$$hash_ref{$key} -> get($_) . "'";
+          for (@{$$hash_ref{$key} -> keys}){
+            print $fh "\n   > KEY: '$_'    VALUE:    '" . $$hash_ref{$key} -> get($_) . "'";
           }
         } else {
           $warning .= "\nThe file '$FindBin::Bin/$value' with key '$key' is empty and generate an empty hash. The key '$key' will be removed from the hash";
@@ -88,10 +91,13 @@ for (keys(\%{$hash_ref})){
   chop($maps);
 }
 
+print $fh "########################## RESUMEN DE DATOS DEL AGENTE ########################## \n";
+print $fh "\n\nNOMBRE DEL AGENTE: ". $hashOrdered -> get('agt') ."\n";
+
 my $host = $hashOrdered -> get('host');
 my $port = $hashOrdered -> get('port');
 my $glustDir = "/mnt/umplogic/" . $hashOrdered -> get('agt');
-my $auxDir = "/tmp/gestor_200";
+my $auxDir =  "/mnt/umpemergency/" . $hashOrdered -> get('agt');
 
 my $trapd = ABR::SNMPAgente->new(
   $host, $port
@@ -100,6 +106,9 @@ my $fhandler = ABR::FILE_HANDLER->new(
   gluster_dir =>   $glustDir,
   auxiliary_dir => $auxDir
 );
+
+print $fh "EL DIRECTORIO GLUSTER ESTA EN: $glustDir\n";
+print $fh "EL DIRECTORIO AUXILIARY ESTA EN: $auxDir\n";
 
 if(ifexists($maps))    { print $fh "LOS EXTERNAL MAPS SON: $maps\n";}
 if(ifexists($bFilters)){ print $fh "LOS BLOCKING FILTERS SON: $bFilters\n";}
@@ -113,7 +122,10 @@ if(ifexists($warning)){
     }
   }
 }
+##################################### Tap Filters #####################################
 
+print $fh "LOS FILTROS DE BLOQUEO SON: $bFilters\n";
+print $fh "LOS FILTROS CORRECTIVOS SON: $cFilters\n";
 my $filter = ABR::TapFilter -> new(
   hash_ref      => \%$hash_ref,
   config_index  => "$bFilters",
@@ -141,6 +153,10 @@ while (1) {
     $fhandler->dummy_write();
   }
 }
+
+
+  close $fh or warn "Advertencia: No se pudo cerrar el archivo log: $!";
+
 
 sub FileExists{
   my $file = shift;
@@ -176,7 +192,7 @@ sub FuncInfo{
   my $path    = shift;
   my @files   = ("TapFilter.pm","CorrectiveFilter.pm","HashOrder.pm","SNMPAgente.pm","Parser_aux.pm","MICROTIME.pm","LogsFile.pm","llenaComun.pm","FILE_HANDLER.pm");
   my $command = "";
-  foreach(\@{$input}){
+  foreach(@{$input}){
     if(ifexists($_)){
       if($_ =~ /--version/){
         foreach my $f(@files){
@@ -184,7 +200,7 @@ sub FuncInfo{
             $command = `cat $path/ABR/$f | grep 'Version='`;
             chop($command);
             if(ifexists($command)){if($command =~ /#\s*(Version=.*)/i){print $fh "   -$f -> " . $1 . "\n";}}
-            else{print $fh "   -$f -> "is not define version"\n";}
+            else{print $fh "   -$f -> \"is not define version\"\n";}
           }
         }
         die;
