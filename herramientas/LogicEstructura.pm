@@ -37,7 +37,27 @@ use SNMP::MIB::Compiler;
 
 # Placeholder functions for card commands
 sub crear_codigo_principal {
+    my ($ventana_principal, $agente, $ruta_agente, $alarmas_principales, $alarmas_secundarias) = @_;
     # ...implementation...
+    my $ruta_agente_completa = File::Spec->catfile($ruta_agente, $agente);
+    
+    # Validar si el nombre del agente se repite en la ruta completa
+    if ($ruta_agente_completa =~ /$agente.*$agente/) {
+        $ruta_agente_completa =~ s/\\$agente//;
+    }
+    
+    unless (-d $ruta_agente_completa) {
+        my $entry_ruta_agente = herramientas::Complementos::register_directory($ventana_principal, 'Selecciona la ruta donde se creara el agente', "Buscar");
+        $ruta_agente_completa = File::Spec->catfile($entry_ruta_agente, $agente);
+        unless (-d $ruta_agente_completa) {
+            herramientas::Complementos::show_alert($ventana_principal, 'ERROR', 'La ruta del agente no existe', 'error');
+            return;
+        }
+        # Boton para guardar la ruta
+        
+
+    }
+
 }
 
 # Function to generate parser data
@@ -65,6 +85,12 @@ sub crear_codigo_parseador {
 
     
     my $ruta_agente_completa = File::Spec->catfile($ruta_agente, $agente);
+    
+    # Validar si el nombre del agente se repite en la ruta completa
+    if ($ruta_agente_completa =~ /$agente.*$agente/) {
+        $ruta_agente_completa =~ s/\\$agente//;
+    }
+
     unless (-d $ruta_agente_completa) {
         my $entry_ruta_agente = herramientas::Complementos::register_directory($ventana_principal, 'Selecciona la ruta donde se creara el agente', "Buscar");
         $ruta_agente_completa = File::Spec->catfile($entry_ruta_agente, $agente);
@@ -481,8 +507,12 @@ END_SUB
 
 sub crear_archivos_genericos {
     my ($ventana_principal, $agente ,$ruta_agente) = @_;
-    
+
     my $ruta_agente_completa = File::Spec->catfile($ruta_agente, $agente);
+    # Validar si el nombre del agente se repite en la ruta completa
+    if ($ruta_agente_completa =~ /$agente.*$agente/) {
+        $ruta_agente_completa =~ s/\\$agente//;
+    }
     my $ruta_agente_abr = File::Spec->catfile($ruta_agente_completa, 'ABR');
 
     unless (-d $ruta_agente_completa) {
@@ -521,11 +551,10 @@ sub crear_archivos_genericos {
     crear_configurator($ventana_principal, $agente, $ruta_agente_abr);
     crear_corrective_filter($ventana_principal, $agente, $ruta_agente_abr);
     crear_file_handler($ventana_principal, $agente, $ruta_agente_abr);
-    #create_hashorder($ventana_principal, $agente, $ruta_agente_abr);
+    create_hashorder($ventana_principal, $agente, $ruta_agente_abr);
     create_llenaComun($ventana_principal, $agente, $ruta_agente_abr);
     create_microtime($ventana_principal, $agente, $ruta_agente_abr);
     create_tapfilter($ventana_principal, $agente, $ruta_agente_abr);
-    # Add calls to other functions to create additional generic files here
     create_snmpagente($ventana_principal, $agente, $ruta_agente_abr, $data_extra);
 
 }
@@ -1154,71 +1183,133 @@ package ABR::HashOrder;
 use warnings;
 use strict;
 
-sub ifexists {
-    my \$variable = shift;
-    return defined \$variable && \$variable ne "";
+
+sub ifexists
+{
+ my \$variable = shift;
+ if (defined \$variable && \$variable ne ""){
+   return 1;
+ } else {
+   return 0;
+ }
 }
 
-
+# Constructor
 sub new {
-    my \$class = shift;
-    my \$args  = {\@_};
-    my \%hash;
-    my \@array;
+  my \$class = shift;
+  my \$args  = {\@_};
+  my \$self;
+  my \%hash;
+  my \@array;
 
-    if (ifexists(\$args)) {
-        if (ref(\$args) eq 'HASH') {
-            foreach my \$x (keys %{\$args}) {
-                push(\@array, \$x);
-                \$hash{\$x} = \$args->{\$x};
-            }
-        }
+  my \$type = "\$args";
+  if(ifexists(\$type)){
+    if(\$type =~ /HASH/i){
+      foreach my \$x(keys %{\$args}){
+        # print "args: " . \$x . " -> " . \$args -> {\$x} . "\\n";
+        # agregando al final del arreglo un elemento
+        push(\@array,\$x);
+        \$hash{\$x} = \$args -> {\$x};
+      }
     }
+  }
 
-    return bless { hash_ref => \%hash, array_ref => \@array }, \$class;
+  \$self = {hash_ref => \%hash, array_ref => \\\@array};
+  return bless \$self,\$class;
 }
 
-sub exists {
-    my (\$self, \$key) = \@_;
-    return ifexists(\$key) && ifexists(\$self->{hash_ref}{\$key});
+
+sub exists{
+  my \$self = shift;
+  my \$key  = shift;
+  if(ifexists(\$key)){
+    if(ifexists(\$self -> {hash_ref}{\$key})){
+      return 1;
+    }else{
+      return 0;
+    }
+  }else{
+    return 0;
+  }
 }
 
-sub delete {
-    my (\$self, \$key) = \@_;
-    return unless ifexists(\$key) && ifexists(\$self->{hash_ref}{\$key});
 
-    delete \$self->{hash_ref}{\$key};
-    my \$size_arr = \@{\$self->{array_ref}};
-    for (my \$var = 0; \$var < \$size_arr; \$var++) {
-        if (\$self->{array_ref}[\$var] eq \$key) {
-            splice(@{\$self->{array_ref}}, \$var, 1);
+sub delete{
+  my \$self     = shift;
+  my \$key      = shift;
+  my \$size_arr = 0;
+
+  if(ifexists(\$key)){
+    if(ifexists(\$self -> {hash_ref}{\$key})){
+      # Eliminando la llave del hash_ref
+      delete \$self -> {hash_ref}{\$key};
+
+      # Eliminando la llave del array_ref
+      \$size_arr = \@{\$self -> {array_ref}};
+      if(\$size_arr != 0){
+        for (my \$var = 0; \$var < \$size_arr; \$var++) {
+          # print "index: " . \$var . " -> " . \$self -> {array_ref}[\$var] . "\\n";
+          if(\$self -> {array_ref}[\$var] eq \$key ){
+            splice(\@{\$self -> {array_ref}},\$var,1);
             last;
+          }
         }
+      }
+
     }
+  }
+
 }
 
-sub get {
-    my (\$self, \$key) = \@_;
-    return ifexists(\$key) && ifexists(\$self->{hash_ref}{\$key}) ? \$self->{hash_ref}{\$key} : "";
-}
+sub get{
+  my \$self     = shift;
+  my \$key      = shift;
 
-sub set {
-    my (\$self, \$input1, \$input2) = \@_;
-    return unless ifexists(\$input1) && ifexists(\$input2);
-
-    push(@{\$self->{array_ref}}, \$input1);
-    \$self->{hash_ref}{\$input1} = \$input2;
-}
-
-sub keys {
-    my \$self = shift;
-    return \@{\$self->{array_ref}} if \@{\$self->{array_ref}};
+  if(ifexists(\$key)){
+    if(ifexists(\$self -> {hash_ref}{\$key})){
+      return \$self -> {hash_ref}{\$key};
+    }else{
+      return "";
+    }
+  }else{
     return "";
+  }
 }
 
-sub getSize {
-    my \$self = shift;
-    return scalar \@{\$self->{array_ref}};
+
+sub set{
+  my \$self     = shift;
+  my \$input1   = shift;
+  my \$input2   = shift;
+  my \$size_arr = 0;
+
+  if(ifexists(\$input1)){
+    if(ifexists(\$input2)){
+      push(\@{\$self -> {array_ref}},\$input1);
+      \$self -> {hash_ref}{\$input1} = \$input2;
+    }
+  }
+
+}
+
+sub keys{
+  my \$self   = shift;
+  my \$size   = 0;
+
+  \$size = \@{\$self -> {array_ref}};
+  if(\$size != 0){
+    return \$self -> {array_ref};
+  }
+
+  return "";
+}
+
+
+sub getSize{
+  my \$self   = shift;
+  my \$size   = 0;
+  \$size = \@{\$self -> {array_ref}};
+  return \$size;
 }
 
 1;
@@ -1228,6 +1319,8 @@ END_CODE
     herramientas::Complementos::show_alert($ventana_principal, 'EXITO', "Se creo correctamente el archivo $archivo_hashorder", 'success');
     return 1;
 }
+
+
 
 
 sub create_llenaComun {

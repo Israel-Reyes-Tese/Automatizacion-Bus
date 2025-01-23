@@ -113,7 +113,7 @@ sub _create_conf_files {
 sub _create_abr_files {
     my ($ruta_agente, $nombre_agente) = @_;
     my @archivos_abr = (
-        "${nombre_agente}TrapAlarm", "CONFIGURATOR.pm", "CorrectiveFilter.pm", "${nombre_agente}.pm",
+        "${nombre_agente}TrapAlarm", "CONFIGURATOR.pm", "CorrectiveFilter.pm", "HashOrder.pm", "${nombre_agente}.pm",
         "FILE_HANDLER.pm", "llenaComun.pm", "MICROTIME.pm", "Parser_aux.pm",
         "SNMPAgente.pm", "TapFilter.pm"
     );
