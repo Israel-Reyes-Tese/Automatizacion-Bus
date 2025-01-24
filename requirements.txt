@@ -7,3 +7,10 @@ Digest/MurmurHash.pm
 
 Log/Log4perl.pm
 # cpanm Log::Log4perl
+
+
+IPC/Run.pm
+# cpanm IPC::Run
+
+Proc/Background.pm
+# cpanm Proc::Background

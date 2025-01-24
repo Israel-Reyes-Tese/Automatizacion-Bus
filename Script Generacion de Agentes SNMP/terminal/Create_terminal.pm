@@ -7,6 +7,9 @@ use Tk::Text;
 use Tk::Pane;
 use Tk::FileSelect;
 
+use IPC::Run qw(run start finish);
+use Proc::Background;
+
 use FindBin;
 use lib $FindBin::Bin . "/../herramientas";
 use lib $FindBin::Bin . "/../../herramientas";  # Añadir la carpeta donde se encuentran los modulos
@@ -153,55 +156,42 @@ sub execute_local_agent {
     if (!$text_widget->isa('Tk::Text')) {
         die "Error: \$text_widget no es un widget de texto valido";
     }
+    eval {
 
-    # Ejecutar el comando en un proceso hijo
-    my $pid = fork();
-    if (not defined $pid) {
-        $logger->error("Error forking process: $!");
-        $text_widget->insert('end', "Error: $!\n");
-    } elsif ($pid == 0) {
-        # Proceso hijo
-        open my $out, '>', 'agent_output.log' or do {
-            $logger->error("Error opening log file: $!");
-            print "Error: $!\n";
-            exit 1;
-        };
-        open(STDOUT, '>&', $out);
-        open(STDERR, '>&', $out);
-        exec($command) or do {
-            $logger->error("Error executing command: $!");
-            print "Error: $!\n";
-            exit 1;
-        };
-    } else {
-        # Proceso padre
-        $logger->info("Started agent script with PID $pid");
-        $text_widget->insert('end', "Started agent script with PID $pid\n");
+        $text_widget->insert('end', "Ejecutando agente:\n");
+        $text_widget->see('end');
 
-        # Leer la salida del archivo de log y mostrarla en el widget de texto
-        my $log_file = 'agent_output.log';
-        my $repeater_id = $mw->repeat(1000, sub {
-            if (-e $log_file) {
-                open my $fh, '<', $log_file or do {
-                    $logger->error("Error opening log file: $!");
-                    $text_widget->insert('end', "Error: $!\n");
-                    return;
-                };
-                while (my $line = <$fh>) {
-                    $text_widget->insert('end', $line);
-                }
-                close $fh;
-                unlink $log_file;
-            }
-        });
+        # Ejecutar el script en un subproceso
+        my $process = Proc::Background->new("perl", 'agente_agente_snmp.pl');
+        my $pid = $process->pid;
 
-        # Terminar el proceso si hay un error o se cierra la ventana
-        $mw->bind('<Destroy>', sub {
-            kill 'TERM', $pid;
-            $mw->after_cancel($repeater_id);
-            $logger->info("Terminated agent script with PID $pid");
-        });
+        # Actualizar el log
+        $logger->info("Agente ejecutado con PID: $pid");
+
+        # Mostrar el PID al usuario
+        $text_widget->insert('end', "Agente ejecutado con éxito (PID: $pid).\n");
+        $text_widget->see('end');
+
+        # Opcional: Botón para detener el proceso
+        my $stop_button = $mw->Button(
+            -text => "Detener Agente",
+            -command => sub {
+                $process->terminate(); # Terminar el proceso
+                $text_widget->insert('end', "Agente detenido (PID: $pid).\n");
+                $text_widget->see('end');
+                $logger->info("Agente detenido (PID: $pid)");
+            },
+            -background => $herramientas::Estilos::button_color_snmp,
+            -foreground => $herramientas::Estilos::fg_button_color_snmp,
+            -font => $herramientas::Estilos::button_font_snmp
+        )->pack(-side => 'left', -padx => 5);
+    };
+    if ($@) {
+        $logger->error("Error ejecutando el agente local: $@");
+        $text_widget->insert('end', "Error ejecutando el agente local: $@\n");
+        $text_widget->see('end');
     }
+    
 }
 
 # Function to change execution directory
