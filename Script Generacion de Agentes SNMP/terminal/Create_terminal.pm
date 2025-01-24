@@ -3,6 +3,7 @@ package terminal::Create_terminal;
 use strict;
 use warnings;
 use Tk;
+use Tk::Text;
 use Tk::Pane;
 use Tk::FileSelect;
 
@@ -82,7 +83,7 @@ sub create_terminal_window {
         my $quick_actions_scroll = $quick_actions_frame->Scrolled('Frame', -scrollbars => 'x', -height => 50)->pack(-fill => 'x');
         my $execute_local_button = $quick_actions_scroll->Button(
             -text => 'Ejecutar Agente Local',
-            -command => sub { execute_local_agent($text_widget) },
+            -command => sub { execute_local_agent($text_widget, $mw) },
             -background => $herramientas::Estilos::button_color_snmp,
             -foreground => $herramientas::Estilos::fg_button_color_snmp,
             -font => $herramientas::Estilos::button_font_snmp
@@ -145,15 +146,61 @@ sub execute_entry_command {
 
 # Function to execute local agent
 sub execute_local_agent {
-    my ($text_widget) = @_;
-    my $command = 'path_to_local_agent_executable';  # Replace with actual command
-    eval {
-        my $output = execute_command($command);
-        $text_widget->insert('end', "$output\n");
-    };
-    if ($@) {
-        $logger->error("Error executing local agent: $@");
-        $text_widget->insert('end', "Error: $@\n");
+    my ($text_widget, $mw) = @_;  # Corrected parameter order
+    my $command = 'perl agente_agente_snmp.pl';  # Reemplaza con la ruta real del script del agente
+
+    # Verificar que $text_widget es un widget de texto
+    if (!$text_widget->isa('Tk::Text')) {
+        die "Error: \$text_widget no es un widget de texto valido";
+    }
+
+    # Ejecutar el comando en un proceso hijo
+    my $pid = fork();
+    if (not defined $pid) {
+        $logger->error("Error forking process: $!");
+        $text_widget->insert('end', "Error: $!\n");
+    } elsif ($pid == 0) {
+        # Proceso hijo
+        open my $out, '>', 'agent_output.log' or do {
+            $logger->error("Error opening log file: $!");
+            print "Error: $!\n";
+            exit 1;
+        };
+        open(STDOUT, '>&', $out);
+        open(STDERR, '>&', $out);
+        exec($command) or do {
+            $logger->error("Error executing command: $!");
+            print "Error: $!\n";
+            exit 1;
+        };
+    } else {
+        # Proceso padre
+        $logger->info("Started agent script with PID $pid");
+        $text_widget->insert('end', "Started agent script with PID $pid\n");
+
+        # Leer la salida del archivo de log y mostrarla en el widget de texto
+        my $log_file = 'agent_output.log';
+        my $repeater_id = $mw->repeat(1000, sub {
+            if (-e $log_file) {
+                open my $fh, '<', $log_file or do {
+                    $logger->error("Error opening log file: $!");
+                    $text_widget->insert('end', "Error: $!\n");
+                    return;
+                };
+                while (my $line = <$fh>) {
+                    $text_widget->insert('end', $line);
+                }
+                close $fh;
+                unlink $log_file;
+            }
+        });
+
+        # Terminar el proceso si hay un error o se cierra la ventana
+        $mw->bind('<Destroy>', sub {
+            kill 'TERM', $pid;
+            $mw->after_cancel($repeater_id);
+            $logger->info("Terminated agent script with PID $pid");
+        });
     }
 }
 

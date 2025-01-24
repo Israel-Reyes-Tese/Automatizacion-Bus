@@ -3,3 +3,7 @@ Net/SNMPTrapd.pm
 
 Digest/MurmurHash.pm 
 # cpanm Digest::MurmurHash
+
+
+Log/Log4perl.pm
+# cpanm Log::Log4perl
