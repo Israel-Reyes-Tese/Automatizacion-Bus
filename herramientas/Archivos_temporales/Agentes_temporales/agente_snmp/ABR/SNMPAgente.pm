@@ -8,8 +8,8 @@ use Sys::Hostname;
 
 
 sub new {
-  open my $fh, '>', $FindBin::Bin . "/output.log" or die "Could not open file: $!";
-  $fh->autoflush(1);
+    open my $fh, '>', $FindBin::Bin . "/output.log" or die "Could not open file: $!";
+    $fh->autoflush(1);
 
     my $local_address;
     my $local_port;
@@ -21,7 +21,7 @@ sub new {
         $local_port = $args[2];
     } else {
         $local_port = 3434;
-        my $hostname = "10.152.74.251";
+        my $hostname = "10.152.74.249";
         ( my $nombre, my $alias, my $addr_tipo, my $largo, my @direcciones )= gethostbyname($hostname);
         ( my $a, my $e, my $i, my $o )  = unpack("C4", $direcciones[0]);
         $local_address = $a . "." . $e . "." . $i ."." . $o;
@@ -39,7 +39,6 @@ sub new {
     }
 
     close $fh or warn "Advertencia: No se pudo cerrar el archivo log: $!";
-
 
     return $self;
 }

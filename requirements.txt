@@ -1,6 +1,9 @@
 Net/SNMPTrapd.pm 
 # cpanm Net::SNMPTrapd
 
+NetSNMP/agent.pm
+# cpanm NetSNMP/agent.pm  ???
+
 Digest/MurmurHash.pm 
 # cpanm Digest::MurmurHash
 

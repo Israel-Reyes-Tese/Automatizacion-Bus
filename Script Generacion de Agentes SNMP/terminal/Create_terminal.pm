@@ -91,13 +91,23 @@ sub create_terminal_window {
             -foreground => $herramientas::Estilos::fg_button_color_snmp,
             -font => $herramientas::Estilos::button_font_snmp
         )->pack(-side => 'left', -padx => 5);
+        my $create_alarm_example = $quick_actions_scroll->Button(
+            -text => 'Crear ejemplo de alarma',
+            -command => sub { create_alarm_example($mw, $text_widget) },
+            -background => $herramientas::Estilos::button_color_snmp,
+            -foreground => $herramientas::Estilos::fg_button_color_snmp,
+            -font => $herramientas::Estilos::button_font_snmp
+        )->pack(-side => 'left', -padx => 5);
+
         my $change_dir_button = $quick_actions_scroll->Button(
-            -text => 'Cambiar Directorio de Ejecución',
+            -text => 'Cambiar Directorio de Ejecucion',
             -command => sub { change_execution_directory($mw, $text_widget) },
             -background => $herramientas::Estilos::button_color_snmp,
             -foreground => $herramientas::Estilos::fg_button_color_snmp,
             -font => $herramientas::Estilos::button_font_snmp
         )->pack(-side => 'left', -padx => 5);
+
+
 
         # Execute initial commands
         foreach my $command (@$commands_ref) {
@@ -147,6 +157,105 @@ sub execute_entry_command {
     }
 }
 
+# Function to create an example alarm
+sub create_alarm_example {
+    my ($parent, $text_widget) = @_;
+    
+    eval {
+        # Obtener el directorio actual
+        my $current_dir = Cwd::getcwd();
+        $logger->info("Current directory: $current_dir");
+
+        # Leer el archivo AGENT.properties para obtener el nombre del agente
+        open my $fh, '<', 'AGENT.properties' or die "Cannot open AGENT.properties: $!";
+        my $agent_name;
+        my $agent_host;
+        my $agent_port;
+
+        while (my $line = <$fh>) {
+            if ($line =~ /^agt:=(\S+)/) {
+                $agent_name = $1;
+            } elsif ($line =~ /^host:=(\S+)/) {
+                $agent_host = $1;
+            } elsif ($line =~ /^port:=(\S+)/) {
+                $agent_port = $1;
+            }
+        }
+        print "Agent properties:\n";
+        print "-----------------\n";
+        print "Name: $agent_name\n";
+        print "Host: $agent_host\n";
+        print "Port: $agent_port\n";
+
+        close $fh;
+        die "Agent name not found in AGENT.properties" unless $agent_name;
+        $logger->info("Agent name: $agent_name");
+
+        # Leer el archivo del agente en la carpeta ABR
+        my $agent_file = "ABR/$agent_name.pm";
+        open my $afh, '<', $agent_file or die "Cannot open $agent_file: $!";
+        my %alarms;
+        my $current_alarm;
+        while (my $line = <$afh>) {
+            if ($line =~ /^# (\S+)/) {
+                $current_alarm = $1;
+            } elsif ($line =~ /^sub (_\S+)/) {
+                my $oid = $1;
+                $oid =~ s/_/./g;
+                $alarms{$current_alarm}{oid} = $oid;
+            } elsif ($line =~ /entrada->\{"(\S+)"\}/) {
+                my $entry = $1;
+                push @{$alarms{$current_alarm}{entries}}, $entry;
+                my $data_text = $line;
+                # Extraer data_text de la línea
+                if ($data_text =~ /\$dat_additional_text \.= "\\n(.*)=/) {
+                    my $description = $1;
+                    $description =~ s/^\s+|\s+$//g;  # Trim leading and trailing whitespace
+                    $description = "No data text found" unless $description;
+                    push @{$alarms{$current_alarm}{entry_descriptions}{$entry}}, $description;
+                }
+            } 
+        }
+        close $afh;
+        # Eliminar entradas duplicadas y registros innecesarios
+        foreach my $alarm (keys %alarms) {
+        # Remove 'IPADDR' and duplicates from entries
+        my %seen;
+        @{$alarms{$alarm}{entries}} = grep { $_ ne 'IPADDR' && !$seen{$_}++ } @{$alarms{$alarm}{entries}};
+        # Eliminar el primer punto del oid .1.3.6.1.4.1.193.183.4.2.0.10  a 1.3.6.1.4.1.193.183.4.2.0.10
+        $alarms{$alarm}{oid} =~ s/^\.//;
+
+        # Remove duplicates from entry_descriptions
+        foreach my $entry (keys %{$alarms{$alarm}{entry_descriptions}}) {
+            my %desc_seen;
+            @{$alarms{$alarm}{entry_descriptions}{$entry}} = grep { !$desc_seen{$_}++ } @{$alarms{$alarm}{entry_descriptions}{$entry}};
+            }
+        }
+
+        
+        foreach my $alarm (keys %alarms) {
+            my $oid = $alarms{$alarm}{oid};
+            my $base_command = "snmptrap -v 2c -c public $agent_host:$agent_port 0 $oid";
+            my $commands = "";
+
+            foreach my $entry (@{$alarms{$alarm}{entries}}) {
+                my $entry_oid = $entry;
+                my $entry_description = $alarms{$alarm}{entry_descriptions}{$entry}[0] // 'No description';
+                $commands .= " $entry_oid s \"valor $entry_description\"";
+            }
+
+            my $final_command = "$base_command $commands";
+            print "$final_command\n";
+        }
+
+
+    };
+    if ($@) {
+        $logger->error("Error in create_alarm_example: $@");
+        $text_widget->insert('end', "Error: $@\n");
+        $text_widget->see('end');
+    }
+}
 # Function to execute local agent
 sub execute_local_agent {
     my ($text_widget, $mw) = @_;  # Corrected parameter order

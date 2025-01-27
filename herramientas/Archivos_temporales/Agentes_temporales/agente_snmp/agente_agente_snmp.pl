@@ -91,8 +91,8 @@ for (keys(%{$hash_ref})){
   chop($maps);
 }
 
-print $fh "########################## RESUMEN DE DATOS DEL AGENTE ########################## \n";
-print $fh "\n\nNOMBRE DEL AGENTE: ". $hashOrdered -> get('agt') ."\n";
+#print $fh "########################## RESUMEN DE DATOS DEL AGENTE ########################## \n";
+#print $fh "\n\nNOMBRE DEL AGENTE: ". $hashOrdered -> get('agt') ."\n";
 
 my $host = $hashOrdered -> get('host');
 my $port = $hashOrdered -> get('port');
