@@ -8,6 +8,7 @@ use warnings;
 use Tk;
 use Tk::Pane;
 use Tk::FileSelect;
+use Tk::JcomboBox;
 
 use FindBin;
 use lib $FindBin::Bin . "/../herramientas";
@@ -26,10 +27,9 @@ use Rutas;
 use Logic;
 use LogicMIB;
 use LogicEstructura;
+use LogicEstructuraLegacy;
 use Validaciones;
-
 use Create_terminal;
-
 use Data::Dumper; # Importar el modulo Data::Dumper
 
 
@@ -90,14 +90,66 @@ sub crear_panel_scrolleable {
     my $scroll_frame = $parent->Frame(-background => $herramientas::Estilos::bg_color)->pack(-side => 'top', -fill => 'both', -expand => 1);
     my $scroll = $scroll_frame->Scrolled('Pane', -scrollbars => 'osoe', -bg => $herramientas::Estilos::bg_color)->pack(-side => 'top', -fill => 'both', -expand => 1);
 
-    my $comando_ejecutar_local_agente = "perl $ruta_agente_ruta/$agente.pl";
+    my $legacy = 1;
+    my $implementacion;
+    my $impresiones_logs = 1;
+    # Checkbutton para la opcion legacy 
+    my $checkbutton_legacy = $parent->Checkbutton(
+        -text => 'Legacy',
+        -background => $herramientas::Estilos::bg_color,
+        -foreground => $herramientas::Estilos::fg_color,
+        -font => $herramientas::Estilos::label_font,
+        -variable => \$legacy,
+    )->pack(-side => 'top', -padx => 10, -pady => 5);
+    # Checkbutton para la opcion impresiones_logs
+    my $checkbutton_logs = $parent->Checkbutton(
+        -text => 'Impresiones Logs',
+        -background => $herramientas::Estilos::bg_color,
+        -foreground => $herramientas::Estilos::fg_color,
+        -font => $herramientas::Estilos::label_font,
+        -variable => \$impresiones_logs,
+    )->pack(-side => 'top', -padx => 10, -pady => 5);
+    # ComboBox para la opcion local windows o local linux
+    my @opciones = ('Local Windows', 'Local Linux', 'Desarrollo');
+    $implementacion = 'Local Windows';
+    my $combobox = $parent->JComboBox(
+        -choices => \@opciones,
+        -background => $herramientas::Estilos::bg_color,
+        -foreground => $herramientas::Estilos::fg_color,
+        -font => $herramientas::Estilos::label_font,
+        -textvariable  => \$implementacion,
+    )->pack(-side => 'top', -padx => 10, -pady => 5);
 
+    my $comando_ejecutar_local_agente = "perl $ruta_agente_ruta/$agente.pl";
     # Create cards
     my @cards = (
-        { title => 'Crear Codigo Principal', button_text => 'Ejecutar', command => sub { LogicEstructura::crear_codigo_principal($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias) } },
-        { title => 'Crear Codigo Parseador', button_text => 'Ejecutar', command => sub { LogicEstructura::crear_codigo_parseador($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias) } },
-        { title => 'Crear Archivo de Subrutinas', button_text => 'Ejecutar', command => sub { LogicEstructura::crear_archivo_subrutinas($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias) } },
-        { title => 'Crear Archivos Genericos', button_text => 'Ejecutar', command => sub { LogicEstructura::crear_archivos_genericos($parent, $agente, $ruta_agente_ruta) } },
+        { title => 'Crear Codigo Principal', button_text => 'Ejecutar', command => sub {if ($legacy){
+            LogicEstructuraLegacy::crear_codigo_principal($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias, $implementacion, $impresiones_logs)
+        } else {
+            LogicEstructura::crear_codigo_principal($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias, $implementacion, $impresiones_logs)
+        }
+            }, },
+        { title => 'Crear Codigo Parseador', button_text => 'Ejecutar', command => sub {
+            if ($legacy) {
+                LogicEstructuraLegacy::crear_codigo_parseador($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias);
+            } else {
+                LogicEstructura::crear_codigo_parseador($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias);
+            }
+            }, },
+        { title => 'Crear Archivo de Subrutinas', button_text => 'Ejecutar', command => sub {
+            if ($legacy) {
+                LogicEstructuraLegacy::crear_archivo_subrutinas($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias);
+            } else {
+                LogicEstructura::crear_archivo_subrutinas($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias);
+            }
+            }, },
+        { title => 'Crear Archivos Genericos', button_text => 'Ejecutar', command => sub {
+            if ($legacy) {
+                LogicEstructuraLegacy::crear_archivos_genericos($parent, $agente, $ruta_agente_ruta);
+            } else {
+                LogicEstructura::crear_archivos_genericos($parent, $agente, $ruta_agente_ruta);
+            }
+            }, },
     );
 
     foreach my $card (@cards) {
@@ -144,6 +196,7 @@ sub crear_panel_scrolleable {
         -activebackground => $herramientas::Estilos::activebackground_button_color_snmp,
         -activeforeground => $herramientas::Estilos::activeforeground_button_color_snmp
     )->pack(-side => 'right', -padx => 10, -pady => 5);
+
 
 }
 

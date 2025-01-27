@@ -17,3 +17,10 @@ IPC/Run.pm
 
 Proc/Background.pm
 # cpanm Proc::Background
+
+Tk/JComboBox.pm
+# cpanm Tk::JComboBox
+
+
+Log/Dispatch/File.pm
+# cpanm Log::Dispatch
