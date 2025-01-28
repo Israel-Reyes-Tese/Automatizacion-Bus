@@ -131,23 +131,23 @@ sub crear_panel_scrolleable {
             }, },
         { title => 'Crear Codigo Parseador', button_text => 'Ejecutar', command => sub {
             if ($legacy) {
-                LogicEstructuraLegacy::crear_codigo_parseador($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias);
+                LogicEstructuraLegacy::crear_codigo_parseador($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias, $implementacion, $impresiones_logs);
             } else {
-                LogicEstructura::crear_codigo_parseador($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias);
+                LogicEstructura::crear_codigo_parseador($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias, $implementacion, $impresiones_logs);
             }
             }, },
         { title => 'Crear Archivo de Subrutinas', button_text => 'Ejecutar', command => sub {
             if ($legacy) {
-                LogicEstructuraLegacy::crear_archivo_subrutinas($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias);
+                LogicEstructuraLegacy::crear_archivo_subrutinas($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias, $implementacion, $impresiones_logs);
             } else {
-                LogicEstructura::crear_archivo_subrutinas($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias);
+                LogicEstructura::crear_archivo_subrutinas($parent, $agente, $ruta_agente_ruta, $alarmas_principales, $alarmas_secundarias, $implementacion, $impresiones_logs);
             }
             }, },
         { title => 'Crear Archivos Genericos', button_text => 'Ejecutar', command => sub {
             if ($legacy) {
-                LogicEstructuraLegacy::crear_archivos_genericos($parent, $agente, $ruta_agente_ruta);
+                LogicEstructuraLegacy::crear_archivos_genericos($parent, $agente, $ruta_agente_ruta, $implementacion, $impresiones_logs);
             } else {
-                LogicEstructura::crear_archivos_genericos($parent, $agente, $ruta_agente_ruta);
+                LogicEstructura::crear_archivos_genericos($parent, $agente, $ruta_agente_ruta, $implementacion, $impresiones_logs);
             }
             }, },
     );

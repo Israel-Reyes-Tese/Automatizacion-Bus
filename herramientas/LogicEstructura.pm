@@ -372,7 +372,7 @@ sub new {
     my \$class = shift;
     my \$self;
     my \$mensaje_x733;
-    my %find_hash;
+    my \%find_hash;
 
     \%find_hash = (
 END_CODE
