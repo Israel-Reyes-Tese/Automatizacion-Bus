@@ -1,7 +1,6 @@
 package ABR::CONFIGURATOR;
 # Version=6.0
 use ABR::HashOrder;
-
 use warnings;
 use strict;
 
@@ -11,9 +10,7 @@ my $class = shift;
 my $args;
 my $config_file;
 my %hash_read;
-
     $args = {@_};
-
     for(keys(%{$args}))
     {
         if ($_ eq "config_file") {
@@ -34,13 +31,10 @@ my $config_file = $self -> {config_file};
 my $config_ref  = $self -> {hash_read};
 my $hashOrdered = ABR::HashOrder -> new();
 my @splitted;
-
     open(FILEH, "<", $config_file) or die "> [ERROR]: CONFIGURATOR.pm, Could not open the configuration file: " . $config_file . "\n";
-
     while (my $line = <FILEH>)
     {
         chomp($line);
-
         if($line !~ /^\s*$/ and $line !~ /^#/)
         {
             @splitted = split(":=", $line);
@@ -52,10 +46,8 @@ my @splitted;
             $config_ref -> {"GLOBAL"} = $hashOrdered;
         }
     }
-
     return $config_ref;
 }
-
 
 sub read_map
 {
@@ -68,23 +60,17 @@ my $hashOrdered = ABR::HashOrder -> new();
 my @splitted;
     if(!($config_file)){
       print "> [ERROR]: CONFIGURATOR.pm, Verify configuration file: AGENT.properties\n";
-
       print "> [ERROR]: CONFIGURATOR.pm, Maybe some of the indexes used are not well written in your *.pl or AGENT.properties file\n";
-
       for my $k($hash_ref -> {"GLOBAL"} -> keys){
         print "> [ERROR]: CONFIGURATOR.pm, index -> $k\n";
 
       }
-
-
       die "> [ERROR]: CONFIGURATOR.pm, Could not open the configuration file\n";
     }
     open(FILEH, "<", $config_file) or die "> [ERROR]: CONFIGURATOR.pm, Could not open the configuration file: " . $config_file . "\n";
-
     while (my $line = <FILEH>)
     {
         chomp($line);
-
         if($line !~ /^\s*$/ and $line !~ /^#/)
         {
             @splitted = split($sep, $line);

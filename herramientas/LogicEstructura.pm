@@ -133,7 +133,7 @@ for (keys(\%{\$hash_ref})){
         \$hash_ref = \$configurator -> read_map("\$key",'\\s*->\\s*',\$FindBin::Bin . "/" . \$hashOrdered -> get("\$key"));
         if(ifexists(\$hash_ref -> {\$key})){
           \$bFilters .= "\$key,";
-          \$abstract_global_hash .= "\\n > FILTRO DE BLOQUEO \\t'\$key'";
+          \$abstract_global_hash .= "\\n > FILT RO DE BLOQUEO \\t'\$key'";
           for (\@{\$\$hash_ref{\$key} -> keys}){
             print \$fh "\\n   > KEY: '\$_'    VALUE:    '" . \$\$hash_ref{\$key} -> get(\$_) . "'";
           }
@@ -372,7 +372,7 @@ sub new {
     my \$class = shift;
     my \$self;
     my \$mensaje_x733;
-    my \%find_hash;
+    my %find_hash;
 
     \%find_hash = (
 END_CODE

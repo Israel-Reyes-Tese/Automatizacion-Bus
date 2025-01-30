@@ -3,7 +3,6 @@ package ABR::HashOrder;
 use warnings;
 use strict;
 
-
 sub ifexists
 {
  my $variable = shift;
@@ -38,12 +37,13 @@ sub new {
   return bless $self,$class;
 }
 
-
 sub exists{
   my $self = shift;
   my $key  = shift;
+
   if(ifexists($key)){
     if(ifexists($self -> {hash_ref}{$key})){
+      # print "funcion existe: " . $self -> {hash_ref} -> {$key} . "\n";
       return 1;
     }else{
       return 0;
@@ -52,7 +52,6 @@ sub exists{
     return 0;
   }
 }
-
 
 sub delete{
   my $self     = shift;
@@ -75,10 +74,8 @@ sub delete{
           }
         }
       }
-
     }
   }
-
 }
 
 sub get{
@@ -96,7 +93,6 @@ sub get{
   }
 }
 
-
 sub set{
   my $self     = shift;
   my $input1   = shift;
@@ -109,7 +105,6 @@ sub set{
       $self -> {hash_ref}{$input1} = $input2;
     }
   }
-
 }
 
 sub keys{
@@ -123,7 +118,6 @@ sub keys{
 
   return "";
 }
-
 
 sub getSize{
   my $self   = shift;
