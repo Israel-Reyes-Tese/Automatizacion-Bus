@@ -132,9 +132,50 @@ sub _create_abr_files {
     }
 }
 
+# Función para crear un archivo con terminaciones de línea UNIX (LF)
+sub crear_archivo_unix {
+    my $nombre_archivo = 'archivo_unix.txt';
+    # Ejemplo de uso
+    my @contenido = (
+        "Esta es la primera línea.",
+        "Esta es la segunda línea.",
+        "Esta es la tercera línea."
+    );
+    # Abre el archivo en modo de escritura
+    open(my $fh, '>', $nombre_archivo) or die "No se pudo abrir el archivo '$nombre_archivo' $!";
+
+    # Escribe el contenido en el archivo con terminaciones de línea UNIX (LF)
+    foreach my $linea (@contenido) {
+        print $fh $linea . "\n";
+    }
+    # Cierra el archivo
+    close($fh);
+    print "Archivo '$nombre_archivo' creado con éxito.\n";
+}
+
+
 # Function to transform DOS file to UNIX format
 sub transformar_archivos_unix {
-    my ($parent, $ruta_agente, $agente,  $archivo) = @_;
+    my ($parent, $ruta_agente, $agente, $archivo) = @_;
+
+    my $nombre_archivo = 'archivo_unix.txt';
+    # Ejemplo de uso
+    my @contenido = (
+        "Esta es la primera línea.",
+        "Esta es la segunda línea.",
+        "Esta es la tercera línea."
+    );
+    # Abre el archivo en modo de escritura
+    open(my $fh, '>', $nombre_archivo) or die "No se pudo abrir el archivo '$nombre_archivo' $!";
+
+    # Escribe el contenido en el archivo con terminaciones de línea UNIX (LF)
+    foreach my $linea (@contenido) {
+        print $fh $linea . "\n";
+    }
+    # Cierra el archivo
+    close($fh);
+    print "Archivo '$nombre_archivo' creado con éxito.\n";
+
 
     my $ruta_agente_completa = File::Spec->catfile($ruta_agente, $agente);
     # Validar si el nombre del agente se repite en la ruta completa
@@ -154,18 +195,50 @@ sub transformar_archivos_unix {
         return;
     }
 
-    # Transform the file from DOS to UNIX format
+    # Transform the file to UNIX format
     eval {
         open my $in, '<', $ruta_archivo or die "Error al abrir $ruta_archivo: $!";
         my @lines = <$in>;
         close $in;
 
+        my $original_format = 'UNIX (LF)';
+        foreach my $line (@lines) {
+            if ($line =~ /\r\n$/) {
+                $original_format = 'Windows (CR LF)';
+                last;
+            } elsif ($line =~ /\r$/) {
+                $original_format = 'Mac (CR)';
+                last;
+            }
+        }
+
         open my $out, '>', $ruta_archivo or die "Error al abrir $ruta_archivo para escritura: $!";
         foreach my $line (@lines) {
-            $line =~ s/\r\n/\n/;  # Replace DOS line endings with UNIX line endings
+            $line =~ s/\r\n/\n/g;  # Replace DOS line endings with UNIX line endings
+            $line =~ s/\r/\n/g;    # Replace Mac line endings with UNIX line endings
             print $out $line;
         }
         close $out;
+
+        # Verify the conversion
+        open my $verify, '<', $ruta_archivo or die "Error al abrir $ruta_archivo para verificacion: $!";
+        my $converted_format = 'UNIX (LF)';
+        while (my $line = <$verify>) {
+            if ($line =~ /\r\n$/) {
+                $converted_format = 'Windows (CR LF)';
+                last;
+            } elsif ($line =~ /\r$/) {
+                $converted_format = 'Mac (CR)';
+                last;
+            }
+        }
+        close $verify;
+
+        if ($converted_format ne 'UNIX (LF)') {
+            die "La conversion no fue exitosa. El archivo sigue en formato: $converted_format";
+        }
+
+        herramientas::Complementos::show_alert($parent, 'INFO', "El archivo estaba originalmente en formato: $original_format", 'info');
     };
     if ($@) {
         herramientas::Complementos::show_alert($parent, 'ERROR', "Error al transformar el archivo: $@", 'error');
@@ -173,6 +246,66 @@ sub transformar_archivos_unix {
     }
 
     herramientas::Complementos::show_alert($parent, 'EXITO', "Se creo correctamente el archivo $archivo", 'success');
+}
+
+# Function to create a new UNIX format file
+sub crear_archivo_unix {
+    my ($parent, $ruta_agente, $agente, $archivo) = @_;
+
+    my $ruta_agente_completa = File::Spec->catfile($ruta_agente, $agente);
+    # Validar si el nombre del agente se repite en la ruta completa
+    if ($ruta_agente_completa =~ /$agente.*$agente/) {
+        $ruta_agente_completa =~ s/\\$agente//;
+    }
+
+    # Validate that the directory exists
+    unless ($ruta_agente_completa && -d $ruta_agente_completa) {
+        herramientas::Complementos::show_alert($parent, 'Advertencia', "No se selecciono una empresa", 'warning');
+        return;
+    }
+
+    my $ruta_archivo = File::Spec->catfile($ruta_agente_completa, $archivo);
+    unless (-e $ruta_archivo) {
+        herramientas::Complementos::show_alert($parent, 'ERROR', "El archivo no existe: $ruta_archivo", 'error');
+        return;
+    }
+
+    # Create a new file in UNIX format
+    eval {
+        open my $in, '<', $ruta_archivo or die "Error al abrir $ruta_archivo: $!";
+        my @lines = <$in>;
+        close $in;
+
+        my $nuevo_archivo = $ruta_archivo . "_unix";
+        open my $out, '>', $nuevo_archivo or die "Error al abrir $nuevo_archivo para escritura: $!";
+        foreach my $line (@lines) {
+            $line =~ s/\r\n/\n/g;  # Replace DOS line endings with UNIX line endings
+            $line =~ s/\r/\n/g;    # Replace Mac line endings with UNIX line endings
+            print $out $line;
+        }
+        close $out;
+
+        # Validate the new file format
+        open my $validate, '<', $nuevo_archivo or die "Error al abrir $nuevo_archivo para validación: $!";
+        my $is_unix_format = 1;
+        while (my $line = <$validate>) {
+            if ($line =~ /\r/ || $line =~ /\r\n/) {
+                $is_unix_format = 0;
+                last;
+            }
+        }
+        close $validate;
+
+        if ($is_unix_format) {
+            herramientas::Complementos::show_alert($parent, 'EXITO', "Se creo correctamente el archivo $nuevo_archivo en formato UNIX", 'success');
+        } else {
+            herramientas::Complementos::show_alert($parent, 'ERROR', "El archivo $nuevo_archivo no está en formato UNIX", 'error');
+        }
+    };
+    if ($@) {
+        herramientas::Complementos::show_alert($parent, 'ERROR', "Error al crear el archivo: $@", 'error');
+        return;
+    }
 }
 
 # Function to destroy the last child if it contains the property -scrollbars => 'osoe'
