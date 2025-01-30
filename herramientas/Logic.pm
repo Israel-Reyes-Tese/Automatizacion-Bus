@@ -132,6 +132,49 @@ sub _create_abr_files {
     }
 }
 
+# Function to transform DOS file to UNIX format
+sub transformar_archivos_unix {
+    my ($parent, $ruta_agente, $agente,  $archivo) = @_;
+
+    my $ruta_agente_completa = File::Spec->catfile($ruta_agente, $agente);
+    # Validar si el nombre del agente se repite en la ruta completa
+    if ($ruta_agente_completa =~ /$agente.*$agente/) {
+        $ruta_agente_completa =~ s/\\$agente//;
+    }
+
+    # Validate that the directory and file exist
+    unless ($ruta_agente_completa && -d $ruta_agente_completa) {
+        herramientas::Complementos::show_alert($parent, 'Advertencia', "No se selecciono una empresa", 'warning');
+        return;
+    }
+
+    my $ruta_archivo = File::Spec->catfile($ruta_agente_completa, $archivo);
+    unless (-e $ruta_archivo) {
+        herramientas::Complementos::show_alert($parent, 'ERROR', "El archivo no existe: $ruta_archivo", 'error');
+        return;
+    }
+
+    # Transform the file from DOS to UNIX format
+    eval {
+        open my $in, '<', $ruta_archivo or die "Error al abrir $ruta_archivo: $!";
+        my @lines = <$in>;
+        close $in;
+
+        open my $out, '>', $ruta_archivo or die "Error al abrir $ruta_archivo para escritura: $!";
+        foreach my $line (@lines) {
+            $line =~ s/\r\n/\n/;  # Replace DOS line endings with UNIX line endings
+            print $out $line;
+        }
+        close $out;
+    };
+    if ($@) {
+        herramientas::Complementos::show_alert($parent, 'ERROR', "Error al transformar el archivo: $@", 'error');
+        return;
+    }
+
+    herramientas::Complementos::show_alert($parent, 'EXITO', "Se creo correctamente el archivo $archivo", 'success');
+}
+
 # Function to destroy the last child if it contains the property -scrollbars => 'osoe'
 sub destruir_ultimo_hijo_con_scrollbars {
     my ($frame_personalizacion) = @_;

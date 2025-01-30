@@ -185,6 +185,19 @@ sub crear_panel_scrolleable {
     )->pack(-side => 'left', -padx => 10, -pady => 5);
 
     $footer->Button(
+        -text => 'Transformar archivos formato Unix',
+        -command => sub { 
+            Logic::transformar_archivos_unix($parent, $ruta_agente_ruta, $agente, "AGENT.properties"),
+            $parent->destroy();
+        },
+        -background => $herramientas::Estilos::button_color,
+        -foreground => $herramientas::Estilos::fg_color,
+        -font => $herramientas::Estilos::button_font,
+        -activebackground => $herramientas::Estilos::activebackground_button_color_snmp,
+        -activeforeground => $herramientas::Estilos::activeforeground_button_color_snmp
+    )->pack(-side => 'right', -padx => 10, -pady => 5);
+
+    $footer->Button(
         -text => 'Pruebas Locales',
         -command => sub { 
             terminal::Create_terminal::create_terminal_window(0, $comando_ejecutar_local_agente, "Agente escuchando.."),

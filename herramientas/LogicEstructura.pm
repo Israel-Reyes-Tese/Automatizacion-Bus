@@ -38,7 +38,6 @@ use SNMP::MIB::Compiler;
 # Placeholder functions for card commands
 sub crear_codigo_principal {
     my ($ventana_principal, $agente, $ruta_agente, $alarmas_principales, $alarmas_secundarias) = @_;
-    # ...implementation...
     my $ruta_agente_completa = File::Spec->catfile($ruta_agente, $agente);
     
     # Validar si el nombre del agente se repite en la ruta completa
