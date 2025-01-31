@@ -1,220 +1,854 @@
-Archivo original: ERICSSON-ALARM-TC-MIB.mib
+Archivo original: casa-hems-alarm.mib
 
 --
--- The Ericsson Alarm Textual Conventions MIB
+--      CASA-HEMS-ALARM-MIB
 --
--- Copyright (c) 2017 by Ericsson AB.
--- All rights reserved.
---
--- This MIB is part of the ERICSSON-ALARM-MIB Suite, and its use is documented
--- further in TEA (The Ericsson Architecture), O&M System Architecture
--- Principles, FAE 151 01.
---
-ERICSSON-ALARM-TC-MIB DEFINITIONS ::= BEGIN
--- Add imports as needed
+CASA-HEMS-ALARM-MIB DEFINITIONS ::= BEGIN
 IMPORTS
-MODULE-IDENTITY, Unsigned32
-FROM SNMPv2-SMI
-TEXTUAL-CONVENTION
-FROM SNMPv2-TC
-ericssonModules
-FROM ERICSSON-TOP-MIB;
-ericssonAlarmTCMIB MODULE-IDENTITY
-LAST-UPDATED "201708110000Z"
-ORGANIZATION "Ericsson AB"
-CONTACT-INFO
-"EEIEMY"
-DESCRIPTION
-"This MIB defines textual conventions used by the
-ERICSSON-ALARM-MIB.
-Document number: 3/196 03-CXC 172 7549"
-REVISION "201708110000Z"
-DESCRIPTION
-"Updated as part of ERICSSON ALARM MIB 3.0 package.
-Updated to remove author's name.
-Document number: 3/196 03-CXC 172 7549, Rev E."
-REVISION "201705180000Z"
-DESCRIPTION
-"Updated to increase size of Additional Info.
-Document number: 3/196 03-CXC 172 7549, Rev D."
-REVISION "201703310000Z"
-DESCRIPTION
-"Updated as part of ERICSSON ALARM MIB 2.1 package.
-Updated with reference to TEA.
-Document number: 3/196 03-CXC 172 7549, Rev C."
-REVISION "201606240000Z"
-DESCRIPTION
-"Updated as part of ERICSSON ALARM MIB 2.0 package.
-Updated header.
-Document number: 3/196 03-CXC 172 7549, Rev B."
-REVISION "200810170000Z"
-DESCRIPTION
-"Initial version of this MIB module."
-::= { ericssonModules 3 }
---=======================
---==Textual conventions==
---=======================
-EriAlarmType ::= TEXTUAL-CONVENTION
-DISPLAY-HINT "d"
-STATUS current
-DESCRIPTION
-"A unique identification of the fault, not
-including the managed object. Alarm types are
-used to identify if alarms indicate the same
-problem or not, for lookup into external alarm
-documentation, etc. A unique alarm type is
-identified using the combination of two instances
-of EriAlarmType. Different managed object
-types and instances can share alarm types. But
-if the same managed object reports the same alarm
-type, it is to be considered to be the same alarm
-state. The alarm type is a simplification of the
-different X.733 and 3GPP alarm IRP alarm
-correlation mechanisms based on EventType,
-ProbableCause, SpecificProblem and
-NotificationId."
-SYNTAX Unsigned32
-EriAlarmIndex ::= TEXTUAL-CONVENTION
-DISPLAY-HINT "d"
-STATUS current
-DESCRIPTION
-"Index used in the active alarm table. A row
-shall never change its index during the lifetime
-of the entry; for example renumbering entries is
-not allowed when entries are deleted.
-Renumbering after an agent restart is allowed.
-Note that this index shall not be used to
-identify alarms when performing
-resynchronization, etc. The logical identity for
-an alarm instance is the managed object and alarm
-type."
-SYNTAX Unsigned32
-EriAdditionalText ::= TEXTUAL-CONVENTION
-DISPLAY-HINT "1a"
-STATUS current
-DESCRIPTION
-"The string used in additional text
-notifications. This MUST contain enough
-information for an operator to be able to
-understand the problem. If this string contains
-structure, this format should be clearly
-documented for programs to be able to parse that
-information. This is a small size range in order
-to guarantee delivery of notifications without
-fragmentation. There is a corresponding textual
-convention, EriLargeAdditionalText, to be used
-for scalar and columnar objects. The string
-should adhere to the rules for SnmpAdminString of
-SNMPv3 framework MIBs."
-REFERENCE
-"snmpFrameworkMIB in RFC 3411 defines
-SnmpAdminString"
-SYNTAX OCTET STRING(SIZE(4..256))
-EriLargeAdditionalText ::= TEXTUAL-CONVENTION
-DISPLAY-HINT "1a"
-STATUS current
-DESCRIPTION
-"The string used in additional text. This MUST
-contain enough information for an operator to be
-able to understand the problem. If this string
-contains structure, this format should be clearly
-documented for programs to be able to parse that
-information. This is a large additional text to
-be used in tables. There is a corresponding
-textual convention to be used in alarm
-notifications, EriAdditionalText. The string
-should adhere to the rules for SnmpAdminString of
-SNMPv3 framework MIBs."
-REFERENCE
-"snmpFrameworkMIB in RFC 3411 defines
-SnmpAdminString"
-SYNTAX OCTET STRING(SIZE(4..512))
-EriAlarmSpecificProblem ::= TEXTUAL-CONVENTION
-DISPLAY-HINT "1a"
-STATUS current
-DESCRIPTION
-"Unique string for the Alarm Type. No different
-alarm types may share specific problem. Specific
-Problem and Alarm Type have a one-to-one
-correspondance."
-SYNTAX OCTET STRING(SIZE(4..64))
-EriAlarmSequenceNumber ::= TEXTUAL-CONVENTION
-DISPLAY-HINT "d"
-STATUS current
-DESCRIPTION
-"This is a monotonically increasing counter. It
-is increased every time a notification is sent.
-The value is NOT increased for heartbeat
-notifications. It is carried as a varbind in the
-alarm notifications as well as in the heartbeat
-notifications. Management systems can use these
-varbinds to detect lost notifications."
-SYNTAX Unsigned32
-EriAdditionalInfo ::= TEXTUAL-CONVENTION
-DISPLAY-HINT "1a"
-STATUS current
-DESCRIPTION
-"Additional Information, structured in a way that is
-suitable for machine-to-machine communication.
-Comprises a number of name=value pairs, separated by a
-semicolon in the following format:
-name1=value1;name2=value2;..
-Allowed strings for use as 'name' are defined in
-The Ericsson Architecture and updated upon internal
-requests from Ericsson organizations.
-This is a small size range in order to guarantee delivery
-of notifications without fragmentation. There is a
-corresponding textual convention, EriLargeAdditionalInfo,
-to be used for scalar and columnar objects.
-The string should adhere to the rules for SnmpAdminString
-of SNMPv3 framework MIBs."
-REFERENCE
-"snmpFrameworkMIB in RFC 3411 defines
-SnmpAdminString;
-TEA (The Ericsson Architecture),
-Operation & Maintenance Architecture Principles, FAE 151 01."
-SYNTAX OCTET STRING(SIZE(4..256))
-EriAppendedAdditionalInfo ::= TEXTUAL-CONVENTION
-DISPLAY-HINT "1a"
-STATUS current
-DESCRIPTION
-"Used for spillover of Additional Info in the append trap."
-REFERENCE
-"snmpFrameworkMIB in RFC 3411 defines
-SnmpAdminString;
-TEA (The Ericsson Architecture),
-Operation & Maintenance Architecture Principles, FAE 151 01."
-SYNTAX OCTET STRING(SIZE(4..512))
-EriLargeAdditionalInfo ::= TEXTUAL-CONVENTION
-DISPLAY-HINT "1a"
-STATUS current
-DESCRIPTION
-"Additional Information, structured in a way that is
-suitable for machine-to-machine communication.
-Comprises a number of name=value pairs, separated by a
-semicolon in the following format:
-name1=value1;name2=value2;..
-Allowed strings for use as 'name' are defined in
-The Ericsson Architecture and updated upon internal
-requests from Ericsson organizations.
-This is a large additional info to be used in tables.
-There is a corresponding textual convention to be used
-in alarm notifications, EriAdditionalInfo.
-The string should adhere to the rules for SnmpAdminString
-of SNMPv3 framework MIBs."
-REFERENCE
-"snmpFrameworkMIB in RFC 3411 defines
-SnmpAdminString;
-TEA (The Ericsson Architecture),
-Operation & Maintenance Architecture Principles, FAE 151 01."
-SYNTAX OCTET STRING(SIZE(4..768))
-EriAlarmRecordType ::= TEXTUAL-CONVENTION
-STATUS current
-DESCRIPTION
-"This defines the alarm record type that is
-being reported in an alarm notification."
-SYNTAX INTEGER {
-alarmNew(0),
-alarmChange(1)
+MODULE-IDENTITY, OBJECT-TYPE, NOTIFICATION-TYPE, 
+ObjectName, Integer32,
+FROM SNMPv2-SMI; 
+MODULE-IDENTITY, OBJECT-TYPE, NOTIFICATION-TYPE, 
+ObjectName, Integer32,
+FROM SNMPv2-TM; 
+DisplayString, RowStatus, TEXTUAL-CONVENTION
+FROM SNMPv2-TC;
+-- 1.3.6.1.4.1.20858.10.104.101
+casaHeMSAlarmMib MODULE-IDENTITY 
+LAST-UPDATED "201804300000Z"	
+ORGANIZATION 
+"CASA Systems Inc."
+CONTACT-INFO 
+"Casa Systems Inc.     
+100 Old River Road, Suite 100           
+Andover, MA 01810     
+TEL: +1 978 688 6706     
+FAX: +1 978 688 6584		
+E-mail: support@casa-systems.com"
+DESCRIPTION 
+"The Casa HeMS ALARM  MIB"
+::= { 1 3 6 1 4 1 20858 10 104 101 }
+--
+--  HeMS Alarm Objects
+--    
+-- 1.3.6.1.4.1.20858.10.104.101.1
+casaHeMSAlarmObjects OBJECT IDENTIFIER ::= { casaHeMSAlarmMib 1 }
+neIdentity OBJECT-TYPE
+SYNTAX OCTET STRING
+MAX-ACCESS  accessible-for-notify
+STATUS      current
+DESCRIPTION "Ne Identity"
+::= { casaHeMSAlarmObjects 1 }
+alarmID OBJECT-TYPE
+SYNTAX OCTET STRING
+MAX-ACCESS  accessible-for-notify
+STATUS      current
+DESCRIPTION "alarm ID"
+::= { casaHeMSAlarmObjects 2 }
+notificationType OBJECT-TYPE
+SYNTAX OCTET STRING
+MAX-ACCESS  accessible-for-notify
+STATUS      current
+DESCRIPTION "alarm notificationType:
+'NewAlarm',
+'ChangedAlarm',
+'ClearedAlarm'"
+::= { casaHeMSAlarmObjects 3 }
+eventType OBJECT-TYPE
+SYNTAX OCTET STRING
+MAX-ACCESS  accessible-for-notify
+STATUS      current
+DESCRIPTION "alarm eventType:
+'Communication Alarm',
+'Processing error Alarm',
+'Equipment Alarm',
+'Environmental Alarm',
+'Quality of Service Alarm',
+'Integrity Violation',
+'Operational Violation',
+'Physical Violation',
+'Security Service or Mechanism Violation'"
+::= { casaHeMSAlarmObjects 4 }
+probableCause OBJECT-TYPE
+SYNTAX OCTET STRING
+MAX-ACCESS  accessible-for-notify
+STATUS      current
+DESCRIPTION "alarm probableCause"
+::= { casaHeMSAlarmObjects 5 }
+specificProblem OBJECT-TYPE
+SYNTAX OCTET STRING
+MAX-ACCESS  accessible-for-notify
+STATUS      current
+DESCRIPTION "alarm specificProblem"
+::= { casaHeMSAlarmObjects 6 }   
+perceivedSeverity OBJECT-TYPE
+SYNTAX OCTET STRING
+MAX-ACCESS  accessible-for-notify
+STATUS      current
+DESCRIPTION "alarm perceivedSeverity:
+'Critical,
+'Major',
+'Minor',
+'Warning',
+'Indeterminate'"
+::= { casaHeMSAlarmObjects 7 }
+additionalText OBJECT-TYPE
+SYNTAX OCTET STRING
+MAX-ACCESS  accessible-for-notify
+STATUS      current
+DESCRIPTION "This provides a textual string which is vendor defined."
+::= { casaHeMSAlarmObjects 8 }
+additionalInformation OBJECT-TYPE
+SYNTAX OCTET STRING
+MAX-ACCESS  accessible-for-notify
+STATUS      current
+DESCRIPTION "This contains additional information about the alarm and is vendor defined."
+::= { casaHeMSAlarmObjects 9 }
+eventTime OBJECT-TYPE
+SYNTAX OCTET STRING
+MAX-ACCESS  accessible-for-notify
+STATUS      current
+DESCRIPTION "Indicates the date and time when the alarm event occurs."
+::= { casaHeMSAlarmObjects 10 }
+--
+--  HeMS alarm trap
+-- 
+-- 1.3.6.1.4.1.20858.10.104.101.2
+casaHeMSAlarmTraps OBJECT IDENTIFIER ::= { casaHeMSAlarmMib 2}
+-- 1.3.6.1.4.1.20858.10.104.101.2.1
+casaHeMSSystemAlarm OBJECT IDENTIFIER ::= { casaHeMSAlarmTraps 1}
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.1
+memoryUsageIsHigh NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
 }
+STATUS 	    current
+DESCRIPTION
+"AeMS Memory usage is high"
+::= { casaHeMSSystemAlarm 1 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.2
+cpuUsageIsHigh NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"AeMS CPU usage is high"
+::= { casaHeMSSystemAlarm 2 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.3
+hardDiskUsageIsHigh NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"AeMS Hard disk usage is high"
+::= { casaHeMSSystemAlarm 3 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.4
+haCommunicationAlarm NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"AeMS HA communication alarm"
+::= { casaHeMSSystemAlarm 4 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.5
+dbSlaveConnectionAlarm NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"AeMS DB slave connection alarm"
+::= { casaHeMSSystemAlarm 5 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.6
+dbArbiterConnectionAlarm NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"AeMS DB arbiter connection alarm"
+::= { casaHeMSSystemAlarm 6 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.7
+networkInterfaceAlarm NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"AeMS Network interface alarm"
+::= { casaHeMSSystemAlarm 7 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.8
+deviceOfflineAlarm NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Small Cell offline alarm"
+::= { casaHeMSSystemAlarm 8 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.9
+deviceOnlineAlarm NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Small Cell online alarm"
+::= { casaHeMSSystemAlarm 9 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.10
+radioOffAlarm NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Small Cell radioOff alarm"
+::= { casaHeMSSystemAlarm 10 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.11
+radioOnAlarm NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Small Cell radioOn alarm"
+::= { casaHeMSSystemAlarm 11 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.12
+cellOffAlarm NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Small Cell cellOff alarm"
+::= { casaHeMSSystemAlarm 12 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.13
+cellOnAlarm NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Small Cell cellOn alarm"
+::= { casaHeMSSystemAlarm 13 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.14
+dbReplicationAlarm NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"DB replication failed"
+::= { casaHeMSSystemAlarm 14 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.1.15
+remoteAeMSsStatusAlarm NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Remote AeMSs down"
+::= { casaHeMSSystemAlarm 15 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2
+casaHeMSSmallCellAlarm OBJECT IDENTIFIER ::= { casaHeMSAlarmTraps 2 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.1
+l3NotDetected NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS 	    current
+DESCRIPTION
+"L3 not detected"
+::= { casaHeMSSmallCellAlarm 1 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.2
+l2NotDetected NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"L2 not detected"
+::= { casaHeMSSmallCellAlarm 2 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.3
+kpiAgentNotDetected NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"KPI Agent not detected"
+::= { casaHeMSSmallCellAlarm 3 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.4
+flashMemoryUsage NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Flash memory usage"
+::= { casaHeMSSmallCellAlarm 4 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.5
+mmeConnectionIsDown NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"MME connection is down"
+::= { casaHeMSSmallCellAlarm 5 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.6
+congestion NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"RRM overload"
+::= { casaHeMSSmallCellAlarm 6 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.7
+errorAccessingFile NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Error accessing file"
+::= { casaHeMSSmallCellAlarm 7 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.8
+cpuCyclesLimitExceeded NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"CPU usage exceeds defined threshold"
+::= { casaHeMSSmallCellAlarm 8 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.9
+reTransmissionRateExcessive NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"The MAC has an excessive rate of NACKs"
+::= { casaHeMSSmallCellAlarm 9 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.10
+overTheAirSynchronizationLost NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Syncrhonization with the macro OTA is lost"
+::= { casaHeMSSmallCellAlarm 10 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.11
+gpsSynchronizationLost NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"GPS synchronization lost"
+::= { casaHeMSSmallCellAlarm 11 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.12
+cellSynchronizationFailure NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Cell synchronization failure"
+::= { casaHeMSSmallCellAlarm 12 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.13
+sctpFailure NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"SCTP connection failure"
+::= { casaHeMSSmallCellAlarm 13 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.14
+lanError NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Ethernet error"
+::= { casaHeMSSmallCellAlarm 14 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.15
+cpuTemperatureUnacceptable NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"CPU Temperature exceeds defined threshold"
+::= { casaHeMSSmallCellAlarm 15 }  
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.16
+paTemperatureUnacceptable NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"The tempeature in the PA exceeds the defined threshold"
+::= { casaHeMSSmallCellAlarm 16 }  
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.17
+unauthorisedAccessAttempt NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Someone or some process did attempt unsuccesfully to login the web interface"
+::= { casaHeMSSmallCellAlarm 17 } 
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.18
+configurationOrCustomizingErrror NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"The configuration received from OAM interfaces (EMS, CLI, HTTP etc) is wrong"
+::= { casaHeMSSmallCellAlarm 18 } 
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.19
+outOfMemory NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"RAM usage is high and surpassed the defined threshold"
+::= { casaHeMSSmallCellAlarm 19 } 
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.20
+thresholdCrossedRLF NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"The MAC has too many RLF s"
+::= { casaHeMSSmallCellAlarm 20 } 
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.21
+thresholdCrossedLowSINR NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"The MAC has too many low SINR events"
+::= { casaHeMSSmallCellAlarm 21 } 
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.22
+paBiasingFailure NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"The PA board was not able to properly biasing"
+::= { casaHeMSSmallCellAlarm 22 } 
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.23
+pciCollision NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"The eNB is configured with the same PCI as another neighbor cell"
+::= { casaHeMSSmallCellAlarm 23 } 
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.24
+pciConfusion NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"The eNB detects that it is configurted with the same PCI as another neighbor of second ring cell"
+::= { casaHeMSSmallCellAlarm 24 } 
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.25
+killSwitch NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"An external signal is activated when detetecting power supply outage, and this signal reaches the self-healing process, which raises alarm and gracefully halts the eNB"
+::= { casaHeMSSmallCellAlarm 25 }  
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.26
+l1StartTimeout NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"the protocol stack cannot start L1 process in DSPs"
+::= { casaHeMSSmallCellAlarm 26 }  
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.27
+dspOrPhyCrash NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"the DSPs running the PHY crashes"
+::= { casaHeMSSmallCellAlarm 27 } 
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.28
+clockSynchronizationProblem NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Cell not synchronized"
+::= { casaHeMSSmallCellAlarm 28 } 
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.29
+synchronizationLostWithAllSources NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"the synchornization is lost and the eNB passes to holdover mode"
+::= { casaHeMSSmallCellAlarm 29 } 
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.30
+invalidPhyOrRfConfiguration NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Invalid PHY or RF configuration"
+::= { casaHeMSSmallCellAlarm 30 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.31
+systemInformationConfigurationFailure NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"System information configuration failure"
+::= { casaHeMSSmallCellAlarm 31 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.32
+failedBackingUpConfigurationFile NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Any process of eNB raises this alarm if it gets error while backing up a file"
+::= { casaHeMSSmallCellAlarm 32 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.33
+failedRestoringConfigurationFile NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Any process of eNB raises this alarm if it gets error while restoring a corrupted configuration file"
+::= { casaHeMSSmallCellAlarm 33 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.34
+singleMmeConnectionIsDown NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Single MME connection is down"
+::= { casaHeMSSmallCellAlarm 34 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.35
+ipsecTunnelIsDown NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"System monitors IPsec tunnel and raises the alarm when the tunnel fails"
+::= { casaHeMSSmallCellAlarm 35 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.36
+ipsecTunnelExpiry NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"System monitors IPsec tunnel and raises the alarm when the tunnel rekeying fails"
+::= { casaHeMSSmallCellAlarm 36 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.37
+ipsecTunnelIkeSaExpiry NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"System monitors IPsec tunnel and raises the alarm when the IKE rekeying fails"
+::= { casaHeMSSmallCellAlarm 37 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.38
+operatorCertificateExpired NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"System raises the alarm when the Operator certificate cannot be renewed"
+::= { casaHeMSSmallCellAlarm 38 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.39
+holdoverPeriodExpiration NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"L3 process raises the alarm when the eNB is working for all the holdover time without re-synchronizing"
+::= { casaHeMSSmallCellAlarm 39 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.40
+administrativeReboot NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"OAM process will send this informational alarm upon administrative reboot"
+::= { casaHeMSSmallCellAlarm 40 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.41
+forcedReboot NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Self-healing agent raises this alarm upon detection of major failure requiring a reboot"
+::= { casaHeMSSmallCellAlarm 41 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.42
+maxMMEAttemptsExceeded NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"L3 process is responsible to handle connection with MME, so it raises the alarm if the connection is lost with all MMEs and the maximum number of retries is reached"
+::= { casaHeMSSmallCellAlarm 42 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.43
+rebootLoop NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"System raises this alarm upon detection of several continious reboots in a short period of time"
+::= { casaHeMSSmallCellAlarm 43 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.44
+dnsResolutionFailure NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"System raises this alarm upon failure to resolve the IP addresses of a FQDN"
+::= { casaHeMSSmallCellAlarm 44 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.3
+casaHeMSSmallCellGWAlarm NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS 	    current
+DESCRIPTION
+"Casa HeMS SmallCell-GW Alarm"
+::= { casaHeMSAlarmTraps 3 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.4
+casaHeMSHeartBeatMsg NOTIFICATION-TYPE
+STATUS      current
+DESCRIPTION 
+"Casa HeMS HeartBeat Msg"
+::= { casaHeMSAlarmTraps 4 } 
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.45
+tr069NotDetected NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Self-healing agent monitors processes and raises alarm if it detects the process dying"
+::= { casaHeMSSmallCellAlarm 45 }       
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.46 
+watchdogNotDetected  NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Linux system monitorize system self-healing agent and reboots the eNB"
+::= { casaHeMSSmallCellAlarm 46 }      
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.47 
+criticalConfigurationFailure  NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"L3 process detects this situation and raises alarm if mandatory EPC configuration parameters are not configured"
+::= { casaHeMSSmallCellAlarm 47 } 
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.48 
+oOAMProxyRestarted  NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"Kill OAM proxy process to force the generation of the alarm"
+::= { casaHeMSSmallCellAlarm 48 }
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.49 
+cCMSServerConnectionFailure  NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"System raises the alarm when the Operator certificate server cannot be connected. This alarm has been deprecated on AeMS."
+::= { casaHeMSSmallCellAlarm 49 }       
+-- 1.3.6.1.4.1.20858.10.104.101.2.2.50 
+aAeMSConnectionNoResponse  NOTIFICATION-TYPE
+OBJECTS
+{
+neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+}
+STATUS      current
+DESCRIPTION
+"System raises the alarm when the eNB cannot connect to AeMS server"
+::= { casaHeMSSmallCellAlarm 50 } 
 END

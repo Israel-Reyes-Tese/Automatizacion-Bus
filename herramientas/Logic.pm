@@ -416,7 +416,7 @@ sub _create_field_entries {
 
     my %field_vars;
     my @active_fields = qw(
-        MIN_REREAD_FILE ALARM_PRINTS SOM_EOM ExternalMap FB_AGENTE
+        MIN_REREAD_FILE SOM_EOM ExternalMap FB_AGENTE
         FB_all FC_PrependAdditionalText FC_SetEventSeverity FC_SetGrupos
         FC_SetIncidentType FC_SetIncidentType_NonCascade FC_SetUserText
     );

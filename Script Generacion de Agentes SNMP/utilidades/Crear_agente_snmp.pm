@@ -5,8 +5,13 @@ use strict;
 use warnings;
 use Tk;
 use Tk::Pane;
+use Tk::JcomboBox;
+
 use FindBin;
+use Data::Dumper;
+
 use lib $FindBin::Bin . "/../herramientas";
+
 use Estilos;
 use Complementos;
 use Rutas;
@@ -22,6 +27,31 @@ sub crear_agente_snmp {
     my $entry_nombre_agente = herramientas::Complementos::create_entry_with_label_and_button($frame_principal, 'Ingresa el nombre del agente', 'Guardar');
     my $entry_ruta_agente = herramientas::Complementos::register_directory($frame_principal, 'Selecciona la ruta donde se creara el agente', "Buscar");
 
+    # ComboBox para la opción de filiales
+    my @filiales = ('Mexico', 'Argentina', 'Caribe', 'Dominicana');
+    my %filiales_valores = (
+        'Mexico' => 'mex',
+        'Argentina' => 'arg',
+        'Caribe' => 'car',
+        'Dominicana' => 'dom'
+    );
+    my $filial_seleccionada = 'Mexico';
+    
+    my $label_filial = $frame_principal->Label(
+        -text => 'Elija la filial',
+        -bg => $herramientas::Estilos::bg_color_snmp,
+        -fg => $herramientas::Estilos::fg_color_snmp,
+        -font => $herramientas::Estilos::label_font_snmp
+    )->pack(-side => 'top', -padx => 10, -pady => 5);
+    
+    my $combobox_filial = $frame_principal->JComboBox(
+        -choices => \@filiales,
+        -background => $herramientas::Estilos::bg_color_snmp,
+        -foreground => $herramientas::Estilos::fg_color_snmp,
+        -font => $herramientas::Estilos::label_font_snmp,
+        -textvariable => \$filial_seleccionada,
+    )->pack(-side => 'top', -padx => 10, -pady => 5);
+
     my $boton_crear_agente = $frame_principal->Button(
         -text => 'Crear Agente', 
         -bg => $herramientas::Estilos::bg_color_snmp, 
@@ -29,7 +59,7 @@ sub crear_agente_snmp {
         -font => $herramientas::Estilos::agents_button_font, 
         -command => sub {
             eval {
-                procesar_creacion_agente($mw, $frame_principal, $entry_nombre_agente, $entry_ruta_agente);
+                procesar_creacion_agente($mw, $frame_principal, $entry_nombre_agente, $entry_ruta_agente, $filial_seleccionada, %filiales_valores);
             };
             if ($@) {
                 print "Error al crear el agente SNMP: $@\n";
@@ -43,7 +73,7 @@ sub crear_agente_snmp {
 
 # Función para procesar la creación del agente
 sub procesar_creacion_agente {
-    my ($mw, $frame_principal, $entry_nombre_agente, $entry_ruta_agente) = @_;
+    my ($mw, $frame_principal, $entry_nombre_agente, $entry_ruta_agente, $filial_seleccionada, %filiales_valores) = @_;
     my $nombre_agente = $entry_nombre_agente->get();
     my $ruta_agente = $entry_ruta_agente->get();
     my $ruta_agente_ruta = File::Spec->catfile($ruta_agente, $nombre_agente);
@@ -52,7 +82,9 @@ sub procesar_creacion_agente {
     $nombre_agente =~ s/\s+/ /g;  # Eliminar espacios en blanco duplicados
     $nombre_agente =~ s/\s+/_/g;  # Reemplazar espacios en blanco por guiones bajos
     $nombre_agente = lc($nombre_agente);  # Convertir a minúsculas
-
+    # Añadir al final _filial
+    $nombre_agente = $nombre_agente . '_' . $filiales_valores{$filial_seleccionada};
+    $ruta_agente_ruta  = File::Spec->catfile($ruta_agente, $nombre_agente);
     my $respuesta_arbol = Logic::crear_arbol_directorio($mw, $ruta_agente, $nombre_agente);
     if ($respuesta_arbol) {
         herramientas::Complementos::show_alert($mw, 'PROCESO EXITOSO', 'Se ha creado el arbol de directorios correctamente', 'success');
