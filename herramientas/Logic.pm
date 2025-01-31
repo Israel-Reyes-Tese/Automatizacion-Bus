@@ -100,7 +100,7 @@ sub _create_conf_files {
     my @archivos_conf = qw(
         FB_AGENTE FB_all FC_PrependAdditionalText FC_SetEventSeverity
         FC_SetGrupos FC_SetIncidentType FC_SetIncidentType_NonCascade
-        FC_SetUserText MAP_ExampleExternal MAP_HostName
+        FC_SetUserText MAP_ExampleExternal MAP_HostName MAP_Severity
     );
 
     foreach my $archivo (@archivos_conf) {

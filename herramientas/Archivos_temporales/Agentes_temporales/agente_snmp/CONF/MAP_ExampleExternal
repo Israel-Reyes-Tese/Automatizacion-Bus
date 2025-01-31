@@ -1,17 +1,19 @@
-Cleared  -> 5
-Clear    -> 5
+    # Mapa de ejemplo externo
+    
+Clared -> 5
+Clear -> 5
+clear -> 5
 Critical -> 1
-Major    -> 2
-Minor    -> 3
-Warning  -> 4
-clear    -> 5
-0        -> 0
-1        -> 1
-2        -> 2
-3        -> 3
-4        -> 4
-5        -> 5
+Cri -> 1
+Major -> 2
+Mayor -> 2
+Minor -> 3
+Menor -> 3
+Warning -> 4
+0 -> 0
+1 -> 1
+2 -> 2
+3 -> 3
+4 -> 4
+5 -> 5
 
-#12          4
-
-#12          455

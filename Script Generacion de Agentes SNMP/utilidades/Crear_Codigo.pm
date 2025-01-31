@@ -150,6 +150,13 @@ sub crear_panel_scrolleable {
                 LogicEstructura::crear_archivos_genericos($parent, $agente, $ruta_agente_ruta, $implementacion, $impresiones_logs);
             }
             }, },
+        { title => 'Crear Archivos de Mapeo', button_text => 'Ejecutar', command => sub {
+            if ($legacy) {
+                LogicEstructuraLegacy::crear_archivos_mapeo($parent, $agente, $ruta_agente_ruta, $implementacion, $impresiones_logs);
+            } else {
+                LogicEstructura::crear_archivos_mapeo($parent, $agente, $ruta_agente_ruta, $implementacion, $impresiones_logs);
+            }
+            },},
     );
 
     foreach my $card (@cards) {

@@ -124,7 +124,7 @@ sub create_snmpagente {
       layout   => Log::Log4perl::Layout::PatternLayout->new("%d %p %m %n"),
     ));
 
-    $logger->info("Creando archivo principal: $archivo_snmpagente");
+    $logger->info("Creando archivo SNMP AGENTE: $archivo_snmpagente");
     print $fh <<"END_CODE";
 package ABR::SNMPAgente;
 # Version=1.1
@@ -370,7 +370,7 @@ sub create_tapfilter {
       layout   => Log::Log4perl::Layout::PatternLayout->new("%d %p %m %n"),
     ));
 
-    $logger->info("Creando archivo principal: $archivo_tapfilter");
+    $logger->info("Creando archivo Tap Filter: $archivo_tapfilter");
 
     print $fh <<"END_CODE";
 
@@ -1041,7 +1041,7 @@ sub create_microtime {
       layout   => Log::Log4perl::Layout::PatternLayout->new("%d %p %m %n"),
     ));
 
-    $logger->info("Creando archivo principal: $archivo_microtime");
+    $logger->info("Creando archivo Microtime: $archivo_microtime");
 
     print $fh <<"END_CODE";
 package ABR::MICROTIME;
@@ -1092,7 +1092,7 @@ sub create_llenaComun {
       layout   => Log::Log4perl::Layout::PatternLayout->new("%d %p %m %n"),
     ));
 
-    $logger->info("Creando archivo principal: $archivo_llena_comun");
+    $logger->info("Creando archivo llena Comun: $archivo_llena_comun");
 
     print $fh <<"END_CODE";
 package ABR::llenaComun;
@@ -1336,7 +1336,7 @@ sub create_hashorder {
       layout   => Log::Log4perl::Layout::PatternLayout->new("%d %p %m %n"),
     ));
 
-    $logger->info("Creando archivo principal: $archivo_hashorder");
+    $logger->info("Creando archivo Hash Order: $archivo_hashorder");
 
     print $fh <<"END_CODE";
 package ABR::HashOrder;
@@ -1505,7 +1505,7 @@ sub crear_file_handler {
       layout   => Log::Log4perl::Layout::PatternLayout->new("%d %p %m %n"),
     ));
 
-    $logger->info("Creando archivo principal: $archivo_file_handler");
+    $logger->info("Creando archivo File handler: $archivo_file_handler");
 
     print $fh <<"END_CODE";
 package ABR::FILE_HANDLER;
@@ -1724,7 +1724,7 @@ sub crear_corrective_filter {
       layout   => Log::Log4perl::Layout::PatternLayout->new("%d %p %m %n"),
     ));
 
-    $logger->info("Creando archivo principal: $archivo_corrective_filter");
+    $logger->info("Creando archivo Filter: $archivo_corrective_filter");
 
     print $fh <<"END_CODE";
 package ABR::CorrectiveFilter;
@@ -2508,7 +2508,7 @@ sub crear_configurator {
       layout   => Log::Log4perl::Layout::PatternLayout->new("%d %p %m %n"),
     ));
 
-    $logger->info("Creando archivo principal: $archivo_configurator");
+    $logger->info("Creando archivo Configurator: $archivo_configurator");
 
 
 
@@ -2612,6 +2612,218 @@ END_CODE
     herramientas::Complementos::show_alert($ventana_principal, 'EXITO', "Se creo correctamente el archivo $archivo_configurator", 'success');
     return 1;
 }
+
+
+# Crear MAP_Severtity
+sub crear_map_severity {
+    my ($ventana_principal, $agente, $ruta_agente_conf, $implementacion, $impresiones_desarrollo, $data_extra) = @_;
+
+    my $archivo_map_severity = File::Spec->catfile($ruta_agente_conf, 'MAP_Severity');
+
+    if (-e $archivo_map_severity) {
+        open my $fh, '>', $archivo_map_severity or do {
+            herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se puede abrir el archivo: $!", 'error');
+            return;
+        };
+        close $fh;
+    }
+
+    open my $fh, '>', $archivo_map_severity or do {
+        herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se puede abrir el archivo: $!", 'error');
+        return;
+    };
+
+
+    # Crear el texto de implementacion 
+    my $ruta_absoluta = abs_path($ruta_agente_conf);
+    my $texto_implementacion = obtener_texto_implementacion($implementacion, $ruta_absoluta, $agente);
+
+    $logger->add_appender(Log::Log4perl::Appender->new(
+      "Log::Dispatch::File",
+      filename => $ruta_absoluta  . "/output.log",
+      mode     => "append",
+      layout   => Log::Log4perl::Layout::PatternLayout->new("%d %p %m %n"),
+    ));
+
+    $logger->info("Creando archivo Mapeo de la severidad: $archivo_map_severity");
+    my $map_severity = $data_extra->{text_entries}->{'Informacion MAP Severity'};
+    # Eliminar espacios en blanco al principio y al final de cada línea
+    my @lineas = split /\n/, $map_severity;
+    @lineas = map { s/^\s+|\s+$//gr } @lineas;
+    $map_severity = join "\n", @lineas;
+    print $fh <<"END_CODE";
+    # Mapa de severidad
+    $map_severity
+END_CODE
+    close $fh or warn "Advertencia: No se pudo cerrar el archivo editado:";
+
+    herramientas::Complementos::show_alert($ventana_principal, 'EXITO', "Se creo correctamente el archivo $archivo_map_severity", 'success');
+    return 1;
+  }
+  # Crear MAP_Hostname
+  sub crear_map_hostname {
+    my ($ventana_principal, $agente, $ruta_agente_conf, $implementacion, $impresiones_desarrollo, $data_extra) = @_;
+
+    my $archivo_map_hostname = File::Spec->catfile($ruta_agente_conf, 'MAP_Hostname');
+
+    if (-e $archivo_map_hostname) {
+      open my $fh, '>', $archivo_map_hostname or do {
+        herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se puede abrir el archivo: $!", 'error');
+        return;
+      };
+      close $fh;
+    }
+
+    open my $fh, '>', $archivo_map_hostname or do {
+      herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se puede abrir el archivo: $!", 'error');
+      return;
+    };
+
+    # Crear el texto de implementacion 
+    my $ruta_absoluta = abs_path($ruta_agente_conf);
+    my $texto_implementacion = obtener_texto_implementacion($implementacion, $ruta_absoluta, $agente);
+
+    $logger->add_appender(Log::Log4perl::Appender->new(
+      "Log::Dispatch::File",
+      filename => $ruta_absoluta  . "/output.log",
+      mode     => "append",
+      layout   => Log::Log4perl::Layout::PatternLayout->new("%d %p %m %n"),
+    ));
+
+    $logger->info("Creando archivo Mapeo de hostname: $archivo_map_hostname");
+    my $map_hostname = $data_extra->{text_entries}->{'Informacion MAP HostName'};
+    # Eliminar espacios en blanco al principio y al final de cada línea
+    my @lineas = split /\n/, $map_hostname;
+    @lineas = map { s/^\s+|\s+$//gr } @lineas;
+    $map_hostname = join "\n", @lineas;
+    print $fh <<"END_CODE";
+    # Mapa de hostname
+    $map_hostname
+END_CODE
+    close $fh or warn "Advertencia: No se pudo cerrar el archivo editado:";
+
+    herramientas::Complementos::show_alert($ventana_principal, 'EXITO', "Se creo correctamente el archivo $archivo_map_hostname", 'success');
+    return 1;
+    }
+
+sub crear_map_example_external {
+    my ($ventana_principal, $agente, $ruta_agente_conf, $implementacion, $impresiones_desarrollo, $data_extra) = @_;
+
+    my $archivo_map_example_external = File::Spec->catfile($ruta_agente_conf, 'MAP_ExampleExternal');
+
+    if (-e $archivo_map_example_external) {
+      open my $fh, '>', $archivo_map_example_external or do {
+        herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se puede abrir el archivo: $!", 'error');
+        return;
+      };
+      close $fh;
+    }
+
+    open my $fh, '>', $archivo_map_example_external or do {
+      herramientas::Complementos::show_alert($ventana_principal, 'ERROR', "No se puede abrir el archivo: $!", 'error');
+      return;
+    };
+
+    # Crear el texto de implementacion 
+    my $ruta_absoluta = abs_path($ruta_agente_conf);
+    my $texto_implementacion = obtener_texto_implementacion($implementacion, $ruta_absoluta, $agente);
+
+    $logger->add_appender(Log::Log4perl::Appender->new(
+      "Log::Dispatch::File",
+      filename => $ruta_absoluta  . "/output.log",
+      mode     => "append",
+      layout   => Log::Log4perl::Layout::PatternLayout->new("%d %p %m %n"),
+    ));
+
+    $logger->info("Creando archivo Mapeo de ejemplo externo: $archivo_map_example_external");
+    my $map_example_external = $data_extra->{text_entries}->{'Informacion Map Example External'};
+    # Eliminar espacios en blanco al principio y al final de cada línea
+    my @lineas = split /\n/, $map_example_external;
+    @lineas = map { s/^\s+|\s+$//gr } @lineas;
+    $map_example_external = join "\n", @lineas;
+    print $fh <<"END_CODE";
+    # Mapa de ejemplo externo
+    $map_example_external
+END_CODE
+    close $fh or warn "Advertencia: No se pudo cerrar el archivo editado:";
+
+    herramientas::Complementos::show_alert($ventana_principal, 'EXITO', "Se creo correctamente el archivo $archivo_map_example_external", 'success');
+    return 1;
+    }
+
+
+
+
+
+
+sub crear_archivos_mapeo {
+    my ($ventana_principal, $agente ,$ruta_agente, $implementacion, $impresiones_desarrollo) = @_;
+
+    my $ruta_agente_completa = File::Spec->catfile($ruta_agente, $agente);
+    # Validar si el nombre del agente se repite en la ruta completa
+    if ($ruta_agente_completa =~ /$agente.*$agente/) {
+        $ruta_agente_completa =~ s/\\$agente//;
+    }
+    my $ruta_agente_conf = File::Spec->catfile($ruta_agente_completa, 'CONF');
+
+    unless (-d $ruta_agente_completa) {
+        my $entry_ruta_agente = herramientas::Complementos::register_directory($ventana_principal, 'Selecciona la ruta donde se creara el agente', "Buscar");
+        $ruta_agente_completa = File::Spec->catfile($entry_ruta_agente, $agente);
+        unless (-d $ruta_agente_completa) {
+            herramientas::Complementos::show_alert($ventana_principal, 'ERROR', 'La ruta del agente no existe', 'error');
+            return;
+        }
+    }
+
+      # Data extra
+      my %lista_opciones_text = (
+        opciones => {
+            'Informacion MAP Severity'  => "
+            Clared -> 5
+            Clear -> 5
+            clear -> 5
+            Critical -> 1
+            Cri -> 1
+            Major -> 2
+            Mayor -> 2
+            Minor -> 3
+            Menor -> 3
+            Warning -> 4",
+            'Informacion MAP HostName'  => "
+            127.* -> TEST_LOCAL
+            100.127.5 -> BU(S)
+            100.127.5.80 -> BUS (1)
+            100.127.5.81 -> BUS (2)
+            100.127.5.81 -> BUS (3)",
+          'Informacion Map Example External' => "
+            Clared -> 5
+            Clear -> 5
+            clear -> 5
+            Critical -> 1
+            Cri -> 1
+            Major -> 2
+            Mayor -> 2
+            Minor -> 3
+            Menor -> 3
+            Warning -> 4
+            0 -> 0
+            1 -> 1
+            2 -> 2
+            3 -> 3
+            4 -> 4
+            5 -> 5
+          ",
+
+        }
+    );
+
+    my $data_extra = herramientas::Complementos::create_scrollable_panel_with_checkboxes_and_entries($ventana_principal, "Mapeo externo",  0, 0, 0, \%lista_opciones_text);
+
+    crear_map_severity($ventana_principal, $agente, $ruta_agente_conf, $implementacion, $impresiones_desarrollo, $data_extra );
+    crear_map_hostname($ventana_principal, $agente, $ruta_agente_conf, $implementacion, $impresiones_desarrollo, $data_extra );
+    crear_map_example_external($ventana_principal, $agente, $ruta_agente_conf, $implementacion, $impresiones_desarrollo, $data_extra );
+
+  }
 
 
 sub crear_archivos_genericos {
@@ -2739,7 +2951,7 @@ sub crear_archivo_subrutinas {
       layout   => Log::Log4perl::Layout::PatternLayout->new("%d %p %m %n"),
     ));
 
-    $logger->info("Creando archivo principal: $archivo_agente");
+    $logger->info("Creando archivo Subrutinas: $archivo_agente");
 
    
     print $fh <<"END_CODE";
@@ -3250,6 +3462,8 @@ END_CODE
     herramientas::Complementos::show_alert($ventana_principal, 'EXITO', "Se creo correctamente el archivo \$archivo_principal", 'success');
     return 1;
 }
+
+
 
 
 sub crear_codigo_parseador {

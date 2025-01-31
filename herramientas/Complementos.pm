@@ -415,7 +415,7 @@ sub create_top_level_window {
 }
 # Nueva función para crear un panel scrolleable con checkboxes, entradas de texto y combo boxes
 sub create_scrollable_panel_with_checkboxes_and_entries {
-    my ($ventana_principal, $titulo_principal, $checkbox_data, $entry_data, $combo_box_data) = @_;
+    my ($ventana_principal, $titulo_principal, $checkbox_data, $entry_data, $combo_box_data, $text_entry_data) = @_;
     
     # Crear la ventana principal
     my $mw = create_top_level_window($ventana_principal, $titulo_principal, 'maximizada');
@@ -427,6 +427,7 @@ sub create_scrollable_panel_with_checkboxes_and_entries {
     my %checkboxes;
     my %entries;
     my %combo_boxes;
+    my %text_entries;
     my $row = 0;
     # Crear el hash con el formato requerido
     my %lista_opciones;
@@ -508,6 +509,36 @@ sub create_scrollable_panel_with_checkboxes_and_entries {
         }
     }
     
+    # Añadir tarjetas con labels y text entries si se proporciona text_entry_data
+    if ($text_entry_data) {
+        foreach my $nombre (keys %{$text_entry_data->{opciones}}) {
+            my $card_frame = $scroll->Frame(
+                -bg => $herramientas::Estilos::text_entry_card_frame_bg,
+                -borderwidth => 2,
+                -relief => 'solid'
+                )->grid(-row => $row, -column => 0, -padx => 10, -pady => 10);
+            my $label = $card_frame->Label(
+            -text => $nombre, 
+            -font => $herramientas::Estilos::label_font,
+            -bg => $herramientas::Estilos::label_bg_color,
+            -fg => $herramientas::Estilos::label_fg_color,
+
+            )->pack(-side => 'left');
+
+            my $text_entry = $card_frame->Text(
+                -height => 5, # Altura del widget de texto
+                -width => 40, # Ancho del widget de texto
+                -bg => $herramientas::Estilos::text_entry_bg,
+                -fg => $herramientas::Estilos::text_entry_fg
+                )->pack(-side => 'right');
+
+            $text_entry->insert('end', $text_entry_data->{opciones}{$nombre}); # Valor predeterminado
+            $text_entries{$nombre} = $text_entry;
+            $row++;
+        }
+    }
+
+
     # Crear el footer con el botón de guardar
     my $footer = $mw->Frame(-bg => $herramientas::Estilos::footer_bg)->pack(-side => 'bottom', -fill => 'x');
     my $save_button = $footer->Button(
@@ -536,9 +567,15 @@ sub create_scrollable_panel_with_checkboxes_and_entries {
                     my $value = $combo_boxes{$key}->Subwidget('entry')->get();
                     $combo_box_values{$key} = $value;
                 }
+                # Iterar sobre el hash %text_entries y extraer los valores
+                foreach my $key (keys %text_entries) {
+                    my $value = $text_entries{$key}->get('1.0', 'end');
+                    $text_entries{$key} = $value;
+                }
                 $lista_opciones{opciones} = \%selected if %selected;
                 $lista_opciones{entries} = \%entry_values if %entry_values;
                 $lista_opciones{combo_boxes} = \%combo_box_values if %combo_box_values;
+                $lista_opciones{text_entries} = \%text_entries if %text_entries;
                 show_alert($ventana_principal, 'Guardado', 'Los datos se han guardado correctamente.', 'info');
                 # Cerrar la ventana
                 $mw->destroy();

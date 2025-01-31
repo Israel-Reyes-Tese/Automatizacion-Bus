@@ -31,6 +31,12 @@ our $entry_fg_color_snmp = '#f2e6da';
 our $entry_bg = '#f0f0f0';
 our $entry_fg = '#000000';
 
+# Text
+
+our $text_entry_bg = '#f0f0f0';
+our $text_entry_fg = '#000000';
+our $text_entry_font = ['Courier', 20, 'bold'];
+
 # Nueva paleta de colores (Arboles)
 our $corteza_marron = '#8B4513';
 our $hoja_verde = '#228B22';
