@@ -194,7 +194,7 @@ sub get_trap
 
     if (!defined(\$trap))
     {
-        printf "\$0: %s\\n", Net::SNMPTrapd->error();
+        printf "\$0: \%s\\n", Net::SNMPTrapd->error();
         print  "There is a problem with the trap reception\\n";
         exit 1;
     }
@@ -209,7 +209,7 @@ sub get_trap
     #print "ESTOY ANTES DE PROCESAR EL TRAP\\n";
     if (!defined(\$trap->process_trap()))
     {
-        printf "\$0: %s\\n", Net::SNMPTrapd->error();
+        printf "\$0: \%s\\n", Net::SNMPTrapd->error();
         print "There is a problem, processin the trap within the library\\n";
         undef(\$trap);
         return \$trap;
@@ -217,7 +217,7 @@ sub get_trap
     else
     {
         \$trap_version = \$trap->version();
-#         printf "%s\t%i\t%i\t%s\\n", \$trap->remoteaddr(), \$trap->remoteport(), \$trap_version, \$trap->community();
+#         printf "\%s\t\%i\t\%i\t\%s\\n", \$trap->remoteaddr(), \$trap->remoteport(), \$trap_version, \$trap->community();
         if(\$trap_version == 1)
         {
           if(\$onPrints){print "ESTE TRAP ES VERSION 1\\n";}
@@ -330,7 +330,7 @@ sub processV2
             }
         }
 
-    return \@varbinds;
+    return \\\@varbinds;
 }
 
 1;
@@ -3406,7 +3406,7 @@ sub formatter {
 
     if (ifexists(\$trap_name)) {
         \$func_ref = \\&\$trap_sub;
-        \$alarm_txt = \$func_ref->(\%entrada_val, \$trap_name, \$config);
+        \$alarm_txt = \$func_ref->(\\\%entrada_val, \$trap_name, \$config);
         \$contador += 1;
         print "\$trap_oid -> \$trap_sub\\n";
         print "\\n\\n======================== *** =================================\\n\\n";

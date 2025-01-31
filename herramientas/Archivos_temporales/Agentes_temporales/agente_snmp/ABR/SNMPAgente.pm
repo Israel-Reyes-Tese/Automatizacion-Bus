@@ -26,7 +26,7 @@ sub new
     $local_port = 3434;
     #$local_port = 2271;
         #my $hostname = hostname() ;
-    my $hostname = "10.152.74.249";
+    my $hostname = "10.152.74.247";
     #my $hostname = "100.127.5.81";
         print "EL HOSTNAME ES: $hostname\n";
 
@@ -202,7 +202,7 @@ sub processV2
             }
         }
 
-    return @varbinds;
+    return \@varbinds;
 }
 
 1;
