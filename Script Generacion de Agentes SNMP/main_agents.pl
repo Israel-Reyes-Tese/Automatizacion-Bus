@@ -8,6 +8,7 @@ use FindBin;
 # Añadir la carpeta donde se encuentran los módulos
 use lib $FindBin::Bin . "/../herramientas";
 use lib $FindBin::Bin . "/utilidades";
+use lib $FindBin::Bin . "/terminal";
 
 use Data::Dumper; # Importar el módulo Data::Dumper
 # Importar el módulos axuliares

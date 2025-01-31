@@ -394,8 +394,8 @@ sub _get_fields {
     if ($modo eq 'local') {
         $fields[0]->{default} = 'localhost';
         $fields[1]->{default} = 12345;
-        $fields[5]->{default} = $FindBin::Bin . "/CONF/MAP_HostName";
-        $fields[6]->{default} = $FindBin::Bin . "/CONF/MAP_Severity";
+        $fields[5]->{default} = "CONF/MAP_HostName";
+        $fields[6]->{default} = "CONF/MAP_Severity";
     }
 
     return @fields;
