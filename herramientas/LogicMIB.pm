@@ -2,6 +2,7 @@ package LogicMIB;
 
 use strict;
 use warnings;
+use Carp;
 
 use Tk;
 use TK::Table;
@@ -138,11 +139,18 @@ sub cargar_mib {
     #print Dumper(\%module_identities);
     # Datos de las alarmas NOTIFICATION-TYPE o TRAP-TYPE
     my %alarm_traps;
+    # Archivo temporal que almacenará todas las alaramas encontras concatenadas
+    my $temp_file_all = Rutas::temp_files_logs_objects_mibs_path(). '/Alarmas_encontradas.logs';
+    $temp_file_all = validar_o_crear_archivo_temporal($temp_file_all);
     foreach my $file (keys %mib_files) {
         # Extraer OBJECT-TYPE y añadir al hash object_types
-        my $extracted_alarm_traps = extraer_alarm_traps($file);
+        my $extracted_alarm_traps = extraer_alarm_traps($file, $temp_file_all);
         @alarm_traps{keys %$extracted_alarm_traps} = values %$extracted_alarm_traps;
     }
+    # Escribir los datos en el archivo temporal con el tipo NOTIFICATION_TYPES_OR_TRAP_TYPES
+    escribir_datos_en_archivo($temp_file_all, \%alarm_traps, "NOTIFICATION_TYPES_OR_TRAP_TYPES", 1);
+
+
     #print Dumper(\%alarm_traps);
     # Extract OID nodes
     my $oid_nodes = extraer_nodos_oid(\%mib_files, $ventana_principal);
@@ -968,20 +976,25 @@ sub extraer_module_identities {
 
 # Función para extraer la información de los traps de las alarmas
 sub extraer_alarm_traps {
-    my ($file) = @_;
+    my ($file, $temp_file_all) = @_;
     
     my $original_file = $file;
 
     # Archivo temporal para almacenar cómo se extraen los datos
     my $temp_file = Rutas::temp_files_path() . '/alarm_traps.txt';
-
     # Validar si el archivo temporal existe, si no, crearlo
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
     # Recondicionar el archivo temporal copiando el contenido de $file
     $temp_file = recondicionar_archivo_temporal($file, $temp_file, $original_file); 
 
+
     open my $fh, '<', $temp_file or do {
         warn "No se pudo abrir el archivo $file: $!";
+        return;
+    };
+
+    open my $fh_all, '>>', $temp_file_all or do {
+        warn "No se pudo abrir el archivo $temp_file_all: $!";
         return;
     };
 
@@ -996,129 +1009,82 @@ sub extraer_alarm_traps {
     while (<$fh>) {
         chomp;
         next if /^\s*$/ || /^--/; # Saltar líneas vacías y comentarios
-
         if (/(\w+)\s+(NOTIFICATION-TYPE|TRAP-TYPE)/) {
-            $current_alarm = $1;
-            $alarm_traps{$current_alarm} = {
-                TYPE => $2,
-                OBJECTS => '',
-                STATUS => '',
-                DESCRIPTION => '',
-                OID => '',
-                VARIABLES => '',
-                ENTERPRISE => ''
-            };
-            $in_objects = 0;
-            $in_description = 0;
-            $objects_accumulator = '';
-            $description = '';
             my $segment = "$_"; # Iniciar el segmento con la línea actual
             while (<$fh>) {
                 chomp;
                 $segment .= "\n$_"; # Agregar la línea actual al segmento
-                last if ($2 eq 'NOTIFICATION-TYPE' && / }\s*$/) || ($2 eq 'TRAP-TYPE' && /::=\s*\d+\s*$/); # Terminar el segmento según el tipo
-            }
-            #print "Segmento trabajado:\n$segment\n"; # Imprimir el segmento trabajado
-
-            # Procesar el segmento extraído
-            foreach my $line (split /\n/, $segment) {
                 if ($2 eq 'NOTIFICATION-TYPE') {
-                    if ($line =~ /OBJECTS\s*{\s*(.*)/) {
-                        $in_objects = 1;
-                        $objects_accumulator = $1;
-                    } elsif ($line =~ /OBJECTS\s*$/) {
-                        $in_objects = 1;
-                        $objects_accumulator = '';
-                    } elsif ($in_objects) {
-                        if ($line =~ /^\s*{\s*(.*)/) {
-                            $objects_accumulator .= " $1";
-                        } elsif ($line =~ /(.*)\s*}/) {
-                            $objects_accumulator .= " $1";
-                            $alarm_traps{$current_alarm}->{OBJECTS} = $objects_accumulator;
-                            $in_objects = 0;
-                        } else {
-                            $objects_accumulator .= " $line";
-                        }
-                    } elsif ($line =~ /STATUS\s+(.*)/) {
-                        $alarm_traps{$current_alarm}->{STATUS} = $1;
-                    } elsif ($line =~ /DESCRIPTION\s+["'](.*)/) {
-                        $description = $1;
-                        $in_description = 1;
-                    } elsif ($line =~ /DESCRIPTION\s*$/) {
-                        $description = '';
-                        $in_description = 1;
-                    } elsif ($in_description) {
-                        if ($line =~ /["]\s*::=\s*\{(.*)\}/) {
-                            $description .= " $1";
-                            $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
-                            $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
-                            $in_description = 0;
-                        } elsif ($line =~ /}/) {
-                            $description .= " $line";
-                            if ($description =~ /::=\s*\{(.*)\}/) {
-                                $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
-                            }
-                            $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
-                            $in_description = 0;
-                        } else {
-                            $description .= " $line";
-                        }
-                    }
+                    last if /::=\s*\{.*\}\s*$/; # Terminar el segmento según la expresión complexa
                 } elsif ($2 eq 'TRAP-TYPE') {
-                    if ($line =~ /ENTERPRISE\s+(.*)/) {
-                        $alarm_traps{$current_alarm}->{ENTERPRISE} = $1;
-                    }  elsif ($line =~ /VARIABLES\s*{\s*(.*)/) {
-                        $in_objects = 1;
-                        $objects_accumulator = $1;
-                    } elsif ($line =~ /VARIABLES\s*$/) {
-                        $in_objects = 1;
-                        $objects_accumulator = '';
-                    } elsif ($in_objects) {
-                        if ($line =~ /^\s*{\s*(.*)/) {
-                            $objects_accumulator .= " $1";
-                        } elsif ($line =~ /(.*)\s*}/) {
-                            $objects_accumulator .= " $1";
-                            $alarm_traps{$current_alarm}->{VARIABLES} = $objects_accumulator;
-                            $in_objects = 0;
-                        } else {
-                            $objects_accumulator .= " $line";
-                        }
-                    }           
-                    elsif ($line =~ /DESCRIPTION\s+["'](.*)/) {
-                        $description = $1;
-                        $in_description = 1;
-                    } elsif ($line =~ /DESCRIPTION\s*$/) {
-                        $description = '';
-                        $in_description = 1;
-                    } elsif ($in_description) {
-                        if ($line =~ /["]\s*::=\s*\d+\s*$/) {
-                            $description .= " $line";
-                            $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
-                            if ($description =~ /::=\s*\{(.*)\}/) {
-                                $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
-                            } elsif ($description =~ /::=\s*(\d+)\s*$/) {
-                                $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
-                            }
-                            $in_description = 0;
-                        } elsif ($line =~ /::=\s*\d+\s*$/) {
-                            $description .= " $line";
-                            $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
-                            if ($description =~ /::=\s*\{(.*)\}/) {
-                                $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
-                            } elsif ($description =~ /::=\s*(\d+)\s*$/) {
-                                $alarm_traps{$current_alarm}->{OID} = $1; # Extraer y asignar OID
-                            }
-                            $in_description = 0;
-                        } else {
-                            $description .= " $line";
-                        }
-                    }
+                    last if /::=\s*\d+\s*$/;
                 }
             }
-            $current_alarm = undef; # Finalizar el segmento
+            print $fh_all "#----------------------------------- ALARMA ORIGINAL:  $1  ---------------------------#\n";
+            print $fh_all "Tipo de alarma: $2\n";
+            print $fh_all "Nombre de alarma: $1\n";
+            print $fh_all "$segment\n"; # Escribir el segmento en el archivo temporal
+            print $fh_all "#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#\n";
         }
     }
     close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
+    close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
+    
+    open my $fh_all, '<', $temp_file_all or do {
+        warn "No se pudo abrir el archivo $temp_file_all: $!";
+        return;
+    };
+
+    # Logica para extraer los datos de las alarmas
+  while (<$fh_all>) {
+        chomp;
+        if (/^#----------------------------------- ALARMA ORIGINAL:  (\w+)  ---------------------------#/) {
+            $current_alarm = $1;
+            $alarm_traps{$current_alarm} = {
+                TYPE => 'Desconocido',
+                OBJECTS => 'No se encontraron objetos',
+                STATUS => 'No se encontró el estado',
+                DESCRIPTION => 'No se encontró la descripción',
+                OID => 'No se encontró el OID',
+                VARIABLES => 'No se encontraron variables',
+                ENTERPRISE => 'No se encontró la empresa',
+            };
+        } elsif (/^Tipo de alarma: (.+)$/) {
+            $alarm_traps{$current_alarm}->{TYPE} = $1;
+        }elsif (/^OBJECTS\s*\{\s*(.*)$/) {
+            my $objects = $1;
+            while ($objects !~ /\}$/) {
+                $_ = <$fh_all>;
+                chomp;
+                $objects .= " $_";
+            }
+            $objects =~ s/\}$//; # Eliminar la llave de cierre
+            $alarm_traps{$current_alarm}->{OBJECTS} = join(', ', split(/\s*,\s*/, $objects));
+        } elsif (/^STATUS\s+(.+)$/) {
+            $alarm_traps{$current_alarm}->{STATUS} = $1;
+
+        } elsif (/^DESCRIPTION\s*"(.*)$/ || /^DESCRIPTION\s*$/) {
+            my $description = $1 // '';
+            if ($description eq '') {
+                $_ = <$fh_all>;
+                chomp;
+                if (/^"(.*)$/) {
+                    $description = $1;
+                }
+            }
+            while ($description !~ /"\s*::=\s*\{.*\}$/) {
+                $_ = <$fh_all>;
+                chomp;
+                $description .= " $_";
+            }
+            # Extraer el OID de la descripción
+            if ($description =~ /"\s*::=\s*\{(.*)\}$/ || $description =~ /"\s*::=\s*(\d+)$/) {
+                $alarm_traps{$current_alarm}->{OID} = $1;
+            }
+            $description =~ s/"\s*::=\s*\{.*\}$//; # Eliminar la parte final
+            $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
+        } 
+    }
     # Eliminar ::= { contenido } de la descripción y limpiar espacios y caracteres especiales
     foreach my $object (keys %alarm_traps) {
         foreach my $field (qw(TYPE VARIABLES DESCRIPTION ENTERPRISE OID STATUS)) {
@@ -1131,6 +1097,7 @@ sub extraer_alarm_traps {
             }
         }
     }
+
     #print Dumper(\%alarm_traps);
     return \%alarm_traps;
 }
@@ -1515,30 +1482,44 @@ sub extraer_datos_empresas {
 
 # Función para escribir datos en el archivo temporal
 sub escribir_datos_en_archivo {
-    my ($temp_file, $data, $tipo) = @_;
-    
-    open my $fh, '>', $temp_file or die "No se pudo abrir el archivo temporal $temp_file: $!";
+    my ($temp_file, $data, $tipo, $append) = @_;
+    # Validar si tiene valor el parametro append
+    $append = 0 unless defined $append;
+    my $mode = '>';
+    if ($append) {
+        $mode = '>>';
+    } 
+    open my $fh, $mode, $temp_file or die "No se pudo abrir el archivo temporal $temp_file: $!";
     
     if ($tipo eq 'OBJECTS_INFO') {
-            escribir_seccion($fh, "OBJECT_IDENTITIES", $data->{OBJECT_IDENTITIES});
-            escribir_seccion($fh, "OBJECT_TYPES", $data->{OBJECT_TYPES});
-            escribir_seccion($fh, "OBJECT_IDENTIFIERS", $data->{OBJECT_IDENTIFIERS});
-            escribir_seccion($fh, "MODULE_IDENTITIES", $data->{MODULE_IDENTITIES});
-            escribir_seccion($fh, "ALARM_TRAPS", $data->{ALARM_TRAPS});
-            escribir_oid_nodes($fh, "OID_NODES", $data->{OID_NODES});
+            escribir_seccion($fh, "OBJECT_IDENTITIES", $data->{OBJECT_IDENTITIES}, "FIN DE OBJECT_IDENTITIES");
+            escribir_seccion($fh, "OBJECT_TYPES", $data->{OBJECT_TYPES}, "FIN DE OBJECT_TYPES");
+            escribir_seccion($fh, "OBJECT_IDENTIFIERS", $data->{OBJECT_IDENTIFIERS}, "FIN DE OBJECT_IDENTIFIERS");
+            escribir_seccion($fh, "MODULE_IDENTITIES", $data->{MODULE_IDENTITIES}, "FIN DE MODULE_IDENTITIES");
+            escribir_seccion($fh, "ALARM_TRAPS", $data->{ALARM_TRAPS}, "FIN DE ALARM_TRAPS");
+            escribir_oid_nodes($fh, "OID_NODES", $data->{OID_NODES}, "FIN DE OID_NODES");
     } elsif ($tipo eq 'ALARM_TRAPS') {
-            escribir_seccion($fh, "ALARM_TRAPS", $data);
-    }
-       
+            escribir_seccion($fh, "ALARM TRAPS", $data, "FIN DE ALARM_TRAPS");
+    } elsif ($tipo eq 'NOTIFICATION_TYPES_OR_TRAP_TYPES') {
+        foreach my $key (keys %$data) {
+            print $fh "----------------------------------- $key ---------------------------\n";
+            print $fh "$key:\n";
+            foreach my $field (qw(TYPE OBJECTS STATUS DESCRIPTION OID VARIABLES ENTERPRISE)) {
+                if (exists $data->{$key}->{$field}) {
 
-    
+                    print $fh "  $field: $data->{$key}->{$field}\n";
+                }
+            }
+            print $fh "----------------------------------- Final de segmento -----------------------------------\n";
+        }
+
+    }   
     close $fh or warn "Advertencia: No se pudo cerrar el archivo temporal $temp_file: $!";
 }
 
 # Función para escribir una sección en el archivo
 sub escribir_seccion {
-    my ($fh, $titulo, $seccion) = @_;
-    
+    my ($fh, $titulo, $seccion, $pie_pagina) = @_;
     print $fh "----------------------------------- $titulo ---------------------------\n";
     foreach my $key (keys %$seccion) {
         print $fh "$key:\n";
@@ -1547,6 +1528,7 @@ sub escribir_seccion {
         }
         print $fh "\n";
     }
+    print $fh "----------------------------------- $pie_pagina -----------------------------------\n";
 }
 
 # Función para escribir OID_NODES en el archivo
@@ -1622,8 +1604,10 @@ sub construir_oid_completo {
             }
         }
     }
-
+    #print "Current name: $nombre\n";
+    #print "OID completo: @oid_parts\n";
     my $complete_oid = join('.', @oid_parts);
+    #print "OID completo: $complete_oid\n";
     $complete_oid = validar_y_complementar_oid($complete_oid, $oid_data) if $oid_data;
     return $complete_oid;
 }
