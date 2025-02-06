@@ -1,47 +1,47 @@
 ----------------------------------- ALARM TRAPS ---------------------------
-linkUp:
-  ifAdminStatus: 2.1.7
-  ifIndex: 2.1.1
-  ifOperStatus: 2.1.8
-
-mteTriggerFired:
-  mteHotTrigger: 3.6.1.2.1.88.2.1.1
-  mteHotContextName: 3.6.1.2.1.88.2.1.3
-  mteHotValue: 3.6.1.2.1.88.2.1.5
-  mteHotOID: 3.6.1.2.1.88.2.1.4
-  mteHotTargetName: 3.6.1.2.1.88.2.1.2
-
-linkDown:
-  ifIndex: 2.1.1
-  ifAdminStatus: 2.1.7
-  ifOperStatus: 2.1.8
-
-mteTriggerRising:
-  mteHotOID: 3.6.1.2.1.88.2.1.4
-  mteHotTargetName: 3.6.1.2.1.88.2.1.2
-  mteHotTrigger: 3.6.1.2.1.88.2.1.1
-  mteHotValue: 3.6.1.2.1.88.2.1.5
-  mteHotContextName: 3.6.1.2.1.88.2.1.3
-
 mteTriggerFalling:
-  mteHotContextName: 3.6.1.2.1.88.2.1.3
-  mteHotValue: 3.6.1.2.1.88.2.1.5
-  mteHotTrigger: 3.6.1.2.1.88.2.1.1
-  mteHotOID: 3.6.1.2.1.88.2.1.4
-  mteHotTargetName: 3.6.1.2.1.88.2.1.2
+  mteHotValue: 1.3.6.1.2.1.88.2.1.5
+  mteHotContextName: 1.3.6.1.2.1.88.2.1.3
+  mteHotTargetName: 1.3.6.1.2.1.88.2.1.2
+  mteHotTrigger: 1.3.6.1.2.1.88.2.1.1
+  mteHotOID: 1.3.6.1.2.1.88.2.1.4
+
+linkUp:
+  ifIndex: 1.2.1.1
+  ifOperStatus: 1.2.1.8
+  ifAdminStatus: 1.2.1.7
 
 mteTriggerFailure:
-  mteHotContextName: 3.6.1.2.1.88.2.1.3
-  mteHotTrigger: 3.6.1.2.1.88.2.1.1
-  mteHotTargetName: 3.6.1.2.1.88.2.1.2
-  mteHotOID: 3.6.1.2.1.88.2.1.4
-  mteFailedReason: 3.6.1.2.1.88.2.0.5
+  mteHotContextName: 1.3.6.1.2.1.88.2.1.3
+  mteFailedReason: 1.3.6.1.2.1.88.2.0.5
+  mteHotTargetName: 1.3.6.1.2.1.88.2.1.2
+  mteHotOID: 1.3.6.1.2.1.88.2.1.4
+  mteHotTrigger: 1.3.6.1.2.1.88.2.1.1
+
+mteTriggerFired:
+  mteHotTrigger: 1.3.6.1.2.1.88.2.1.1
+  mteHotOID: 1.3.6.1.2.1.88.2.1.4
+  mteHotValue: 1.3.6.1.2.1.88.2.1.5
+  mteHotContextName: 1.3.6.1.2.1.88.2.1.3
+  mteHotTargetName: 1.3.6.1.2.1.88.2.1.2
+
+mteTriggerRising:
+  mteHotOID: 1.3.6.1.2.1.88.2.1.4
+  mteHotTrigger: 1.3.6.1.2.1.88.2.1.1
+  mteHotTargetName: 1.3.6.1.2.1.88.2.1.2
+  mteHotContextName: 1.3.6.1.2.1.88.2.1.3
+  mteHotValue: 1.3.6.1.2.1.88.2.1.5
+
+linkDown:
+  ifOperStatus: 1.2.1.8
+  ifIndex: 1.2.1.1
+  ifAdminStatus: 1.2.1.7
 
 mteEventSetFailure:
-  mteHotTargetName: 3.6.1.2.1.88.2.1.2
-  mteHotOID: 3.6.1.2.1.88.2.1.4
-  mteFailedReason: 3.6.1.2.1.88.2.0.5
-  mteHotContextName: 3.6.1.2.1.88.2.1.3
-  mteHotTrigger: 3.6.1.2.1.88.2.1.1
+  mteHotTrigger: 1.3.6.1.2.1.88.2.1.1
+  mteHotOID: 1.3.6.1.2.1.88.2.1.4
+  mteHotContextName: 1.3.6.1.2.1.88.2.1.3
+  mteFailedReason: 1.3.6.1.2.1.88.2.0.5
+  mteHotTargetName: 1.3.6.1.2.1.88.2.1.2
 
 ----------------------------------- FIN DE ALARM_TRAPS -----------------------------------

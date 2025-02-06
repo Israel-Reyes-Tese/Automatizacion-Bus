@@ -68,6 +68,175 @@ multi-user system will not be included in this table."
 Archivo: HOST-RESOURCES-MIB.mib
 hrMIBCompliances OBJECT IDENTIFIER ::= { hrMIBAdminInfo 2 }
 hrMIBGroups      OBJECT IDENTIFIER ::= { hrMIBAdminInfo 3 }
+Archivo: SNMPv2-SMI
+org OBJECT IDENTIFIER
+::= { iso 3 }
+Archivo: SNMPv2-SMI
+dod OBJECT IDENTIFIER
+::= { org 6 }
+Archivo: SNMPv2-SMI
+internet OBJECT IDENTIFIER
+::= { dod 1 }
+Archivo: SNMPv2-SMI
+directory OBJECT IDENTIFIER
+::= { internet 1 }
+Archivo: SNMPv2-SMI
+mgmt OBJECT IDENTIFIER
+::= { internet 2 }
+Archivo: SNMPv2-SMI
+mib-2 OBJECT IDENTIFIER
+::= { mgmt 1 }
+Archivo: SNMPv2-SMI
+transmission OBJECT IDENTIFIER
+::= { mib-2 10 }
+Archivo: SNMPv2-SMI
+experimental OBJECT IDENTIFIER
+::= { internet 3 }
+Archivo: SNMPv2-SMI
+private OBJECT IDENTIFIER
+::= { internet 4 }
+Archivo: SNMPv2-SMI
+enterprises OBJECT IDENTIFIER
+::= { private 1 }
+Archivo: SNMPv2-SMI
+security OBJECT IDENTIFIER
+::= { internet 5 }
+Archivo: SNMPv2-SMI
+snmpV2 OBJECT IDENTIFIER
+::= { internet 6 }
+Archivo: SNMPv2-SMI
+snmpDomains OBJECT IDENTIFIER
+::= { snmpV2 1 }
+Archivo: SNMPv2-SMI
+snmpProxys OBJECT IDENTIFIER
+::= { snmpV2 2 }
+Archivo: SNMPv2-SMI
+snmpModules OBJECT IDENTIFIER
+::= { snmpV2 3 }
+Archivo: SNMPv2-MIB.mib
+snmpMIBObjects OBJECT IDENTIFIER ::= { snmpMIB 1 }
+--  ::= { snmpMIBObjects 1 }        this OID is obsolete
+--  ::= { snmpMIBObjects 2 }        this OID is obsolete
+--  ::= { snmpMIBObjects 3 }        this OID is obsolete
+-- the System group
+--
+-- a collection of objects common to all managed systems.
+system   OBJECT IDENTIFIER ::= { mib-2 1 }
+Archivo: SNMPv2-MIB.mib
+SYNTAX      OBJECT IDENTIFIER
+MAX-ACCESS  read-only
+STATUS      current
+DESCRIPTION
+"The vendor's authoritative identification of the
+network management subsystem contained in the entity.
+This value is allocated within the SMI enterprises
+subtree (1.3.6.1.4.1) and provides an easy and
+unambiguous means for determining `what kind of box' is
+being managed.  For example, if vendor `Flintstones,
+Inc.' was assigned the subtree 1.3.6.1.4.1.424242,
+it could assign the identifier 1.3.6.1.4.1.424242.1.1
+to its `Fred Router'."
+::= { system 2 }
+Archivo: SNMPv2-MIB.mib
+sysORID        OBJECT IDENTIFIER,
+sysORDescr     DisplayString,
+sysORUpTime    TimeStamp
+}
+sysORIndex OBJECT-TYPE
+SYNTAX     INTEGER (1..2147483647)
+MAX-ACCESS not-accessible
+STATUS     current
+DESCRIPTION
+"The auxiliary variable used for identifying instances
+of the columnar objects in the sysORTable."
+::= { sysOREntry 1 }
+Archivo: SNMPv2-MIB.mib
+SYNTAX     OBJECT IDENTIFIER
+MAX-ACCESS read-only
+STATUS     current
+DESCRIPTION
+"An authoritative identification of a capabilities
+statement with respect to various MIB modules supported
+by the local SNMP application acting as a command
+responder."
+::= { sysOREntry 2 }
+Archivo: SNMPv2-MIB.mib
+snmp     OBJECT IDENTIFIER ::= { mib-2 11 }
+snmpInPkts OBJECT-TYPE
+SYNTAX     Counter32
+MAX-ACCESS read-only
+STATUS     current
+DESCRIPTION
+"The total number of messages delivered to the SNMP
+entity from the transport service."
+::= { snmp 1 }
+Archivo: SNMPv2-MIB.mib
+snmpTrap       OBJECT IDENTIFIER ::= { snmpMIBObjects 4 }
+snmpTrapOID OBJECT-TYPE
+SYNTAX     OBJECT IDENTIFIER
+MAX-ACCESS accessible-for-notify
+STATUS     current
+DESCRIPTION
+"The authoritative identification of the notification
+currently being sent.  This variable occurs as
+the second varbind in every SNMPv2-Trap-PDU and
+InformRequest-PDU."
+::= { snmpTrap 1 }
+Archivo: SNMPv2-MIB.mib
+SYNTAX     OBJECT IDENTIFIER
+MAX-ACCESS accessible-for-notify
+STATUS     current
+DESCRIPTION
+"The authoritative identification of the enterprise
+associated with the trap currently being sent.  When an
+SNMP proxy agent is mapping an RFC1157 Trap-PDU
+into a SNMPv2-Trap-PDU, this variable occurs as the
+last varbind."
+::= { snmpTrap 3 }
+Archivo: SNMPv2-MIB.mib
+snmpTraps      OBJECT IDENTIFIER ::= { snmpMIBObjects 5 }
+coldStart NOTIFICATION-TYPE
+STATUS  current
+DESCRIPTION
+"A coldStart trap signifies that the SNMP entity,
+supporting a notification originator application, is
+reinitializing itself and that its configuration may
+have been altered."
+::= { snmpTraps 1 }
+Archivo: SNMPv2-MIB.mib
+snmpSet        OBJECT IDENTIFIER ::= { snmpMIBObjects 6 }
+snmpSetSerialNo OBJECT-TYPE
+SYNTAX     TestAndIncr
+MAX-ACCESS read-write
+STATUS     current
+DESCRIPTION
+"An advisory lock used to allow several cooperating
+command generator applications to coordinate their
+use of the SNMP set operation.
+This object is used for coarse-grain coordination.
+To achieve fine-grain coordination, one or more similar
+objects might be defined within each MIB group, as
+appropriate."
+::= { snmpSet 1 }
+Archivo: SNMPv2-MIB.mib
+snmpMIBGroups  OBJECT IDENTIFIER ::= { snmpMIBConformance 2 }
+-- compliance statements
+--    ::= { snmpMIBCompliances 1 }      this OID is obsolete
+snmpBasicCompliance MODULE-COMPLIANCE
+STATUS  deprecated
+DESCRIPTION
+"The compliance statement for SNMPv2 entities which
+implement the SNMPv2 MIB.
+This compliance statement is replaced by
+snmpBasicComplianceRev2."
+MODULE  -- this module
+MANDATORY-GROUPS { snmpGroup, snmpSetGroup, systemGroup,
+snmpBasicNotificationsGroup }
+GROUP   snmpCommunityGroup1
+DESCRIPTION
+"This group is mandatory for SNMPv2 entities which
+support community-based authentication."
+::= { snmpMIBCompliances 2 }
 Archivo: IF-MIB.mib
 ifMIBObjects OBJECT IDENTIFIER ::= { ifMIB 1 }
 interfaces   OBJECT IDENTIFIER ::= { mib-2 2 }
@@ -208,151 +377,274 @@ test.  The value may have the semantics of either the
 AutonomousType or InstancePointer textual conventions as
 defined in RFC 2579.  The identifier:
 testCodeUnknown  OBJECT IDENTIFIER ::= { 0 0 }
-Archivo: SNMP-TARGET-MIB.mib
-snmpTargetObjects       OBJECT IDENTIFIER ::= { snmpTargetMIB 1 }
-snmpTargetConformance   OBJECT IDENTIFIER ::= { snmpTargetMIB 3 }
-Archivo: SNMP-TARGET-MIB.mib
-snmpTargetCompliances OBJECT IDENTIFIER ::=
-{ snmpTargetConformance 1 }
-snmpTargetGroups      OBJECT IDENTIFIER ::=
-{ snmpTargetConformance 2 }
+Archivo: DISMAN-EVENT-MIB.mib
+dismanEventMIBObjects OBJECT IDENTIFIER ::= { dismanEventMIB 1 }
+-- Management Triggered Event (MTE) objects
+mteResource           OBJECT IDENTIFIER ::= { dismanEventMIBObjects 1 }
+Archivo: DISMAN-EVENT-MIB.mib
+mteTrigger            OBJECT IDENTIFIER ::= { dismanEventMIBObjects 2 }
+mteObjects            OBJECT IDENTIFIER ::= { dismanEventMIBObjects 3 }
+Archivo: DISMAN-EVENT-MIB.mib
+mteEvent              OBJECT IDENTIFIER ::= { dismanEventMIBObjects 4 }
 --
+-- Textual Conventions
 --
--- Compliance statements
---
---
-snmpTargetCommandResponderCompliance MODULE-COMPLIANCE
+FailureReason ::= TEXTUAL-CONVENTION
 STATUS      current
 DESCRIPTION
-"The compliance statement for SNMP entities which include
-a command responder application."
-MODULE -- This Module
-MANDATORY-GROUPS { snmpTargetCommandResponderGroup }
-::= { snmpTargetCompliances 1 }
-Archivo: SNMPv2-MIB.mib
-snmpMIBObjects OBJECT IDENTIFIER ::= { snmpMIB 1 }
---  ::= { snmpMIBObjects 1 }        this OID is obsolete
---  ::= { snmpMIBObjects 2 }        this OID is obsolete
---  ::= { snmpMIBObjects 3 }        this OID is obsolete
--- the System group
+"Reasons for failures in an attempt to perform a management
+request.
+The first group of errors, numbered less than 0, are related
+to problems in sending the request.  The existence of a
+particular error code here does not imply that all
+implementations are capable of sensing that error and
+returning that code.
+The second group, numbered greater than 0, are copied
+directly from SNMP protocol operations and are intended to
+carry exactly the meanings defined for the protocol as returned
+in an SNMP response.
+localResourceLack       some local resource such as memory
+lacking or
+mteResourceSampleInstanceMaximum
+exceeded
+badDestination          unrecognized domain name or otherwise
+invalid destination address
+destinationUnreachable  can't get to destination address
+noResponse              no response to SNMP request
+badType                 the data syntax of a retrieved object
+as not as expected
+sampleOverrun           another sample attempt occurred before
+the previous one completed"
+SYNTAX      INTEGER { localResourceLack(-1),
+badDestination(-2),
+destinationUnreachable(-3),
+noResponse(-4),
+badType(-5),
+sampleOverrun(-6),
+noError(0),
+tooBig(1),
+noSuchName(2),
+badValue(3),
+readOnly(4),
+genErr(5),
+noAccess(6),
+wrongType(7),
+wrongLength(8),
+wrongEncoding(9),
+wrongValue(10),
+noCreation(11),
+inconsistentValue(12),
+resourceUnavailable(13),
+commitFailed(14),
+undoFailed(15),
+authorizationError(16),
+notWritable(17),
+inconsistentName(18) }
 --
--- a collection of objects common to all managed systems.
-system   OBJECT IDENTIFIER ::= { mib-2 1 }
-Archivo: SNMPv2-MIB.mib
-SYNTAX      OBJECT IDENTIFIER
-MAX-ACCESS  read-only
+-- Resource Control Section
+--
+mteResourceSampleMinimum OBJECT-TYPE
+SYNTAX      Integer32 (1..2147483647)
+UNITS       "seconds"
+MAX-ACCESS  read-write
 STATUS      current
 DESCRIPTION
-"The vendor's authoritative identification of the
-network management subsystem contained in the entity.
-This value is allocated within the SMI enterprises
-subtree (1.3.6.1.4.1) and provides an easy and
-unambiguous means for determining `what kind of box' is
-being managed.  For example, if vendor `Flintstones,
-Inc.' was assigned the subtree 1.3.6.1.4.1.424242,
-it could assign the identifier 1.3.6.1.4.1.424242.1.1
-to its `Fred Router'."
-::= { system 2 }
-Archivo: SNMPv2-MIB.mib
-sysORID        OBJECT IDENTIFIER,
-sysORDescr     DisplayString,
-sysORUpTime    TimeStamp
+"The minimum mteTriggerFrequency this system will
+accept.  A system may use the larger values of this minimum to
+lessen the impact of constant sampling.  For larger
+sampling intervals the system samples less often and
+suffers less overhead.  This object provides a way to enforce
+such lower overhead for all triggers created after it is
+set.
+Unless explicitly resource limited, a system's value for
+this object SHOULD be 1, allowing as small as a 1 second
+interval for ongoing trigger sampling.
+Changing this value will not invalidate an existing setting
+of mteTriggerFrequency."
+::= { mteResource 1 }
+Archivo: DISMAN-EVENT-MIB.mib
+mteTriggerValueID                   OBJECT IDENTIFIER,
+mteTriggerValueIDWildcard           TruthValue,
+mteTriggerTargetTag                 SnmpTagValue,
+mteTriggerContextName               SnmpAdminString,
+mteTriggerContextNameWildcard       TruthValue,
+mteTriggerFrequency                 Unsigned32,
+mteTriggerObjectsOwner              SnmpAdminString,
+mteTriggerObjects                   SnmpAdminString,
+mteTriggerEnabled                   TruthValue,
+mteTriggerEntryStatus               RowStatus
 }
-sysORIndex OBJECT-TYPE
-SYNTAX     INTEGER (1..2147483647)
-MAX-ACCESS not-accessible
-STATUS     current
+mteOwner OBJECT-TYPE
+SYNTAX      SnmpAdminString (SIZE(0..32))
+MAX-ACCESS  not-accessible
+STATUS      current
 DESCRIPTION
-"The auxiliary variable used for identifying instances
-of the columnar objects in the sysORTable."
-::= { sysOREntry 1 }
-Archivo: SNMPv2-MIB.mib
-SYNTAX     OBJECT IDENTIFIER
-MAX-ACCESS read-only
-STATUS     current
+"The owner of this entry. The exact semantics of this
+string are subject to the security policy defined by the
+security administrator."
+::= { mteTriggerEntry 1 }
+Archivo: DISMAN-EVENT-MIB.mib
+SYNTAX      OBJECT IDENTIFIER
+MAX-ACCESS  read-create
+STATUS      current
 DESCRIPTION
-"An authoritative identification of a capabilities
-statement with respect to various MIB modules supported
-by the local SNMP application acting as a command
-responder."
-::= { sysOREntry 2 }
-Archivo: SNMPv2-MIB.mib
-snmp     OBJECT IDENTIFIER ::= { mib-2 11 }
-snmpInPkts OBJECT-TYPE
-SYNTAX     Counter32
-MAX-ACCESS read-only
-STATUS     current
+"The object identifier of the MIB object to sample to see
+if the trigger should fire.
+This may be wildcarded by truncating all or part of the
+instance portion, in which case the value is obtained
+as if with a GetNext function, checking multiple values
+if they exist.  If such wildcarding is applied,
+mteTriggerValueIDWildcard must be 'true' and if not it must
+be 'false'.
+Bad object identifiers or a mismatch between truncating the
+identifier and the value of mteTriggerValueIDWildcard result
+in operation as one would expect when providing the wrong
+identifier to a Get or GetNext operation.  The Get will fail
+or get the wrong object.  The GetNext will indeed get whatever
+is next, proceeding until it runs past the initial part of the
+identifier and perhaps many unintended objects for confusing
+results.  If the value syntax of those objects is not usable,
+that results in a 'badType' error that terminates the scan.
+Each instance that fills the wildcard is independent of any
+additional instances, that is, wildcarded objects operate
+as if there were a separate table entry for each instance
+that fills the wildcard without having to actually predict
+all possible instances ahead of time."
+DEFVAL { zeroDotZero }
+::= { mteTriggerEntry 6 }
+Archivo: DISMAN-EVENT-MIB.mib
+mteTriggerDeltaDiscontinuityID                OBJECT IDENTIFIER,
+mteTriggerDeltaDiscontinuityIDWildcard        TruthValue,
+mteTriggerDeltaDiscontinuityIDType            INTEGER
+}
+sysUpTimeInstance OBJECT IDENTIFIER ::= { sysUpTime 0 }
+Archivo: DISMAN-EVENT-MIB.mib
+SYNTAX      OBJECT IDENTIFIER
+MAX-ACCESS  read-write
+STATUS      current
 DESCRIPTION
-"The total number of messages delivered to the SNMP
-entity from the transport service."
-::= { snmp 1 }
-Archivo: SNMPv2-MIB.mib
-snmpTrap       OBJECT IDENTIFIER ::= { snmpMIBObjects 4 }
-snmpTrapOID OBJECT-TYPE
-SYNTAX     OBJECT IDENTIFIER
-MAX-ACCESS accessible-for-notify
-STATUS     current
+"The OBJECT IDENTIFIER (OID) of a TimeTicks, TimeStamp, or
+DateAndTime object that indicates a discontinuity in the value
+at mteTriggerValueID.
+The OID may be for a leaf object (e.g. sysUpTime.0) or may
+be wildcarded to match mteTriggerValueID.
+This object supports normal checking for a discontinuity in a
+counter.  Note that if this object does not point to sysUpTime
+discontinuity checking MUST still check sysUpTime for an overall
+discontinuity.
+If the object identified is not accessible the sample attempt
+is in error, with the error code as from an SNMP request.
+Bad object identifiers or a mismatch between truncating the
+identifier and the value of mteDeltaDiscontinuityIDWildcard
+result in operation as one would expect when providing the
+wrong identifier to a Get operation.  The Get will fail or get
+the wrong object.  If the value syntax of those objects is not
+usable, that results in an error that terminates the sample
+with a 'badType' error code."
+DEFVAL { sysUpTimeInstance }
+::= { mteTriggerDeltaEntry 1 }
+Archivo: DISMAN-EVENT-MIB.mib
+mteObjectsID                        OBJECT IDENTIFIER,
+mteObjectsIDWildcard                TruthValue,
+mteObjectsEntryStatus               RowStatus
+}
+mteObjectsName OBJECT-TYPE
+SYNTAX      SnmpAdminString (SIZE (1..32))
+MAX-ACCESS  not-accessible
+STATUS      current
 DESCRIPTION
-"The authoritative identification of the notification
-currently being sent.  This variable occurs as
-the second varbind in every SNMPv2-Trap-PDU and
-InformRequest-PDU."
-::= { snmpTrap 1 }
-Archivo: SNMPv2-MIB.mib
-SYNTAX     OBJECT IDENTIFIER
-MAX-ACCESS accessible-for-notify
-STATUS     current
+"A locally-unique, administratively assigned name for a group
+of objects."
+::= { mteObjectsEntry 1 }
+Archivo: DISMAN-EVENT-MIB.mib
+SYNTAX      OBJECT IDENTIFIER
+MAX-ACCESS  read-create
+STATUS      current
 DESCRIPTION
-"The authoritative identification of the enterprise
-associated with the trap currently being sent.  When an
-SNMP proxy agent is mapping an RFC1157 Trap-PDU
-into a SNMPv2-Trap-PDU, this variable occurs as the
-last varbind."
-::= { snmpTrap 3 }
-Archivo: SNMPv2-MIB.mib
-snmpTraps      OBJECT IDENTIFIER ::= { snmpMIBObjects 5 }
-coldStart NOTIFICATION-TYPE
-STATUS  current
+"The object identifier of a MIB object to add to a
+Notification that results from the firing of a trigger.
+This may be wildcarded by truncating all or part of the
+instance portion, in which case the instance portion of the
+OID for obtaining this object will be the same as that used
+in obtaining the mteTriggerValueID that fired.  If such
+wildcarding is applied, mteObjectsIDWildcard must be
+'true' and if not it must be 'false'.
+Each instance that fills the wildcard is independent of any
+additional instances, that is, wildcarded objects operate
+as if there were a separate table entry for each instance
+that fills the wildcard without having to actually predict
+all possible instances ahead of time."
+DEFVAL { zeroDotZero }
+::= { mteObjectsEntry 3 }
+Archivo: DISMAN-EVENT-MIB.mib
+mteEventNotification                OBJECT IDENTIFIER,
+mteEventNotificationObjectsOwner    SnmpAdminString,
+mteEventNotificationObjects         SnmpAdminString
+}
+mteEventNotification OBJECT-TYPE
+SYNTAX      OBJECT IDENTIFIER
+MAX-ACCESS  read-write
+STATUS      current
 DESCRIPTION
-"A coldStart trap signifies that the SNMP entity,
-supporting a notification originator application, is
-reinitializing itself and that its configuration may
-have been altered."
-::= { snmpTraps 1 }
-Archivo: SNMPv2-MIB.mib
-snmpSet        OBJECT IDENTIFIER ::= { snmpMIBObjects 6 }
-snmpSetSerialNo OBJECT-TYPE
-SYNTAX     TestAndIncr
-MAX-ACCESS read-write
-STATUS     current
+"The object identifier from the NOTIFICATION-TYPE for the
+notification to use if metEventActions has 'notification' set."
+DEFVAL { zeroDotZero }
+::= { mteEventNotificationEntry 1 }
+Archivo: DISMAN-EVENT-MIB.mib
+mteEventSetObject                   OBJECT IDENTIFIER,
+mteEventSetObjectWildcard           TruthValue,
+mteEventSetValue                    Integer32,
+mteEventSetTargetTag                SnmpTagValue,
+mteEventSetContextName              SnmpAdminString,
+mteEventSetContextNameWildcard      TruthValue
+}
+mteEventSetObject OBJECT-TYPE
+SYNTAX      OBJECT IDENTIFIER
+MAX-ACCESS  read-write
+STATUS      current
 DESCRIPTION
-"An advisory lock used to allow several cooperating
-command generator applications to coordinate their
-use of the SNMP set operation.
-This object is used for coarse-grain coordination.
-To achieve fine-grain coordination, one or more similar
-objects might be defined within each MIB group, as
-appropriate."
-::= { snmpSet 1 }
-Archivo: SNMPv2-MIB.mib
-snmpMIBGroups  OBJECT IDENTIFIER ::= { snmpMIBConformance 2 }
--- compliance statements
---    ::= { snmpMIBCompliances 1 }      this OID is obsolete
-snmpBasicCompliance MODULE-COMPLIANCE
-STATUS  deprecated
+"The object identifier from the MIB object to set if
+mteEventActions has 'set' set.
+This object identifier may be wildcarded by leaving
+sub-identifiers off the end, in which case
+nteEventSetObjectWildCard must be 'true'.
+If mteEventSetObject is wildcarded the instance used to set the
+object to which it points is the same as the instance from the
+value of mteTriggerValueID that triggered the event.
+Each instance that fills the wildcard is independent of any
+additional instances, that is, wildcarded objects operate
+as if there were a separate table entry for each instance
+that fills the wildcard without having to actually predict
+all possible instances ahead of time.
+Bad object identifiers or a mismatch between truncating the
+identifier and the value of mteSetObjectWildcard
+result in operation as one would expect when providing the
+wrong identifier to a Set operation.  The Set will fail or set
+the wrong object.  If the value syntax of the destination
+object is not correct, the Set fails with the normal SNMP
+error code."
+DEFVAL { zeroDotZero }
+::= { mteEventSetEntry 1 }
+Archivo: DISMAN-EVENT-MIB.mib
+dismanEventMIBNotificationPrefix OBJECT IDENTIFIER ::=
+{ dismanEventMIB 2 }
+dismanEventMIBNotifications OBJECT IDENTIFIER ::=
+{ dismanEventMIBNotificationPrefix 0 }
+dismanEventMIBNotificationObjects OBJECT IDENTIFIER
+::= { dismanEventMIBNotificationPrefix 1 }
+Archivo: DISMAN-EVENT-MIB.mib
+SYNTAX      OBJECT IDENTIFIER
+MAX-ACCESS  accessible-for-notify
+STATUS      current
 DESCRIPTION
-"The compliance statement for SNMPv2 entities which
-implement the SNMPv2 MIB.
-This compliance statement is replaced by
-snmpBasicComplianceRev2."
-MODULE  -- this module
-MANDATORY-GROUPS { snmpGroup, snmpSetGroup, systemGroup,
-snmpBasicNotificationsGroup }
-GROUP   snmpCommunityGroup1
-DESCRIPTION
-"This group is mandatory for SNMPv2 entities which
-support community-based authentication."
-::= { snmpMIBCompliances 2 }
+"The object identifier of the destination object related to the
+notification.  This MUST be as fully-qualified as possible,
+including filling in wildcard information determined in
+processing.
+For a trigger-related notification this is from
+mteTriggerValueID.
+For a set failure this is from mteEventSetObject."
+::= { dismanEventMIBNotificationObjects 4 }
 Archivo: SNMPv2-TC
 SYNTAX          OBJECT IDENTIFIER
 InstancePointer ::= TEXTUAL-CONVENTION
@@ -886,69 +1178,27 @@ MIB module.  Other possible textual conventions are defined in
 other MIB modules."
 SYNTAX          OCTET STRING (SIZE(1..255))
 END -- end of module SNMPv2-TC.
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkAdmin OBJECT IDENTIFIER
-::= { snmpFrameworkMIB 1 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBObjects OBJECT IDENTIFIER
-::= { snmpFrameworkMIB 2 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpEngine OBJECT IDENTIFIER
-::= { snmpFrameworkMIBObjects 1 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBConformance OBJECT IDENTIFIER
-::= { snmpFrameworkMIB 3 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBCompliances OBJECT IDENTIFIER
-::= { snmpFrameworkMIBConformance 1 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBGroups OBJECT IDENTIFIER
-::= { snmpFrameworkMIBConformance 2 }
-Archivo: SNMPv2-SMI
-org OBJECT IDENTIFIER
-::= { iso 3 }
-Archivo: SNMPv2-SMI
-dod OBJECT IDENTIFIER
-::= { org 6 }
-Archivo: SNMPv2-SMI
-internet OBJECT IDENTIFIER
-::= { dod 1 }
-Archivo: SNMPv2-SMI
-directory OBJECT IDENTIFIER
-::= { internet 1 }
-Archivo: SNMPv2-SMI
-mgmt OBJECT IDENTIFIER
-::= { internet 2 }
-Archivo: SNMPv2-SMI
-mib-2 OBJECT IDENTIFIER
-::= { mgmt 1 }
-Archivo: SNMPv2-SMI
-transmission OBJECT IDENTIFIER
-::= { mib-2 10 }
-Archivo: SNMPv2-SMI
-experimental OBJECT IDENTIFIER
-::= { internet 3 }
-Archivo: SNMPv2-SMI
-private OBJECT IDENTIFIER
-::= { internet 4 }
-Archivo: SNMPv2-SMI
-enterprises OBJECT IDENTIFIER
-::= { private 1 }
-Archivo: SNMPv2-SMI
-security OBJECT IDENTIFIER
-::= { internet 5 }
-Archivo: SNMPv2-SMI
-snmpV2 OBJECT IDENTIFIER
-::= { internet 6 }
-Archivo: SNMPv2-SMI
-snmpDomains OBJECT IDENTIFIER
-::= { snmpV2 1 }
-Archivo: SNMPv2-SMI
-snmpProxys OBJECT IDENTIFIER
-::= { snmpV2 2 }
-Archivo: SNMPv2-SMI
-snmpModules OBJECT IDENTIFIER
-::= { snmpV2 3 }
+Archivo: SNMP-TARGET-MIB.mib
+snmpTargetObjects       OBJECT IDENTIFIER ::= { snmpTargetMIB 1 }
+snmpTargetConformance   OBJECT IDENTIFIER ::= { snmpTargetMIB 3 }
+Archivo: SNMP-TARGET-MIB.mib
+snmpTargetCompliances OBJECT IDENTIFIER ::=
+{ snmpTargetConformance 1 }
+snmpTargetGroups      OBJECT IDENTIFIER ::=
+{ snmpTargetConformance 2 }
+--
+--
+-- Compliance statements
+--
+--
+snmpTargetCommandResponderCompliance MODULE-COMPLIANCE
+STATUS      current
+DESCRIPTION
+"The compliance statement for SNMP entities which include
+a command responder application."
+MODULE -- This Module
+MANDATORY-GROUPS { snmpTargetCommandResponderGroup }
+::= { snmpTargetCompliances 1 }
 Archivo: UCD-SNMP-MIB.mib
 ucdInternal           OBJECT IDENTIFIER ::= { ucdavis 12 }
 ucdExperimental       OBJECT IDENTIFIER ::= { ucdavis 13 }
@@ -1044,635 +1294,392 @@ DESCRIPTION
 "The maximum number of logmatch entries
 this snmpd daemon can support."
 ::= { logMatch 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-dismanEventMIBObjects OBJECT IDENTIFIER ::= { dismanEventMIB 1 }
--- Management Triggered Event (MTE) objects
-mteResource           OBJECT IDENTIFIER ::= { dismanEventMIBObjects 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-mteTrigger            OBJECT IDENTIFIER ::= { dismanEventMIBObjects 2 }
-mteObjects            OBJECT IDENTIFIER ::= { dismanEventMIBObjects 3 }
-Archivo: DISMAN-EVENT-MIB.mib
-mteEvent              OBJECT IDENTIFIER ::= { dismanEventMIBObjects 4 }
---
--- Textual Conventions
---
-FailureReason ::= TEXTUAL-CONVENTION
-STATUS      current
-DESCRIPTION
-"Reasons for failures in an attempt to perform a management
-request.
-The first group of errors, numbered less than 0, are related
-to problems in sending the request.  The existence of a
-particular error code here does not imply that all
-implementations are capable of sensing that error and
-returning that code.
-The second group, numbered greater than 0, are copied
-directly from SNMP protocol operations and are intended to
-carry exactly the meanings defined for the protocol as returned
-in an SNMP response.
-localResourceLack       some local resource such as memory
-lacking or
-mteResourceSampleInstanceMaximum
-exceeded
-badDestination          unrecognized domain name or otherwise
-invalid destination address
-destinationUnreachable  can't get to destination address
-noResponse              no response to SNMP request
-badType                 the data syntax of a retrieved object
-as not as expected
-sampleOverrun           another sample attempt occurred before
-the previous one completed"
-SYNTAX      INTEGER { localResourceLack(-1),
-badDestination(-2),
-destinationUnreachable(-3),
-noResponse(-4),
-badType(-5),
-sampleOverrun(-6),
-noError(0),
-tooBig(1),
-noSuchName(2),
-badValue(3),
-readOnly(4),
-genErr(5),
-noAccess(6),
-wrongType(7),
-wrongLength(8),
-wrongEncoding(9),
-wrongValue(10),
-noCreation(11),
-inconsistentValue(12),
-resourceUnavailable(13),
-commitFailed(14),
-undoFailed(15),
-authorizationError(16),
-notWritable(17),
-inconsistentName(18) }
---
--- Resource Control Section
---
-mteResourceSampleMinimum OBJECT-TYPE
-SYNTAX      Integer32 (1..2147483647)
-UNITS       "seconds"
-MAX-ACCESS  read-write
-STATUS      current
-DESCRIPTION
-"The minimum mteTriggerFrequency this system will
-accept.  A system may use the larger values of this minimum to
-lessen the impact of constant sampling.  For larger
-sampling intervals the system samples less often and
-suffers less overhead.  This object provides a way to enforce
-such lower overhead for all triggers created after it is
-set.
-Unless explicitly resource limited, a system's value for
-this object SHOULD be 1, allowing as small as a 1 second
-interval for ongoing trigger sampling.
-Changing this value will not invalidate an existing setting
-of mteTriggerFrequency."
-::= { mteResource 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-mteTriggerValueID                   OBJECT IDENTIFIER,
-mteTriggerValueIDWildcard           TruthValue,
-mteTriggerTargetTag                 SnmpTagValue,
-mteTriggerContextName               SnmpAdminString,
-mteTriggerContextNameWildcard       TruthValue,
-mteTriggerFrequency                 Unsigned32,
-mteTriggerObjectsOwner              SnmpAdminString,
-mteTriggerObjects                   SnmpAdminString,
-mteTriggerEnabled                   TruthValue,
-mteTriggerEntryStatus               RowStatus
-}
-mteOwner OBJECT-TYPE
-SYNTAX      SnmpAdminString (SIZE(0..32))
-MAX-ACCESS  not-accessible
-STATUS      current
-DESCRIPTION
-"The owner of this entry. The exact semantics of this
-string are subject to the security policy defined by the
-security administrator."
-::= { mteTriggerEntry 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-SYNTAX      OBJECT IDENTIFIER
-MAX-ACCESS  read-create
-STATUS      current
-DESCRIPTION
-"The object identifier of the MIB object to sample to see
-if the trigger should fire.
-This may be wildcarded by truncating all or part of the
-instance portion, in which case the value is obtained
-as if with a GetNext function, checking multiple values
-if they exist.  If such wildcarding is applied,
-mteTriggerValueIDWildcard must be 'true' and if not it must
-be 'false'.
-Bad object identifiers or a mismatch between truncating the
-identifier and the value of mteTriggerValueIDWildcard result
-in operation as one would expect when providing the wrong
-identifier to a Get or GetNext operation.  The Get will fail
-or get the wrong object.  The GetNext will indeed get whatever
-is next, proceeding until it runs past the initial part of the
-identifier and perhaps many unintended objects for confusing
-results.  If the value syntax of those objects is not usable,
-that results in a 'badType' error that terminates the scan.
-Each instance that fills the wildcard is independent of any
-additional instances, that is, wildcarded objects operate
-as if there were a separate table entry for each instance
-that fills the wildcard without having to actually predict
-all possible instances ahead of time."
-DEFVAL { zeroDotZero }
-::= { mteTriggerEntry 6 }
-Archivo: DISMAN-EVENT-MIB.mib
-mteTriggerDeltaDiscontinuityID                OBJECT IDENTIFIER,
-mteTriggerDeltaDiscontinuityIDWildcard        TruthValue,
-mteTriggerDeltaDiscontinuityIDType            INTEGER
-}
-sysUpTimeInstance OBJECT IDENTIFIER ::= { sysUpTime 0 }
-Archivo: DISMAN-EVENT-MIB.mib
-SYNTAX      OBJECT IDENTIFIER
-MAX-ACCESS  read-write
-STATUS      current
-DESCRIPTION
-"The OBJECT IDENTIFIER (OID) of a TimeTicks, TimeStamp, or
-DateAndTime object that indicates a discontinuity in the value
-at mteTriggerValueID.
-The OID may be for a leaf object (e.g. sysUpTime.0) or may
-be wildcarded to match mteTriggerValueID.
-This object supports normal checking for a discontinuity in a
-counter.  Note that if this object does not point to sysUpTime
-discontinuity checking MUST still check sysUpTime for an overall
-discontinuity.
-If the object identified is not accessible the sample attempt
-is in error, with the error code as from an SNMP request.
-Bad object identifiers or a mismatch between truncating the
-identifier and the value of mteDeltaDiscontinuityIDWildcard
-result in operation as one would expect when providing the
-wrong identifier to a Get operation.  The Get will fail or get
-the wrong object.  If the value syntax of those objects is not
-usable, that results in an error that terminates the sample
-with a 'badType' error code."
-DEFVAL { sysUpTimeInstance }
-::= { mteTriggerDeltaEntry 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-mteObjectsID                        OBJECT IDENTIFIER,
-mteObjectsIDWildcard                TruthValue,
-mteObjectsEntryStatus               RowStatus
-}
-mteObjectsName OBJECT-TYPE
-SYNTAX      SnmpAdminString (SIZE (1..32))
-MAX-ACCESS  not-accessible
-STATUS      current
-DESCRIPTION
-"A locally-unique, administratively assigned name for a group
-of objects."
-::= { mteObjectsEntry 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-SYNTAX      OBJECT IDENTIFIER
-MAX-ACCESS  read-create
-STATUS      current
-DESCRIPTION
-"The object identifier of a MIB object to add to a
-Notification that results from the firing of a trigger.
-This may be wildcarded by truncating all or part of the
-instance portion, in which case the instance portion of the
-OID for obtaining this object will be the same as that used
-in obtaining the mteTriggerValueID that fired.  If such
-wildcarding is applied, mteObjectsIDWildcard must be
-'true' and if not it must be 'false'.
-Each instance that fills the wildcard is independent of any
-additional instances, that is, wildcarded objects operate
-as if there were a separate table entry for each instance
-that fills the wildcard without having to actually predict
-all possible instances ahead of time."
-DEFVAL { zeroDotZero }
-::= { mteObjectsEntry 3 }
-Archivo: DISMAN-EVENT-MIB.mib
-mteEventNotification                OBJECT IDENTIFIER,
-mteEventNotificationObjectsOwner    SnmpAdminString,
-mteEventNotificationObjects         SnmpAdminString
-}
-mteEventNotification OBJECT-TYPE
-SYNTAX      OBJECT IDENTIFIER
-MAX-ACCESS  read-write
-STATUS      current
-DESCRIPTION
-"The object identifier from the NOTIFICATION-TYPE for the
-notification to use if metEventActions has 'notification' set."
-DEFVAL { zeroDotZero }
-::= { mteEventNotificationEntry 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-mteEventSetObject                   OBJECT IDENTIFIER,
-mteEventSetObjectWildcard           TruthValue,
-mteEventSetValue                    Integer32,
-mteEventSetTargetTag                SnmpTagValue,
-mteEventSetContextName              SnmpAdminString,
-mteEventSetContextNameWildcard      TruthValue
-}
-mteEventSetObject OBJECT-TYPE
-SYNTAX      OBJECT IDENTIFIER
-MAX-ACCESS  read-write
-STATUS      current
-DESCRIPTION
-"The object identifier from the MIB object to set if
-mteEventActions has 'set' set.
-This object identifier may be wildcarded by leaving
-sub-identifiers off the end, in which case
-nteEventSetObjectWildCard must be 'true'.
-If mteEventSetObject is wildcarded the instance used to set the
-object to which it points is the same as the instance from the
-value of mteTriggerValueID that triggered the event.
-Each instance that fills the wildcard is independent of any
-additional instances, that is, wildcarded objects operate
-as if there were a separate table entry for each instance
-that fills the wildcard without having to actually predict
-all possible instances ahead of time.
-Bad object identifiers or a mismatch between truncating the
-identifier and the value of mteSetObjectWildcard
-result in operation as one would expect when providing the
-wrong identifier to a Set operation.  The Set will fail or set
-the wrong object.  If the value syntax of the destination
-object is not correct, the Set fails with the normal SNMP
-error code."
-DEFVAL { zeroDotZero }
-::= { mteEventSetEntry 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-dismanEventMIBNotificationPrefix OBJECT IDENTIFIER ::=
-{ dismanEventMIB 2 }
-dismanEventMIBNotifications OBJECT IDENTIFIER ::=
-{ dismanEventMIBNotificationPrefix 0 }
-dismanEventMIBNotificationObjects OBJECT IDENTIFIER
-::= { dismanEventMIBNotificationPrefix 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-SYNTAX      OBJECT IDENTIFIER
-MAX-ACCESS  accessible-for-notify
-STATUS      current
-DESCRIPTION
-"The object identifier of the destination object related to the
-notification.  This MUST be as fully-qualified as possible,
-including filling in wildcard information determined in
-processing.
-For a trigger-related notification this is from
-mteTriggerValueID.
-For a set failure this is from mteEventSetObject."
-::= { dismanEventMIBNotificationObjects 4 }
------------------------------------ version ---------------------------
-version:
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkAdmin OBJECT IDENTIFIER
+::= { snmpFrameworkMIB 1 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBObjects OBJECT IDENTIFIER
+::= { snmpFrameworkMIB 2 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpEngine OBJECT IDENTIFIER
+::= { snmpFrameworkMIBObjects 1 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBConformance OBJECT IDENTIFIER
+::= { snmpFrameworkMIB 3 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBCompliances OBJECT IDENTIFIER
+::= { snmpFrameworkMIBConformance 1 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBGroups OBJECT IDENTIFIER
+::= { snmpFrameworkMIBConformance 2 }
+----------------------------------- the ---------------------------
+the:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdavis 100 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ifEntry 22 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mgmt ---------------------------
+mgmt:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  internet 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpSet ---------------------------
+snmpSet:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpMIBObjects 6 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- transmission ---------------------------
+transmission:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  mib-2 10 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkMIBConformance ---------------------------
+snmpFrameworkMIBConformance:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkMIB 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mteTriggerValueID ---------------------------
+mteTriggerValueID:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID: OID no encontrado
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- systemStats ---------------------------
+systemStats:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdavis 11 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- org ---------------------------
 org:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  iso 3 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hrDeviceTypes ---------------------------
-hrDeviceTypes:
+----------------------------------- mteEvent ---------------------------
+mteEvent:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  hrDevice 1 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  dismanEventMIBObjects 4 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmpFrameworkMIBCompliances ---------------------------
-snmpFrameworkMIBCompliances:
+----------------------------------- snmpDomains ---------------------------
+snmpDomains:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpFrameworkMIBConformance 1 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpV2 1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ private ---------------------------
-private:
+----------------------------------- mteTriggerDeltaDiscontinuityID ---------------------------
+mteTriggerDeltaDiscontinuityID:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  internet 4 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ enterprises ---------------------------
-enterprises:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  private 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpFrameworkMIBGroups ---------------------------
-snmpFrameworkMIBGroups:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpFrameworkMIBConformance 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteEventNotification ---------------------------
-mteEventNotification:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID: OID no encontrado
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sysORID ---------------------------
-sysORID:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID: OID no encontrado
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTraps ---------------------------
-snmpTraps:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpMIBObjects 5 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- mib-2 ---------------------------
 mib-2:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  mgmt 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkAdmin ---------------------------
+snmpFrameworkAdmin:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkMIB 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- internet ---------------------------
+internet:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  dod 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrStorageTypes ---------------------------
+hrStorageTypes:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  hrStorage 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- memory ---------------------------
+memory:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdavis 4 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- ifTestCode ---------------------------
 ifTestCode:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID: OID no encontrado
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- mrIndex ---------------------------
 mrIndex:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID: OID no encontrado
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmpDomains ---------------------------
-snmpDomains:
+----------------------------------- snmpTargetGroups ---------------------------
+snmpTargetGroups:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpV2 1 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpTargetConformance 2 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ systemStats ---------------------------
-systemStats:
+----------------------------------- snmpModules ---------------------------
+snmpModules:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdavis 11 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpV2 3 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ "The ---------------------------
-"The:
+----------------------------------- dismanEventMIBNotificationObjects ---------------------------
+dismanEventMIBNotificationObjects:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  dismanEventMIBNotificationPrefix 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpProxys ---------------------------
+snmpProxys:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpV2 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- enterprises ---------------------------
+enterprises:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  private 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mteObjectsID ---------------------------
+mteObjectsID:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID: OID no encontrado
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrFSTypes ---------------------------
-hrFSTypes:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  hrDevice 9 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- mteEventSetObject ---------------------------
 mteEventSetObject:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID: OID no encontrado
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ ucdTraps ---------------------------
-ucdTraps:
+----------------------------------- snmpFrameworkMIBGroups ---------------------------
+snmpFrameworkMIBGroups:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdavis 251 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkMIBConformance 2 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ memory ---------------------------
-memory:
+----------------------------------- SYNTAX ---------------------------
+SYNTAX:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdavis 4 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  mrEntry  1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ transmission ---------------------------
-transmission:
+----------------------------------- directory ---------------------------
+directory:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  mib-2 10 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  internet 1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ mteEvent ---------------------------
-mteEvent:
+----------------------------------- snmpEngine ---------------------------
+snmpEngine:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  dismanEventMIBObjects 4 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkMIBObjects 1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ internet ---------------------------
-internet:
+----------------------------------- dismanEventMIBNotificationPrefix ---------------------------
+dismanEventMIBNotificationPrefix:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  dod 1 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  dismanEventMIB 2 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmpMIBGroups ---------------------------
-snmpMIBGroups:
+----------------------------------- snmpTraps ---------------------------
+snmpTraps:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpMIBConformance 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpFrameworkMIBObjects ---------------------------
-snmpFrameworkMIBObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpFrameworkMIB 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpFrameworkAdmin ---------------------------
-snmpFrameworkAdmin:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpFrameworkMIB 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ the ---------------------------
-the:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ifEntry 22 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpMIBObjects 5 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- dismanEventMIBNotifications ---------------------------
 dismanEventMIBNotifications:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  dismanEventMIBNotificationPrefix 0 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmp ---------------------------
 snmp:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  mib-2 11 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmpTargetCompliances ---------------------------
-snmpTargetCompliances:
+----------------------------------- snmpMIBObjects ---------------------------
+snmpMIBObjects:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpTargetConformance 1 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpMIB 1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmpFrameworkMIBConformance ---------------------------
-snmpFrameworkMIBConformance:
+----------------------------------- ucdTraps ---------------------------
+ucdTraps:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpFrameworkMIB 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTargetGroups ---------------------------
-snmpTargetGroups:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpTargetConformance 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dismanEventMIBNotificationObjects ---------------------------
-dismanEventMIBNotificationObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  dismanEventMIBNotificationPrefix 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpSet ---------------------------
-snmpSet:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpMIBObjects 6 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ SYNTAX ---------------------------
-SYNTAX:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  dismanEventMIBNotificationObjects 4 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpProxys ---------------------------
-snmpProxys:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpV2 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteObjectsID ---------------------------
-mteObjectsID:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID: OID no encontrado
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteTriggerValueID ---------------------------
-mteTriggerValueID:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID: OID no encontrado
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmperrs ---------------------------
-snmperrs:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdavis 101 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ directory ---------------------------
-directory:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  internet 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrStorageTypes ---------------------------
-hrStorageTypes:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  hrStorage 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteTriggerDeltaDiscontinuityID ---------------------------
-mteTriggerDeltaDiscontinuityID:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID: OID no encontrado
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dismanEventMIBNotificationPrefix ---------------------------
-dismanEventMIBNotificationPrefix:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  dismanEventMIB 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mgmt ---------------------------
-mgmt:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  internet 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ experimental ---------------------------
-experimental:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  internet 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpEngine ---------------------------
-snmpEngine:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpFrameworkMIBObjects 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpModules ---------------------------
-snmpModules:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpV2 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpV2 ---------------------------
-snmpV2:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  internet 6 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ logMatch ---------------------------
-logMatch:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdavis 16 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ifCompliances ---------------------------
-ifCompliances:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ifConformance 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dod ---------------------------
-dod:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  org 6 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdavis 251 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- security ---------------------------
 security:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  internet 5 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- version ---------------------------
+version:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdavis 100 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- "The ---------------------------
+"The:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID: OID no encontrado
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpV2 ---------------------------
+snmpV2:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  internet 6 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrFSTypes ---------------------------
+hrFSTypes:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  hrDevice 9 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrDeviceTypes ---------------------------
+hrDeviceTypes:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  hrDevice 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkMIBCompliances ---------------------------
+snmpFrameworkMIBCompliances:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkMIBConformance 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mteEventNotification ---------------------------
+mteEventNotification:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID: OID no encontrado
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpTargetCompliances ---------------------------
+snmpTargetCompliances:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpTargetConformance 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sysORID ---------------------------
+sysORID:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID: OID no encontrado
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifCompliances ---------------------------
+ifCompliances:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ifConformance 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmperrs ---------------------------
+snmperrs:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdavis 101 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dod ---------------------------
+dod:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  org 6 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkMIBObjects ---------------------------
+snmpFrameworkMIBObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkMIB 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- private ---------------------------
+private:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  internet 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- experimental ---------------------------
+experimental:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  internet 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- logMatch ---------------------------
+logMatch:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdavis 16 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpMIBGroups ---------------------------
+snmpMIBGroups:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpMIBConformance 2 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------

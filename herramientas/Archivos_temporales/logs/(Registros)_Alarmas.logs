@@ -1,27 +1,3 @@
-#----------------------------------- ALARMA ORIGINAL:  linkDown  ---------------------------#
-Tipo de alarma: NOTIFICATION-TYPE
-Nombre de alarma: linkDown
-linkDown NOTIFICATION-TYPE
-OBJECTS { ifIndex, ifAdminStatus, ifOperStatus }
-STATUS  current
-DESCRIPTION "A linkDown trap signifies that the SNMP entity, acting in an agent role, has detected that the ifOperStatus object for one of its communication links is about to enter the down state from some other state (but not from the notPresent state).  This other state is indicated by the included value of ifOperStatus."
-::= { snmpTraps 3 }
-#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
-#----------------------------------- ALARMA ORIGINAL:  linkUp  ---------------------------#
-Tipo de alarma: NOTIFICATION-TYPE
-Nombre de alarma: linkUp
-linkUp NOTIFICATION-TYPE
-OBJECTS { ifIndex, ifAdminStatus, ifOperStatus }
-STATUS  current
-DESCRIPTION
-"A linkUp trap signifies that the SNMP entity, acting in an
-agent role, has detected that the ifOperStatus object for
-one of its communication links left the down state and
-transitioned into some other state (but not into the
-notPresent state).  This other state is indicated by the
-included value of ifOperStatus."
-::= { snmpTraps 4 }
-#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
 #----------------------------------- ALARMA ORIGINAL:  coldStart  ---------------------------#
 Tipo de alarma: NOTIFICATION-TYPE
 Nombre de alarma: coldStart
@@ -60,23 +36,29 @@ trap, the snmpEnableAuthenTraps object indicates
 whether this trap will be generated."
 ::= { snmpTraps 5 }
 #----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
-#----------------------------------- ALARMA ORIGINAL:  ucdStart  ---------------------------#
+#----------------------------------- ALARMA ORIGINAL:  linkDown  ---------------------------#
 Tipo de alarma: NOTIFICATION-TYPE
-Nombre de alarma: ucdStart
-ucdStart NOTIFICATION-TYPE
-STATUS	current
-DESCRIPTION
-"This trap could in principle be sent when the agent start"
-::= { ucdTraps 1 }
+Nombre de alarma: linkDown
+linkDown NOTIFICATION-TYPE
+OBJECTS { ifIndex, ifAdminStatus, ifOperStatus }
+STATUS  current
+DESCRIPTION "A linkDown trap signifies that the SNMP entity, acting in an agent role, has detected that the ifOperStatus object for one of its communication links is about to enter the down state from some other state (but not from the notPresent state).  This other state is indicated by the included value of ifOperStatus."
+::= { snmpTraps 3 }
 #----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
-#----------------------------------- ALARMA ORIGINAL:  ucdShutdown  ---------------------------#
+#----------------------------------- ALARMA ORIGINAL:  linkUp  ---------------------------#
 Tipo de alarma: NOTIFICATION-TYPE
-Nombre de alarma: ucdShutdown
-ucdShutdown	NOTIFICATION-TYPE
-STATUS current
+Nombre de alarma: linkUp
+linkUp NOTIFICATION-TYPE
+OBJECTS { ifIndex, ifAdminStatus, ifOperStatus }
+STATUS  current
 DESCRIPTION
-"This trap is sent when the agent terminates"
-::= { ucdTraps 2 }
+"A linkUp trap signifies that the SNMP entity, acting in an
+agent role, has detected that the ifOperStatus object for
+one of its communication links left the down state and
+transitioned into some other state (but not into the
+notPresent state).  This other state is indicated by the
+included value of ifOperStatus."
+::= { snmpTraps 4 }
 #----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
 #----------------------------------- ALARMA ORIGINAL:  the  ---------------------------#
 Tipo de alarma: NOTIFICATION-TYPE
@@ -171,23 +153,31 @@ a problem that has appeared in the error counters and can not
 be found otherwise."
 ::= { dismanEventMIBNotifications 5 }
 #----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
------------------------------------ mteTriggerFalling ---------------------------
-mteTriggerFalling:
+#----------------------------------- ALARMA ORIGINAL:  ucdStart  ---------------------------#
+Tipo de alarma: NOTIFICATION-TYPE
+Nombre de alarma: ucdStart
+ucdStart NOTIFICATION-TYPE
+STATUS	current
+DESCRIPTION
+"This trap could in principle be sent when the agent start"
+::= { ucdTraps 1 }
+#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+#----------------------------------- ALARMA ORIGINAL:  ucdShutdown  ---------------------------#
+Tipo de alarma: NOTIFICATION-TYPE
+Nombre de alarma: ucdShutdown
+ucdShutdown	NOTIFICATION-TYPE
+STATUS current
+DESCRIPTION
+"This trap is sent when the agent terminates"
+::= { ucdTraps 2 }
+#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+----------------------------------- mteTriggerRising ---------------------------
+mteTriggerRising:
   TYPE: NOTIFICATION-TYPE
   OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
   STATUS: current
-  DESCRIPTION: Notification that the falling threshold was met for triggers with mteTriggerType 'threshold'.
-  OID: dismanEventMIBNotifications 3
-  VARIABLES: No se encontraron variables
-  ENTERPRISE: No se encontró la empresa
------------------------------------ Final de segmento -----------------------------------
------------------------------------ coldStart ---------------------------
-coldStart:
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS: No se encontraron objetos
-  STATUS: current
-  DESCRIPTION: A coldStart trap signifies that the SNMP entity, supporting a notification originator application, is reinitializing itself and that its configuration may have been altered.
-  OID: snmpTraps 1
+  DESCRIPTION: Notification that the rising threshold was met for triggers with mteTriggerType 'threshold'.
+  OID: dismanEventMIBNotifications 2
   VARIABLES: No se encontraron variables
   ENTERPRISE: No se encontró la empresa
 ----------------------------------- Final de segmento -----------------------------------
@@ -201,6 +191,16 @@ ucdStart:
   VARIABLES: No se encontraron variables
   ENTERPRISE: No se encontró la empresa
 ----------------------------------- Final de segmento -----------------------------------
+----------------------------------- linkDown ---------------------------
+linkDown:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: ifIndex, ifAdminStatus, ifOperStatus 
+  STATUS: current
+  DESCRIPTION: A linkDown trap signifies that the SNMP entity, acting in an agent role, has detected that the ifOperStatus object for one of its communication links is about to enter the down state from some other state (but not from the notPresent state).  This other state is indicated by the included value of ifOperStatus.
+  OID: snmpTraps 3
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- mteEventSetFailure ---------------------------
 mteEventSetFailure:
   TYPE: NOTIFICATION-TYPE
@@ -208,26 +208,6 @@ mteEventSetFailure:
   STATUS: current
   DESCRIPTION: Notification that an attempt to do a set in response to an event has failed. The network manager must enable this notification only with a certain fear and trembling, as it can easily crowd out more important information.  It should be used only to help diagnose a problem that has appeared in the error counters and can not be found otherwise.
   OID: dismanEventMIBNotifications 5
-  VARIABLES: No se encontraron variables
-  ENTERPRISE: No se encontró la empresa
------------------------------------ Final de segmento -----------------------------------
------------------------------------ authenticationFailure ---------------------------
-authenticationFailure:
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS: No se encontraron objetos
-  STATUS: current
-  DESCRIPTION: An authenticationFailure trap signifies that the SNMP entity has received a protocol message that is not properly authenticated.  While all implementations of SNMP entities MAY be capable of generating this trap, the snmpEnableAuthenTraps object indicates whether this trap will be generated.
-  OID: snmpTraps 5
-  VARIABLES: No se encontraron variables
-  ENTERPRISE: No se encontró la empresa
------------------------------------ Final de segmento -----------------------------------
------------------------------------ warmStart ---------------------------
-warmStart:
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS: No se encontraron objetos
-  STATUS: current
-  DESCRIPTION: A warmStart trap signifies that the SNMP entity, supporting a notification originator application, is reinitializing itself such that its configuration is unaltered.
-  OID: snmpTraps 2
   VARIABLES: No se encontraron variables
   ENTERPRISE: No se encontró la empresa
 ----------------------------------- Final de segmento -----------------------------------
@@ -241,43 +221,13 @@ the:
   VARIABLES: No se encontraron variables
   ENTERPRISE: No se encontró la empresa
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ mteTriggerFailure ---------------------------
-mteTriggerFailure:
+----------------------------------- authenticationFailure ---------------------------
+authenticationFailure:
   TYPE: NOTIFICATION-TYPE
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteFailedReason 
+  OBJECTS: No se encontraron objetos
   STATUS: current
-  DESCRIPTION: Notification that an attempt to check a trigger has failed. The network manager must enable this notification only with a certain fear and trembling, as it can easily crowd out more important information.  It should be used only to help diagnose a problem that has appeared in the error counters and can not be found otherwise.
-  OID: dismanEventMIBNotifications 4
-  VARIABLES: No se encontraron variables
-  ENTERPRISE: No se encontró la empresa
------------------------------------ Final de segmento -----------------------------------
------------------------------------ linkDown ---------------------------
-linkDown:
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS: ifIndex, ifAdminStatus, ifOperStatus 
-  STATUS: current
-  DESCRIPTION: A linkDown trap signifies that the SNMP entity, acting in an agent role, has detected that the ifOperStatus object for one of its communication links is about to enter the down state from some other state (but not from the notPresent state).  This other state is indicated by the included value of ifOperStatus.
-  OID: snmpTraps 3
-  VARIABLES: No se encontraron variables
-  ENTERPRISE: No se encontró la empresa
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteTriggerRising ---------------------------
-mteTriggerRising:
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
-  STATUS: current
-  DESCRIPTION: Notification that the rising threshold was met for triggers with mteTriggerType 'threshold'.
-  OID: dismanEventMIBNotifications 2
-  VARIABLES: No se encontraron variables
-  ENTERPRISE: No se encontró la empresa
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteTriggerFired ---------------------------
-mteTriggerFired:
-  TYPE: NOTIFICATION-TYPE
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
-  STATUS: current
-  DESCRIPTION: Notification that the trigger indicated by the object instances has fired, for triggers with mteTriggerType 'boolean' or 'existence'.
-  OID: dismanEventMIBNotifications 1
+  DESCRIPTION: An authenticationFailure trap signifies that the SNMP entity has received a protocol message that is not properly authenticated.  While all implementations of SNMP entities MAY be capable of generating this trap, the snmpEnableAuthenTraps object indicates whether this trap will be generated.
+  OID: snmpTraps 5
   VARIABLES: No se encontraron variables
   ENTERPRISE: No se encontró la empresa
 ----------------------------------- Final de segmento -----------------------------------
@@ -298,6 +248,56 @@ ucdShutdown:
   STATUS: current
   DESCRIPTION: This trap is sent when the agent terminates
   OID: ucdTraps 2
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mteTriggerFailure ---------------------------
+mteTriggerFailure:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteFailedReason 
+  STATUS: current
+  DESCRIPTION: Notification that an attempt to check a trigger has failed. The network manager must enable this notification only with a certain fear and trembling, as it can easily crowd out more important information.  It should be used only to help diagnose a problem that has appeared in the error counters and can not be found otherwise.
+  OID: dismanEventMIBNotifications 4
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mteTriggerFalling ---------------------------
+mteTriggerFalling:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
+  STATUS: current
+  DESCRIPTION: Notification that the falling threshold was met for triggers with mteTriggerType 'threshold'.
+  OID: dismanEventMIBNotifications 3
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- coldStart ---------------------------
+coldStart:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: A coldStart trap signifies that the SNMP entity, supporting a notification originator application, is reinitializing itself and that its configuration may have been altered.
+  OID: snmpTraps 1
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- warmStart ---------------------------
+warmStart:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: A warmStart trap signifies that the SNMP entity, supporting a notification originator application, is reinitializing itself such that its configuration is unaltered.
+  OID: snmpTraps 2
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mteTriggerFired ---------------------------
+mteTriggerFired:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
+  STATUS: current
+  DESCRIPTION: Notification that the trigger indicated by the object instances has fired, for triggers with mteTriggerType 'boolean' or 'existence'.
+  OID: dismanEventMIBNotifications 1
   VARIABLES: No se encontraron variables
   ENTERPRISE: No se encontró la empresa
 ----------------------------------- Final de segmento -----------------------------------
