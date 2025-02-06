@@ -9,6 +9,8 @@ use Tk::TableMatrix;
 use Tk::Pane;
 
 use Data::Dumper;
+use Log::Log4perl qw(get_logger :levels);
+
 use FindBin;  # Añadir FindBin para obtener la ruta del script
 use lib $FindBin::Bin . "/herramientas";  # Añadir la carpeta donde se encuentran los módulos
 
@@ -16,6 +18,21 @@ use lib $FindBin::Bin . "/herramientas";  # Añadir la carpeta donde se encuentr
 use Estilos;
 use Rutas;
 use Logic;
+
+
+# Initialize logger
+Log::Log4perl->init(\<<'EOT');
+log4perl.logger = DEBUG, File
+
+log4perl.appender.File = Log::Log4perl::Appender::File
+log4perl.appender.File.filename = terminal.log
+log4perl.appender.File.layout = Log::Log4perl::Layout::PatternLayout
+log4perl.appender.File.layout.ConversionPattern = %d %p %m %n
+EOT
+
+my $logger = get_logger();
+
+
 
 
 # Dentro de la misma ventana principal
@@ -1151,6 +1168,39 @@ sub extraer_informacion_alarmas {
     return \%alarmas;
 }
 
+# Funcion para abrir y escribir en un archivo logs las imprimesiones de consola
+# Subrutina para imprimir información en un archivo de log
+sub log_to_file {
+    my ($data) = @_;
+    my $timestamp = localtime();
+    # Añadir un appender para el archivo de log
+    $logger->add_appender(Log::Log4perl::Appender->new(
+        "Log::Dispatch::File",
+        filename => Rutas::temp_files_logs_objects_mibs_path() . "/impresiones_de_consola.logs",
+        mode     => "append",
+        layout   => Log::Log4perl::Layout::PatternLayout->new("%d %p %m %n"),
+    ));
+
+    $logger->info("--------------- Impresion $timestamp ---------------");
+    
+    # Imprimir la información en el archivo
+    if (ref $data eq 'HASH') {
+        $logger->info(Dumper($data));
+    } elsif (ref $data eq 'ARRAY') {
+        $logger->info(join("\n", @$data));
+    } else {
+        $logger->info($data);
+    }
+
+
+
+}
+
+
+# Reemplazar el uso de print con log_to_file
+sub print_logs {
+    log_to_file(@_);
+}
 # Extraer informacion de un archivo
 
 sub parse_file {

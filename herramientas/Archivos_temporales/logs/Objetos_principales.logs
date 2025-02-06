@@ -1,62 +1,47 @@
 ----------------------------------- ALARM TRAPS ---------------------------
-coldStart:
-  No se encontraron objetos: 1.3.6.1.4.1.2021
-
-linkDown:
-  ifOperStatus: 1.3.6.1.4.1.2021.2.1.2.2.1.8
-  ifIndex: 1.3.6.1.4.1.2021.2.1.2.2.1.1
-  ifAdminStatus: 1.3.6.1.4.1.2021.2.1.2.2.1.7
+linkUp:
+  ifAdminStatus: 2.1.7
+  ifIndex: 2.1.1
+  ifOperStatus: 2.1.8
 
 mteTriggerFired:
-  mteHotValue: 1.3.6.1.4.1.2021.5
-  mteHotOID: 1.3.6.1.4.1.2021
-  mteHotTargetName: 1.3.6.1.4.1.2021.2
-  mteHotTrigger: 1.3.6.1.4.1.2021
-  mteHotContextName: 1.3.6.1.4.1.2021
+  mteHotTrigger: 3.6.1.2.1.88.2.1.1
+  mteHotContextName: 3.6.1.2.1.88.2.1.3
+  mteHotValue: 3.6.1.2.1.88.2.1.5
+  mteHotOID: 3.6.1.2.1.88.2.1.4
+  mteHotTargetName: 3.6.1.2.1.88.2.1.2
 
-warmStart:
-  No se encontraron objetos: 1.3.6.1.4.1.2021
+linkDown:
+  ifIndex: 2.1.1
+  ifAdminStatus: 2.1.7
+  ifOperStatus: 2.1.8
 
 mteTriggerRising:
-  mteHotContextName: 1.3.6.1.4.1.2021
-  mteHotTrigger: 1.3.6.1.4.1.2021
-  mteHotOID: 1.3.6.1.4.1.2021
-  mteHotTargetName: 1.3.6.1.4.1.2021.2
-  mteHotValue: 1.3.6.1.4.1.2021.5
-
-mteTriggerFailure:
-  mteHotContextName: 1.3.6.1.4.1.2021
-  mteFailedReason: 1.3.6.1.4.1.2021.5
-  mteHotTrigger: 1.3.6.1.4.1.2021
-  mteHotOID: 1.3.6.1.4.1.2021
-  mteHotTargetName: 1.3.6.1.4.1.2021.2
-
-linkUp:
-  ifIndex: 1.3.6.1.4.1.2021.2.1.2.2.1.1
-  ifOperStatus: 1.3.6.1.4.1.2021.2.1.2.2.1.8
-  ifAdminStatus: 1.3.6.1.4.1.2021.2.1.2.2.1.7
+  mteHotOID: 3.6.1.2.1.88.2.1.4
+  mteHotTargetName: 3.6.1.2.1.88.2.1.2
+  mteHotTrigger: 3.6.1.2.1.88.2.1.1
+  mteHotValue: 3.6.1.2.1.88.2.1.5
+  mteHotContextName: 3.6.1.2.1.88.2.1.3
 
 mteTriggerFalling:
-  mteHotTrigger: 1.3.6.1.4.1.2021
-  mteHotContextName: 1.3.6.1.4.1.2021
-  mteHotTargetName: 1.3.6.1.4.1.2021.2
-  mteHotOID: 1.3.6.1.4.1.2021
-  mteHotValue: 1.3.6.1.4.1.2021.5
+  mteHotContextName: 3.6.1.2.1.88.2.1.3
+  mteHotValue: 3.6.1.2.1.88.2.1.5
+  mteHotTrigger: 3.6.1.2.1.88.2.1.1
+  mteHotOID: 3.6.1.2.1.88.2.1.4
+  mteHotTargetName: 3.6.1.2.1.88.2.1.2
+
+mteTriggerFailure:
+  mteHotContextName: 3.6.1.2.1.88.2.1.3
+  mteHotTrigger: 3.6.1.2.1.88.2.1.1
+  mteHotTargetName: 3.6.1.2.1.88.2.1.2
+  mteHotOID: 3.6.1.2.1.88.2.1.4
+  mteFailedReason: 3.6.1.2.1.88.2.0.5
 
 mteEventSetFailure:
-  mteHotTrigger: 1.3.6.1.4.1.2021
-  mteHotContextName: 1.3.6.1.4.1.2021
-  mteFailedReason: 1.3.6.1.4.1.2021.5
-  mteHotOID: 1.3.6.1.4.1.2021
-  mteHotTargetName: 1.3.6.1.4.1.2021.2
-
-authenticationFailure:
-  No se encontraron objetos: 1.3.6.1.4.1.2021
-
-ucdStart:
-  No se encontraron objetos: 1.3.6.1.4.1.2021
-
-ucdShutdown:
-  No se encontraron objetos: 1.3.6.1.4.1.2021
+  mteHotTargetName: 3.6.1.2.1.88.2.1.2
+  mteHotOID: 3.6.1.2.1.88.2.1.4
+  mteFailedReason: 3.6.1.2.1.88.2.0.5
+  mteHotContextName: 3.6.1.2.1.88.2.1.3
+  mteHotTrigger: 3.6.1.2.1.88.2.1.1
 
 ----------------------------------- FIN DE ALARM_TRAPS -----------------------------------

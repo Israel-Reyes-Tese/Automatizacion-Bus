@@ -123,11 +123,18 @@ sub cargar_mib {
     #print Dumper(\%object_types);
     # Datos OBJECT IDENTIFIER
     my %object_identifiers;
+    # Archivo temporal que almacenará todos los OBJECT IDENTIFIER encontrados
+    my $temp_file_all_object_identifiers = Rutas::temp_files_logs_objects_mibs_path(). '/(Registros)_Object_Identifiers.logs';
+    $temp_file_all_object_identifiers = validar_o_crear_archivo_temporal($temp_file_all_object_identifiers);
     foreach my $file (keys %mib_files) {
         # Extraer OBJECT IDENTIFIER y añadir al hash object_identifiers
-        my $extracted_object_identifiers = extraer_object_identifiers($file);
+        my $extracted_object_identifiers = extraer_object_identifiers($file, $temp_file_all_object_identifiers);
         @object_identifiers{keys %$extracted_object_identifiers} = values %$extracted_object_identifiers;
     }
+    # Escribir los datos en el archivo temporal con el tipo OBJECT_IDENTIFIERS
+    escribir_datos_en_archivo($temp_file_all_object_identifiers, \%object_identifiers, "OBJECT_IDENTIFIERS", 1);
+
+
     #print Dumper(\%object_identifiers);
     # Datos MODULE-IDENTITY
     my %module_identities;
@@ -140,15 +147,15 @@ sub cargar_mib {
     # Datos de las alarmas NOTIFICATION-TYPE o TRAP-TYPE
     my %alarm_traps;
     # Archivo temporal que almacenará todas las alaramas encontras concatenadas
-    my $temp_file_all = Rutas::temp_files_logs_objects_mibs_path(). '/Alarmas_encontradas.logs';
-    $temp_file_all = validar_o_crear_archivo_temporal($temp_file_all);
+    my $temp_file_all_alarm_traps = Rutas::temp_files_logs_objects_mibs_path(). '/(Registros)_Alarmas.logs';
+    $temp_file_all_alarm_traps = validar_o_crear_archivo_temporal($temp_file_all_alarm_traps);
     foreach my $file (keys %mib_files) {
         # Extraer OBJECT-TYPE y añadir al hash object_types
-        my $extracted_alarm_traps = extraer_alarm_traps($file, $temp_file_all);
+        my $extracted_alarm_traps = extraer_alarm_traps($file, $temp_file_all_alarm_traps);
         @alarm_traps{keys %$extracted_alarm_traps} = values %$extracted_alarm_traps;
     }
     # Escribir los datos en el archivo temporal con el tipo NOTIFICATION_TYPES_OR_TRAP_TYPES
-    escribir_datos_en_archivo($temp_file_all, \%alarm_traps, "NOTIFICATION_TYPES_OR_TRAP_TYPES", 1);
+    escribir_datos_en_archivo($temp_file_all_alarm_traps, \%alarm_traps, "NOTIFICATION_TYPES_OR_TRAP_TYPES", 1);
 
 
     #print Dumper(\%alarm_traps);
@@ -825,13 +832,12 @@ sub extraer_object_types {
 }
 # Función para extraer OBJECT IDENTIFIER de un archivo MIB
 sub extraer_object_identifiers {
-    my ($file) = @_;
+    my ($file, $temp_file_all) = @_;
 
     my $original_file = $file;
 
     # Archivo temporal para almacenar cómo se extraen los datos
     my $temp_file = Rutas::temp_files_path() . '/object_identifiers.txt';
-
     # Validar si el archivo temporal existe, si no, crearlo
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
     # Recondicionar el archivo temporal copiando el contenido de $file
@@ -841,56 +847,84 @@ sub extraer_object_identifiers {
         warn "No se pudo abrir el archivo $file: $!";
         return;
     };
+
+    open my $fh_all, '>>', $temp_file_all or do {
+        warn "No se pudo abrir el archivo $temp_file_all: $!";
+        return;
+    };
+
     my %object_identifiers;
+    my $current_oid = '';
     my $nombre_archivo = '';
+
+    my $current_object = '';
+    my $segment = '';
+    my $in_segment = 0;
 
     while (<$fh>) {
         chomp;
-        next if /^\s*$/ || /^--/; # Saltar líneas vacías y comentarios
+        next if /^\s*$/ || /^--/ || /^--\s*$/ || /--/; # Saltar líneas vacías y comentarios
         # Extraer la primera línea del archivo que es el nombre del archivo original y guardarlo en el hash
         if (/Archivo original:\s+(.*)/) {
             $nombre_archivo = $1;
         }
-        # Identificar el OBJECT IDENTIFIER
-        if (/(\S+)\s+OBJECT IDENTIFIER\s+::=\s*{([^}]+)}/) {
-            my $name = $1;
-            my $oid = $2;
-            $object_identifiers{$name} = {
-                TYPE => 'OBJECT IDENTIFIER',
-                OID => $oid,
-                ARCHIVO => $nombre_archivo
-            };
-        } elsif (/(\S+)\s+OBJECT IDENTIFIER\s*$/) {
-            my $name = $1;
-            my $oid;
+        if (/(\w+)\s+OBJECT IDENTIFIER\s*::=\s*\{[^}]+\}/ || /(\w+)\s+OBJECT IDENTIFIER\s*$/ || /(\w+)\s+OBJECT IDENTIFIER\s*::=\s*$/ || /(\S+)\s+OBJECT IDENTIFIER/) {
+            my $segment = "$_";
+            my $include_segment = 1;
             while (<$fh>) {
                 chomp;
-                if (/::=\s*{([^}]+)}/) {
-                    $oid = $1;
-                    last;
-                }
+                $segment .= "\n$_";
+                #if (/STATUS\s+current/ || /STATUS\s+deprecated/ || /SYNTAX\s+OBJECT IDENTIFIER/ || (/DESCRIPTION\s*".*"/ ) || /DESCRIPTION\s*$/ || /DESCRIPTION\s*"/) {
+                #    $include_segment = 0;
+                #}
+                last if /::=\s*{[^}]+}\s*$/;
             }
-            $object_identifiers{$name} = {
-                TYPE => 'OBJECT IDENTIFIER',
-                OID => $oid,
-                ARCHIVO => $nombre_archivo
-            };
-        }
-    }
-
-    # Eliminar ::= { contenido } de la descripción y limpiar espacios y caracteres especiales
-    foreach my $object (keys %object_identifiers) {
-        foreach my $field (qw(OID TYPE ARCHIVO)) {
-            if (exists $object_identifiers{$object}->{$field}) {
-                $object_identifiers{$object}->{$field} =~ s/\s*::=\s*\{.*\}//;
-                $object_identifiers{$object}->{$field} =~ s/^\s+|\s+$//g; # Eliminar espacios al inicio y al final
-                $object_identifiers{$object}->{$field} =~ s/^["']|["']$//g; # Eliminar caracteres especiales al inicio y al final
+            if ($include_segment) {
+                print $fh_all "Archivo: $nombre_archivo\n";
+                print $fh_all "$segment\n";
             }
         }
     }
-
     close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
-    #print Dumper(\%object_identifiers);
+    close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
+    # 2DO Filtro
+    open $fh_all, '<', $temp_file_all or do {
+        warn "No se pudo abrir el archivo $temp_file_all: $!";
+        return;
+    };
+    # Logica para eliminar datos innecesarios
+    while (<$fh_all>) {
+        chomp;
+        next if /^\s*$/ || /^--/; # Saltar líneas vacías y comentarios
+        # Extraer los elemento que cumplan con la condición
+        if (/(\S+)\s+OBJECT IDENTIFIER/) {
+            $current_object = $1;
+            $in_segment = 1;
+            $segment = $_ . "\n"; # Incluir la línea actual en el segmento
+            next;
+        }
+        # Continuar extrayendo líneas hasta encontrar "}"
+        if ($in_segment) {
+            $segment .= $_ . "\n";
+            if (/}/) {
+                 # Ejemplo:  sysDescr OBJECT IDENTIFIER ::= { system 1 }
+                 # Ejemplo:  sysDescr OBJECT IDENTIFIER ::=
+                 #           { system 1 }
+                 # Ejemplo:  sysDescr OBJECT IDENTIFIER
+                              #::= { system 1 }
+                my ($oid) = $segment =~ /::=\s*{([^}]+)}/;
+                $object_identifiers{$current_object} = {
+                    TYPE => 'OBJECT IDENTIFIER',
+                    OID => $oid // 'OID no encontrado',
+                    ARCHIVO => $nombre_archivo,
+                    Nivel_Busqueda => 1,
+                };
+                $in_segment = 0;
+                $segment = '';
+            }
+        }
+    }
+    close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
     return \%object_identifiers;
 }
 
@@ -1030,7 +1064,7 @@ sub extraer_alarm_traps {
     close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
     close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
     
-    open my $fh_all, '<', $temp_file_all or do {
+    open $fh_all, '<', $temp_file_all or do {
         warn "No se pudo abrir el archivo $temp_file_all: $!";
         return;
     };
@@ -1513,7 +1547,20 @@ sub escribir_datos_en_archivo {
             print $fh "----------------------------------- Final de segmento -----------------------------------\n";
         }
 
-    }   
+    } elsif ($tipo eq 'OBJECT_IDENTIFIERS') {
+        foreach my $key (keys %$data) {
+            print $fh "----------------------------------- $key ---------------------------\n";
+            print $fh "$key:\n";
+            foreach my $field (qw(TYPE ARCHIVO OID Nivel_Busqueda)) {
+                if (exists $data->{$key}{$field}) {
+                    print $fh "  $field: $data->{$key}{$field}\n";
+                }
+            }
+            print $fh "----------------------------------- Final de segmento -----------------------------------\n";
+        }
+    }
+
+
     close $fh or warn "Advertencia: No se pudo cerrar el archivo temporal $temp_file: $!";
 }
 
@@ -1584,28 +1631,6 @@ sub construir_oid_completo {
         }
         last unless $found;
     }
-
-    # Validar y reemplazar el ID de empresa si es necesario
-    if ($oid_data) {
-        foreach my $part (@oid_parts) {
-            if (exists $oid_data->{$part}) {
-                # Validar si part es un ID de empresa y si esta en la data
-                if ($oid_data->{$part}{'enterprise_info_Seleccionado'} == 1) {
-                    $part = $oid_data->{$part}{'enterprise_oid'};
-                } else {
-                    # Si no es la empresa seleccionada, buscar la empresa seleccionada y asignarla
-                    foreach my $key (keys %$oid_data) {
-                        if ($oid_data->{$key}{'enterprise_info_Seleccionado'} == 1) {
-                            $part = $oid_data->{$key}{'enterprise_oid'};
-                            last;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    #print "Current name: $nombre\n";
-    #print "OID completo: @oid_parts\n";
     my $complete_oid = join('.', @oid_parts);
     #print "OID completo: $complete_oid\n";
     $complete_oid = validar_y_complementar_oid($complete_oid, $oid_data) if $oid_data;
@@ -1618,7 +1643,7 @@ sub construir_arbol_mibs {
     my %arbol_mibs;
     # Archivo temporal para almacenar cómo se extraen los datos
     my $temp_file = Rutas::temp_files_logs_objects_mibs_path(). '/Alarmas_principales.logs';
-
+    #herramientas::Complementos::print($data);
     foreach my $nombre (keys %{$data->{ALARM_TRAPS}}) {
         my $oid_completo = construir_oid_completo($nombre, $data, $oid_data);
         if ($oid_completo) {
@@ -1632,10 +1657,8 @@ sub construir_arbol_mibs {
 
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
     escribir_datos_en_archivo($temp_file, \%arbol_mibs, "ALARM_TRAPS");
-
     # Construir el árbol de MIBs secundarios
     my $arbol_mibs_secundarios = construir_arbol_mibs_secundarios($data, $oid_data);
-
     return \%arbol_mibs, $arbol_mibs_secundarios;
 }
 
@@ -1645,7 +1668,6 @@ sub construir_arbol_mibs_secundarios {
     my %arbol_mibs_secundarios;
     # Archivo temporal para almacenar cómo se extraen los datos
     my $temp_file = Rutas::temp_files_logs_objects_mibs_path(). '/Objetos_principales.logs';
-
     foreach my $nombre (keys %{$data->{ALARM_TRAPS}}) {
         my $oid_completo = construir_oid_completo($nombre, $data, $oid_data);
         if ($oid_completo) {
@@ -1658,10 +1680,8 @@ sub construir_arbol_mibs_secundarios {
             }
         }
     }
-
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
     escribir_datos_en_archivo($temp_file, \%arbol_mibs_secundarios, "ALARM_TRAPS");
-
     return \%arbol_mibs_secundarios;
 }
 
@@ -1669,54 +1689,11 @@ sub construir_arbol_mibs_secundarios {
 sub validar_y_complementar_oid {
     my ($complete_oid, $oid_data) = @_;
     return $complete_oid unless $oid_data;
-
     my $selected_oid_data;
-    
-    # Check if $oid_data has a single record or multiple records
-    if (exists $oid_data->{'enterprise_info_ID'}) {
-        # Single record case
-        $selected_oid_data = $oid_data;
-    } else {
-        # Multiple records case
-        # Encontrar el registro seleccionado
-        my @selected_records = grep { $oid_data->{$_}{'enterprise_info_Seleccionado'} == 1 } keys %$oid_data;
-        
-        if (scalar(@selected_records) > 1) {
-            warn "Más de un registro seleccionado. Utilizando el primero en la lista.";
-        }
-        
-        my $selected_key = $selected_records[0];
-        $selected_oid_data = $oid_data->{$selected_key};
-    }
-    
     # Split the OID into parts
     my @oid_parts = split(/\./, $complete_oid);
-    
-    # Validate and complete the root OID
-    my @root_oid_parts = split(/\./, $selected_oid_data->{root_oid});
-    for my $i (0..$#root_oid_parts) {
-        if (!defined $oid_parts[$i] || $oid_parts[$i] != $root_oid_parts[$i]) {
-            splice(@oid_parts, $i, 0, $root_oid_parts[$i]);
-        }
-    }
-    
-    # Validate and complete the private enterprises OID
-    my @private_enterprises_oid_parts = split(/\./, $selected_oid_data->{private_enterprises_oid});
-    for my $i (scalar(@root_oid_parts)..scalar(@root_oid_parts) + $#private_enterprises_oid_parts) {
-        if (!defined $oid_parts[$i] || $oid_parts[$i] != $private_enterprises_oid_parts[$i - scalar(@root_oid_parts)]) {
-            splice(@oid_parts, $i, 0, $private_enterprises_oid_parts[$i - scalar(@root_oid_parts)]);
-        }
-    }
-    
-    # Validate and complete the enterprise OID
-    my $enterprise_oid_index = scalar(@root_oid_parts) + scalar(@private_enterprises_oid_parts);
-    if (!defined $oid_parts[$enterprise_oid_index] || $oid_parts[$enterprise_oid_index] != $selected_oid_data->{enterprise_oid}) {
-        splice(@oid_parts, $enterprise_oid_index, 0, $selected_oid_data->{enterprise_oid});
-    }
-    
     # Join the OID parts back into a complete OID
     $complete_oid = join('.', @oid_parts);
-    
     return $complete_oid;
 }
 
