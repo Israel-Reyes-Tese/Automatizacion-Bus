@@ -1,419 +1,60 @@
-Archivo original: DISMAN-EVENT-MIB.mib
+Archivo original: SNMPv2-SMI
 
-DISMAN-EVENT-MIB DEFINITIONS ::= BEGIN
-IMPORTS
-MODULE-IDENTITY, OBJECT-TYPE,
-Integer32, Unsigned32,
-NOTIFICATION-TYPE, Counter32,
-Gauge32, mib-2, zeroDotZero         FROM SNMPv2-SMI
-TEXTUAL-CONVENTION, RowStatus,
-TruthValue                FROM SNMPv2-TC
-MODULE-COMPLIANCE, OBJECT-GROUP,
-NOTIFICATION-GROUP             FROM SNMPv2-CONF
-sysUpTime                 FROM SNMPv2-MIB
-SnmpTagValue              FROM SNMP-TARGET-MIB
-SnmpAdminString           FROM SNMP-FRAMEWORK-MIB;
-dismanEventMIB MODULE-IDENTITY
-ORGANIZATION "IETF Distributed Management Working Group"
-CONTACT-INFO "Ramanathan Kavasseri
-Cisco Systems, Inc.
-170 West Tasman Drive,
-San Jose CA 95134-1706.
-Phone: +1 408 526 4527
-Email: ramk@cisco.com"
-DESCRIPTION
-"The MIB module for defining event triggers and actions
-for network management purposes."
-DESCRIPTION  "This is the initial version of this MIB.
-Published as RFC 2981"
-::= { mib-2 88 }
-dismanEventMIBObjects OBJECT IDENTIFIER ::= { dismanEventMIB 1 }
-mteResource           OBJECT IDENTIFIER ::= { dismanEventMIBObjects 1 }
-mteTrigger            OBJECT IDENTIFIER ::= { dismanEventMIBObjects 2 }
-mteObjects            OBJECT IDENTIFIER ::= { dismanEventMIBObjects 3 }
-mteEvent              OBJECT IDENTIFIER ::= { dismanEventMIBObjects 4 }
-FailureReason ::= TEXTUAL-CONVENTION
-STATUS      current
-DESCRIPTION
-"Reasons for failures in an attempt to perform a management
-request.
-The first group of errors, numbered less than 0, are related
-to problems in sending the request.  The existence of a
-particular error code here does not imply that all
-implementations are capable of sensing that error and
-returning that code.
-The second group, numbered greater than 0, are copied
-directly from SNMP protocol operations and are intended to
-carry exactly the meanings defined for the protocol as returned
-in an SNMP response.
-localResourceLack       some local resource such as memory
-lacking or
-mteResourceSampleInstanceMaximum
-exceeded
-badDestination          unrecognized domain name or otherwise
-invalid destination address
-destinationUnreachable  can't get to destination address
-noResponse              no response to SNMP request
-badType                 the data syntax of a retrieved object
-as not as expected
-sampleOverrun           another sample attempt occurred before
-the previous one completed"
-SYNTAX      INTEGER { localResourceLack(-1),
-badDestination(-2),
-destinationUnreachable(-3),
-noResponse(-4),
-badType(-5),
-sampleOverrun(-6),
-noError(0),
-tooBig(1),
-noSuchName(2),
-badValue(3),
-readOnly(4),
-genErr(5),
-noAccess(6),
-wrongType(7),
-wrongLength(8),
-wrongEncoding(9),
-wrongValue(10),
-noCreation(11),
-inconsistentValue(12),
-resourceUnavailable(13),
-commitFailed(14),
-undoFailed(15),
-authorizationError(16),
-notWritable(17),
-inconsistentName(18) }
-::= { mteTriggerTable 1 }
-MteTriggerEntry ::= SEQUENCE {
-mteOwner                            SnmpAdminString,
-mteTriggerName                      SnmpAdminString,
-mteTriggerComment                   SnmpAdminString,
-mteTriggerTest                      BITS,
-mteTriggerSampleType                INTEGER,
-mteTriggerValueID                   OBJECT IDENTIFIER,
-mteTriggerValueIDWildcard           TruthValue,
-mteTriggerTargetTag                 SnmpTagValue,
-mteTriggerContextName               SnmpAdminString,
-mteTriggerContextNameWildcard       TruthValue,
-mteTriggerFrequency                 Unsigned32,
-mteTriggerObjectsOwner              SnmpAdminString,
-mteTriggerObjects                   SnmpAdminString,
-mteTriggerEnabled                   TruthValue,
-mteTriggerEntryStatus               RowStatus
-}
-::= { mteTriggerEntry 3 }
-MAX-ACCESS  read-create
-STATUS      current
-DESCRIPTION
-"The type of trigger test to perform.  For 'boolean' and
-'threshold'  tests, the object at mteTriggerValueID MUST
-evaluate to an integer, that is, anything that ends up encoded
-for transmission (that is, in BER, not ASN.1) as an integer.
-For 'existence', the specific test is as selected by
-mteTriggerExistenceTest.  When an object appears, vanishes
-or changes value, the trigger fires. If the object's
-appearance caused the trigger firing, the object MUST
-vanish before the trigger can be fired again for it, and
-vice versa. If the trigger fired due to a change in the
-object's value, it will be fired again on every successive
-value change for that object.
-For 'boolean', the specific test is as selected by
-mteTriggerBooleanTest.  If the test result is true the trigger
-fires.  The trigger will not fire again until the value has
-become false and come back to true.
-For 'threshold' the test works as described below for
-mteTriggerThresholdStartup, mteTriggerThresholdRising, and
-mteTriggerThresholdFalling.
-Note that combining 'boolean' and 'threshold' tests on the
-same object may be somewhat redundant."
-DEFVAL { { boolean } }
-::= { mteTriggerEntry 4 }
-MAX-ACCESS  read-create
-STATUS      current
-DESCRIPTION
-"The type of sampling to perform.
-An 'absoluteValue' sample requires only a single sample to be
-meaningful, and is exactly the value of the object at
-mteTriggerValueID at the sample time.
-A 'deltaValue' requires two samples to be meaningful and is
-thus not available for testing until the second and subsequent
-samples after the object at mteTriggerValueID is first found
-to exist.  It is the difference between the two samples.  For
-unsigned values it is always positive, based on unsigned
-arithmetic.  For signed values it can be positive or negative.
-For SNMP counters to be meaningful they should be sampled as a
-'deltaValue'.
-For 'deltaValue' mteTriggerDeltaTable contains further
-parameters.
-If only 'existence' is set in mteTriggerTest this object has
-no meaning."
-DEFVAL { absoluteValue }
-::= { mteTriggerEntry 5 }
-::= { mteTriggerEntry 6 }
-::= { mteTriggerEntry 7 }
-::= { mteTriggerEntry 8 }
-::= { mteTriggerEntry 9 }
-::= { mteTriggerEntry 10 }
-::= { mteTriggerEntry 11 }
-::= { mteTriggerEntry 12 }
-::= { mteTriggerEntry 13 }
-::= { mteTriggerEntry 14 }
-::= { mteTriggerDeltaTable 1 }
-MteTriggerDeltaEntry ::= SEQUENCE {
-mteTriggerDeltaDiscontinuityID                OBJECT IDENTIFIER,
-mteTriggerDeltaDiscontinuityIDWildcard        TruthValue,
-mteTriggerDeltaDiscontinuityIDType            INTEGER
-}
-sysUpTimeInstance OBJECT IDENTIFIER ::= { sysUpTime 0 }
-::= { mteTriggerDeltaEntry 1 }
-::= { mteTriggerDeltaEntry 2 }
-MAX-ACCESS  read-write
-STATUS      current
-DESCRIPTION
-"The value 'timeTicks' indicates the
-mteTriggerDeltaDiscontinuityID of this row is of syntax
-TimeTicks.  The value 'timeStamp' indicates syntax TimeStamp.
-The value 'dateAndTime' indicates syntax DateAndTime."
-DEFVAL { timeTicks }
-::= { mteTriggerDeltaEntry 3 }
-::= { mteTriggerExistenceTable 1 }
-MteTriggerExistenceEntry ::= SEQUENCE {
-mteTriggerExistenceTest              BITS,
-mteTriggerExistenceStartup           BITS,
-mteTriggerExistenceObjectsOwner      SnmpAdminString,
-mteTriggerExistenceObjects           SnmpAdminString,
-mteTriggerExistenceEventOwner        SnmpAdminString,
-mteTriggerExistenceEvent             SnmpAdminString
-}
-MAX-ACCESS  read-write
-STATUS      current
-DESCRIPTION
-"The type of existence test to perform.  The trigger fires
-when the object at mteTriggerValueID is seen to go from
-present to absent, from absent to present, or to have it's
-value changed, depending on which tests are selected:
-present(0) - when this test is selected, the trigger fires
-when the mteTriggerValueID object goes from absent to present.
-absent(1)  - when this test is selected, the trigger fires
-when the mteTriggerValueID object goes from present to absent.
-changed(2) - when this test is selected, the trigger fires
-the mteTriggerValueID object value changes.
-Once the trigger has fired for either presence or absence it
-will not fire again for that state until the object has been
-to the other state. "
-DEFVAL { { present, absent } }
-::= { mteTriggerExistenceEntry 1 }
-MAX-ACCESS  read-write
-STATUS      current
-DESCRIPTION
-"Control for whether an event may be triggered when this entry
-is first set to 'active' and the test specified by
-mteTriggerExistenceTest is true.  Setting an option causes
-that trigger to fire when its test is true."
-DEFVAL { { present, absent } }
-::= { mteTriggerExistenceEntry 2 }
-::= { mteTriggerExistenceEntry 3 }
-::= { mteTriggerExistenceEntry 4 }
-::= { mteTriggerExistenceEntry 5 }
-::= { mteTriggerExistenceEntry 6 }
-::= { mteTriggerBooleanTable 1 }
-MteTriggerBooleanEntry ::= SEQUENCE {
-mteTriggerBooleanComparison          INTEGER,
-mteTriggerBooleanValue               Integer32,
-mteTriggerBooleanStartup             TruthValue,
-mteTriggerBooleanObjectsOwner        SnmpAdminString,
-mteTriggerBooleanObjects             SnmpAdminString,
-mteTriggerBooleanEventOwner          SnmpAdminString,
-mteTriggerBooleanEvent               SnmpAdminString
-}
-MAX-ACCESS  read-write
-STATUS      current
-DESCRIPTION
-"The type of boolean comparison to perform.
-The value at mteTriggerValueID is compared to
-mteTriggerBooleanValue, so for example if
-mteTriggerBooleanComparison is 'less' the result would be true
-if the value at mteTriggerValueID is less than the value of
-mteTriggerBooleanValue."
-DEFVAL { unequal }
-::= { mteTriggerBooleanEntry 1 }
-::= { mteTriggerBooleanEntry 2 }
-::= { mteTriggerBooleanEntry 3 }
-::= { mteTriggerBooleanEntry 4 }
-::= { mteTriggerBooleanEntry 5 }
-::= { mteTriggerBooleanEntry 6 }
-::= { mteTriggerBooleanEntry 7 }
-::= { mteTriggerThresholdTable 1 }
-MteTriggerThresholdEntry ::= SEQUENCE {
-mteTriggerThresholdStartup                  INTEGER,
-mteTriggerThresholdRising                   Integer32,
-mteTriggerThresholdFalling                  Integer32,
-mteTriggerThresholdDeltaRising              Integer32,
-mteTriggerThresholdDeltaFalling             Integer32,
-mteTriggerThresholdObjectsOwner             SnmpAdminString,
-mteTriggerThresholdObjects                  SnmpAdminString,
-mteTriggerThresholdRisingEventOwner         SnmpAdminString,
-mteTriggerThresholdRisingEvent              SnmpAdminString,
-mteTriggerThresholdFallingEventOwner        SnmpAdminString,
-mteTriggerThresholdFallingEvent             SnmpAdminString,
-mteTriggerThresholdDeltaRisingEventOwner    SnmpAdminString,
-mteTriggerThresholdDeltaRisingEvent         SnmpAdminString,
-mteTriggerThresholdDeltaFallingEventOwner   SnmpAdminString,
-mteTriggerThresholdDeltaFallingEvent        SnmpAdminString
-}
-MAX-ACCESS  read-write
-STATUS      current
-DESCRIPTION
-"The event that may be triggered when this entry is first
-set to 'active' and a new instance of the object at
-mteTriggerValueID is found.  If the first sample after this
-instance becomes active is greater than or equal to
-mteTriggerThresholdRising and mteTriggerThresholdStartup is
-equal to 'rising' or 'risingOrFalling', then one
-mteTriggerThresholdRisingEvent is triggered for that instance.
-If the first sample after this entry becomes active is less
-than or equal to mteTriggerThresholdFalling and
-mteTriggerThresholdStartup is equal to 'falling' or
-'risingOrFalling', then one mteTriggerThresholdRisingEvent is
-triggered for that instance."
-DEFVAL { risingOrFalling }
-::= { mteTriggerThresholdEntry 1 }
-::= { mteTriggerThresholdEntry 2 }
-::= { mteTriggerThresholdEntry 3 }
-::= { mteTriggerThresholdEntry 4 }
-::= { mteTriggerThresholdEntry 5 }
-::= { mteTriggerThresholdEntry 6 }
-::= { mteTriggerThresholdEntry 7 }
-::= { mteTriggerThresholdEntry 8 }
-::= { mteTriggerThresholdEntry 9 }
-::= { mteTriggerThresholdEntry 10 }
-::= { mteTriggerThresholdEntry 11 }
-::= { mteTriggerThresholdEntry 12 }
-::= { mteTriggerThresholdEntry 13 }
-::= { mteTriggerThresholdEntry 14 }
-::= { mteTriggerThresholdEntry 15 }
-::= { mteObjectsTable 1 }
-mteObjectsEntry ::= SEQUENCE {
-mteObjectsName                      SnmpAdminString,
-mteObjectsIndex                     Unsigned32,
-mteObjectsID                        OBJECT IDENTIFIER,
-mteObjectsIDWildcard                TruthValue,
-mteObjectsEntryStatus               RowStatus
-}
-::= { mteObjectsEntry 3 }
-::= { mteObjectsEntry 4 }
-::= { mteEventTable 1 }
-MteEventEntry ::= SEQUENCE {
-mteEventName                        SnmpAdminString,
-mteEventComment                     SnmpAdminString,
-mteEventActions                     BITS,
-mteEventEnabled                     TruthValue,
-mteEventEntryStatus                 RowStatus
-}
-::= { mteEventEntry 2 }
-MAX-ACCESS  read-create
-STATUS      current
-DESCRIPTION
-"The actions to perform when this event occurs.
-For 'notification', Traps and/or Informs are sent according
-to the configuration in the SNMP Notification MIB.
-For 'set', an SNMP Set operation is performed according to
-control values in this entry."
-::= { mteEventEntry 3 }
-::= { mteEventEntry 4 }
-::= { mteEventNotificationTable 1 }
-MteEventNotificationEntry ::= SEQUENCE {
-mteEventNotification                OBJECT IDENTIFIER,
-mteEventNotificationObjectsOwner    SnmpAdminString,
-mteEventNotificationObjects         SnmpAdminString
-}
-::= { mteEventNotificationEntry 1 }
-::= { mteEventNotificationEntry 2 }
-::= { mteEventNotificationEntry 3 }
-::= { mteEventSetTable 1 }
-MteEventSetEntry ::= SEQUENCE {
-mteEventSetObject                   OBJECT IDENTIFIER,
-mteEventSetObjectWildcard           TruthValue,
-mteEventSetValue                    Integer32,
-mteEventSetTargetTag                SnmpTagValue,
-mteEventSetContextName              SnmpAdminString,
-mteEventSetContextNameWildcard      TruthValue
-}
-::= { mteEventSetEntry 1 }
-::= { mteEventSetEntry 2 }
-::= { mteEventSetEntry 3 }
-::= { mteEventSetEntry 4 }
-::= { mteEventSetEntry 5 }
-::= { mteEventSetEntry 6 }
-dismanEventMIBNotificationPrefix OBJECT IDENTIFIER ::=
-{ dismanEventMIB 2 }
-dismanEventMIBNotifications OBJECT IDENTIFIER ::=
-{ dismanEventMIBNotificationPrefix 0 }
-dismanEventMIBNotificationObjects OBJECT IDENTIFIER
-::= { dismanEventMIBNotificationPrefix 1 }
-mteTriggerFired NOTIFICATION-TYPE
-OBJECTS { mteHotTrigger,
-mteHotTargetName,
-mteHotContextName,
-mteHotOID,
-mteHotValue }
-STATUS  current
-DESCRIPTION
-"Notification that the trigger indicated by the object
-instances has fired, for triggers with mteTriggerType
-'boolean' or 'existence'."
-::= { dismanEventMIBNotifications 1 }
-mteTriggerRising NOTIFICATION-TYPE
-OBJECTS { mteHotTrigger,
-mteHotTargetName,
-mteHotContextName,
-mteHotOID,
-mteHotValue }
-STATUS  current
-DESCRIPTION
-"Notification that the rising threshold was met for triggers
-with mteTriggerType 'threshold'."
-::= { dismanEventMIBNotifications 2 }
-mteTriggerFalling NOTIFICATION-TYPE
-OBJECTS { mteHotTrigger,
-mteHotTargetName,
-mteHotContextName,
-mteHotOID,
-mteHotValue }
-STATUS  current
-DESCRIPTION
-"Notification that the falling threshold was met for triggers
-with mteTriggerType 'threshold'."
-::= { dismanEventMIBNotifications 3 }
-mteTriggerFailure NOTIFICATION-TYPE
-OBJECTS { mteHotTrigger,
-mteHotTargetName,
-mteHotContextName,
-mteHotOID,
-mteFailedReason }
-STATUS  current
-DESCRIPTION
-"Notification that an attempt to check a trigger has failed.
-The network manager must enable this notification only with
-a certain fear and trembling, as it can easily crowd out more
-important information.  It should be used only to help diagnose
-a problem that has appeared in the error counters and can not
-be found otherwise."
-::= { dismanEventMIBNotifications 4 }
-mteEventSetFailure NOTIFICATION-TYPE
-OBJECTS { mteHotTrigger,
-mteHotTargetName,
-mteHotContextName,
-mteHotOID,
-mteFailedReason }
-STATUS  current
-DESCRIPTION
-"Notification that an attempt to do a set in response to an
-event has failed.
-The network manager must enable this notification only with
-a certain fear and trembling, as it can easily crowd out more
-important information.  It should be used only to help diagnose
-a problem that has appeared in the error counters and can not
-be found otherwise."
-::= { dismanEventMIBNotifications 5 }
-END
+SNMPv2-SMI DEFINITIONS ::= BEGIN
+ExtUTCTime ::=
+OCTET STRING (SIZE(11 | 13))
+ObjectName ::=
+OBJECT IDENTIFIER
+NotificationName ::=
+OBJECT IDENTIFIER
+Integer32 ::=
+Integer32 (-2147483648..2147483647)
+IpAddress ::=
+OCTET STRING (SIZE(4))
+Counter32 ::=
+Unsigned32 (0..4294967295)
+Gauge32 ::=
+Unsigned32 (0..4294967295)
+Unsigned32 ::=
+Unsigned32 (0..4294967295)
+TimeTicks ::=
+Unsigned32 (0..4294967295)
+Opaque ::=
+OCTET STRING
+Counter64 ::=
+Unsigned64 (0..18446744073709551615)
+zeroDotZero OBJECT-IDENTITY
+STATUS          current
+DESCRIPTION     
+"A value used for null identifiers."
+::= { 0 0 }
+org OBJECT IDENTIFIER
+::= { iso 3 }
+dod OBJECT IDENTIFIER
+::= { org 6 }
+internet OBJECT IDENTIFIER
+::= { dod 1 }
+directory OBJECT IDENTIFIER
+::= { internet 1 }
+mgmt OBJECT IDENTIFIER
+::= { internet 2 }
+mib-2 OBJECT IDENTIFIER
+::= { mgmt 1 }
+transmission OBJECT IDENTIFIER
+::= { mib-2 10 }
+experimental OBJECT IDENTIFIER
+::= { internet 3 }
+private OBJECT IDENTIFIER
+::= { internet 4 }
+enterprises OBJECT IDENTIFIER
+::= { private 1 }
+security OBJECT IDENTIFIER
+::= { internet 5 }
+snmpV2 OBJECT IDENTIFIER
+::= { internet 6 }
+snmpDomains OBJECT IDENTIFIER
+::= { snmpV2 1 }
+snmpProxys OBJECT IDENTIFIER
+::= { snmpV2 2 }
+snmpModules OBJECT IDENTIFIER
+::= { snmpV2 3 }

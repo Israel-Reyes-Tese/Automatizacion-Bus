@@ -7,6 +7,13 @@ ifGroups      OBJECT IDENTIFIER ::= { ifConformance 1 }
 Archivo: IF-MIB.mib
 ifCompliances OBJECT IDENTIFIER ::= { ifConformance 2 }
 ::= { ifTestTable 1 }
+----------------------------------- ifCompliances ---------------------------
+ifCompliances:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: IF-MIB.mib
+  OID:  ifConformance 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- ifConformance ---------------------------
 ifConformance:
   TYPE: OBJECT IDENTIFIER
@@ -14,11 +21,11 @@ ifConformance:
   OID:  ifMIB 2 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ ifMIBObjects ---------------------------
-ifMIBObjects:
+----------------------------------- interfaces ---------------------------
+interfaces:
   TYPE: OBJECT IDENTIFIER
   ARCHIVO: IF-MIB.mib
-  OID:  ifMIB 1 
+  OID:  mib-2 2 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- ifGroups ---------------------------
@@ -28,17 +35,10 @@ ifGroups:
   OID:  ifConformance 1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ ifCompliances ---------------------------
-ifCompliances:
+----------------------------------- ifMIBObjects ---------------------------
+ifMIBObjects:
   TYPE: OBJECT IDENTIFIER
   ARCHIVO: IF-MIB.mib
-  OID:  ifConformance 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ interfaces ---------------------------
-interfaces:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IF-MIB.mib
-  OID:  mib-2 2 
+  OID:  ifMIB 1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------

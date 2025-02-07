@@ -1,0 +1,90 @@
+#----------------------------------- TEXTUAL-CONVENTION:  OwnerString  ---------------------------#
+Archivo: IF-MIB.mib
+Nombre objeto: OwnerString
+OwnerString ::= TEXTUAL-CONVENTION
+DISPLAY-HINT "255a"
+STATUS       deprecated
+DESCRIPTION
+"This data type is used to model an administratively
+assigned name of the owner of a resource.  This information
+is taken from the NVT ASCII character set.  It is suggested
+that this name contain one or more of the following: ASCII
+form of the manager station's transport address, management
+station name (e.g., domain name), network management
+personnel's name, location, or phone number.  In some cases
+the agent itself will be the owner of an entry.  In these
+cases, this string shall be set to a string starting with
+'agent'."
+SYNTAX       OCTET STRING (SIZE(0..255))
+-- InterfaceIndex contains the semantics of ifIndex and should be used
+-- for any objects defined in other MIB modules that need these semantics.
+InterfaceIndex ::= TEXTUAL-CONVENTION
+DISPLAY-HINT "d"
+STATUS       current
+DESCRIPTION
+"A unique value, greater than zero, for each interface or
+interface sub-layer in the managed system.  It is
+recommended that values are assigned contiguously starting
+from 1.  The value for each interface sub-layer must remain
+constant at least from one re-initialization of the entity's
+network management system to the next re-initialization."
+SYNTAX       Integer32 (1..2147483647)
+
+#----------------------------------- TEXTUAL-CONVENTION:  InterfaceIndexOrZero  ---------------------------#
+Archivo: IF-MIB.mib
+Nombre objeto: InterfaceIndexOrZero
+InterfaceIndexOrZero ::= TEXTUAL-CONVENTION
+DISPLAY-HINT "d"
+STATUS       current
+DESCRIPTION
+"This textual convention is an extension of the
+InterfaceIndex convention.  The latter defines a greater
+than zero value used to identify an interface or interface
+sub-layer in the managed system.  This extension permits the
+additional value of zero.  the value zero is object-specific
+and must therefore be defined as part of the description of
+any object which uses this syntax.  Examples of the usage of
+zero might include situations where interface was unknown,
+or when none or all interfaces need to be referenced."
+SYNTAX       Integer32 (0..2147483647)
+ifNumber  OBJECT-TYPE
+SYNTAX      Integer32
+MAX-ACCESS  read-only
+STATUS      current
+DESCRIPTION
+"The number of network interfaces (regardless of their
+current state) present on this system."
+
+----------------------------------- OwnerString ---------------------------
+OwnerString:
+  TYPE: TEXTUAL-CONVENTION
+  STATUS: deprecated
+  DESCRIPTION: This data type is used to model an administratively
+assigned name of the owner of a resource.  This information
+is taken from the NVT ASCII character set.  It is suggested
+that this name contain one or more of the following: ASCII
+form of the manager station's transport address, management
+station name (e.g., domain name), network management
+personnel's name, location, or phone number.  In some cases
+the agent itself will be the owner of an entry.  In these
+cases, this string shall be set to a string starting with
+'agent'.
+  SYNTAX: OCTET STRING (SIZE(0..255))
+  ARCHIVO: IF-MIB.mib
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- InterfaceIndexOrZero ---------------------------
+InterfaceIndexOrZero:
+  TYPE: TEXTUAL-CONVENTION
+  STATUS: current
+  DESCRIPTION: This textual convention is an extension of the
+InterfaceIndex convention.  The latter defines a greater
+than zero value used to identify an interface or interface
+sub-layer in the managed system.  This extension permits the
+additional value of zero.  the value zero is object-specific
+and must therefore be defined as part of the description of
+any object which uses this syntax.  Examples of the usage of
+zero might include situations where interface was unknown,
+or when none or all interfaces need to be referenced.
+  SYNTAX: Integer32 (0..2147483647)
+  ARCHIVO: IF-MIB.mib
+----------------------------------- Final de segmento -----------------------------------

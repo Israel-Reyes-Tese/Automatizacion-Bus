@@ -122,6 +122,7 @@ sub cargar_mib {
     $temp_file_all_object_types = validar_o_crear_archivo_temporal($temp_file_all_object_types);
     foreach my $file (keys %mib_files) {
         # Extraer OBJECT-TYPE y añadir al hash object_types
+        
         my $extracted_object_types = extraer_object_types($file, $temp_file_all_object_types);
         @object_types{keys %$extracted_object_types} = values %$extracted_object_types;
     }
@@ -139,6 +140,18 @@ sub cargar_mib {
     }
     # Escribir los datos en el archivo temporal con el tipo OBJECT_IDENTIFIERS
     escribir_datos_en_archivo($temp_file_all_object_identifiers, \%object_identifiers, "OBJECT_IDENTIFIERS", 1);
+    # Datos TEXTUAL CONVENTION
+    my %textual_conventions;
+    # Archivo temporal que almacenará todos los TEXTUAL CONVENTION encontrados
+    my $temp_file_all_textual_conventions = Rutas::temp_files_logs_objects_mibs_path(). '/(Registros)_Textual_Conventions.logs';
+    $temp_file_all_textual_conventions = validar_o_crear_archivo_temporal($temp_file_all_textual_conventions);
+    foreach my $file (keys %mib_files) {
+        # Extraer TEXTUAL CONVENTION y añadir al hash textual_conventions
+        my $extracted_textual_conventions = extraer_textual_conventions($file, $temp_file_all_textual_conventions);
+        @textual_conventions{keys %$extracted_textual_conventions} = values %$extracted_textual_conventions;
+    }
+    # Escribir los datos en el archivo temporal con el tipo TEXTUAL_CONVENTIONS
+    escribir_datos_en_archivo($temp_file_all_textual_conventions, \%textual_conventions, "TEXTUAL_CONVENTIONS", 1);
     # Datos MODULE-IDENTITY
     my %module_identities;
     # Archivo temporal que almacenará todos los MODULE-IDENTITY encontrados
@@ -163,7 +176,6 @@ sub cargar_mib {
     }
     # Escribir los datos en el archivo temporal con el tipo MODULE_COMPLIANCES
     escribir_datos_en_archivo($temp_file_all_module_compliances, \%module_compliances, "MODULE_COMPLIANCE", 1);
-
     # Datos de las alarmas OBJECT-GROUP
     my %alarm_object_groups;
     # Archivo temporal que almacenará todas las alarmas OBJECT-GROUP encontradas
@@ -188,8 +200,6 @@ sub cargar_mib {
     }
     # Escribir los datos en el archivo temporal con el tipo NOTIFICATION_GROUPS
     escribir_datos_en_archivo($temp_file_all_alarm_notification_groups, \%alarm_notification_groups, "NOTIFICATION_GROUPS", 1);
-
-
     # Datos de las alarmas NOTIFICATION-TYPE o TRAP-TYPE
     my %alarm_traps;
     # Archivo temporal que almacenará todas las alaramas encontras concatenadas
@@ -732,6 +742,8 @@ sub extraer_y_eliminar_object_archivo_temporal {
     eliminar_object_group($file);
     eliminar_notification_group($file);
 
+    eliminar_textual_convention($file);
+
     # Eliminar lineas específicas
 
 
@@ -759,9 +771,6 @@ sub eliminar_lineas {
     print $fh_out @filtered_lines;
     close $fh_out or croak "Error al cerrar el archivo $file: $!";
 }
-
-
-
 
 # Función para eliminar los segmentos de OBJECT-TYPE del archivo original
 sub eliminar_object_types {
@@ -883,7 +892,35 @@ sub eliminar_notification_group {
     close $fh_out or croak "Error al cerrar el archivo $file: $!";
 }
 
+# Función para extraer TEXTUAL-CONVENTION de un archivo MIB
+sub eliminar_textual_convention {
+    my ($file) = @_;
 
+    open my $fh, '<', $file or croak "Error al abrir el archivo $file: $!";
+
+    my @lines = <$fh>;
+    close $fh or croak "Error al cerrar el archivo $file: $!";
+
+    my @filtered_lines;
+    my $in_segment = 0;
+
+    foreach my $line (@lines) {
+        if ($line =~ /(\w+)\s+TEXTUAL-CONVENTION/) {
+            $in_segment = 1;
+        }
+        elsif ($in_segment) {
+            if ($line =~ / \ }/ || $line =~ /\)/) {
+                $in_segment = 0;
+            }
+        } else {
+            push @filtered_lines, $line;
+        }
+    }
+
+    open my $fh_out, '>', $file or croak "Error al abrir el archivo $file para escribir: $!";
+    print $fh_out @filtered_lines;
+    close $fh_out or croak "Error al cerrar el archivo $file: $!";
+}
 
 # Función para extraer OBJECT-IDENTITY de un archivo MIB
 sub extraer_object_identities {
@@ -892,7 +929,7 @@ sub extraer_object_identities {
     my $original_file = $file;
 
     # Archivo temporal para almacenar cómo se extraen los datos
-    my $temp_file = Rutas::temp_files_path() . '/object_identities.txt';
+    my $temp_file = Rutas::temp_files_path() . '/(Reformato)_Object_Identities.txt';
 
     $file = transformar_mib_a_txt($file);
     # Validar si el archivo temporal existe, si no, crearlo
@@ -962,13 +999,12 @@ sub extraer_object_identities {
     close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
     return \%object_identities;
 }
-
 # Función para extraer OBJECT-TYPE de un archivo MIB
 sub extraer_object_types {
     my ($file, $temp_file_all) = @_;
     my $original_file = $file;
     # Archivo temporal para almacenar cómo se extraen los datos
-    my $temp_file = Rutas::temp_files_path() . '/object_types.txt';
+    my $temp_file = Rutas::temp_files_path() . '/(Reformato)_Object_Types.txt';
     $file = transformar_mib_a_txt($file);
     # Validar si el archivo temporal existe, si no, crearlo
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
@@ -1041,6 +1077,86 @@ sub extraer_object_types {
     close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
     close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
     return \%object_types;
+}
+
+# Función para extraer TEXTUAL-CONVENTION de un archivo MIB
+sub extraer_textual_conventions {
+    my ($file, $temp_file_all) = @_;
+    my $original_file = $file;
+    # Archivo temporal para almacenar cómo se extraen los datos
+    my $temp_file = Rutas::temp_files_path() . '/(Reformato)_Textual_Conventions.txt';
+    $file = transformar_mib_a_txt($file);
+    # Validar si el archivo temporal existe, si no, crearlo
+    $temp_file = validar_o_crear_archivo_temporal($temp_file);
+    # Recondicionar el archivo temporal copiando el contenido de $file
+    $temp_file = recondicionar_archivo_temporal($file, $temp_file, $original_file); 
+
+    open my $fh, '<', $temp_file or do {
+        warn "No se pudo abrir el archivo $file: $!";
+        return;
+    };
+    
+    open my $fh_all, '>>', $temp_file_all or do {
+        warn "No se pudo abrir el archivo $temp_file_all: $!";
+        return;
+    };
+
+    my %textual_conventions;
+    my $current_object = '';
+    my $in_segment = 0;
+    my $segment = '';
+    my $nombre_archivo = '';
+
+    while (<$fh>) {
+        chomp;
+        next if /^\s*$/ || /^--/; # Saltar líneas vacías y comentarios
+        # Extraer la primera línea del archivo que es el nombre del archivo original y guardarlo en el hash
+        if (/Archivo original:\s+(.*)/) {
+            $nombre_archivo = $1;
+        }
+        # Identificar el inicio del segmento
+        if (/(\S+)\s+::= TEXTUAL-CONVENTION/) {
+            next if /TEXTUAL-CONVENTION\s*,/;
+            $current_object = $1;
+            $in_segment = 1;
+            $segment = $_ . "\n"; # Incluir la línea actual en el segmento
+            print $fh_all "#----------------------------------- TEXTUAL-CONVENTION:  $current_object  ---------------------------#\n";
+            print $fh_all "Archivo: $nombre_archivo\n";
+            print $fh_all "Nombre objeto: $current_object\n";
+            next;
+        }
+        # Continuar extrayendo líneas hasta encontrar "SYNTAX"
+        if ($in_segment) {
+            $segment .= $_ . "\n";
+            if (/SYNTAX\s+/) {
+                my $syntax = $_;
+                while (<$fh>) {
+                    chomp;
+                    $segment .= $_ . "\n";
+                    $syntax .= $_;
+                    last if /\ }/|| /\)/;
+                }
+                print $fh_all "$segment\n";
+
+                my ($status) = $segment =~ /STATUS\s+(.*)/;
+                my ($description) = $segment =~ /DESCRIPTION\s+"(.*?)"/s;
+                my ($syntax_object) = $segment =~ /SYNTAX\s+(.*)/;
+
+                $textual_conventions{$current_object} = {
+                    TYPE => 'TEXTUAL-CONVENTION',
+                    STATUS => $status // 'STATUS no encontrado',
+                    DESCRIPTION => $description // 'DESCRIPCION no encontrada',
+                    SYNTAX => $syntax_object // 'SYNTAX no encontrado',
+                    ARCHIVO => $nombre_archivo // 'ARCHIVO no encontrado',
+                };
+                $in_segment = 0;
+                $segment = '';
+            }
+        }
+    }
+    close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
+    close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
+    return \%textual_conventions;
 }
 # Función para extraer OBJECT IDENTIFIER de un archivo MIB
 sub extraer_object_identifiers {
@@ -1152,7 +1268,7 @@ sub extraer_module_identities {
     my $original_file = $file;
 
     # Archivo temporal para almacenar cómo se extraen los datos
-    my $temp_file = Rutas::temp_files_path() . '/module_identities.txt';
+    my $temp_file = Rutas::temp_files_path() . '/(Reformato)_Module_Identities.txt';
 
     # Validar si el archivo temporal existe, si no, crearlo
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
@@ -1198,14 +1314,12 @@ sub extraer_module_identities {
             $segment .= $_ . "\n";
             if (/}/) {
                 print $fh_all "$segment\n";
-
                 my ($last_updated) = $segment =~ /LAST-UPDATED\s+"([^"]+)"/;
                 my ($organization) = $segment =~ /ORGANIZATION\s+"([^"]+)"/;
                 my ($contact_info) = $segment =~ /CONTACT-INFO\s+"([^"]+)"/s;
                 my @descriptions = $segment =~ /DESCRIPTION\s+"(.*?)"/sg;
                 my @revisions = $segment =~ /REVISION\s+"([^"]+)"/g;
                 my ($oid) = $segment =~ /::=\s*{([^}]+)}/;
-
                 my %descriptions_hash;
                 for my $i (0..$#descriptions) {
                     $descriptions_hash{"DESCRIPTION_" . ($i + 1)} = $descriptions[$i];
@@ -1330,7 +1444,6 @@ sub extraer_module_compliance {
     close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
     return \%module_compliance;
 }
-
 # Función para extraer la información de los traps de las alarmas
 sub extraer_objects_status_description {
     my ($file, $temp_file_all, $type) = @_;
@@ -1338,7 +1451,7 @@ sub extraer_objects_status_description {
     my $original_file = $file;
 
     # Archivo temporal para almacenar cómo se extraen los datos
-    my $temp_file = Rutas::temp_files_path() . '/alarm_traps.txt';
+    my $temp_file = Rutas::temp_files_path() . "/(Reformato)_${type}.txt";
     # Validar si el archivo temporal existe, si no, crearlo
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
     # Recondicionar el archivo temporal copiando el contenido de $file
@@ -1964,7 +2077,18 @@ sub escribir_datos_en_archivo {
             }
             print $fh "----------------------------------- Final de segmento -----------------------------------\n";
         }
-    } elsif ($tipo eq 'MODULE_IDENTITIES') {
+    } elsif ($tipo eq 'TEXTUAL_CONVENTION') {
+        foreach my $key (keys %$data) {
+            print $fh "----------------------------------- $key ---------------------------\n";
+            print $fh "$key:\n";
+            foreach my $field (qw(TYPE STATUS DESCRIPTION SYNTAX ARCHIVO)) {
+                if (exists $data->{$key}{$field}) {
+                    print $fh "  $field: $data->{$key}{$field}\n";
+                }
+            }
+            print $fh "----------------------------------- Final de segmento -----------------------------------\n";
+    }
+    }  elsif ($tipo eq 'MODULE_IDENTITIES') {
         foreach my $key (keys %$data) {
             print $fh "----------------------------------- $key ---------------------------\n";
             print $fh "$key:\n";

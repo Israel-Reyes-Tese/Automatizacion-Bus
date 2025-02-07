@@ -13,35 +13,16 @@ Archivo: SNMP-FRAMEWORK-MIB
 Nombre objeto: snmpPrivProtocols
 snmpPrivProtocols OBJECT-IDENTITY
 #----------------------------------- FIN OBJECT IDENTITY ---------------------------#
-#----------------------------------- OBJECT IDENTITY:  zeroDotZero  ---------------------------#
-Archivo: SNMPv2-SMI
-Nombre objeto: zeroDotZero
-zeroDotZero OBJECT-IDENTITY
-#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
 #----------------------------------- OBJECT IDENTITY:  TEXTUAL-CONVENTION,  ---------------------------#
 Archivo: HOST-RESOURCES-MIB.mib
 Nombre objeto: TEXTUAL-CONVENTION,
 OBJECT-TYPE, TEXTUAL-CONVENTION, OBJECT-IDENTITY,
 #----------------------------------- FIN OBJECT IDENTITY ---------------------------#
------------------------------------ snmpAuthProtocols ---------------------------
-snmpAuthProtocols:
-  TYPE: OBJECT-IDENTITY
-  STATUS: current
-  DESCRIPTION: Registration point for standards-track
-authentication protocols used in SNMP Management
-Frameworks.
-
-  ARCHIVO: SNMP-FRAMEWORK-MIB
-  OID:  snmpFrameworkAdmin 1 
------------------------------------ Final de segmento -----------------------------------
------------------------------------ zeroDotZero ---------------------------
-zeroDotZero:
-  TYPE: OBJECT-IDENTITY
-  STATUS: current
-  DESCRIPTION: A value used for null identifiers.
-  ARCHIVO: SNMPv2-SMI
-  OID:  0 0 
------------------------------------ Final de segmento -----------------------------------
+#----------------------------------- OBJECT IDENTITY:  zeroDotZero  ---------------------------#
+Archivo: SNMPv2-SMI
+Nombre objeto: zeroDotZero
+zeroDotZero OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
 ----------------------------------- MODULE-IDENTITY, ---------------------------
 MODULE-IDENTITY,:
   TYPE: OBJECT-IDENTITY
@@ -67,6 +48,25 @@ TEXTUAL-CONVENTION,:
 RFC1514.
   ARCHIVO: HOST-RESOURCES-MIB.mib
   OID:  hrMIBAdminInfo 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- zeroDotZero ---------------------------
+zeroDotZero:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: A value used for null identifiers.
+  ARCHIVO: SNMPv2-SMI
+  OID:  0 0 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpAuthProtocols ---------------------------
+snmpAuthProtocols:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Registration point for standards-track
+authentication protocols used in SNMP Management
+Frameworks.
+
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkAdmin 1 
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpPrivProtocols ---------------------------
 snmpPrivProtocols:

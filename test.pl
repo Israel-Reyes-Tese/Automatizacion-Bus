@@ -55,8 +55,12 @@ EOT
 
 my $logger = get_logger();
 
+#my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\DISMAN-EVENT-MIB.mib';
 my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\IF-MIB.mib';
+#my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\HOST-RESOURCES-MIB.mib';
+
 my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Object_Identifiers.logs';
+#my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Textual_Convention.logs';
 #my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Object_Types.logs';
 #my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Module_Compliance.logs';
 #my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Object_Group.logs';
@@ -69,17 +73,17 @@ $logger->info("Guardando en: $temp_file_all");
 my %elements_extracted;
 
 my $extracted_element = LogicMIB::extraer_object_identifiers($file_mib_test, $temp_file_all);
-# my $extracted_element = LogicMIB::extraer_object_types($file_mib_test, $temp_file_all);
-# my $extracted_element = LogicMIB::extraer_module_compliance($file_mib_test, $temp_file_all);
-# my $extracted_element =  LogicMIB::extraer_objects_status_description($file_mib_test, $temp_file_all, 'OBJECT-GROUP');
-# my $extracted_element =  LogicMIB::extraer_objects_status_description($file_mib_test, $temp_file_all, 'NOTIFICATION-GROUP');
-
-
+#my $extracted_element = LogicMIB::extraer_textual_conventions($file_mib_test, $temp_file_all);
+#my $extracted_element = LogicMIB::extraer_object_types($file_mib_test, $temp_file_all);
+#my $extracted_element = LogicMIB::extraer_module_compliance($file_mib_test, $temp_file_all);
+#my $extracted_element =  LogicMIB::extraer_objects_status_description($file_mib_test, $temp_file_all, 'OBJECT-GROUP');
+#my $extracted_element =  LogicMIB::extraer_objects_status_description($file_mib_test, $temp_file_all, 'NOTIFICATION-GROUP');
 
 @elements_extracted{keys %$extracted_element} = values %$extracted_element;
 
 # Escribir los datos en el archivo temporal con el tipo OBJECT_GROUPS
 LogicMIB::escribir_datos_en_archivo($temp_file_all, \%elements_extracted, "OBJECT_IDENTIFIERS", 1);
+#LogicMIB::escribir_datos_en_archivo($temp_file_all, \%elements_extracted, "TEXTUAL_CONVENTION", 1);
 #LogicMIB::escribir_datos_en_archivo($temp_file_all, \%elements_extracted, "OBJECT_TYPES", 1);
 #LogicMIB::escribir_datos_en_archivo($temp_file_all, \%elements_extracted, "MODULE_COMPLIANCE", 1);
 #LogicMIB::escribir_datos_en_archivo($temp_file_all, \%elements_extracted, "OBJECT_GROUP", 1);

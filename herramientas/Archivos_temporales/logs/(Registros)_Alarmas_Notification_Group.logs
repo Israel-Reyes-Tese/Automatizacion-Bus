@@ -29,6 +29,14 @@ DESCRIPTION
 value of ifOperStatus."
 ::= { ifGroups 14 }
 #----------------------------------- FIN NOTIFICATION GROUP ---------------------------#
+----------------------------------- snmpWarmStartNotificationGroup ---------------------------
+snmpWarmStartNotificationGroup:
+  TYPE: NOTIFICATION-GROUP
+  OBJECTS: warmStart 
+  STATUS: current
+  DESCRIPTION: An additional notification for an SNMP entity supporting command responder applications, if it is able to reinitialize itself such that its configuration is unaltered.
+  OID: snmpMIBGroups 11
+----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpBasicNotificationsGroup ---------------------------
 snmpBasicNotificationsGroup:
   TYPE: NOTIFICATION-GROUP
@@ -44,12 +52,4 @@ linkUpDownNotificationsGroup:
   STATUS: current
   DESCRIPTION: The notifications which indicate specific changes in the value of ifOperStatus.
   OID: ifGroups 14
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpWarmStartNotificationGroup ---------------------------
-snmpWarmStartNotificationGroup:
-  TYPE: NOTIFICATION-GROUP
-  OBJECTS: warmStart 
-  STATUS: current
-  DESCRIPTION: An additional notification for an SNMP entity supporting command responder applications, if it is able to reinitialize itself such that its configuration is unaltered.
-  OID: snmpMIBGroups 11
 ----------------------------------- Final de segmento -----------------------------------

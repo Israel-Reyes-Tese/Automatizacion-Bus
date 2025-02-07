@@ -1,63 +1,3 @@
-Archivo: UCD-SNMP-MIB.mib
-ucdInternal           OBJECT IDENTIFIER ::= { ucdavis 12 }
-ucdExperimental       OBJECT IDENTIFIER ::= { ucdavis 13 }
-Archivo: UCD-SNMP-MIB.mib
-ucdSnmpAgent      OBJECT IDENTIFIER ::= { ucdavis 250 }
-hpux9             OBJECT IDENTIFIER ::= { ucdSnmpAgent 1 }
-Archivo: UCD-SNMP-MIB.mib
-sunos4            OBJECT IDENTIFIER ::= { ucdSnmpAgent 2 }
-solaris           OBJECT IDENTIFIER ::= { ucdSnmpAgent 3 }
-Archivo: UCD-SNMP-MIB.mib
-osf               OBJECT IDENTIFIER ::= { ucdSnmpAgent 4 }
-ultrix            OBJECT IDENTIFIER ::= { ucdSnmpAgent 5 }
-Archivo: UCD-SNMP-MIB.mib
-hpux10            OBJECT IDENTIFIER ::= { ucdSnmpAgent 6 }
-netbsd1           OBJECT IDENTIFIER ::= { ucdSnmpAgent 7 }
-Archivo: UCD-SNMP-MIB.mib
-freebsd           OBJECT IDENTIFIER ::= { ucdSnmpAgent 8 }
-irix              OBJECT IDENTIFIER ::= { ucdSnmpAgent 9 }
-Archivo: UCD-SNMP-MIB.mib
-linux             OBJECT IDENTIFIER ::= { ucdSnmpAgent 10 }
-bsdi              OBJECT IDENTIFIER ::= { ucdSnmpAgent 11 }
-Archivo: UCD-SNMP-MIB.mib
-openbsd           OBJECT IDENTIFIER ::= { ucdSnmpAgent 12 }
-hpux11            OBJECT IDENTIFIER ::= { ucdSnmpAgent 14 }
-Archivo: UCD-SNMP-MIB.mib
-aix               OBJECT IDENTIFIER ::= { ucdSnmpAgent 15 }
-macosx            OBJECT IDENTIFIER ::= { ucdSnmpAgent 16 }
-Archivo: UCD-SNMP-MIB.mib
-dragonfly         OBJECT IDENTIFIER ::= { ucdSnmpAgent 17 }
-unknown           OBJECT IDENTIFIER ::= { ucdSnmpAgent 255 }
-Archivo: UCD-SNMP-MIB.mib
-memory OBJECT IDENTIFIER ::= { ucdavis 4 }
-::= { dskTable  1 }
-Archivo: UCD-SNMP-MIB.mib
-version	OBJECT IDENTIFIER ::= { ucdavis 100 }
-snmperrs OBJECT IDENTIFIER ::= { ucdavis 101 }
-Archivo: UCD-SNMP-MIB.mib
-systemStats OBJECT IDENTIFIER ::= { ucdavis 11 }
-ucdTraps OBJECT IDENTIFIER ::= { ucdavis 251 }
-Archivo: UCD-SNMP-MIB.mib
-logMatch OBJECT IDENTIFIER ::= { ucdavis 16 }
-::= { logMatchTable 1 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkAdmin OBJECT IDENTIFIER
-::= { snmpFrameworkMIB 1 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBObjects OBJECT IDENTIFIER
-::= { snmpFrameworkMIB 2 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpEngine OBJECT IDENTIFIER
-::= { snmpFrameworkMIBObjects 1 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBConformance OBJECT IDENTIFIER
-::= { snmpFrameworkMIB 3 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBCompliances OBJECT IDENTIFIER
-::= { snmpFrameworkMIBConformance 1 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBGroups OBJECT IDENTIFIER
-::= { snmpFrameworkMIBConformance 2 }
 Archivo: SNMPv2-MIB.mib
 snmpMIBObjects OBJECT IDENTIFIER ::= { snmpMIB 1 }
 system   OBJECT IDENTIFIER ::= { mib-2 1 }
@@ -86,115 +26,94 @@ OBJECT IDENTIFIER ::= { snmpMIB 2 }
 Archivo: SNMPv2-MIB.mib
 snmpMIBGroups  OBJECT IDENTIFIER ::= { snmpMIBConformance 2 }
 END
-Archivo: IF-MIB.mib
-ifMIBObjects OBJECT IDENTIFIER ::= { ifMIB 1 }
-interfaces   OBJECT IDENTIFIER ::= { mib-2 2 }
-Archivo: IF-MIB.mib
-ifConformance OBJECT IDENTIFIER ::= { ifMIB 2 }
-ifGroups      OBJECT IDENTIFIER ::= { ifConformance 1 }
-Archivo: IF-MIB.mib
-ifCompliances OBJECT IDENTIFIER ::= { ifConformance 2 }
-::= { ifTestTable 1 }
-Archivo: SNMPv2-SMI
-org OBJECT IDENTIFIER
-::= { iso 3 }
-Archivo: SNMPv2-SMI
-dod OBJECT IDENTIFIER
-::= { org 6 }
-Archivo: SNMPv2-SMI
-internet OBJECT IDENTIFIER
-::= { dod 1 }
-Archivo: SNMPv2-SMI
-directory OBJECT IDENTIFIER
-::= { internet 1 }
-Archivo: SNMPv2-SMI
-mgmt OBJECT IDENTIFIER
-::= { internet 2 }
-Archivo: SNMPv2-SMI
-mib-2 OBJECT IDENTIFIER
-::= { mgmt 1 }
-Archivo: SNMPv2-SMI
-transmission OBJECT IDENTIFIER
-::= { mib-2 10 }
-Archivo: SNMPv2-SMI
-experimental OBJECT IDENTIFIER
-::= { internet 3 }
-Archivo: SNMPv2-SMI
-private OBJECT IDENTIFIER
-::= { internet 4 }
-Archivo: SNMPv2-SMI
-enterprises OBJECT IDENTIFIER
-::= { private 1 }
-Archivo: SNMPv2-SMI
-security OBJECT IDENTIFIER
-::= { internet 5 }
-Archivo: SNMPv2-SMI
-snmpV2 OBJECT IDENTIFIER
-::= { internet 6 }
-Archivo: SNMPv2-SMI
-snmpDomains OBJECT IDENTIFIER
-::= { snmpV2 1 }
-Archivo: SNMPv2-SMI
-snmpProxys OBJECT IDENTIFIER
-::= { snmpV2 2 }
-Archivo: SNMPv2-SMI
-snmpModules OBJECT IDENTIFIER
-::= { snmpV2 3 }
-Archivo: HOST-RESOURCES-MIB.mib
-host     OBJECT IDENTIFIER ::= { mib-2 25 }
-hrSystem        OBJECT IDENTIFIER ::= { host 1 }
-Archivo: HOST-RESOURCES-MIB.mib
-hrStorage       OBJECT IDENTIFIER ::= { host 2 }
-hrDevice        OBJECT IDENTIFIER ::= { host 3 }
-Archivo: HOST-RESOURCES-MIB.mib
-hrSWRun         OBJECT IDENTIFIER ::= { host 4 }
-hrSWRunPerf     OBJECT IDENTIFIER ::= { host 5 }
-Archivo: HOST-RESOURCES-MIB.mib
-hrSWInstalled   OBJECT IDENTIFIER ::= { host 6 }
-hrMIBAdminInfo  OBJECT IDENTIFIER ::= { host 7 }
-Archivo: HOST-RESOURCES-MIB.mib
-these OBJECT IDENTIFIERs are allocated such that all
-products from a particular manufacturer are registered
-under a subtree distinct to that manufacturer.  In
-addition, all versions of a product should be
-registered under a subtree distinct to that product.
-With this strategy, a management station may uniquely
-determine the manufacturer and/or model of a product
-whose productID is unknown to the management station.
-Objects of this type may be useful for inventory
-purposes or for automatically detecting
-incompatibilities or version mismatches between
-various hardware and software components on a system.
-For example, the product ID for the ACME 4860 66MHz
-clock doubled processor might be:
-enterprises.acme.acmeProcessors.a4860DX2.MHz66
-A software product might be registered as:
-enterprises.acme.acmeOperatingSystems.acmeDOS.six(6).one(1)
-"
-SYNTAX OBJECT IDENTIFIER
-InternationalDisplayString ::= TEXTUAL-CONVENTION
-STATUS current
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkAdmin OBJECT IDENTIFIER
+::= { snmpFrameworkMIB 1 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBObjects OBJECT IDENTIFIER
+::= { snmpFrameworkMIB 2 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpEngine OBJECT IDENTIFIER
+::= { snmpFrameworkMIBObjects 1 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBConformance OBJECT IDENTIFIER
+::= { snmpFrameworkMIB 3 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBCompliances OBJECT IDENTIFIER
+::= { snmpFrameworkMIBConformance 1 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBGroups OBJECT IDENTIFIER
+::= { snmpFrameworkMIBConformance 2 }
+Archivo: DISMAN-EVENT-MIB.mib
+dismanEventMIBObjects OBJECT IDENTIFIER ::= { dismanEventMIB 1 }
+mteResource           OBJECT IDENTIFIER ::= { dismanEventMIBObjects 1 }
+Archivo: DISMAN-EVENT-MIB.mib
+mteTrigger            OBJECT IDENTIFIER ::= { dismanEventMIBObjects 2 }
+mteObjects            OBJECT IDENTIFIER ::= { dismanEventMIBObjects 3 }
+Archivo: DISMAN-EVENT-MIB.mib
+mteEvent              OBJECT IDENTIFIER ::= { dismanEventMIBObjects 4 }
+FailureReason ::= TEXTUAL-CONVENTION
+STATUS      current
 DESCRIPTION
-"This data type is used to model textual information
-in some character set.  A network management station
-should use a local algorithm to determine which
-character set is in use and how it should be
-displayed.  Note that this character set may be
-encoded with more than one octet per symbol, but will
-most often be NVT ASCII. When a size clause is
-specified for an object of this type, the size refers
-to the length in octets, not the number of symbols."
-SYNTAX OCTET STRING
-hrStorageTypes          OBJECT IDENTIFIER ::= { hrStorage 1 }
-Archivo: HOST-RESOURCES-MIB.mib
-hrDeviceTypes             OBJECT IDENTIFIER ::= { hrDevice 1 }
-::= { hrDeviceTable 1 }
-Archivo: HOST-RESOURCES-MIB.mib
-hrFSTypes               OBJECT IDENTIFIER ::= { hrDevice 9 }
-::= { hrFSTable 1 }
-Archivo: HOST-RESOURCES-MIB.mib
-hrMIBCompliances OBJECT IDENTIFIER ::= { hrMIBAdminInfo 2 }
-hrMIBGroups      OBJECT IDENTIFIER ::= { hrMIBAdminInfo 3 }
+"Reasons for failures in an attempt to perform a management
+request.
+The first group of errors, numbered less than 0, are related
+to problems in sending the request.  The existence of a
+particular error code here does not imply that all
+implementations are capable of sensing that error and
+returning that code.
+The second group, numbered greater than 0, are copied
+directly from SNMP protocol operations and are intended to
+carry exactly the meanings defined for the protocol as returned
+in an SNMP response.
+localResourceLack       some local resource such as memory
+lacking or
+mteResourceSampleInstanceMaximum
+exceeded
+badDestination          unrecognized domain name or otherwise
+invalid destination address
+destinationUnreachable  can't get to destination address
+noResponse              no response to SNMP request
+badType                 the data syntax of a retrieved object
+as not as expected
+sampleOverrun           another sample attempt occurred before
+the previous one completed"
+SYNTAX      INTEGER { localResourceLack(-1),
+badDestination(-2),
+destinationUnreachable(-3),
+noResponse(-4),
+badType(-5),
+sampleOverrun(-6),
+noError(0),
+tooBig(1),
+noSuchName(2),
+badValue(3),
+readOnly(4),
+genErr(5),
+noAccess(6),
+wrongType(7),
+wrongLength(8),
+wrongEncoding(9),
+wrongValue(10),
+noCreation(11),
+inconsistentValue(12),
+resourceUnavailable(13),
+commitFailed(14),
+undoFailed(15),
+authorizationError(16),
+notWritable(17),
+inconsistentName(18) }
+::= { mteTriggerTable 1 }
+Archivo: DISMAN-EVENT-MIB.mib
+sysUpTimeInstance OBJECT IDENTIFIER ::= { sysUpTime 0 }
+::= { mteTriggerDeltaEntry 1 }
+Archivo: DISMAN-EVENT-MIB.mib
+dismanEventMIBNotificationPrefix OBJECT IDENTIFIER ::=
+{ dismanEventMIB 2 }
+dismanEventMIBNotifications OBJECT IDENTIFIER ::=
+{ dismanEventMIBNotificationPrefix 0 }
+dismanEventMIBNotificationObjects OBJECT IDENTIFIER
+::= { dismanEventMIBNotificationPrefix 1 }
 Archivo: SNMPv2-TC
 SYNTAX          OBJECT IDENTIFIER
 InstancePointer ::= TEXTUAL-CONVENTION
@@ -718,6 +637,112 @@ SnmpUDPAddress for snmpUDPDomain, are defined in the SNMPv2-TM
 MIB module.  Other possible textual conventions are defined in
 other MIB modules."
 SYNTAX          OCTET STRING (SIZE(1..255))
+Archivo: HOST-RESOURCES-MIB.mib
+host     OBJECT IDENTIFIER ::= { mib-2 25 }
+hrSystem        OBJECT IDENTIFIER ::= { host 1 }
+Archivo: HOST-RESOURCES-MIB.mib
+hrStorage       OBJECT IDENTIFIER ::= { host 2 }
+hrDevice        OBJECT IDENTIFIER ::= { host 3 }
+Archivo: HOST-RESOURCES-MIB.mib
+hrSWRun         OBJECT IDENTIFIER ::= { host 4 }
+hrSWRunPerf     OBJECT IDENTIFIER ::= { host 5 }
+Archivo: HOST-RESOURCES-MIB.mib
+hrSWInstalled   OBJECT IDENTIFIER ::= { host 6 }
+hrMIBAdminInfo  OBJECT IDENTIFIER ::= { host 7 }
+Archivo: HOST-RESOURCES-MIB.mib
+these OBJECT IDENTIFIERs are allocated such that all
+products from a particular manufacturer are registered
+under a subtree distinct to that manufacturer.  In
+addition, all versions of a product should be
+registered under a subtree distinct to that product.
+With this strategy, a management station may uniquely
+determine the manufacturer and/or model of a product
+whose productID is unknown to the management station.
+Objects of this type may be useful for inventory
+purposes or for automatically detecting
+incompatibilities or version mismatches between
+various hardware and software components on a system.
+For example, the product ID for the ACME 4860 66MHz
+clock doubled processor might be:
+enterprises.acme.acmeProcessors.a4860DX2.MHz66
+A software product might be registered as:
+enterprises.acme.acmeOperatingSystems.acmeDOS.six(6).one(1)
+"
+SYNTAX OBJECT IDENTIFIER
+InternationalDisplayString ::= TEXTUAL-CONVENTION
+STATUS current
+DESCRIPTION
+"This data type is used to model textual information
+in some character set.  A network management station
+should use a local algorithm to determine which
+character set is in use and how it should be
+displayed.  Note that this character set may be
+encoded with more than one octet per symbol, but will
+most often be NVT ASCII. When a size clause is
+specified for an object of this type, the size refers
+to the length in octets, not the number of symbols."
+SYNTAX OCTET STRING
+hrStorageTypes          OBJECT IDENTIFIER ::= { hrStorage 1 }
+Archivo: HOST-RESOURCES-MIB.mib
+hrDeviceTypes             OBJECT IDENTIFIER ::= { hrDevice 1 }
+::= { hrDeviceTable 1 }
+Archivo: HOST-RESOURCES-MIB.mib
+hrFSTypes               OBJECT IDENTIFIER ::= { hrDevice 9 }
+::= { hrFSTable 1 }
+Archivo: HOST-RESOURCES-MIB.mib
+hrMIBCompliances OBJECT IDENTIFIER ::= { hrMIBAdminInfo 2 }
+hrMIBGroups      OBJECT IDENTIFIER ::= { hrMIBAdminInfo 3 }
+Archivo: UCD-SNMP-MIB.mib
+ucdInternal           OBJECT IDENTIFIER ::= { ucdavis 12 }
+ucdExperimental       OBJECT IDENTIFIER ::= { ucdavis 13 }
+Archivo: UCD-SNMP-MIB.mib
+ucdSnmpAgent      OBJECT IDENTIFIER ::= { ucdavis 250 }
+hpux9             OBJECT IDENTIFIER ::= { ucdSnmpAgent 1 }
+Archivo: UCD-SNMP-MIB.mib
+sunos4            OBJECT IDENTIFIER ::= { ucdSnmpAgent 2 }
+solaris           OBJECT IDENTIFIER ::= { ucdSnmpAgent 3 }
+Archivo: UCD-SNMP-MIB.mib
+osf               OBJECT IDENTIFIER ::= { ucdSnmpAgent 4 }
+ultrix            OBJECT IDENTIFIER ::= { ucdSnmpAgent 5 }
+Archivo: UCD-SNMP-MIB.mib
+hpux10            OBJECT IDENTIFIER ::= { ucdSnmpAgent 6 }
+netbsd1           OBJECT IDENTIFIER ::= { ucdSnmpAgent 7 }
+Archivo: UCD-SNMP-MIB.mib
+freebsd           OBJECT IDENTIFIER ::= { ucdSnmpAgent 8 }
+irix              OBJECT IDENTIFIER ::= { ucdSnmpAgent 9 }
+Archivo: UCD-SNMP-MIB.mib
+linux             OBJECT IDENTIFIER ::= { ucdSnmpAgent 10 }
+bsdi              OBJECT IDENTIFIER ::= { ucdSnmpAgent 11 }
+Archivo: UCD-SNMP-MIB.mib
+openbsd           OBJECT IDENTIFIER ::= { ucdSnmpAgent 12 }
+hpux11            OBJECT IDENTIFIER ::= { ucdSnmpAgent 14 }
+Archivo: UCD-SNMP-MIB.mib
+aix               OBJECT IDENTIFIER ::= { ucdSnmpAgent 15 }
+macosx            OBJECT IDENTIFIER ::= { ucdSnmpAgent 16 }
+Archivo: UCD-SNMP-MIB.mib
+dragonfly         OBJECT IDENTIFIER ::= { ucdSnmpAgent 17 }
+unknown           OBJECT IDENTIFIER ::= { ucdSnmpAgent 255 }
+Archivo: UCD-SNMP-MIB.mib
+memory OBJECT IDENTIFIER ::= { ucdavis 4 }
+::= { dskTable  1 }
+Archivo: UCD-SNMP-MIB.mib
+version	OBJECT IDENTIFIER ::= { ucdavis 100 }
+snmperrs OBJECT IDENTIFIER ::= { ucdavis 101 }
+Archivo: UCD-SNMP-MIB.mib
+systemStats OBJECT IDENTIFIER ::= { ucdavis 11 }
+ucdTraps OBJECT IDENTIFIER ::= { ucdavis 251 }
+Archivo: UCD-SNMP-MIB.mib
+logMatch OBJECT IDENTIFIER ::= { ucdavis 16 }
+::= { logMatchTable 1 }
+Archivo: IF-MIB.mib
+ifMIBObjects OBJECT IDENTIFIER ::= { ifMIB 1 }
+interfaces   OBJECT IDENTIFIER ::= { mib-2 2 }
+Archivo: IF-MIB.mib
+ifConformance OBJECT IDENTIFIER ::= { ifMIB 2 }
+ifGroups      OBJECT IDENTIFIER ::= { ifConformance 1 }
+Archivo: IF-MIB.mib
+ifCompliances OBJECT IDENTIFIER ::= { ifConformance 2 }
+::= { ifTestTable 1 }
 Archivo: SNMP-TARGET-MIB.mib
 snmpTargetObjects       OBJECT IDENTIFIER ::= { snmpTargetMIB 1 }
 snmpTargetConformance   OBJECT IDENTIFIER ::= { snmpTargetMIB 3 }
@@ -727,486 +752,461 @@ snmpTargetCompliances OBJECT IDENTIFIER ::=
 snmpTargetGroups      OBJECT IDENTIFIER ::=
 { snmpTargetConformance 2 }
 END
-Archivo: DISMAN-EVENT-MIB.mib
-dismanEventMIBObjects OBJECT IDENTIFIER ::= { dismanEventMIB 1 }
-mteResource           OBJECT IDENTIFIER ::= { dismanEventMIBObjects 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-mteTrigger            OBJECT IDENTIFIER ::= { dismanEventMIBObjects 2 }
-mteObjects            OBJECT IDENTIFIER ::= { dismanEventMIBObjects 3 }
-Archivo: DISMAN-EVENT-MIB.mib
-mteEvent              OBJECT IDENTIFIER ::= { dismanEventMIBObjects 4 }
-FailureReason ::= TEXTUAL-CONVENTION
-STATUS      current
-DESCRIPTION
-"Reasons for failures in an attempt to perform a management
-request.
-The first group of errors, numbered less than 0, are related
-to problems in sending the request.  The existence of a
-particular error code here does not imply that all
-implementations are capable of sensing that error and
-returning that code.
-The second group, numbered greater than 0, are copied
-directly from SNMP protocol operations and are intended to
-carry exactly the meanings defined for the protocol as returned
-in an SNMP response.
-localResourceLack       some local resource such as memory
-lacking or
-mteResourceSampleInstanceMaximum
-exceeded
-badDestination          unrecognized domain name or otherwise
-invalid destination address
-destinationUnreachable  can't get to destination address
-noResponse              no response to SNMP request
-badType                 the data syntax of a retrieved object
-as not as expected
-sampleOverrun           another sample attempt occurred before
-the previous one completed"
-SYNTAX      INTEGER { localResourceLack(-1),
-badDestination(-2),
-destinationUnreachable(-3),
-noResponse(-4),
-badType(-5),
-sampleOverrun(-6),
-noError(0),
-tooBig(1),
-noSuchName(2),
-badValue(3),
-readOnly(4),
-genErr(5),
-noAccess(6),
-wrongType(7),
-wrongLength(8),
-wrongEncoding(9),
-wrongValue(10),
-noCreation(11),
-inconsistentValue(12),
-resourceUnavailable(13),
-commitFailed(14),
-undoFailed(15),
-authorizationError(16),
-notWritable(17),
-inconsistentName(18) }
-::= { mteTriggerTable 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-sysUpTimeInstance OBJECT IDENTIFIER ::= { sysUpTime 0 }
-::= { mteTriggerDeltaEntry 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-dismanEventMIBNotificationPrefix OBJECT IDENTIFIER ::=
-{ dismanEventMIB 2 }
-dismanEventMIBNotifications OBJECT IDENTIFIER ::=
-{ dismanEventMIBNotificationPrefix 0 }
-dismanEventMIBNotificationObjects OBJECT IDENTIFIER
-::= { dismanEventMIBNotificationPrefix 1 }
+Archivo: SNMPv2-SMI
+org OBJECT IDENTIFIER
+::= { iso 3 }
+Archivo: SNMPv2-SMI
+dod OBJECT IDENTIFIER
+::= { org 6 }
+Archivo: SNMPv2-SMI
+internet OBJECT IDENTIFIER
+::= { dod 1 }
+Archivo: SNMPv2-SMI
+directory OBJECT IDENTIFIER
+::= { internet 1 }
+Archivo: SNMPv2-SMI
+mgmt OBJECT IDENTIFIER
+::= { internet 2 }
+Archivo: SNMPv2-SMI
+mib-2 OBJECT IDENTIFIER
+::= { mgmt 1 }
+Archivo: SNMPv2-SMI
+transmission OBJECT IDENTIFIER
+::= { mib-2 10 }
+Archivo: SNMPv2-SMI
+experimental OBJECT IDENTIFIER
+::= { internet 3 }
+Archivo: SNMPv2-SMI
+private OBJECT IDENTIFIER
+::= { internet 4 }
+Archivo: SNMPv2-SMI
+enterprises OBJECT IDENTIFIER
+::= { private 1 }
+Archivo: SNMPv2-SMI
+security OBJECT IDENTIFIER
+::= { internet 5 }
+Archivo: SNMPv2-SMI
+snmpV2 OBJECT IDENTIFIER
+::= { internet 6 }
+Archivo: SNMPv2-SMI
+snmpDomains OBJECT IDENTIFIER
+::= { snmpV2 1 }
+Archivo: SNMPv2-SMI
+snmpProxys OBJECT IDENTIFIER
+::= { snmpV2 2 }
+Archivo: SNMPv2-SMI
+snmpModules OBJECT IDENTIFIER
+::= { snmpV2 3 }
+----------------------------------- hrSystem ---------------------------
+hrSystem:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  host 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dragonfly ---------------------------
+dragonfly:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdSnmpAgent 17 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrStorage ---------------------------
+hrStorage:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  host 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- irix ---------------------------
+irix:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdSnmpAgent 9 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ultrix ---------------------------
+ultrix:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdSnmpAgent 5 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- memory ---------------------------
+memory:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdavis 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sysUpTimeInstance ---------------------------
+sysUpTimeInstance:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  sysUpTime 0 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- netbsd1 ---------------------------
 netbsd1:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMPv2-SMI
   OID:  ucdSnmpAgent 7 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hrDevice ---------------------------
-hrDevice:
+----------------------------------- macosx ---------------------------
+macosx:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  host 3 
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdSnmpAgent 16 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpTargetObjects ---------------------------
+snmpTargetObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  snmpTargetMIB 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSWInstalled ---------------------------
+hrSWInstalled:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  host 6 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hpux10 ---------------------------
+hpux10:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdSnmpAgent 6 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpTraps ---------------------------
+snmpTraps:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  snmpMIBObjects 5 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpTrap ---------------------------
 snmpTrap:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMPv2-SMI
   OID:  snmpMIBObjects 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpTargetConformance ---------------------------
+snmpTargetConformance:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  snmpTargetMIB 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- logMatch ---------------------------
+logMatch:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdavis 16 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmperrs ---------------------------
+snmperrs:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdavis 101 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- hrSWRunPerf ---------------------------
 hrSWRunPerf:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMPv2-SMI
   OID:  host 5 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifMIBObjects ---------------------------
+ifMIBObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ifMIB 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifGroups ---------------------------
+ifGroups:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ifConformance 1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- unknown ---------------------------
 unknown:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMPv2-SMI
   OID:  ucdSnmpAgent 255 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- linux ---------------------------
 linux:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMPv2-SMI
   OID:  ucdSnmpAgent 10 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ freebsd ---------------------------
-freebsd:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdSnmpAgent 8 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpMIBGroups ---------------------------
-snmpMIBGroups:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpMIBConformance 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteObjects ---------------------------
-mteObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  dismanEventMIBObjects 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteResource ---------------------------
-mteResource:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  dismanEventMIBObjects 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ memory ---------------------------
-memory:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdavis 4 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ucdExperimental ---------------------------
-ucdExperimental:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdavis 13 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sysUpTimeInstance ---------------------------
-sysUpTimeInstance:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  sysUpTime 0 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hpux11 ---------------------------
-hpux11:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdSnmpAgent 14 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrStorageTypes ---------------------------
-hrStorageTypes:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  hrStorage 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrSystem ---------------------------
-hrSystem:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  host 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ bsdi ---------------------------
-bsdi:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdSnmpAgent 11 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ifCompliances ---------------------------
-ifCompliances:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ifConformance 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrSWInstalled ---------------------------
-hrSWInstalled:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  host 6 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ucdTraps ---------------------------
-ucdTraps:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdavis 251 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrMIBAdminInfo ---------------------------
-hrMIBAdminInfo:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  host 7 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hpux10 ---------------------------
-hpux10:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdSnmpAgent 6 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sunos4 ---------------------------
-sunos4:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdSnmpAgent 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmperrs ---------------------------
-snmperrs:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdavis 101 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ultrix ---------------------------
-ultrix:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdSnmpAgent 5 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ucdInternal ---------------------------
-ucdInternal:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdavis 12 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ systemStats ---------------------------
-systemStats:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdavis 11 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ifMIBObjects ---------------------------
-ifMIBObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ifMIB 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dragonfly ---------------------------
-dragonfly:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdSnmpAgent 17 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpSet ---------------------------
-snmpSet:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpMIBObjects 6 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ifGroups ---------------------------
-ifGroups:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ifConformance 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteTrigger ---------------------------
-mteTrigger:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  dismanEventMIBObjects 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ aix ---------------------------
-aix:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdSnmpAgent 15 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ logMatch ---------------------------
-logMatch:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdavis 16 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ osf ---------------------------
-osf:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdSnmpAgent 4 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrSWRun ---------------------------
-hrSWRun:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  host 4 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- host ---------------------------
 host:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMPv2-SMI
   OID:  mib-2 25 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTraps ---------------------------
-snmpTraps:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpMIBObjects 5 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteEvent ---------------------------
-mteEvent:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  dismanEventMIBObjects 4 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ interfaces ---------------------------
-interfaces:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  mib-2 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ macosx ---------------------------
-macosx:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdSnmpAgent 16 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrDeviceTypes ---------------------------
-hrDeviceTypes:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  hrDevice 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrMIBCompliances ---------------------------
-hrMIBCompliances:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  hrMIBAdminInfo 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ system ---------------------------
-system:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  mib-2 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ irix ---------------------------
-irix:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdSnmpAgent 9 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ solaris ---------------------------
-solaris:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdSnmpAgent 3 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- openbsd ---------------------------
 openbsd:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMPv2-SMI
   OID:  ucdSnmpAgent 12 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ ifConformance ---------------------------
-ifConformance:
+----------------------------------- systemStats ---------------------------
+systemStats:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ifMIB 2 
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdavis 11 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hrMIBGroups ---------------------------
-hrMIBGroups:
+----------------------------------- snmpMIBGroups ---------------------------
+snmpMIBGroups:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  hrMIBAdminInfo 3 
+  ARCHIVO: SNMPv2-SMI
+  OID:  snmpMIBConformance 2 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmp ---------------------------
-snmp:
+----------------------------------- hrDeviceTypes ---------------------------
+hrDeviceTypes:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  mib-2 11 
+  ARCHIVO: SNMPv2-SMI
+  OID:  hrDevice 1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hpux9 ---------------------------
-hpux9:
+----------------------------------- hrMIBAdminInfo ---------------------------
+hrMIBAdminInfo:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdSnmpAgent 1 
+  ARCHIVO: SNMPv2-SMI
+  OID:  host 7 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ version ---------------------------
-version:
+----------------------------------- system ---------------------------
+system:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  ucdavis 100 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTargetObjects ---------------------------
-snmpTargetObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpTargetMIB 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTargetConformance ---------------------------
-snmpTargetConformance:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  snmpTargetMIB 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrStorage ---------------------------
-hrStorage:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  host 2 
+  ARCHIVO: SNMPv2-SMI
+  OID:  mib-2 1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- hrFSTypes ---------------------------
 hrFSTypes:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMPv2-SMI
   OID:  hrDevice 9 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ dismanEventMIBObjects ---------------------------
-dismanEventMIBObjects:
+----------------------------------- bsdi ---------------------------
+bsdi:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
-  OID:  dismanEventMIB 1 
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdSnmpAgent 11 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpMIBObjects ---------------------------
 snmpMIBObjects:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMPv2-SMI
   OID:  snmpMIB 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- osf ---------------------------
+osf:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdSnmpAgent 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- interfaces ---------------------------
+interfaces:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  mib-2 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dismanEventMIBObjects ---------------------------
+dismanEventMIBObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  dismanEventMIB 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mteObjects ---------------------------
+mteObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  dismanEventMIBObjects 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpSet ---------------------------
+snmpSet:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  snmpMIBObjects 6 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmp ---------------------------
+snmp:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  mib-2 11 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrMIBGroups ---------------------------
+hrMIBGroups:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  hrMIBAdminInfo 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mteTrigger ---------------------------
+mteTrigger:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  dismanEventMIBObjects 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ucdExperimental ---------------------------
+ucdExperimental:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdavis 13 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- freebsd ---------------------------
+freebsd:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdSnmpAgent 8 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrDevice ---------------------------
+hrDevice:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  host 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifCompliances ---------------------------
+ifCompliances:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ifConformance 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hpux9 ---------------------------
+hpux9:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdSnmpAgent 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrStorageTypes ---------------------------
+hrStorageTypes:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  hrStorage 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrMIBCompliances ---------------------------
+hrMIBCompliances:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  hrMIBAdminInfo 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sunos4 ---------------------------
+sunos4:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdSnmpAgent 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- solaris ---------------------------
+solaris:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdSnmpAgent 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ucdInternal ---------------------------
+ucdInternal:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdavis 12 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- version ---------------------------
+version:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdavis 100 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifConformance ---------------------------
+ifConformance:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ifMIB 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hpux11 ---------------------------
+hpux11:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdSnmpAgent 14 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ucdTraps ---------------------------
+ucdTraps:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdavis 251 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- ucdSnmpAgent ---------------------------
 ucdSnmpAgent:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: DISMAN-EVENT-MIB.mib
+  ARCHIVO: SNMPv2-SMI
   OID:  ucdavis 250 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mteEvent ---------------------------
+mteEvent:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  dismanEventMIBObjects 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSWRun ---------------------------
+hrSWRun:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  host 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- aix ---------------------------
+aix:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  ucdSnmpAgent 15 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mteResource ---------------------------
+mteResource:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMPv2-SMI
+  OID:  dismanEventMIBObjects 1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
