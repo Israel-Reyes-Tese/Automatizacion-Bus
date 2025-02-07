@@ -1,90 +1,3 @@
-#----------------------------------- MODULE IDENTITY  hostResourcesMibModule  ---------------------------#
-Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: hostResourcesMibModule
-#----------------------------------- MODULE IDENTITY  Gauge32,  ---------------------------#
-Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: Gauge32,
-Counter32, Integer32, Gauge32, MODULE-IDENTITY,
-OBJECT-TYPE, TEXTUAL-CONVENTION, OBJECT-IDENTITY,
-MODULE-COMPLIANCE, OBJECT-GROUP
-Used new Textual Conventions:
-TruthValue, DateAndTime, AutonomousType,
-InterfaceIndexOrZero
-Fixed typo in hrPrinterStatus.
-Added missing error bits to hrPrinterDetectedErrorState and
-clarified confusion resulting from suggested mappings to
-hrPrinterStatus.
-Clarified that size of objects of type
-InternationalDisplayString is number of octets, not number
-of encoded symbols.
-Clarified the use of the following objects based on
-implementation experience:
-hrSystemInitialLoadDevice, hrSystemInitialLoadParameters,
-hrMemorySize, hrStorageSize, hrStorageAllocationFailures,
-hrDeviceErrors, hrProcessorLoad, hrNetworkIfIndex,
-hrDiskStorageCapacity, hrSWRunStatus, hrSWRunPerfCPU,
-and hrSWInstalledDate.
-Clarified implementation technique for hrSWInstalledTable.
-Used new AUGMENTS clause for hrSWRunPerfTable.
-Added Internationalization Considerations section.
-This revision published as RFC2790."
-REVISION "9910202200Z"    -- 20 October, 1999
-DESCRIPTION
-"The original version of this MIB, published as
-RFC1514."
-::= { hrMIBAdminInfo 1 }
-
-#----------------------------------- MODULE IDENTITY  snmpMIB  ---------------------------#
-Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: snmpMIB
-snmpMIB MODULE-IDENTITY
-LAST-UPDATED "200210160000Z"
-ORGANIZATION "IETF SNMPv3 Working Group"
-CONTACT-INFO
-"WG-EMail:   snmpv3@lists.tislabs.com
-Subscribe:  snmpv3-request@lists.tislabs.com
-Co-Chair:   Russ Mundy
-Network Associates Laboratories
-postal:     15204 Omega Drive, Suite 300
-Rockville, MD 20850-4601
-USA
-EMail:      mundy@tislabs.com
-phone:      +1 301 947-7107
-Co-Chair:   David Harrington
-Enterasys Networks
-postal:     35 Industrial Way
-P. O. Box 5005
-Rochester, NH 03866-5005
-USA
-EMail:      dbh@enterasys.com
-phone:      +1 603 337-2614
-Editor:     Randy Presuhn
-BMC Software, Inc.
-postal:     2141 North First Street
-San Jose, CA 95131
-USA
-EMail:      randy_presuhn@bmc.com
-phone:      +1 408 546-1006"
-DESCRIPTION
-"The MIB module for SNMP entities.
-Copyright (C) The Internet Society (2002). This
-version of this MIB module is part of RFC 3418;
-see the RFC itself for full legal notices.
-"
-REVISION      "200210160000Z"
-DESCRIPTION
-"This revision of this MIB module was published as
-RFC 3418."
-REVISION      "199511090000Z"
-DESCRIPTION
-"This revision of this MIB module was published as
-RFC 1907."
-REVISION      "199304010000Z"
-DESCRIPTION
-"The initial revision of this MIB module was published
-as RFC 1450."
-::= { snmpModules 1 }
-
 #----------------------------------- MODULE IDENTITY  ianaifType  ---------------------------#
 Tipo de objeto: MODULE-IDENTITY
 Nombre del objeto: ianaifType
@@ -108,117 +21,6 @@ DESCRIPTION
 "Updated to include new name assignments up to cnr(85).
 This is the first version available via the WWW."
 ::= { mib-2 30 }
-
-#----------------------------------- MODULE IDENTITY  ifMIB  ---------------------------#
-Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: ifMIB
-ifMIB MODULE-IDENTITY
-LAST-UPDATED "200006140000Z"
-ORGANIZATION "IETF Interfaces MIB Working Group"
-CONTACT-INFO
-"   Keith McCloghrie
-Cisco Systems, Inc.
-170 West Tasman Drive
-San Jose, CA  95134-1706
-US
-408-526-5260
-kzm@cisco.com"
-DESCRIPTION
-"The MIB module to describe generic objects for network
-interface sub-layers.  This MIB is an updated version of
-MIB-II's ifTable, and incorporates the extensions defined in
-RFC 1229."
-REVISION      "200006140000Z"
-DESCRIPTION
-"Clarifications agreed upon by the Interfaces MIB WG, and
-published as RFC 2863."
-REVISION      "199602282155Z"
-DESCRIPTION
-"Revisions made by the Interfaces MIB WG, and published in
-RFC 2233."
-REVISION      "199311082155Z"
-DESCRIPTION
-"Initial revision, published as part of RFC 1573."
-::= { mib-2 31 }
-
-#----------------------------------- MODULE IDENTITY  dismanEventMIB  ---------------------------#
-Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: dismanEventMIB
-dismanEventMIB MODULE-IDENTITY
-LAST-UPDATED "200010160000Z"            -- 16 October 2000
-ORGANIZATION "IETF Distributed Management Working Group"
-CONTACT-INFO "Ramanathan Kavasseri
-Cisco Systems, Inc.
-170 West Tasman Drive,
-San Jose CA 95134-1706.
-Phone: +1 408 526 4527
-Email: ramk@cisco.com"
-DESCRIPTION
-"The MIB module for defining event triggers and actions
-for network management purposes."
-REVISION     "200010160000Z"            -- 16 October 2000
-DESCRIPTION  "This is the initial version of this MIB.
-Published as RFC 2981"
-::= { mib-2 88 }
-
-#----------------------------------- MODULE IDENTITY  snmpTargetMIB  ---------------------------#
-Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: snmpTargetMIB
-snmpTargetMIB MODULE-IDENTITY
-LAST-UPDATED "200210140000Z"
-ORGANIZATION "IETF SNMPv3 Working Group"
-CONTACT-INFO
-"WG-email:   snmpv3@lists.tislabs.com
-Subscribe:  majordomo@lists.tislabs.com
-In message body:  subscribe snmpv3
-Co-Chair:   Russ Mundy
-Network Associates Laboratories
-Postal:     15204 Omega Drive, Suite 300
-Rockville, MD 20850-4601
-USA
-EMail:      mundy@tislabs.com
-Phone:      +1 301-947-7107
-Co-Chair:   David Harrington
-Enterasys Networks
-Postal:     35 Industrial Way
-P. O. Box 5004
-Rochester, New Hampshire 03866-5005
-USA
-EMail:      dbh@enterasys.com
-Phone:      +1 603-337-2614
-Co-editor:  David B. Levi
-Nortel Networks
-Postal:     3505 Kesterwood Drive
-Knoxville, Tennessee 37918
-EMail:      dlevi@nortelnetworks.com
-Phone:      +1 865 686 0432
-Co-editor:  Paul Meyer
-Secure Computing Corporation
-Postal:     2675 Long Lake Road
-Roseville, Minnesota 55113
-EMail:      paul_meyer@securecomputing.com
-Phone:      +1 651 628 1592
-Co-editor:  Bob Stewart
-Retired"
-DESCRIPTION
-"This MIB module defines MIB objects which provide
-mechanisms to remotely configure the parameters used
-by an SNMP entity for the generation of SNMP messages.
-Copyright (C) The Internet Society (2002). This
-version of this MIB module is part of RFC 3413;
-see the RFC itself for full legal notices.
-"
-REVISION    "200210140000Z"             -- 14 October 2002
-DESCRIPTION "Fixed DISPLAY-HINTS for UTF-8 strings, fixed hex
-value of LF characters, clarified meaning of zero
-length tag values, improved tag list examples.
-Published as RFC 3413."
-REVISION    "199808040000Z"             -- 4 August 1998
-DESCRIPTION "Clarifications, published as
-RFC 2573."
-REVISION    "199707140000Z"             -- 14 July 1997
-DESCRIPTION "The initial revision, published as RFC2273."
-::= { snmpModules 12 }
 
 #----------------------------------- MODULE IDENTITY  NOTIFICATION-TYPE,  ---------------------------#
 Tipo de objeto: MODULE-IDENTITY
@@ -331,6 +133,248 @@ DESCRIPTION
 "
 ::= { snmpModules 10 }
 
+#----------------------------------- MODULE IDENTITY  snmpMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: snmpMIB
+snmpMIB MODULE-IDENTITY
+LAST-UPDATED "200210160000Z"
+ORGANIZATION "IETF SNMPv3 Working Group"
+CONTACT-INFO
+"WG-EMail:   snmpv3@lists.tislabs.com
+Subscribe:  snmpv3-request@lists.tislabs.com
+Co-Chair:   Russ Mundy
+Network Associates Laboratories
+postal:     15204 Omega Drive, Suite 300
+Rockville, MD 20850-4601
+USA
+EMail:      mundy@tislabs.com
+phone:      +1 301 947-7107
+Co-Chair:   David Harrington
+Enterasys Networks
+postal:     35 Industrial Way
+P. O. Box 5005
+Rochester, NH 03866-5005
+USA
+EMail:      dbh@enterasys.com
+phone:      +1 603 337-2614
+Editor:     Randy Presuhn
+BMC Software, Inc.
+postal:     2141 North First Street
+San Jose, CA 95131
+USA
+EMail:      randy_presuhn@bmc.com
+phone:      +1 408 546-1006"
+DESCRIPTION
+"The MIB module for SNMP entities.
+Copyright (C) The Internet Society (2002). This
+version of this MIB module is part of RFC 3418;
+see the RFC itself for full legal notices.
+"
+REVISION      "200210160000Z"
+DESCRIPTION
+"This revision of this MIB module was published as
+RFC 3418."
+REVISION      "199511090000Z"
+DESCRIPTION
+"This revision of this MIB module was published as
+RFC 1907."
+REVISION      "199304010000Z"
+DESCRIPTION
+"The initial revision of this MIB module was published
+as RFC 1450."
+::= { snmpModules 1 }
+
+#----------------------------------- MODULE IDENTITY  ifMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: ifMIB
+ifMIB MODULE-IDENTITY
+LAST-UPDATED "200006140000Z"
+ORGANIZATION "IETF Interfaces MIB Working Group"
+CONTACT-INFO
+"   Keith McCloghrie
+Cisco Systems, Inc.
+170 West Tasman Drive
+San Jose, CA  95134-1706
+US
+408-526-5260
+kzm@cisco.com"
+DESCRIPTION
+"The MIB module to describe generic objects for network
+interface sub-layers.  This MIB is an updated version of
+MIB-II's ifTable, and incorporates the extensions defined in
+RFC 1229."
+REVISION      "200006140000Z"
+DESCRIPTION
+"Clarifications agreed upon by the Interfaces MIB WG, and
+published as RFC 2863."
+REVISION      "199602282155Z"
+DESCRIPTION
+"Revisions made by the Interfaces MIB WG, and published in
+RFC 2233."
+REVISION      "199311082155Z"
+DESCRIPTION
+"Initial revision, published as part of RFC 1573."
+::= { mib-2 31 }
+
+#----------------------------------- MODULE IDENTITY  hostResourcesMibModule  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: hostResourcesMibModule
+#----------------------------------- MODULE IDENTITY  Gauge32,  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: Gauge32,
+Counter32, Integer32, Gauge32, MODULE-IDENTITY,
+OBJECT-TYPE, TEXTUAL-CONVENTION, OBJECT-IDENTITY,
+MODULE-COMPLIANCE, OBJECT-GROUP
+Used new Textual Conventions:
+TruthValue, DateAndTime, AutonomousType,
+InterfaceIndexOrZero
+Fixed typo in hrPrinterStatus.
+Added missing error bits to hrPrinterDetectedErrorState and
+clarified confusion resulting from suggested mappings to
+hrPrinterStatus.
+Clarified that size of objects of type
+InternationalDisplayString is number of octets, not number
+of encoded symbols.
+Clarified the use of the following objects based on
+implementation experience:
+hrSystemInitialLoadDevice, hrSystemInitialLoadParameters,
+hrMemorySize, hrStorageSize, hrStorageAllocationFailures,
+hrDeviceErrors, hrProcessorLoad, hrNetworkIfIndex,
+hrDiskStorageCapacity, hrSWRunStatus, hrSWRunPerfCPU,
+and hrSWInstalledDate.
+Clarified implementation technique for hrSWInstalledTable.
+Used new AUGMENTS clause for hrSWRunPerfTable.
+Added Internationalization Considerations section.
+This revision published as RFC2790."
+REVISION "9910202200Z"    -- 20 October, 1999
+DESCRIPTION
+"The original version of this MIB, published as
+RFC1514."
+::= { hrMIBAdminInfo 1 }
+
+#----------------------------------- MODULE IDENTITY  snmpTargetMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: snmpTargetMIB
+snmpTargetMIB MODULE-IDENTITY
+LAST-UPDATED "200210140000Z"
+ORGANIZATION "IETF SNMPv3 Working Group"
+CONTACT-INFO
+"WG-email:   snmpv3@lists.tislabs.com
+Subscribe:  majordomo@lists.tislabs.com
+In message body:  subscribe snmpv3
+Co-Chair:   Russ Mundy
+Network Associates Laboratories
+Postal:     15204 Omega Drive, Suite 300
+Rockville, MD 20850-4601
+USA
+EMail:      mundy@tislabs.com
+Phone:      +1 301-947-7107
+Co-Chair:   David Harrington
+Enterasys Networks
+Postal:     35 Industrial Way
+P. O. Box 5004
+Rochester, New Hampshire 03866-5005
+USA
+EMail:      dbh@enterasys.com
+Phone:      +1 603-337-2614
+Co-editor:  David B. Levi
+Nortel Networks
+Postal:     3505 Kesterwood Drive
+Knoxville, Tennessee 37918
+EMail:      dlevi@nortelnetworks.com
+Phone:      +1 865 686 0432
+Co-editor:  Paul Meyer
+Secure Computing Corporation
+Postal:     2675 Long Lake Road
+Roseville, Minnesota 55113
+EMail:      paul_meyer@securecomputing.com
+Phone:      +1 651 628 1592
+Co-editor:  Bob Stewart
+Retired"
+DESCRIPTION
+"This MIB module defines MIB objects which provide
+mechanisms to remotely configure the parameters used
+by an SNMP entity for the generation of SNMP messages.
+Copyright (C) The Internet Society (2002). This
+version of this MIB module is part of RFC 3413;
+see the RFC itself for full legal notices.
+"
+REVISION    "200210140000Z"             -- 14 October 2002
+DESCRIPTION "Fixed DISPLAY-HINTS for UTF-8 strings, fixed hex
+value of LF characters, clarified meaning of zero
+length tag values, improved tag list examples.
+Published as RFC 3413."
+REVISION    "199808040000Z"             -- 4 August 1998
+DESCRIPTION "Clarifications, published as
+RFC 2573."
+REVISION    "199707140000Z"             -- 14 July 1997
+DESCRIPTION "The initial revision, published as RFC2273."
+::= { snmpModules 12 }
+
+#----------------------------------- MODULE IDENTITY  dismanEventMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: dismanEventMIB
+dismanEventMIB MODULE-IDENTITY
+LAST-UPDATED "200010160000Z"            -- 16 October 2000
+ORGANIZATION "IETF Distributed Management Working Group"
+CONTACT-INFO "Ramanathan Kavasseri
+Cisco Systems, Inc.
+170 West Tasman Drive,
+San Jose CA 95134-1706.
+Phone: +1 408 526 4527
+Email: ramk@cisco.com"
+DESCRIPTION
+"The MIB module for defining event triggers and actions
+for network management purposes."
+REVISION     "200010160000Z"            -- 16 October 2000
+DESCRIPTION  "This is the initial version of this MIB.
+Published as RFC 2981"
+::= { mib-2 88 }
+
+----------------------------------- snmpMIB ---------------------------
+snmpMIB:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 200210160000Z
+  ORGANIZATION: IETF SNMPv3 Working Group
+  CONTACT_INFO: WG-EMail:   snmpv3@lists.tislabs.com
+Subscribe:  snmpv3-request@lists.tislabs.com
+Co-Chair:   Russ Mundy
+Network Associates Laboratories
+postal:     15204 Omega Drive, Suite 300
+Rockville, MD 20850-4601
+USA
+EMail:      mundy@tislabs.com
+phone:      +1 301 947-7107
+Co-Chair:   David Harrington
+Enterasys Networks
+postal:     35 Industrial Way
+P. O. Box 5005
+Rochester, NH 03866-5005
+USA
+EMail:      dbh@enterasys.com
+phone:      +1 603 337-2614
+Editor:     Randy Presuhn
+BMC Software, Inc.
+postal:     2141 North First Street
+San Jose, CA 95131
+USA
+EMail:      randy_presuhn@bmc.com
+phone:      +1 408 546-1006
+  ARCHIVO: SNMPv2-MIB.mib
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ianaifType ---------------------------
+ianaifType:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 199910081430Z
+  ORGANIZATION: IANA
+  CONTACT_INFO:         Internet Assigned Numbers Authority
+Postal: ICANN
+4676 Admiralty Way, Suite 330
+Marina del Rey, CA 90292
+Tel:    +1 310 823 9358 x20
+E-Mail: iana@iana.org
+  ARCHIVO: IANAifType-MIB
+----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpFrameworkMIB ---------------------------
 snmpFrameworkMIB:
   TYPE: MODULE-IDENTITY
@@ -380,19 +424,6 @@ Gauge32,:
   CONTACT_INFO: 
   ARCHIVO: HOST-RESOURCES-MIB.mib
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ ianaifType ---------------------------
-ianaifType:
-  TYPE: MODULE-IDENTITY
-  LAST_UPDATED: 199910081430Z
-  ORGANIZATION: IANA
-  CONTACT_INFO:         Internet Assigned Numbers Authority
-Postal: ICANN
-4676 Admiralty Way, Suite 330
-Marina del Rey, CA 90292
-Tel:    +1 310 823 9358 x20
-E-Mail: iana@iana.org
-  ARCHIVO: IANAifType-MIB
------------------------------------ Final de segmento -----------------------------------
 ----------------------------------- snmpTargetMIB ---------------------------
 snmpTargetMIB:
   TYPE: MODULE-IDENTITY
@@ -431,37 +462,6 @@ Phone:      +1 651 628 1592
 Co-editor:  Bob Stewart
 Retired
   ARCHIVO: SNMP-TARGET-MIB.mib
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpMIB ---------------------------
-snmpMIB:
-  TYPE: MODULE-IDENTITY
-  LAST_UPDATED: 200210160000Z
-  ORGANIZATION: IETF SNMPv3 Working Group
-  CONTACT_INFO: WG-EMail:   snmpv3@lists.tislabs.com
-Subscribe:  snmpv3-request@lists.tislabs.com
-Co-Chair:   Russ Mundy
-Network Associates Laboratories
-postal:     15204 Omega Drive, Suite 300
-Rockville, MD 20850-4601
-USA
-EMail:      mundy@tislabs.com
-phone:      +1 301 947-7107
-Co-Chair:   David Harrington
-Enterasys Networks
-postal:     35 Industrial Way
-P. O. Box 5005
-Rochester, NH 03866-5005
-USA
-EMail:      dbh@enterasys.com
-phone:      +1 603 337-2614
-Editor:     Randy Presuhn
-BMC Software, Inc.
-postal:     2141 North First Street
-San Jose, CA 95131
-USA
-EMail:      randy_presuhn@bmc.com
-phone:      +1 408 546-1006
-  ARCHIVO: SNMPv2-MIB.mib
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- ifMIB ---------------------------
 ifMIB:

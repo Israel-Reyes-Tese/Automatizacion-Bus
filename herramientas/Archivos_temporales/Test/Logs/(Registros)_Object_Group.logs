@@ -1,0 +1,278 @@
+#----------------------------------- OBJECT GROUP:  ifGeneralInformationGroup  ---------------------------#
+Nombre del grupo de objetos: ifGeneralInformationGroup
+ifGeneralInformationGroup    OBJECT-GROUP
+OBJECTS { ifIndex, ifDescr, ifType, ifSpeed, ifPhysAddress,
+ifAdminStatus, ifOperStatus, ifLastChange,
+ifLinkUpDownTrapEnable, ifConnectorPresent,
+ifHighSpeed, ifName, ifNumber, ifAlias,
+ifTableLastChange }
+STATUS  current
+DESCRIPTION
+"A collection of objects providing information applicable to
+all network interfaces."
+::= { ifGroups 10 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifFixedLengthGroup  ---------------------------#
+Nombre del grupo de objetos: ifFixedLengthGroup
+ifFixedLengthGroup    OBJECT-GROUP
+OBJECTS { ifInOctets, ifOutOctets, ifInUnknownProtos,
+ifInErrors, ifOutErrors }
+STATUS  current
+DESCRIPTION
+"A collection of objects providing information specific to
+non-high speed (non-high speed interfaces transmit and
+receive at speeds less than or equal to 20,000,000
+bits/second) character-oriented or fixed-length-transmission
+network interfaces."
+::= { ifGroups 2 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifHCFixedLengthGroup  ---------------------------#
+Nombre del grupo de objetos: ifHCFixedLengthGroup
+ifHCFixedLengthGroup    OBJECT-GROUP
+OBJECTS { ifHCInOctets, ifHCOutOctets,
+ifInOctets, ifOutOctets, ifInUnknownProtos,
+ifInErrors, ifOutErrors }
+STATUS  current
+DESCRIPTION
+"A collection of objects providing information specific to
+high speed (greater than 20,000,000 bits/second) character-
+oriented or fixed-length-transmission network interfaces."
+::= { ifGroups 3 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifPacketGroup  ---------------------------#
+Nombre del grupo de objetos: ifPacketGroup
+ifPacketGroup    OBJECT-GROUP
+OBJECTS { ifInOctets, ifOutOctets, ifInUnknownProtos,
+ifInErrors, ifOutErrors,
+ifMtu, ifInUcastPkts, ifInMulticastPkts,
+ifInBroadcastPkts, ifInDiscards,
+ifOutUcastPkts, ifOutMulticastPkts,
+ifOutBroadcastPkts, ifOutDiscards,
+ifPromiscuousMode }
+STATUS  current
+DESCRIPTION
+"A collection of objects providing information specific to
+non-high speed (non-high speed interfaces transmit and
+receive at speeds less than or equal to 20,000,000
+bits/second) packet-oriented network interfaces."
+::= { ifGroups 4 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifHCPacketGroup  ---------------------------#
+Nombre del grupo de objetos: ifHCPacketGroup
+ifHCPacketGroup    OBJECT-GROUP
+OBJECTS { ifHCInOctets, ifHCOutOctets,
+ifInOctets, ifOutOctets, ifInUnknownProtos,
+ifInErrors, ifOutErrors,
+ifMtu, ifInUcastPkts, ifInMulticastPkts,
+ifInBroadcastPkts, ifInDiscards,
+ifOutUcastPkts, ifOutMulticastPkts,
+ifOutBroadcastPkts, ifOutDiscards,
+ifPromiscuousMode }
+STATUS  current
+DESCRIPTION
+"A collection of objects providing information specific to
+high speed (greater than 20,000,000 bits/second but less
+than or equal to 650,000,000 bits/second) packet-oriented
+network interfaces."
+::= { ifGroups 5 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifVHCPacketGroup  ---------------------------#
+Nombre del grupo de objetos: ifVHCPacketGroup
+ifVHCPacketGroup    OBJECT-GROUP
+OBJECTS { ifHCInUcastPkts, ifHCInMulticastPkts,
+ifHCInBroadcastPkts, ifHCOutUcastPkts,
+ifHCOutMulticastPkts, ifHCOutBroadcastPkts,
+ifHCInOctets, ifHCOutOctets,
+ifInOctets, ifOutOctets, ifInUnknownProtos,
+ifInErrors, ifOutErrors,
+ifMtu, ifInUcastPkts, ifInMulticastPkts,
+ifInBroadcastPkts, ifInDiscards,
+ifOutUcastPkts, ifOutMulticastPkts,
+ifOutBroadcastPkts, ifOutDiscards,
+ifPromiscuousMode }
+STATUS  current
+DESCRIPTION
+"A collection of objects providing information specific to
+higher speed (greater than 650,000,000 bits/second) packet-
+oriented network interfaces."
+::= { ifGroups 6 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifRcvAddressGroup  ---------------------------#
+Nombre del grupo de objetos: ifRcvAddressGroup
+ifRcvAddressGroup    OBJECT-GROUP
+OBJECTS { ifRcvAddressStatus, ifRcvAddressType }
+STATUS  current
+DESCRIPTION
+"A collection of objects providing information on the
+multiple addresses which an interface receives."
+::= { ifGroups 7 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifStackGroup2  ---------------------------#
+Nombre del grupo de objetos: ifStackGroup2
+ifStackGroup2    OBJECT-GROUP
+OBJECTS { ifStackStatus, ifStackLastChange }
+STATUS  current
+DESCRIPTION
+"A collection of objects providing information on the
+layering of MIB-II interfaces."
+::= { ifGroups 11 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifCounterDiscontinuityGroup  ---------------------------#
+Nombre del grupo de objetos: ifCounterDiscontinuityGroup
+ifCounterDiscontinuityGroup  OBJECT-GROUP
+OBJECTS { ifCounterDiscontinuityTime }
+STATUS  current
+DESCRIPTION
+"A collection of objects providing information specific to
+interface counter discontinuities."
+::= { ifGroups 13 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifGeneralGroup  ---------------------------#
+Nombre del grupo de objetos: ifGeneralGroup
+ifGeneralGroup    OBJECT-GROUP
+OBJECTS { ifDescr, ifType, ifSpeed, ifPhysAddress,
+ifAdminStatus, ifOperStatus, ifLastChange,
+ifLinkUpDownTrapEnable, ifConnectorPresent,
+ifHighSpeed, ifName }
+STATUS  deprecated
+DESCRIPTION
+"A collection of objects deprecated in favour of
+ifGeneralInformationGroup."
+::= { ifGroups 1 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifTestGroup  ---------------------------#
+Nombre del grupo de objetos: ifTestGroup
+ifTestGroup    OBJECT-GROUP
+OBJECTS { ifTestId, ifTestStatus, ifTestType,
+ifTestResult, ifTestCode, ifTestOwner }
+STATUS  deprecated
+DESCRIPTION
+"A collection of objects providing the ability to invoke
+tests on an interface."
+::= { ifGroups 8 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifStackGroup  ---------------------------#
+Nombre del grupo de objetos: ifStackGroup
+ifStackGroup    OBJECT-GROUP
+OBJECTS { ifStackStatus }
+STATUS  deprecated
+DESCRIPTION
+"The previous collection of objects providing information on
+the layering of MIB-II interfaces."
+::= { ifGroups 9 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifOldObjectsGroup  ---------------------------#
+Nombre del grupo de objetos: ifOldObjectsGroup
+ifOldObjectsGroup    OBJECT-GROUP
+OBJECTS { ifInNUcastPkts, ifOutNUcastPkts,
+ifOutQLen, ifSpecific }
+STATUS  deprecated
+DESCRIPTION
+"The collection of objects deprecated from the original MIB-
+II interfaces group."
+::= { ifGroups 12 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+----------------------------------- ifOldObjectsGroup ---------------------------
+ifOldObjectsGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifInNUcastPkts, ifOutNUcastPkts, ifOutQLen, ifSpecific 
+  STATUS: deprecated
+  DESCRIPTION: The collection of objects deprecated from the original MIB- II interfaces group.
+  OID: ifGroups 12
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifCounterDiscontinuityGroup ---------------------------
+ifCounterDiscontinuityGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifCounterDiscontinuityTime 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing information specific to interface counter discontinuities.
+  OID: ifGroups 13
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifHCFixedLengthGroup ---------------------------
+ifHCFixedLengthGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifHCInOctets, ifHCOutOctets, ifInOctets, ifOutOctets, ifInUnknownProtos, ifInErrors, ifOutErrors 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing information specific to high speed (greater than 20,000,000 bits/second) character- oriented or fixed-length-transmission network interfaces.
+  OID: ifGroups 3
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifGeneralGroup ---------------------------
+ifGeneralGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifDescr, ifType, ifSpeed, ifPhysAddress, ifAdminStatus, ifOperStatus, ifLastChange, ifLinkUpDownTrapEnable, ifConnectorPresent, ifHighSpeed, ifName 
+  STATUS: deprecated
+  DESCRIPTION: A collection of objects deprecated in favour of ifGeneralInformationGroup.
+  OID: ifGroups 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifStackGroup ---------------------------
+ifStackGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifStackStatus 
+  STATUS: deprecated
+  DESCRIPTION: The previous collection of objects providing information on the layering of MIB-II interfaces.
+  OID: ifGroups 9
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifTestGroup ---------------------------
+ifTestGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifTestId, ifTestStatus, ifTestType, ifTestResult, ifTestCode, ifTestOwner 
+  STATUS: deprecated
+  DESCRIPTION: A collection of objects providing the ability to invoke tests on an interface.
+  OID: ifGroups 8
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifHCPacketGroup ---------------------------
+ifHCPacketGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifHCInOctets, ifHCOutOctets, ifInOctets, ifOutOctets, ifInUnknownProtos, ifInErrors, ifOutErrors, ifMtu, ifInUcastPkts, ifInMulticastPkts, ifInBroadcastPkts, ifInDiscards, ifOutUcastPkts, ifOutMulticastPkts, ifOutBroadcastPkts, ifOutDiscards, ifPromiscuousMode 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing information specific to high speed (greater than 20,000,000 bits/second but less than or equal to 650,000,000 bits/second) packet-oriented network interfaces.
+  OID: ifGroups 5
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifVHCPacketGroup ---------------------------
+ifVHCPacketGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifHCInUcastPkts, ifHCInMulticastPkts, ifHCInBroadcastPkts, ifHCOutUcastPkts, ifHCOutMulticastPkts, ifHCOutBroadcastPkts, ifHCInOctets, ifHCOutOctets, ifInOctets, ifOutOctets, ifInUnknownProtos, ifInErrors, ifOutErrors, ifMtu, ifInUcastPkts, ifInMulticastPkts, ifInBroadcastPkts, ifInDiscards, ifOutUcastPkts, ifOutMulticastPkts, ifOutBroadcastPkts, ifOutDiscards, ifPromiscuousMode 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing information specific to higher speed (greater than 650,000,000 bits/second) packet- oriented network interfaces.
+  OID: ifGroups 6
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifFixedLengthGroup ---------------------------
+ifFixedLengthGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifInOctets, ifOutOctets, ifInUnknownProtos, ifInErrors, ifOutErrors 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing information specific to non-high speed (non-high speed interfaces transmit and receive at speeds less than or equal to 20,000,000 bits/second) character-oriented or fixed-length-transmission network interfaces.
+  OID: ifGroups 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifRcvAddressGroup ---------------------------
+ifRcvAddressGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifRcvAddressStatus, ifRcvAddressType 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing information on the multiple addresses which an interface receives.
+  OID: ifGroups 7
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifStackGroup2 ---------------------------
+ifStackGroup2:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifStackStatus, ifStackLastChange 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing information on the layering of MIB-II interfaces.
+  OID: ifGroups 11
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifPacketGroup ---------------------------
+ifPacketGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifInOctets, ifOutOctets, ifInUnknownProtos, ifInErrors, ifOutErrors, ifMtu, ifInUcastPkts, ifInMulticastPkts, ifInBroadcastPkts, ifInDiscards, ifOutUcastPkts, ifOutMulticastPkts, ifOutBroadcastPkts, ifOutDiscards, ifPromiscuousMode 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing information specific to non-high speed (non-high speed interfaces transmit and receive at speeds less than or equal to 20,000,000 bits/second) packet-oriented network interfaces.
+  OID: ifGroups 4
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifGeneralInformationGroup ---------------------------
+ifGeneralInformationGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifIndex, ifDescr, ifType, ifSpeed, ifPhysAddress, ifAdminStatus, ifOperStatus, ifLastChange, ifLinkUpDownTrapEnable, ifConnectorPresent, ifHighSpeed, ifName, ifNumber, ifAlias, ifTableLastChange 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing information applicable to all network interfaces.
+  OID: ifGroups 10
+----------------------------------- Final de segmento -----------------------------------

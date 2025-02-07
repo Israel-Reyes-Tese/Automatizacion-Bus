@@ -151,6 +151,45 @@ sub cargar_mib {
     }
     # Escribir los datos en el archivo temporal con el tipo MODULE_IDENTITIES
     escribir_datos_en_archivo($temp_file_all_module_identities, \%module_identities, "MODULE_IDENTITIES", 1);
+    # Datos MODULE-COMPLIANCE
+    my %module_compliances;
+    # Archivo temporal que almacenará todos los MODULE-COMPLIANCE encontrados
+    my $temp_file_all_module_compliances = Rutas::temp_files_logs_objects_mibs_path(). '/(Registros)_Module_Compliances.logs';
+    $temp_file_all_module_compliances = validar_o_crear_archivo_temporal($temp_file_all_module_compliances);
+    foreach my $file (keys %mib_files) {
+        # Extraer MODULE-COMPLIANCE y añadir al hash module_compliances
+        my $extracted_module_compliances = extraer_module_compliance($file, $temp_file_all_module_compliances);
+        @module_compliances{keys %$extracted_module_compliances} = values %$extracted_module_compliances;
+    }
+    # Escribir los datos en el archivo temporal con el tipo MODULE_COMPLIANCES
+    escribir_datos_en_archivo($temp_file_all_module_compliances, \%module_compliances, "MODULE_COMPLIANCE", 1);
+
+    # Datos de las alarmas OBJECT-GROUP
+    my %alarm_object_groups;
+    # Archivo temporal que almacenará todas las alarmas OBJECT-GROUP encontradas
+    my $temp_file_all_alarm_object_groups = Rutas::temp_files_logs_objects_mibs_path(). '/(Registros)_Alarmas_Object_Group.logs';
+    $temp_file_all_alarm_object_groups = validar_o_crear_archivo_temporal($temp_file_all_alarm_object_groups);
+    foreach my $file (keys %mib_files) {
+        # Extraer OBJECT-GROUP y añadir al hash alarm_object_groups
+        my $extracted_alarm_object_groups = extraer_objects_status_description($file, $temp_file_all_alarm_object_groups, "OBJECT-GROUP");
+        @alarm_object_groups{keys %$extracted_alarm_object_groups} = values %$extracted_alarm_object_groups;
+    }
+    # Escribir los datos en el archivo temporal con el tipo OBJECT_GROUPS
+    escribir_datos_en_archivo($temp_file_all_alarm_object_groups, \%alarm_object_groups, "OBJECT_GROUPS", 1);
+    # Datos de las alarmas NOTIFICATION-GROUP
+    my %alarm_notification_groups;
+    # Archivo temporal que almacenará todas las alarmas NOTIFICATION-GROUP encontradas
+    my $temp_file_all_alarm_notification_groups = Rutas::temp_files_logs_objects_mibs_path(). '/(Registros)_Alarmas_Notification_Group.logs';
+    $temp_file_all_alarm_notification_groups = validar_o_crear_archivo_temporal($temp_file_all_alarm_notification_groups);
+    foreach my $file (keys %mib_files) {
+        # Extraer NOTIFICATION-GROUP y añadir al hash alarm_notification_groups
+        my $extracted_alarm_notification_groups = extraer_objects_status_description($file, $temp_file_all_alarm_notification_groups, "NOTIFICATION-GROUP");
+        @alarm_notification_groups{keys %$extracted_alarm_notification_groups} = values %$extracted_alarm_notification_groups;
+    }
+    # Escribir los datos en el archivo temporal con el tipo NOTIFICATION_GROUPS
+    escribir_datos_en_archivo($temp_file_all_alarm_notification_groups, \%alarm_notification_groups, "NOTIFICATION_GROUPS", 1);
+
+
     # Datos de las alarmas NOTIFICATION-TYPE o TRAP-TYPE
     my %alarm_traps;
     # Archivo temporal que almacenará todas las alaramas encontras concatenadas
@@ -158,7 +197,7 @@ sub cargar_mib {
     $temp_file_all_alarm_traps = validar_o_crear_archivo_temporal($temp_file_all_alarm_traps);
     foreach my $file (keys %mib_files) {
         # Extraer OBJECT-TYPE y añadir al hash object_types
-        my $extracted_alarm_traps = extraer_alarm_traps($file, $temp_file_all_alarm_traps);
+        my $extracted_alarm_traps = extraer_objects_status_description($file, $temp_file_all_alarm_traps, "ALARM");
         @alarm_traps{keys %$extracted_alarm_traps} = values %$extracted_alarm_traps;
     }
     # Escribir los datos en el archivo temporal con el tipo NOTIFICATION_TYPES_OR_TRAP_TYPES
@@ -182,6 +221,7 @@ sub cargar_mib {
         OBJECT_TYPES => \%object_types,
         OBJECT_IDENTIFIERS => \%object_identifiers,
         MODULE_IDENTITIES => \%module_identities,
+        MODULE_COMPLIANCE => \%module_compliances,
         ALARM_TRAPS => \%alarm_traps,
         OID_NODES => $oid_nodes,
     );
@@ -648,7 +688,6 @@ sub validar_o_crear_archivo_temporal {
 # Función para recondicionar el archivo temporal copiando el contenido de $file
 sub recondicionar_archivo_temporal {
     my ($file, $temp_file, $original_file) = @_;
-
     # Obtener la ruta absoluta del archivo original
     my $abs_path = abs_path($original_file);
     # Obtener el la ruta relativa del archivo original
@@ -678,6 +717,172 @@ sub recondicionar_archivo_temporal {
 
     return $temp_file;
 }
+
+# Función principal para extraer OBJECT-TYPE y devolver el archivo sin estos segmentos
+sub extraer_y_eliminar_object_archivo_temporal {
+    my ($file) = @_;
+
+    eliminar_lineas($file, "--");
+
+    # Escribir el archivo sin los segmentos de OBJECT-TYPE
+    eliminar_object_types($file);
+    
+    eliminar_module_compliance($file);
+
+    eliminar_object_group($file);
+    eliminar_notification_group($file);
+
+    # Eliminar lineas específicas
+
+
+    return $file;
+}
+
+# Función para eliminar lineas que contengan un término específico de un archivo MIB 
+sub eliminar_lineas {
+    my ($file, $termino) = @_;
+
+    open my $fh, '<', $file or croak "Error al abrir el archivo $file: $!";
+    my @lines = <$fh>;
+    close $fh or croak "Error al cerrar el archivo $file: $!";
+
+    my @filtered_lines;
+
+    foreach my $line (@lines) {
+        if ($line =~ /\Q$termino\E/) {
+            next;
+        }
+        push @filtered_lines, $line;
+    }
+
+    open my $fh_out, '>', $file or croak "Error al abrir el archivo $file para escribir: $!";
+    print $fh_out @filtered_lines;
+    close $fh_out or croak "Error al cerrar el archivo $file: $!";
+}
+
+
+
+
+# Función para eliminar los segmentos de OBJECT-TYPE del archivo original
+sub eliminar_object_types {
+    my ($file) = @_;
+
+    open my $fh, '<', $file or croak "Error al abrir el archivo $file: $!";
+
+    my @lines = <$fh>;
+    close $fh or croak "Error al cerrar el archivo $file: $!";
+
+    my @filtered_lines;
+    my $in_segment = 0;
+
+    foreach my $line (@lines) {
+        if ($line =~ /(\w+)\s+OBJECT-TYPE/) {
+            $in_segment = 1;
+        }
+        elsif ($in_segment) {
+            if ($line =~ / }/) {
+                $in_segment = 0;
+            }
+        } else {
+            push @filtered_lines, $line;
+        }
+    }
+
+    open my $fh_out, '>', $file or croak "Error al abrir el archivo $file para escribir: $!";
+    print $fh_out @filtered_lines;
+    close $fh_out or croak "Error al cerrar el archivo $file: $!";
+}
+
+# Función para eliminar los segmentos de MODULE COMPLIANCE del archivo original
+sub eliminar_module_compliance {
+    my ($file) = @_;
+
+    open my $fh, '<', $file or croak "Error al abrir el archivo $file: $!";
+
+    my @lines = <$fh>;
+    close $fh or croak "Error al cerrar el archivo $file: $!";
+
+    my @filtered_lines;
+    my $in_segment = 0;
+
+    foreach my $line (@lines) {
+        if ($line =~ /(\w+)\s+MODULE-COMPLIANCE/) {
+            $in_segment = 1;
+        }
+        elsif ($in_segment) {
+            if ($line =~ /::=/) {
+                $in_segment = 0;
+            }
+        } else {
+            push @filtered_lines, $line;
+        }
+    }
+
+    open my $fh_out, '>', $file or croak "Error al abrir el archivo $file para escribir: $!";
+    print $fh_out @filtered_lines;
+    close $fh_out or croak "Error al cerrar el archivo $file: $!";
+}
+
+# Función para extraer OBJECT-GROUP de un archivo MIB
+sub eliminar_object_group {
+    my ($file) = @_;
+
+    open my $fh, '<', $file or croak "Error al abrir el archivo $file: $!";
+
+    my @lines = <$fh>;
+    close $fh or croak "Error al cerrar el archivo $file: $!";
+
+    my @filtered_lines;
+    my $in_segment = 0;
+
+    foreach my $line (@lines) {
+        if ($line =~ /(\w+)\s+OBJECT-GROUP/) {
+            $in_segment = 1;
+        }
+        elsif ($in_segment) {
+            if ($line =~ /::=/) {
+                $in_segment = 0;
+            }
+        } else {
+            push @filtered_lines, $line;
+        }
+    }
+
+    open my $fh_out, '>', $file or croak "Error al abrir el archivo $file para escribir: $!";
+    print $fh_out @filtered_lines;
+    close $fh_out or croak "Error al cerrar el archivo $file: $!";
+}
+
+# Función para extraer NOTIFICATION-GROUP de un archivo MIB
+sub eliminar_notification_group {
+    my ($file) = @_;
+
+    open my $fh, '<', $file or croak "Error al abrir el archivo $file: $!";
+
+    my @lines = <$fh>;
+    close $fh or croak "Error al cerrar el archivo $file: $!";
+
+    my @filtered_lines;
+    my $in_segment = 0;
+
+    foreach my $line (@lines) {
+        if ($line =~ /(\w+)\s+NOTIFICATION-GROUP/) {
+            $in_segment = 1;
+        }
+        elsif ($in_segment) {
+            if ($line =~ /::=/) {
+                $in_segment = 0;
+            }
+        } else {
+            push @filtered_lines, $line;
+        }
+    }
+
+    open my $fh_out, '>', $file or croak "Error al abrir el archivo $file para escribir: $!";
+    print $fh_out @filtered_lines;
+    close $fh_out or croak "Error al cerrar el archivo $file: $!";
+}
+
 
 
 # Función para extraer OBJECT-IDENTITY de un archivo MIB
@@ -755,19 +960,15 @@ sub extraer_object_identities {
     }
 
     close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
-    #print Dumper(\%object_identities);
     return \%object_identities;
 }
 
 # Función para extraer OBJECT-TYPE de un archivo MIB
 sub extraer_object_types {
     my ($file, $temp_file_all) = @_;
-
     my $original_file = $file;
-
     # Archivo temporal para almacenar cómo se extraen los datos
     my $temp_file = Rutas::temp_files_path() . '/object_types.txt';
-
     $file = transformar_mib_a_txt($file);
     # Validar si el archivo temporal existe, si no, crearlo
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
@@ -784,12 +985,12 @@ sub extraer_object_types {
         return;
     };
 
-
     my %object_types;
     my $current_object = '';
-    my $in_description = 0;
-    my $description = '';
+    my $in_segment = 0;
+    my $segment = '';
     my $nombre_archivo = '';
+
     while (<$fh>) {
         chomp;
         next if /^\s*$/ || /^--/; # Saltar líneas vacías y comentarios
@@ -797,77 +998,61 @@ sub extraer_object_types {
         if (/Archivo original:\s+(.*)/) {
             $nombre_archivo = $1;
         }
-        if (/(\w+)\s+OBJECT-TYPE/) {
+        # Identificar el inicio del segmento
+        if (/(\S+)\s+OBJECT-TYPE/) {
+            next if /OBJECT-TYPE\s*,/;
             $current_object = $1;
-            $object_types{$current_object} = {};
-            $object_types{$current_object} -> {'ARCHIVO'} = $nombre_archivo;
+            $in_segment = 1;
+            $segment = $_ . "\n"; # Incluir la línea actual en el segmento
             print $fh_all "#----------------------------------- OBJECT TYPE:  $current_object  ---------------------------#\n";
             print $fh_all "Archivo: $nombre_archivo\n";
             print $fh_all "Nombre objeto: $current_object\n";
-            print $fh_all "$_\n";
-            print $fh_all "#----------------------------------- FIN OBJECT TYPE ---------------------------#\n";
+            next;
         }
-        elsif ($current_object) {
-            if (/SYNTAX\s+(.*)/) {
-                $object_types{$current_object}->{'SYNTAX'} = $1;
-            } elsif (/MAX-ACCESS\s+(.*)/) {
-                $object_types{$current_object}->{'MAX-ACCESS'} = $1;
-            } elsif (/STATUS\s+(.*)/) {
-                $object_types{$current_object}->{'STATUS'} = $1;
-            } elsif (/DESCRIPTION\s+["'](.*)/) {
-                $description = $1;
-                $in_description = 1;
-            } elsif (/DESCRIPTION\s*$/) {
-                $description = $1;
-                $in_description = 1;
-            } elsif ($in_description) {
-                if (/["]\s*::=\s*\{(.*)\}/) {
-                    $description .= " $1";
-                    $object_types{$current_object}->{'DESCRIPTION'} = $description;
-                    $object_types{$current_object}->{'OID'} = $1; # Extraer y asignar OID
-                    $in_description = 0;
-                } elsif (/}/)  {
-                    $description .= " $_";
-                    if ($description =~ /::=\s*\{(.*)\}/) {
-                        $object_types{$current_object}->{'OID'} = $1; # Extraer y asignar OID
-                    }
-                    $object_types{$current_object}->{'DESCRIPTION'} = $description;
-                    $in_description = 0;
-                } else {
-                    $description .= " $_";
-                }
-            } elsif (/INDEX\s+\{(.*)\}/) {
-                $object_types{$current_object}->{'INDEX'} = $1;
-            } elsif (/::=\s*\{(.*)\}/) {
-                $object_types{$current_object}->{'OID'} = $1; # Extraer y asignar OID
-            }
-        } 
-    }
-    # Eliminar ::= { contenido } de la descripción y limpiar espacios y caracteres especiales
-    foreach my $object (keys %object_types) {
-        foreach my $field (qw(DESCRIPTION SYNTAX MAX-ACCESS STATUS OID INDEX)) {
-            if (exists $object_types{$object}->{$field}) {
-                $object_types{$object}->{$field} =~ s/\s*::=\s*\{.*\}//;
-                $object_types{$object}->{$field} =~ s/^\s+|\s+$//g; # Eliminar espacios al inicio y al final
-                $object_types{$object}->{$field} =~ s/^["']|["']$//g; # Eliminar caracteres especiales al inicio y al final
+        # Continuar extrayendo líneas hasta encontrar "}"
+        if ($in_segment) {
+            $segment .= $_ . "\n";
+
+            if (/::= { /) {
+                print $fh_all "$segment\n";
+
+                my ($syntax) = $segment =~ /SYNTAX\s+(.*)/;
+                my ($max_access) = $segment =~ /MAX-ACCESS\s+(.*)/;
+                my ($status) = $segment =~ /STATUS\s+(.*)/;
+                my ($description) = $segment =~ /DESCRIPTION\s+"(.*?)"/s;
+                my ($index) = $segment =~ /INDEX\s+\{(.*)\}/;
+                my ($oid) = $segment =~ /::=\s*{([^}]+)}/;
+
+                $object_types{$current_object} = {
+                    TYPE => 'OBJECT-TYPE',
+                    SYNTAX => $syntax // 'SYNTAX no encontrado',
+                    MAX_ACCESS => $max_access // 'MAX-ACCESS no encontrado',
+                    STATUS => $status // 'STATUS no encontrado',
+                    DESCRIPTION => $description // 'DESCRIPCION no encontrada',
+                    INDEX => $index // 'INDEX no encontrado',
+                    OID => $oid // 'OID no encontrado',
+                    ARCHIVO => $nombre_archivo // 'ARCHIVO no encontrado',
+                };
+                $in_segment = 0;
+                $segment = '';
             }
         }
     }
     close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
+    close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
     return \%object_types;
 }
 # Función para extraer OBJECT IDENTIFIER de un archivo MIB
 sub extraer_object_identifiers {
     my ($file, $temp_file_all) = @_;
-
     my $original_file = $file;
-
     # Archivo temporal para almacenar cómo se extraen los datos
-    my $temp_file = Rutas::temp_files_path() . '/object_identifiers.txt';
+    my $temp_file = Rutas::temp_files_path() . '/(Reformato)_Object_Identifiers.txt';
     # Validar si el archivo temporal existe, si no, crearlo
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
     # Recondicionar el archivo temporal copiando el contenido de $file
     $temp_file = recondicionar_archivo_temporal($file, $temp_file, $original_file); 
+    $temp_file = extraer_y_eliminar_object_archivo_temporal($temp_file);
 
     open my $fh, '<', $temp_file or do {
         warn "No se pudo abrir el archivo $file: $!";
@@ -889,7 +1074,7 @@ sub extraer_object_identifiers {
 
     while (<$fh>) {
         chomp;
-        next if /^\s*$/ || /^--/ || /^--\s*$/ || /--/; # Saltar líneas vacías y comentarios
+        next if /OBJECT IDENTIFIER\s*,/;
         # Extraer la primera línea del archivo que es el nombre del archivo original y guardarlo en el hash
         if (/Archivo original:\s+(.*)/) {
             $nombre_archivo = $1;
@@ -919,21 +1104,11 @@ sub extraer_object_identifiers {
     while (<$fh_all>) {
         chomp;
         # Extraer los elemento que cumplan con la condición
-        if (/(\S+)\s+OBJECT IDENTIFIER/) {
+        if (/(\S+)\s+OBJECT\sIDENTIFIER/) {
             $current_object = $1;
             $in_segment = 1;
             $segment = $_ . "\n"; # Incluir la línea actual en el segmento
-            next;
-        }
-        # Continuar extrayendo líneas hasta encontrar "}"
-        if ($in_segment) {
-            $segment .= $_ . "\n";
             if (/}/) {
-                 # Ejemplo:  sysDescr OBJECT IDENTIFIER ::= { system 1 }
-                 # Ejemplo:  sysDescr OBJECT IDENTIFIER ::=
-                 #           { system 1 }
-                 # Ejemplo:  sysDescr OBJECT IDENTIFIER
-                              #::= { system 1 }
                 my ($oid) = $segment =~ /::=\s*{([^}]+)}/;
                 $object_identifiers{$current_object} = {
                     TYPE => 'OBJECT IDENTIFIER',
@@ -941,15 +1116,35 @@ sub extraer_object_identifiers {
                     ARCHIVO => $nombre_archivo,
                     Nivel_Busqueda => 1,
                 };
-                $in_segment = 0;
-                $segment = '';
             }
+            next;
         }
+        # Continuar extrayendo líneas hasta encontrar "}"
+        #if ($in_segment) {
+        #    print "Segmento (2): $segment\n";
+        #    $segment .= $_ . "\n";
+            #print "Segmento (3): $segment\n";
+        #    if (/}/) {
+                 # Ejemplo:  sysDescr OBJECT IDENTIFIER ::= { system 1 }
+                 # Ejemplo:  sysDescr OBJECT IDENTIFIER ::=
+                 #           { system 1 }
+                 # Ejemplo:  sysDescr OBJECT IDENTIFIER
+                              #::= { system 1 }
+        #        my ($oid) = $segment =~ /::=\s*{([^}]+)}/;
+        #        $object_identifiers{$current_object} = {
+        #            TYPE => 'OBJECT IDENTIFIER',
+        #            OID => $oid // 'OID no encontrado',
+        #            ARCHIVO => $nombre_archivo,
+        #            Nivel_Busqueda => 1,
+        #        };
+        #        $in_segment = 0;
+        #        $segment = '';
+        #    }
+        #}
     }
     close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
     return \%object_identifiers;
 }
-
 # Función para extraer MODULE-IDENTITY de un archivo MIB
 sub extraer_module_identities {
     my ($file, $temp_file_all) = @_;
@@ -1041,14 +1236,104 @@ sub extraer_module_identities {
     close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
     close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
 
-    
-    #print Dumper(\%module_identities);
     return \%module_identities;
+}
+# Función para extraer MODULE-COMPLIANCE de un archivo MIB
+sub extraer_module_compliance {
+    my ($file, $temp_file_all) = @_;
+
+    my $original_file = $file;
+
+    # Archivo temporal para almacenar cómo se extraen los datos
+    my $temp_file = Rutas::temp_files_path() . '/(Reformato)_Module_Compliance.txt';
+
+    # Validar si el archivo temporal existe, si no, crearlo
+    $temp_file = validar_o_crear_archivo_temporal($temp_file);
+    # Recondicionar el archivo temporal copiando el contenido de $file
+    $temp_file = recondicionar_archivo_temporal($file, $temp_file, $original_file); 
+
+    open my $fh, '<', $temp_file or do {
+        warn "No se pudo abrir el archivo $file: $!";
+        return;
+    };
+
+    open my $fh_all, '>>', $temp_file_all or do {
+        warn "No se pudo abrir el archivo $temp_file_all: $!";
+        return;
+    };
+
+    my %module_compliance;
+    my $current_object = '';
+    my $in_segment = 0;
+    my $segment = '';
+    my $nombre_archivo = '';
+
+    while (<$fh>) {
+        chomp;
+        next if /^\s*$/ || /^--/; # Saltar líneas vacías y comentarios
+        # Extraer la primera línea del archivo que es el nombre del archivo original y guardarlo en el hash
+        if (/Archivo original:\s+(.*)/) {
+            $nombre_archivo = $1;
+        }
+        # Identificar el inicio del segmento
+        if (/(\S+)\s+MODULE-COMPLIANCE/) {
+            $current_object = $1;
+            $in_segment = 1;
+            $segment = $_ . "\n"; # Incluir la línea actual en el segmento
+            print $fh_all "#----------------------------------- MODULE COMPLIANCE  $current_object  ---------------------------#\n";
+            print $fh_all "Tipo de objeto: MODULE-COMPLIANCE\n";
+            print $fh_all "Nombre del objeto: $current_object\n";
+            next;
+        }
+        # Continuar extrayendo líneas hasta encontrar "::="
+        if ($in_segment) {
+            $segment .= $_ . "\n";
+            if (/::=/) {
+                print $fh_all "$segment\n";
+                # Logica para extraer los datos de MODULE-COMPLIANCE
+                my ($status) = $segment =~ /STATUS\s+(\S+)/;
+                my ($description) = $segment =~ /DESCRIPTION\s+"(.*?)"/s;
+                my ($oid) = $segment =~ /::=\s*{([^}]+)}/;
+
+                my %module_data;
+                $module_data{STATUS} = $status;
+                $module_data{DESCRIPTION} = $description;
+                $module_data{OID} = $oid;
+                $module_data{ARCHIVO} = $nombre_archivo;
+                $module_data{TYPE} = 'MODULE-COMPLIANCE';
+
+                if ($segment =~ /MODULE\s*--\s*this\s*module(.*?)::=/s) {
+                    my $module_segment = $1;
+                    my @groups;
+                    my @objects;
+
+                    while ($module_segment =~ /GROUP\s+(\S+)\s+DESCRIPTION\s+"(.*?)"/sg) {
+                        push @groups, { GROUP => $1, DESCRIPTION => $2 };
+                    }
+
+                    while ($module_segment =~ /OBJECT\s+(\S+)\s+(?:SYNTAX\s+(\S+)\s+)?MIN-ACCESS\s+(\S+)\s+DESCRIPTION\s+"(.*?)"/sg) {
+                        push @objects, { OBJECT => $1, SYNTAX => $2, MIN_ACCESS => $3, DESCRIPTION => $4 };
+                    }
+
+                    $module_data{MODULE} = {
+                        GROUPS => \@groups,
+                        OBJECTS => \@objects,
+                    };
+                }
+
+                $module_compliance{$current_object} = \%module_data;
+            }
+        }
+    }
+
+    close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
+    close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
+    return \%module_compliance;
 }
 
 # Función para extraer la información de los traps de las alarmas
-sub extraer_alarm_traps {
-    my ($file, $temp_file_all) = @_;
+sub extraer_objects_status_description {
+    my ($file, $temp_file_all, $type) = @_;
     
     my $original_file = $file;
 
@@ -1081,22 +1366,50 @@ sub extraer_alarm_traps {
     while (<$fh>) {
         chomp;
         next if /^\s*$/ || /^--/; # Saltar líneas vacías y comentarios
-        if (/(\w+)\s+(NOTIFICATION-TYPE|TRAP-TYPE)/) {
+        if ($type eq 'ALARM') {
+            if (/(\w+)\s+(NOTIFICATION-TYPE|TRAP-TYPE)/) {
+                my $segment = "$_"; # Iniciar el segmento con la línea actual
+                while (<$fh>) {
+                    chomp;
+                    $segment .= "\n$_"; # Agregar la línea actual al segmento
+                    if ($2 eq 'NOTIFICATION-TYPE') {
+                        last if /::=\s*\{.*\}\s*$/; # Terminar el segmento según la expresión complexa
+                    } elsif ($2 eq 'TRAP-TYPE') {
+                        last if /::=\s*\d+\s*$/;
+                    }
+                }
+                print $fh_all "#----------------------------------- ALARMA ORIGINAL:  $1  ---------------------------#\n";
+                print $fh_all "Tipo de alarma: $2\n";
+                print $fh_all "Nombre de alarma: $1\n";
+                print $fh_all "$segment\n"; # Escribir el segmento en el archivo temporal
+                print $fh_all "#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#\n";
+            } 
+        } elsif ($type eq 'OBJECT-GROUP') {
+           if (/(\w+)\s+OBJECT-GROUP/) {
             my $segment = "$_"; # Iniciar el segmento con la línea actual
             while (<$fh>) {
                 chomp;
                 $segment .= "\n$_"; # Agregar la línea actual al segmento
-                if ($2 eq 'NOTIFICATION-TYPE') {
-                    last if /::=\s*\{.*\}\s*$/; # Terminar el segmento según la expresión complexa
-                } elsif ($2 eq 'TRAP-TYPE') {
-                    last if /::=\s*\d+\s*$/;
-                }
+                last if /::=\s*\{.*\}\s*$/; # Terminar el segmento según la expresión complexa
             }
-            print $fh_all "#----------------------------------- ALARMA ORIGINAL:  $1  ---------------------------#\n";
-            print $fh_all "Tipo de alarma: $2\n";
-            print $fh_all "Nombre de alarma: $1\n";
+            print $fh_all "#----------------------------------- OBJECT GROUP:  $1  ---------------------------#\n";
+            print $fh_all "Nombre del grupo de objetos: $1\n";
             print $fh_all "$segment\n"; # Escribir el segmento en el archivo temporal
-            print $fh_all "#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#\n";
+            print $fh_all "#----------------------------------- FIN OBJECT GROUP ---------------------------#\n";
+            } 
+        } elsif ($type eq 'NOTIFICATION-GROUP') {
+            if (/(\w+)\s+NOTIFICATION-GROUP/) {
+                my $segment = "$_"; # Iniciar el segmento con la línea actual
+                while (<$fh>) {
+                    chomp;
+                    $segment .= "\n$_"; # Agregar la línea actual al segmento
+                    last if /::=\s*\{.*\}\s*$/; # Terminar el segmento según la expresión complexa
+                }
+                print $fh_all "#----------------------------------- NOTIFICATION GROUP:  $1  ---------------------------#\n";
+                print $fh_all "Nombre del grupo de notificaciones: $1\n";
+                print $fh_all "$segment\n"; # Escribir el segmento en el archivo temporal
+                print $fh_all "#----------------------------------- FIN NOTIFICATION GROUP ---------------------------#\n";
+            }
         }
     }
     close $fh or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
@@ -1106,11 +1419,20 @@ sub extraer_alarm_traps {
         warn "No se pudo abrir el archivo $temp_file_all: $!";
         return;
     };
+    my %data = (
+        TYPE => 'Desconocido',
+        OBJECTS => 'No se encontraron objetos',
+        STATUS => 'No se encontró el estado',
+        DESCRIPTION => 'No se encontró la descripción',
+        OID => 'No se encontró el OID',
+        VARIABLES => 'No se encontraron variables',
+        ENTERPRISE => 'No se encontró la empresa',
+    );
 
     # Logica para extraer los datos de las alarmas
   while (<$fh_all>) {
         chomp;
-        if (/^#----------------------------------- ALARMA ORIGINAL:  (\w+)  ---------------------------#/) {
+        if (/^#----------------------------------- (?:ALARMA ORIGINAL|OBJECT GROUP|NOTIFICATION GROUP):  (\w+)  ---------------------------#/) {
             $current_alarm = $1;
             $alarm_traps{$current_alarm} = {
                 TYPE => 'Desconocido',
@@ -1121,9 +1443,15 @@ sub extraer_alarm_traps {
                 VARIABLES => 'No se encontraron variables',
                 ENTERPRISE => 'No se encontró la empresa',
             };
+            if ($type eq 'OBJECT-GROUP') {
+                $alarm_traps{$current_alarm}->{TYPE} = 'OBJECT-GROUP';
+            } elsif ($type eq 'NOTIFICATION-GROUP') {
+                $alarm_traps{$current_alarm}->{TYPE} = 'NOTIFICATION-GROUP';
+            } 
         } elsif (/^Tipo de alarma: (.+)$/) {
             $alarm_traps{$current_alarm}->{TYPE} = $1;
-        }elsif (/^OBJECTS\s*\{\s*(.*)$/) {
+        } 
+        elsif (/^OBJECTS\s*\{\s*(.*)$/) {
             my $objects = $1;
             while ($objects !~ /\}$/) {
                 $_ = <$fh_all>;
@@ -1132,8 +1460,22 @@ sub extraer_alarm_traps {
             }
             $objects =~ s/\}$//; # Eliminar la llave de cierre
             $alarm_traps{$current_alarm}->{OBJECTS} = join(', ', split(/\s*,\s*/, $objects));
+            $data{OBJECTS} = join(', ', split(/\s*,\s*/, $objects));
+
+        } elsif (/^NOTIFICATIONS\s*\{\s*(.*)$/) {
+            my $objects = $1;
+            while ($objects !~ /\}$/) {
+                $_ = <$fh_all>;
+                chomp;
+                $objects .= " $_";
+            }
+            $objects =~ s/\}$//; # Eliminar la llave de cierre
+            $alarm_traps{$current_alarm}->{OBJECTS} = join(', ', split(/\s*,\s*/, $objects));
+            $data{OBJECTS} = join(', ', split(/\s*,\s*/, $objects));
+
         } elsif (/^STATUS\s+(.+)$/) {
             $alarm_traps{$current_alarm}->{STATUS} = $1;
+            $data{STATUS} = $1;
 
         } elsif (/^DESCRIPTION\s*"(.*)$/ || /^DESCRIPTION\s*$/) {
             my $description = $1 // '';
@@ -1152,9 +1494,13 @@ sub extraer_alarm_traps {
             # Extraer el OID de la descripción
             if ($description =~ /"\s*::=\s*\{(.*)\}$/ || $description =~ /"\s*::=\s*(\d+)$/) {
                 $alarm_traps{$current_alarm}->{OID} = $1;
+                $data{OID} = $1;
+
             }
             $description =~ s/"\s*::=\s*\{.*\}$//; # Eliminar la parte final
             $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
+            $data{DESCRIPTION} = $description;
+
         } 
     }
     # Eliminar ::= { contenido } de la descripción y limpiar espacios y caracteres especiales
@@ -1169,8 +1515,8 @@ sub extraer_alarm_traps {
             }
         }
     }
+    close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
 
-    #print Dumper(\%alarm_traps);
     return \%alarm_traps;
 }
 
@@ -1568,6 +1914,7 @@ sub escribir_datos_en_archivo {
             escribir_seccion($fh, "OBJECT_TYPES", $data->{OBJECT_TYPES}, "FIN DE OBJECT_TYPES");
             escribir_seccion($fh, "OBJECT_IDENTIFIERS", $data->{OBJECT_IDENTIFIERS}, "FIN DE OBJECT_IDENTIFIERS");
             escribir_seccion($fh, "MODULE_IDENTITIES", $data->{MODULE_IDENTITIES}, "FIN DE MODULE_IDENTITIES");
+            escribir_seccion($fh, "MODULE_COMPLIANCE", $data->{MODULE_COMPLIANCE}, "FIN DE MODULE_COMPLIANCE");
             escribir_seccion($fh, "ALARM_TRAPS", $data->{ALARM_TRAPS}, "FIN DE ALARM_TRAPS");
             escribir_oid_nodes($fh, "OID_NODES", $data->{OID_NODES}, "FIN DE OID_NODES");
     } elsif ($tipo eq 'ALARM_TRAPS') {
@@ -1584,8 +1931,29 @@ sub escribir_datos_en_archivo {
             }
             print $fh "----------------------------------- Final de segmento -----------------------------------\n";
         }
-
-    } elsif ($tipo eq 'OBJECT_IDENTIFIERS') {
+    } elsif ($tipo eq 'OBJECT_GROUPS') {
+        foreach my $key (keys %$data) {
+            print $fh "----------------------------------- $key ---------------------------\n";
+            print $fh "$key:\n";
+            foreach my $field (qw(TYPE OBJECTS STATUS DESCRIPTION OID)) {
+                if (exists $data->{$key}{$field}) {
+                    print $fh "  $field: $data->{$key}{$field}\n";
+                }
+            }
+            print $fh "----------------------------------- Final de segmento -----------------------------------\n";
+        }
+    }elsif ($tipo eq 'NOTIFICATION_GROUPS') {
+        foreach my $key (keys %$data) {
+            print $fh "----------------------------------- $key ---------------------------\n";
+            print $fh "$key:\n";
+            foreach my $field (qw(TYPE OBJECTS STATUS DESCRIPTION OID)) {
+                if (exists $data->{$key}{$field}) {
+                    print $fh "  $field: $data->{$key}{$field}\n";
+                }
+            }
+            print $fh "----------------------------------- Final de segmento -----------------------------------\n";
+        }
+    }  elsif ($tipo eq 'OBJECT_IDENTIFIERS') {
         foreach my $key (keys %$data) {
             print $fh "----------------------------------- $key ---------------------------\n";
             print $fh "$key:\n";
@@ -1607,7 +1975,39 @@ sub escribir_datos_en_archivo {
             }
             print $fh "----------------------------------- Final de segmento -----------------------------------\n";
         }
-    } elsif ($tipo eq 'OBJECT_TYPES') {
+    } elsif ($tipo eq 'MODULE_COMPLIANCE') {
+        foreach my $key (keys %$data) {
+            print $fh "----------------------------------- $key ---------------------------\n";
+            print $fh "$key:\n";
+            foreach my $field (qw(ARCHIVO OID DESCRIPTION TYPE STATUS)) {
+                if (exists $data->{$key}{$field}) {
+                    print $fh "  $field: $data->{$key}{$field}\n";
+                }
+            }
+            if (exists $data->{$key}{MODULE}) {
+                print $fh "  MODULE:\n";
+                if (exists $data->{$key}{MODULE}{GROUPS}) {
+                    print $fh "    GROUPS:\n";
+                    foreach my $group (@{$data->{$key}{MODULE}{GROUPS}}) {
+                        print $fh "      GROUP: $group->{GROUP}\n";
+                        print $fh "      DESCRIPTION: $group->{DESCRIPTION}\n";
+                    }
+                }
+                if (exists $data->{$key}{MODULE}{OBJECTS}) {
+                    print $fh "    OBJECTS:\n";
+                    foreach my $object (@{$data->{$key}{MODULE}{OBJECTS}}) {
+                        print $fh "      OBJECT: $object->{OBJECT}\n";
+                        print $fh "      SYNTAX: " . ($object->{SYNTAX} // 'undef') . "\n";
+                        print $fh "      MIN_ACCESS: $object->{MIN_ACCESS}\n";
+                        print $fh "      DESCRIPTION: $object->{DESCRIPTION}\n";
+                    }
+                }
+            }
+            print $fh "----------------------------------- Final de segmento -----------------------------------\n";
+        }
+    }
+    
+    elsif ($tipo eq 'OBJECT_TYPES') {
         foreach my $key (keys %$data) {
             print $fh "----------------------------------- $key ---------------------------\n";
             print $fh "$key:\n";
@@ -1669,19 +2069,22 @@ sub escribir_oid_nodes {
 sub construir_oid_completo {
     my ($nombre, $data, $oid_data) = @_;
     my @oid_parts;
+    my @name_parts;
     my $current_name = $nombre;
 
     while ($current_name) {
         my $found = 0;
-        foreach my $type (qw(ALARM_TRAPS OBJECT_IDENTITIES OBJECT_TYPES OBJECT_IDENTIFIERS MODULE_IDENTITIES)) {
+        foreach my $type (qw(ALARM_TRAPS OBJECT_IDENTITIES OBJECT_TYPES OBJECT_IDENTIFIERS MODULE_IDENTITIES MODULE_COMPLIANCE)) {
             if (exists $data->{$type}{$current_name}) {
                 my $oid_part = $data->{$type}{$current_name}{OID};
                 if ($oid_part =~ /^\s*(\S+)\s+(\d+)\s*$/) {
                     my $oid_search = $1;
                     my $oid_number = $2;
                     unshift @oid_parts, $oid_number;
+                    unshift @name_parts, $current_name;
                     if ($oid_search =~ /^\d+(\.\d+)*$/) {
                         unshift @oid_parts, split(/\./, $oid_search);
+                        unshift @name_parts, split(/\./, $oid_search);
                         $current_name = undef;
                     } else {
                         $current_name = $oid_search;
@@ -1691,12 +2094,14 @@ sub construir_oid_completo {
                 } elsif ($oid_part =~ /^\s*(\d+(\.\d+)*)\s*$/) {
                     my $oid_number = $1;
                     unshift @oid_parts, split(/\./, $oid_number);
+                    unshift @name_parts, split(/\./, $oid_number);
                     $current_name = undef;
                     $found = 1;
                     last;
                 } elsif ($oid_part =~ /^\s*(\d+(\s+\d+)*)\s*$/) {
                     my $oid_number = $1;
                     unshift @oid_parts, split(/\s+/, $oid_number);
+                    unshift @name_parts, split(/\s+/, $oid_number);
                     $current_name = undef;
                     $found = 1;
                     last;
@@ -1709,9 +2114,10 @@ sub construir_oid_completo {
         last unless $found;
     }
     my $complete_oid = join('.', @oid_parts);
+    my $complete_name = join(' ', @name_parts);
     #print "OID completo: $complete_oid\n";
     $complete_oid = validar_y_complementar_oid($complete_oid, $oid_data) if $oid_data;
-    return $complete_oid;
+    return ($complete_oid, $complete_name);
 }
 
 # Función para construir el árbol de MIBs
@@ -1722,11 +2128,12 @@ sub construir_arbol_mibs {
     my $temp_file = Rutas::temp_files_logs_objects_mibs_path(). '/Alarmas_principales.logs';
     #herramientas::Complementos::print($data);
     foreach my $nombre (keys %{$data->{ALARM_TRAPS}}) {
-        my $oid_completo = construir_oid_completo($nombre, $data, $oid_data);
+        my ($oid_completo, $complete_name) = construir_oid_completo($nombre, $data, $oid_data);
         if ($oid_completo) {
             $arbol_mibs{$nombre} = {
                 DESCRIPTION => $data->{ALARM_TRAPS}{$nombre}{DESCRIPTION},
                 OID => $oid_completo,
+                OID_NAME => $complete_name,
                 OBJECTS => $data->{ALARM_TRAPS}{$nombre}{OBJECTS},
             };
         }
@@ -1746,14 +2153,16 @@ sub construir_arbol_mibs_secundarios {
     # Archivo temporal para almacenar cómo se extraen los datos
     my $temp_file = Rutas::temp_files_logs_objects_mibs_path(). '/Objetos_principales.logs';
     foreach my $nombre (keys %{$data->{ALARM_TRAPS}}) {
-        my $oid_completo = construir_oid_completo($nombre, $data, $oid_data);
+        my ($oid_completo, $complete_name) = construir_oid_completo($nombre, $data, $oid_data);
         if ($oid_completo) {
             my @objects = split /,\s*/, $data->{ALARM_TRAPS}{$nombre}{OBJECTS};
             foreach my $object (@objects) {
                 # Quita espacios en blanco al inicio y al final
                 $object =~ s/^\s+|\s+$//g;
-                my $object_oid = construir_oid_completo($object, $data, $oid_data);
+                my $object_name = $object . "(nombre)";
+                my ($object_oid, $complete_name_oid) = construir_oid_completo($object, $data, $oid_data);
                 $arbol_mibs_secundarios{$nombre}{$object} = $object_oid if $object_oid;
+                $arbol_mibs_secundarios{$nombre}{$object_name} = $complete_name_oid if $complete_name_oid;
             }
         }
     }

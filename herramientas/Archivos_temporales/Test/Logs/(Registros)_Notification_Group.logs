@@ -1,0 +1,18 @@
+#----------------------------------- NOTIFICATION GROUP:  linkUpDownNotificationsGroup  ---------------------------#
+Nombre del grupo de notificaciones: linkUpDownNotificationsGroup
+linkUpDownNotificationsGroup  NOTIFICATION-GROUP
+NOTIFICATIONS { linkUp, linkDown }
+STATUS  current
+DESCRIPTION
+"The notifications which indicate specific changes in the
+value of ifOperStatus."
+::= { ifGroups 14 }
+#----------------------------------- FIN NOTIFICATION GROUP ---------------------------#
+----------------------------------- linkUpDownNotificationsGroup ---------------------------
+linkUpDownNotificationsGroup:
+  TYPE: NOTIFICATION-GROUP
+  OBJECTS: linkUp, linkDown 
+  STATUS: current
+  DESCRIPTION: The notifications which indicate specific changes in the value of ifOperStatus.
+  OID: ifGroups 14
+----------------------------------- Final de segmento -----------------------------------

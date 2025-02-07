@@ -17,6 +17,8 @@ use constant {
 
     RUTA_ARCHIVOS_TEMP => "./herramientas/Archivos_temporales/",  # Archivos temporales
     RUTA_ARCHIVOS_TEMP_LOGS => "./herramientas/Archivos_temporales/logs/",  # Archivos temporales
+
+    RUTA_ARCHIVOS_TEST => "herramientas\\Archivos_temporales\\Test\\",  # Archivos temporales
 };
 #                                                       RUTAS IMAGENES                                   #
 
@@ -136,6 +138,13 @@ sub temp_files_logs_objects_mibs_path {
     return RUTA_ARCHIVOS_TEMP_LOGS;  
 }
 #                                                      RUTAS ARCHIVOS TEMPORALES LOGS                   #
+
+#                                                     RUTAS ARCHIVOS TEMPORALES TEST                   #
+# Función para obtener la ruta completa de los archivos temporales
+sub temp_files_test_path {
+    return RUTA_ARCHIVOS_TEST;  
+}
+#                                                     RUTAS ARCHIVOS TEMPORALES TEST                   #
 
 #                                                     RUTAS AGENTES TEMPORALES                         #
 # Función para obtener la ruta completa de los agentes temporales
