@@ -1,74 +1,74 @@
 ----------------------------------- ALARM TRAPS ---------------------------
-mteTriggerFailure:
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerFailure
-  OID: 1.3.6.1.2.1.88.2.0.4
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteFailedReason 
-  DESCRIPTION: Notification that an attempt to check a trigger has failed. The network manager must enable this notification only with a certain fear and trembling, as it can easily crowd out more important information.  It should be used only to help diagnose a problem that has appeared in the error counters and can not be found otherwise.
+warmStart:
+  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps warmStart
+  OID: 1.3.6.1.6.3.1.1.5.2
+  OBJECTS: No se encontraron objetos
+  DESCRIPTION: A warmStart trap signifies that the SNMP entity, supporting a notification originator application, is reinitializing itself such that its configuration is unaltered.
+
+mteTriggerRising:
+  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
+  OID: 1.3.6.1.2.1.88.2.0.2
+  DESCRIPTION: Notification that the rising threshold was met for triggers with mteTriggerType 'threshold'.
+  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerRising
 
 linkUp:
-  OID: 1.3.6.1.6.3.1.1.5.4
   OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps linkUp
-  DESCRIPTION: A linkUp trap signifies that the SNMP entity, acting in an agent role, has detected that the ifOperStatus object for one of its communication links left the down state and transitioned into some other state (but not into the notPresent state).  This other state is indicated by the included value of ifOperStatus.
   OBJECTS: ifIndex, ifAdminStatus, ifOperStatus 
+  DESCRIPTION: A linkUp trap signifies that the SNMP entity, acting in an agent role, has detected that the ifOperStatus object for one of its communication links left the down state and transitioned into some other state (but not into the notPresent state).  This other state is indicated by the included value of ifOperStatus.
+  OID: 1.3.6.1.6.3.1.1.5.4
 
 linkDown:
   OBJECTS: ifIndex, ifAdminStatus, ifOperStatus 
   DESCRIPTION: A linkDown trap signifies that the SNMP entity, acting in an agent role, has detected that the ifOperStatus object for one of its communication links is about to enter the down state from some other state (but not from the notPresent state).  This other state is indicated by the included value of ifOperStatus.
-  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps linkDown
   OID: 1.3.6.1.6.3.1.1.5.3
+  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps linkDown
+
+authenticationFailure:
+  OBJECTS: No se encontraron objetos
+  DESCRIPTION: An authenticationFailure trap signifies that the SNMP entity has received a protocol message that is not properly authenticated.  While all implementations of SNMP entities MAY be capable of generating this trap, the snmpEnableAuthenTraps object indicates whether this trap will be generated.
+  OID: 1.3.6.1.6.3.1.1.5.5
+  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps authenticationFailure
+
+mteTriggerFired:
+  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerFired
+  DESCRIPTION: Notification that the trigger indicated by the object instances has fired, for triggers with mteTriggerType 'boolean' or 'existence'.
+  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
+  OID: 1.3.6.1.2.1.88.2.0.1
+
+mteEventSetFailure:
+  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteEventSetFailure
+  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteFailedReason 
+  OID: 1.3.6.1.2.1.88.2.0.5
+  DESCRIPTION: Notification that an attempt to do a set in response to an event has failed. The network manager must enable this notification only with a certain fear and trembling, as it can easily crowd out more important information.  It should be used only to help diagnose a problem that has appeared in the error counters and can not be found otherwise.
+
+ucdShutdown:
+  OID_NAME: org dod internet private enterprises ucdavis ucdTraps ucdShutdown
+  DESCRIPTION: This trap is sent when the agent terminates
+  OBJECTS: No se encontraron objetos
+  OID: 1.3.6.1.4.1.2021.251.2
 
 ucdStart:
   DESCRIPTION: This trap could in principle be sent when the agent start
   OBJECTS: No se encontraron objetos
-  OID_NAME: org dod internet private enterprises ucdavis ucdTraps ucdStart
   OID: 1.3.6.1.4.1.2021.251.1
+  OID_NAME: org dod internet private enterprises ucdavis ucdTraps ucdStart
 
 mteTriggerFalling:
+  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
+  DESCRIPTION: Notification that the falling threshold was met for triggers with mteTriggerType 'threshold'.
   OID: 1.3.6.1.2.1.88.2.0.3
   OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerFalling
-  DESCRIPTION: Notification that the falling threshold was met for triggers with mteTriggerType 'threshold'.
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
-
-mteTriggerFired:
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
-  DESCRIPTION: Notification that the trigger indicated by the object instances has fired, for triggers with mteTriggerType 'boolean' or 'existence'.
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerFired
-  OID: 1.3.6.1.2.1.88.2.0.1
 
 coldStart:
-  OID: 1.3.6.1.6.3.1.1.5.1
   OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps coldStart
-  OBJECTS: No se encontraron objetos
   DESCRIPTION: A coldStart trap signifies that the SNMP entity, supporting a notification originator application, is reinitializing itself and that its configuration may have been altered.
-
-authenticationFailure:
-  OID: 1.3.6.1.6.3.1.1.5.5
-  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps authenticationFailure
   OBJECTS: No se encontraron objetos
-  DESCRIPTION: An authenticationFailure trap signifies that the SNMP entity has received a protocol message that is not properly authenticated.  While all implementations of SNMP entities MAY be capable of generating this trap, the snmpEnableAuthenTraps object indicates whether this trap will be generated.
+  OID: 1.3.6.1.6.3.1.1.5.1
 
-mteTriggerRising:
-  DESCRIPTION: Notification that the rising threshold was met for triggers with mteTriggerType 'threshold'.
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
-  OID: 1.3.6.1.2.1.88.2.0.2
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerRising
-
-mteEventSetFailure:
-  DESCRIPTION: Notification that an attempt to do a set in response to an event has failed. The network manager must enable this notification only with a certain fear and trembling, as it can easily crowd out more important information.  It should be used only to help diagnose a problem that has appeared in the error counters and can not be found otherwise.
+mteTriggerFailure:
+  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerFailure
+  DESCRIPTION: Notification that an attempt to check a trigger has failed. The network manager must enable this notification only with a certain fear and trembling, as it can easily crowd out more important information.  It should be used only to help diagnose a problem that has appeared in the error counters and can not be found otherwise.
   OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteFailedReason 
-  OID: 1.3.6.1.2.1.88.2.0.5
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteEventSetFailure
-
-ucdShutdown:
-  OID: 1.3.6.1.4.1.2021.251.2
-  OID_NAME: org dod internet private enterprises ucdavis ucdTraps ucdShutdown
-  OBJECTS: No se encontraron objetos
-  DESCRIPTION: This trap is sent when the agent terminates
-
-warmStart:
-  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps warmStart
-  OID: 1.3.6.1.6.3.1.1.5.2
-  DESCRIPTION: A warmStart trap signifies that the SNMP entity, supporting a notification originator application, is reinitializing itself such that its configuration is unaltered.
-  OBJECTS: No se encontraron objetos
+  OID: 1.3.6.1.2.1.88.2.0.4
 
 ----------------------------------- FIN DE ALARM_TRAPS -----------------------------------

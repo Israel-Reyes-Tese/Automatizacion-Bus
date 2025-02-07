@@ -232,6 +232,10 @@ sub cargar_mib {
         OBJECT_IDENTIFIERS => \%object_identifiers,
         MODULE_IDENTITIES => \%module_identities,
         MODULE_COMPLIANCE => \%module_compliances,
+        #TEXTUAL_CONVENTIONS => \%textual_conventions,
+        ALARM_OBJECT_GROUPS => \%alarm_object_groups,
+        ALARM_NOTIFICATION_GROUPS => \%alarm_notification_groups,
+        MODULE_COMPLIANCE => \%module_compliances,
         ALARM_TRAPS => \%alarm_traps,
         OID_NODES => $oid_nodes,
     );
@@ -1049,7 +1053,7 @@ sub extraer_object_types {
         if ($in_segment) {
             $segment .= $_ . "\n";
 
-            if (/::= { /) {
+            if (/::= \{ /) {
                 print $fh_all "$segment\n";
 
                 my ($syntax) = $segment =~ /SYNTAX\s+(.*)/;
@@ -2200,7 +2204,7 @@ sub construir_oid_completo {
 
     while ($current_name) {
         my $found = 0;
-        foreach my $type (qw(ALARM_TRAPS OBJECT_IDENTITIES OBJECT_TYPES OBJECT_IDENTIFIERS MODULE_IDENTITIES MODULE_COMPLIANCE)) {
+        foreach my $type (qw(ALARM_TRAPS OBJECT_IDENTITIES OBJECT_TYPES OBJECT_IDENTIFIERS MODULE_IDENTITIES MODULE_COMPLIANCE ALARM_OBJECT_GROUPS ALARM_NOTIFICATION_GROUPS)) {
             if (exists $data->{$type}{$current_name}) {
                 my $oid_part = $data->{$type}{$current_name}{OID};
                 if ($oid_part =~ /^\s*(\S+)\s+(\d+)\s*$/) {

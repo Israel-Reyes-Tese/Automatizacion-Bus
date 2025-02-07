@@ -1,78 +1,78 @@
 ----------------------------------- ALARM TRAPS ---------------------------
-linkUp:
-  ifOperStatus: 1.3.6.1.2.1.2.2.1.8
-  ifIndex: 1.3.6.1.2.1.2.2.1.1
-  ifAdminStatus: 1.3.6.1.2.1.2.2.1.7
-  ifAdminStatus(nombre): org dod internet mgmt mib-2 interfaces ifTable ifEntry ifAdminStatus
-  ifIndex(nombre): org dod internet mgmt mib-2 interfaces ifTable ifEntry ifIndex
-  ifOperStatus(nombre): org dod internet mgmt mib-2 interfaces ifTable ifEntry ifOperStatus
-
 mteTriggerFailure:
-  mteFailedReason: 1.3.6.1.2.1.88.2.1.6
+  mteHotContextName: 1.3.6.1.2.1.88.2.1.3
+  mteHotTargetName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTargetName
   mteFailedReason(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteFailedReason
-  mteHotOID: 1.3.6.1.2.1.88.2.1.4
-  mteHotContextName: 1.3.6.1.2.1.88.2.1.3
   mteHotTrigger: 1.3.6.1.2.1.88.2.1.1
-  mteHotTrigger(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTrigger
   mteHotOID(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotOID
+  mteHotTrigger(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTrigger
   mteHotTargetName: 1.3.6.1.2.1.88.2.1.2
-  mteHotTargetName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTargetName
   mteHotContextName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotContextName
-
-mteTriggerFired:
-  mteHotValue(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotValue
   mteHotOID: 1.3.6.1.2.1.88.2.1.4
-  mteHotTrigger(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTrigger
-  mteHotContextName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotContextName
-  mteHotTargetName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTargetName
-  mteHotTargetName: 1.3.6.1.2.1.88.2.1.2
-  mteHotContextName: 1.3.6.1.2.1.88.2.1.3
-  mteHotOID(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotOID
-  mteHotTrigger: 1.3.6.1.2.1.88.2.1.1
-  mteHotValue: 1.3.6.1.2.1.88.2.1.5
-
-linkDown:
-  ifIndex: 1.3.6.1.2.1.2.2.1.1
-  ifAdminStatus: 1.3.6.1.2.1.2.2.1.7
-  ifAdminStatus(nombre): org dod internet mgmt mib-2 interfaces ifTable ifEntry ifAdminStatus
-  ifIndex(nombre): org dod internet mgmt mib-2 interfaces ifTable ifEntry ifIndex
-  ifOperStatus: 1.3.6.1.2.1.2.2.1.8
-  ifOperStatus(nombre): org dod internet mgmt mib-2 interfaces ifTable ifEntry ifOperStatus
-
-mteTriggerRising:
-  mteHotValue(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotValue
-  mteHotOID: 1.3.6.1.2.1.88.2.1.4
-  mteHotTrigger(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTrigger
-  mteHotContextName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotContextName
-  mteHotTargetName: 1.3.6.1.2.1.88.2.1.2
-  mteHotTargetName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTargetName
-  mteHotContextName: 1.3.6.1.2.1.88.2.1.3
-  mteHotOID(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotOID
-  mteHotTrigger: 1.3.6.1.2.1.88.2.1.1
-  mteHotValue: 1.3.6.1.2.1.88.2.1.5
+  mteFailedReason: 1.3.6.1.2.1.88.2.1.6
 
 mteTriggerFalling:
-  mteHotContextName: 1.3.6.1.2.1.88.2.1.3
+  mteHotOID: 1.3.6.1.2.1.88.2.1.4
+  mteHotContextName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotContextName
   mteHotValue: 1.3.6.1.2.1.88.2.1.5
+  mteHotValue(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotValue
+  mteHotTargetName: 1.3.6.1.2.1.88.2.1.2
+  mteHotTrigger(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTrigger
   mteHotTrigger: 1.3.6.1.2.1.88.2.1.1
   mteHotOID(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotOID
-  mteHotOID: 1.3.6.1.2.1.88.2.1.4
-  mteHotValue(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotValue
+  mteHotContextName: 1.3.6.1.2.1.88.2.1.3
   mteHotTargetName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTargetName
+
+mteTriggerFired:
+  mteHotTrigger(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTrigger
   mteHotTargetName: 1.3.6.1.2.1.88.2.1.2
   mteHotContextName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotContextName
-  mteHotTrigger(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTrigger
+  mteHotOID: 1.3.6.1.2.1.88.2.1.4
+  mteHotValue: 1.3.6.1.2.1.88.2.1.5
+  mteHotValue(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotValue
+  mteHotContextName: 1.3.6.1.2.1.88.2.1.3
+  mteHotTargetName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTargetName
+  mteHotTrigger: 1.3.6.1.2.1.88.2.1.1
+  mteHotOID(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotOID
+
+linkUp:
+  ifOperStatus(nombre): org dod internet mgmt mib-2 interfaces ifTable ifEntry ifOperStatus
+  ifAdminStatus: 1.3.6.1.2.1.2.2.1.7
+  ifIndex(nombre): org dod internet mgmt mib-2 interfaces ifTable ifEntry ifIndex
+  ifIndex: 1.3.6.1.2.1.2.2.1.1
+  ifOperStatus: 1.3.6.1.2.1.2.2.1.8
+  ifAdminStatus(nombre): org dod internet mgmt mib-2 interfaces ifTable ifEntry ifAdminStatus
+
+linkDown:
+  ifAdminStatus(nombre): org dod internet mgmt mib-2 interfaces ifTable ifEntry ifAdminStatus
+  ifOperStatus: 1.3.6.1.2.1.2.2.1.8
+  ifAdminStatus: 1.3.6.1.2.1.2.2.1.7
+  ifIndex(nombre): org dod internet mgmt mib-2 interfaces ifTable ifEntry ifIndex
+  ifOperStatus(nombre): org dod internet mgmt mib-2 interfaces ifTable ifEntry ifOperStatus
+  ifIndex: 1.3.6.1.2.1.2.2.1.1
 
 mteEventSetFailure:
   mteHotOID(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotOID
-  mteHotTrigger(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTrigger
   mteHotTrigger: 1.3.6.1.2.1.88.2.1.1
-  mteHotContextName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotContextName
-  mteHotTargetName: 1.3.6.1.2.1.88.2.1.2
-  mteHotTargetName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTargetName
   mteFailedReason(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteFailedReason
-  mteFailedReason: 1.3.6.1.2.1.88.2.1.6
+  mteHotTargetName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTargetName
   mteHotContextName: 1.3.6.1.2.1.88.2.1.3
+  mteFailedReason: 1.3.6.1.2.1.88.2.1.6
+  mteHotContextName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotContextName
   mteHotOID: 1.3.6.1.2.1.88.2.1.4
+  mteHotTargetName: 1.3.6.1.2.1.88.2.1.2
+  mteHotTrigger(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTrigger
+
+mteTriggerRising:
+  mteHotContextName: 1.3.6.1.2.1.88.2.1.3
+  mteHotTargetName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTargetName
+  mteHotTrigger: 1.3.6.1.2.1.88.2.1.1
+  mteHotOID(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotOID
+  mteHotTargetName: 1.3.6.1.2.1.88.2.1.2
+  mteHotTrigger(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotTrigger
+  mteHotOID: 1.3.6.1.2.1.88.2.1.4
+  mteHotContextName(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotContextName
+  mteHotValue: 1.3.6.1.2.1.88.2.1.5
+  mteHotValue(nombre): org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotificationObjects mteHotValue
 
 ----------------------------------- FIN DE ALARM_TRAPS -----------------------------------
