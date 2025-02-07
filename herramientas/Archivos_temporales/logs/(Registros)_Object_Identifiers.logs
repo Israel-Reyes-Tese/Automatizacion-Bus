@@ -1,49 +1,3 @@
-Archivo: SNMPv2-MIB.mib
-snmpMIBObjects OBJECT IDENTIFIER ::= { snmpMIB 1 }
-system   OBJECT IDENTIFIER ::= { mib-2 1 }
-Archivo: SNMPv2-MIB.mib
-snmp     OBJECT IDENTIFIER ::= { mib-2 11 }
-MAX-ACCESS  read-write
-STATUS      current
-DESCRIPTION
-"Indicates whether the SNMP entity is permitted to
-generate authenticationFailure traps.  The value of this
-object overrides any configuration information; as such,
-it provides a means whereby all authenticationFailure
-traps may be disabled.
-Note that it is strongly recommended that this object
-be stored in non-volatile memory so that it remains
-constant across re-initializations of the network
-management system."
-::= { snmp 30 }
-Archivo: SNMPv2-MIB.mib
-snmpTrap       OBJECT IDENTIFIER ::= { snmpMIBObjects 4 }
-snmpTraps      OBJECT IDENTIFIER ::= { snmpMIBObjects 5 }
-Archivo: SNMPv2-MIB.mib
-snmpSet        OBJECT IDENTIFIER ::= { snmpMIBObjects 6 }
-snmpMIBConformance
-OBJECT IDENTIFIER ::= { snmpMIB 2 }
-Archivo: SNMPv2-MIB.mib
-snmpMIBGroups  OBJECT IDENTIFIER ::= { snmpMIBConformance 2 }
-END
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkAdmin OBJECT IDENTIFIER
-::= { snmpFrameworkMIB 1 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBObjects OBJECT IDENTIFIER
-::= { snmpFrameworkMIB 2 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpEngine OBJECT IDENTIFIER
-::= { snmpFrameworkMIBObjects 1 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBConformance OBJECT IDENTIFIER
-::= { snmpFrameworkMIB 3 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBCompliances OBJECT IDENTIFIER
-::= { snmpFrameworkMIBConformance 1 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBGroups OBJECT IDENTIFIER
-::= { snmpFrameworkMIBConformance 2 }
 Archivo: DISMAN-EVENT-MIB.mib
 dismanEventMIBObjects OBJECT IDENTIFIER ::= { dismanEventMIB 1 }
 mteResource           OBJECT IDENTIFIER ::= { dismanEventMIBObjects 1 }
@@ -637,6 +591,93 @@ SnmpUDPAddress for snmpUDPDomain, are defined in the SNMPv2-TM
 MIB module.  Other possible textual conventions are defined in
 other MIB modules."
 SYNTAX          OCTET STRING (SIZE(1..255))
+Archivo: UCD-SNMP-MIB.mib
+ucdInternal           OBJECT IDENTIFIER ::= { ucdavis 12 }
+ucdExperimental       OBJECT IDENTIFIER ::= { ucdavis 13 }
+Archivo: UCD-SNMP-MIB.mib
+ucdSnmpAgent      OBJECT IDENTIFIER ::= { ucdavis 250 }
+hpux9             OBJECT IDENTIFIER ::= { ucdSnmpAgent 1 }
+Archivo: UCD-SNMP-MIB.mib
+sunos4            OBJECT IDENTIFIER ::= { ucdSnmpAgent 2 }
+solaris           OBJECT IDENTIFIER ::= { ucdSnmpAgent 3 }
+Archivo: UCD-SNMP-MIB.mib
+osf               OBJECT IDENTIFIER ::= { ucdSnmpAgent 4 }
+ultrix            OBJECT IDENTIFIER ::= { ucdSnmpAgent 5 }
+Archivo: UCD-SNMP-MIB.mib
+hpux10            OBJECT IDENTIFIER ::= { ucdSnmpAgent 6 }
+netbsd1           OBJECT IDENTIFIER ::= { ucdSnmpAgent 7 }
+Archivo: UCD-SNMP-MIB.mib
+freebsd           OBJECT IDENTIFIER ::= { ucdSnmpAgent 8 }
+irix              OBJECT IDENTIFIER ::= { ucdSnmpAgent 9 }
+Archivo: UCD-SNMP-MIB.mib
+linux             OBJECT IDENTIFIER ::= { ucdSnmpAgent 10 }
+bsdi              OBJECT IDENTIFIER ::= { ucdSnmpAgent 11 }
+Archivo: UCD-SNMP-MIB.mib
+openbsd           OBJECT IDENTIFIER ::= { ucdSnmpAgent 12 }
+hpux11            OBJECT IDENTIFIER ::= { ucdSnmpAgent 14 }
+Archivo: UCD-SNMP-MIB.mib
+aix               OBJECT IDENTIFIER ::= { ucdSnmpAgent 15 }
+macosx            OBJECT IDENTIFIER ::= { ucdSnmpAgent 16 }
+Archivo: UCD-SNMP-MIB.mib
+dragonfly         OBJECT IDENTIFIER ::= { ucdSnmpAgent 17 }
+unknown           OBJECT IDENTIFIER ::= { ucdSnmpAgent 255 }
+Archivo: UCD-SNMP-MIB.mib
+memory OBJECT IDENTIFIER ::= { ucdavis 4 }
+::= { dskTable  1 }
+Archivo: UCD-SNMP-MIB.mib
+version	OBJECT IDENTIFIER ::= { ucdavis 100 }
+snmperrs OBJECT IDENTIFIER ::= { ucdavis 101 }
+Archivo: UCD-SNMP-MIB.mib
+systemStats OBJECT IDENTIFIER ::= { ucdavis 11 }
+ucdTraps OBJECT IDENTIFIER ::= { ucdavis 251 }
+Archivo: UCD-SNMP-MIB.mib
+logMatch OBJECT IDENTIFIER ::= { ucdavis 16 }
+::= { logMatchTable 1 }
+Archivo: SNMPv2-SMI
+org OBJECT IDENTIFIER
+::= { iso 3 }
+Archivo: SNMPv2-SMI
+dod OBJECT IDENTIFIER
+::= { org 6 }
+Archivo: SNMPv2-SMI
+internet OBJECT IDENTIFIER
+::= { dod 1 }
+Archivo: SNMPv2-SMI
+directory OBJECT IDENTIFIER
+::= { internet 1 }
+Archivo: SNMPv2-SMI
+mgmt OBJECT IDENTIFIER
+::= { internet 2 }
+Archivo: SNMPv2-SMI
+mib-2 OBJECT IDENTIFIER
+::= { mgmt 1 }
+Archivo: SNMPv2-SMI
+transmission OBJECT IDENTIFIER
+::= { mib-2 10 }
+Archivo: SNMPv2-SMI
+experimental OBJECT IDENTIFIER
+::= { internet 3 }
+Archivo: SNMPv2-SMI
+private OBJECT IDENTIFIER
+::= { internet 4 }
+Archivo: SNMPv2-SMI
+enterprises OBJECT IDENTIFIER
+::= { private 1 }
+Archivo: SNMPv2-SMI
+security OBJECT IDENTIFIER
+::= { internet 5 }
+Archivo: SNMPv2-SMI
+snmpV2 OBJECT IDENTIFIER
+::= { internet 6 }
+Archivo: SNMPv2-SMI
+snmpDomains OBJECT IDENTIFIER
+::= { snmpV2 1 }
+Archivo: SNMPv2-SMI
+snmpProxys OBJECT IDENTIFIER
+::= { snmpV2 2 }
+Archivo: SNMPv2-SMI
+snmpModules OBJECT IDENTIFIER
+::= { snmpV2 3 }
 Archivo: HOST-RESOURCES-MIB.mib
 host     OBJECT IDENTIFIER ::= { mib-2 25 }
 hrSystem        OBJECT IDENTIFIER ::= { host 1 }
@@ -692,48 +733,6 @@ hrFSTypes               OBJECT IDENTIFIER ::= { hrDevice 9 }
 Archivo: HOST-RESOURCES-MIB.mib
 hrMIBCompliances OBJECT IDENTIFIER ::= { hrMIBAdminInfo 2 }
 hrMIBGroups      OBJECT IDENTIFIER ::= { hrMIBAdminInfo 3 }
-Archivo: UCD-SNMP-MIB.mib
-ucdInternal           OBJECT IDENTIFIER ::= { ucdavis 12 }
-ucdExperimental       OBJECT IDENTIFIER ::= { ucdavis 13 }
-Archivo: UCD-SNMP-MIB.mib
-ucdSnmpAgent      OBJECT IDENTIFIER ::= { ucdavis 250 }
-hpux9             OBJECT IDENTIFIER ::= { ucdSnmpAgent 1 }
-Archivo: UCD-SNMP-MIB.mib
-sunos4            OBJECT IDENTIFIER ::= { ucdSnmpAgent 2 }
-solaris           OBJECT IDENTIFIER ::= { ucdSnmpAgent 3 }
-Archivo: UCD-SNMP-MIB.mib
-osf               OBJECT IDENTIFIER ::= { ucdSnmpAgent 4 }
-ultrix            OBJECT IDENTIFIER ::= { ucdSnmpAgent 5 }
-Archivo: UCD-SNMP-MIB.mib
-hpux10            OBJECT IDENTIFIER ::= { ucdSnmpAgent 6 }
-netbsd1           OBJECT IDENTIFIER ::= { ucdSnmpAgent 7 }
-Archivo: UCD-SNMP-MIB.mib
-freebsd           OBJECT IDENTIFIER ::= { ucdSnmpAgent 8 }
-irix              OBJECT IDENTIFIER ::= { ucdSnmpAgent 9 }
-Archivo: UCD-SNMP-MIB.mib
-linux             OBJECT IDENTIFIER ::= { ucdSnmpAgent 10 }
-bsdi              OBJECT IDENTIFIER ::= { ucdSnmpAgent 11 }
-Archivo: UCD-SNMP-MIB.mib
-openbsd           OBJECT IDENTIFIER ::= { ucdSnmpAgent 12 }
-hpux11            OBJECT IDENTIFIER ::= { ucdSnmpAgent 14 }
-Archivo: UCD-SNMP-MIB.mib
-aix               OBJECT IDENTIFIER ::= { ucdSnmpAgent 15 }
-macosx            OBJECT IDENTIFIER ::= { ucdSnmpAgent 16 }
-Archivo: UCD-SNMP-MIB.mib
-dragonfly         OBJECT IDENTIFIER ::= { ucdSnmpAgent 17 }
-unknown           OBJECT IDENTIFIER ::= { ucdSnmpAgent 255 }
-Archivo: UCD-SNMP-MIB.mib
-memory OBJECT IDENTIFIER ::= { ucdavis 4 }
-::= { dskTable  1 }
-Archivo: UCD-SNMP-MIB.mib
-version	OBJECT IDENTIFIER ::= { ucdavis 100 }
-snmperrs OBJECT IDENTIFIER ::= { ucdavis 101 }
-Archivo: UCD-SNMP-MIB.mib
-systemStats OBJECT IDENTIFIER ::= { ucdavis 11 }
-ucdTraps OBJECT IDENTIFIER ::= { ucdavis 251 }
-Archivo: UCD-SNMP-MIB.mib
-logMatch OBJECT IDENTIFIER ::= { ucdavis 16 }
-::= { logMatchTable 1 }
 Archivo: IF-MIB.mib
 ifMIBObjects OBJECT IDENTIFIER ::= { ifMIB 1 }
 interfaces   OBJECT IDENTIFIER ::= { mib-2 2 }
@@ -752,461 +751,651 @@ snmpTargetCompliances OBJECT IDENTIFIER ::=
 snmpTargetGroups      OBJECT IDENTIFIER ::=
 { snmpTargetConformance 2 }
 END
-Archivo: SNMPv2-SMI
-org OBJECT IDENTIFIER
-::= { iso 3 }
-Archivo: SNMPv2-SMI
-dod OBJECT IDENTIFIER
-::= { org 6 }
-Archivo: SNMPv2-SMI
-internet OBJECT IDENTIFIER
-::= { dod 1 }
-Archivo: SNMPv2-SMI
-directory OBJECT IDENTIFIER
-::= { internet 1 }
-Archivo: SNMPv2-SMI
-mgmt OBJECT IDENTIFIER
-::= { internet 2 }
-Archivo: SNMPv2-SMI
-mib-2 OBJECT IDENTIFIER
-::= { mgmt 1 }
-Archivo: SNMPv2-SMI
-transmission OBJECT IDENTIFIER
-::= { mib-2 10 }
-Archivo: SNMPv2-SMI
-experimental OBJECT IDENTIFIER
-::= { internet 3 }
-Archivo: SNMPv2-SMI
-private OBJECT IDENTIFIER
-::= { internet 4 }
-Archivo: SNMPv2-SMI
-enterprises OBJECT IDENTIFIER
-::= { private 1 }
-Archivo: SNMPv2-SMI
-security OBJECT IDENTIFIER
-::= { internet 5 }
-Archivo: SNMPv2-SMI
-snmpV2 OBJECT IDENTIFIER
-::= { internet 6 }
-Archivo: SNMPv2-SMI
-snmpDomains OBJECT IDENTIFIER
-::= { snmpV2 1 }
-Archivo: SNMPv2-SMI
-snmpProxys OBJECT IDENTIFIER
-::= { snmpV2 2 }
-Archivo: SNMPv2-SMI
-snmpModules OBJECT IDENTIFIER
-::= { snmpV2 3 }
------------------------------------ hrSystem ---------------------------
-hrSystem:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  host 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dragonfly ---------------------------
-dragonfly:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 17 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrStorage ---------------------------
-hrStorage:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  host 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ irix ---------------------------
-irix:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 9 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ultrix ---------------------------
-ultrix:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 5 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ memory ---------------------------
-memory:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdavis 4 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sysUpTimeInstance ---------------------------
-sysUpTimeInstance:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  sysUpTime 0 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ netbsd1 ---------------------------
-netbsd1:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 7 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ macosx ---------------------------
-macosx:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 16 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTargetObjects ---------------------------
-snmpTargetObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  snmpTargetMIB 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrSWInstalled ---------------------------
-hrSWInstalled:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  host 6 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hpux10 ---------------------------
-hpux10:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 6 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTraps ---------------------------
-snmpTraps:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  snmpMIBObjects 5 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTrap ---------------------------
-snmpTrap:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  snmpMIBObjects 4 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTargetConformance ---------------------------
-snmpTargetConformance:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  snmpTargetMIB 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ logMatch ---------------------------
-logMatch:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdavis 16 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmperrs ---------------------------
-snmperrs:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdavis 101 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrSWRunPerf ---------------------------
-hrSWRunPerf:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  host 5 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ifMIBObjects ---------------------------
-ifMIBObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ifMIB 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ifGroups ---------------------------
-ifGroups:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ifConformance 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ unknown ---------------------------
-unknown:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 255 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ linux ---------------------------
-linux:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 10 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ host ---------------------------
-host:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  mib-2 25 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ openbsd ---------------------------
-openbsd:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 12 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ systemStats ---------------------------
-systemStats:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdavis 11 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpMIBGroups ---------------------------
-snmpMIBGroups:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  snmpMIBConformance 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrDeviceTypes ---------------------------
-hrDeviceTypes:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  hrDevice 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrMIBAdminInfo ---------------------------
-hrMIBAdminInfo:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  host 7 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ system ---------------------------
-system:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  mib-2 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrFSTypes ---------------------------
-hrFSTypes:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  hrDevice 9 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ bsdi ---------------------------
-bsdi:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 11 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
+Archivo: SNMPv2-MIB.mib
+snmpMIBObjects OBJECT IDENTIFIER ::= { snmpMIB 1 }
+system   OBJECT IDENTIFIER ::= { mib-2 1 }
+Archivo: SNMPv2-MIB.mib
+snmp     OBJECT IDENTIFIER ::= { mib-2 11 }
+MAX-ACCESS  read-write
+STATUS      current
+DESCRIPTION
+"Indicates whether the SNMP entity is permitted to
+generate authenticationFailure traps.  The value of this
+object overrides any configuration information; as such,
+it provides a means whereby all authenticationFailure
+traps may be disabled.
+Note that it is strongly recommended that this object
+be stored in non-volatile memory so that it remains
+constant across re-initializations of the network
+management system."
+::= { snmp 30 }
+Archivo: SNMPv2-MIB.mib
+snmpTrap       OBJECT IDENTIFIER ::= { snmpMIBObjects 4 }
+snmpTraps      OBJECT IDENTIFIER ::= { snmpMIBObjects 5 }
+Archivo: SNMPv2-MIB.mib
+snmpSet        OBJECT IDENTIFIER ::= { snmpMIBObjects 6 }
+snmpMIBConformance
+OBJECT IDENTIFIER ::= { snmpMIB 2 }
+Archivo: SNMPv2-MIB.mib
+snmpMIBGroups  OBJECT IDENTIFIER ::= { snmpMIBConformance 2 }
+END
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkAdmin OBJECT IDENTIFIER
+::= { snmpFrameworkMIB 1 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBObjects OBJECT IDENTIFIER
+::= { snmpFrameworkMIB 2 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpEngine OBJECT IDENTIFIER
+::= { snmpFrameworkMIBObjects 1 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBConformance OBJECT IDENTIFIER
+::= { snmpFrameworkMIB 3 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBCompliances OBJECT IDENTIFIER
+::= { snmpFrameworkMIBConformance 1 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBGroups OBJECT IDENTIFIER
+::= { snmpFrameworkMIBConformance 2 }
 ----------------------------------- snmpMIBObjects ---------------------------
 snmpMIBObjects:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  snmpMIB 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ osf ---------------------------
-osf:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 4 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ interfaces ---------------------------
-interfaces:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  mib-2 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dismanEventMIBObjects ---------------------------
-dismanEventMIBObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  dismanEventMIB 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteObjects ---------------------------
-mteObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  dismanEventMIBObjects 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpSet ---------------------------
-snmpSet:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  snmpMIBObjects 6 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmp ---------------------------
-snmp:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  mib-2 11 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrMIBGroups ---------------------------
-hrMIBGroups:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  hrMIBAdminInfo 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteTrigger ---------------------------
-mteTrigger:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  dismanEventMIBObjects 2 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- ucdExperimental ---------------------------
 ucdExperimental:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  ucdavis 13 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ freebsd ---------------------------
-freebsd:
+----------------------------------- snmpEngine ---------------------------
+snmpEngine:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 8 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkMIBObjects 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- host ---------------------------
+host:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  mib-2 25 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hrDevice ---------------------------
-hrDevice:
+----------------------------------- internet ---------------------------
+internet:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  host 3 
-  Nivel_Busqueda: 1
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  dod 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpV2 ---------------------------
+snmpV2:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  internet 6 
+  Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- ifCompliances ---------------------------
 ifCompliances:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  ifConformance 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hpux9 ---------------------------
-hpux9:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrStorageTypes ---------------------------
-hrStorageTypes:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  hrStorage 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrMIBCompliances ---------------------------
-hrMIBCompliances:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  hrMIBAdminInfo 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sunos4 ---------------------------
-sunos4:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ solaris ---------------------------
-solaris:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ucdInternal ---------------------------
-ucdInternal:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdavis 12 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ version ---------------------------
-version:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdavis 100 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ifConformance ---------------------------
-ifConformance:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ifMIB 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hpux11 ---------------------------
-hpux11:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdSnmpAgent 14 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ucdTraps ---------------------------
-ucdTraps:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  ucdavis 251 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- ucdSnmpAgent ---------------------------
 ucdSnmpAgent:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  ucdavis 250 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpMIBGroups ---------------------------
+snmpMIBGroups:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpMIBConformance 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifMIBObjects ---------------------------
+ifMIBObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ifMIB 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- systemStats ---------------------------
+systemStats:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdavis 11 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpSet ---------------------------
+snmpSet:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpMIBObjects 6 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifGroups ---------------------------
+ifGroups:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ifConformance 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ultrix ---------------------------
+ultrix:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 5 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- mteEvent ---------------------------
 mteEvent:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  dismanEventMIBObjects 4 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hrSWRun ---------------------------
-hrSWRun:
+----------------------------------- sysUpTimeInstance ---------------------------
+sysUpTimeInstance:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
-  OID:  host 4 
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  sysUpTime 0 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- irix ---------------------------
+irix:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 9 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- freebsd ---------------------------
+freebsd:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 8 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmp ---------------------------
+snmp:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  mib-2 11 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrDevice ---------------------------
+hrDevice:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  host 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifConformance ---------------------------
+ifConformance:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ifMIB 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mteObjects ---------------------------
+mteObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  dismanEventMIBObjects 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dismanEventMIBNotifications ---------------------------
+dismanEventMIBNotifications:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  dismanEventMIBNotificationPrefix 0 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpTargetObjects ---------------------------
+snmpTargetObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpTargetMIB 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ucdTraps ---------------------------
+ucdTraps:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdavis 251 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- aix ---------------------------
 aix:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  ucdSnmpAgent 15 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpTraps ---------------------------
+snmpTraps:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpMIBObjects 5 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpTargetGroups ---------------------------
+snmpTargetGroups:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpTargetConformance 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dismanEventMIBObjects ---------------------------
+dismanEventMIBObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  dismanEventMIB 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- netbsd1 ---------------------------
+netbsd1:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 7 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkMIBGroups ---------------------------
+snmpFrameworkMIBGroups:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkMIBConformance 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dismanEventMIBNotificationObjects ---------------------------
+dismanEventMIBNotificationObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  dismanEventMIBNotificationPrefix 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dismanEventMIBNotificationPrefix ---------------------------
+dismanEventMIBNotificationPrefix:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  dismanEventMIB 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- security ---------------------------
+security:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  internet 5 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- osf ---------------------------
+osf:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- openbsd ---------------------------
+openbsd:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 12 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mteTrigger ---------------------------
+mteTrigger:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  dismanEventMIBObjects 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrMIBAdminInfo ---------------------------
+hrMIBAdminInfo:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  host 7 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrMIBCompliances ---------------------------
+hrMIBCompliances:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  hrMIBAdminInfo 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSystem ---------------------------
+hrSystem:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  host 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hpux9 ---------------------------
+hpux9:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- unknown ---------------------------
+unknown:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 255 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- experimental ---------------------------
+experimental:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  internet 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkAdmin ---------------------------
+snmpFrameworkAdmin:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkMIB 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hpux11 ---------------------------
+hpux11:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 14 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkMIBConformance ---------------------------
+snmpFrameworkMIBConformance:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkMIB 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpTrap ---------------------------
+snmpTrap:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpMIBObjects 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrDeviceTypes ---------------------------
+hrDeviceTypes:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  hrDevice 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- macosx ---------------------------
+macosx:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 16 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSWInstalled ---------------------------
+hrSWInstalled:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  host 6 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mgmt ---------------------------
+mgmt:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  internet 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrStorage ---------------------------
+hrStorage:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  host 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- memory ---------------------------
+memory:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdavis 4 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- mteResource ---------------------------
 mteResource:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMPv2-SMI
+  ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  dismanEventMIBObjects 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpTargetCompliances ---------------------------
+snmpTargetCompliances:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpTargetConformance 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sunos4 ---------------------------
+sunos4:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- directory ---------------------------
+directory:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  internet 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- version ---------------------------
+version:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdavis 100 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpTargetConformance ---------------------------
+snmpTargetConformance:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpTargetMIB 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- linux ---------------------------
+linux:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 10 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSWRunPerf ---------------------------
+hrSWRunPerf:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  host 5 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- interfaces ---------------------------
+interfaces:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  mib-2 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- enterprises ---------------------------
+enterprises:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  private 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- logMatch ---------------------------
+logMatch:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdavis 16 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- private ---------------------------
+private:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  internet 4 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrMIBGroups ---------------------------
+hrMIBGroups:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  hrMIBAdminInfo 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkMIBObjects ---------------------------
+snmpFrameworkMIBObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkMIB 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrFSTypes ---------------------------
+hrFSTypes:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  hrDevice 9 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dragonfly ---------------------------
+dragonfly:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 17 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkMIBCompliances ---------------------------
+snmpFrameworkMIBCompliances:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkMIBConformance 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hpux10 ---------------------------
+hpux10:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 6 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dod ---------------------------
+dod:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  org 6 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ucdInternal ---------------------------
+ucdInternal:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdavis 12 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mib-2 ---------------------------
+mib-2:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  mgmt 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- system ---------------------------
+system:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  mib-2 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpDomains ---------------------------
+snmpDomains:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpV2 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- transmission ---------------------------
+transmission:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  mib-2 10 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSWRun ---------------------------
+hrSWRun:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  host 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- solaris ---------------------------
+solaris:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpProxys ---------------------------
+snmpProxys:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpV2 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmperrs ---------------------------
+snmperrs:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdavis 101 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- org ---------------------------
+org:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  iso 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpModules ---------------------------
+snmpModules:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpV2 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- bsdi ---------------------------
+bsdi:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  ucdSnmpAgent 11 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- SYNTAX ---------------------------
+SYNTAX:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID: OID no encontrado
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrStorageTypes ---------------------------
+hrStorageTypes:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  hrStorage 1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------

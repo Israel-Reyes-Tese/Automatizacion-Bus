@@ -1,44 +1,133 @@
-Archivo: IF-MIB.mib
-ifMIBObjects OBJECT IDENTIFIER ::= { ifMIB 1 }
-interfaces   OBJECT IDENTIFIER ::= { mib-2 2 }
-Archivo: IF-MIB.mib
-ifConformance OBJECT IDENTIFIER ::= { ifMIB 2 }
-ifGroups      OBJECT IDENTIFIER ::= { ifConformance 1 }
-Archivo: IF-MIB.mib
-ifCompliances OBJECT IDENTIFIER ::= { ifConformance 2 }
-::= { ifTestTable 1 }
------------------------------------ ifCompliances ---------------------------
-ifCompliances:
+Archivo: DISMAN-EVENT-MIB.mib
+dismanEventMIBObjects OBJECT IDENTIFIER ::= { dismanEventMIB 1 }
+mteResource           OBJECT IDENTIFIER ::= { dismanEventMIBObjects 1 }
+Archivo: DISMAN-EVENT-MIB.mib
+mteTrigger            OBJECT IDENTIFIER ::= { dismanEventMIBObjects 2 }
+mteObjects            OBJECT IDENTIFIER ::= { dismanEventMIBObjects 3 }
+Archivo: DISMAN-EVENT-MIB.mib
+mteEvent              OBJECT IDENTIFIER ::= { dismanEventMIBObjects 4 }
+FailureReason ::= TEXTUAL-CONVENTION
+STATUS      current
+DESCRIPTION
+"Reasons for failures in an attempt to perform a management
+request.
+The first group of errors, numbered less than 0, are related
+to problems in sending the request.  The existence of a
+particular error code here does not imply that all
+implementations are capable of sensing that error and
+returning that code.
+The second group, numbered greater than 0, are copied
+directly from SNMP protocol operations and are intended to
+carry exactly the meanings defined for the protocol as returned
+in an SNMP response.
+localResourceLack       some local resource such as memory
+lacking or
+mteResourceSampleInstanceMaximum
+exceeded
+badDestination          unrecognized domain name or otherwise
+invalid destination address
+destinationUnreachable  can't get to destination address
+noResponse              no response to SNMP request
+badType                 the data syntax of a retrieved object
+as not as expected
+sampleOverrun           another sample attempt occurred before
+the previous one completed"
+SYNTAX      INTEGER { localResourceLack(-1),
+badDestination(-2),
+destinationUnreachable(-3),
+noResponse(-4),
+badType(-5),
+sampleOverrun(-6),
+noError(0),
+tooBig(1),
+noSuchName(2),
+badValue(3),
+readOnly(4),
+genErr(5),
+noAccess(6),
+wrongType(7),
+wrongLength(8),
+wrongEncoding(9),
+wrongValue(10),
+noCreation(11),
+inconsistentValue(12),
+resourceUnavailable(13),
+commitFailed(14),
+undoFailed(15),
+authorizationError(16),
+notWritable(17),
+inconsistentName(18) }
+::= { mteTriggerTable 1 }
+Archivo: DISMAN-EVENT-MIB.mib
+sysUpTimeInstance OBJECT IDENTIFIER ::= { sysUpTime 0 }
+::= { mteTriggerDeltaEntry 1 }
+Archivo: DISMAN-EVENT-MIB.mib
+dismanEventMIBNotificationPrefix OBJECT IDENTIFIER ::=
+{ dismanEventMIB 2 }
+dismanEventMIBNotifications OBJECT IDENTIFIER ::=
+{ dismanEventMIBNotificationPrefix 0 }
+dismanEventMIBNotificationObjects OBJECT IDENTIFIER
+::= { dismanEventMIBNotificationPrefix 1 }
+----------------------------------- mteResource ---------------------------
+mteResource:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IF-MIB.mib
-  OID:  ifConformance 2 
+  ARCHIVO: DISMAN-EVENT-MIB.mib
+  OID:  dismanEventMIBObjects 1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ ifConformance ---------------------------
-ifConformance:
+----------------------------------- dismanEventMIBNotifications ---------------------------
+dismanEventMIBNotifications:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IF-MIB.mib
-  OID:  ifMIB 2 
+  ARCHIVO: DISMAN-EVENT-MIB.mib
+  OID:  dismanEventMIBNotificationPrefix 0 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dismanEventMIBNotificationObjects ---------------------------
+dismanEventMIBNotificationObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: DISMAN-EVENT-MIB.mib
+  OID:  dismanEventMIBNotificationPrefix 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sysUpTimeInstance ---------------------------
+sysUpTimeInstance:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: DISMAN-EVENT-MIB.mib
+  OID:  sysUpTime 0 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ interfaces ---------------------------
-interfaces:
+----------------------------------- mteObjects ---------------------------
+mteObjects:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IF-MIB.mib
-  OID:  mib-2 2 
+  ARCHIVO: DISMAN-EVENT-MIB.mib
+  OID:  dismanEventMIBObjects 3 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ ifGroups ---------------------------
-ifGroups:
+----------------------------------- mteTrigger ---------------------------
+mteTrigger:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IF-MIB.mib
-  OID:  ifConformance 1 
+  ARCHIVO: DISMAN-EVENT-MIB.mib
+  OID:  dismanEventMIBObjects 2 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ ifMIBObjects ---------------------------
-ifMIBObjects:
+----------------------------------- mteEvent ---------------------------
+mteEvent:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IF-MIB.mib
-  OID:  ifMIB 1 
+  ARCHIVO: DISMAN-EVENT-MIB.mib
+  OID:  dismanEventMIBObjects 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dismanEventMIBNotificationPrefix ---------------------------
+dismanEventMIBNotificationPrefix:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: DISMAN-EVENT-MIB.mib
+  OID:  dismanEventMIB 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dismanEventMIBObjects ---------------------------
+dismanEventMIBObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: DISMAN-EVENT-MIB.mib
+  OID:  dismanEventMIB 1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------

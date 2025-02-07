@@ -1219,8 +1219,8 @@ sub extraer_object_identifiers {
     # Logica para eliminar datos innecesarios
     while (<$fh_all>) {
         chomp;
-        # Extraer los elemento que cumplan con la condición
-        if (/(\S+)\s+OBJECT\sIDENTIFIER/) {
+        # Extraer los elementos que cumplan con la condición
+        if (/(\S+)\s+OBJECT\s+IDENTIFIER\s*::=\s*\{/) {
             $current_object = $1;
             $in_segment = 1;
             $segment = $_ . "\n"; # Incluir la línea actual en el segmento
@@ -1232,31 +1232,33 @@ sub extraer_object_identifiers {
                     ARCHIVO => $nombre_archivo,
                     Nivel_Busqueda => 1,
                 };
+                $in_segment = 0;
+                $segment = '';
             }
             next;
-        }
-        # Continuar extrayendo líneas hasta encontrar "}"
-        #if ($in_segment) {
-        #    print "Segmento (2): $segment\n";
-        #    $segment .= $_ . "\n";
-            #print "Segmento (3): $segment\n";
-        #    if (/}/) {
-                 # Ejemplo:  sysDescr OBJECT IDENTIFIER ::= { system 1 }
-                 # Ejemplo:  sysDescr OBJECT IDENTIFIER ::=
-                 #           { system 1 }
-                 # Ejemplo:  sysDescr OBJECT IDENTIFIER
-                              #::= { system 1 }
-        #        my ($oid) = $segment =~ /::=\s*{([^}]+)}/;
-        #        $object_identifiers{$current_object} = {
-        #            TYPE => 'OBJECT IDENTIFIER',
-        #            OID => $oid // 'OID no encontrado',
-        #            ARCHIVO => $nombre_archivo,
-        #            Nivel_Busqueda => 1,
-        #        };
-        #        $in_segment = 0;
-        #        $segment = '';
-        #    }
-        #}
+        } elsif (/(\S+)\s+OBJECT IDENTIFIER\s*$/){
+            $current_object = $1;
+            $in_segment = 1;
+            $segment = $_ . "\n"; # Incluir la línea actual en el segmento
+        } elsif (/(\S+)\s+OBJECT IDENTIFIER\s*::=\s*$/){
+            $current_object = $1;
+            $in_segment = 1;
+            $segment = $_ . "\n"; # Incluir la línea actual en el segmento
+        } 
+        if ($in_segment) {
+                $segment .= $_ . "\n";
+                if (/}/) {
+                    my ($oid) = $segment =~ /::=\s*{([^}]+)}/;
+                    $object_identifiers{$current_object} = {
+                        TYPE => 'OBJECT IDENTIFIER',
+                        OID => $oid // 'OID no encontrado',
+                        ARCHIVO => $nombre_archivo,
+                        Nivel_Busqueda => 2,
+                    };
+                    $in_segment = 0;
+                    $segment = '';
+                }
+            }
     }
     close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
     return \%object_identifiers;

@@ -1,3 +1,13 @@
+#----------------------------------- OBJECT IDENTITY:  zeroDotZero  ---------------------------#
+Archivo: SNMPv2-SMI
+Nombre objeto: zeroDotZero
+zeroDotZero OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  TEXTUAL-CONVENTION,  ---------------------------#
+Archivo: HOST-RESOURCES-MIB.mib
+Nombre objeto: TEXTUAL-CONVENTION,
+OBJECT-TYPE, TEXTUAL-CONVENTION, OBJECT-IDENTITY,
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
 #----------------------------------- OBJECT IDENTITY:  MODULE-IDENTITY,  ---------------------------#
 Archivo: SNMP-FRAMEWORK-MIB
 Nombre objeto: MODULE-IDENTITY,
@@ -13,32 +23,15 @@ Archivo: SNMP-FRAMEWORK-MIB
 Nombre objeto: snmpPrivProtocols
 snmpPrivProtocols OBJECT-IDENTITY
 #----------------------------------- FIN OBJECT IDENTITY ---------------------------#
-#----------------------------------- OBJECT IDENTITY:  TEXTUAL-CONVENTION,  ---------------------------#
-Archivo: HOST-RESOURCES-MIB.mib
-Nombre objeto: TEXTUAL-CONVENTION,
-OBJECT-TYPE, TEXTUAL-CONVENTION, OBJECT-IDENTITY,
-#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
-#----------------------------------- OBJECT IDENTITY:  zeroDotZero  ---------------------------#
-Archivo: SNMPv2-SMI
-Nombre objeto: zeroDotZero
-zeroDotZero OBJECT-IDENTITY
-#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
------------------------------------ MODULE-IDENTITY, ---------------------------
-MODULE-IDENTITY,:
+----------------------------------- snmpPrivProtocols ---------------------------
+snmpPrivProtocols:
   TYPE: OBJECT-IDENTITY
-  STATUS: 
-  DESCRIPTION: The SNMP Management Architecture MIB"
-REVISION        "199901190000Z"
-DESCRIPTION     
-"Updated editors' addresses, fixed typos.
-Published as RFC2571.
-"
-REVISION        "199711200000Z"
-DESCRIPTION     
-"The initial version, published in RFC 2271.
+  STATUS: current
+  DESCRIPTION: Registration point for standards-track privacy
+protocols used in SNMP Management Frameworks.
 
   ARCHIVO: SNMP-FRAMEWORK-MIB
-  OID:  snmpModules 10 
+  OID:  snmpFrameworkAdmin 2 
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- TEXTUAL-CONVENTION, ---------------------------
 TEXTUAL-CONVENTION,:
@@ -68,13 +61,20 @@ Frameworks.
   ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  snmpFrameworkAdmin 1 
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmpPrivProtocols ---------------------------
-snmpPrivProtocols:
+----------------------------------- MODULE-IDENTITY, ---------------------------
+MODULE-IDENTITY,:
   TYPE: OBJECT-IDENTITY
-  STATUS: current
-  DESCRIPTION: Registration point for standards-track privacy
-protocols used in SNMP Management Frameworks.
+  STATUS: 
+  DESCRIPTION: The SNMP Management Architecture MIB"
+REVISION        "199901190000Z"
+DESCRIPTION     
+"Updated editors' addresses, fixed typos.
+Published as RFC2571.
+"
+REVISION        "199711200000Z"
+DESCRIPTION     
+"The initial version, published in RFC 2271.
 
   ARCHIVO: SNMP-FRAMEWORK-MIB
-  OID:  snmpFrameworkAdmin 2 
+  OID:  snmpModules 10 
 ----------------------------------- Final de segmento -----------------------------------
