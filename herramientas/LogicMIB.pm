@@ -736,7 +736,7 @@ sub recondicionar_archivo_temporal {
 sub extraer_y_eliminar_object_archivo_temporal {
     my ($file) = @_;
 
-    eliminar_lineas($file, "--");
+    #eliminar_lineas($file, "--");
 
     # Escribir el archivo sin los segmentos de OBJECT-TYPE
     eliminar_object_types($file);

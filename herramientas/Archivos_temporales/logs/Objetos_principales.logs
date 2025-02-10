@@ -1,2 +1,782 @@
 ----------------------------------- ALARM TRAPS ---------------------------
+eriAlarmXAppendAlertInfo:
+  eriAlarmXAlertResourceId: 1.3.6.1.4.1.193.183.6.1.4.5.1.11
+  eriAlarmXAlertYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertYangNodeInstance
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMajorType
+  eriAlarmXNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.7
+  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMinorType
+  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
+  eriAlarmXNObjAppendedAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAppendedAdditionalInfo
+  eriAlarmXAlertResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertResourceId
+
+eriAlarmCritical:
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventTime
+  eriAlarmActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveSpecificProblem
+  eriAlarmActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastSequenceNo
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMajorType
+  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
+  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+  eriAlarmNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjRecordType
+  eriAlarmActiveManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveManagedObject
+  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
+  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
+  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
+  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
+  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
+  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
+  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
+  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
+  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
+  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
+  eriAlarmActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveProbableCause
+  eriAlarmActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMinorType
+  eriAlarmActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventType
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+
+eriAlarmXIndAlert:
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventType
+  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
+  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
+  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
+  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMinorType
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
+  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
+  eriAlarmXAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertProbableCause
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
+  eriAlarmXAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMajorType
+  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
+  eriAlarmXAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertLastSequenceNo
+  eriAlarmXAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventTime
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
+  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXAlertYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertYangNodeInstance
+  eriAlarmXAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertSpecificProblem
+  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
+
+eriAlarmHeartBeatNotif:
+  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
+  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
+  eriAlarmActiveLastChanged(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastChanged
+  eriAlarmAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertLastSequenceNo
+  eriAlarmActiveLastChanged: 1.3.6.1.4.1.193.183.4.1.3.2
+  eriAlarmAlertLastChanged: 1.3.6.1.4.1.193.183.4.1.4.2
+  eriAlarmAlertLastChanged(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertLastChanged
+  eriAlarmActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastSequenceNo
+
+eriAlarmAppendInfo:
+  eriAlarmActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMajorType
+  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
+  eriAlarmNObjAppendedAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAppendedAdditionalInfo
+  eriAlarmNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.7
+  eriAlarmActiveResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveResourceId
+  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
+  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmActiveManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveManagedObject
+  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
+  eriAlarmActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMinorType
+  eriAlarmActiveResourceId: 1.3.6.1.4.1.193.183.4.1.3.5.1.14
+
+eriAlarmWarning:
+  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
+  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
+  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
+  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
+  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
+  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
+  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
+  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
+  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
+  eriAlarmActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventType
+  eriAlarmActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMinorType
+  eriAlarmActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveProbableCause
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastSequenceNo
+  eriAlarmActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveSpecificProblem
+  eriAlarmActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventTime
+  eriAlarmActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMajorType
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
+  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
+  eriAlarmActiveManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveManagedObject
+  eriAlarmNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjRecordType
+
+eriAlarmXWarning:
+  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
+  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
+  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
+  eriAlarmXActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventTime
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
+  eriAlarmXActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventType
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
+  eriAlarmXNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjRecordType
+  eriAlarmXActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMajorType
+  eriAlarmXActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveSpecificProblem
+  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveProbableCause
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMinorType
+  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
+  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
+  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
+  eriAlarmXActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastSequenceNo
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
+  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
+  eriAlarmXActiveYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveYangNodeInstance
+
+eriAlarmXCritical:
+  eriAlarmXActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMinorType
+  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
+  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
+  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastSequenceNo
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
+  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXActiveYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveYangNodeInstance
+  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
+  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
+  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
+  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
+  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
+  eriAlarmXActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventTime
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
+  eriAlarmXNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjRecordType
+  eriAlarmXActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventType
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMajorType
+  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
+  eriAlarmXActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveSpecificProblem
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveProbableCause
+  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+
+eriAlarmMajorAlert:
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
+  eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
+  eriAlarmAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMinorType
+  eriAlarmAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventTime
+  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
+  eriAlarmAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertSpecificProblem
+  eriAlarmAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventType
+  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
+  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
+  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
+  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertProbableCause
+  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
+  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
+  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
+  eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
+  eriAlarmAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertLastSequenceNo
+  eriAlarmAlertManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertManagedObject
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMajorType
+  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+
+eriAlarmXWarnAlert:
+  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMajorType
+  eriAlarmXAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertLastSequenceNo
+  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventTime
+  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
+  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
+  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXAlertYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertYangNodeInstance
+  eriAlarmXAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertSpecificProblem
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
+  eriAlarmXAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventType
+  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
+  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
+  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
+  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMinorType
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
+  eriAlarmXAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertProbableCause
+
+eriAlarmAlarmListRebuilt:
+  eriAlarmActiveTableURL: 1.3.6.1.4.1.193.183.4.1.3.4
+  eriAlarmActiveTableURL(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveTableURL
+
+eriAlarmXCriticalAlert:
+  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
+  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertSpecificProblem
+  eriAlarmXAlertYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertYangNodeInstance
+  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
+  eriAlarmXAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMajorType
+  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
+  eriAlarmXAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertLastSequenceNo
+  eriAlarmXAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventTime
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
+  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
+  eriAlarmXAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertProbableCause
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
+  eriAlarmXAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventType
+  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMinorType
+  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
+  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
+
+eriAlarmXAppendInfo:
+  eriAlarmXNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.7
+  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXActiveYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveYangNodeInstance
+  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
+  eriAlarmXActiveResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveResourceId
+  eriAlarmXActiveResourceId: 1.3.6.1.4.1.193.183.6.1.3.5.1.14
+  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
+  eriAlarmXActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMajorType
+  eriAlarmXNObjAppendedAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAppendedAdditionalInfo
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMinorType
+  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
+
+eriAlarmMajor:
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventType
+  eriAlarmActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveProbableCause
+  eriAlarmActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMinorType
+  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
+  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
+  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
+  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
+  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
+  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
+  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
+  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
+  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
+  eriAlarmActiveManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveManagedObject
+  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
+  eriAlarmNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjRecordType
+  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
+  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
+  eriAlarmActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMajorType
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastSequenceNo
+  eriAlarmActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventTime
+  eriAlarmActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveSpecificProblem
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+
+eriAlarmXIndeterminate:
+  eriAlarmXActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMajorType
+  eriAlarmXActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveSpecificProblem
+  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveProbableCause
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
+  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
+  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
+  eriAlarmXActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventTime
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
+  eriAlarmXActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventType
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
+  eriAlarmXNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjRecordType
+  eriAlarmXActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastSequenceNo
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
+  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
+  eriAlarmXActiveYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveYangNodeInstance
+  eriAlarmXActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMinorType
+  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
+  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
+  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
+
+eriAlarmXMajorAlert:
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventTime
+  eriAlarmXAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertLastSequenceNo
+  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
+  eriAlarmXAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMajorType
+  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
+  eriAlarmXAlertYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertYangNodeInstance
+  eriAlarmXAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertSpecificProblem
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
+  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
+  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
+  eriAlarmXAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMinorType
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
+  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
+  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
+  eriAlarmXAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventType
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertProbableCause
+  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
+  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+
+eriAlarmWarnAlert:
+  eriAlarmAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMinorType
+  eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
+  eriAlarmAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertProbableCause
+  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
+  eriAlarmAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventType
+  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
+  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
+  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
+  eriAlarmAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertSpecificProblem
+  eriAlarmAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventTime
+  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
+  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
+  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
+  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
+  eriAlarmAlertManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertManagedObject
+  eriAlarmAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertLastSequenceNo
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMajorType
+
+eriAlarmAppendAlertInfo:
+  eriAlarmNObjAppendedAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAppendedAdditionalInfo
+  eriAlarmAlertResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertResourceId
+  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
+  eriAlarmAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMajorType
+  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
+  eriAlarmNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.7
+  eriAlarmAlertResourceId: 1.3.6.1.4.1.193.183.4.1.4.5.1.11
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMinorType
+  eriAlarmAlertManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertManagedObject
+  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
+  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
+
+eriAlarmMinorAlert:
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
+  eriAlarmAlertManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertManagedObject
+  eriAlarmAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertLastSequenceNo
+  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
+  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
+  eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
+  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
+  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
+  eriAlarmAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMajorType
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMinorType
+  eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
+  eriAlarmAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertSpecificProblem
+  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
+  eriAlarmAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventTime
+  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
+  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertProbableCause
+  eriAlarmAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventType
+  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
+  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
+
+eriAlarmIndAlert:
+  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
+  eriAlarmAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMajorType
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmAlertManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertManagedObject
+  eriAlarmAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertLastSequenceNo
+  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
+  eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
+  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
+  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
+  eriAlarmAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertSpecificProblem
+  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
+  eriAlarmAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventTime
+  eriAlarmAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertProbableCause
+  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
+  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
+  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
+  eriAlarmAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventType
+  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMinorType
+  eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
+
+eriAlarmXAlarmListRebuilt:
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXActiveTableURL(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveTableURL
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXActiveTableURL: 1.3.6.1.4.1.193.183.6.1.3.4
+
+eriAlarmXMinor:
+  eriAlarmXNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjRecordType
+  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
+  eriAlarmXActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventType
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
+  eriAlarmXActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventTime
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
+  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
+  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
+  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveProbableCause
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMajorType
+  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
+  eriAlarmXActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveSpecificProblem
+  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
+  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
+  eriAlarmXActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMinorType
+  eriAlarmXActiveYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveYangNodeInstance
+  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
+  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
+  eriAlarmXActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastSequenceNo
+
+eriAlarmIndeterminate:
+  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
+  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
+  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
+  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
+  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
+  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
+  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
+  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
+  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMinorType
+  eriAlarmActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveProbableCause
+  eriAlarmActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventType
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMajorType
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventTime
+  eriAlarmActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveSpecificProblem
+  eriAlarmActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastSequenceNo
+  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+  eriAlarmNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjRecordType
+  eriAlarmActiveManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveManagedObject
+  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
+  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
+  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+
+eriAlarmMinor:
+  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+  eriAlarmActiveManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveManagedObject
+  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
+  eriAlarmNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjRecordType
+  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
+  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMajorType
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastSequenceNo
+  eriAlarmActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventTime
+  eriAlarmActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveSpecificProblem
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventType
+  eriAlarmActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveProbableCause
+  eriAlarmActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMinorType
+  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
+  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
+  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
+  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
+  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
+  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
+  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
+  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
+  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
+
+eriAlarmXCleared:
+  eriAlarmXActiveYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveYangNodeInstance
+  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
+  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastSequenceNo
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
+  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
+  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
+  eriAlarmXActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMinorType
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveProbableCause
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveSpecificProblem
+  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
+  eriAlarmXActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMajorType
+  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventType
+  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventTime
+  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
+  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
+  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
+
+eriAlarmCriticalAlert:
+  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
+  eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
+  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
+  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
+  eriAlarmAlertManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertManagedObject
+  eriAlarmAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertLastSequenceNo
+  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+  eriAlarmAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMajorType
+  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
+  eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
+  eriAlarmAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMinorType
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
+  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
+  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
+  eriAlarmAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventType
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
+  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
+  eriAlarmAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertProbableCause
+  eriAlarmAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventTime
+  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
+  eriAlarmAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertSpecificProblem
+
+eriAlarmXMajor:
+  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
+  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
+  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
+  eriAlarmXActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventTime
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
+  eriAlarmXActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventType
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
+  eriAlarmXNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjRecordType
+  eriAlarmXActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMajorType
+  eriAlarmXActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveSpecificProblem
+  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveProbableCause
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMinorType
+  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
+  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
+  eriAlarmXActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastSequenceNo
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
+  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
+  eriAlarmXActiveYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveYangNodeInstance
+
+eriAlarmCleared:
+  eriAlarmActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventType
+  eriAlarmActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMinorType
+  eriAlarmActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveProbableCause
+  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
+  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
+  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
+  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
+  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
+  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
+  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
+  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
+  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
+  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
+  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
+  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
+  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
+  eriAlarmActiveManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveManagedObject
+  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+  eriAlarmActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastSequenceNo
+  eriAlarmActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventTime
+  eriAlarmActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveSpecificProblem
+  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
+  eriAlarmActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMajorType
+  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+
+eriAlarmXHeartBeatNotif:
+  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
+  eriAlarmXAlertLastChanged: 1.3.6.1.4.1.193.183.6.1.4.2
+  eriAlarmXActiveLastChanged: 1.3.6.1.4.1.193.183.6.1.3.2
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertLastSequenceNo
+  eriAlarmXActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastSequenceNo
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXActiveLastChanged(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastChanged
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXAlertLastChanged(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertLastChanged
+  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
+
+eriAlarmXMinorAlert:
+  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
+  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
+  eriAlarmXAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertProbableCause
+  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
+  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
+  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
+  eriAlarmXAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventType
+  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
+  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
+  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
+  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
+  eriAlarmXAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMinorType
+  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
+  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
+  eriAlarmXAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertSpecificProblem
+  eriAlarmXAlertYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertYangNodeInstance
+  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
+  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
+  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
+  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
+  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
+  eriAlarmXAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMajorType
+  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
+  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
+  eriAlarmXAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventTime
+  eriAlarmXAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertLastSequenceNo
+  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
+
 ----------------------------------- FIN DE ALARM_TRAPS -----------------------------------

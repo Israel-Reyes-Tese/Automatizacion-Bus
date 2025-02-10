@@ -1,696 +1,755 @@
-Archivo original: casa-hems-alarm.mib
+Archivo original: ERICSSON-ALARM-XPATH-MIB.mib
 
-CASA-HEMS-ALARM-MIB DEFINITIONS ::= BEGIN
+--
+-- The Ericsson Alarm Xpath MIB
+--
+-- Copyright (c) 2023 by Ericsson AB.
+-- All rights reserved.
+--
+ERICSSON-ALARM-XPATH-MIB DEFINITIONS ::= BEGIN
 IMPORTS
-MODULE-IDENTITY, OBJECT-TYPE, NOTIFICATION-TYPE, 
-ObjectName, Integer32,
-FROM SNMPv2-SMI; 
-MODULE-IDENTITY, OBJECT-TYPE, NOTIFICATION-TYPE, 
-ObjectName, Integer32,
-FROM SNMPv2-TM; 
-DisplayString, RowStatus, TEXTUAL-CONVENTION
-FROM SNMPv2-TC;
-casaHeMSAlarmMib MODULE-IDENTITY 
-LAST-UPDATED "201804300000Z"	
-ORGANIZATION 
-"CASA Systems Inc."
-CONTACT-INFO 
-"Casa Systems Inc.     
-100 Old River Road, Suite 100           
-Andover, MA 01810     
-TEL: +1 978 688 6706     
-FAX: +1 978 688 6584		
-E-mail: support@casa-systems.com"
-DESCRIPTION 
-"The Casa HeMS ALARM  MIB"
-::= { 1 3 6 1 4 1 20858 10 104 101 }
-casaHeMSAlarmObjects OBJECT IDENTIFIER ::= { casaHeMSAlarmMib 1 }
-casaHeMSAlarmTraps OBJECT IDENTIFIER ::= { casaHeMSAlarmMib 2}
-casaHeMSSystemAlarm OBJECT IDENTIFIER ::= { casaHeMSAlarmTraps 1}
-memoryUsageIsHigh NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS 	    current
-DESCRIPTION
-"AeMS Memory usage is high"
-::= { casaHeMSSystemAlarm 1 }
-cpuUsageIsHigh NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"AeMS CPU usage is high"
-::= { casaHeMSSystemAlarm 2 }
-hardDiskUsageIsHigh NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"AeMS Hard disk usage is high"
-::= { casaHeMSSystemAlarm 3 }
-haCommunicationAlarm NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"AeMS HA communication alarm"
-::= { casaHeMSSystemAlarm 4 }
-dbSlaveConnectionAlarm NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"AeMS DB slave connection alarm"
-::= { casaHeMSSystemAlarm 5 }
-dbArbiterConnectionAlarm NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"AeMS DB arbiter connection alarm"
-::= { casaHeMSSystemAlarm 6 }
-networkInterfaceAlarm NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"AeMS Network interface alarm"
-::= { casaHeMSSystemAlarm 7 }
-deviceOfflineAlarm NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Small Cell offline alarm"
-::= { casaHeMSSystemAlarm 8 }
-deviceOnlineAlarm NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Small Cell online alarm"
-::= { casaHeMSSystemAlarm 9 }
-radioOffAlarm NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Small Cell radioOff alarm"
-::= { casaHeMSSystemAlarm 10 }
-radioOnAlarm NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Small Cell radioOn alarm"
-::= { casaHeMSSystemAlarm 11 }
-cellOffAlarm NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Small Cell cellOff alarm"
-::= { casaHeMSSystemAlarm 12 }
-cellOnAlarm NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Small Cell cellOn alarm"
-::= { casaHeMSSystemAlarm 13 }
-dbReplicationAlarm NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"DB replication failed"
-::= { casaHeMSSystemAlarm 14 }
-remoteAeMSsStatusAlarm NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Remote AeMSs down"
-::= { casaHeMSSystemAlarm 15 }
-casaHeMSSmallCellAlarm OBJECT IDENTIFIER ::= { casaHeMSAlarmTraps 2 }
-l3NotDetected NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS 	    current
-DESCRIPTION
-"L3 not detected"
-::= { casaHeMSSmallCellAlarm 1 }
-l2NotDetected NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"L2 not detected"
-::= { casaHeMSSmallCellAlarm 2 }
-kpiAgentNotDetected NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"KPI Agent not detected"
-::= { casaHeMSSmallCellAlarm 3 }
-flashMemoryUsage NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Flash memory usage"
-::= { casaHeMSSmallCellAlarm 4 }
-mmeConnectionIsDown NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"MME connection is down"
-::= { casaHeMSSmallCellAlarm 5 }
-congestion NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"RRM overload"
-::= { casaHeMSSmallCellAlarm 6 }
-errorAccessingFile NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Error accessing file"
-::= { casaHeMSSmallCellAlarm 7 }
-cpuCyclesLimitExceeded NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"CPU usage exceeds defined threshold"
-::= { casaHeMSSmallCellAlarm 8 }
-reTransmissionRateExcessive NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"The MAC has an excessive rate of NACKs"
-::= { casaHeMSSmallCellAlarm 9 }
-overTheAirSynchronizationLost NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Syncrhonization with the macro OTA is lost"
-::= { casaHeMSSmallCellAlarm 10 }
-gpsSynchronizationLost NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"GPS synchronization lost"
-::= { casaHeMSSmallCellAlarm 11 }
-cellSynchronizationFailure NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Cell synchronization failure"
-::= { casaHeMSSmallCellAlarm 12 }
-sctpFailure NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"SCTP connection failure"
-::= { casaHeMSSmallCellAlarm 13 }
-lanError NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Ethernet error"
-::= { casaHeMSSmallCellAlarm 14 }
-cpuTemperatureUnacceptable NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"CPU Temperature exceeds defined threshold"
-::= { casaHeMSSmallCellAlarm 15 }  
-paTemperatureUnacceptable NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"The tempeature in the PA exceeds the defined threshold"
-::= { casaHeMSSmallCellAlarm 16 }  
-unauthorisedAccessAttempt NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Someone or some process did attempt unsuccesfully to login the web interface"
-::= { casaHeMSSmallCellAlarm 17 } 
-configurationOrCustomizingErrror NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"The configuration received from OAM interfaces (EMS, CLI, HTTP etc) is wrong"
-::= { casaHeMSSmallCellAlarm 18 } 
-outOfMemory NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"RAM usage is high and surpassed the defined threshold"
-::= { casaHeMSSmallCellAlarm 19 } 
-thresholdCrossedRLF NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"The MAC has too many RLF s"
-::= { casaHeMSSmallCellAlarm 20 } 
-thresholdCrossedLowSINR NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"The MAC has too many low SINR events"
-::= { casaHeMSSmallCellAlarm 21 } 
-paBiasingFailure NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"The PA board was not able to properly biasing"
-::= { casaHeMSSmallCellAlarm 22 } 
-pciCollision NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"The eNB is configured with the same PCI as another neighbor cell"
-::= { casaHeMSSmallCellAlarm 23 } 
-pciConfusion NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"The eNB detects that it is configurted with the same PCI as another neighbor of second ring cell"
-::= { casaHeMSSmallCellAlarm 24 } 
-killSwitch NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"An external signal is activated when detetecting power supply outage, and this signal reaches the self-healing process, which raises alarm and gracefully halts the eNB"
-::= { casaHeMSSmallCellAlarm 25 }  
-l1StartTimeout NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"the protocol stack cannot start L1 process in DSPs"
-::= { casaHeMSSmallCellAlarm 26 }  
-dspOrPhyCrash NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"the DSPs running the PHY crashes"
-::= { casaHeMSSmallCellAlarm 27 } 
-clockSynchronizationProblem NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Cell not synchronized"
-::= { casaHeMSSmallCellAlarm 28 } 
-synchronizationLostWithAllSources NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"the synchornization is lost and the eNB passes to holdover mode"
-::= { casaHeMSSmallCellAlarm 29 } 
-invalidPhyOrRfConfiguration NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Invalid PHY or RF configuration"
-::= { casaHeMSSmallCellAlarm 30 }
-systemInformationConfigurationFailure NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"System information configuration failure"
-::= { casaHeMSSmallCellAlarm 31 }
-failedBackingUpConfigurationFile NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Any process of eNB raises this alarm if it gets error while backing up a file"
-::= { casaHeMSSmallCellAlarm 32 }
-failedRestoringConfigurationFile NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Any process of eNB raises this alarm if it gets error while restoring a corrupted configuration file"
-::= { casaHeMSSmallCellAlarm 33 }
-singleMmeConnectionIsDown NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Single MME connection is down"
-::= { casaHeMSSmallCellAlarm 34 }
-ipsecTunnelIsDown NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"System monitors IPsec tunnel and raises the alarm when the tunnel fails"
-::= { casaHeMSSmallCellAlarm 35 }
-ipsecTunnelExpiry NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"System monitors IPsec tunnel and raises the alarm when the tunnel rekeying fails"
-::= { casaHeMSSmallCellAlarm 36 }
-ipsecTunnelIkeSaExpiry NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"System monitors IPsec tunnel and raises the alarm when the IKE rekeying fails"
-::= { casaHeMSSmallCellAlarm 37 }
-operatorCertificateExpired NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"System raises the alarm when the Operator certificate cannot be renewed"
-::= { casaHeMSSmallCellAlarm 38 }
-holdoverPeriodExpiration NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"L3 process raises the alarm when the eNB is working for all the holdover time without re-synchronizing"
-::= { casaHeMSSmallCellAlarm 39 }
-administrativeReboot NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"OAM process will send this informational alarm upon administrative reboot"
-::= { casaHeMSSmallCellAlarm 40 }
-forcedReboot NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Self-healing agent raises this alarm upon detection of major failure requiring a reboot"
-::= { casaHeMSSmallCellAlarm 41 }
-maxMMEAttemptsExceeded NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"L3 process is responsible to handle connection with MME, so it raises the alarm if the connection is lost with all MMEs and the maximum number of retries is reached"
-::= { casaHeMSSmallCellAlarm 42 }
-rebootLoop NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"System raises this alarm upon detection of several continious reboots in a short period of time"
-::= { casaHeMSSmallCellAlarm 43 }
-dnsResolutionFailure NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"System raises this alarm upon failure to resolve the IP addresses of a FQDN"
-::= { casaHeMSSmallCellAlarm 44 }
-casaHeMSSmallCellGWAlarm NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS 	    current
-DESCRIPTION
-"Casa HeMS SmallCell-GW Alarm"
-::= { casaHeMSAlarmTraps 3 }
-casaHeMSHeartBeatMsg NOTIFICATION-TYPE
-STATUS      current
-DESCRIPTION 
-"Casa HeMS HeartBeat Msg"
-::= { casaHeMSAlarmTraps 4 } 
-tr069NotDetected NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Self-healing agent monitors processes and raises alarm if it detects the process dying"
-::= { casaHeMSSmallCellAlarm 45 }       
-watchdogNotDetected  NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Linux system monitorize system self-healing agent and reboots the eNB"
-::= { casaHeMSSmallCellAlarm 46 }      
-criticalConfigurationFailure  NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"L3 process detects this situation and raises alarm if mandatory EPC configuration parameters are not configured"
-::= { casaHeMSSmallCellAlarm 47 } 
-oOAMProxyRestarted  NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"Kill OAM proxy process to force the generation of the alarm"
-::= { casaHeMSSmallCellAlarm 48 }
-cCMSServerConnectionFailure  NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"System raises the alarm when the Operator certificate server cannot be connected. This alarm has been deprecated on AeMS."
-::= { casaHeMSSmallCellAlarm 49 }       
-aAeMSConnectionNoResponse  NOTIFICATION-TYPE
-OBJECTS
-{
-neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
-}
-STATUS      current
-DESCRIPTION
-"System raises the alarm when the eNB cannot connect to AeMS server"
-::= { casaHeMSSmallCellAlarm 50 } 
-END
+MODULE-IDENTITY, OBJECT-TYPE, NOTIFICATION-TYPE,
+Unsigned32, Gauge32
+FROM SNMPv2-SMI
+TruthValue, DateAndTime
+FROM SNMPv2-TC
+SnmpAdminString
+FROM SNMP-FRAMEWORK-MIB
+ericssonModules
+FROM ERICSSON-TOP-MIB
+EriAdditionalText, EriLargeAdditionalText, EriAlarmType,
+EriAlarmSequenceNumber, EriAlarmIndex, EriAlarmSpecificProblem, 
+EriAdditionalInfo, EriLargeAdditionalInfo, EriAlarmRecordType,
+EriAppendedAdditionalInfo, EriAlarmSourceIdentifierType
+FROM ERICSSON-ALARM-TC-MIB
+EriProbableCause
+FROM ERICSSON-ALARM-PC-MIB
+EriPath
+FROM ERICSSON-TC-MIB
+ResourceId
+FROM ALARM-MIB
+ItuPerceivedSeverity
+FROM ITU-ALARM-TC-MIB
+IANAItuEventType
+FROM IANA-ITU-ALARM-TC-MIB
+snmpTargetBasicGroup
+FROM SNMP-TARGET-MIB
+snmpNotifyGroup
+FROM SNMP-NOTIFICATION-MIB
+OBJECT-GROUP, NOTIFICATION-GROUP, MODULE-COMPLIANCE
+FROM SNMPv2-CONF;
+ericssonAlarmXpathMIB MODULE-IDENTITY
+LAST-UPDATED "202303300000Z"
+ORGANIZATION "Ericsson AB"
+CONTACT-INFO
+"Ericsson first line support by email."
+DESCRIPTION
+"This MIB Module is an Ericsson-wide SNMP
+interface for managing alarms. Main inputs to
+the MIB design are the 3GPP Alarm IRP and X.733.
+However, an important restriction is that the MIB
+only represents the resource view and not
+management activities like acknowledgment, etc.
+It describes generic notifications used to send
+alarm state changes and a table which represents
+the current active alarms in the system. The MIB
+supports both stateful alarms and stateless
+alerts.
+It is important to identify clearly what is to be
+considered the same alarm object instance. All
+unique alarm *types* are identified by
+'AlarmType'. An AlarmType is a one-to-one
+mapping with X.733 EventType, ProbabableCause and
+SpecificProblem. A pair of integers are used to
+specify the alarm type.
+A unique alarm object *instance* is the
+combination of YangNodeInstance and AlarmType. 
+In this way, there is no ambiguity about how alarm
+and alarm clear correlation should be performed:
+the same YANG resource instance and AlarmType
+shall be used. The same is true for changing
+existing alarm states. Severity, Additional Text 
+and Additional Info can be changed on an existing
+alarm.
+For stateful alarms there are notifications to
+report a new alarm and a cleared alarm. Changing
+an alarm is done through the new alarm notification.
+The management system shall match the alarm by
+using alarm type and YangNodeInstance
+in the same way as for clear notifications.
+The MIB has different notifications for different
+severities in order to support SNMP managers
+which maps severities based on notification
+identifiers. For stateless alerts, there are
+generic notifications to send the alerts
+with different severities.
+NOTE - Updated Definition of Alerts in TEA (The 
+Ericsson Architecture):
+Alerts are used by service management systems 
+to evaluate service impact, and are only applicable 
+to very specific state changes with potential service
+impact like restart and redundancy shifts. 
+Alerts SHALL NOT be used for fault indication.
+Alerts should always have Perceived Severity
+Indeterminate, and should only be sent using
+eriAlarmXIndAlert notification. The other severity
+alert notifications should not be used, and are
+only present in this specification for
+backward compatibility reasons.
+A table lists all active alarms so that a manager
+can read an initial state and also perform an
+alarm resynchronization procedure. There is also
+a table of latest stateless alarms. Since the
+stateless alarms do not have a corresponding
+clear message, the table size is limited by the
+agent instrumentation.
+The MIB supports two approaches for detecting
+lost notifications:
+- sequence numbers are used in the alarm
+notifications, and are shown in the active
+alarm table. The last used sequence number can
+be read in a scalar variable
+- a time stamp indicates the last time alarm
+tables were updated.
+Heartbeat mechanisms are supported both in pull
+and push mode:
+- Pull: the classical SNMP polling where a
+manager polls a scalar variable, for example
+the last sequence number used
+- Push: the agent can be configured to send
+heartbeat notifications. These contains the
+last used sequence numbers.
+Document number: 11/196 03-CXC 172 7549."
+REVISION "202303300000Z"
+DESCRIPTION
+"New revision to avoid disambiguities, because 
+accidentally two different Rev. D were created: 
+-  One with the change indicated below for the 
+previous revision and a change for CONTACT-INFO 
+-  One with only the change for CONTACT-INFO
+Rev. E contains all the above changes. Additionally
+TAB characters converted to SPACE characters.
+Editorial improvements in DESCRIPTION elements.
+Document number: 11/196 03-CXC 172 7549, Rev E."
+REVISION "202106160000Z"
+DESCRIPTION
+"Added new GROUP:
+eriAlarmXSourceIdentifierGroup
+--==========
+--==Groups==
+--==========
+eriAlarmXObjects            OBJECT IDENTIFIER ::= { ericssonAlarmXpathMIB 1 }
+eriAlarmXNotifications      OBJECT IDENTIFIER ::= { ericssonAlarmXpathMIB 2 }
+eriAlarmXNotifsPrefix       OBJECT IDENTIFIER ::= { eriAlarmXNotifications 0 }
+eriAlarmXConformance        OBJECT IDENTIFIER ::= { ericssonAlarmXpathMIB 4 }
+eriAlarmXSummary            OBJECT IDENTIFIER ::= { eriAlarmXObjects 1 } -- eriAlarmXSum
+eriAlarmXNotifObjects       OBJECT IDENTIFIER ::= { eriAlarmXObjects 2 } -- eriAlarmXNObj
+eriAlarmXActiveAlarms       OBJECT IDENTIFIER ::= { eriAlarmXObjects 3 } -- eriAlarmXActive
+eriAlarmXAlerts             OBJECT IDENTIFIER ::= { eriAlarmXObjects 4 } -- eriAlarmXAlert
+eriAlarmXHeartBeat          OBJECT IDENTIFIER ::= { eriAlarmXObjects 5 } -- eriAlarmXHb
+--====================
+--==Alarm summary==
+--====================
+--=============================
+-- Notification objects
+--==============================
+--======================
+--==Active Alarm table==
+--======================
+EriAlarmXActiveAlarmEntry ::= SEQUENCE {
+eriAlarmXActiveIndex                        EriAlarmIndex,
+eriAlarmXActiveMajorType                  EriAlarmType, -- Unique integer
+eriAlarmXActiveMinorType                  EriAlarmType, -- Unique integer
+eriAlarmXActiveSpecificProblem    EriAlarmSpecificProblem, -- Unique text
+eriAlarmXActiveYangNodeInstance  EriPath, -- Abridged YANG Instance-Identifier
+eriAlarmXActiveEventType                       IANAItuEventType, -- X.733
+eriAlarmXActiveEventTime       DateAndTime, -- Time for last state change
+eriAlarmXActiveOriginalEventTime     DateAndTime, -- Time for alarm raise
+eriAlarmXActiveProbableCause                EriProbableCause, -- X.733
+eriAlarmXActiveSeverity        ItuPerceivedSeverity, -- Last state change
+eriAlarmXActiveOriginalSeverity      ItuPerceivedSeverity, -- Alarm raise
+eriAlarmXActiveAdditionalText  EriLargeAdditionalText, -- Last state change
+eriAlarmXActiveOrigAdditionalText  EriLargeAdditionalText, -- Alarm raise
+eriAlarmXActiveResourceId                ResourceId, -- SNMP OID for MO
+eriAlarmXActiveAdditionalInfo  EriLargeAdditionalInfo -- Last state change
+}
+--======================
+--==Alert table==
+--======================
+-- This table lists the latest reported alerts.
+::= { eriAlarmXAlertTable 1 }
+EriAlarmXAlertEntry ::= SEQUENCE {
+eriAlarmXAlertIndex                EriAlarmIndex,
+eriAlarmXAlertMajorType                EriAlarmType,
+eriAlarmXAlertMinorType                EriAlarmType,
+eriAlarmXAlertSpecificProblem        EriAlarmSpecificProblem,
+eriAlarmXAlertYangNodeInstance        EriPath,
+eriAlarmXAlertEventType                IANAItuEventType,
+eriAlarmXAlertEventTime                DateAndTime,
+eriAlarmXAlertProbableCause        EriProbableCause,
+eriAlarmXAlertSeverity                ItuPerceivedSeverity,
+eriAlarmXAlertAdditionalText        EriLargeAdditionalText,
+eriAlarmXAlertResourceId                ResourceId,
+eriAlarmXAlertAdditionalInfo           EriLargeAdditionalInfo
+}
+--=============
+-- Heartbeat
+--==============
+--====================================================
+--==Notifications and notification specific objects ==
+--====================================================
+eriAlarmXIndeterminate NOTIFICATION-TYPE
+OBJECTS {
+eriAlarmXActiveYangNodeInstance,
+eriAlarmXActiveMajorType,
+eriAlarmXActiveMinorType,
+eriAlarmXActiveSpecificProblem,
+eriAlarmXActiveLastSequenceNo,
+eriAlarmXActiveEventType,
+eriAlarmXActiveEventTime,
+eriAlarmXActiveProbableCause,
+eriAlarmXNObjAdditionalText,
+eriAlarmXNObjMoreAdditionalText,
+eriAlarmXNObjResourceId,
+eriAlarmXNObjAdditionalInfo,
+eriAlarmXNObjMoreAdditionalInfo,
+eriAlarmXNObjRecordType,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier
+}
+STATUS                current
+DESCRIPTION
+"This notification is sent when a resource
+detects a new alarm state with severity
+indeterminate. The notification is also used to
+change severity, additional text and/or additional 
+info of an alarm. The eriAlarmXNObjRecordType
+varbind will indicate whether this is a new alarm
+instance or a change to an existing alarm instance.
+The combination of YangNodeInstance 
+and MajorType/MinorType is always unique and can be
+used by management systems to correlate alarm,
+alarm change, and alarm clear. A corresponding
+row will be created in the Alarm Table. The
+sequence number will increase for every
+notification and can be used to detect lost
+notifications.
+A management system should be prepared for
+appending text to additional text, indicated by
+the eriAlarmXNObjMoreAdditionalText varbind, and
+sent with eriAlarmXAppendInfo.  (Note do not
+confuse this with a change of additional text.)
+A management system should be prepared for
+appending text to additional info, indicated by
+the eriAlarmXNObjMoreAdditionalInfo varbind, and
+sent with eriAlarmXAppendInfo.  (Note do not
+confuse this with a change of additional info.)
+A management system should also be prepared to
+receive a resource ID (OID) identifying the
+alarming resource if the system sending the
+notification can provide that information.  In
+that case, eriAlarmXNObjResourceId will be set to
+'true' and the resource ID will be sent in an
+eriAlarmXAppendInfo notification."
+::= { eriAlarmXNotifsPrefix 1 }
+eriAlarmXWarning NOTIFICATION-TYPE
+OBJECTS {
+eriAlarmXActiveYangNodeInstance,
+eriAlarmXActiveMajorType,
+eriAlarmXActiveMinorType,
+eriAlarmXActiveSpecificProblem,
+eriAlarmXActiveLastSequenceNo,
+eriAlarmXActiveEventType,
+eriAlarmXActiveEventTime,
+eriAlarmXActiveProbableCause,
+eriAlarmXNObjAdditionalText,
+eriAlarmXNObjMoreAdditionalText,
+eriAlarmXNObjResourceId,
+eriAlarmXNObjAdditionalInfo,
+eriAlarmXNObjMoreAdditionalInfo,
+eriAlarmXNObjRecordType,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier
+}
+STATUS                current
+DESCRIPTION
+"This notification is sent when a resource
+detects a new alarm state with severity warning.
+The notification is also used to change severity,
+additional text and/or additional info
+of an alarm. The eriAlarmXNObjRecordType
+varbind will indicate whether this is a new alarm
+instance or a change to an existing alarm instance.
+The combination of YangNodeInstance and 
+MajorType/MinorType is always unique and can be
+used by management systems to correlate alarm,
+alarm change, and alarm clear. A corresponding
+row will be created in the Alarm Table,
+(eriAlarmXActiveAlarmTable). The sequence number
+will increase for every notification and can be
+used to detect lost notifications.
+A management system should be prepared for
+appending text to additional text, indicated by
+the eriAlarmXNObjMoreAdditionalText varbind, and
+sent with eriAlarmXAppendInfo. (Note do not
+confuse this with a change of additional text.)
+A management system should be prepared for
+appending text to additional info, indicated by
+the eriAlarmXNObjMoreAdditionalInfo varbind, and
+sent with eriAlarmXAppendInfo.  (Note do not
+confuse this with a change of additional info.)
+A management system should also be prepared to
+receive a resource ID (OID) identifying the
+alarming resource if the system sending the
+notification can provide that information.  In
+that case, eriAlarmXNObjResourceId will be set to
+'true' and the resource ID will be sent in an
+eriAlarmXAppendInfo notification."
+::= { eriAlarmXNotifsPrefix 2 }
+eriAlarmXMinor NOTIFICATION-TYPE
+OBJECTS {
+eriAlarmXActiveYangNodeInstance,
+eriAlarmXActiveMajorType,
+eriAlarmXActiveMinorType,
+eriAlarmXActiveSpecificProblem,
+eriAlarmXActiveLastSequenceNo,
+eriAlarmXActiveEventType,
+eriAlarmXActiveEventTime,
+eriAlarmXActiveProbableCause,
+eriAlarmXNObjAdditionalText,
+eriAlarmXNObjMoreAdditionalText,
+eriAlarmXNObjResourceId,
+eriAlarmXNObjAdditionalInfo,
+eriAlarmXNObjMoreAdditionalInfo,
+eriAlarmXNObjRecordType,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier
+}
+STATUS                current
+DESCRIPTION
+"This notification is sent when a resource
+detects a new alarm state with severity minor.
+The notification is also used to change severity,
+additional text and/or additional info
+of an alarm. The eriAlarmXNObjRecordType
+varbind will indicate whether this is a new alarm
+instance or a change to an existing alarm instance.
+The combination of YangNodeInstance and 
+MajorType/MinorType is always unique and can be
+used by management systems to correlate alarm,
+alarm change, and alarm clear. A corresponding
+row will be created in the Alarm Table,
+(eriAlarmXActiveAlarmTable). The sequence number
+will increase for every notification and can be
+used to detect lost notifications.
+A management system should be prepared for
+appending text to additional text, indicated by
+the eriAlarmXNObjMoreAdditionalText varbind, and
+sent with eriAlarmXAppendInfo. (Note do not
+confuse this with a change of additional text.)
+A management system should be prepared for
+appending text to additional info, indicated by
+the eriAlarmXNObjMoreAdditionalInfo varbind, and
+sent with eriAlarmXAppendInfo.  (Note do not
+confuse this with a change of additional info.)
+A management system should also be prepared to
+receive a resource ID (OID) identifying the
+alarming resource if the system sending the
+notification can provide that information.  In
+that case, eriAlarmXNObjResourceId will be set to
+'true' and the resource ID will be sent in an
+eriAlarmXAppendInfo notification."
+::= { eriAlarmXNotifsPrefix 3 }
+eriAlarmXMajor NOTIFICATION-TYPE
+OBJECTS {
+eriAlarmXActiveYangNodeInstance,
+eriAlarmXActiveMajorType,
+eriAlarmXActiveMinorType,
+eriAlarmXActiveSpecificProblem,
+eriAlarmXActiveLastSequenceNo,
+eriAlarmXActiveEventType,
+eriAlarmXActiveEventTime,
+eriAlarmXActiveProbableCause,
+eriAlarmXNObjAdditionalText,
+eriAlarmXNObjMoreAdditionalText,
+eriAlarmXNObjResourceId,
+eriAlarmXNObjAdditionalInfo,
+eriAlarmXNObjMoreAdditionalInfo,
+eriAlarmXNObjRecordType,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier
+}
+STATUS                current
+DESCRIPTION
+"This notification is sent when a resource
+detects a new alarm state with severity major.
+The notification is also used to change severity,
+additional text and/or additional info
+of an alarm. The eriAlarmXNObjRecordType
+varbind will indicate whether this is a new alarm
+instance or a change to an existing alarm instance.
+The combination of YangNodeInstance and 
+MajorType/MinorType is always unique and can be
+used by management systems to correlate alarm,
+alarm change, and alarm clear. A corresponding
+row will be created in the Alarm Table,
+(eriAlarmXActiveAlarmTable). The sequence number
+will increase for every notification and can be
+used to detect lost notifications.
+A management system should be prepared for
+appending text to additional text, indicated by
+the eriAlarmXNObjMoreAdditionalText varbind, and
+sent with eriAlarmXAppendInfo. (Note do not
+confuse this with a change of additional text.)
+A management system should be prepared for
+appending text to additional info, indicated by
+the eriAlarmXNObjMoreAdditionalInfo varbind, and
+sent with eriAlarmXAppendInfo.  (Note do not
+confuse this with a change of additional info.)
+A management system should also be prepared to
+receive a resource ID (OID) identifying the
+alarming resource if the system sending the
+notification can provide that information.  In
+that case, eriAlarmXNObjResourceId will be set to
+'true' and the resource ID will be sent in an
+eriAlarmXAppendInfo notification."
+::= { eriAlarmXNotifsPrefix 4 }
+eriAlarmXCritical NOTIFICATION-TYPE
+OBJECTS {
+eriAlarmXActiveYangNodeInstance,
+eriAlarmXActiveMajorType,
+eriAlarmXActiveMinorType,
+eriAlarmXActiveSpecificProblem,
+eriAlarmXActiveLastSequenceNo,
+eriAlarmXActiveEventType,
+eriAlarmXActiveEventTime,
+eriAlarmXActiveProbableCause,
+eriAlarmXNObjAdditionalText,
+eriAlarmXNObjMoreAdditionalText,
+eriAlarmXNObjResourceId,
+eriAlarmXNObjAdditionalInfo,
+eriAlarmXNObjMoreAdditionalInfo,
+eriAlarmXNObjRecordType,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier
+}
+STATUS                current
+DESCRIPTION
+"This notification is sent when a resource
+detects a new alarm state with severity critical.
+The notification is also used to change severity,
+additional text and/or additional info
+of an alarm. The eriAlarmXNObjRecordType
+varbind will indicate whether this is a new alarm
+instance or a change to an existing alarm instance.
+The combination of YangNodeInstance and 
+MajorType/MinorType is always unique and can be
+used by management systems to correlate alarm,
+alarm change, and alarm clear. A corresponding
+row will be created in the Alarm Table,
+(eriAlarmXActiveAlarmTable). The sequence number
+will increase for every notification and can be
+used to detect lost notifications.
+A management system should be prepared for
+appending text to additional text, indicated by
+the eriAlarmXNObjMoreAdditionalText varbind, and
+sent with eriAlarmXAppendInfo. (Note do not
+confuse this with a change of additional text.)
+A management system should be prepared for
+appending text to additional info, indicated by
+the eriAlarmXNObjMoreAdditionalInfo varbind, and
+sent with eriAlarmXAppendInfo.  (Note do not
+confuse this with a change of additional info.)
+A management system should also be prepared to
+receive a resource ID (OID) identifying the
+alarming resource if the system sending the
+notification can provide that information.  In
+that case, eriAlarmXNObjResourceId will be set to
+'true' and the resource ID will be sent in an
+eriAlarmXAppendInfo notification."
+::= { eriAlarmXNotifsPrefix 5 }
+eriAlarmXCleared NOTIFICATION-TYPE
+OBJECTS {
+eriAlarmXActiveYangNodeInstance,
+eriAlarmXActiveMajorType,
+eriAlarmXActiveMinorType,
+eriAlarmXActiveSpecificProblem,
+eriAlarmXActiveLastSequenceNo,
+eriAlarmXActiveEventType,
+eriAlarmXActiveEventTime,
+eriAlarmXActiveProbableCause,
+eriAlarmXNObjAdditionalText,
+eriAlarmXNObjMoreAdditionalText,
+eriAlarmXNObjResourceId,
+eriAlarmXNObjAdditionalInfo,
+eriAlarmXNObjMoreAdditionalInfo,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier
+}
+STATUS                current
+DESCRIPTION
+"This notification is sent when a resource
+detects a cleared alarm state. The combination of
+YangNodeInstance and MajorType/MinorType is
+always unique and shall be used by management
+systems to correlate alarm and alarm clear. 
+The corresponding row in the alarm table will be
+deleted, (eriAlarmXActiveAlarmTable). The
+sequence number will increase for every
+notification and can be used to detect lost
+notifications. 
+Note that it should not be required to send an
+append trap for a cleared alarm. Those varbinds
+which flag that an append trap will follow are 
+kept here for backward compatibility reasons."
+::= { eriAlarmXNotifsPrefix 7 }
+eriAlarmXAppendInfo NOTIFICATION-TYPE
+OBJECTS {
+eriAlarmXActiveYangNodeInstance,
+eriAlarmXActiveMajorType,
+eriAlarmXActiveMinorType,
+eriAlarmXNObjAdditionalText,
+eriAlarmXActiveResourceId,
+eriAlarmXNObjAppendedAdditionalInfo,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier
+}
+STATUS                current
+DESCRIPTION
+"This notification is sent in order to append
+further info to an alarm notification. It might be
+additional text, additional info or a resource ID 
+(OID) identifying the alarming resource using an OID.
+If additional text/info is sent, do not confuse this
+with an actual change of additional text/info which 
+is reported using the eriAlarmX<severity>
+notification. 
+A zero-length string value for
+eriAlarmXNObjAdditionalText means that no
+additional text is being sent in this
+notification.
+A zero-length string value for
+eriAlarmXNObjAppendedAdditionalInfo means that no
+additional info is being sent in this
+notification.
+A null OID (0.0) value for
+eriAlarmXActiveResourceId means that no resource
+ID is being sent in this notification."
+::= { eriAlarmXNotifsPrefix 8 }
+--============================
+-- Alerts
+--===============================
+eriAlarmXIndAlert NOTIFICATION-TYPE
+OBJECTS {
+eriAlarmXAlertYangNodeInstance,
+eriAlarmXAlertMajorType,
+eriAlarmXAlertMinorType,
+eriAlarmXAlertSpecificProblem,
+eriAlarmXAlertLastSequenceNo,
+eriAlarmXAlertEventType,
+eriAlarmXAlertEventTime,
+eriAlarmXAlertProbableCause,
+eriAlarmXNObjAdditionalText,
+eriAlarmXNObjMoreAdditionalText,
+eriAlarmXNObjResourceId,
+eriAlarmXNObjAdditionalInfo,
+eriAlarmXNObjMoreAdditionalInfo,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier
+}
+STATUS        current
+DESCRIPTION
+"This notification is sent when a resource
+detects a new alert with severity indeterminate.
+A corresponding row will be created in the Alert
+Table. The sequence number will increase for
+every notification and can be used to detect lost
+notifications."
+::= { eriAlarmXNotifsPrefix 10 }
+eriAlarmXWarnAlert NOTIFICATION-TYPE
+OBJECTS {
+eriAlarmXAlertYangNodeInstance,
+eriAlarmXAlertMajorType,
+eriAlarmXAlertMinorType,
+eriAlarmXAlertSpecificProblem,
+eriAlarmXAlertLastSequenceNo,
+eriAlarmXAlertEventType,
+eriAlarmXAlertEventTime,
+eriAlarmXAlertProbableCause,
+eriAlarmXNObjAdditionalText,
+eriAlarmXNObjMoreAdditionalText,
+eriAlarmXNObjResourceId,
+eriAlarmXNObjAdditionalInfo,
+eriAlarmXNObjMoreAdditionalInfo,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier
+}
+STATUS                current
+DESCRIPTION
+"This notification is sent when a resource
+detects a new alert with severity warning. A
+corresponding row will be created in the Alert
+Table. The sequence number will increase for
+every notification and can be used to detect lost
+notifications."
+::= { eriAlarmXNotifsPrefix 11 }
+eriAlarmXMinorAlert NOTIFICATION-TYPE
+OBJECTS {
+eriAlarmXAlertYangNodeInstance,
+eriAlarmXAlertMajorType,
+eriAlarmXAlertMinorType,
+eriAlarmXAlertSpecificProblem,
+eriAlarmXAlertLastSequenceNo,
+eriAlarmXAlertEventType,
+eriAlarmXAlertEventTime,
+eriAlarmXAlertProbableCause,
+eriAlarmXNObjAdditionalText,
+eriAlarmXNObjMoreAdditionalText,
+eriAlarmXNObjResourceId,
+eriAlarmXNObjAdditionalInfo,
+eriAlarmXNObjMoreAdditionalInfo,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier
+}
+STATUS                current
+DESCRIPTION
+"This notification is sent when a resource
+detects a new alert with severity minor. A
+corresponding row will be created in the Alert
+Table. The sequence number will increase for
+every notification and can be used to detect lost
+notifications."
+::= { eriAlarmXNotifsPrefix 12 }
+eriAlarmXMajorAlert NOTIFICATION-TYPE
+OBJECTS {
+eriAlarmXAlertYangNodeInstance,
+eriAlarmXAlertMajorType,
+eriAlarmXAlertMinorType,
+eriAlarmXAlertSpecificProblem,
+eriAlarmXAlertLastSequenceNo,
+eriAlarmXAlertEventType,
+eriAlarmXAlertEventTime,
+eriAlarmXAlertProbableCause,
+eriAlarmXNObjAdditionalText,
+eriAlarmXNObjMoreAdditionalText,
+eriAlarmXNObjResourceId,
+eriAlarmXNObjAdditionalInfo,
+eriAlarmXNObjMoreAdditionalInfo,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier
+}
+STATUS                current
+DESCRIPTION
+"This notification is sent when a resource
+detects a new alert with severity major. A
+corresponding row will be created in the Alert
+Table. The sequence number will increase for
+every notification and can be used to detect lost
+notifications."
+::= { eriAlarmXNotifsPrefix 13 }
+eriAlarmXCriticalAlert NOTIFICATION-TYPE
+OBJECTS {
+eriAlarmXAlertYangNodeInstance,
+eriAlarmXAlertMajorType,
+eriAlarmXAlertMinorType,
+eriAlarmXAlertSpecificProblem,
+eriAlarmXAlertLastSequenceNo,
+eriAlarmXAlertEventType,
+eriAlarmXAlertEventTime,
+eriAlarmXAlertProbableCause,
+eriAlarmXNObjAdditionalText,
+eriAlarmXNObjMoreAdditionalText,
+eriAlarmXNObjResourceId,
+eriAlarmXNObjAdditionalInfo,
+eriAlarmXNObjMoreAdditionalInfo,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier
+}
+STATUS                current
+DESCRIPTION
+"This notification is sent when a resource
+detects a new alert with severity critical. A
+corresponding row will be created in the Alert
+Table. The sequence number will increase for
+every notification and can be used to detect lost
+notifications."
+::= { eriAlarmXNotifsPrefix 14 }
+eriAlarmXAppendAlertInfo NOTIFICATION-TYPE
+OBJECTS {
+eriAlarmXAlertYangNodeInstance,
+eriAlarmXAlertMajorType,
+eriAlarmXAlertMinorType,
+eriAlarmXNObjAdditionalText,
+eriAlarmXAlertResourceId,
+eriAlarmXNObjAppendedAdditionalInfo,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier
+}
+STATUS                current
+DESCRIPTION
+"This notification is sent in order to append
+further info to an alert notification. It might be
+additional text or a resource ID (OID)
+identifying the alarming resource using an OID.
+This complements information sent in a previous
+notification.
+If additional text/info is sent, do not confuse this
+with an actual change of additional text/info which is
+reported using the eriAlarmXAlert<severity>
+notification.
+A zero-length string value for
+eriAlarmXNObjAdditionalText means that no
+additional text is being sent in this
+notification.
+A zero-length string value for
+eriAlarmXNObjAppendedAdditionalInfo means that no
+additional info is being sent in this
+notification.
+A null OID (0.0) value for
+eriAlarmXAlertResourceId means that no resource
+ID is being sent in this notification."
+::= { eriAlarmXNotifsPrefix 15 }
+eriAlarmXHeartBeatNotif NOTIFICATION-TYPE
+OBJECTS {
+eriAlarmXActiveLastSequenceNo,
+eriAlarmXAlertLastSequenceNo,
+eriAlarmXActiveLastChanged,
+eriAlarmXAlertLastChanged,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier
+}
+STATUS                current
+DESCRIPTION
+"This is a heartbeat notification with interval
+according to the eriAlarmXHbInterval. It contains
+the last sequence numbers used for alarms and
+alarm events. These varbinds can be used to
+detect lost notifications.
+The notification eriAlarmXHeartBeatNotif will be
+sent every eriAlarmXHbInterval. Managers can
+subscribe to the notification using the SNMP
+framework MIBS by using the snmpNotifyName
+'heartbeat'. (SNMP-NOTIFICATION-MIB,
+snmpNotifyTable)."
+::= { eriAlarmXNotifsPrefix 20}
+eriAlarmXAlarmListRebuilt NOTIFICATION-TYPE
+OBJECTS { eriAlarmXActiveTableURL,
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier }
+STATUS                current
+DESCRIPTION
+"This notification is sent when the active alarm
+list has reached a stable situation after a
+restart or after a system internal audit process.
+It is an indication to the manager to perform a
+alarm resynchronization procedure."
+::= { eriAlarmXNotifsPrefix 30}
+--======================================================================
+-- CONFORMANCE INFORMATION
+--======================================================================
+eriAlarmXCompliances        OBJECT IDENTIFIER ::= { eriAlarmXConformance 1 }
+eriAlarmXGroups        OBJECT IDENTIFIER ::= { eriAlarmXConformance 2 }
+--======================================================================
+-- COMPLIANCE STATEMENTS
+--======================================================================
+END --this file
