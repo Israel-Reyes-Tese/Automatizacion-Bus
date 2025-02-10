@@ -1566,6 +1566,16 @@ sub extraer_objects_status_description {
             $objects =~ s/\}$//; # Eliminar la llave de cierre
             $alarm_traps{$current_alarm}->{OBJECTS} = join(', ', split(/\s*,\s*/, $objects));
 
+        } elsif (/^OBJECTS\s*$/) {
+            my $objects = '';
+            while ($objects !~ /\}$/) {
+                $_ = <$fh_all>;
+                chomp;
+                $objects .= " $_";
+            }
+            $objects =~ s/^\s*\{\s*|\s*\}\s*$//g; # Eliminar las llaves de apertura y cierre
+            $alarm_traps{$current_alarm}->{OBJECTS} = join(', ', split(/\s*,\s*/, $objects));
+
         } elsif (/^NOTIFICATIONS\s*\{\s*(.*)$/) {
             my $objects = $1;
             while ($objects !~ /\}$/) {
@@ -2235,7 +2245,6 @@ sub construir_oid_completo {
     $complete_oid = validar_y_complementar_oid($complete_oid, $oid_data) if $oid_data;
     return ($complete_oid, $complete_name);
 }
-
 # Función para construir el árbol de MIBs
 sub construir_arbol_mibs {
     my ($data, $oid_data) = @_;
@@ -2261,7 +2270,6 @@ sub construir_arbol_mibs {
     my $arbol_mibs_secundarios = construir_arbol_mibs_secundarios($data, $oid_data);
     return \%arbol_mibs, $arbol_mibs_secundarios;
 }
-
 # Función para construir el árbol de MIBs secundarios
 sub construir_arbol_mibs_secundarios {
     my ($data, $oid_data) = @_;

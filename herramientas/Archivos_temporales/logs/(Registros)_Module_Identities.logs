@@ -1,95 +1,52 @@
-#----------------------------------- MODULE IDENTITY  Integer32,  ---------------------------#
+#----------------------------------- MODULE IDENTITY  enterprises,  ---------------------------#
 Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: Integer32,
-#----------------------------------- MODULE IDENTITY  ucdavis  ---------------------------#
+Nombre del objeto: enterprises,
+#----------------------------------- MODULE IDENTITY  casaHeMSAlarmMib  ---------------------------#
 Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: ucdavis
-ucdavis MODULE-IDENTITY
-LAST-UPDATED    "200901190000Z"
-ORGANIZATION    
-"University of California, Davis"
-CONTACT-INFO    
-"This mib is no longer being maintained by the University of
-California and is now in life-support-mode and being
-maintained by the net-snmp project.  The best place to write
-for public questions about the net-snmp-coders mailing list
-at net-snmp-coders@lists.sourceforge.net.
-postal:   Wes Hardaker
-P.O. Box 382
-Davis CA  95617
-email:    net-snmp-coders@lists.sourceforge.net
-"
-DESCRIPTION     
-"This file defines the private UCD SNMP MIB extensions."
-REVISION        "201105140000Z"
-DESCRIPTION     
-"New objects for monitoring CPU Steal, Guest and Nice values"
-REVISION        "200901190000Z"
-DESCRIPTION     
-"New 64-bit objects for monitoring large disk usage"
-REVISION        "200611220000Z"
-DESCRIPTION     
-"Clarify behaviour of objects in the memory & systemStats groups
-(including updated versions of malnamed mem*Text objects).
-Define suitable TCs to describe error reporting/fix behaviour."
-REVISION        "200404070000Z"
-DESCRIPTION     
-"Added ssCpuRawSoftIRQ for Linux (2.6) and forgotten raw swap counters."
-REVISION        "200209050000Z"
-DESCRIPTION     
-"Deprecate the non-raw objects."
-REVISION        "200109200000Z"
-DESCRIPTION     
-"Group to monitor log files"
-REVISION        "200101170000Z"
-DESCRIPTION     
-"Added raw CPU and IO counters."
-REVISION        "199912090000Z"
-DESCRIPTION     
-"SMIv2 version converted from older MIB definitions."
-::= { enterprises 2021 }
+Nombre del objeto: casaHeMSAlarmMib
+casaHeMSAlarmMib MODULE-IDENTITY
+LAST-UPDATED "201804300000Z"		-- abril 30, 2018 at 00:00 GMT (201804300000Z)
+ORGANIZATION
+"CASA Systems Inc."
+CONTACT-INFO
+"Casa Systems Inc.     
+100 Old River Road, Suite 100           
+Andover, MA 01810     
+TEL: +1 978 688 6706     
+FAX: +1 978 688 6584		
+E-mail: support@casa-systems.com"
+DESCRIPTION
+"The Casa HeMS ALARM  MIB"
+::= { 1 3 6 1 4 1 20858 10 104 101 }
 
-#----------------------------------- MODULE IDENTITY  Integer32,  ---------------------------#
+#----------------------------------- MODULE IDENTITY  casaHeMSAlarmMib  ---------------------------#
 Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: Integer32,
-#----------------------------------- MODULE IDENTITY  ptiSegway  ---------------------------#
-Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: ptiSegway
-ptiSegway MODULE-IDENTITY
-LAST-UPDATED    "202004092025Z"
-ORGANIZATION    
-"www.pt.com"
-CONTACT-INFO    
-"Enter address"
-DESCRIPTION     
-"ptiSegway product MIB objects"
-REVISION        "201303140000Z"
-DESCRIPTION     
-"Initial release"
-::= { pti 17 }
+Nombre del objeto: casaHeMSAlarmMib
+casaHeMSAlarmMib MODULE-IDENTITY 
+LAST-UPDATED "201804300000Z"	
+ORGANIZATION 
+"CASA Systems Inc."
+CONTACT-INFO 
+"Casa Systems Inc.     
+100 Old River Road, Suite 100           
+Andover, MA 01810     
+TEL: +1 978 688 6706     
+FAX: +1 978 688 6584		
+E-mail: support@casa-systems.com"
+DESCRIPTION 
+"The Casa HeMS ALARM  MIB"
+::= { 1 3 6 1 4 1 20858 10 104 101 }
 
------------------------------------ ptiSegway ---------------------------
-ptiSegway:
+----------------------------------- casaHeMSAlarmMib ---------------------------
+casaHeMSAlarmMib:
   TYPE: MODULE-IDENTITY
-  LAST_UPDATED: 202004092025Z
-  ORGANIZATION: www.pt.com
-  CONTACT_INFO: Enter address
-  ARCHIVO: PTISEGWAY-MIB
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ucdavis ---------------------------
-ucdavis:
-  TYPE: MODULE-IDENTITY
-  LAST_UPDATED: 200901190000Z
-  ORGANIZATION: University of California, Davis
-  CONTACT_INFO: This mib is no longer being maintained by the University of
-California and is now in life-support-mode and being
-maintained by the net-snmp project.  The best place to write
-for public questions about the net-snmp-coders mailing list
-at net-snmp-coders@lists.sourceforge.net.
-postal:   Wes Hardaker
-P.O. Box 382
-Davis CA  95617
-email:    net-snmp-coders@lists.sourceforge.net
-
-  ARCHIVO: UCD-SNMP-MIB
+  LAST_UPDATED: 201804300000Z
+  ORGANIZATION: CASA Systems Inc.
+  CONTACT_INFO: Casa Systems Inc.     
+100 Old River Road, Suite 100           
+Andover, MA 01810     
+TEL: +1 978 688 6706     
+FAX: +1 978 688 6584		
+E-mail: support@casa-systems.com
+  ARCHIVO: casa-hems-alarm.mib
 ----------------------------------- Final de segmento -----------------------------------

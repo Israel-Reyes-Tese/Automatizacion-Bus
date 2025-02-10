@@ -60,11 +60,11 @@ my $logger = get_logger();
 #my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\SNMPv2-SMI'; 
 
 # Alarmas test
-#my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\casa-hems-alarm.mib';
+my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\casa-hems-alarm.mib';
 #my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\DISMAN-EVENT-MIB.mib';
 #my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\ERICSSON-ALARM-XPATH-MIB.mib';
 #my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\SMIv1\BAY-PACKETS-EMS-MIB';
-my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\SMIv1\SONUS-COMMUNICATOR-MIB';
+#my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\SMIv1\SONUS-COMMUNICATOR-MIB';
 
 
 #my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Object_Identifiers.logs';
