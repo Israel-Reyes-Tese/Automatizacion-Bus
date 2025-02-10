@@ -925,7 +925,6 @@ sub eliminar_textual_convention {
     print $fh_out @filtered_lines;
     close $fh_out or croak "Error al cerrar el archivo $file: $!";
 }
-
 # Función para extraer OBJECT-IDENTITY de un archivo MIB
 sub extraer_object_identities {
     my ($file, $temp_file_all) = @_;
@@ -1054,8 +1053,6 @@ sub extraer_object_types {
             $segment .= $_ . "\n";
 
             if (/::= \{ /) {
-                print $fh_all "$segment\n";
-
                 my ($syntax) = $segment =~ /SYNTAX\s+(.*)/;
                 my ($max_access) = $segment =~ /MAX-ACCESS\s+(.*)/;
                 my ($status) = $segment =~ /STATUS\s+(.*)/;
@@ -1082,7 +1079,6 @@ sub extraer_object_types {
     close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
     return \%object_types;
 }
-
 # Función para extraer TEXTUAL-CONVENTION de un archivo MIB
 sub extraer_textual_conventions {
     my ($file, $temp_file_all) = @_;
@@ -1538,16 +1534,6 @@ sub extraer_objects_status_description {
         warn "No se pudo abrir el archivo $temp_file_all: $!";
         return;
     };
-    my %data = (
-        TYPE => 'Desconocido',
-        OBJECTS => 'No se encontraron objetos',
-        STATUS => 'No se encontró el estado',
-        DESCRIPTION => 'No se encontró la descripción',
-        OID => 'No se encontró el OID',
-        VARIABLES => 'No se encontraron variables',
-        ENTERPRISE => 'No se encontró la empresa',
-    );
-
     # Logica para extraer los datos de las alarmas
   while (<$fh_all>) {
         chomp;
@@ -1556,9 +1542,9 @@ sub extraer_objects_status_description {
             $alarm_traps{$current_alarm} = {
                 TYPE => 'Desconocido',
                 OBJECTS => 'No se encontraron objetos',
-                STATUS => 'No se encontró el estado',
-                DESCRIPTION => 'No se encontró la descripción',
-                OID => 'No se encontró el OID',
+                STATUS => 'No se encontro el estado',
+                DESCRIPTION => 'No se encontro la descripción',
+                OID => 'No se encontro el OID',
                 VARIABLES => 'No se encontraron variables',
                 ENTERPRISE => 'No se encontró la empresa',
             };
@@ -1579,7 +1565,6 @@ sub extraer_objects_status_description {
             }
             $objects =~ s/\}$//; # Eliminar la llave de cierre
             $alarm_traps{$current_alarm}->{OBJECTS} = join(', ', split(/\s*,\s*/, $objects));
-            $data{OBJECTS} = join(', ', split(/\s*,\s*/, $objects));
 
         } elsif (/^NOTIFICATIONS\s*\{\s*(.*)$/) {
             my $objects = $1;
@@ -1590,38 +1575,48 @@ sub extraer_objects_status_description {
             }
             $objects =~ s/\}$//; # Eliminar la llave de cierre
             $alarm_traps{$current_alarm}->{OBJECTS} = join(', ', split(/\s*,\s*/, $objects));
-            $data{OBJECTS} = join(', ', split(/\s*,\s*/, $objects));
 
         } elsif (/^STATUS\s+(.+)$/) {
             $alarm_traps{$current_alarm}->{STATUS} = $1;
-            $data{STATUS} = $1;
-
-        } elsif (/^DESCRIPTION\s*"(.*)$/ || /^DESCRIPTION\s*$/) {
+        } elsif (/^DESCRIPTION\s*"(.*)$/ || /^DESCRIPTION\s*$/ || /^DESCRIPTION\s+(.*)$/) {
             my $description = $1 // '';
-            if ($description eq '') {
-                $_ = <$fh_all>;
-                chomp;
-                if (/^"(.*)$/) {
-                    $description = $1;
-                }
-            }
-            while ($description !~ /"\s*::=\s*\{.*\}$/) {
+            while ($description !~ /"$/) {
                 $_ = <$fh_all>;
                 chomp;
                 $description .= " $_";
             }
-            # Extraer el OID de la descripción
-            if ($description =~ /"\s*::=\s*\{(.*)\}$/ || $description =~ /"\s*::=\s*(\d+)$/) {
-                $alarm_traps{$current_alarm}->{OID} = $1;
-                $data{OID} = $1;
-
-            }
-            $description =~ s/"\s*::=\s*\{.*\}$//; # Eliminar la parte final
+            $description =~ s/"$//; # Eliminar la comilla de cierre
             $alarm_traps{$current_alarm}->{DESCRIPTION} = $description;
-            $data{DESCRIPTION} = $description;
-
+            # OID
+        } elsif (/::=\s*{([^}]+)}/) {
+            $alarm_traps{$current_alarm}->{OID} = $1;
+        } elsif (/::=\s*(\d+)/) {
+            $alarm_traps{$current_alarm}->{OID} = $1;
+        }   elsif (/^VARIABLES\s*\{\s*(.*)$/) {
+            my $variables = $1;
+            while ($variables !~ /\}$/) {
+                $_ = <$fh_all>;
+                chomp;
+                $variables .= " $_";
+            }
+            $variables =~ s/\}$//; # Eliminar la llave de cierre
+            $alarm_traps{$current_alarm}->{VARIABLES} = join(', ', split(/\s*,\s*/, $variables));
+        } elsif (/^ENTERPRISE\s+(.+)$/) {
+            $alarm_traps{$current_alarm}->{ENTERPRISE} = $1;
         } 
+
+        # Validar si los elementos de la alarma están completos
+        # OID
+        my $alarm_verificacion_oid = $alarm_traps{$current_alarm}->{OID};
+        if ($alarm_verificacion_oid eq 'No se encontro el OID') {
+            
+
+        }
+        
+
     }
+
+
     # Eliminar ::= { contenido } de la descripción y limpiar espacios y caracteres especiales
     foreach my $object (keys %alarm_traps) {
         foreach my $field (qw(TYPE VARIABLES DESCRIPTION ENTERPRISE OID STATUS)) {
@@ -1635,10 +1630,8 @@ sub extraer_objects_status_description {
         }
     }
     close $fh_all or warn "Advertencia: No se pudo cerrar el archivo correctamente: $!\n";
-
     return \%alarm_traps;
 }
-
 # Function to extract and identify OID nodes
 sub extraer_nodos_oid {
     my ($mib_files, $ventana_principal) = @_;
@@ -1714,7 +1707,6 @@ sub extraer_nodos_oid {
     }
     return \%enterprise_info;
 }
-
 # Function to display a paginated table of enterprise IDs
 sub mostrar_ventana_seleccion_empresa {
     my ($ventana_principal) = @_;
@@ -1984,7 +1976,6 @@ sub mostrar_ventana_seleccion_empresa {
     }
     return $return_value_company;
 }
-
 # Subroutine to extract enterprise data from file
 sub extraer_datos_empresas {
     my $file_path = Rutas::id_empresa_path();
@@ -2016,7 +2007,6 @@ sub extraer_datos_empresas {
 
     return @enterprise_hash;
 }
-
 # Función para escribir datos en el archivo temporal
 sub escribir_datos_en_archivo {
     my ($temp_file, $data, $tipo, $append) = @_;
@@ -2170,7 +2160,6 @@ sub escribir_datos_en_archivo {
 
     close $fh or warn "Advertencia: No se pudo cerrar el archivo temporal $temp_file: $!";
 }
-
 # Función para escribir una sección en el archivo
 sub escribir_seccion {
     my ($fh, $titulo, $seccion, $pie_pagina) = @_;
@@ -2184,7 +2173,6 @@ sub escribir_seccion {
     }
     print $fh "----------------------------------- $pie_pagina -----------------------------------\n";
 }
-
 # Función para escribir OID_NODES en el archivo
 sub escribir_oid_nodes {
     my ($fh, $titulo, $oid_nodes) = @_;
@@ -2194,7 +2182,6 @@ sub escribir_oid_nodes {
         print $fh "$key: $oid_nodes->{$key}\n";
     }
 }
-
 # Función para construir el OID completo de un objeto
 sub construir_oid_completo {
     my ($nombre, $data, $oid_data) = @_;

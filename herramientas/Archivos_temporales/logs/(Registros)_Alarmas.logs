@@ -1003,3 +1003,473 @@ DESCRIPTION
 "System raises the alarm when the eNB cannot connect to AeMS server"
 ::= { casaHeMSSmallCellAlarm 50 } 
 #----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+----------------------------------- holdoverPeriodExpiration ---------------------------
+holdoverPeriodExpiration:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: L3 process raises the alarm when the eNB is working for all the holdover time without re-synchronizing
+  OID: casaHeMSSmallCellAlarm 39
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- l3NotDetected ---------------------------
+l3NotDetected:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: L3 not detected
+  OID: casaHeMSSmallCellAlarm 1
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- maxMMEAttemptsExceeded ---------------------------
+maxMMEAttemptsExceeded:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: L3 process is responsible to handle connection with MME, so it raises the alarm if the connection is lost with all MMEs and the maximum number of retries is reached
+  OID: casaHeMSSmallCellAlarm 42
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dnsResolutionFailure ---------------------------
+dnsResolutionFailure:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: System raises this alarm upon failure to resolve the IP addresses of a FQDN
+  OID: casaHeMSSmallCellAlarm 44
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ipsecTunnelExpiry ---------------------------
+ipsecTunnelExpiry:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel rekeying fails
+  OID: casaHeMSSmallCellAlarm 36
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- cellSynchronizationFailure ---------------------------
+cellSynchronizationFailure:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Cell synchronization failure
+  OID: casaHeMSSmallCellAlarm 12
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mmeConnectionIsDown ---------------------------
+mmeConnectionIsDown:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: MME connection is down
+  OID: casaHeMSSmallCellAlarm 5
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- cellOffAlarm ---------------------------
+cellOffAlarm:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Small Cell cellOff alarm
+  OID: casaHeMSSystemAlarm 12
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- kpiAgentNotDetected ---------------------------
+kpiAgentNotDetected:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: KPI Agent not detected
+  OID: casaHeMSSmallCellAlarm 3
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- deviceOfflineAlarm ---------------------------
+deviceOfflineAlarm:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Small Cell offline alarm
+  OID: casaHeMSSystemAlarm 8
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sctpFailure ---------------------------
+sctpFailure:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: SCTP connection failure
+  OID: casaHeMSSmallCellAlarm 13
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- radioOnAlarm ---------------------------
+radioOnAlarm:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Small Cell radioOn alarm
+  OID: casaHeMSSystemAlarm 11
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dbReplicationAlarm ---------------------------
+dbReplicationAlarm:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: DB replication failed
+  OID: casaHeMSSystemAlarm 14
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- congestion ---------------------------
+congestion:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: RRM overload
+  OID: casaHeMSSmallCellAlarm 6
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- cpuTemperatureUnacceptable ---------------------------
+cpuTemperatureUnacceptable:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Invalid PHY or RF configuration
+  OID: casaHeMSSmallCellAlarm 30
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- forcedReboot ---------------------------
+forcedReboot:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Self-healing agent raises this alarm upon detection of major failure requiring a reboot
+  OID: casaHeMSSmallCellAlarm 41
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- reTransmissionRateExcessive ---------------------------
+reTransmissionRateExcessive:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: The MAC has an excessive rate of NACKs
+  OID: casaHeMSSmallCellAlarm 9
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- radioOffAlarm ---------------------------
+radioOffAlarm:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Small Cell radioOff alarm
+  OID: casaHeMSSystemAlarm 10
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- flashMemoryUsage ---------------------------
+flashMemoryUsage:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Flash memory usage
+  OID: casaHeMSSmallCellAlarm 4
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- overTheAirSynchronizationLost ---------------------------
+overTheAirSynchronizationLost:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Syncrhonization with the macro OTA is lost
+  OID: casaHeMSSmallCellAlarm 10
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- l2NotDetected ---------------------------
+l2NotDetected:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: L2 not detected
+  OID: casaHeMSSmallCellAlarm 2
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- cpuCyclesLimitExceeded ---------------------------
+cpuCyclesLimitExceeded:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: CPU usage exceeds defined threshold
+  OID: casaHeMSSmallCellAlarm 8
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- administrativeReboot ---------------------------
+administrativeReboot:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: OAM process will send this informational alarm upon administrative reboot
+  OID: casaHeMSSmallCellAlarm 40
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hardDiskUsageIsHigh ---------------------------
+hardDiskUsageIsHigh:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: AeMS Hard disk usage is high
+  OID: casaHeMSSystemAlarm 3
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- errorAccessingFile ---------------------------
+errorAccessingFile:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Error accessing file
+  OID: casaHeMSSmallCellAlarm 7
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- memoryUsageIsHigh ---------------------------
+memoryUsageIsHigh:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: AeMS Memory usage is high
+  OID: casaHeMSSystemAlarm 1
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- cpuUsageIsHigh ---------------------------
+cpuUsageIsHigh:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: AeMS CPU usage is high
+  OID: casaHeMSSystemAlarm 2
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- cellOnAlarm ---------------------------
+cellOnAlarm:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Small Cell cellOn alarm
+  OID: casaHeMSSystemAlarm 13
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- failedBackingUpConfigurationFile ---------------------------
+failedBackingUpConfigurationFile:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Any process of eNB raises this alarm if it gets error while backing up a file
+  OID: casaHeMSSmallCellAlarm 32
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- casaHeMSHeartBeatMsg ---------------------------
+casaHeMSHeartBeatMsg:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Kill OAM proxy process to force the generation of the alarm
+  OID: casaHeMSSmallCellAlarm 48
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dbSlaveConnectionAlarm ---------------------------
+dbSlaveConnectionAlarm:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: AeMS DB slave connection alarm
+  OID: casaHeMSSystemAlarm 5
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- failedRestoringConfigurationFile ---------------------------
+failedRestoringConfigurationFile:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Any process of eNB raises this alarm if it gets error while restoring a corrupted configuration file
+  OID: casaHeMSSmallCellAlarm 33
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- haCommunicationAlarm ---------------------------
+haCommunicationAlarm:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: AeMS HA communication alarm
+  OID: casaHeMSSystemAlarm 4
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- rebootLoop ---------------------------
+rebootLoop:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: System raises this alarm upon detection of several continious reboots in a short period of time
+  OID: casaHeMSSmallCellAlarm 43
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- remoteAeMSsStatusAlarm ---------------------------
+remoteAeMSsStatusAlarm:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Remote AeMSs down
+  OID: casaHeMSSystemAlarm 15
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ipsecTunnelIkeSaExpiry ---------------------------
+ipsecTunnelIkeSaExpiry:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the IKE rekeying fails
+  OID: casaHeMSSmallCellAlarm 37
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- singleMmeConnectionIsDown ---------------------------
+singleMmeConnectionIsDown:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Single MME connection is down
+  OID: casaHeMSSmallCellAlarm 34
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- systemInformationConfigurationFailure ---------------------------
+systemInformationConfigurationFailure:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: System information configuration failure
+  OID: casaHeMSSmallCellAlarm 31
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- operatorCertificateExpired ---------------------------
+operatorCertificateExpired:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: System raises the alarm when the Operator certificate cannot be renewed
+  OID: casaHeMSSmallCellAlarm 38
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dbArbiterConnectionAlarm ---------------------------
+dbArbiterConnectionAlarm:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: AeMS DB arbiter connection alarm
+  OID: casaHeMSSystemAlarm 6
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- cCMSServerConnectionFailure ---------------------------
+cCMSServerConnectionFailure:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: System raises the alarm when the eNB cannot connect to AeMS server"  #----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+  OID: casaHeMSSmallCellAlarm 49 }        #----------------------------------- FIN ALARMA ORIGINAL ---------------------------# #----------------------------------- ALARMA ORIGINAL:  aAeMSConnectionNoResponse  ---------------------------# Tipo de alarma: NOTIFICATION-TYPE Nombre de alarma: aAeMSConnectionNoResponse aAeMSConnectionNoResponse  NOTIFICATION-TYPE OBJECTS { neIdentity, alarmID, notificationType, eventType, probableCause,  specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- gpsSynchronizationLost ---------------------------
+gpsSynchronizationLost:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: GPS synchronization lost
+  OID: casaHeMSSmallCellAlarm 11
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- casaHeMSSmallCellGWAlarm ---------------------------
+casaHeMSSmallCellGWAlarm:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Casa HeMS SmallCell-GW Alarm
+  OID: casaHeMSAlarmTraps 3
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ipsecTunnelIsDown ---------------------------
+ipsecTunnelIsDown:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel fails
+  OID: casaHeMSSmallCellAlarm 35
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- deviceOnlineAlarm ---------------------------
+deviceOnlineAlarm:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Small Cell online alarm
+  OID: casaHeMSSystemAlarm 9
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- lanError ---------------------------
+lanError:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: Ethernet error
+  OID: casaHeMSSmallCellAlarm 14
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- networkInterfaceAlarm ---------------------------
+networkInterfaceAlarm:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: current
+  DESCRIPTION: AeMS Network interface alarm
+  OID: casaHeMSSystemAlarm 7
+  VARIABLES: No se encontraron variables
+  ENTERPRISE: No se encontró la empresa
+----------------------------------- Final de segmento -----------------------------------

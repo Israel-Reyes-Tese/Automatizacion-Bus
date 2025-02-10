@@ -1,3 +1,16 @@
+Archivo: CASA-HEMS-ALARM-MIB.txt
+casaHeMSAlarmObjects OBJECT IDENTIFIER ::= { casaHeMSAlarmMib 1 }
+casaHeMSAlarmTraps OBJECT IDENTIFIER ::= { casaHeMSAlarmMib 2 }
+Archivo: CASA-HEMS-ALARM-MIB.txt
+casaHeMSSystemAlarm OBJECT IDENTIFIER ::= { casaHeMSAlarmTraps 1 }
+memoryUsageIsHigh NOTIFICATION-TYPE
+OBJECTS { neIdentity, alarmID, notificationType, eventType, probableCause, 
+specificProblem, perceivedSeverity, additionalText, 
+additionalInformation, eventTime } 
+STATUS current
+DESCRIPTION
+"AeMS Memory usage is high"
+::= { casaHeMSSystemAlarm 1 }
 Archivo: SNMPv2-SMI
 org OBJECT IDENTIFIER
 ::= { iso 3 }
@@ -43,19 +56,6 @@ snmpProxys OBJECT IDENTIFIER
 Archivo: SNMPv2-SMI
 snmpModules OBJECT IDENTIFIER
 ::= { snmpV2 3 }
-Archivo: CASA-HEMS-ALARM-MIB.txt
-casaHeMSAlarmObjects OBJECT IDENTIFIER ::= { casaHeMSAlarmMib 1 }
-casaHeMSAlarmTraps OBJECT IDENTIFIER ::= { casaHeMSAlarmMib 2 }
-Archivo: CASA-HEMS-ALARM-MIB.txt
-casaHeMSSystemAlarm OBJECT IDENTIFIER ::= { casaHeMSAlarmTraps 1 }
-memoryUsageIsHigh NOTIFICATION-TYPE
-OBJECTS { neIdentity, alarmID, notificationType, eventType, probableCause, 
-specificProblem, perceivedSeverity, additionalText, 
-additionalInformation, eventTime } 
-STATUS current
-DESCRIPTION
-"AeMS Memory usage is high"
-::= { casaHeMSSystemAlarm 1 }
 Archivo: casa-hems-alarm.mib
 casaHeMSAlarmObjects OBJECT IDENTIFIER ::= { casaHeMSAlarmMib 1 }
 casaHeMSAlarmTraps OBJECT IDENTIFIER ::= { casaHeMSAlarmMib 2}
@@ -83,41 +83,6 @@ STATUS 	    current
 DESCRIPTION
 "L3 not detected"
 ::= { casaHeMSSmallCellAlarm 1 }
------------------------------------ transmission ---------------------------
-transmission:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: casa-hems-alarm.mib
-  OID:  mib-2 10 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ private ---------------------------
-private:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: casa-hems-alarm.mib
-  OID:  internet 4 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ internet ---------------------------
-internet:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: casa-hems-alarm.mib
-  OID:  dod 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpModules ---------------------------
-snmpModules:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: casa-hems-alarm.mib
-  OID:  snmpV2 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mgmt ---------------------------
-mgmt:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: casa-hems-alarm.mib
-  OID:  internet 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
 ----------------------------------- casaHeMSAlarmTraps ---------------------------
 casaHeMSAlarmTraps:
   TYPE: OBJECT IDENTIFIER
@@ -125,18 +90,11 @@ casaHeMSAlarmTraps:
   OID:  casaHeMSAlarmMib 2
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ enterprises ---------------------------
-enterprises:
+----------------------------------- security ---------------------------
+security:
   TYPE: OBJECT IDENTIFIER
   ARCHIVO: casa-hems-alarm.mib
-  OID:  private 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dod ---------------------------
-dod:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: casa-hems-alarm.mib
-  OID:  org 6 
+  OID:  internet 5 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpDomains ---------------------------
@@ -146,19 +104,33 @@ snmpDomains:
   OID:  snmpV2 1 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
+----------------------------------- internet ---------------------------
+internet:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: casa-hems-alarm.mib
+  OID:  dod 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mgmt ---------------------------
+mgmt:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: casa-hems-alarm.mib
+  OID:  internet 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpV2 ---------------------------
+snmpV2:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: casa-hems-alarm.mib
+  OID:  internet 6 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- casaHeMSSystemAlarm ---------------------------
 casaHeMSSystemAlarm:
   TYPE: OBJECT IDENTIFIER
   ARCHIVO: casa-hems-alarm.mib
   OID:  casaHeMSAlarmTraps 1
   Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ experimental ---------------------------
-experimental:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: casa-hems-alarm.mib
-  OID:  internet 3 
-  Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- org ---------------------------
 org:
@@ -167,11 +139,11 @@ org:
   OID:  iso 3 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ directory ---------------------------
-directory:
+----------------------------------- transmission ---------------------------
+transmission:
   TYPE: OBJECT IDENTIFIER
   ARCHIVO: casa-hems-alarm.mib
-  OID:  internet 1 
+  OID:  mib-2 10 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpProxys ---------------------------
@@ -181,32 +153,39 @@ snmpProxys:
   OID:  snmpV2 2 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ security ---------------------------
-security:
+----------------------------------- experimental ---------------------------
+experimental:
   TYPE: OBJECT IDENTIFIER
   ARCHIVO: casa-hems-alarm.mib
-  OID:  internet 5 
+  OID:  internet 3 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ casaHeMSSmallCellAlarm ---------------------------
-casaHeMSSmallCellAlarm:
+----------------------------------- enterprises ---------------------------
+enterprises:
   TYPE: OBJECT IDENTIFIER
   ARCHIVO: casa-hems-alarm.mib
-  OID:  casaHeMSAlarmTraps 2 
-  Nivel_Busqueda: 1
+  OID:  private 1 
+  Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ casaHeMSAlarmObjects ---------------------------
-casaHeMSAlarmObjects:
+----------------------------------- directory ---------------------------
+directory:
   TYPE: OBJECT IDENTIFIER
   ARCHIVO: casa-hems-alarm.mib
-  OID:  casaHeMSAlarmMib 1 
-  Nivel_Busqueda: 1
+  OID:  internet 1 
+  Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmpV2 ---------------------------
-snmpV2:
+----------------------------------- snmpModules ---------------------------
+snmpModules:
   TYPE: OBJECT IDENTIFIER
   ARCHIVO: casa-hems-alarm.mib
-  OID:  internet 6 
+  OID:  snmpV2 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dod ---------------------------
+dod:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: casa-hems-alarm.mib
+  OID:  org 6 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- mib-2 ---------------------------
@@ -215,4 +194,25 @@ mib-2:
   ARCHIVO: casa-hems-alarm.mib
   OID:  mgmt 1 
   Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- private ---------------------------
+private:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: casa-hems-alarm.mib
+  OID:  internet 4 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- casaHeMSAlarmObjects ---------------------------
+casaHeMSAlarmObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: casa-hems-alarm.mib
+  OID:  casaHeMSAlarmMib 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- casaHeMSSmallCellAlarm ---------------------------
+casaHeMSSmallCellAlarm:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: casa-hems-alarm.mib
+  OID:  casaHeMSAlarmTraps 2 
+  Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------

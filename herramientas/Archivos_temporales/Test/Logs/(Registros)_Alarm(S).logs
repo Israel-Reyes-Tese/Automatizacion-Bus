@@ -1,0 +1,245 @@
+#----------------------------------- ALARMA ORIGINAL:  sonusCommChassisStartupNotification  ---------------------------#
+Tipo de alarma: TRAP-TYPE
+Nombre de alarma: sonusCommChassisStartupNotification
+sonusCommChassisStartupNotification TRAP-TYPE
+ENTERPRISE      sonusCommMIBNotifications
+VARIABLES       { sonusEventTime, sonusEventDescription, 
+sonusEventClass, sonusEventLevel, sonusHostID }
+--     STATUS          mandatory
+DESCRIPTION     
+"The Sonus Communicator Chassis has started."
+::= 1
+#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+#----------------------------------- ALARMA ORIGINAL:  sonusCommChassisTestNotification  ---------------------------#
+Tipo de alarma: TRAP-TYPE
+Nombre de alarma: sonusCommChassisTestNotification
+sonusCommChassisTestNotification TRAP-TYPE
+ENTERPRISE      sonusCommMIBNotifications
+VARIABLES       { sonusEventTime, sonusEventDescription, 
+sonusEventClass, sonusEventLevel, sonusHostID }
+--     STATUS          mandatory
+DESCRIPTION     
+"Chassis Test Trap."
+::= 2
+#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+#----------------------------------- ALARMA ORIGINAL:  sonusCommChassisCriticalTestNotification  ---------------------------#
+Tipo de alarma: TRAP-TYPE
+Nombre de alarma: sonusCommChassisCriticalTestNotification
+sonusCommChassisCriticalTestNotification TRAP-TYPE
+ENTERPRISE      sonusCommMIBNotifications
+VARIABLES       { sonusEventTime, sonusEventDescription, 
+sonusEventClass, sonusEventLevel, sonusHostID }
+--     STATUS          mandatory
+DESCRIPTION     
+"Test Trap with CRITICAL severity."
+::= 3
+#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+#----------------------------------- ALARMA ORIGINAL:  sonusCommChassisMajorTestNotification  ---------------------------#
+Tipo de alarma: TRAP-TYPE
+Nombre de alarma: sonusCommChassisMajorTestNotification
+sonusCommChassisMajorTestNotification TRAP-TYPE
+ENTERPRISE      sonusCommMIBNotifications
+VARIABLES       { sonusEventTime, sonusEventDescription, 
+sonusEventClass, sonusEventLevel, sonusHostID }
+--     STATUS          mandatory
+DESCRIPTION     
+"Test Trap with MAJOR severity.."
+::= 4
+#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+#----------------------------------- ALARMA ORIGINAL:  sonusCommChassisMinorTestNotification  ---------------------------#
+Tipo de alarma: TRAP-TYPE
+Nombre de alarma: sonusCommChassisMinorTestNotification
+sonusCommChassisMinorTestNotification TRAP-TYPE
+ENTERPRISE      sonusCommMIBNotifications
+VARIABLES       { sonusEventTime, sonusEventDescription, 
+sonusEventClass, sonusEventLevel, sonusHostID }
+--     STATUS          mandatory
+DESCRIPTION     
+"Test Trap with MINOR severity."
+::= 5
+#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+#----------------------------------- ALARMA ORIGINAL:  sonusCommChassisWarnTestNotification  ---------------------------#
+Tipo de alarma: TRAP-TYPE
+Nombre de alarma: sonusCommChassisWarnTestNotification
+sonusCommChassisWarnTestNotification TRAP-TYPE
+ENTERPRISE      sonusCommMIBNotifications
+VARIABLES       { sonusEventTime, sonusEventDescription, 
+sonusEventClass, sonusEventLevel, sonusHostID }
+--     STATUS          mandatory
+DESCRIPTION     
+"Test Trap with WARN severity"
+::= 6
+#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+#----------------------------------- ALARMA ORIGINAL:  sonusCommChassisClearTestNotification  ---------------------------#
+Tipo de alarma: TRAP-TYPE
+Nombre de alarma: sonusCommChassisClearTestNotification
+sonusCommChassisClearTestNotification TRAP-TYPE
+ENTERPRISE      sonusCommMIBNotifications
+VARIABLES       { sonusEventTime, sonusEventDescription, 
+sonusEventClass, sonusEventLevel, sonusHostID }
+--     STATUS          mandatory
+DESCRIPTION     
+"Test Trap with CLEARING severity"
+::= 7
+#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+#----------------------------------- ALARMA ORIGINAL:  sonusHostPMStatsFileGenerationFailedNotification  ---------------------------#
+Tipo de alarma: TRAP-TYPE
+Nombre de alarma: sonusHostPMStatsFileGenerationFailedNotification
+sonusHostPMStatsFileGenerationFailedNotification TRAP-TYPE
+ENTERPRISE      sonusCommMIBNotifications
+VARIABLES       { sonusEventTime, sonusEventDescription, 
+sonusEventClass, sonusEventLevel, sonusHostID }
+--     STATUS          mandatory
+DESCRIPTION     
+"Generation of Performace Statistics tar file failed.  Detailed message is specified in sonusEventDescription."
+::= 8
+#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+#----------------------------------- ALARMA ORIGINAL:  sonusCommProcMgmtProcessRestartedNotification  ---------------------------#
+Tipo de alarma: TRAP-TYPE
+Nombre de alarma: sonusCommProcMgmtProcessRestartedNotification
+sonusCommProcMgmtProcessRestartedNotification TRAP-TYPE
+ENTERPRISE      sonusCommProcMgmtMIBNotifications
+VARIABLES       { sonusEventTime, sonusEventDescription, 
+sonusEventClass, sonusEventLevel, 
+sonusCommProcMgmtProcessName, sonusHostID }
+--     STATUS          mandatory
+DESCRIPTION     
+"The process specified by sonusCommProcMgmtProcessName has been restarted by Process Management.  This will occur when Process Management's status request has failed a specified number of times."
+::= 1
+#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+#----------------------------------- ALARMA ORIGINAL:  sonusCommProcMgmtProcessRestartFailureNotification  ---------------------------#
+Tipo de alarma: TRAP-TYPE
+Nombre de alarma: sonusCommProcMgmtProcessRestartFailureNotification
+sonusCommProcMgmtProcessRestartFailureNotification TRAP-TYPE
+ENTERPRISE      sonusCommProcMgmtMIBNotifications
+VARIABLES       { sonusEventTime, sonusEventDescription, 
+sonusEventClass, sonusEventLevel, 
+sonusCommProcMgmtProcessName, sonusHostID }
+--     STATUS          mandatory
+DESCRIPTION     
+"An attempt to restart the process specified by sonusCommProcMgmtProcessName by Process Management has failed."
+::= 2
+#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+#----------------------------------- ALARMA ORIGINAL:  sonusCommProcMgmtGiveUpRestartNotification  ---------------------------#
+Tipo de alarma: TRAP-TYPE
+Nombre de alarma: sonusCommProcMgmtGiveUpRestartNotification
+sonusCommProcMgmtGiveUpRestartNotification TRAP-TYPE
+ENTERPRISE      sonusCommProcMgmtMIBNotifications
+VARIABLES       { sonusEventTime, sonusEventDescription, 
+sonusEventClass, sonusEventLevel, 
+sonusCommProcMgmtProcessName, sonusHostID }
+--     STATUS          mandatory
+DESCRIPTION     
+"Process Management has given up attempting to restart the specified process.  This will occur after Process Management has failed to restart the process a specified number of times over a specified time interval."
+::= 3
+#----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
+----------------------------------- sonusCommProcMgmtProcessRestartedNotification ---------------------------
+sonusCommProcMgmtProcessRestartedNotification:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: No se encontro el estado
+  DESCRIPTION: The process specified by sonusCommProcMgmtProcessName has been restarted by Process Management.  This will occur when Process Management's status request has failed a specified number of times.
+  OID: 1
+  VARIABLES: sonusEventTime, sonusEventDescription, sonusEventClass, sonusEventLevel, sonusCommProcMgmtProcessName, sonusHostID
+  ENTERPRISE: sonusCommProcMgmtMIBNotifications
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommChassisStartupNotification ---------------------------
+sonusCommChassisStartupNotification:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: No se encontro el estado
+  DESCRIPTION: The Sonus Communicator Chassis has started.
+  OID: 1
+  VARIABLES: sonusEventTime, sonusEventDescription, sonusEventClass, sonusEventLevel, sonusHostID
+  ENTERPRISE: sonusCommMIBNotifications
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommChassisCriticalTestNotification ---------------------------
+sonusCommChassisCriticalTestNotification:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: No se encontro el estado
+  DESCRIPTION: Test Trap with CRITICAL severity.
+  OID: 3
+  VARIABLES: sonusEventTime, sonusEventDescription, sonusEventClass, sonusEventLevel, sonusHostID
+  ENTERPRISE: sonusCommMIBNotifications
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommChassisTestNotification ---------------------------
+sonusCommChassisTestNotification:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: No se encontro el estado
+  DESCRIPTION: Chassis Test Trap.
+  OID: 2
+  VARIABLES: sonusEventTime, sonusEventDescription, sonusEventClass, sonusEventLevel, sonusHostID
+  ENTERPRISE: sonusCommMIBNotifications
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusHostPMStatsFileGenerationFailedNotification ---------------------------
+sonusHostPMStatsFileGenerationFailedNotification:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: No se encontro el estado
+  DESCRIPTION: Generation of Performace Statistics tar file failed.  Detailed message is specified in sonusEventDescription.
+  OID: 8
+  VARIABLES: sonusEventTime, sonusEventDescription, sonusEventClass, sonusEventLevel, sonusHostID
+  ENTERPRISE: sonusCommMIBNotifications
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommChassisMajorTestNotification ---------------------------
+sonusCommChassisMajorTestNotification:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: No se encontro el estado
+  DESCRIPTION: Test Trap with MAJOR severity..
+  OID: 4
+  VARIABLES: sonusEventTime, sonusEventDescription, sonusEventClass, sonusEventLevel, sonusHostID
+  ENTERPRISE: sonusCommMIBNotifications
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommChassisWarnTestNotification ---------------------------
+sonusCommChassisWarnTestNotification:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: No se encontro el estado
+  DESCRIPTION: Test Trap with WARN severity
+  OID: 6
+  VARIABLES: sonusEventTime, sonusEventDescription, sonusEventClass, sonusEventLevel, sonusHostID
+  ENTERPRISE: sonusCommMIBNotifications
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommProcMgmtGiveUpRestartNotification ---------------------------
+sonusCommProcMgmtGiveUpRestartNotification:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: No se encontro el estado
+  DESCRIPTION: Process Management has given up attempting to restart the specified process.  This will occur after Process Management has failed to restart the process a specified number of times over a specified time interval.
+  OID: 3
+  VARIABLES: sonusEventTime, sonusEventDescription, sonusEventClass, sonusEventLevel, sonusCommProcMgmtProcessName, sonusHostID
+  ENTERPRISE: sonusCommProcMgmtMIBNotifications
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommProcMgmtProcessRestartFailureNotification ---------------------------
+sonusCommProcMgmtProcessRestartFailureNotification:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: No se encontro el estado
+  DESCRIPTION: An attempt to restart the process specified by sonusCommProcMgmtProcessName by Process Management has failed.
+  OID: 2
+  VARIABLES: sonusEventTime, sonusEventDescription, sonusEventClass, sonusEventLevel, sonusCommProcMgmtProcessName, sonusHostID
+  ENTERPRISE: sonusCommProcMgmtMIBNotifications
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommChassisMinorTestNotification ---------------------------
+sonusCommChassisMinorTestNotification:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: No se encontro el estado
+  DESCRIPTION: Test Trap with MINOR severity.
+  OID: 5
+  VARIABLES: sonusEventTime, sonusEventDescription, sonusEventClass, sonusEventLevel, sonusHostID
+  ENTERPRISE: sonusCommMIBNotifications
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommChassisClearTestNotification ---------------------------
+sonusCommChassisClearTestNotification:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: No se encontro el estado
+  DESCRIPTION: Test Trap with CLEARING severity
+  OID: 7
+  VARIABLES: sonusEventTime, sonusEventDescription, sonusEventClass, sonusEventLevel, sonusHostID
+  ENTERPRISE: sonusCommMIBNotifications
+----------------------------------- Final de segmento -----------------------------------

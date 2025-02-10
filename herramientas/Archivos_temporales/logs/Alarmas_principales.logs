@@ -1,74 +1,278 @@
 ----------------------------------- ALARM TRAPS ---------------------------
-warmStart:
-  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps warmStart
-  OID: 1.3.6.1.6.3.1.1.5.2
+cpuUsageIsHigh:
+  DESCRIPTION: AeMS CPU usage is high
   OBJECTS: No se encontraron objetos
-  DESCRIPTION: A warmStart trap signifies that the SNMP entity, supporting a notification originator application, is reinitializing itself such that its configuration is unaltered.
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.2
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm cpuUsageIsHigh
 
-mteTriggerRising:
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
-  OID: 1.3.6.1.2.1.88.2.0.2
-  DESCRIPTION: Notification that the rising threshold was met for triggers with mteTriggerType 'threshold'.
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerRising
-
-linkUp:
-  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps linkUp
-  OBJECTS: ifIndex, ifAdminStatus, ifOperStatus 
-  DESCRIPTION: A linkUp trap signifies that the SNMP entity, acting in an agent role, has detected that the ifOperStatus object for one of its communication links left the down state and transitioned into some other state (but not into the notPresent state).  This other state is indicated by the included value of ifOperStatus.
-  OID: 1.3.6.1.6.3.1.1.5.4
-
-linkDown:
-  OBJECTS: ifIndex, ifAdminStatus, ifOperStatus 
-  DESCRIPTION: A linkDown trap signifies that the SNMP entity, acting in an agent role, has detected that the ifOperStatus object for one of its communication links is about to enter the down state from some other state (but not from the notPresent state).  This other state is indicated by the included value of ifOperStatus.
-  OID: 1.3.6.1.6.3.1.1.5.3
-  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps linkDown
-
-authenticationFailure:
+failedBackingUpConfigurationFile:
+  DESCRIPTION: Any process of eNB raises this alarm if it gets error while backing up a file
   OBJECTS: No se encontraron objetos
-  DESCRIPTION: An authenticationFailure trap signifies that the SNMP entity has received a protocol message that is not properly authenticated.  While all implementations of SNMP entities MAY be capable of generating this trap, the snmpEnableAuthenTraps object indicates whether this trap will be generated.
-  OID: 1.3.6.1.6.3.1.1.5.5
-  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps authenticationFailure
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm failedBackingUpConfigurationFile
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.32
 
-mteTriggerFired:
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerFired
-  DESCRIPTION: Notification that the trigger indicated by the object instances has fired, for triggers with mteTriggerType 'boolean' or 'existence'.
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
-  OID: 1.3.6.1.2.1.88.2.0.1
-
-mteEventSetFailure:
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteEventSetFailure
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteFailedReason 
-  OID: 1.3.6.1.2.1.88.2.0.5
-  DESCRIPTION: Notification that an attempt to do a set in response to an event has failed. The network manager must enable this notification only with a certain fear and trembling, as it can easily crowd out more important information.  It should be used only to help diagnose a problem that has appeared in the error counters and can not be found otherwise.
-
-ucdShutdown:
-  OID_NAME: org dod internet private enterprises ucdavis ucdTraps ucdShutdown
-  DESCRIPTION: This trap is sent when the agent terminates
+cellOnAlarm:
+  DESCRIPTION: Small Cell cellOn alarm
   OBJECTS: No se encontraron objetos
-  OID: 1.3.6.1.4.1.2021.251.2
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm cellOnAlarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.13
 
-ucdStart:
-  DESCRIPTION: This trap could in principle be sent when the agent start
+hardDiskUsageIsHigh:
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm hardDiskUsageIsHigh
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.3
   OBJECTS: No se encontraron objetos
-  OID: 1.3.6.1.4.1.2021.251.1
-  OID_NAME: org dod internet private enterprises ucdavis ucdTraps ucdStart
+  DESCRIPTION: AeMS Hard disk usage is high
 
-mteTriggerFalling:
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
-  DESCRIPTION: Notification that the falling threshold was met for triggers with mteTriggerType 'threshold'.
-  OID: 1.3.6.1.2.1.88.2.0.3
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerFalling
-
-coldStart:
-  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps coldStart
-  DESCRIPTION: A coldStart trap signifies that the SNMP entity, supporting a notification originator application, is reinitializing itself and that its configuration may have been altered.
+administrativeReboot:
+  DESCRIPTION: OAM process will send this informational alarm upon administrative reboot
   OBJECTS: No se encontraron objetos
-  OID: 1.3.6.1.6.3.1.1.5.1
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.40
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm administrativeReboot
 
-mteTriggerFailure:
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerFailure
-  DESCRIPTION: Notification that an attempt to check a trigger has failed. The network manager must enable this notification only with a certain fear and trembling, as it can easily crowd out more important information.  It should be used only to help diagnose a problem that has appeared in the error counters and can not be found otherwise.
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteFailedReason 
-  OID: 1.3.6.1.2.1.88.2.0.4
+cpuCyclesLimitExceeded:
+  DESCRIPTION: CPU usage exceeds defined threshold
+  OBJECTS: No se encontraron objetos
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm cpuCyclesLimitExceeded
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.8
+
+memoryUsageIsHigh:
+  OBJECTS: No se encontraron objetos
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.1
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm memoryUsageIsHigh
+  DESCRIPTION: AeMS Memory usage is high
+
+errorAccessingFile:
+  OBJECTS: No se encontraron objetos
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm errorAccessingFile
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.7
+  DESCRIPTION: Error accessing file
+
+casaHeMSSmallCellGWAlarm:
+  DESCRIPTION: Casa HeMS SmallCell-GW Alarm
+  OBJECTS: No se encontraron objetos
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellGWAlarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.3
+
+ipsecTunnelIsDown:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.35
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm ipsecTunnelIsDown
+  OBJECTS: No se encontraron objetos
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel fails
+
+gpsSynchronizationLost:
+  DESCRIPTION: GPS synchronization lost
+  OBJECTS: No se encontraron objetos
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.11
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm gpsSynchronizationLost
+
+dbArbiterConnectionAlarm:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.6
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm dbArbiterConnectionAlarm
+  OBJECTS: No se encontraron objetos
+  DESCRIPTION: AeMS DB arbiter connection alarm
+
+networkInterfaceAlarm:
+  DESCRIPTION: AeMS Network interface alarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.7
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm networkInterfaceAlarm
+  OBJECTS: No se encontraron objetos
+
+lanError:
+  DESCRIPTION: Ethernet error
+  OBJECTS: No se encontraron objetos
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm lanError
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.14
+
+deviceOnlineAlarm:
+  DESCRIPTION: Small Cell online alarm
+  OBJECTS: No se encontraron objetos
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.9
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm deviceOnlineAlarm
+
+haCommunicationAlarm:
+  DESCRIPTION: AeMS HA communication alarm
+  OBJECTS: No se encontraron objetos
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.4
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm haCommunicationAlarm
+
+dbSlaveConnectionAlarm:
+  DESCRIPTION: AeMS DB slave connection alarm
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm dbSlaveConnectionAlarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.5
+  OBJECTS: No se encontraron objetos
+
+failedRestoringConfigurationFile:
+  DESCRIPTION: Any process of eNB raises this alarm if it gets error while restoring a corrupted configuration file
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.33
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm failedRestoringConfigurationFile
+  OBJECTS: No se encontraron objetos
+
+casaHeMSHeartBeatMsg:
+  DESCRIPTION: Kill OAM proxy process to force the generation of the alarm
+  OBJECTS: No se encontraron objetos
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.48
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm casaHeMSHeartBeatMsg
+
+operatorCertificateExpired:
+  OBJECTS: No se encontraron objetos
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm operatorCertificateExpired
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.38
+  DESCRIPTION: System raises the alarm when the Operator certificate cannot be renewed
+
+systemInformationConfigurationFailure:
+  OBJECTS: No se encontraron objetos
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm systemInformationConfigurationFailure
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.31
+  DESCRIPTION: System information configuration failure
+
+singleMmeConnectionIsDown:
+  DESCRIPTION: Single MME connection is down
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm singleMmeConnectionIsDown
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.34
+  OBJECTS: No se encontraron objetos
+
+ipsecTunnelIkeSaExpiry:
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the IKE rekeying fails
+  OBJECTS: No se encontraron objetos
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm ipsecTunnelIkeSaExpiry
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.37
+
+remoteAeMSsStatusAlarm:
+  DESCRIPTION: Remote AeMSs down
+  OBJECTS: No se encontraron objetos
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.15
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm remoteAeMSsStatusAlarm
+
+rebootLoop:
+  DESCRIPTION: System raises this alarm upon detection of several continious reboots in a short period of time
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm rebootLoop
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.43
+  OBJECTS: No se encontraron objetos
+
+kpiAgentNotDetected:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.3
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm kpiAgentNotDetected
+  OBJECTS: No se encontraron objetos
+  DESCRIPTION: KPI Agent not detected
+
+cellOffAlarm:
+  DESCRIPTION: Small Cell cellOff alarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.12
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm cellOffAlarm
+  OBJECTS: No se encontraron objetos
+
+deviceOfflineAlarm:
+  OBJECTS: No se encontraron objetos
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.8
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm deviceOfflineAlarm
+  DESCRIPTION: Small Cell offline alarm
+
+maxMMEAttemptsExceeded:
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm maxMMEAttemptsExceeded
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.42
+  OBJECTS: No se encontraron objetos
+  DESCRIPTION: L3 process is responsible to handle connection with MME, so it raises the alarm if the connection is lost with all MMEs and the maximum number of retries is reached
+
+holdoverPeriodExpiration:
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm holdoverPeriodExpiration
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.39
+  OBJECTS: No se encontraron objetos
+  DESCRIPTION: L3 process raises the alarm when the eNB is working for all the holdover time without re-synchronizing
+
+l3NotDetected:
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm l3NotDetected
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.1
+  OBJECTS: No se encontraron objetos
+  DESCRIPTION: L3 not detected
+
+mmeConnectionIsDown:
+  OBJECTS: No se encontraron objetos
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm mmeConnectionIsDown
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.5
+  DESCRIPTION: MME connection is down
+
+cellSynchronizationFailure:
+  DESCRIPTION: Cell synchronization failure
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm cellSynchronizationFailure
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.12
+  OBJECTS: No se encontraron objetos
+
+ipsecTunnelExpiry:
+  OBJECTS: No se encontraron objetos
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm ipsecTunnelExpiry
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.36
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel rekeying fails
+
+dnsResolutionFailure:
+  OBJECTS: No se encontraron objetos
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm dnsResolutionFailure
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.44
+  DESCRIPTION: System raises this alarm upon failure to resolve the IP addresses of a FQDN
+
+radioOffAlarm:
+  DESCRIPTION: Small Cell radioOff alarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.10
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm radioOffAlarm
+  OBJECTS: No se encontraron objetos
+
+reTransmissionRateExcessive:
+  DESCRIPTION: The MAC has an excessive rate of NACKs
+  OBJECTS: No se encontraron objetos
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.9
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm reTransmissionRateExcessive
+
+l2NotDetected:
+  OBJECTS: No se encontraron objetos
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.2
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm l2NotDetected
+  DESCRIPTION: L2 not detected
+
+overTheAirSynchronizationLost:
+  OBJECTS: No se encontraron objetos
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm overTheAirSynchronizationLost
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.10
+  DESCRIPTION: Syncrhonization with the macro OTA is lost
+
+flashMemoryUsage:
+  DESCRIPTION: Flash memory usage
+  OBJECTS: No se encontraron objetos
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm flashMemoryUsage
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.4
+
+radioOnAlarm:
+  DESCRIPTION: Small Cell radioOn alarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.11
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm radioOnAlarm
+  OBJECTS: No se encontraron objetos
+
+sctpFailure:
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm sctpFailure
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.13
+  OBJECTS: No se encontraron objetos
+  DESCRIPTION: SCTP connection failure
+
+forcedReboot:
+  OBJECTS: No se encontraron objetos
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.41
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm forcedReboot
+  DESCRIPTION: Self-healing agent raises this alarm upon detection of major failure requiring a reboot
+
+cpuTemperatureUnacceptable:
+  DESCRIPTION: Invalid PHY or RF configuration
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm cpuTemperatureUnacceptable
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.30
+  OBJECTS: No se encontraron objetos
+
+congestion:
+  OBJECTS: No se encontraron objetos
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.6
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSmallCellAlarm congestion
+  DESCRIPTION: RRM overload
+
+dbReplicationAlarm:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.14
+  OID_NAME: 1 3 6 1 4 1 20858 10 104 101 casaHeMSAlarmTraps casaHeMSSystemAlarm dbReplicationAlarm
+  OBJECTS: No se encontraron objetos
+  DESCRIPTION: DB replication failed
 
 ----------------------------------- FIN DE ALARM_TRAPS -----------------------------------

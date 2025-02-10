@@ -242,42 +242,21 @@ STATUS      current
 DESCRIPTION "Indicates the date and time when the alarm event occurs."
 ::= { casaHeMSAlarmObjects 10 }
 
------------------------------------ additionalText ---------------------------
-additionalText:
+----------------------------------- additionalInformation ---------------------------
+additionalInformation:
   SYNTAX: OCTET STRING
   STATUS: current
-  DESCRIPTION: This provides a textual string which is vendor defined.
-  OID:  casaHeMSAlarmObjects 8 
+  DESCRIPTION: This contains additional information about the alarm and is vendor defined.
+  OID:  casaHeMSAlarmObjects 9 
   INDEX: INDEX no encontrado
   ARCHIVO: casa-hems-alarm.mib
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ neIdentity ---------------------------
-neIdentity:
+----------------------------------- probableCause ---------------------------
+probableCause:
   SYNTAX: OCTET STRING
   STATUS: current
-  DESCRIPTION: Ne Identity
-  OID:  casaHeMSAlarmObjects 1 
-  INDEX: INDEX no encontrado
-  ARCHIVO: casa-hems-alarm.mib
------------------------------------ Final de segmento -----------------------------------
------------------------------------ alarmID ---------------------------
-alarmID:
-  SYNTAX: OCTET STRING
-  STATUS: current
-  DESCRIPTION: alarm ID
-  OID:  casaHeMSAlarmObjects 2 
-  INDEX: INDEX no encontrado
-  ARCHIVO: casa-hems-alarm.mib
------------------------------------ Final de segmento -----------------------------------
------------------------------------ notificationType ---------------------------
-notificationType:
-  SYNTAX: OCTET STRING
-  STATUS: current
-  DESCRIPTION: alarm notificationType:
-'NewAlarm',
-'ChangedAlarm',
-'ClearedAlarm'
-  OID:  casaHeMSAlarmObjects 3 
+  DESCRIPTION: alarm probableCause
+  OID:  casaHeMSAlarmObjects 5 
   INDEX: INDEX no encontrado
   ARCHIVO: casa-hems-alarm.mib
 ----------------------------------- Final de segmento -----------------------------------
@@ -299,21 +278,42 @@ eventType:
   INDEX: INDEX no encontrado
   ARCHIVO: casa-hems-alarm.mib
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ eventTime ---------------------------
-eventTime:
-  SYNTAX: OCTET STRING
-  STATUS: current
-  DESCRIPTION: Indicates the date and time when the alarm event occurs.
-  OID:  casaHeMSAlarmObjects 10 
-  INDEX: INDEX no encontrado
-  ARCHIVO: casa-hems-alarm.mib
------------------------------------ Final de segmento -----------------------------------
 ----------------------------------- specificProblem ---------------------------
 specificProblem:
   SYNTAX: OCTET STRING
   STATUS: current
   DESCRIPTION: alarm specificProblem
   OID:  casaHeMSAlarmObjects 6 
+  INDEX: INDEX no encontrado
+  ARCHIVO: casa-hems-alarm.mib
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- neIdentity ---------------------------
+neIdentity:
+  SYNTAX: OCTET STRING
+  STATUS: current
+  DESCRIPTION: Ne Identity
+  OID:  casaHeMSAlarmObjects 1 
+  INDEX: INDEX no encontrado
+  ARCHIVO: casa-hems-alarm.mib
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- additionalText ---------------------------
+additionalText:
+  SYNTAX: OCTET STRING
+  STATUS: current
+  DESCRIPTION: This provides a textual string which is vendor defined.
+  OID:  casaHeMSAlarmObjects 8 
+  INDEX: INDEX no encontrado
+  ARCHIVO: casa-hems-alarm.mib
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- notificationType ---------------------------
+notificationType:
+  SYNTAX: OCTET STRING
+  STATUS: current
+  DESCRIPTION: alarm notificationType:
+'NewAlarm',
+'ChangedAlarm',
+'ClearedAlarm'
+  OID:  casaHeMSAlarmObjects 3 
   INDEX: INDEX no encontrado
   ARCHIVO: casa-hems-alarm.mib
 ----------------------------------- Final de segmento -----------------------------------
@@ -331,21 +331,21 @@ perceivedSeverity:
   INDEX: INDEX no encontrado
   ARCHIVO: casa-hems-alarm.mib
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ probableCause ---------------------------
-probableCause:
+----------------------------------- eventTime ---------------------------
+eventTime:
   SYNTAX: OCTET STRING
   STATUS: current
-  DESCRIPTION: alarm probableCause
-  OID:  casaHeMSAlarmObjects 5 
+  DESCRIPTION: Indicates the date and time when the alarm event occurs.
+  OID:  casaHeMSAlarmObjects 10 
   INDEX: INDEX no encontrado
   ARCHIVO: casa-hems-alarm.mib
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ additionalInformation ---------------------------
-additionalInformation:
+----------------------------------- alarmID ---------------------------
+alarmID:
   SYNTAX: OCTET STRING
   STATUS: current
-  DESCRIPTION: This contains additional information about the alarm and is vendor defined.
-  OID:  casaHeMSAlarmObjects 9 
+  DESCRIPTION: alarm ID
+  OID:  casaHeMSAlarmObjects 2 
   INDEX: INDEX no encontrado
   ARCHIVO: casa-hems-alarm.mib
 ----------------------------------- Final de segmento -----------------------------------

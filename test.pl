@@ -55,17 +55,27 @@ EOT
 
 my $logger = get_logger();
 
-my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\DISMAN-EVENT-MIB.mib';
 #my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\IF-MIB.mib';
 #my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\HOST-RESOURCES-MIB.mib';
 #my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\SNMPv2-SMI'; 
 
-my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Object_Identifiers.logs';
+# Alarmas test
+#my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\casa-hems-alarm.mib';
+#my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\DISMAN-EVENT-MIB.mib';
+#my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\ERICSSON-ALARM-XPATH-MIB.mib';
+#my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\SMIv1\BAY-PACKETS-EMS-MIB';
+my $file_mib_test = Rutas::RUTA_ARCHIVOS_TEST(). 'MIBS\SMIv1\SONUS-COMMUNICATOR-MIB';
+
+
+#my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Object_Identifiers.logs';
+#my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Object_Identifiers.logs';
 #my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Textual_Convention.logs';
 #my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Object_Types.logs';
 #my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Module_Compliance.logs';
 #my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Object_Group.logs';
 #my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Notification_Group.logs';
+my $temp_file_all = Rutas::RUTA_ARCHIVOS_TEST(). 'Logs\(Registros)_Alarm(S).logs';
+
 
 $temp_file_all = LogicMIB::validar_o_crear_archivo_temporal($temp_file_all);
 
@@ -73,19 +83,20 @@ $logger->info("Extrayendo Object Identifiers del archivo MIB: $file_mib_test");
 $logger->info("Guardando en: $temp_file_all");
 my %elements_extracted;
 
-my $extracted_element = LogicMIB::extraer_object_identifiers($file_mib_test, $temp_file_all);
 #my $extracted_element = LogicMIB::extraer_textual_conventions($file_mib_test, $temp_file_all);
 #my $extracted_element = LogicMIB::extraer_object_types($file_mib_test, $temp_file_all);
 #my $extracted_element = LogicMIB::extraer_module_compliance($file_mib_test, $temp_file_all);
 #my $extracted_element =  LogicMIB::extraer_objects_status_description($file_mib_test, $temp_file_all, 'OBJECT-GROUP');
 #my $extracted_element =  LogicMIB::extraer_objects_status_description($file_mib_test, $temp_file_all, 'NOTIFICATION-GROUP');
+my $extracted_element = LogicMIB::extraer_objects_status_description($file_mib_test, $temp_file_all, "ALARM");;
 
 @elements_extracted{keys %$extracted_element} = values %$extracted_element;
 
 # Escribir los datos en el archivo temporal con el tipo OBJECT_GROUPS
-LogicMIB::escribir_datos_en_archivo($temp_file_all, \%elements_extracted, "OBJECT_IDENTIFIERS", 1);
+#LogicMIB::escribir_datos_en_archivo($temp_file_all, \%elements_extracted, "OBJECT_IDENTIFIERS", 1);
 #LogicMIB::escribir_datos_en_archivo($temp_file_all, \%elements_extracted, "TEXTUAL_CONVENTION", 1);
 #LogicMIB::escribir_datos_en_archivo($temp_file_all, \%elements_extracted, "OBJECT_TYPES", 1);
 #LogicMIB::escribir_datos_en_archivo($temp_file_all, \%elements_extracted, "MODULE_COMPLIANCE", 1);
 #LogicMIB::escribir_datos_en_archivo($temp_file_all, \%elements_extracted, "OBJECT_GROUP", 1);
 #LogicMIB::escribir_datos_en_archivo($temp_file_all, \%elements_extracted, "NOTIFICATION_GROUP", 1);
+LogicMIB::escribir_datos_en_archivo($temp_file_all, \%elements_extracted, "NOTIFICATION_TYPES_OR_TRAP_TYPES", 1);
