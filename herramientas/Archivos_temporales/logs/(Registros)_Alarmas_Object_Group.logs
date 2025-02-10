@@ -11,156 +11,200 @@ values of an SNMP engine.
 "
 ::= { snmpFrameworkMIBGroups 1 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmSummaryGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmSummaryGroup
-eriAlarmSummaryGroup OBJECT-GROUP
-OBJECTS {
-eriAlarmSumIndeterminate,
-eriAlarmSumCritical,
-eriAlarmSumMajor,
-eriAlarmSumMinor,
-eriAlarmSumWarning
-}
-STATUS current
+#----------------------------------- OBJECT GROUP:  ifGeneralInformationGroup  ---------------------------#
+Nombre del grupo de objetos: ifGeneralInformationGroup
+ifGeneralInformationGroup    OBJECT-GROUP
+OBJECTS { ifIndex, ifDescr, ifType, ifSpeed, ifPhysAddress,
+ifAdminStatus, ifOperStatus, ifLastChange,
+ifLinkUpDownTrapEnable, ifConnectorPresent,
+ifHighSpeed, ifName, ifNumber, ifAlias,
+ifTableLastChange }
+STATUS  current
 DESCRIPTION
-"Group containing the summary counters for alarms."
-::= { eriAlarmGroups 1 }
+"A collection of objects providing information applicable to
+all network interfaces."
+::= { ifGroups 10 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmActiveAlarmsGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmActiveAlarmsGroup
-eriAlarmActiveAlarmsGroup OBJECT-GROUP
-OBJECTS {
-eriAlarmActiveNumber,
-eriAlarmActiveLastChanged,
-eriAlarmActiveLastSequenceNo,
-eriAlarmActiveTableURL,
-eriAlarmActiveMajorType,
-eriAlarmActiveMinorType,
-eriAlarmActiveSpecificProblem,
-eriAlarmActiveManagedObject,
-eriAlarmActiveEventType,
-eriAlarmActiveEventTime,
-eriAlarmActiveProbableCause,
-eriAlarmActiveSeverity,
-eriAlarmActiveAdditionalText,
-eriAlarmNObjAdditionalText,
-eriAlarmNObjResourceId
-}
-STATUS current
+#----------------------------------- OBJECT GROUP:  ifFixedLengthGroup  ---------------------------#
+Nombre del grupo de objetos: ifFixedLengthGroup
+ifFixedLengthGroup    OBJECT-GROUP
+OBJECTS { ifInOctets, ifOutOctets, ifInUnknownProtos,
+ifInErrors, ifOutErrors }
+STATUS  current
 DESCRIPTION
-"The group of objects needed to support the
-active alarm list."
-::= { eriAlarmGroups 2 }
+"A collection of objects providing information specific to
+non-high speed (non-high speed interfaces transmit and
+receive at speeds less than or equal to 20,000,000
+bits/second) character-oriented or fixed-length-transmission
+network interfaces."
+::= { ifGroups 2 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmAlertsGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmAlertsGroup
-eriAlarmAlertsGroup OBJECT-GROUP
-OBJECTS {
-eriAlarmAlertNumber,
-eriAlarmAlertLastChanged,
-eriAlarmAlertLastSequenceNo,
-eriAlarmAlertTableURL,
-eriAlarmAlertMajorType,
-eriAlarmAlertMinorType,
-eriAlarmAlertSpecificProblem,
-eriAlarmAlertManagedObject,
-eriAlarmAlertEventType,
-eriAlarmAlertEventTime,
-eriAlarmAlertProbableCause,
-eriAlarmAlertSeverity,
-eriAlarmAlertAdditionalText
-}
-STATUS current
+#----------------------------------- OBJECT GROUP:  ifHCFixedLengthGroup  ---------------------------#
+Nombre del grupo de objetos: ifHCFixedLengthGroup
+ifHCFixedLengthGroup    OBJECT-GROUP
+OBJECTS { ifHCInOctets, ifHCOutOctets,
+ifInOctets, ifOutOctets, ifInUnknownProtos,
+ifInErrors, ifOutErrors }
+STATUS  current
 DESCRIPTION
-"The group of objects needed to support the alert
-history."
-::= { eriAlarmGroups 3 }
+"A collection of objects providing information specific to
+high speed (greater than 20,000,000 bits/second) character-
+oriented or fixed-length-transmission network interfaces."
+::= { ifGroups 3 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmHeartBeatGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmHeartBeatGroup
-eriAlarmHeartBeatGroup OBJECT-GROUP
-OBJECTS {eriAlarmHbInterval}
-STATUS current
+#----------------------------------- OBJECT GROUP:  ifPacketGroup  ---------------------------#
+Nombre del grupo de objetos: ifPacketGroup
+ifPacketGroup    OBJECT-GROUP
+OBJECTS { ifInOctets, ifOutOctets, ifInUnknownProtos,
+ifInErrors, ifOutErrors,
+ifMtu, ifInUcastPkts, ifInMulticastPkts,
+ifInBroadcastPkts, ifInDiscards,
+ifOutUcastPkts, ifOutMulticastPkts,
+ifOutBroadcastPkts, ifOutDiscards,
+ifPromiscuousMode }
+STATUS  current
 DESCRIPTION
-"Only read is required for compliance"
-::= { eriAlarmGroups 4 }
+"A collection of objects providing information specific to
+non-high speed (non-high speed interfaces transmit and
+receive at speeds less than or equal to 20,000,000
+bits/second) packet-oriented network interfaces."
+::= { ifGroups 4 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmSNMPResourceGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmSNMPResourceGroup
-eriAlarmSNMPResourceGroup OBJECT-GROUP
-OBJECTS {
-eriAlarmActiveResourceId,
-eriAlarmAlertResourceId
-}
-STATUS current
+#----------------------------------- OBJECT GROUP:  ifHCPacketGroup  ---------------------------#
+Nombre del grupo de objetos: ifHCPacketGroup
+ifHCPacketGroup    OBJECT-GROUP
+OBJECTS { ifHCInOctets, ifHCOutOctets,
+ifInOctets, ifOutOctets, ifInUnknownProtos,
+ifInErrors, ifOutErrors,
+ifMtu, ifInUcastPkts, ifInMulticastPkts,
+ifInBroadcastPkts, ifInDiscards,
+ifOutUcastPkts, ifOutMulticastPkts,
+ifOutBroadcastPkts, ifOutDiscards,
+ifPromiscuousMode }
+STATUS  current
 DESCRIPTION
-"Objects that support SNMP object identifiers for
-resource identification."
-::= { eriAlarmGroups 5 }
+"A collection of objects providing information specific to
+high speed (greater than 20,000,000 bits/second but less
+than or equal to 650,000,000 bits/second) packet-oriented
+network interfaces."
+::= { ifGroups 5 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmChangeAlarmGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmChangeAlarmGroup
-eriAlarmChangeAlarmGroup OBJECT-GROUP
-OBJECTS {
-eriAlarmActiveOriginalEventTime,
-eriAlarmActiveOriginalSeverity,
-eriAlarmActiveOrigAdditionalText,
-eriAlarmNObjMoreAdditionalText
-}
-STATUS current
+#----------------------------------- OBJECT GROUP:  ifVHCPacketGroup  ---------------------------#
+Nombre del grupo de objetos: ifVHCPacketGroup
+ifVHCPacketGroup    OBJECT-GROUP
+OBJECTS { ifHCInUcastPkts, ifHCInMulticastPkts,
+ifHCInBroadcastPkts, ifHCOutUcastPkts,
+ifHCOutMulticastPkts, ifHCOutBroadcastPkts,
+ifHCInOctets, ifHCOutOctets,
+ifInOctets, ifOutOctets, ifInUnknownProtos,
+ifInErrors, ifOutErrors,
+ifMtu, ifInUcastPkts, ifInMulticastPkts,
+ifInBroadcastPkts, ifInDiscards,
+ifOutUcastPkts, ifOutMulticastPkts,
+ifOutBroadcastPkts, ifOutDiscards,
+ifPromiscuousMode }
+STATUS  current
 DESCRIPTION
-"Objects that stores previous state of an alarm."
-::= { eriAlarmGroups 6 }
+"A collection of objects providing information specific to
+higher speed (greater than 650,000,000 bits/second) packet-
+oriented network interfaces."
+::= { ifGroups 6 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmActiveAlarmsAdditionalInfoGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmActiveAlarmsAdditionalInfoGroup
-eriAlarmActiveAlarmsAdditionalInfoGroup OBJECT-GROUP
-OBJECTS {
-eriAlarmActiveAdditionalInfo,
-eriAlarmNObjAdditionalInfo,
-eriAlarmNObjAppendedAdditionalInfo,
-eriAlarmNObjMoreAdditionalInfo
-}
-STATUS current
+#----------------------------------- OBJECT GROUP:  ifRcvAddressGroup  ---------------------------#
+Nombre del grupo de objetos: ifRcvAddressGroup
+ifRcvAddressGroup    OBJECT-GROUP
+OBJECTS { ifRcvAddressStatus, ifRcvAddressType }
+STATUS  current
 DESCRIPTION
-"The group of objects needed to support
-Additional Information for alarms."
-::= { eriAlarmGroups 7 }
+"A collection of objects providing information on the
+multiple addresses which an interface receives."
+::= { ifGroups 7 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmAlertsAdditionalInfoGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmAlertsAdditionalInfoGroup
-eriAlarmAlertsAdditionalInfoGroup OBJECT-GROUP
-OBJECTS {eriAlarmAlertAdditionalInfo}
-STATUS current
+#----------------------------------- OBJECT GROUP:  ifStackGroup2  ---------------------------#
+Nombre del grupo de objetos: ifStackGroup2
+ifStackGroup2    OBJECT-GROUP
+OBJECTS { ifStackStatus, ifStackLastChange }
+STATUS  current
 DESCRIPTION
-"The group of objects needed to support
-Additional Information for alerts."
-::= { eriAlarmGroups 8 }
+"A collection of objects providing information on the
+layering of MIB-II interfaces."
+::= { ifGroups 11 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmRecordTypeGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmRecordTypeGroup
-eriAlarmRecordTypeGroup OBJECT-GROUP
-OBJECTS {eriAlarmNObjRecordType}
-STATUS current
+#----------------------------------- OBJECT GROUP:  ifCounterDiscontinuityGroup  ---------------------------#
+Nombre del grupo de objetos: ifCounterDiscontinuityGroup
+ifCounterDiscontinuityGroup  OBJECT-GROUP
+OBJECTS { ifCounterDiscontinuityTime }
+STATUS  current
 DESCRIPTION
-"The group of objects needed to support
-Record Type for alarms."
-::= { eriAlarmGroups 9 }
+"A collection of objects providing information specific to
+interface counter discontinuities."
+::= { ifGroups 13 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifGeneralGroup  ---------------------------#
+Nombre del grupo de objetos: ifGeneralGroup
+ifGeneralGroup    OBJECT-GROUP
+OBJECTS { ifDescr, ifType, ifSpeed, ifPhysAddress,
+ifAdminStatus, ifOperStatus, ifLastChange,
+ifLinkUpDownTrapEnable, ifConnectorPresent,
+ifHighSpeed, ifName }
+STATUS  deprecated
+DESCRIPTION
+"A collection of objects deprecated in favour of
+ifGeneralInformationGroup."
+::= { ifGroups 1 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifTestGroup  ---------------------------#
+Nombre del grupo de objetos: ifTestGroup
+ifTestGroup    OBJECT-GROUP
+OBJECTS { ifTestId, ifTestStatus, ifTestType,
+ifTestResult, ifTestCode, ifTestOwner }
+STATUS  deprecated
+DESCRIPTION
+"A collection of objects providing the ability to invoke
+tests on an interface."
+::= { ifGroups 8 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifStackGroup  ---------------------------#
+Nombre del grupo de objetos: ifStackGroup
+ifStackGroup    OBJECT-GROUP
+OBJECTS { ifStackStatus }
+STATUS  deprecated
+DESCRIPTION
+"The previous collection of objects providing information on
+the layering of MIB-II interfaces."
+::= { ifGroups 9 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  ifOldObjectsGroup  ---------------------------#
+Nombre del grupo de objetos: ifOldObjectsGroup
+ifOldObjectsGroup    OBJECT-GROUP
+OBJECTS { ifInNUcastPkts, ifOutNUcastPkts,
+ifOutQLen, ifSpecific }
+STATUS  deprecated
+DESCRIPTION
+"The collection of objects deprecated from the original MIB-
+II interfaces group."
+::= { ifGroups 12 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
 #----------------------------------- OBJECT GROUP:  snmpTargetBasicGroup  ---------------------------#
 Nombre del grupo de objetos: snmpTargetBasicGroup
 snmpTargetBasicGroup OBJECT-GROUP
-OBJECTS         { snmpTargetSpinLock, snmpTargetAddrTDomain, 
-snmpTargetAddrTAddress, snmpTargetAddrTagList, 
-snmpTargetAddrParams, snmpTargetAddrStorageType, 
-snmpTargetAddrRowStatus, snmpTargetParamsMPModel, 
-snmpTargetParamsSecurityModel, 
-snmpTargetParamsSecurityName, 
-snmpTargetParamsSecurityLevel, 
-snmpTargetParamsStorageType, 
-snmpTargetParamsRowStatus }
-STATUS          current
-DESCRIPTION     
+OBJECTS {
+snmpTargetSpinLock,
+snmpTargetAddrTDomain,
+snmpTargetAddrTAddress,
+snmpTargetAddrTagList,
+snmpTargetAddrParams,
+snmpTargetAddrStorageType,
+snmpTargetAddrRowStatus,
+snmpTargetParamsMPModel,
+snmpTargetParamsSecurityModel,
+snmpTargetParamsSecurityName,
+snmpTargetParamsSecurityLevel,
+snmpTargetParamsStorageType,
+snmpTargetParamsRowStatus
+}
+STATUS      current
+DESCRIPTION
 "A collection of objects providing basic remote
 configuration of management targets."
 ::= { snmpTargetGroups 1 }
@@ -168,9 +212,12 @@ configuration of management targets."
 #----------------------------------- OBJECT GROUP:  snmpTargetResponseGroup  ---------------------------#
 Nombre del grupo de objetos: snmpTargetResponseGroup
 snmpTargetResponseGroup OBJECT-GROUP
-OBJECTS         { snmpTargetAddrTimeout, snmpTargetAddrRetryCount }
-STATUS          current
-DESCRIPTION     
+OBJECTS {
+snmpTargetAddrTimeout,
+snmpTargetAddrRetryCount
+}
+STATUS      current
+DESCRIPTION
 "A collection of objects providing remote configuration
 of management targets for applications which generate
 SNMP messages for which a response message would be
@@ -180,203 +227,290 @@ expected."
 #----------------------------------- OBJECT GROUP:  snmpTargetCommandResponderGroup  ---------------------------#
 Nombre del grupo de objetos: snmpTargetCommandResponderGroup
 snmpTargetCommandResponderGroup OBJECT-GROUP
-OBJECTS         { snmpUnavailableContexts, snmpUnknownContexts }
-STATUS          current
-DESCRIPTION     
+OBJECTS {
+snmpUnavailableContexts,
+snmpUnknownContexts
+}
+STATUS      current
+DESCRIPTION
 "A collection of objects required for command responder
 applications, used for counting error conditions."
 ::= { snmpTargetGroups 3 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  snmpNotifyGroup  ---------------------------#
-Nombre del grupo de objetos: snmpNotifyGroup
-snmpNotifyGroup OBJECT-GROUP
-OBJECTS         { snmpNotifyTag, snmpNotifyType, 
-snmpNotifyStorageType, snmpNotifyRowStatus }
-STATUS          current
-DESCRIPTION     
-"A collection of objects for selecting which management
-targets are used for generating notifications, and the
-type of notification to be generated for each selected
-management target."
-::= { snmpNotifyGroups 1 }
+#----------------------------------- OBJECT GROUP:  snmpGroup  ---------------------------#
+Nombre del grupo de objetos: snmpGroup
+snmpGroup OBJECT-GROUP
+OBJECTS { snmpInPkts,
+snmpInBadVersions,
+snmpInASNParseErrs,
+snmpSilentDrops,
+snmpProxyDrops,
+snmpEnableAuthenTraps }
+STATUS  current
+DESCRIPTION
+"A collection of objects providing basic instrumentation
+and control of an SNMP entity."
+::= { snmpMIBGroups 8 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  snmpNotifyFilterGroup  ---------------------------#
-Nombre del grupo de objetos: snmpNotifyFilterGroup
-snmpNotifyFilterGroup OBJECT-GROUP
-OBJECTS         { snmpNotifyFilterProfileName, 
-snmpNotifyFilterProfileStorType, 
-snmpNotifyFilterProfileRowStatus, 
-snmpNotifyFilterMask, snmpNotifyFilterType, 
-snmpNotifyFilterStorageType, 
-snmpNotifyFilterRowStatus }
-STATUS          current
-DESCRIPTION     
-"A collection of objects providing remote configuration
-of notification filters."
-::= { snmpNotifyGroups 2 }
+#----------------------------------- OBJECT GROUP:  snmpCommunityGroup1  ---------------------------#
+Nombre del grupo de objetos: snmpCommunityGroup1
+snmpCommunityGroup1 OBJECT-GROUP
+OBJECTS { snmpInBadCommunityNames,
+snmpInBadCommunityUses }
+STATUS  current
+DESCRIPTION
+"A collection of objects providing basic instrumentation
+of a SNMP entity which supports community-based
+authentication."
+::= { snmpMIBGroups 9 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmXSummaryGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmXSummaryGroup
-eriAlarmXSummaryGroup OBJECT-GROUP
-OBJECTS {
-eriAlarmXSumIndeterminate,
-eriAlarmXSumCritical,
-eriAlarmXSumMajor,
-eriAlarmXSumMinor,
-eriAlarmXSumWarning
+#----------------------------------- OBJECT GROUP:  snmpSetGroup  ---------------------------#
+Nombre del grupo de objetos: snmpSetGroup
+snmpSetGroup OBJECT-GROUP
+OBJECTS { snmpSetSerialNo }
+STATUS  current
+DESCRIPTION
+"A collection of objects which allow several cooperating
+command generator applications to coordinate their
+use of the set operation."
+::= { snmpMIBGroups 5 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  systemGroup  ---------------------------#
+Nombre del grupo de objetos: systemGroup
+systemGroup OBJECT-GROUP
+OBJECTS { sysDescr, sysObjectID, sysUpTime,
+sysContact, sysName, sysLocation,
+sysServices,
+sysORLastChange, sysORID,
+sysORUpTime, sysORDescr }
+STATUS  current
+DESCRIPTION
+"The system group defines objects which are common to all
+managed systems."
+::= { snmpMIBGroups 6 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  snmpNotificationGroup  ---------------------------#
+Nombre del grupo de objetos: snmpNotificationGroup
+snmpNotificationGroup OBJECT-GROUP
+OBJECTS { snmpTrapOID, snmpTrapEnterprise }
+STATUS  current
+DESCRIPTION
+"These objects are required for entities
+which support notification originator applications."
+::= { snmpMIBGroups 12 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  snmpObsoleteGroup  ---------------------------#
+Nombre del grupo de objetos: snmpObsoleteGroup
+snmpObsoleteGroup OBJECT-GROUP
+OBJECTS { snmpOutPkts, snmpInTooBigs, snmpInNoSuchNames,
+snmpInBadValues, snmpInReadOnlys, snmpInGenErrs,
+snmpInTotalReqVars, snmpInTotalSetVars,
+snmpInGetRequests, snmpInGetNexts, snmpInSetRequests,
+snmpInGetResponses, snmpInTraps, snmpOutTooBigs,
+snmpOutNoSuchNames, snmpOutBadValues,
+snmpOutGenErrs, snmpOutGetRequests, snmpOutGetNexts,
+snmpOutSetRequests, snmpOutGetResponses, snmpOutTraps
 }
-STATUS  current
+STATUS  obsolete
 DESCRIPTION
-"Group containing the summary counters for alarms."
-::= { eriAlarmXGroups 1 }
+"A collection of objects from RFC 1213 made obsolete
+by this MIB module."
+::= { snmpMIBGroups 10 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmXActiveAlarmsGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmXActiveAlarmsGroup
-eriAlarmXActiveAlarmsGroup OBJECT-GROUP
+#----------------------------------- OBJECT GROUP:  hrSystemGroup  ---------------------------#
+Nombre del grupo de objetos: hrSystemGroup
+hrSystemGroup OBJECT-GROUP
 OBJECTS {
-eriAlarmXActiveNumber,
-eriAlarmXActiveLastChanged,
-eriAlarmXActiveLastSequenceNo,
-eriAlarmXActiveTableURL,
-eriAlarmXActiveMajorType,
-eriAlarmXActiveMinorType,
-eriAlarmXActiveSpecificProblem,
-eriAlarmXActiveYangNodeInstance,
-eriAlarmXActiveEventType,
-eriAlarmXActiveEventTime,
-eriAlarmXActiveProbableCause,
-eriAlarmXActiveSeverity,
-eriAlarmXActiveAdditionalText,
-eriAlarmXNObjAdditionalText,
-eriAlarmXNObjResourceId
+hrSystemUptime, hrSystemDate,
+hrSystemInitialLoadDevice,
+hrSystemInitialLoadParameters,
+hrSystemNumUsers, hrSystemProcesses,
+hrSystemMaxProcesses
 }
-STATUS  current
+STATUS current
 DESCRIPTION
-"The group of objects needed to support the
-active alarm list."
-::= { eriAlarmXGroups 2 }
+"The Host Resources System Group."
+::= { hrMIBGroups 1 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmXAlertsGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmXAlertsGroup
-eriAlarmXAlertsGroup OBJECT-GROUP
+#----------------------------------- OBJECT GROUP:  hrStorageGroup  ---------------------------#
+Nombre del grupo de objetos: hrStorageGroup
+hrStorageGroup OBJECT-GROUP
 OBJECTS {
-eriAlarmXAlertNumber,
-eriAlarmXAlertLastChanged,
-eriAlarmXAlertLastSequenceNo,
-eriAlarmXAlertTableURL,
-eriAlarmXAlertMajorType,
-eriAlarmXAlertMinorType,
-eriAlarmXAlertSpecificProblem,
-eriAlarmXAlertYangNodeInstance,
-eriAlarmXAlertEventType,
-eriAlarmXAlertEventTime,
-eriAlarmXAlertProbableCause,
-eriAlarmXAlertSeverity,
-eriAlarmXAlertAdditionalText
+hrMemorySize, hrStorageIndex, hrStorageType,
+hrStorageDescr, hrStorageAllocationUnits,
+hrStorageSize, hrStorageUsed,
+hrStorageAllocationFailures
 }
-STATUS  current
+STATUS current
 DESCRIPTION
-"The group of objects needed to support the alert
-history."
-::= { eriAlarmXGroups 3 }
+"The Host Resources Storage Group."
+::= { hrMIBGroups 2 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmXHeartBeatGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmXHeartBeatGroup
-eriAlarmXHeartBeatGroup OBJECT-GROUP
-OBJECTS {eriAlarmXHbInterval}
-STATUS  current
-DESCRIPTION
-"Only read is required for compliance"
-::= { eriAlarmXGroups 4 }
-#----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmXSNMPResourceGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmXSNMPResourceGroup
-eriAlarmXSNMPResourceGroup OBJECT-GROUP
+#----------------------------------- OBJECT GROUP:  hrDeviceGroup  ---------------------------#
+Nombre del grupo de objetos: hrDeviceGroup
+hrDeviceGroup OBJECT-GROUP
 OBJECTS {
-eriAlarmXActiveResourceId,
-eriAlarmXAlertResourceId
+hrDeviceIndex, hrDeviceType, hrDeviceDescr,
+hrDeviceID, hrDeviceStatus, hrDeviceErrors,
+hrProcessorFrwID, hrProcessorLoad,
+hrNetworkIfIndex, hrPrinterStatus,
+hrPrinterDetectedErrorState,
+hrDiskStorageAccess, hrDiskStorageMedia,
+hrDiskStorageRemoveble, hrDiskStorageCapacity,
+hrPartitionIndex, hrPartitionLabel,
+hrPartitionID, hrPartitionSize,
+hrPartitionFSIndex, hrFSIndex, hrFSMountPoint,
+hrFSRemoteMountPoint, hrFSType, hrFSAccess,
+hrFSBootable, hrFSStorageIndex,
+hrFSLastFullBackupDate,
+hrFSLastPartialBackupDate
 }
-STATUS  current
+STATUS current
 DESCRIPTION
-"Objects that support SNMP object identifiers for
-resource identification."
-::= { eriAlarmXGroups 5 }
+"The Host Resources Device Group."
+::= { hrMIBGroups 3 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmXChangeAlarmGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmXChangeAlarmGroup
-eriAlarmXChangeAlarmGroup OBJECT-GROUP
+#----------------------------------- OBJECT GROUP:  hrSWRunGroup  ---------------------------#
+Nombre del grupo de objetos: hrSWRunGroup
+hrSWRunGroup OBJECT-GROUP
 OBJECTS {
-eriAlarmXActiveOriginalEventTime,
-eriAlarmXActiveOriginalSeverity,
-eriAlarmXActiveOrigAdditionalText,
-eriAlarmXNObjMoreAdditionalText
+hrSWOSIndex, hrSWRunIndex, hrSWRunName,
+hrSWRunID, hrSWRunPath, hrSWRunParameters,
+hrSWRunType, hrSWRunStatus
 }
-STATUS  current
+STATUS current
 DESCRIPTION
-"Objects that stores previous state of an alarm."
-::= { eriAlarmXGroups 6 }
+"The Host Resources Running Software Group."
+::= { hrMIBGroups 4 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmXActiveAlarmsAdditionalInfoGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmXActiveAlarmsAdditionalInfoGroup
-eriAlarmXActiveAlarmsAdditionalInfoGroup OBJECT-GROUP
+#----------------------------------- OBJECT GROUP:  hrSWRunPerfGroup  ---------------------------#
+Nombre del grupo de objetos: hrSWRunPerfGroup
+hrSWRunPerfGroup OBJECT-GROUP
+OBJECTS { hrSWRunPerfCPU, hrSWRunPerfMem }
+STATUS current
+DESCRIPTION
+"The Host Resources Running Software
+Performance Group."
+::= { hrMIBGroups 5 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  hrSWInstalledGroup  ---------------------------#
+Nombre del grupo de objetos: hrSWInstalledGroup
+hrSWInstalledGroup OBJECT-GROUP
 OBJECTS {
-eriAlarmXActiveAdditionalInfo,
-eriAlarmXNObjAdditionalInfo,
-eriAlarmXNObjAppendedAdditionalInfo,
-eriAlarmXNObjMoreAdditionalInfo
+hrSWInstalledLastChange,
+hrSWInstalledLastUpdateTime,
+hrSWInstalledIndex, hrSWInstalledName,
+hrSWInstalledID, hrSWInstalledType,
+hrSWInstalledDate
 }
-STATUS  current
+STATUS current
 DESCRIPTION
-"The group of objects needed to support 
-Additional Information for alarms."
-::= { eriAlarmXGroups 7 }
+"The Host Resources Installed Software Group."
+::= { hrMIBGroups 6 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmXAlertsAdditionalInfoGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmXAlertsAdditionalInfoGroup
-eriAlarmXAlertsAdditionalInfoGroup OBJECT-GROUP
-OBJECTS {eriAlarmXAlertAdditionalInfo}
-STATUS  current
-DESCRIPTION
-"The group of objects needed to support 
-Additional Information for alerts."
-::= { eriAlarmXGroups 8 }
-#----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmXRecordTypeGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmXRecordTypeGroup
-eriAlarmXRecordTypeGroup OBJECT-GROUP
-OBJECTS {eriAlarmXNObjRecordType}
-STATUS  current
-DESCRIPTION
-"The group of objects needed to support 
-Record Type for alarms."
-::= { eriAlarmXGroups 9 }
-#----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  eriAlarmXSourceIdentifierGroup  ---------------------------#
-Nombre del grupo de objetos: eriAlarmXSourceIdentifierGroup
-eriAlarmXSourceIdentifierGroup OBJECT-GROUP
-OBJECTS {eriAlarmXNObjSourceIdentifierType,
-eriAlarmXNObjSourceIdentifier}
-STATUS  current
-DESCRIPTION
-"The group of objects needed to support source 
-identifier information for notifications."
-::= { eriAlarmXGroups 15 }
-#----------------------------------- FIN OBJECT GROUP ---------------------------#
------------------------------------ eriAlarmXAlertsGroup ---------------------------
-eriAlarmXAlertsGroup:
+----------------------------------- hrSWRunPerfGroup ---------------------------
+hrSWRunPerfGroup:
   TYPE: OBJECT-GROUP
-  OBJECTS:  eriAlarmXAlertNumber, eriAlarmXAlertLastChanged, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertTableURL, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertYangNodeInstance, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXAlertSeverity, eriAlarmXAlertAdditionalText 
+  OBJECTS: hrSWRunPerfCPU, hrSWRunPerfMem 
   STATUS: current
-  DESCRIPTION: The group of objects needed to support the alert history.
-  OID: eriAlarmXGroups 3
+  DESCRIPTION: The Host Resources Running Software Performance Group.
+  OID: hrMIBGroups 5
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ eriAlarmAlertsGroup ---------------------------
-eriAlarmAlertsGroup:
+----------------------------------- hrDeviceGroup ---------------------------
+hrDeviceGroup:
   TYPE: OBJECT-GROUP
-  OBJECTS:  eriAlarmAlertNumber, eriAlarmAlertLastChanged, eriAlarmAlertLastSequenceNo, eriAlarmAlertTableURL, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertManagedObject, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmAlertSeverity, eriAlarmAlertAdditionalText 
+  OBJECTS:  hrDeviceIndex, hrDeviceType, hrDeviceDescr, hrDeviceID, hrDeviceStatus, hrDeviceErrors, hrProcessorFrwID, hrProcessorLoad, hrNetworkIfIndex, hrPrinterStatus, hrPrinterDetectedErrorState, hrDiskStorageAccess, hrDiskStorageMedia, hrDiskStorageRemoveble, hrDiskStorageCapacity, hrPartitionIndex, hrPartitionLabel, hrPartitionID, hrPartitionSize, hrPartitionFSIndex, hrFSIndex, hrFSMountPoint, hrFSRemoteMountPoint, hrFSType, hrFSAccess, hrFSBootable, hrFSStorageIndex, hrFSLastFullBackupDate, hrFSLastPartialBackupDate 
   STATUS: current
-  DESCRIPTION: The group of objects needed to support the alert history.
-  OID: eriAlarmGroups 3
+  DESCRIPTION: The Host Resources Device Group.
+  OID: hrMIBGroups 3
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpObsoleteGroup ---------------------------
+snmpObsoleteGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: snmpOutPkts, snmpInTooBigs, snmpInNoSuchNames, snmpInBadValues, snmpInReadOnlys, snmpInGenErrs, snmpInTotalReqVars, snmpInTotalSetVars, snmpInGetRequests, snmpInGetNexts, snmpInSetRequests, snmpInGetResponses, snmpInTraps, snmpOutTooBigs, snmpOutNoSuchNames, snmpOutBadValues, snmpOutGenErrs, snmpOutGetRequests, snmpOutGetNexts, snmpOutSetRequests, snmpOutGetResponses, snmpOutTraps 
+  STATUS: obsolete
+  DESCRIPTION: A collection of objects from RFC 1213 made obsolete by this MIB module.
+  OID: snmpMIBGroups 10
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifHCFixedLengthGroup ---------------------------
+ifHCFixedLengthGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifHCInOctets, ifHCOutOctets, ifInOctets, ifOutOctets, ifInUnknownProtos, ifInErrors, ifOutErrors 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing information specific to high speed (greater than 20,000,000 bits/second) character- oriented or fixed-length-transmission network interfaces.
+  OID: ifGroups 3
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- systemGroup ---------------------------
+systemGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: sysDescr, sysObjectID, sysUpTime, sysContact, sysName, sysLocation, sysServices, sysORLastChange, sysORID, sysORUpTime, sysORDescr 
+  STATUS: current
+  DESCRIPTION: The system group defines objects which are common to all managed systems.
+  OID: snmpMIBGroups 6
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifFixedLengthGroup ---------------------------
+ifFixedLengthGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifInOctets, ifOutOctets, ifInUnknownProtos, ifInErrors, ifOutErrors 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing information specific to non-high speed (non-high speed interfaces transmit and receive at speeds less than or equal to 20,000,000 bits/second) character-oriented or fixed-length-transmission network interfaces.
+  OID: ifGroups 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSystemGroup ---------------------------
+hrSystemGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS:  hrSystemUptime, hrSystemDate, hrSystemInitialLoadDevice, hrSystemInitialLoadParameters, hrSystemNumUsers, hrSystemProcesses, hrSystemMaxProcesses 
+  STATUS: current
+  DESCRIPTION: The Host Resources System Group.
+  OID: hrMIBGroups 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpGroup ---------------------------
+snmpGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: snmpInPkts, snmpInBadVersions, snmpInASNParseErrs, snmpSilentDrops, snmpProxyDrops, snmpEnableAuthenTraps 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing basic instrumentation and control of an SNMP entity.
+  OID: snmpMIBGroups 8
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrStorageGroup ---------------------------
+hrStorageGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS:  hrMemorySize, hrStorageIndex, hrStorageType, hrStorageDescr, hrStorageAllocationUnits, hrStorageSize, hrStorageUsed, hrStorageAllocationFailures 
+  STATUS: current
+  DESCRIPTION: The Host Resources Storage Group.
+  OID: hrMIBGroups 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpTargetBasicGroup ---------------------------
+snmpTargetBasicGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS:  snmpTargetSpinLock, snmpTargetAddrTDomain, snmpTargetAddrTAddress, snmpTargetAddrTagList, snmpTargetAddrParams, snmpTargetAddrStorageType, snmpTargetAddrRowStatus, snmpTargetParamsMPModel, snmpTargetParamsSecurityModel, snmpTargetParamsSecurityName, snmpTargetParamsSecurityLevel, snmpTargetParamsStorageType, snmpTargetParamsRowStatus 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing basic remote configuration of management targets.
+  OID: snmpTargetGroups 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpSetGroup ---------------------------
+snmpSetGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: snmpSetSerialNo 
+  STATUS: current
+  DESCRIPTION: A collection of objects which allow several cooperating command generator applications to coordinate their use of the set operation.
+  OID: snmpMIBGroups 5
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpCommunityGroup1 ---------------------------
+snmpCommunityGroup1:
+  TYPE: OBJECT-GROUP
+  OBJECTS: snmpInBadCommunityNames, snmpInBadCommunityUses 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing basic instrumentation of a SNMP entity which supports community-based authentication.
+  OID: snmpMIBGroups 9
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpTargetCommandResponderGroup ---------------------------
+snmpTargetCommandResponderGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS:  snmpUnavailableContexts, snmpUnknownContexts 
+  STATUS: current
+  DESCRIPTION: A collection of objects required for command responder applications, used for counting error conditions.
+  OID: snmpTargetGroups 3
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpEngineGroup ---------------------------
 snmpEngineGroup:
@@ -386,179 +520,123 @@ snmpEngineGroup:
   DESCRIPTION: A collection of objects for identifying and determining the configuration and current timeliness values of an SNMP engine.
   OID: snmpFrameworkMIBGroups 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ eriAlarmActiveAlarmsAdditionalInfoGroup ---------------------------
-eriAlarmActiveAlarmsAdditionalInfoGroup:
+----------------------------------- ifOldObjectsGroup ---------------------------
+ifOldObjectsGroup:
   TYPE: OBJECT-GROUP
-  OBJECTS:  eriAlarmActiveAdditionalInfo, eriAlarmNObjAdditionalInfo, eriAlarmNObjAppendedAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
-  STATUS: current
-  DESCRIPTION: The group of objects needed to support Additional Information for alarms.
-  OID: eriAlarmGroups 7
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmXChangeAlarmGroup ---------------------------
-eriAlarmXChangeAlarmGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS:  eriAlarmXActiveOriginalEventTime, eriAlarmXActiveOriginalSeverity, eriAlarmXActiveOrigAdditionalText, eriAlarmXNObjMoreAdditionalText 
-  STATUS: current
-  DESCRIPTION: Objects that stores previous state of an alarm.
-  OID: eriAlarmXGroups 6
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmXSNMPResourceGroup ---------------------------
-eriAlarmXSNMPResourceGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS:  eriAlarmXActiveResourceId, eriAlarmXAlertResourceId 
-  STATUS: current
-  DESCRIPTION: Objects that support SNMP object identifiers for resource identification.
-  OID: eriAlarmXGroups 5
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmXSummaryGroup ---------------------------
-eriAlarmXSummaryGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS:  eriAlarmXSumIndeterminate, eriAlarmXSumCritical, eriAlarmXSumMajor, eriAlarmXSumMinor, eriAlarmXSumWarning 
-  STATUS: current
-  DESCRIPTION: Group containing the summary counters for alarms.
-  OID: eriAlarmXGroups 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmXActiveAlarmsGroup ---------------------------
-eriAlarmXActiveAlarmsGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS:  eriAlarmXActiveNumber, eriAlarmXActiveLastChanged, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveTableURL, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveYangNodeInstance, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXActiveSeverity, eriAlarmXActiveAdditionalText, eriAlarmXNObjAdditionalText, eriAlarmXNObjResourceId 
-  STATUS: current
-  DESCRIPTION: The group of objects needed to support the active alarm list.
-  OID: eriAlarmXGroups 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpNotifyFilterGroup ---------------------------
-snmpNotifyFilterGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS: snmpNotifyFilterProfileName, snmpNotifyFilterProfileStorType, snmpNotifyFilterProfileRowStatus, snmpNotifyFilterMask, snmpNotifyFilterType, snmpNotifyFilterStorageType, snmpNotifyFilterRowStatus 
-  STATUS: current
-  DESCRIPTION: A collection of objects providing remote configuration of notification filters.
-  OID: snmpNotifyGroups 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTargetBasicGroup ---------------------------
-snmpTargetBasicGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS: snmpTargetSpinLock, snmpTargetAddrTDomain, snmpTargetAddrTAddress, snmpTargetAddrTagList, snmpTargetAddrParams, snmpTargetAddrStorageType, snmpTargetAddrRowStatus, snmpTargetParamsMPModel, snmpTargetParamsSecurityModel, snmpTargetParamsSecurityName, snmpTargetParamsSecurityLevel, snmpTargetParamsStorageType, snmpTargetParamsRowStatus 
-  STATUS: current
-  DESCRIPTION: A collection of objects providing basic remote configuration of management targets.
-  OID: snmpTargetGroups 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmXRecordTypeGroup ---------------------------
-eriAlarmXRecordTypeGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS: eriAlarmXNObjRecordType
-  STATUS: current
-  DESCRIPTION: The group of objects needed to support  Record Type for alarms.
-  OID: eriAlarmXGroups 9
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmRecordTypeGroup ---------------------------
-eriAlarmRecordTypeGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS: eriAlarmNObjRecordType
-  STATUS: current
-  DESCRIPTION: The group of objects needed to support Record Type for alarms.
-  OID: eriAlarmGroups 9
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmSummaryGroup ---------------------------
-eriAlarmSummaryGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS:  eriAlarmSumIndeterminate, eriAlarmSumCritical, eriAlarmSumMajor, eriAlarmSumMinor, eriAlarmSumWarning 
-  STATUS: current
-  DESCRIPTION: Group containing the summary counters for alarms.
-  OID: eriAlarmGroups 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmSNMPResourceGroup ---------------------------
-eriAlarmSNMPResourceGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS:  eriAlarmActiveResourceId, eriAlarmAlertResourceId 
-  STATUS: current
-  DESCRIPTION: Objects that support SNMP object identifiers for resource identification.
-  OID: eriAlarmGroups 5
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmXSourceIdentifierGroup ---------------------------
-eriAlarmXSourceIdentifierGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS: eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier
-  STATUS: current
-  DESCRIPTION: The group of objects needed to support source  identifier information for notifications.
-  OID: eriAlarmXGroups 15
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpNotifyGroup ---------------------------
-snmpNotifyGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS: snmpNotifyTag, snmpNotifyType, snmpNotifyStorageType, snmpNotifyRowStatus 
-  STATUS: current
-  DESCRIPTION: A collection of objects for selecting which management targets are used for generating notifications, and the type of notification to be generated for each selected management target.
-  OID: snmpNotifyGroups 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmActiveAlarmsGroup ---------------------------
-eriAlarmActiveAlarmsGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS:  eriAlarmActiveNumber, eriAlarmActiveLastChanged, eriAlarmActiveLastSequenceNo, eriAlarmActiveTableURL, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveManagedObject, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmActiveSeverity, eriAlarmActiveAdditionalText, eriAlarmNObjAdditionalText, eriAlarmNObjResourceId 
-  STATUS: current
-  DESCRIPTION: The group of objects needed to support the active alarm list.
-  OID: eriAlarmGroups 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmChangeAlarmGroup ---------------------------
-eriAlarmChangeAlarmGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS:  eriAlarmActiveOriginalEventTime, eriAlarmActiveOriginalSeverity, eriAlarmActiveOrigAdditionalText, eriAlarmNObjMoreAdditionalText 
-  STATUS: current
-  DESCRIPTION: Objects that stores previous state of an alarm.
-  OID: eriAlarmGroups 6
+  OBJECTS: ifInNUcastPkts, ifOutNUcastPkts, ifOutQLen, ifSpecific 
+  STATUS: deprecated
+  DESCRIPTION: The collection of objects deprecated from the original MIB- II interfaces group.
+  OID: ifGroups 12
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpTargetResponseGroup ---------------------------
 snmpTargetResponseGroup:
   TYPE: OBJECT-GROUP
-  OBJECTS: snmpTargetAddrTimeout, snmpTargetAddrRetryCount 
+  OBJECTS:  snmpTargetAddrTimeout, snmpTargetAddrRetryCount 
   STATUS: current
   DESCRIPTION: A collection of objects providing remote configuration of management targets for applications which generate SNMP messages for which a response message would be expected.
   OID: snmpTargetGroups 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ eriAlarmXHeartBeatGroup ---------------------------
-eriAlarmXHeartBeatGroup:
+----------------------------------- ifPacketGroup ---------------------------
+ifPacketGroup:
   TYPE: OBJECT-GROUP
-  OBJECTS: eriAlarmXHbInterval
+  OBJECTS: ifInOctets, ifOutOctets, ifInUnknownProtos, ifInErrors, ifOutErrors, ifMtu, ifInUcastPkts, ifInMulticastPkts, ifInBroadcastPkts, ifInDiscards, ifOutUcastPkts, ifOutMulticastPkts, ifOutBroadcastPkts, ifOutDiscards, ifPromiscuousMode 
   STATUS: current
-  DESCRIPTION: Only read is required for compliance
-  OID: eriAlarmXGroups 4
+  DESCRIPTION: A collection of objects providing information specific to non-high speed (non-high speed interfaces transmit and receive at speeds less than or equal to 20,000,000 bits/second) packet-oriented network interfaces.
+  OID: ifGroups 4
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ eriAlarmXActiveAlarmsAdditionalInfoGroup ---------------------------
-eriAlarmXActiveAlarmsAdditionalInfoGroup:
+----------------------------------- ifStackGroup2 ---------------------------
+ifStackGroup2:
   TYPE: OBJECT-GROUP
-  OBJECTS:  eriAlarmXActiveAdditionalInfo, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjAppendedAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo 
+  OBJECTS: ifStackStatus, ifStackLastChange 
   STATUS: current
-  DESCRIPTION: The group of objects needed to support  Additional Information for alarms.
-  OID: eriAlarmXGroups 7
+  DESCRIPTION: A collection of objects providing information on the layering of MIB-II interfaces.
+  OID: ifGroups 11
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ eriAlarmXAlertsAdditionalInfoGroup ---------------------------
-eriAlarmXAlertsAdditionalInfoGroup:
+----------------------------------- ifCounterDiscontinuityGroup ---------------------------
+ifCounterDiscontinuityGroup:
   TYPE: OBJECT-GROUP
-  OBJECTS: eriAlarmXAlertAdditionalInfo
+  OBJECTS: ifCounterDiscontinuityTime 
   STATUS: current
-  DESCRIPTION: The group of objects needed to support  Additional Information for alerts.
-  OID: eriAlarmXGroups 8
+  DESCRIPTION: A collection of objects providing information specific to interface counter discontinuities.
+  OID: ifGroups 13
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmpTargetCommandResponderGroup ---------------------------
-snmpTargetCommandResponderGroup:
+----------------------------------- hrSWInstalledGroup ---------------------------
+hrSWInstalledGroup:
   TYPE: OBJECT-GROUP
-  OBJECTS: snmpUnavailableContexts, snmpUnknownContexts 
+  OBJECTS:  hrSWInstalledLastChange, hrSWInstalledLastUpdateTime, hrSWInstalledIndex, hrSWInstalledName, hrSWInstalledID, hrSWInstalledType, hrSWInstalledDate 
   STATUS: current
-  DESCRIPTION: A collection of objects required for command responder applications, used for counting error conditions.
-  OID: snmpTargetGroups 3
+  DESCRIPTION: The Host Resources Installed Software Group.
+  OID: hrMIBGroups 6
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ eriAlarmHeartBeatGroup ---------------------------
-eriAlarmHeartBeatGroup:
+----------------------------------- ifTestGroup ---------------------------
+ifTestGroup:
   TYPE: OBJECT-GROUP
-  OBJECTS: eriAlarmHbInterval
-  STATUS: current
-  DESCRIPTION: Only read is required for compliance
-  OID: eriAlarmGroups 4
+  OBJECTS: ifTestId, ifTestStatus, ifTestType, ifTestResult, ifTestCode, ifTestOwner 
+  STATUS: deprecated
+  DESCRIPTION: A collection of objects providing the ability to invoke tests on an interface.
+  OID: ifGroups 8
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ eriAlarmAlertsAdditionalInfoGroup ---------------------------
-eriAlarmAlertsAdditionalInfoGroup:
+----------------------------------- ifVHCPacketGroup ---------------------------
+ifVHCPacketGroup:
   TYPE: OBJECT-GROUP
-  OBJECTS: eriAlarmAlertAdditionalInfo
+  OBJECTS: ifHCInUcastPkts, ifHCInMulticastPkts, ifHCInBroadcastPkts, ifHCOutUcastPkts, ifHCOutMulticastPkts, ifHCOutBroadcastPkts, ifHCInOctets, ifHCOutOctets, ifInOctets, ifOutOctets, ifInUnknownProtos, ifInErrors, ifOutErrors, ifMtu, ifInUcastPkts, ifInMulticastPkts, ifInBroadcastPkts, ifInDiscards, ifOutUcastPkts, ifOutMulticastPkts, ifOutBroadcastPkts, ifOutDiscards, ifPromiscuousMode 
   STATUS: current
-  DESCRIPTION: The group of objects needed to support Additional Information for alerts.
-  OID: eriAlarmGroups 8
+  DESCRIPTION: A collection of objects providing information specific to higher speed (greater than 650,000,000 bits/second) packet- oriented network interfaces.
+  OID: ifGroups 6
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifRcvAddressGroup ---------------------------
+ifRcvAddressGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifRcvAddressStatus, ifRcvAddressType 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing information on the multiple addresses which an interface receives.
+  OID: ifGroups 7
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpNotificationGroup ---------------------------
+snmpNotificationGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: snmpTrapOID, snmpTrapEnterprise 
+  STATUS: current
+  DESCRIPTION: These objects are required for entities which support notification originator applications.
+  OID: snmpMIBGroups 12
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifHCPacketGroup ---------------------------
+ifHCPacketGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifHCInOctets, ifHCOutOctets, ifInOctets, ifOutOctets, ifInUnknownProtos, ifInErrors, ifOutErrors, ifMtu, ifInUcastPkts, ifInMulticastPkts, ifInBroadcastPkts, ifInDiscards, ifOutUcastPkts, ifOutMulticastPkts, ifOutBroadcastPkts, ifOutDiscards, ifPromiscuousMode 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing information specific to high speed (greater than 20,000,000 bits/second but less than or equal to 650,000,000 bits/second) packet-oriented network interfaces.
+  OID: ifGroups 5
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSWRunGroup ---------------------------
+hrSWRunGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS:  hrSWOSIndex, hrSWRunIndex, hrSWRunName, hrSWRunID, hrSWRunPath, hrSWRunParameters, hrSWRunType, hrSWRunStatus 
+  STATUS: current
+  DESCRIPTION: The Host Resources Running Software Group.
+  OID: hrMIBGroups 4
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifGeneralGroup ---------------------------
+ifGeneralGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifDescr, ifType, ifSpeed, ifPhysAddress, ifAdminStatus, ifOperStatus, ifLastChange, ifLinkUpDownTrapEnable, ifConnectorPresent, ifHighSpeed, ifName 
+  STATUS: deprecated
+  DESCRIPTION: A collection of objects deprecated in favour of ifGeneralInformationGroup.
+  OID: ifGroups 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifStackGroup ---------------------------
+ifStackGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifStackStatus 
+  STATUS: deprecated
+  DESCRIPTION: The previous collection of objects providing information on the layering of MIB-II interfaces.
+  OID: ifGroups 9
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifGeneralInformationGroup ---------------------------
+ifGeneralInformationGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: ifIndex, ifDescr, ifType, ifSpeed, ifPhysAddress, ifAdminStatus, ifOperStatus, ifLastChange, ifLinkUpDownTrapEnable, ifConnectorPresent, ifHighSpeed, ifName, ifNumber, ifAlias, ifTableLastChange 
+  STATUS: current
+  DESCRIPTION: A collection of objects providing information applicable to all network interfaces.
+  OID: ifGroups 10
 ----------------------------------- Final de segmento -----------------------------------

@@ -1,170 +1,55 @@
-#----------------------------------- NOTIFICATION GROUP:  eriAlarmSimpleAlarmGroup  ---------------------------#
-Nombre del grupo de notificaciones: eriAlarmSimpleAlarmGroup
-eriAlarmSimpleAlarmGroup NOTIFICATION-GROUP
-NOTIFICATIONS {
-eriAlarmIndeterminate,
-eriAlarmWarning,
-eriAlarmMinor,
-eriAlarmMajor,
-eriAlarmCritical,
-eriAlarmCleared,
-eriAlarmAlarmListRebuilt
-}
-STATUS current
-DESCRIPTION
-"The notifications in this MIB module."
-::= { eriAlarmGroups 10 }
-#----------------------------------- FIN NOTIFICATION GROUP ---------------------------#
-#----------------------------------- NOTIFICATION GROUP:  eriAlarmAddAddInfoGroup  ---------------------------#
-Nombre del grupo de notificaciones: eriAlarmAddAddInfoGroup
-eriAlarmAddAddInfoGroup NOTIFICATION-GROUP
-NOTIFICATIONS {
-eriAlarmAppendInfo,
-eriAlarmAppendAlertInfo
-}
-STATUS current
-DESCRIPTION
-"Notification to support appending of additional text."
-::= { eriAlarmGroups 12 }
-#----------------------------------- FIN NOTIFICATION GROUP ---------------------------#
-#----------------------------------- NOTIFICATION GROUP:  eriAlarmAlertNotifGroup  ---------------------------#
-Nombre del grupo de notificaciones: eriAlarmAlertNotifGroup
-eriAlarmAlertNotifGroup NOTIFICATION-GROUP
-NOTIFICATIONS {
-eriAlarmIndAlert,
-eriAlarmWarnAlert,
-eriAlarmMinorAlert,
-eriAlarmMajorAlert,
-eriAlarmCriticalAlert
-}
-STATUS current
-DESCRIPTION
-"Notifications for stateless events, alerts"
-::= { eriAlarmGroups 13 }
-#----------------------------------- FIN NOTIFICATION GROUP ---------------------------#
-#----------------------------------- NOTIFICATION GROUP:  eriAlarmHeartBeatNotifGroup  ---------------------------#
-Nombre del grupo de notificaciones: eriAlarmHeartBeatNotifGroup
-eriAlarmHeartBeatNotifGroup NOTIFICATION-GROUP
-NOTIFICATIONS {eriAlarmHeartBeatNotif}
-STATUS current
-DESCRIPTION
-"Heartbeat notifications."
-::= { eriAlarmGroups 14 }
-#----------------------------------- FIN NOTIFICATION GROUP ---------------------------#
-#----------------------------------- NOTIFICATION GROUP:  eriAlarmXSimpleAlarmGroup  ---------------------------#
-Nombre del grupo de notificaciones: eriAlarmXSimpleAlarmGroup
-eriAlarmXSimpleAlarmGroup NOTIFICATION-GROUP
-NOTIFICATIONS {
-eriAlarmXIndeterminate,
-eriAlarmXWarning,
-eriAlarmXMinor,
-eriAlarmXMajor,
-eriAlarmXCritical,
-eriAlarmXCleared,
-eriAlarmXAlarmListRebuilt
-}
+#----------------------------------- NOTIFICATION GROUP:  linkUpDownNotificationsGroup  ---------------------------#
+Nombre del grupo de notificaciones: linkUpDownNotificationsGroup
+linkUpDownNotificationsGroup  NOTIFICATION-GROUP
+NOTIFICATIONS { linkUp, linkDown }
 STATUS  current
 DESCRIPTION
-"The notifications in this MIB module."
-::= { eriAlarmXGroups 10 }
+"The notifications which indicate specific changes in the
+value of ifOperStatus."
+::= { ifGroups 14 }
 #----------------------------------- FIN NOTIFICATION GROUP ---------------------------#
-#----------------------------------- NOTIFICATION GROUP:  eriAlarmXAddAddInfoGroup  ---------------------------#
-Nombre del grupo de notificaciones: eriAlarmXAddAddInfoGroup
-eriAlarmXAddAddInfoGroup NOTIFICATION-GROUP
-NOTIFICATIONS {
-eriAlarmXAppendInfo,
-eriAlarmXAppendAlertInfo
-}
-STATUS  current
+#----------------------------------- NOTIFICATION GROUP:  snmpBasicNotificationsGroup  ---------------------------#
+Nombre del grupo de notificaciones: snmpBasicNotificationsGroup
+snmpBasicNotificationsGroup NOTIFICATION-GROUP
+NOTIFICATIONS { coldStart, authenticationFailure }
+STATUS        current
 DESCRIPTION
-"Notification to support appending of additional text."
-::= { eriAlarmXGroups 12 }
+"The basic notifications implemented by an SNMP entity
+supporting command responder applications."
+::= { snmpMIBGroups 7 }
 #----------------------------------- FIN NOTIFICATION GROUP ---------------------------#
-#----------------------------------- NOTIFICATION GROUP:  eriAlarmXAlertNotifGroup  ---------------------------#
-Nombre del grupo de notificaciones: eriAlarmXAlertNotifGroup
-eriAlarmXAlertNotifGroup NOTIFICATION-GROUP
-NOTIFICATIONS {
-eriAlarmXIndAlert,
-eriAlarmXWarnAlert,
-eriAlarmXMinorAlert,
-eriAlarmXMajorAlert,
-eriAlarmXCriticalAlert
-}
-STATUS  current
+#----------------------------------- NOTIFICATION GROUP:  snmpWarmStartNotificationGroup  ---------------------------#
+Nombre del grupo de notificaciones: snmpWarmStartNotificationGroup
+snmpWarmStartNotificationGroup NOTIFICATION-GROUP
+NOTIFICATIONS { warmStart }
+STATUS        current
 DESCRIPTION
-"Notifications for stateless events, alerts"
-::= { eriAlarmXGroups 13 }
+"An additional notification for an SNMP entity supporting
+command responder applications, if it is able to reinitialize
+itself such that its configuration is unaltered."
+::= { snmpMIBGroups 11 }
 #----------------------------------- FIN NOTIFICATION GROUP ---------------------------#
-#----------------------------------- NOTIFICATION GROUP:  eriAlarmXHeartBeatNotifGroup  ---------------------------#
-Nombre del grupo de notificaciones: eriAlarmXHeartBeatNotifGroup
-eriAlarmXHeartBeatNotifGroup NOTIFICATION-GROUP
-NOTIFICATIONS {eriAlarmXHeartBeatNotif}
-STATUS  current
-DESCRIPTION
-"Heartbeat notifications."
-::= { eriAlarmXGroups 14 }
-#----------------------------------- FIN NOTIFICATION GROUP ---------------------------#
------------------------------------ eriAlarmAlertNotifGroup ---------------------------
-eriAlarmAlertNotifGroup:
+----------------------------------- linkUpDownNotificationsGroup ---------------------------
+linkUpDownNotificationsGroup:
   TYPE: NOTIFICATION-GROUP
-  OBJECTS:  eriAlarmIndAlert, eriAlarmWarnAlert, eriAlarmMinorAlert, eriAlarmMajorAlert, eriAlarmCriticalAlert 
+  OBJECTS: linkUp, linkDown 
   STATUS: current
-  DESCRIPTION: Notifications for stateless events, alerts
-  OID: eriAlarmGroups 13
+  DESCRIPTION: The notifications which indicate specific changes in the value of ifOperStatus.
+  OID: ifGroups 14
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ eriAlarmXAlertNotifGroup ---------------------------
-eriAlarmXAlertNotifGroup:
+----------------------------------- snmpWarmStartNotificationGroup ---------------------------
+snmpWarmStartNotificationGroup:
   TYPE: NOTIFICATION-GROUP
-  OBJECTS:  eriAlarmXIndAlert, eriAlarmXWarnAlert, eriAlarmXMinorAlert, eriAlarmXMajorAlert, eriAlarmXCriticalAlert 
+  OBJECTS: warmStart 
   STATUS: current
-  DESCRIPTION: Notifications for stateless events, alerts
-  OID: eriAlarmXGroups 13
+  DESCRIPTION: An additional notification for an SNMP entity supporting command responder applications, if it is able to reinitialize itself such that its configuration is unaltered.
+  OID: snmpMIBGroups 11
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ eriAlarmSimpleAlarmGroup ---------------------------
-eriAlarmSimpleAlarmGroup:
+----------------------------------- snmpBasicNotificationsGroup ---------------------------
+snmpBasicNotificationsGroup:
   TYPE: NOTIFICATION-GROUP
-  OBJECTS:  eriAlarmIndeterminate, eriAlarmWarning, eriAlarmMinor, eriAlarmMajor, eriAlarmCritical, eriAlarmCleared, eriAlarmAlarmListRebuilt 
+  OBJECTS: coldStart, authenticationFailure 
   STATUS: current
-  DESCRIPTION: The notifications in this MIB module.
-  OID: eriAlarmGroups 10
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmXHeartBeatNotifGroup ---------------------------
-eriAlarmXHeartBeatNotifGroup:
-  TYPE: NOTIFICATION-GROUP
-  OBJECTS: eriAlarmXHeartBeatNotif
-  STATUS: current
-  DESCRIPTION: Heartbeat notifications.
-  OID: eriAlarmXGroups 14
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmXSimpleAlarmGroup ---------------------------
-eriAlarmXSimpleAlarmGroup:
-  TYPE: NOTIFICATION-GROUP
-  OBJECTS:  eriAlarmXIndeterminate, eriAlarmXWarning, eriAlarmXMinor, eriAlarmXMajor, eriAlarmXCritical, eriAlarmXCleared, eriAlarmXAlarmListRebuilt 
-  STATUS: current
-  DESCRIPTION: The notifications in this MIB module.
-  OID: eriAlarmXGroups 10
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmAddAddInfoGroup ---------------------------
-eriAlarmAddAddInfoGroup:
-  TYPE: NOTIFICATION-GROUP
-  OBJECTS:  eriAlarmAppendInfo, eriAlarmAppendAlertInfo 
-  STATUS: current
-  DESCRIPTION: Notification to support appending of additional text.
-  OID: eriAlarmGroups 12
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmXAddAddInfoGroup ---------------------------
-eriAlarmXAddAddInfoGroup:
-  TYPE: NOTIFICATION-GROUP
-  OBJECTS:  eriAlarmXAppendInfo, eriAlarmXAppendAlertInfo 
-  STATUS: current
-  DESCRIPTION: Notification to support appending of additional text.
-  OID: eriAlarmXGroups 12
------------------------------------ Final de segmento -----------------------------------
------------------------------------ eriAlarmHeartBeatNotifGroup ---------------------------
-eriAlarmHeartBeatNotifGroup:
-  TYPE: NOTIFICATION-GROUP
-  OBJECTS: eriAlarmHeartBeatNotif
-  STATUS: current
-  DESCRIPTION: Heartbeat notifications.
-  OID: eriAlarmGroups 14
+  DESCRIPTION: The basic notifications implemented by an SNMP entity supporting command responder applications.
+  OID: snmpMIBGroups 7
 ----------------------------------- Final de segmento -----------------------------------
