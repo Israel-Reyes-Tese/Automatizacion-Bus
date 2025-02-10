@@ -181,19 +181,24 @@ sub create_alarm_example {
                 $agent_port = $1;
             }
         }
-        print "Agent properties:\n";
-        print "-----------------\n";
-        print "Name: $agent_name\n";
-        print "Host: $agent_host\n";
-        print "Port: $agent_port\n";
+        $logger->info ("Agent properties:\n");
+        $logger->info ("-----------------\n");
+        $logger->info ("Name: $agent_name\n");
+        $logger->info ("Host: $agent_host\n");
+        $logger->info ("Port: $agent_port\n");
 
         close $fh;
         die "Agent name not found in AGENT.properties" unless $agent_name;
-        $logger->info("Agent name: $agent_name");
 
         # Leer el archivo del agente en la carpeta ABR
         my $agent_file = "ABR/$agent_name.pm";
+        my $agent_example_alarm_file = $agent_name."TrapAlarm/example_alarm_commands.txt";
+        my $afh_example;
+
+        print "agente ejemplo: $agent_example_alarm_file\n";
         open my $afh, '<', $agent_file or die "Cannot open $agent_file: $!";
+        open $afh_example, '>', $agent_example_alarm_file or die "Cannot open $agent_example_alarm_file: $!";
+
         my %alarms;
         my $current_alarm;
         while (my $line = <$afh>) {
@@ -217,6 +222,7 @@ sub create_alarm_example {
             } 
         }
         close $afh;
+        my @generated_alarms;
         # Eliminar entradas duplicadas y registros innecesarios
         foreach my $alarm (keys %alarms) {
         # Remove 'IPADDR' and duplicates from entries
@@ -231,25 +237,59 @@ sub create_alarm_example {
             @{$alarms{$alarm}{entry_descriptions}{$entry}} = grep { !$desc_seen{$_}++ } @{$alarms{$alarm}{entry_descriptions}{$entry}};
             }
         }
-
-        
         foreach my $alarm (keys %alarms) {
             my $oid = $alarms{$alarm}{oid};
-            my $base_command = "snmptrap -v 2c -c public $agent_host:$agent_port 0 $oid";
+            my $title = "----------------- $alarm -----------------\n";
+            my $base_command = $title . "snmptrap -v 2c -c public $agent_host:$agent_port '' $oid\n";
             my $commands = "";
 
-            foreach my $entry (@{$alarms{$alarm}{entries}}) {
-                my $entry_oid = $entry;
-                my $entry_description = $alarms{$alarm}{entry_descriptions}{$entry}[0] // 'No description';
-                $commands .= " $entry_oid s \"valor $entry_description\"";
+            my %entry_types = (
+                'INTEGER' => 'i 0 ',
+                'UNSIGNED' => 'u 100 ',
+                'COUNTER32' => 'c 123456 ',
+                'HEXSTRING' => 'x "48656C6C6F" ',
+                'DECIMALSTRING' => 'd "123.456" ',
+                'NULLOBJ' => 'n ',
+                'OBJID' => 'o .1.3.6.1.2.1.1.1 ',
+                'TIMETICKS' => 't 123456789 ',
+                'IPADDRESS' => 'a 192.168.1.1 ',
+                'BITS' => 'b "10101010" ',
+                'STRING' => 's "Valor Descripcion" '
+            );
+
+            foreach my $type (keys %entry_types) {
+                my $type_title = "###################### $type ###############\n";
+                my $entry_type = $entry_types{$type};
+                my $type_commands = "";
+
+                foreach my $entry (@{$alarms{$alarm}{entries}}) {
+                    my $entry_oid = $entry;
+                    my $entry_description = $alarms{$alarm}{entry_descriptions}{$entry}[0] // 'No description';
+                    $type_commands .= "$entry_oid $entry_type\n";
+                }
+
+                if ($type_commands) {
+                    $commands .= $type_title . $type_commands;
+                }
             }
 
+
+
             my $final_command = "$base_command $commands";
-            print "$final_command\n";
+
+            print $afh_example $final_command;  
+            #$logger->info("Example alarm command: $final_command");           
+            push @generated_alarms, $final_command;
+            $text_widget->insert('end', "$final_command\n");
+
         }
-
-
+        # Guardar todas las alarmas generadas en una variable
+        $parent->{generated_alarms} = \@generated_alarms;
+        # Mostrar el resultado en el widget de texto
+        close $afh_example;
     };
+
+
     if ($@) {
         $logger->error("Error in create_alarm_example: $@");
         $text_widget->insert('end', "Error: $@\n");
