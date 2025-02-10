@@ -1,80 +1,182 @@
 ----------------------------------- ALARM TRAPS ---------------------------
-linkDown:
-  DESCRIPTION: A linkDown trap signifies that the SNMP entity, acting in an agent role, has detected that the ifOperStatus object for one of its communication links is about to enter the down state from some other state (but not from the notPresent state).  This other state is indicated by the included value of ifOperStatus.
-  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps linkDown
-  OBJECTS: ifIndex, ifAdminStatus, ifOperStatus 
-  OID: 1.3.6.1.6.3.1.1.5.3
+eriAlarmXMinorAlert:
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXMinorAlert
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity minor. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OID: 1.3.6.1.4.1.193.183.6.2.0.12
 
-mteTriggerFailure:
-  OID: 1.3.6.1.2.1.88.2.0.4
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerFailure
-  DESCRIPTION: Notification that an attempt to check a trigger has failed. The network manager must enable this notification only with a certain fear and trembling, as it can easily crowd out more important information.  It should be used only to help diagnose a problem that has appeared in the error counters and can not be found otherwise.
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteFailedReason 
+eriAlarmXWarnAlert:
+  OID: 1.3.6.1.4.1.193.183.6.2.0.11
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity warning. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXWarnAlert
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
 
-authenticationFailure:
-  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps authenticationFailure
-  DESCRIPTION: An authenticationFailure trap signifies that the SNMP entity has received a protocol message that is not properly authenticated.  While all implementations of SNMP entities MAY be capable of generating this trap, the snmpEnableAuthenTraps object indicates whether this trap will be generated.
-  OBJECTS: No se encontraron objetos
-  OID: 1.3.6.1.6.3.1.1.5.5
+eriAlarmMajor:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.4
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmMajor
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity major. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
 
-mteTriggerFalling:
-  OID: 1.3.6.1.2.1.88.2.0.3
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerFalling
-  DESCRIPTION: Notification that the falling threshold was met for triggers with mteTriggerType 'threshold'.
+eriAlarmAppendInfo:
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmNObjAdditionalText, eriAlarmActiveResourceId, eriAlarmNObjAppendedAdditionalInfo 
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmAppendInfo
+  DESCRIPTION: This notification is sent in order to append further info to an alarm notification. It might be additional text, additional info or a resource ID (OID) identifying the alarming resource using an OID. If additional text/info is sent, do not confuse this with an actual change of additional text/info which is reported using the eriAlarm<severity> notification. A zero-length string value for eriAlarmNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmNObjAppendedAdditionalInfo means that no appended additional info is being sent in this notification. A null OID (0.0) value for eriAlarmActiveResourceId means that no resource ID is being sent in this notification.
+  OID: 1.3.6.1.4.1.193.183.4.2.0.8
 
-linkUp:
-  OID: 1.3.6.1.6.3.1.1.5.4
-  OBJECTS: ifIndex, ifAdminStatus, ifOperStatus 
-  DESCRIPTION: A linkUp trap signifies that the SNMP entity, acting in an agent role, has detected that the ifOperStatus object for one of its communication links left the down state and transitioned into some other state (but not into the notPresent state).  This other state is indicated by the included value of ifOperStatus.
-  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps linkUp
+eriAlarmXIndAlert:
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity indeterminate. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXIndAlert
+  OID: 1.3.6.1.4.1.193.183.6.2.0.10
 
-ucdShutdown:
-  OBJECTS: No se encontraron objetos
-  DESCRIPTION: This trap is sent when the agent terminates
-  OID_NAME: org dod internet private enterprises ucdavis ucdTraps ucdShutdown
-  OID: 1.3.6.1.4.1.2021.251.2
+eriAlarmXMajorAlert:
+  OID: 1.3.6.1.4.1.193.183.6.2.0.13
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXMajorAlert
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity major. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
 
-warmStart:
-  OID: 1.3.6.1.6.3.1.1.5.2
-  OBJECTS: No se encontraron objetos
-  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps warmStart
-  DESCRIPTION: A warmStart trap signifies that the SNMP entity, supporting a notification originator application, is reinitializing itself such that its configuration is unaltered.
+eriAlarmXAppendInfo:
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXNObjAdditionalText, eriAlarmXActiveResourceId, eriAlarmXNObjAppendedAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent in order to append further info to an alarm notification. It might be additional text, additional info or a resource ID  (OID) identifying the alarming resource using an OID. If additional text/info is sent, do not confuse this with an actual change of additional text/info which  is reported using the eriAlarmX<severity> notification.  A zero-length string value for eriAlarmXNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmXNObjAppendedAdditionalInfo means that no additional info is being sent in this notification. A null OID (0.0) value for eriAlarmXActiveResourceId means that no resource ID is being sent in this notification.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXAppendInfo
+  OID: 1.3.6.1.4.1.193.183.6.2.0.8
 
-mteTriggerRising:
-  OID: 1.3.6.1.2.1.88.2.0.2
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerRising
-  DESCRIPTION: Notification that the rising threshold was met for triggers with mteTriggerType 'threshold'.
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
+eriAlarmXIndeterminate:
+  OID: 1.3.6.1.4.1.193.183.6.2.0.1
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXIndeterminate
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity indeterminate. The notification is also used to change severity, additional text and/or additional  info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance  and MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table. The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
 
-the:
-  OID: 1.3.6.1.2.1.88.1.4.3.1.1
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBObjects mteEvent mteEventNotificationTable mteEventNotificationEntry the
-  DESCRIPTION: No se encontro la descripción
-  OBJECTS: No se encontraron objetos
+eriAlarmXCriticalAlert:
+  OID: 1.3.6.1.4.1.193.183.6.2.0.14
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXCriticalAlert
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity critical. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
 
-mteTriggerFired:
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteTriggerFired
-  DESCRIPTION: Notification that the trigger indicated by the object instances has fired, for triggers with mteTriggerType 'boolean' or 'existence'.
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteHotValue 
-  OID: 1.3.6.1.2.1.88.2.0.1
+eriAlarmAppendAlertInfo:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.15
+  DESCRIPTION: This notification is sent in order to append further info to an alert notification. It might be additional text or a resource ID (OID) identifying the alarming resource using an OID. This complements information sent in a previous notification. If additional text/info is sent, do not confuse this with an actual change of additional text/info which is reported using the eriAlarmAlert<severity> notification. A zero-length string value for eriAlarmNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmNObjAppendedAdditionalInfo means that no additional info is being sent in this notification. A null OID (0.0) value for eriAlarmAlertResourceId means that no resource ID is being sent in this notification.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmAppendAlertInfo
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmNObjAdditionalText, eriAlarmAlertResourceId, eriAlarmNObjAppendedAdditionalInfo 
 
-ucdStart:
-  DESCRIPTION: This trap could in principle be sent when the agent start
-  OID_NAME: org dod internet private enterprises ucdavis ucdTraps ucdStart
-  OBJECTS: No se encontraron objetos
-  OID: 1.3.6.1.4.1.2021.251.1
+eriAlarmXCritical:
+  OID: 1.3.6.1.4.1.193.183.6.2.0.5
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity critical. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXCritical
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
 
-coldStart:
-  OID_NAME: org dod internet snmpV2 snmpModules snmpMIB snmpMIBObjects snmpTraps coldStart
-  DESCRIPTION: A coldStart trap signifies that the SNMP entity, supporting a notification originator application, is reinitializing itself and that its configuration may have been altered.
-  OBJECTS: No se encontraron objetos
-  OID: 1.3.6.1.6.3.1.1.5.1
+eriAlarmMinor:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.3
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmMinor
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity minor. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
 
-mteEventSetFailure:
-  OID: 1.3.6.1.2.1.88.2.0.5
-  DESCRIPTION: Notification that an attempt to do a set in response to an event has failed. The network manager must enable this notification only with a certain fear and trembling, as it can easily crowd out more important information.  It should be used only to help diagnose a problem that has appeared in the error counters and can not be found otherwise.
-  OID_NAME: org dod internet mgmt mib-2 dismanEventMIB dismanEventMIBNotificationPrefix dismanEventMIBNotifications mteEventSetFailure
-  OBJECTS: mteHotTrigger, mteHotTargetName, mteHotContextName, mteHotOID, mteFailedReason 
+eriAlarmWarnAlert:
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity warning. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmWarnAlert
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+  OID: 1.3.6.1.4.1.193.183.4.2.0.11
+
+eriAlarmIndeterminate:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.1
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity indeterminate. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table. The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmIndeterminate
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
+
+eriAlarmXCleared:
+  DESCRIPTION: This notification is sent when a resource detects a cleared alarm state. The combination of YangNodeInstance and MajorType/MinorType is always unique and shall be used by management systems to correlate alarm and alarm clear.  The corresponding row in the alarm table will be deleted, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications.  Note that it should not be required to send an append trap for a cleared alarm. Those varbinds which flag that an append trap will follow are  kept here for backward compatibility reasons.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXCleared
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  OID: 1.3.6.1.4.1.193.183.6.2.0.7
+
+eriAlarmXHeartBeatNotif:
+  OID: 1.3.6.1.4.1.193.183.6.2.0.20
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXHeartBeatNotif
+  DESCRIPTION: This is a heartbeat notification with interval according to the eriAlarmXHbInterval. It contains the last sequence numbers used for alarms and alarm events. These varbinds can be used to detect lost notifications. The notification eriAlarmXHeartBeatNotif will be sent every eriAlarmXHbInterval. Managers can subscribe to the notification using the SNMP framework MIBS by using the snmpNotifyName 'heartbeat'. (SNMP-NOTIFICATION-MIB, snmpNotifyTable).
+  OBJECTS:  eriAlarmXActiveLastSequenceNo, eriAlarmXAlertLastSequenceNo, eriAlarmXActiveLastChanged, eriAlarmXAlertLastChanged, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+
+eriAlarmWarning:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.2
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity warning. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmWarning
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
+
+eriAlarmHeartBeatNotif:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.20
+  OBJECTS:  eriAlarmActiveLastSequenceNo, eriAlarmAlertLastSequenceNo, eriAlarmActiveLastChanged, eriAlarmAlertLastChanged 
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmHeartBeatNotif
+  DESCRIPTION: This is a heartbeat notification with interval according to the eriAlarmHbInterval. It contains the last sequence numbers used for alarms and alarm events. These varbinds can be used to detect lost notifications. The notification eriAlarmHeartBeatNotif will be sent every eriAlarmHbInterval. Managers can subscribe to the notification using the SNMP framework MIBS by using the snmpNotifyName 'heartbeat'. (SNMP-NOTIFICATION-MIB, snmpNotifyTable).
+
+eriAlarmXMajor:
+  OID: 1.3.6.1.4.1.193.183.6.2.0.4
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity major. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXMajor
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+
+eriAlarmCriticalAlert:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.14
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmCriticalAlert
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity critical. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+
+eriAlarmXWarning:
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity warning. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXWarning
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  OID: 1.3.6.1.4.1.193.183.6.2.0.2
+
+eriAlarmXMinor:
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity minor. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXMinor
+  OID: 1.3.6.1.4.1.193.183.6.2.0.3
+
+eriAlarmXAppendAlertInfo:
+  OID: 1.3.6.1.4.1.193.183.6.2.0.15
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXNObjAdditionalText, eriAlarmXAlertResourceId, eriAlarmXNObjAppendedAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent in order to append further info to an alert notification. It might be additional text or a resource ID (OID) identifying the alarming resource using an OID. This complements information sent in a previous notification. If additional text/info is sent, do not confuse this with an actual change of additional text/info which is reported using the eriAlarmXAlert<severity> notification. A zero-length string value for eriAlarmXNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmXNObjAppendedAdditionalInfo means that no additional info is being sent in this notification. A null OID (0.0) value for eriAlarmXAlertResourceId means that no resource ID is being sent in this notification.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXAppendAlertInfo
+
+eriAlarmMinorAlert:
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmMinorAlert
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity minor. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OID: 1.3.6.1.4.1.193.183.4.2.0.12
+
+eriAlarmIndAlert:
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity indeterminate. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmIndAlert
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+  OID: 1.3.6.1.4.1.193.183.4.2.0.10
+
+eriAlarmCleared:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.7
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmCleared
+  DESCRIPTION: This notification is sent when a resource detects a cleared alarm state. The combination of ManagedObject and MajorType/MinorType is always unique and shall be used by management systems to correlate alarm and alarm clear. The corresponding row in the alarm table will be deleted, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. Note that it should not be required to send an append trap for a cleared alarm. Those varbinds which flag that an append trap will follow are kept here for backward compatibility reasons.
+
+eriAlarmMajorAlert:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.13
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity major. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmMajorAlert
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+
+eriAlarmXAlarmListRebuilt:
+  OID: 1.3.6.1.4.1.193.183.6.2.0.30
+  OBJECTS: eriAlarmXActiveTableURL, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when the active alarm list has reached a stable situation after a restart or after a system internal audit process. It is an indication to the manager to perform a alarm resynchronization procedure.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXAlarmListRebuilt
+
+eriAlarmAlarmListRebuilt:
+  OID: 1.3.6.1.4.1.193.183.4.2.0.30
+  OBJECTS: eriAlarmActiveTableURL 
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmAlarmListRebuilt
+  DESCRIPTION: This notification is sent when the active alarm list has reached a stable situation after a restart or after a system internal audit process. It is an indication to the manager to perform a alarm resynchronization procedure.
+
+eriAlarmCritical:
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity critical. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmCritical
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
+  OID: 1.3.6.1.4.1.193.183.4.2.0.5
 
 ----------------------------------- FIN DE ALARM_TRAPS -----------------------------------

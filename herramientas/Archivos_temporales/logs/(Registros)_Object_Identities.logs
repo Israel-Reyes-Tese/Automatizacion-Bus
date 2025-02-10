@@ -1,3 +1,8 @@
+#----------------------------------- OBJECT IDENTITY:  zeroDotZero  ---------------------------#
+Archivo: SNMPv2-SMI
+Nombre objeto: zeroDotZero
+zeroDotZero OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
 #----------------------------------- OBJECT IDENTITY:  MODULE-IDENTITY,  ---------------------------#
 Archivo: SNMP-FRAMEWORK-MIB
 Nombre objeto: MODULE-IDENTITY,
@@ -13,44 +18,16 @@ Archivo: SNMP-FRAMEWORK-MIB
 Nombre objeto: snmpPrivProtocols
 snmpPrivProtocols OBJECT-IDENTITY
 #----------------------------------- FIN OBJECT IDENTITY ---------------------------#
-#----------------------------------- OBJECT IDENTITY:  zeroDotZero  ---------------------------#
-Archivo: SNMPv2-SMI
-Nombre objeto: zeroDotZero
-zeroDotZero OBJECT-IDENTITY
+#----------------------------------- OBJECT IDENTITY:  enterprises,  ---------------------------#
+Archivo: ERICSSON-TOP-MIB.mib
+Nombre objeto: enterprises,
+MODULE-IDENTITY, enterprises, OBJECT-IDENTITY
 #----------------------------------- FIN OBJECT IDENTITY ---------------------------#
-#----------------------------------- OBJECT IDENTITY:  TEXTUAL-CONVENTION,  ---------------------------#
-Archivo: HOST-RESOURCES-MIB.mib
-Nombre objeto: TEXTUAL-CONVENTION,
-OBJECT-TYPE, TEXTUAL-CONVENTION, OBJECT-IDENTITY,
+#----------------------------------- OBJECT IDENTITY:  ericssonModules  ---------------------------#
+Archivo: ERICSSON-TOP-MIB.mib
+Nombre objeto: ericssonModules
+ericssonModules OBJECT-IDENTITY
 #----------------------------------- FIN OBJECT IDENTITY ---------------------------#
------------------------------------ TEXTUAL-CONVENTION, ---------------------------
-TEXTUAL-CONVENTION,:
-  TYPE: OBJECT-IDENTITY
-  STATUS: 
-  DESCRIPTION: The original version of this MIB, published as
-RFC1514.
-  ARCHIVO: HOST-RESOURCES-MIB.mib
-  OID:  hrMIBAdminInfo 1 
------------------------------------ Final de segmento -----------------------------------
------------------------------------ zeroDotZero ---------------------------
-zeroDotZero:
-  TYPE: OBJECT-IDENTITY
-  STATUS: current
-  DESCRIPTION: A value used for null identifiers.
-  ARCHIVO: SNMPv2-SMI
-  OID:  0 0 
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpAuthProtocols ---------------------------
-snmpAuthProtocols:
-  TYPE: OBJECT-IDENTITY
-  STATUS: current
-  DESCRIPTION: Registration point for standards-track
-authentication protocols used in SNMP Management
-Frameworks.
-
-  ARCHIVO: SNMP-FRAMEWORK-MIB
-  OID:  snmpFrameworkAdmin 1 
------------------------------------ Final de segmento -----------------------------------
 ----------------------------------- MODULE-IDENTITY, ---------------------------
 MODULE-IDENTITY,:
   TYPE: OBJECT-IDENTITY
@@ -68,6 +45,35 @@ DESCRIPTION
   ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  snmpModules 10 
 ----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpAuthProtocols ---------------------------
+snmpAuthProtocols:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Registration point for standards-track
+authentication protocols used in SNMP Management
+Frameworks.
+
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkAdmin 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ericssonModules ---------------------------
+ericssonModules:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: ericssonModules provides a root object identifier
+from which MODULE-IDENTITY values may be assigned
+for Ericsson Group-wide MIB modules.
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  ericsson 183 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- zeroDotZero ---------------------------
+zeroDotZero:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: A value used for null identifiers.
+  ARCHIVO: SNMPv2-SMI
+  OID:  0 0 
+----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpPrivProtocols ---------------------------
 snmpPrivProtocols:
   TYPE: OBJECT-IDENTITY
@@ -77,4 +83,21 @@ protocols used in SNMP Management Frameworks.
 
   ARCHIVO: SNMP-FRAMEWORK-MIB
   OID:  snmpFrameworkAdmin 2 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- enterprises, ---------------------------
+enterprises,:
+  TYPE: OBJECT-IDENTITY
+  STATUS: 
+  DESCRIPTION: This very small module is made available so that
+developers within the Ericsson community can import the
+'ericsson' name into their own MIB modules. In addition,
+it includes the top-level node for Ericsson Group-wide
+MIB modules.
+Document number: 1/196 03-CXC 172 7549, Rev A"
+REVISION  "200810170000Z"
+DESCRIPTION "Added email contact address, ericssonModules"
+REVISION  "200205280000Z"
+DESCRIPTION "Initial version of this MIB module.
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  enterprises 193 
 ----------------------------------- Final de segmento -----------------------------------

@@ -1,371 +1,61 @@
-Archivo: UCD-SNMP-MIB.mib
---   prTable          OBJECT IDENTIFIER ::= { ucdavis   2 }
---   memory           OBJECT IDENTIFIER ::= { ucdavis   4 }
-Archivo: UCD-SNMP-MIB.mib
---   extTable         OBJECT IDENTIFIER ::= { ucdavis   8 }
---   diskTable        OBJECT IDENTIFIER ::= { ucdavis   9 }
-Archivo: UCD-SNMP-MIB.mib
---   loadTable        OBJECT IDENTIFIER ::= { ucdavis  10 }
---   systemStats      OBJECT IDENTIFIER ::= { ucdavis  11 }
-Archivo: UCD-SNMP-MIB.mib
---   ucdDemoMIB       OBJECT IDENTIFIER ::= { ucdavis  14 } - UCD-DEMO-MIB
---   fileTable        OBJECT IDENTIFIER ::= { ucdavis  15 }
-Archivo: UCD-SNMP-MIB.mib
---   logMatch         OBJECT IDENTIFIER ::= { ucdavis  16 }
---   version          OBJECT IDENTIFIER ::= { ucdavis 100 }
-Archivo: UCD-SNMP-MIB.mib
---   snmperrs         OBJECT IDENTIFIER ::= { ucdavis 101 }
---   mibRegistryTable OBJECT IDENTIFIER ::= { ucdavis 102 }
-Archivo: UCD-SNMP-MIB.mib
---   processes        OBJECT IDENTIFIER ::= { ucdavis   1 }
---   exec             OBJECT IDENTIFIER ::= { ucdavis   3 }
-Archivo: UCD-SNMP-MIB.mib
---   disk             OBJECT IDENTIFIER ::= { ucdavis   6 }
---   load             OBJECT IDENTIFIER ::= { ucdavis   7 }
-Archivo: UCD-SNMP-MIB.mib
---   lockd            OBJECT IDENTIFIER ::= { ucdavis   5 }
--- Branches for registering other UCD MIB modules:
-ucdInternal           OBJECT IDENTIFIER ::= { ucdavis 12 }
-Archivo: UCD-SNMP-MIB.mib
-ucdExperimental       OBJECT IDENTIFIER ::= { ucdavis 13 }
--- OID values assigned in the ucdExperimental branch:
---   ucdIpFwAccMIB    OBJECT IDENTIFIER ::= { ucdExperimental  1 } - UCD-IPFWACC-MIB
---   ucdIpFilter      OBJECT IDENTIFIER ::= { ucdExperimental  2 } - UCD-IPFILTER-MIB
---   wavelan          OBJECT IDENTIFIER ::= { ucdExperimental  3 } - WL-MIB
---   ucdDlmodMIB      OBJECT IDENTIFIER ::= { ucdExperimental 14 } - UCD-DLMOD-MIB
---   ucdDiskIOMIB     OBJECT IDENTIFIER ::= { ucdExperimental 15 } - UCD-DISKIO-MIB
---   lmSensors        OBJECT IDENTIFIER ::= { ucdExperimental 16 } - LM-SENSORS-MIB
--- These are the old returned values of the agent type.
--- originally returned to:  .iso.org.dod.internet.mgmt.mib-2.system.sysObjectID.0 
--- Current versions of the agent return an equivalent OID from the netSnmpAgentOIDs
--- tree (defined in NET-SNMP-TC), which includes values for some additional O/Ss
-ucdSnmpAgent      OBJECT IDENTIFIER ::= { ucdavis 250 }
-Archivo: UCD-SNMP-MIB.mib
-hpux9             OBJECT IDENTIFIER ::= { ucdSnmpAgent 1 }
-sunos4            OBJECT IDENTIFIER ::= { ucdSnmpAgent 2 }
-Archivo: UCD-SNMP-MIB.mib
-solaris           OBJECT IDENTIFIER ::= { ucdSnmpAgent 3 }
-osf               OBJECT IDENTIFIER ::= { ucdSnmpAgent 4 }
-Archivo: UCD-SNMP-MIB.mib
-ultrix            OBJECT IDENTIFIER ::= { ucdSnmpAgent 5 }
-hpux10            OBJECT IDENTIFIER ::= { ucdSnmpAgent 6 }
-Archivo: UCD-SNMP-MIB.mib
-netbsd1           OBJECT IDENTIFIER ::= { ucdSnmpAgent 7 }
-freebsd           OBJECT IDENTIFIER ::= { ucdSnmpAgent 8 }
-Archivo: UCD-SNMP-MIB.mib
-irix              OBJECT IDENTIFIER ::= { ucdSnmpAgent 9 }
-linux             OBJECT IDENTIFIER ::= { ucdSnmpAgent 10 }
-Archivo: UCD-SNMP-MIB.mib
-bsdi              OBJECT IDENTIFIER ::= { ucdSnmpAgent 11 }
-openbsd           OBJECT IDENTIFIER ::= { ucdSnmpAgent 12 }
-Archivo: UCD-SNMP-MIB.mib
-win32		  OBJECT IDENTIFIER ::= { ucdSnmpAgent 13 } -- unlucky
-hpux11            OBJECT IDENTIFIER ::= { ucdSnmpAgent 14 }
-Archivo: UCD-SNMP-MIB.mib
-aix               OBJECT IDENTIFIER ::= { ucdSnmpAgent 15 }
-macosx            OBJECT IDENTIFIER ::= { ucdSnmpAgent 16 }
-Archivo: UCD-SNMP-MIB.mib
-dragonfly         OBJECT IDENTIFIER ::= { ucdSnmpAgent 17 }
-unknown           OBJECT IDENTIFIER ::= { ucdSnmpAgent 255 }
-Archivo: UCD-SNMP-MIB.mib
-memory OBJECT IDENTIFIER ::= { ucdavis 4 }
-::= { dskTable  1 }
-Archivo: UCD-SNMP-MIB.mib
-version	OBJECT IDENTIFIER ::= { ucdavis 100 }
-snmperrs OBJECT IDENTIFIER ::= { ucdavis 101 }
-Archivo: UCD-SNMP-MIB.mib
-systemStats OBJECT IDENTIFIER ::= { ucdavis 11 }
--- The agent only implements those of the following counters that the
--- kernel supports! Don't expect all to be present.
--- possibly used in the future:
---
--- 
-ucdTraps OBJECT IDENTIFIER ::= { ucdavis 251 }
-Archivo: UCD-SNMP-MIB.mib
-logMatch OBJECT IDENTIFIER ::= { ucdavis 16 }
-::= { logMatchTable 1 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkAdmin OBJECT IDENTIFIER
-::= { snmpFrameworkMIB 1 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBObjects OBJECT IDENTIFIER
-::= { snmpFrameworkMIB 2 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpEngine OBJECT IDENTIFIER
-::= { snmpFrameworkMIBObjects 1 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBConformance OBJECT IDENTIFIER
-::= { snmpFrameworkMIB 3 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBCompliances OBJECT IDENTIFIER
-::= { snmpFrameworkMIBConformance 1 }
-Archivo: SNMP-FRAMEWORK-MIB
-snmpFrameworkMIBGroups OBJECT IDENTIFIER
-::= { snmpFrameworkMIBConformance 2 }
-Archivo: DISMAN-EVENT-MIB.mib
-dismanEventMIBObjects OBJECT IDENTIFIER ::= { dismanEventMIB 1 }
--- Management Triggered Event (MTE) objects
-mteResource           OBJECT IDENTIFIER ::= { dismanEventMIBObjects 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-mteTrigger            OBJECT IDENTIFIER ::= { dismanEventMIBObjects 2 }
-mteObjects            OBJECT IDENTIFIER ::= { dismanEventMIBObjects 3 }
-Archivo: DISMAN-EVENT-MIB.mib
-mteEvent              OBJECT IDENTIFIER ::= { dismanEventMIBObjects 4 }
---
--- Textual Conventions
---
-FailureReason ::= TEXTUAL-CONVENTION
-STATUS      current
-DESCRIPTION
-"Reasons for failures in an attempt to perform a management
-request.
-The first group of errors, numbered less than 0, are related
-to problems in sending the request.  The existence of a
-particular error code here does not imply that all
-implementations are capable of sensing that error and
-returning that code.
-The second group, numbered greater than 0, are copied
-directly from SNMP protocol operations and are intended to
-carry exactly the meanings defined for the protocol as returned
-in an SNMP response.
-localResourceLack       some local resource such as memory
-lacking or
-mteResourceSampleInstanceMaximum
-exceeded
-badDestination          unrecognized domain name or otherwise
-invalid destination address
-destinationUnreachable  can't get to destination address
-noResponse              no response to SNMP request
-badType                 the data syntax of a retrieved object
-as not as expected
-sampleOverrun           another sample attempt occurred before
-the previous one completed"
-SYNTAX      INTEGER { localResourceLack(-1),
-badDestination(-2),
-destinationUnreachable(-3),
-noResponse(-4),
-badType(-5),
-sampleOverrun(-6),
-noError(0),
-tooBig(1),
-noSuchName(2),
-badValue(3),
-readOnly(4),
-genErr(5),
-noAccess(6),
-wrongType(7),
-wrongLength(8),
-wrongEncoding(9),
-wrongValue(10),
-noCreation(11),
-inconsistentValue(12),
-resourceUnavailable(13),
-commitFailed(14),
-undoFailed(15),
-authorizationError(16),
-notWritable(17),
-inconsistentName(18) }
---
--- Resource Control Section
---
---
--- Trigger Section
---
--- Counters
---
--- Trigger Table
---
-::= { mteTriggerTable 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-sysUpTimeInstance OBJECT IDENTIFIER ::= { sysUpTime 0 }
-::= { mteTriggerDeltaEntry 1 }
-Archivo: DISMAN-EVENT-MIB.mib
-dismanEventMIBNotificationPrefix OBJECT IDENTIFIER ::=
-{ dismanEventMIB 2 }
-dismanEventMIBNotifications OBJECT IDENTIFIER ::=
-{ dismanEventMIBNotificationPrefix 0 }
-dismanEventMIBNotificationObjects OBJECT IDENTIFIER
-::= { dismanEventMIBNotificationPrefix 1 }
-Archivo: IF-MIB.mib
-ifMIBObjects OBJECT IDENTIFIER ::= { ifMIB 1 }
-interfaces   OBJECT IDENTIFIER ::= { mib-2 2 }
-Archivo: IF-MIB.mib
-ifSpecific              OBJECT IDENTIFIER -- deprecated
+Archivo: SNMP-NOTIFICATION-MIB
+snmpNotifyObjects OBJECT IDENTIFIER
+::= { snmpNotificationMIB 1 }
+Archivo: SNMP-NOTIFICATION-MIB
+snmpNotifyConformance OBJECT IDENTIFIER
+::= { snmpNotificationMIB 3 }
+Archivo: SNMP-NOTIFICATION-MIB
+snmpNotifyCompliances OBJECT IDENTIFIER
+::= { snmpNotifyConformance 1 }
+Archivo: SNMP-NOTIFICATION-MIB
+snmpNotifyGroups OBJECT IDENTIFIER
+::= { snmpNotifyConformance 2 }
+Archivo: ERICSSON-ALARM-XPATH-MIB.mib
+eriAlarmXObjects            OBJECT IDENTIFIER ::= { ericssonAlarmXpathMIB 1 }
+eriAlarmXNotifications      OBJECT IDENTIFIER ::= { ericssonAlarmXpathMIB 2 }
+Archivo: ERICSSON-ALARM-XPATH-MIB.mib
+eriAlarmXNotifsPrefix       OBJECT IDENTIFIER ::= { eriAlarmXNotifications 0 }
+eriAlarmXConformance        OBJECT IDENTIFIER ::= { ericssonAlarmXpathMIB 4 }
+Archivo: ERICSSON-ALARM-XPATH-MIB.mib
+eriAlarmXSummary            OBJECT IDENTIFIER ::= { eriAlarmXObjects 1 } -- eriAlarmXSum
+eriAlarmXNotifObjects       OBJECT IDENTIFIER ::= { eriAlarmXObjects 2 } -- eriAlarmXNObj
+eriAlarmXActiveAlarms       OBJECT IDENTIFIER ::= { eriAlarmXObjects 3 } -- eriAlarmXActive
+eriAlarmXAlerts             OBJECT IDENTIFIER ::= { eriAlarmXObjects 4 } -- eriAlarmXAlert
+eriAlarmXHeartBeat          OBJECT IDENTIFIER ::= { eriAlarmXObjects 5 } -- eriAlarmXHb
+--====================
+--==Alarm summary==
+--====================
+--=============================
+-- Notification objects
+--==============================
+--======================
+--==Active Alarm table==
+--======================
+EriAlarmXActiveAlarmEntry ::= SEQUENCE {
+eriAlarmXActiveIndex                        EriAlarmIndex,
+eriAlarmXActiveMajorType                  EriAlarmType, -- Unique integer
+eriAlarmXActiveMinorType                  EriAlarmType, -- Unique integer
+eriAlarmXActiveSpecificProblem    EriAlarmSpecificProblem, -- Unique text
+eriAlarmXActiveYangNodeInstance  EriPath, -- Abridged YANG Instance-Identifier
+eriAlarmXActiveEventType                       IANAItuEventType, -- X.733
+eriAlarmXActiveEventTime       DateAndTime, -- Time for last state change
+eriAlarmXActiveOriginalEventTime     DateAndTime, -- Time for alarm raise
+eriAlarmXActiveProbableCause                EriProbableCause, -- X.733
+eriAlarmXActiveSeverity        ItuPerceivedSeverity, -- Last state change
+eriAlarmXActiveOriginalSeverity      ItuPerceivedSeverity, -- Alarm raise
+eriAlarmXActiveAdditionalText  EriLargeAdditionalText, -- Last state change
+eriAlarmXActiveOrigAdditionalText  EriLargeAdditionalText, -- Alarm raise
+eriAlarmXActiveResourceId                ResourceId, -- SNMP OID for MO
+eriAlarmXActiveAdditionalInfo  EriLargeAdditionalInfo -- Last state change
 }
-::= { ifEntry 22 }
-Archivo: IF-MIB.mib
-ifConformance OBJECT IDENTIFIER ::= { ifMIB 2 }
-ifGroups      OBJECT IDENTIFIER ::= { ifConformance 1 }
-Archivo: IF-MIB.mib
-ifCompliances OBJECT IDENTIFIER ::= { ifConformance 2 }
--- compliance statements
--- units of conformance
--- the following five groups are mutually exclusive; at most
--- one of these groups is implemented for any interface
--- Deprecated Definitions - Objects
---
---    The Interface Test Table
---
--- This group of objects is optional.  However, a media-specific
--- MIB may make implementation of this group mandatory.
---
--- This table replaces the ifExtnsTestTable
---
-::= { ifTestTable 1 }
-Archivo: SNMP-TARGET-MIB.mib
-snmpTargetObjects       OBJECT IDENTIFIER ::= { snmpTargetMIB 1 }
-snmpTargetConformance   OBJECT IDENTIFIER ::= { snmpTargetMIB 3 }
-Archivo: SNMP-TARGET-MIB.mib
-snmpTargetCompliances OBJECT IDENTIFIER ::=
-{ snmpTargetConformance 1 }
-snmpTargetGroups      OBJECT IDENTIFIER ::=
-{ snmpTargetConformance 2 }
---
---
--- Compliance statements
---
---
-END
-Archivo: SNMPv2-MIB.mib
-snmpMIBObjects OBJECT IDENTIFIER ::= { snmpMIB 1 }
---  ::= { snmpMIBObjects 1 }        this OID is obsolete
---  ::= { snmpMIBObjects 2 }        this OID is obsolete
---  ::= { snmpMIBObjects 3 }        this OID is obsolete
--- the System group
---
--- a collection of objects common to all managed systems.
-system   OBJECT IDENTIFIER ::= { mib-2 1 }
-Archivo: SNMPv2-MIB.mib
-snmp     OBJECT IDENTIFIER ::= { mib-2 11 }
-MAX-ACCESS  read-write
-STATUS      current
-DESCRIPTION
-"Indicates whether the SNMP entity is permitted to
-generate authenticationFailure traps.  The value of this
-object overrides any configuration information; as such,
-it provides a means whereby all authenticationFailure
-traps may be disabled.
-Note that it is strongly recommended that this object
-be stored in non-volatile memory so that it remains
-constant across re-initializations of the network
-management system."
-::= { snmp 30 }
-Archivo: SNMPv2-MIB.mib
-snmpTrap       OBJECT IDENTIFIER ::= { snmpMIBObjects 4 }
---  ::= { snmpTrap 2 }   this OID is obsolete
---  ::= { snmpTrap 4 }   this OID is obsolete
--- well-known traps
-snmpTraps      OBJECT IDENTIFIER ::= { snmpMIBObjects 5 }
-Archivo: SNMPv2-MIB.mib
-snmpSet        OBJECT IDENTIFIER ::= { snmpMIBObjects 6 }
--- conformance information
-snmpMIBConformance
-OBJECT IDENTIFIER ::= { snmpMIB 2 }
-Archivo: SNMPv2-MIB.mib
-snmpMIBGroups  OBJECT IDENTIFIER ::= { snmpMIBConformance 2 }
--- compliance statements
---    ::= { snmpMIBCompliances 1 }      this OID is obsolete
--- units of conformance
---  ::= { snmpMIBGroups 1 }           this OID is obsolete
---  ::= { snmpMIBGroups 2 }           this OID is obsolete
---  ::= { snmpMIBGroups 3 }           this OID is obsolete
---  ::= { snmpMIBGroups 4 }           this OID is obsolete
--- definitions in RFC 1213 made obsolete by the inclusion of a
--- subset of the snmp group in this MIB
--- { snmp 7 } is not used
--- { snmp 23 } is not used
-END
-Archivo: SNMPv2-SMI
-org OBJECT IDENTIFIER
-::= { iso 3 }
-Archivo: SNMPv2-SMI
-dod OBJECT IDENTIFIER
-::= { org 6 }
-Archivo: SNMPv2-SMI
-internet OBJECT IDENTIFIER
-::= { dod 1 }
-Archivo: SNMPv2-SMI
-directory OBJECT IDENTIFIER
-::= { internet 1 }
-Archivo: SNMPv2-SMI
-mgmt OBJECT IDENTIFIER
-::= { internet 2 }
-Archivo: SNMPv2-SMI
-mib-2 OBJECT IDENTIFIER
-::= { mgmt 1 }
-Archivo: SNMPv2-SMI
-transmission OBJECT IDENTIFIER
-::= { mib-2 10 }
-Archivo: SNMPv2-SMI
-experimental OBJECT IDENTIFIER
-::= { internet 3 }
-Archivo: SNMPv2-SMI
-private OBJECT IDENTIFIER
-::= { internet 4 }
-Archivo: SNMPv2-SMI
-enterprises OBJECT IDENTIFIER
-::= { private 1 }
-Archivo: SNMPv2-SMI
-security OBJECT IDENTIFIER
-::= { internet 5 }
-Archivo: SNMPv2-SMI
-snmpV2 OBJECT IDENTIFIER
-::= { internet 6 }
-Archivo: SNMPv2-SMI
-snmpDomains OBJECT IDENTIFIER
-::= { snmpV2 1 }
-Archivo: SNMPv2-SMI
-snmpProxys OBJECT IDENTIFIER
-::= { snmpV2 2 }
-Archivo: SNMPv2-SMI
-snmpModules OBJECT IDENTIFIER
-::= { snmpV2 3 }
-Archivo: HOST-RESOURCES-MIB.mib
-host     OBJECT IDENTIFIER ::= { mib-2 25 }
-hrSystem        OBJECT IDENTIFIER ::= { host 1 }
-Archivo: HOST-RESOURCES-MIB.mib
-hrStorage       OBJECT IDENTIFIER ::= { host 2 }
-hrDevice        OBJECT IDENTIFIER ::= { host 3 }
-Archivo: HOST-RESOURCES-MIB.mib
-hrSWRun         OBJECT IDENTIFIER ::= { host 4 }
-hrSWRunPerf     OBJECT IDENTIFIER ::= { host 5 }
-Archivo: HOST-RESOURCES-MIB.mib
-hrSWInstalled   OBJECT IDENTIFIER ::= { host 6 }
-hrMIBAdminInfo  OBJECT IDENTIFIER ::= { host 7 }
-Archivo: HOST-RESOURCES-MIB.mib
-these OBJECT IDENTIFIERs are allocated such that all
-products from a particular manufacturer are registered
-under a subtree distinct to that manufacturer.  In
-addition, all versions of a product should be
-registered under a subtree distinct to that product.
-With this strategy, a management station may uniquely
-determine the manufacturer and/or model of a product
-whose productID is unknown to the management station.
-Objects of this type may be useful for inventory
-purposes or for automatically detecting
-incompatibilities or version mismatches between
-various hardware and software components on a system.
-For example, the product ID for the ACME 4860 66MHz
-clock doubled processor might be:
-enterprises.acme.acmeProcessors.a4860DX2.MHz66
-A software product might be registered as:
-enterprises.acme.acmeOperatingSystems.acmeDOS.six(6).one(1)
-"
-SYNTAX OBJECT IDENTIFIER
--- unknownProduct will be used for any unknown ProductID
--- unknownProduct OBJECT IDENTIFIER ::= { 0 0 }
-Archivo: HOST-RESOURCES-MIB.mib
-hrStorageTypes          OBJECT IDENTIFIER ::= { hrStorage 1 }
-::= { hrStorageTable 1 }
-Archivo: HOST-RESOURCES-MIB.mib
-hrDeviceTypes             OBJECT IDENTIFIER ::= { hrDevice 1 }
-::= { hrDeviceTable 1 }
-Archivo: HOST-RESOURCES-MIB.mib
-hrFSTypes               OBJECT IDENTIFIER ::= { hrDevice 9 }
-::= { hrFSTable 1 }
-Archivo: HOST-RESOURCES-MIB.mib
-hrMIBCompliances OBJECT IDENTIFIER ::= { hrMIBAdminInfo 2 }
-hrMIBGroups      OBJECT IDENTIFIER ::= { hrMIBAdminInfo 3 }
+--======================
+--==Alert table==
+--======================
+-- This table lists the latest reported alerts.
+::= { eriAlarmXAlertTable 1 }
+Archivo: ERICSSON-ALARM-XPATH-MIB.mib
+eriAlarmXCompliances        OBJECT IDENTIFIER ::= { eriAlarmXConformance 1 }
+eriAlarmXGroups        OBJECT IDENTIFIER ::= { eriAlarmXConformance 2 }
 Archivo: SNMPv2-TC
 SYNTAX          OBJECT IDENTIFIER
 InstancePointer ::= TEXTUAL-CONVENTION
@@ -899,745 +589,488 @@ MIB module.  Other possible textual conventions are defined in
 other MIB modules."
 SYNTAX          OCTET STRING (SIZE(1..255))
 END -- end of module SNMPv2-TC.
------------------------------------ directory ---------------------------
-directory:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  internet 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrSystem ---------------------------
-hrSystem:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  host 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mibRegistryTable ---------------------------
-mibRegistryTable:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis 102 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ openbsd ---------------------------
-openbsd:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 12 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ extTable ---------------------------
-extTable:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis   8 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ SYNTAX ---------------------------
-SYNTAX:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID: OID no encontrado
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hpux10 ---------------------------
-hpux10:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 6 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ win32 ---------------------------
-win32:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 13 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ loadTable ---------------------------
-loadTable:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis  10 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ systemStats ---------------------------
-systemStats:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis 11 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ lmSensors ---------------------------
-lmSensors:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdExperimental 16 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ bsdi ---------------------------
-bsdi:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 11 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dragonfly ---------------------------
-dragonfly:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 17 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ macosx ---------------------------
-macosx:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 16 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ucdTraps ---------------------------
-ucdTraps:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis 251 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpFrameworkAdmin ---------------------------
-snmpFrameworkAdmin:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpFrameworkMIB 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ version ---------------------------
-version:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis 100 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTrap ---------------------------
-snmpTrap:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpMIBObjects 4 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpMIBGroups ---------------------------
-snmpMIBGroups:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpMIBConformance 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ unknownProduct ---------------------------
-unknownProduct:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  0 0 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteTrigger ---------------------------
-mteTrigger:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  dismanEventMIBObjects 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ prTable ---------------------------
-prTable:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis   2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrDeviceTypes ---------------------------
-hrDeviceTypes:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  hrDevice 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ultrix ---------------------------
-ultrix:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 5 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ memory ---------------------------
-memory:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis 4 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrMIBCompliances ---------------------------
-hrMIBCompliances:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  hrMIBAdminInfo 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ org ---------------------------
-org:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  iso 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ucdSnmpAgent ---------------------------
-ucdSnmpAgent:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis 250 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ netbsd1 ---------------------------
-netbsd1:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 7 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ifCompliances ---------------------------
-ifCompliances:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ifConformance 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpProxys ---------------------------
-snmpProxys:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpV2 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ucdIpFwAccMIB ---------------------------
-ucdIpFwAccMIB:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdExperimental  1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ processes ---------------------------
-processes:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis   1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
+Archivo: ERICSSON-ALARM-MIB.mib
+eriAlarmObjects OBJECT IDENTIFIER ::= { ericssonAlarmMIB 1 }
+eriAlarmNotifications OBJECT IDENTIFIER ::= { ericssonAlarmMIB 2 }
+Archivo: ERICSSON-ALARM-MIB.mib
+eriAlarmNotifsPrefix OBJECT IDENTIFIER ::= { eriAlarmNotifications 0 }
+eriAlarmConformance OBJECT IDENTIFIER ::= { ericssonAlarmMIB 4 }
+Archivo: ERICSSON-ALARM-MIB.mib
+eriAlarmSummary OBJECT IDENTIFIER ::= { eriAlarmObjects 1 } -- eriAlarmSum
+eriAlarmNotifObjects OBJECT IDENTIFIER ::= { eriAlarmObjects 2 } -- eriAlarmNObj
+eriAlarmActiveAlarms OBJECT IDENTIFIER ::= { eriAlarmObjects 3 } -- eriAlarmActive
+eriAlarmAlerts OBJECT IDENTIFIER ::= { eriAlarmObjects 4 } -- eriAlarmAlert
+eriAlarmHeartBeat OBJECT IDENTIFIER ::= { eriAlarmObjects 5 } -- eriAlarmHb
+--====================
+--==Alarm summary==
+--====================
+--=============================
+-- Notification objects
+--==============================
+--======================
+--==Active Alarm table==
+--======================
+EriAlarmActiveAlarmEntry ::= SEQUENCE {
+eriAlarmActiveIndex EriAlarmIndex,
+eriAlarmActiveMajorType EriAlarmType, -- Unique integer
+eriAlarmActiveMinorType EriAlarmType, -- Unique integer
+eriAlarmActiveSpecificProblem EriAlarmSpecificProblem, -- Unique text
+eriAlarmActiveManagedObject EriMO, -- Distinguished Name
+eriAlarmActiveEventType IANAItuEventType, -- X.733
+eriAlarmActiveEventTime DateAndTime, -- Time for last state change
+eriAlarmActiveOriginalEventTime DateAndTime, -- Time for alarm raise
+eriAlarmActiveProbableCause EriProbableCause, -- X.733
+eriAlarmActiveSeverity ItuPerceivedSeverity, -- Last state change
+eriAlarmActiveOriginalSeverity ItuPerceivedSeverity, -- Alarm raise
+eriAlarmActiveAdditionalText EriLargeAdditionalText, -- Last state change
+eriAlarmActiveOrigAdditionalText EriLargeAdditionalText, -- Alarm raise
+eriAlarmActiveResourceId ResourceId, -- SNMP OID for MO
+eriAlarmActiveAdditionalInfo EriLargeAdditionalInfo -- Last state change
+}
+--======================
+--==Alert table==
+--======================
+-- This table lists the latest reported alerts.
+::= { eriAlarmAlertTable 1 }
+Archivo: ERICSSON-ALARM-MIB.mib
+eriAlarmCompliances OBJECT IDENTIFIER ::= { eriAlarmConformance 1 }
+eriAlarmGroups OBJECT IDENTIFIER ::= { eriAlarmConformance 2 }
+Archivo: SNMPv2-SMI
+org OBJECT IDENTIFIER
+::= { iso 3 }
+Archivo: SNMPv2-SMI
+dod OBJECT IDENTIFIER
+::= { org 6 }
+Archivo: SNMPv2-SMI
+internet OBJECT IDENTIFIER
+::= { dod 1 }
+Archivo: SNMPv2-SMI
+directory OBJECT IDENTIFIER
+::= { internet 1 }
+Archivo: SNMPv2-SMI
+mgmt OBJECT IDENTIFIER
+::= { internet 2 }
+Archivo: SNMPv2-SMI
+mib-2 OBJECT IDENTIFIER
+::= { mgmt 1 }
+Archivo: SNMPv2-SMI
+transmission OBJECT IDENTIFIER
+::= { mib-2 10 }
+Archivo: SNMPv2-SMI
+experimental OBJECT IDENTIFIER
+::= { internet 3 }
+Archivo: SNMPv2-SMI
+private OBJECT IDENTIFIER
+::= { internet 4 }
+Archivo: SNMPv2-SMI
+enterprises OBJECT IDENTIFIER
+::= { private 1 }
+Archivo: SNMPv2-SMI
+security OBJECT IDENTIFIER
+::= { internet 5 }
+Archivo: SNMPv2-SMI
+snmpV2 OBJECT IDENTIFIER
+::= { internet 6 }
+Archivo: SNMPv2-SMI
+snmpDomains OBJECT IDENTIFIER
+::= { snmpV2 1 }
+Archivo: SNMPv2-SMI
+snmpProxys OBJECT IDENTIFIER
+::= { snmpV2 2 }
+Archivo: SNMPv2-SMI
+snmpModules OBJECT IDENTIFIER
+::= { snmpV2 3 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkAdmin OBJECT IDENTIFIER
+::= { snmpFrameworkMIB 1 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBObjects OBJECT IDENTIFIER
+::= { snmpFrameworkMIB 2 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpEngine OBJECT IDENTIFIER
+::= { snmpFrameworkMIBObjects 1 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBConformance OBJECT IDENTIFIER
+::= { snmpFrameworkMIB 3 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBCompliances OBJECT IDENTIFIER
+::= { snmpFrameworkMIBConformance 1 }
+Archivo: SNMP-FRAMEWORK-MIB
+snmpFrameworkMIBGroups OBJECT IDENTIFIER
+::= { snmpFrameworkMIBConformance 2 }
+Archivo: SNMP-TARGET-MIB
+snmpTargetObjects OBJECT IDENTIFIER
+::= { snmpTargetMIB 1 }
+Archivo: SNMP-TARGET-MIB
+snmpTargetConformance OBJECT IDENTIFIER
+::= { snmpTargetMIB 3 }
+Archivo: SNMP-TARGET-MIB
+snmpTargetCompliances OBJECT IDENTIFIER
+::= { snmpTargetConformance 1 }
+Archivo: SNMP-TARGET-MIB
+snmpTargetGroups OBJECT IDENTIFIER
+::= { snmpTargetConformance 2 }
 ----------------------------------- snmpTargetConformance ---------------------------
 snmpTargetConformance:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
+  ARCHIVO: ERICSSON-TOP-MIB.mib
   OID:  snmpTargetMIB 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dismanEventMIBNotificationObjects ---------------------------
-dismanEventMIBNotificationObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  dismanEventMIBNotificationPrefix 1 
   Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrMIBAdminInfo ---------------------------
-hrMIBAdminInfo:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  host 7 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrSWRun ---------------------------
-hrSWRun:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  host 4 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dismanEventMIBNotificationPrefix ---------------------------
-dismanEventMIBNotificationPrefix:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  dismanEventMIB 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpFrameworkMIBConformance ---------------------------
-snmpFrameworkMIBConformance:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpFrameworkMIB 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmperrs ---------------------------
-snmperrs:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis 101 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTargetObjects ---------------------------
-snmpTargetObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpTargetMIB 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteResource ---------------------------
-mteResource:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  dismanEventMIBObjects 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ disk ---------------------------
-disk:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis   6 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ logMatch ---------------------------
-logMatch:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis 16 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ security ---------------------------
-security:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  internet 5 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ host ---------------------------
-host:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  mib-2 25 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTraps ---------------------------
-snmpTraps:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpMIBObjects 5 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpModules ---------------------------
-snmpModules:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpV2 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ifGroups ---------------------------
-ifGroups:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ifConformance 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ lockd ---------------------------
-lockd:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis   5 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dod ---------------------------
-dod:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  org 6 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpSet ---------------------------
-snmpSet:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpMIBObjects 6 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ linux ---------------------------
-linux:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 10 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ wavelan ---------------------------
-wavelan:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdExperimental  3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ unknown ---------------------------
-unknown:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 255 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrSWInstalled ---------------------------
-hrSWInstalled:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  host 6 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ucdDemoMIB ---------------------------
-ucdDemoMIB:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis  14 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpFrameworkMIBObjects ---------------------------
-snmpFrameworkMIBObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpFrameworkMIB 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ irix ---------------------------
-irix:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 9 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ private ---------------------------
-private:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  internet 4 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hpux11 ---------------------------
-hpux11:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 14 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ exec ---------------------------
-exec:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis   3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteObjects ---------------------------
-mteObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  dismanEventMIBObjects 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ucdExperimental ---------------------------
-ucdExperimental:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis 13 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrFSTypes ---------------------------
-hrFSTypes:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  hrDevice 9 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmp ---------------------------
-snmp:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  mib-2 11 
-  Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- experimental ---------------------------
 experimental:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
+  ARCHIVO: ERICSSON-TOP-MIB.mib
   OID:  internet 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ solaris ---------------------------
-solaris:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ osf ---------------------------
-osf:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 4 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpDomains ---------------------------
-snmpDomains:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpV2 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ifMIBObjects ---------------------------
-ifMIBObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ifMIB 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTargetGroups ---------------------------
-snmpTargetGroups:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpTargetConformance 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ucdInternal ---------------------------
-ucdInternal:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis 12 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrMIBGroups ---------------------------
-hrMIBGroups:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  hrMIBAdminInfo 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ internet ---------------------------
-internet:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  dod 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ freebsd ---------------------------
-freebsd:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 8 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mteEvent ---------------------------
-mteEvent:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  dismanEventMIBObjects 4 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpTargetCompliances ---------------------------
-snmpTargetCompliances:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpTargetConformance 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ diskTable ---------------------------
-diskTable:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis   9 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpEngine ---------------------------
-snmpEngine:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpFrameworkMIBObjects 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ system ---------------------------
-system:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  mib-2 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ucdIpFilter ---------------------------
-ucdIpFilter:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdExperimental  2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ aix ---------------------------
-aix:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 15 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sysUpTimeInstance ---------------------------
-sysUpTimeInstance:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  sysUpTime 0 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrDevice ---------------------------
-hrDevice:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  host 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpFrameworkMIBGroups ---------------------------
-snmpFrameworkMIBGroups:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpFrameworkMIBConformance 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ load ---------------------------
-load:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis   7 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrSWRunPerf ---------------------------
-hrSWRunPerf:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  host 5 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ucdDlmodMIB ---------------------------
-ucdDlmodMIB:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdExperimental 14 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ transmission ---------------------------
-transmission:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  mib-2 10 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpFrameworkMIBCompliances ---------------------------
 snmpFrameworkMIBCompliances:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
+  ARCHIVO: ERICSSON-TOP-MIB.mib
   OID:  snmpFrameworkMIBConformance 1 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmpMIBObjects ---------------------------
-snmpMIBObjects:
+----------------------------------- eriAlarmGroups ---------------------------
+eriAlarmGroups:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  snmpMIB 1 
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmConformance 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpNotifyGroups ---------------------------
+snmpNotifyGroups:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpNotifyConformance 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmCompliances ---------------------------
+eriAlarmCompliances:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmConformance 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmSummary ---------------------------
+eriAlarmSummary:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmObjects 1 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- enterprises ---------------------------
 enterprises:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
+  ARCHIVO: ERICSSON-TOP-MIB.mib
   OID:  private 1 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hrStorageTypes ---------------------------
-hrStorageTypes:
+----------------------------------- snmpProxys ---------------------------
+snmpProxys:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  hrStorage 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mgmt ---------------------------
-mgmt:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  internet 2 
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpV2 2 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ ifConformance ---------------------------
-ifConformance:
+----------------------------------- eriAlarmXNotifications ---------------------------
+eriAlarmXNotifications:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ifMIB 2 
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  ericssonAlarmXpathMIB 2 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ interfaces ---------------------------
-interfaces:
+----------------------------------- snmpModules ---------------------------
+snmpModules:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  mib-2 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sunos4 ---------------------------
-sunos4:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dismanEventMIBObjects ---------------------------
-dismanEventMIBObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  dismanEventMIB 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dismanEventMIBNotifications ---------------------------
-dismanEventMIBNotifications:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  dismanEventMIBNotificationPrefix 0 
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpV2 3 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hrStorage ---------------------------
-hrStorage:
+----------------------------------- eriAlarmXNotifsPrefix ---------------------------
+eriAlarmXNotifsPrefix:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  host 2 
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmXNotifications 0 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hpux9 ---------------------------
-hpux9:
+----------------------------------- snmpTargetObjects ---------------------------
+snmpTargetObjects:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdSnmpAgent 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpV2 ---------------------------
-snmpV2:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  internet 6 
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpTargetMIB 1 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ fileTable ---------------------------
-fileTable:
+----------------------------------- eriAlarmXSummary ---------------------------
+eriAlarmXSummary:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdavis  15 
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmXObjects 1 
   Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmXAlerts ---------------------------
+eriAlarmXAlerts:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmXObjects 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmXNotifObjects ---------------------------
+eriAlarmXNotifObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmXObjects 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmConformance ---------------------------
+eriAlarmConformance:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  ericssonAlarmMIB 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmXCompliances ---------------------------
+eriAlarmXCompliances:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmXConformance 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpEngine ---------------------------
+snmpEngine:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpFrameworkMIBObjects 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmObjects ---------------------------
+eriAlarmObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  ericssonAlarmMIB 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmNotifications ---------------------------
+eriAlarmNotifications:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  ericssonAlarmMIB 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmXConformance ---------------------------
+eriAlarmXConformance:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  ericssonAlarmXpathMIB 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- private ---------------------------
+private:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  internet 4 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkMIBGroups ---------------------------
+snmpFrameworkMIBGroups:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpFrameworkMIBConformance 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpNotifyCompliances ---------------------------
+snmpNotifyCompliances:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpNotifyConformance 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- security ---------------------------
+security:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  internet 5 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- transmission ---------------------------
+transmission:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  mib-2 10 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dod ---------------------------
+dod:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  org 6 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpDomains ---------------------------
+snmpDomains:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpV2 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkAdmin ---------------------------
+snmpFrameworkAdmin:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpFrameworkMIB 1 
+  Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- mib-2 ---------------------------
 mib-2:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
+  ARCHIVO: ERICSSON-TOP-MIB.mib
   OID:  mgmt 1 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ ucdDiskIOMIB ---------------------------
-ucdDiskIOMIB:
+----------------------------------- snmpTargetGroups ---------------------------
+snmpTargetGroups:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: IANAifType-MIB
-  OID:  ucdExperimental 15 
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpTargetConformance 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmAlerts ---------------------------
+eriAlarmAlerts:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmObjects 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmActiveAlarms ---------------------------
+eriAlarmActiveAlarms:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmObjects 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpNotifyConformance ---------------------------
+snmpNotifyConformance:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpNotificationMIB 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mgmt ---------------------------
+mgmt:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  internet 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpV2 ---------------------------
+snmpV2:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  internet 6 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- directory ---------------------------
+directory:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  internet 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmXHeartBeat ---------------------------
+eriAlarmXHeartBeat:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmXObjects 5 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmNotifObjects ---------------------------
+eriAlarmNotifObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmObjects 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpNotifyObjects ---------------------------
+snmpNotifyObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpNotificationMIB 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmXObjects ---------------------------
+eriAlarmXObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  ericssonAlarmXpathMIB 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- internet ---------------------------
+internet:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  dod 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmHeartBeat ---------------------------
+eriAlarmHeartBeat:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmObjects 5 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpTargetCompliances ---------------------------
+snmpTargetCompliances:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpTargetConformance 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmXActiveAlarms ---------------------------
+eriAlarmXActiveAlarms:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmXObjects 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- org ---------------------------
+org:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  iso 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- SYNTAX ---------------------------
+SYNTAX:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID: OID no encontrado
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkMIBConformance ---------------------------
+snmpFrameworkMIBConformance:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpFrameworkMIB 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmNotifsPrefix ---------------------------
+eriAlarmNotifsPrefix:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmNotifications 0 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkMIBObjects ---------------------------
+snmpFrameworkMIBObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  snmpFrameworkMIB 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- eriAlarmXGroups ---------------------------
+eriAlarmXGroups:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  OID:  eriAlarmXConformance 2 
   Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------

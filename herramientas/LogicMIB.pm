@@ -2188,16 +2188,15 @@ sub construir_oid_completo {
     my @oid_parts;
     my @name_parts;
     my $current_name = $nombre;
-
     while ($current_name) {
         my $found = 0;
         foreach my $type (qw(ALARM_TRAPS OBJECT_IDENTITIES OBJECT_TYPES OBJECT_IDENTIFIERS MODULE_IDENTITIES MODULE_COMPLIANCE ALARM_OBJECT_GROUPS ALARM_NOTIFICATION_GROUPS)) {
             if (exists $data->{$type}{$current_name}) {
                 my $oid_part = $data->{$type}{$current_name}{OID};
-                if ($oid_part =~ /^\s*(\S+)\s+(\d+)\s*$/) {
+                if ($oid_part =~ /^\s*(\S+)\s+(\d+(\s+\d+)*)\s*$/) {
                     my $oid_search = $1;
-                    my $oid_number = $2;
-                    unshift @oid_parts, $oid_number;
+                    my $oid_numbers = $2;
+                    unshift @oid_parts, split(/\s+/, $oid_numbers);
                     unshift @name_parts, $current_name;
                     if ($oid_search =~ /^\d+(\.\d+)*$/) {
                         unshift @oid_parts, split(/\./, $oid_search);
