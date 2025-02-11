@@ -3059,7 +3059,8 @@ END_CODE
         my $oid = $alarmas_principales->{$alarm_name}->{OID};
         my $description = $alarmas_principales->{$alarm_name}->{DESCRIPTION};
         $oid =~ s/\./_/g;  # Replace dots with underscores for subroutine name
-        
+        # Añadir / a los simbolos $ , @ , %
+        $description =~ s/([\$@%])/\\$1/g;
         my $var_ps = $data_extra->{entries}->{'Esteblecer Severidad'};
         my $var_sp = $data_extra->{entries}->{'Establecer Specific Problem'};
         my $var_pc = $data_extra->{entries}->{'Establecer Probable Cause'};
