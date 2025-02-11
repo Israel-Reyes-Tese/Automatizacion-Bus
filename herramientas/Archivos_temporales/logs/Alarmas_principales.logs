@@ -1,90 +1,90 @@
 ----------------------------------- ALARM TRAPS ---------------------------
-nhLiveClearException:
-  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhSeverity, nhProfile, nhExceptionId, nhTechType, nhProblemStartTime, nhProblemDuration
-  OID: 1.3.6.1.4.1.149.22
-  TYPE: TRAP-TYPE
-  OID_NAME: org dod internet private enterprises concord nhLiveClearException
-  OBJECTS: No se encontraron objetos
-  DESCRIPTION: A eHealth exception has been cleared. The conditions causing the corresponding exception no longer exist. Deprecated in eHealth 5.6 Release.
-
-netHealthWarning:
-  TYPE: TRAP-TYPE
-  OID: 1.3.6.1.4.1.149.16
-  VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerIp, nhdServerName
-  OBJECTS: No se encontraron objetos
-  OID_NAME: org dod internet private enterprises concord netHealthWarning
-  DESCRIPTION: An error has occurred in eHealth. Polling will continue, please investigate as  soon as possible. This trap is sent from the eHealth  Diagnostic Monitor.
-
-netHealthInfo:
-  DESCRIPTION: An event (not an error) has occurred in eHealth. This trap is an informational message from the eHealth  Diagnostic Monitor. No action is required.
-  OBJECTS: No se encontraron objetos
-  OID_NAME: org dod internet private enterprises concord netHealthInfo
-  VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerIp, nhdServerName, nhServerPort, nhElementId
-  TYPE: TRAP-TYPE
-  OID: 1.3.6.1.4.1.149.15
-
-nhLiveUpdateException:
-  OBJECTS: No se encontraron objetos
-  OID_NAME: org dod internet private enterprises concord nhLiveUpdateException
-  DESCRIPTION: The severity of a eHealth exception has changed.  Deprecated in eHealth 5.6 Release.
-  OID: 1.3.6.1.4.1.149.24
-  TYPE: TRAP-TYPE
-  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhSeverity, nhProfile, nhExceptionId, nhTechType
-
-netHealthException:
-  TYPE: TRAP-TYPE
-  OID: 1.3.6.1.4.1.149.19
-  VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerName, nhdServerIp, nhServerPort, nhElementId, nhServerIp
-  DESCRIPTION: A scheduled eHealth report has detected one or more health exceptions for an element.
-  OBJECTS: No se encontraron objetos
-  OID_NAME: org dod internet private enterprises concord netHealthException
-
-nhLiveResetExceptions:
-  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhResetTime
-  TYPE: TRAP-TYPE
-  OID: 1.3.6.1.4.1.149.25
-  OID_NAME: org dod internet private enterprises concord nhLiveResetExceptions
-  OBJECTS: No se encontraron objetos
-  DESCRIPTION: The LiveExceptions server has restarted. All LiveExceptions alarms  and exceptions sent before this time will NOT be cleared automatically. All trap  destinations should reset any pre-existing eHealth exceptions  and alarms by setting them to a clear state or unhighlighting any icons.
-
-nhLiveClearAlarm:
-  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhExceptionType, nhVariable, nhSeverity, openViewSeverity, nhProfile, nhExceptionId, nhTechType, nhProblemStartTime, nhProblemDuration, nhEventCarrier, nhElementAlias, nhComponent, nhDescription, nhAlarmOccurId
-  OID: 1.3.6.1.4.1.149.23
-  TYPE: TRAP-TYPE
-  OBJECTS: No se encontraron objetos
-  OID_NAME: org dod internet private enterprises concord nhLiveClearAlarm
-  DESCRIPTION: A eHealth alarm has been cleared. The conditions causing the corresponding alarm no longer exist.
-
-netHealthUrgent:
-  OBJECTS: No se encontraron objetos
-  OID_NAME: org dod internet private enterprises concord netHealthUrgent
-  DESCRIPTION: A system critical error has occurred in eHealth. Polling may not occur. System administrator intervention  is required. This trap is sent from the eHealth  Diagnostic Monitor.
-  VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerIp, nhdServerName
-  TYPE: TRAP-TYPE
-  OID: 1.3.6.1.4.1.149.18
-
-nhLiveException:
-  OID_NAME: org dod internet private enterprises concord nhLiveException
-  OBJECTS: No se encontraron objetos
-  DESCRIPTION: A eHealth exception has occurred. This trap sends generic information about an exception when it first becomes active. Deprecated in eHealth 5.6 Release.
-  TYPE: TRAP-TYPE
-  OID: 1.3.6.1.4.1.149.20
-  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhSeverity, nhProfile, nhExceptionId, nhTechType
-
 nhLiveAlarm:
-  TYPE: TRAP-TYPE
   OID: 1.3.6.1.4.1.149.21
+  DESCRIPTION: A eHealth alarm has occurred. This trap sends detailed information about an alarm.
   VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhExceptionType, nhVariable, nhSeverity, openViewSeverity, nhProfile, nhExceptionId, nhTechType, nhEventCarrier, nhElementAlias, nhComponent, nhDescription, nhAlarmOccurId, nhProfileId, nhElementBasetype
   OID_NAME: org dod internet private enterprises concord nhLiveAlarm
+  TYPE: TRAP-TYPE
   OBJECTS: No se encontraron objetos
-  DESCRIPTION: A eHealth alarm has occurred. This trap sends detailed information about an alarm.
+
+nhLiveClearAlarm:
+  OID_NAME: org dod internet private enterprises concord nhLiveClearAlarm
+  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhExceptionType, nhVariable, nhSeverity, openViewSeverity, nhProfile, nhExceptionId, nhTechType, nhProblemStartTime, nhProblemDuration, nhEventCarrier, nhElementAlias, nhComponent, nhDescription, nhAlarmOccurId
+  DESCRIPTION: A eHealth alarm has been cleared. The conditions causing the corresponding alarm no longer exist.
+  OID: 1.3.6.1.4.1.149.23
+  OBJECTS: No se encontraron objetos
+  TYPE: TRAP-TYPE
+
+nhLiveResetExceptions:
+  OBJECTS: No se encontraron objetos
+  TYPE: TRAP-TYPE
+  OID: 1.3.6.1.4.1.149.25
+  DESCRIPTION: The LiveExceptions server has restarted. All LiveExceptions alarms  and exceptions sent before this time will NOT be cleared automatically. All trap  destinations should reset any pre-existing eHealth exceptions  and alarms by setting them to a clear state or unhighlighting any icons.
+  OID_NAME: org dod internet private enterprises concord nhLiveResetExceptions
+  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhResetTime
+
+netHealthInfo:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  DESCRIPTION: An event (not an error) has occurred in eHealth. This trap is an informational message from the eHealth  Diagnostic Monitor. No action is required.
+  VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerIp, nhdServerName, nhServerPort, nhElementId
+  OID_NAME: org dod internet private enterprises concord netHealthInfo
+  OID: 1.3.6.1.4.1.149.15
 
 netHealthReset:
-  TYPE: TRAP-TYPE
-  OID: 1.3.6.1.4.1.149.17
   VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerIp, nhdServerName
   OID_NAME: org dod internet private enterprises concord netHealthReset
-  OBJECTS: No se encontraron objetos
   DESCRIPTION: A system critical error has occurred in eHealth. Polling may not occur. Restart the eHealth servers as soon as possible. This trap is sent from the eHealth  Diagnostic Monitor.
+  OID: 1.3.6.1.4.1.149.17
+  OBJECTS: No se encontraron objetos
+  TYPE: TRAP-TYPE
+
+netHealthUrgent:
+  DESCRIPTION: A system critical error has occurred in eHealth. Polling may not occur. System administrator intervention  is required. This trap is sent from the eHealth  Diagnostic Monitor.
+  VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerIp, nhdServerName
+  OID_NAME: org dod internet private enterprises concord netHealthUrgent
+  OID: 1.3.6.1.4.1.149.18
+  OBJECTS: No se encontraron objetos
+  TYPE: TRAP-TYPE
+
+nhLiveClearException:
+  OBJECTS: No se encontraron objetos
+  TYPE: TRAP-TYPE
+  OID: 1.3.6.1.4.1.149.22
+  DESCRIPTION: A eHealth exception has been cleared. The conditions causing the corresponding exception no longer exist. Deprecated in eHealth 5.6 Release.
+  OID_NAME: org dod internet private enterprises concord nhLiveClearException
+  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhSeverity, nhProfile, nhExceptionId, nhTechType, nhProblemStartTime, nhProblemDuration
+
+nhLiveException:
+  OID: 1.3.6.1.4.1.149.20
+  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhSeverity, nhProfile, nhExceptionId, nhTechType
+  OID_NAME: org dod internet private enterprises concord nhLiveException
+  DESCRIPTION: A eHealth exception has occurred. This trap sends generic information about an exception when it first becomes active. Deprecated in eHealth 5.6 Release.
+  OBJECTS: No se encontraron objetos
+  TYPE: TRAP-TYPE
+
+netHealthWarning:
+  OID: 1.3.6.1.4.1.149.16
+  OID_NAME: org dod internet private enterprises concord netHealthWarning
+  VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerIp, nhdServerName
+  DESCRIPTION: An error has occurred in eHealth. Polling will continue, please investigate as  soon as possible. This trap is sent from the eHealth  Diagnostic Monitor.
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+
+nhLiveUpdateException:
+  OID: 1.3.6.1.4.1.149.24
+  DESCRIPTION: The severity of a eHealth exception has changed.  Deprecated in eHealth 5.6 Release.
+  OID_NAME: org dod internet private enterprises concord nhLiveUpdateException
+  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhSeverity, nhProfile, nhExceptionId, nhTechType
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+
+netHealthException:
+  OBJECTS: No se encontraron objetos
+  TYPE: TRAP-TYPE
+  DESCRIPTION: A scheduled eHealth report has detected one or more health exceptions for an element.
+  OID_NAME: org dod internet private enterprises concord netHealthException
+  VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerName, nhdServerIp, nhServerPort, nhElementId, nhServerIp
+  OID: 1.3.6.1.4.1.149.19
 
 ----------------------------------- FIN DE ALARM_TRAPS -----------------------------------

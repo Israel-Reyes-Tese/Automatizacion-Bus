@@ -1,286 +1,286 @@
 ----------------------------------- ALARM TRAPS ---------------------------
 nhLiveException:
-  nhServerPort: 1.3.6.1.4.1.149.2.2.3
-  nhProfile(nombre): org dod internet private enterprises concord netHealth nhArgs nhProfile
-  nhElementIp(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementIp
-  nhElementId(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementId
   nhGroupList: 1.3.6.1.4.1.149.2.3.9
-  nhElementName: 1.3.6.1.4.1.149.2.3.2
-  nhSeverity: 1.3.6.1.4.1.149.2.3.7
-  nhElementId: 1.3.6.1.4.1.149.2.3.3
-  nhGroupList(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroupList
-  nhTechType: 1.3.6.1.4.1.149.2.3.12
   nhElementName(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementName
-  nhGroup: 1.3.6.1.4.1.149.2.3.8
-  nhServerIp(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerIp
-  nhElementIp: 1.3.6.1.4.1.149.2.3.1
   nhServerPort(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerPort
   nhGroup(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroup
-  nhDisplayStr(nombre): org dod internet private enterprises concord netHealth nhArgs nhDisplayStr
-  nhExceptionId: 1.3.6.1.4.1.149.2.3.11
-  nhServerName: 1.3.6.1.4.1.149.2.2.2
-  nhStartTime: 1.3.6.1.4.1.149.2.3.4
-  nhProfile: 1.3.6.1.4.1.149.2.3.14
-  nhServerName(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerName
-  nhExceptionId(nombre): org dod internet private enterprises concord netHealth nhArgs nhExceptionId
-  nhStartTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhStartTime
-  nhDisplayStr: 1.3.6.1.4.1.149.2.3.10
   nhServerIp: 1.3.6.1.4.1.149.2.2.1
+  nhDisplayStr: 1.3.6.1.4.1.149.2.3.10
+  nhStartTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhStartTime
   nhSeverity(nombre): org dod internet private enterprises concord netHealth nhArgs nhSeverity
+  nhServerName(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerName
+  nhElementId: 1.3.6.1.4.1.149.2.3.3
+  nhSeverity: 1.3.6.1.4.1.149.2.3.7
+  nhServerIp(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerIp
+  nhElementIp: 1.3.6.1.4.1.149.2.3.1
+  nhElementName: 1.3.6.1.4.1.149.2.3.2
+  nhDisplayStr(nombre): org dod internet private enterprises concord netHealth nhArgs nhDisplayStr
+  nhElementIp(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementIp
+  nhElementId(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementId
+  nhProfile: 1.3.6.1.4.1.149.2.3.14
+  nhServerPort: 1.3.6.1.4.1.149.2.2.3
+  nhProfile(nombre): org dod internet private enterprises concord netHealth nhArgs nhProfile
+  nhExceptionId(nombre): org dod internet private enterprises concord netHealth nhArgs nhExceptionId
+  nhTechType: 1.3.6.1.4.1.149.2.3.12
+  nhGroup: 1.3.6.1.4.1.149.2.3.8
+  nhExceptionId: 1.3.6.1.4.1.149.2.3.11
   nhTechType(nombre): org dod internet private enterprises concord netHealth nhArgs nhTechType
-
-netHealthUrgent:
-  nhdServerName: 1.3.6.1.4.1.149.2.1.1.1.2
-  nhdErrorTime: 1.3.6.1.4.1.149.2.1.1.2.2
-  nhdServerIp(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerIp
-  nhdErrorDate(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorDate
-  nhdErrorCode(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorCode
-  nhdServerIp: 1.3.6.1.4.1.149.2.1.1.1.1
-  nhdErrorCode: 1.3.6.1.4.1.149.2.1.1.2.3
-  nhdErrorDate: 1.3.6.1.4.1.149.2.1.1.2.1
-  nhdErrorTime(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorTime
-  nhdErrorMessage(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorMessage
-  nhdServerName(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerName
-  nhdErrorMessage: 1.3.6.1.4.1.149.2.1.1.2.5
+  nhGroupList(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroupList
+  nhStartTime: 1.3.6.1.4.1.149.2.3.4
+  nhServerName: 1.3.6.1.4.1.149.2.2.2
 
 nhLiveUpdateException:
-  nhDisplayStr(nombre): org dod internet private enterprises concord netHealth nhArgs nhDisplayStr
-  nhExceptionId: 1.3.6.1.4.1.149.2.3.11
-  nhStartTime: 1.3.6.1.4.1.149.2.3.4
-  nhProfile: 1.3.6.1.4.1.149.2.3.14
-  nhServerName: 1.3.6.1.4.1.149.2.2.2
-  nhSeverity(nombre): org dod internet private enterprises concord netHealth nhArgs nhSeverity
-  nhTechType(nombre): org dod internet private enterprises concord netHealth nhArgs nhTechType
-  nhServerName(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerName
-  nhExceptionId(nombre): org dod internet private enterprises concord netHealth nhArgs nhExceptionId
   nhStartTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhStartTime
-  nhServerIp: 1.3.6.1.4.1.149.2.2.1
   nhDisplayStr: 1.3.6.1.4.1.149.2.3.10
-  nhGroupList: 1.3.6.1.4.1.149.2.3.9
-  nhElementId(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementId
-  nhElementName: 1.3.6.1.4.1.149.2.3.2
-  nhServerPort: 1.3.6.1.4.1.149.2.2.3
-  nhElementIp(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementIp
-  nhProfile(nombre): org dod internet private enterprises concord netHealth nhArgs nhProfile
-  nhGroup: 1.3.6.1.4.1.149.2.3.8
-  nhElementIp: 1.3.6.1.4.1.149.2.3.1
-  nhServerIp(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerIp
-  nhServerPort(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerPort
-  nhGroup(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroup
-  nhSeverity: 1.3.6.1.4.1.149.2.3.7
-  nhGroupList(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroupList
-  nhElementId: 1.3.6.1.4.1.149.2.3.3
-  nhTechType: 1.3.6.1.4.1.149.2.3.12
-  nhElementName(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementName
-
-nhLiveResetExceptions:
-  nhServerName: 1.3.6.1.4.1.149.2.2.2
-  nhResetTime: 1.3.6.1.4.1.149.2.3.13
-  nhServerPort(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerPort
-  nhServerIp(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerIp
-  nhServerPort: 1.3.6.1.4.1.149.2.2.3
-  nhServerName(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerName
-  nhServerIp: 1.3.6.1.4.1.149.2.2.1
-  nhResetTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhResetTime
-
-netHealthException:
-  nhServerIp(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerIp
-  nhdServerName(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerName
-  nhdErrorMessage(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorMessage
-  nhServerPort(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerPort
-  nhdErrorMessage: 1.3.6.1.4.1.149.2.1.1.2.5
-  nhdErrorCode: 1.3.6.1.4.1.149.2.1.1.2.3
-  nhdServerIp: 1.3.6.1.4.1.149.2.1.1.1.1
-  nhServerIp: 1.3.6.1.4.1.149.2.2.1
-  nhdErrorTime(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorTime
-  nhElementId: 1.3.6.1.4.1.149.2.3.3
-  nhdErrorDate: 1.3.6.1.4.1.149.2.1.1.2.1
-  nhdServerIp(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerIp
-  nhdErrorDate(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorDate
-  nhdErrorTime: 1.3.6.1.4.1.149.2.1.1.2.2
-  nhElementId(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementId
-  nhdErrorCode(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorCode
-  nhdServerName: 1.3.6.1.4.1.149.2.1.1.1.2
-  nhServerPort: 1.3.6.1.4.1.149.2.2.3
-
-nhLiveClearAlarm:
-  nhDisplayStr(nombre): org dod internet private enterprises concord netHealth nhArgs nhDisplayStr
-  nhVariable(nombre): org dod internet private enterprises concord netHealth nhArgs nhVariable
-  nhExceptionId: 1.3.6.1.4.1.149.2.3.11
-  nhTechType(nombre): org dod internet private enterprises concord netHealth nhArgs nhTechType
-  openViewSeverity: 1.3.6.1.4.1.11.2.17.2.5
-  nhExceptionType: 1.3.6.1.4.1.149.2.3.5
-  nhServerName(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerName
-  nhDescription(nombre): org dod internet private enterprises concord netHealth nhArgs nhDescription
-  nhProblemStartTime: 1.3.6.1.4.1.149.2.3.15
-  nhServerIp: 1.3.6.1.4.1.149.2.2.1
-  nhElementId(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementId
-  nhElementAlias(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementAlias
-  nhElementName: 1.3.6.1.4.1.149.2.3.2
-  nhProblemStartTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhProblemStartTime
-  openViewSeverity(nombre): org dod internet private enterprises hp nm openView openViewTrapVars openViewSeverity
-  nhEventCarrier: 1.3.6.1.4.1.149.2.3.17
-  nhProblemDuration: 1.3.6.1.4.1.149.2.3.16
-  nhElementIp(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementIp
-  nhExceptionType(nombre): org dod internet private enterprises concord netHealth nhArgs nhExceptionType
-  nhElementIp: 1.3.6.1.4.1.149.2.3.1
-  nhProblemDuration(nombre): org dod internet private enterprises concord netHealth nhArgs nhProblemDuration
-  nhServerPort(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerPort
-  nhGroup(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroup
-  nhSeverity: 1.3.6.1.4.1.149.2.3.7
-  nhElementId: 1.3.6.1.4.1.149.2.3.3
-  nhAlarmOccurId: 1.3.6.1.4.1.149.2.3.21
-  nhComponent: 1.3.6.1.4.1.149.2.3.19
-  nhDescription: 1.3.6.1.4.1.149.2.3.20
-  nhServerName: 1.3.6.1.4.1.149.2.2.2
-  nhStartTime: 1.3.6.1.4.1.149.2.3.4
-  nhProfile: 1.3.6.1.4.1.149.2.3.14
   nhSeverity(nombre): org dod internet private enterprises concord netHealth nhArgs nhSeverity
-  nhComponent(nombre): org dod internet private enterprises concord netHealth nhArgs nhComponent
-  nhStartTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhStartTime
-  nhExceptionId(nombre): org dod internet private enterprises concord netHealth nhArgs nhExceptionId
-  nhDisplayStr: 1.3.6.1.4.1.149.2.3.10
+  nhServerIp: 1.3.6.1.4.1.149.2.2.1
+  nhGroup(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroup
   nhGroupList: 1.3.6.1.4.1.149.2.3.9
-  nhServerPort: 1.3.6.1.4.1.149.2.2.3
-  nhAlarmOccurId(nombre): org dod internet private enterprises concord netHealth nhArgs nhAlarmOccurId
-  nhProfile(nombre): org dod internet private enterprises concord netHealth nhArgs nhProfile
-  nhVariable: 1.3.6.1.4.1.149.2.3.6
-  nhGroup: 1.3.6.1.4.1.149.2.3.8
-  nhElementAlias: 1.3.6.1.4.1.149.2.3.18
-  nhServerIp(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerIp
-  nhGroupList(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroupList
-  nhEventCarrier(nombre): org dod internet private enterprises concord netHealth nhArgs nhEventCarrier
-  nhTechType: 1.3.6.1.4.1.149.2.3.12
   nhElementName(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementName
+  nhServerPort(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerPort
+  nhElementName: 1.3.6.1.4.1.149.2.3.2
+  nhServerName(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerName
+  nhElementId: 1.3.6.1.4.1.149.2.3.3
+  nhServerIp(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerIp
+  nhElementIp: 1.3.6.1.4.1.149.2.3.1
+  nhSeverity: 1.3.6.1.4.1.149.2.3.7
+  nhServerPort: 1.3.6.1.4.1.149.2.2.3
+  nhExceptionId(nombre): org dod internet private enterprises concord netHealth nhArgs nhExceptionId
+  nhTechType: 1.3.6.1.4.1.149.2.3.12
+  nhProfile(nombre): org dod internet private enterprises concord netHealth nhArgs nhProfile
+  nhElementIp(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementIp
+  nhDisplayStr(nombre): org dod internet private enterprises concord netHealth nhArgs nhDisplayStr
+  nhProfile: 1.3.6.1.4.1.149.2.3.14
+  nhElementId(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementId
+  nhStartTime: 1.3.6.1.4.1.149.2.3.4
+  nhServerName: 1.3.6.1.4.1.149.2.2.2
+  nhGroup: 1.3.6.1.4.1.149.2.3.8
+  nhGroupList(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroupList
+  nhTechType(nombre): org dod internet private enterprises concord netHealth nhArgs nhTechType
+  nhExceptionId: 1.3.6.1.4.1.149.2.3.11
 
 netHealthWarning:
-  nhdErrorDate: 1.3.6.1.4.1.149.2.1.1.2.1
   nhdErrorTime(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorTime
-  nhdErrorCode: 1.3.6.1.4.1.149.2.1.1.2.3
-  nhdServerIp: 1.3.6.1.4.1.149.2.1.1.1.1
-  nhdErrorMessage: 1.3.6.1.4.1.149.2.1.1.2.5
-  nhdErrorMessage(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorMessage
-  nhdServerName(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerName
-  nhdServerName: 1.3.6.1.4.1.149.2.1.1.1.2
-  nhdErrorCode(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorCode
-  nhdErrorTime: 1.3.6.1.4.1.149.2.1.1.2.2
   nhdServerIp(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerIp
-  nhdErrorDate(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorDate
-
-netHealthInfo:
-  nhElementId: 1.3.6.1.4.1.149.2.3.3
-  nhdErrorDate: 1.3.6.1.4.1.149.2.1.1.2.1
-  nhdErrorTime(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorTime
+  nhdServerName(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerName
+  nhdErrorMessage(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorMessage
+  nhdErrorTime: 1.3.6.1.4.1.149.2.1.1.2.2
+  nhdServerName: 1.3.6.1.4.1.149.2.1.1.1.2
   nhdErrorCode: 1.3.6.1.4.1.149.2.1.1.2.3
+  nhdErrorDate(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorDate
+  nhdErrorDate: 1.3.6.1.4.1.149.2.1.1.2.1
+  nhdErrorCode(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorCode
   nhdServerIp: 1.3.6.1.4.1.149.2.1.1.1.1
   nhdErrorMessage: 1.3.6.1.4.1.149.2.1.1.2.5
+
+netHealthException:
+  nhdErrorTime: 1.3.6.1.4.1.149.2.1.1.2.2
   nhdErrorMessage(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorMessage
   nhServerPort(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerPort
+  nhElementId(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementId
+  nhdServerIp(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerIp
   nhdServerName(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerName
   nhServerPort: 1.3.6.1.4.1.149.2.2.3
-  nhdServerName: 1.3.6.1.4.1.149.2.1.1.1.2
-  nhElementId(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementId
-  nhdErrorCode(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorCode
-  nhdErrorTime: 1.3.6.1.4.1.149.2.1.1.2.2
-  nhdServerIp(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerIp
-  nhdErrorDate(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorDate
-
-nhLiveClearException:
-  nhTechType(nombre): org dod internet private enterprises concord netHealth nhArgs nhTechType
-  nhSeverity(nombre): org dod internet private enterprises concord netHealth nhArgs nhSeverity
-  nhExceptionId(nombre): org dod internet private enterprises concord netHealth nhArgs nhExceptionId
-  nhStartTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhStartTime
-  nhDisplayStr: 1.3.6.1.4.1.149.2.3.10
-  nhProblemStartTime: 1.3.6.1.4.1.149.2.3.15
   nhServerIp: 1.3.6.1.4.1.149.2.2.1
-  nhServerName(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerName
-  nhExceptionId: 1.3.6.1.4.1.149.2.3.11
-  nhServerName: 1.3.6.1.4.1.149.2.2.2
-  nhStartTime: 1.3.6.1.4.1.149.2.3.4
-  nhProfile: 1.3.6.1.4.1.149.2.3.14
-  nhDisplayStr(nombre): org dod internet private enterprises concord netHealth nhArgs nhDisplayStr
-  nhServerIp(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerIp
-  nhElementIp: 1.3.6.1.4.1.149.2.3.1
-  nhProblemDuration(nombre): org dod internet private enterprises concord netHealth nhArgs nhProblemDuration
-  nhGroup(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroup
-  nhServerPort(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerPort
-  nhGroup: 1.3.6.1.4.1.149.2.3.8
-  nhTechType: 1.3.6.1.4.1.149.2.3.12
-  nhElementName(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementName
-  nhSeverity: 1.3.6.1.4.1.149.2.3.7
-  nhElementId: 1.3.6.1.4.1.149.2.3.3
-  nhGroupList(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroupList
-  nhElementName: 1.3.6.1.4.1.149.2.3.2
-  nhElementId(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementId
-  nhGroupList: 1.3.6.1.4.1.149.2.3.9
-  nhProblemDuration: 1.3.6.1.4.1.149.2.3.16
-  nhProfile(nombre): org dod internet private enterprises concord netHealth nhArgs nhProfile
-  nhElementIp(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementIp
-  nhServerPort: 1.3.6.1.4.1.149.2.2.3
-  nhProblemStartTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhProblemStartTime
-
-netHealthReset:
+  nhdErrorTime(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorTime
   nhdErrorCode(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorCode
-  nhdErrorTime: 1.3.6.1.4.1.149.2.1.1.2.2
-  nhdServerIp(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerIp
+  nhElementId: 1.3.6.1.4.1.149.2.3.3
+  nhdServerIp: 1.3.6.1.4.1.149.2.1.1.1.1
+  nhdErrorMessage: 1.3.6.1.4.1.149.2.1.1.2.5
+  nhServerIp(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerIp
+  nhdErrorDate: 1.3.6.1.4.1.149.2.1.1.2.1
   nhdErrorDate(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorDate
   nhdServerName: 1.3.6.1.4.1.149.2.1.1.1.2
-  nhdErrorMessage: 1.3.6.1.4.1.149.2.1.1.2.5
-  nhdErrorMessage(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorMessage
-  nhdServerName(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerName
-  nhdErrorDate: 1.3.6.1.4.1.149.2.1.1.2.1
-  nhdErrorTime(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorTime
-  nhdServerIp: 1.3.6.1.4.1.149.2.1.1.1.1
   nhdErrorCode: 1.3.6.1.4.1.149.2.1.1.2.3
 
-nhLiveAlarm:
-  nhProfile(nombre): org dod internet private enterprises concord netHealth nhArgs nhProfile
-  nhVariable: 1.3.6.1.4.1.149.2.3.6
-  nhServerPort: 1.3.6.1.4.1.149.2.2.3
-  nhAlarmOccurId(nombre): org dod internet private enterprises concord netHealth nhArgs nhAlarmOccurId
-  nhGroupList: 1.3.6.1.4.1.149.2.3.9
-  nhProfileId(nombre): org dod internet private enterprises concord netHealth nhArgs nhProfileId
-  nhEventCarrier(nombre): org dod internet private enterprises concord netHealth nhArgs nhEventCarrier
-  nhTechType: 1.3.6.1.4.1.149.2.3.12
-  nhElementName(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementName
-  nhProfileId: 1.3.6.1.4.1.149.2.3.22
-  nhGroupList(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroupList
-  nhServerIp(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerIp
-  nhGroup: 1.3.6.1.4.1.149.2.3.8
-  nhElementAlias: 1.3.6.1.4.1.149.2.3.18
-  nhElementBasetype(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementBasetype
-  nhDescription: 1.3.6.1.4.1.149.2.3.20
-  nhServerName: 1.3.6.1.4.1.149.2.2.2
-  nhProfile: 1.3.6.1.4.1.149.2.3.14
-  nhStartTime: 1.3.6.1.4.1.149.2.3.4
-  nhComponent: 1.3.6.1.4.1.149.2.3.19
-  nhStartTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhStartTime
+nhLiveClearAlarm:
   nhExceptionId(nombre): org dod internet private enterprises concord netHealth nhArgs nhExceptionId
-  nhDisplayStr: 1.3.6.1.4.1.149.2.3.10
-  nhComponent(nombre): org dod internet private enterprises concord netHealth nhArgs nhComponent
-  nhSeverity(nombre): org dod internet private enterprises concord netHealth nhArgs nhSeverity
-  nhElementIp(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementIp
-  openViewSeverity(nombre): org dod internet private enterprises hp nm openView openViewTrapVars openViewSeverity
-  nhEventCarrier: 1.3.6.1.4.1.149.2.3.17
-  nhElementAlias(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementAlias
-  nhElementName: 1.3.6.1.4.1.149.2.3.2
-  nhElementId(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementId
-  nhAlarmOccurId: 1.3.6.1.4.1.149.2.3.21
-  nhSeverity: 1.3.6.1.4.1.149.2.3.7
-  nhElementId: 1.3.6.1.4.1.149.2.3.3
-  nhElementIp: 1.3.6.1.4.1.149.2.3.1
-  nhGroup(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroup
-  nhServerPort(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerPort
+  nhTechType: 1.3.6.1.4.1.149.2.3.12
   nhExceptionType(nombre): org dod internet private enterprises concord netHealth nhArgs nhExceptionType
-  nhElementBasetype: 1.3.6.1.4.1.149.2.3.23
-  nhVariable(nombre): org dod internet private enterprises concord netHealth nhArgs nhVariable
-  nhExceptionId: 1.3.6.1.4.1.149.2.3.11
+  nhProfile(nombre): org dod internet private enterprises concord netHealth nhArgs nhProfile
+  nhServerPort: 1.3.6.1.4.1.149.2.2.3
+  nhElementAlias(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementAlias
+  nhElementId(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementId
+  nhElementIp(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementIp
+  nhProblemDuration: 1.3.6.1.4.1.149.2.3.16
+  nhComponent(nombre): org dod internet private enterprises concord netHealth nhArgs nhComponent
   nhDisplayStr(nombre): org dod internet private enterprises concord netHealth nhArgs nhDisplayStr
+  nhEventCarrier: 1.3.6.1.4.1.149.2.3.17
+  nhStartTime: 1.3.6.1.4.1.149.2.3.4
+  nhProblemStartTime: 1.3.6.1.4.1.149.2.3.15
+  nhTechType(nombre): org dod internet private enterprises concord netHealth nhArgs nhTechType
+  nhGroup: 1.3.6.1.4.1.149.2.3.8
+  nhStartTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhStartTime
+  nhElementName(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementName
+  nhExceptionType: 1.3.6.1.4.1.149.2.3.5
+  nhElementIp: 1.3.6.1.4.1.149.2.3.1
+  openViewSeverity: 1.3.6.1.4.1.11.2.17.2.5
+  nhDescription: 1.3.6.1.4.1.149.2.3.20
+  nhAlarmOccurId: 1.3.6.1.4.1.149.2.3.21
+  nhComponent: 1.3.6.1.4.1.149.2.3.19
+  nhElementId: 1.3.6.1.4.1.149.2.3.3
+  nhServerName(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerName
+  nhProfile: 1.3.6.1.4.1.149.2.3.14
+  nhVariable(nombre): org dod internet private enterprises concord netHealth nhArgs nhVariable
+  nhServerName: 1.3.6.1.4.1.149.2.2.2
+  nhVariable: 1.3.6.1.4.1.149.2.3.6
+  nhGroupList(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroupList
+  nhExceptionId: 1.3.6.1.4.1.149.2.3.11
+  nhAlarmOccurId(nombre): org dod internet private enterprises concord netHealth nhArgs nhAlarmOccurId
+  nhSeverity(nombre): org dod internet private enterprises concord netHealth nhArgs nhSeverity
+  nhDisplayStr: 1.3.6.1.4.1.149.2.3.10
   nhDescription(nombre): org dod internet private enterprises concord netHealth nhArgs nhDescription
   nhServerIp: 1.3.6.1.4.1.149.2.2.1
-  nhServerName(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerName
+  nhGroup(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroup
+  nhServerPort(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerPort
+  nhGroupList: 1.3.6.1.4.1.149.2.3.9
+  nhProblemStartTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhProblemStartTime
+  nhElementAlias: 1.3.6.1.4.1.149.2.3.18
+  nhProblemDuration(nombre): org dod internet private enterprises concord netHealth nhArgs nhProblemDuration
+  nhElementName: 1.3.6.1.4.1.149.2.3.2
+  nhEventCarrier(nombre): org dod internet private enterprises concord netHealth nhArgs nhEventCarrier
+  nhServerIp(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerIp
+  nhSeverity: 1.3.6.1.4.1.149.2.3.7
+  openViewSeverity(nombre): org dod internet private enterprises hp nm openView openViewTrapVars openViewSeverity
+
+nhLiveAlarm:
+  nhStartTime: 1.3.6.1.4.1.149.2.3.4
+  nhEventCarrier: 1.3.6.1.4.1.149.2.3.17
+  nhGroup: 1.3.6.1.4.1.149.2.3.8
   nhTechType(nombre): org dod internet private enterprises concord netHealth nhArgs nhTechType
+  nhServerPort: 1.3.6.1.4.1.149.2.2.3
+  nhExceptionId(nombre): org dod internet private enterprises concord netHealth nhArgs nhExceptionId
+  nhProfileId(nombre): org dod internet private enterprises concord netHealth nhArgs nhProfileId
+  nhTechType: 1.3.6.1.4.1.149.2.3.12
+  nhProfile(nombre): org dod internet private enterprises concord netHealth nhArgs nhProfile
+  nhExceptionType(nombre): org dod internet private enterprises concord netHealth nhArgs nhExceptionType
+  nhElementIp(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementIp
+  nhComponent(nombre): org dod internet private enterprises concord netHealth nhArgs nhComponent
+  nhDisplayStr(nombre): org dod internet private enterprises concord netHealth nhArgs nhDisplayStr
+  nhElementAlias(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementAlias
+  nhElementId(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementId
+  nhProfileId: 1.3.6.1.4.1.149.2.3.22
   nhExceptionType: 1.3.6.1.4.1.149.2.3.5
+  nhServerName(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerName
+  nhElementId: 1.3.6.1.4.1.149.2.3.3
   openViewSeverity: 1.3.6.1.4.1.11.2.17.2.5
+  nhDescription: 1.3.6.1.4.1.149.2.3.20
+  nhElementIp: 1.3.6.1.4.1.149.2.3.1
+  nhComponent: 1.3.6.1.4.1.149.2.3.19
+  nhAlarmOccurId: 1.3.6.1.4.1.149.2.3.21
+  nhStartTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhStartTime
+  nhElementName(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementName
+  nhElementBasetype: 1.3.6.1.4.1.149.2.3.23
+  nhVariable: 1.3.6.1.4.1.149.2.3.6
+  nhServerName: 1.3.6.1.4.1.149.2.2.2
+  nhAlarmOccurId(nombre): org dod internet private enterprises concord netHealth nhArgs nhAlarmOccurId
+  nhGroupList(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroupList
+  nhExceptionId: 1.3.6.1.4.1.149.2.3.11
+  nhVariable(nombre): org dod internet private enterprises concord netHealth nhArgs nhVariable
+  nhProfile: 1.3.6.1.4.1.149.2.3.14
+  nhEventCarrier(nombre): org dod internet private enterprises concord netHealth nhArgs nhEventCarrier
+  nhElementName: 1.3.6.1.4.1.149.2.3.2
+  openViewSeverity(nombre): org dod internet private enterprises hp nm openView openViewTrapVars openViewSeverity
+  nhServerIp(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerIp
+  nhSeverity: 1.3.6.1.4.1.149.2.3.7
+  nhDisplayStr: 1.3.6.1.4.1.149.2.3.10
+  nhSeverity(nombre): org dod internet private enterprises concord netHealth nhArgs nhSeverity
+  nhDescription(nombre): org dod internet private enterprises concord netHealth nhArgs nhDescription
+  nhGroup(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroup
+  nhServerIp: 1.3.6.1.4.1.149.2.2.1
+  nhGroupList: 1.3.6.1.4.1.149.2.3.9
+  nhElementAlias: 1.3.6.1.4.1.149.2.3.18
+  nhServerPort(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerPort
+  nhElementBasetype(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementBasetype
+
+netHealthReset:
+  nhdErrorTime(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorTime
+  nhdServerName(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerName
+  nhdServerIp(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerIp
+  nhdErrorMessage(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorMessage
+  nhdErrorTime: 1.3.6.1.4.1.149.2.1.1.2.2
+  nhdServerName: 1.3.6.1.4.1.149.2.1.1.1.2
+  nhdErrorCode: 1.3.6.1.4.1.149.2.1.1.2.3
+  nhdErrorDate(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorDate
+  nhdErrorDate: 1.3.6.1.4.1.149.2.1.1.2.1
+  nhdErrorCode(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorCode
+  nhdErrorMessage: 1.3.6.1.4.1.149.2.1.1.2.5
+  nhdServerIp: 1.3.6.1.4.1.149.2.1.1.1.1
+
+nhLiveResetExceptions:
+  nhServerPort: 1.3.6.1.4.1.149.2.2.3
+  nhServerIp: 1.3.6.1.4.1.149.2.2.1
+  nhServerName: 1.3.6.1.4.1.149.2.2.2
+  nhResetTime: 1.3.6.1.4.1.149.2.3.13
+  nhServerName(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerName
+  nhResetTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhResetTime
+  nhServerPort(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerPort
+  nhServerIp(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerIp
+
+netHealthInfo:
+  nhdErrorTime(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorTime
+  nhServerPort: 1.3.6.1.4.1.149.2.2.3
+  nhdServerName(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerName
+  nhdServerIp(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerIp
+  nhElementId(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementId
+  nhServerPort(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerPort
+  nhdErrorMessage(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorMessage
+  nhdErrorTime: 1.3.6.1.4.1.149.2.1.1.2.2
+  nhdErrorCode: 1.3.6.1.4.1.149.2.1.1.2.3
+  nhdServerName: 1.3.6.1.4.1.149.2.1.1.1.2
+  nhdErrorDate(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorDate
+  nhdErrorDate: 1.3.6.1.4.1.149.2.1.1.2.1
+  nhdErrorMessage: 1.3.6.1.4.1.149.2.1.1.2.5
+  nhdServerIp: 1.3.6.1.4.1.149.2.1.1.1.1
+  nhElementId: 1.3.6.1.4.1.149.2.3.3
+  nhdErrorCode(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorCode
+
+netHealthUrgent:
+  nhdErrorTime(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorTime
+  nhdErrorMessage(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorMessage
+  nhdErrorTime: 1.3.6.1.4.1.149.2.1.1.2.2
+  nhdServerIp(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerIp
+  nhdServerName(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdServer nhdServerName
+  nhdErrorDate(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorDate
+  nhdErrorCode: 1.3.6.1.4.1.149.2.1.1.2.3
+  nhdServerName: 1.3.6.1.4.1.149.2.1.1.1.2
+  nhdErrorMessage: 1.3.6.1.4.1.149.2.1.1.2.5
+  nhdServerIp: 1.3.6.1.4.1.149.2.1.1.1.1
+  nhdErrorCode(nombre): org dod internet private enterprises concord netHealth netHealthMib nhdTraps nhdError nhdErrorCode
+  nhdErrorDate: 1.3.6.1.4.1.149.2.1.1.2.1
+
+nhLiveClearException:
+  nhServerName(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerName
+  nhElementId: 1.3.6.1.4.1.149.2.3.3
+  nhServerIp(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerIp
+  nhElementIp: 1.3.6.1.4.1.149.2.3.1
+  nhSeverity: 1.3.6.1.4.1.149.2.3.7
+  nhElementName: 1.3.6.1.4.1.149.2.3.2
+  nhProblemDuration(nombre): org dod internet private enterprises concord netHealth nhArgs nhProblemDuration
+  nhGroupList: 1.3.6.1.4.1.149.2.3.9
+  nhElementName(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementName
+  nhProblemStartTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhProblemStartTime
+  nhServerPort(nombre): org dod internet private enterprises concord netHealth nhSysInfo nhServerPort
+  nhStartTime(nombre): org dod internet private enterprises concord netHealth nhArgs nhStartTime
+  nhDisplayStr: 1.3.6.1.4.1.149.2.3.10
+  nhSeverity(nombre): org dod internet private enterprises concord netHealth nhArgs nhSeverity
+  nhGroup(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroup
+  nhServerIp: 1.3.6.1.4.1.149.2.2.1
+  nhGroup: 1.3.6.1.4.1.149.2.3.8
+  nhGroupList(nombre): org dod internet private enterprises concord netHealth nhArgs nhGroupList
+  nhExceptionId: 1.3.6.1.4.1.149.2.3.11
+  nhTechType(nombre): org dod internet private enterprises concord netHealth nhArgs nhTechType
+  nhProblemStartTime: 1.3.6.1.4.1.149.2.3.15
+  nhStartTime: 1.3.6.1.4.1.149.2.3.4
+  nhServerName: 1.3.6.1.4.1.149.2.2.2
+  nhElementIp(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementIp
+  nhProblemDuration: 1.3.6.1.4.1.149.2.3.16
+  nhDisplayStr(nombre): org dod internet private enterprises concord netHealth nhArgs nhDisplayStr
+  nhProfile: 1.3.6.1.4.1.149.2.3.14
+  nhElementId(nombre): org dod internet private enterprises concord netHealth nhArgs nhElementId
+  nhServerPort: 1.3.6.1.4.1.149.2.2.3
+  nhTechType: 1.3.6.1.4.1.149.2.3.12
+  nhExceptionId(nombre): org dod internet private enterprises concord netHealth nhArgs nhExceptionId
+  nhProfile(nombre): org dod internet private enterprises concord netHealth nhArgs nhProfile
 
 ----------------------------------- FIN DE ALARM_TRAPS -----------------------------------

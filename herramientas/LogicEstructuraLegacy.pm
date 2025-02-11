@@ -3518,7 +3518,6 @@ sub crear_codigo_parseador {
 
 
     print $fh <<"END_CODE";
-$texto_implementacion
 package ABR::Parser_aux;
 # Version=1.1
 use POSIX qw(strftime);

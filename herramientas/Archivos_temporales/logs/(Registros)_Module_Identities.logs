@@ -1,3 +1,47 @@
+#----------------------------------- MODULE IDENTITY  inetAddressMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: inetAddressMIB
+inetAddressMIB MODULE-IDENTITY
+LAST-UPDATED "200502040000Z"
+ORGANIZATION
+"IETF Operations and Management Area"
+CONTACT-INFO
+"Juergen Schoenwaelder (Editor)
+International University Bremen
+P.O. Box 750 561
+28725 Bremen, Germany
+Phone: +49 421 200-3587
+EMail: j.schoenwaelder@iu-bremen.de
+Send comments to <ietfmibs@ops.ietf.org>."
+DESCRIPTION
+"This MIB module defines textual conventions for
+representing Internet addresses.  An Internet
+address can be an IPv4 address, an IPv6 address,
+or a DNS domain name.  This module also defines
+textual conventions for Internet port numbers,
+autonomous system numbers, and the length of an
+Internet address prefix.
+Copyright (C) The Internet Society (2005).  This version
+of this MIB module is part of RFC 4001, see the RFC
+itself for full legal notices."
+REVISION     "200502040000Z"
+DESCRIPTION
+"Third version, published as RFC 4001.  This revision
+introduces the InetZoneIndex, InetScopeType, and
+InetVersion textual conventions."
+REVISION     "200205090000Z"
+DESCRIPTION
+"Second version, published as RFC 3291.  This
+revision contains several clarifications and
+introduces several new textual conventions:
+InetAddressPrefixLength, InetPortNumber,
+InetAutonomousSystemNumber, InetAddressIPv4z,
+and InetAddressIPv6z."
+REVISION     "200006080000Z"
+DESCRIPTION
+"Initial version, published as RFC 2851."
+::= { mib-2 76 }
+
 #----------------------------------- MODULE IDENTITY  snmpFrameworkMIB  ---------------------------#
 Tipo de objeto: MODULE-IDENTITY
 Nombre del objeto: snmpFrameworkMIB
@@ -70,50 +114,6 @@ REVISION     "199711200000Z"         -- 20 November 1997
 DESCRIPTION  "The initial version, published in RFC 2271.
 "
 ::= { snmpModules 10 }
-
-#----------------------------------- MODULE IDENTITY  inetAddressMIB  ---------------------------#
-Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: inetAddressMIB
-inetAddressMIB MODULE-IDENTITY
-LAST-UPDATED "200502040000Z"
-ORGANIZATION
-"IETF Operations and Management Area"
-CONTACT-INFO
-"Juergen Schoenwaelder (Editor)
-International University Bremen
-P.O. Box 750 561
-28725 Bremen, Germany
-Phone: +49 421 200-3587
-EMail: j.schoenwaelder@iu-bremen.de
-Send comments to <ietfmibs@ops.ietf.org>."
-DESCRIPTION
-"This MIB module defines textual conventions for
-representing Internet addresses.  An Internet
-address can be an IPv4 address, an IPv6 address,
-or a DNS domain name.  This module also defines
-textual conventions for Internet port numbers,
-autonomous system numbers, and the length of an
-Internet address prefix.
-Copyright (C) The Internet Society (2005).  This version
-of this MIB module is part of RFC 4001, see the RFC
-itself for full legal notices."
-REVISION     "200502040000Z"
-DESCRIPTION
-"Third version, published as RFC 4001.  This revision
-introduces the InetZoneIndex, InetScopeType, and
-InetVersion textual conventions."
-REVISION     "200205090000Z"
-DESCRIPTION
-"Second version, published as RFC 3291.  This
-revision contains several clarifications and
-introduces several new textual conventions:
-InetAddressPrefixLength, InetPortNumber,
-InetAutonomousSystemNumber, InetAddressIPv4z,
-and InetAddressIPv6z."
-REVISION     "200006080000Z"
-DESCRIPTION
-"Initial version, published as RFC 2851."
-::= { mib-2 76 }
 
 ----------------------------------- inetAddressMIB ---------------------------
 inetAddressMIB:

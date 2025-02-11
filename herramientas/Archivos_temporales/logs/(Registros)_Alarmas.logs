@@ -205,14 +205,24 @@ and alarms by setting them to a clear state or unhighlighting
 any icons."
 ::= 25
 #----------------------------------- FIN ALARMA ORIGINAL ---------------------------#
------------------------------------ nhLiveAlarm ---------------------------
-nhLiveAlarm:
+----------------------------------- netHealthException ---------------------------
+netHealthException:
   TYPE: TRAP-TYPE
   OBJECTS: No se encontraron objetos
   STATUS: No se encontro el estado
-  DESCRIPTION: A eHealth alarm has occurred. This trap sends detailed information about an alarm.
-  OID: 21
-  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhExceptionType, nhVariable, nhSeverity, openViewSeverity, nhProfile, nhExceptionId, nhTechType, nhEventCarrier, nhElementAlias, nhComponent, nhDescription, nhAlarmOccurId, nhProfileId, nhElementBasetype
+  DESCRIPTION: A scheduled eHealth report has detected one or more health exceptions for an element.
+  OID: 19
+  VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerName, nhdServerIp, nhServerPort, nhElementId, nhServerIp
+  ENTERPRISE: concord
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- nhLiveUpdateException ---------------------------
+nhLiveUpdateException:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: No se encontro el estado
+  DESCRIPTION: The severity of a eHealth exception has changed.  Deprecated in eHealth 5.6 Release.
+  OID: 24
+  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhSeverity, nhProfile, nhExceptionId, nhTechType
   ENTERPRISE: concord
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- netHealthWarning ---------------------------
@@ -225,14 +235,14 @@ netHealthWarning:
   VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerIp, nhdServerName
   ENTERPRISE: concord
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ nhLiveResetExceptions ---------------------------
-nhLiveResetExceptions:
+----------------------------------- nhLiveException ---------------------------
+nhLiveException:
   TYPE: TRAP-TYPE
   OBJECTS: No se encontraron objetos
   STATUS: No se encontro el estado
-  DESCRIPTION: The LiveExceptions server has restarted. All LiveExceptions alarms  and exceptions sent before this time will NOT be cleared automatically. All trap  destinations should reset any pre-existing eHealth exceptions  and alarms by setting them to a clear state or unhighlighting any icons.
-  OID: 25
-  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhResetTime
+  DESCRIPTION: A eHealth exception has occurred. This trap sends generic information about an exception when it first becomes active. Deprecated in eHealth 5.6 Release.
+  OID: 20
+  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhSeverity, nhProfile, nhExceptionId, nhTechType
   ENTERPRISE: concord
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- nhLiveClearException ---------------------------
@@ -243,36 +253,6 @@ nhLiveClearException:
   DESCRIPTION: A eHealth exception has been cleared. The conditions causing the corresponding exception no longer exist. Deprecated in eHealth 5.6 Release.
   OID: 22
   VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhSeverity, nhProfile, nhExceptionId, nhTechType, nhProblemStartTime, nhProblemDuration
-  ENTERPRISE: concord
------------------------------------ Final de segmento -----------------------------------
------------------------------------ netHealthInfo ---------------------------
-netHealthInfo:
-  TYPE: TRAP-TYPE
-  OBJECTS: No se encontraron objetos
-  STATUS: No se encontro el estado
-  DESCRIPTION: An event (not an error) has occurred in eHealth. This trap is an informational message from the eHealth  Diagnostic Monitor. No action is required.
-  OID: 15
-  VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerIp, nhdServerName, nhServerPort, nhElementId
-  ENTERPRISE: concord
------------------------------------ Final de segmento -----------------------------------
------------------------------------ nhLiveClearAlarm ---------------------------
-nhLiveClearAlarm:
-  TYPE: TRAP-TYPE
-  OBJECTS: No se encontraron objetos
-  STATUS: No se encontro el estado
-  DESCRIPTION: A eHealth alarm has been cleared. The conditions causing the corresponding alarm no longer exist.
-  OID: 23
-  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhExceptionType, nhVariable, nhSeverity, openViewSeverity, nhProfile, nhExceptionId, nhTechType, nhProblemStartTime, nhProblemDuration, nhEventCarrier, nhElementAlias, nhComponent, nhDescription, nhAlarmOccurId
-  ENTERPRISE: concord
------------------------------------ Final de segmento -----------------------------------
------------------------------------ nhLiveUpdateException ---------------------------
-nhLiveUpdateException:
-  TYPE: TRAP-TYPE
-  OBJECTS: No se encontraron objetos
-  STATUS: No se encontro el estado
-  DESCRIPTION: The severity of a eHealth exception has changed.  Deprecated in eHealth 5.6 Release.
-  OID: 24
-  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhSeverity, nhProfile, nhExceptionId, nhTechType
   ENTERPRISE: concord
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- netHealthUrgent ---------------------------
@@ -295,23 +275,43 @@ netHealthReset:
   VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerIp, nhdServerName
   ENTERPRISE: concord
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ netHealthException ---------------------------
-netHealthException:
+----------------------------------- nhLiveResetExceptions ---------------------------
+nhLiveResetExceptions:
   TYPE: TRAP-TYPE
   OBJECTS: No se encontraron objetos
   STATUS: No se encontro el estado
-  DESCRIPTION: A scheduled eHealth report has detected one or more health exceptions for an element.
-  OID: 19
-  VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerName, nhdServerIp, nhServerPort, nhElementId, nhServerIp
+  DESCRIPTION: The LiveExceptions server has restarted. All LiveExceptions alarms  and exceptions sent before this time will NOT be cleared automatically. All trap  destinations should reset any pre-existing eHealth exceptions  and alarms by setting them to a clear state or unhighlighting any icons.
+  OID: 25
+  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhResetTime
   ENTERPRISE: concord
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ nhLiveException ---------------------------
-nhLiveException:
+----------------------------------- netHealthInfo ---------------------------
+netHealthInfo:
   TYPE: TRAP-TYPE
   OBJECTS: No se encontraron objetos
   STATUS: No se encontro el estado
-  DESCRIPTION: A eHealth exception has occurred. This trap sends generic information about an exception when it first becomes active. Deprecated in eHealth 5.6 Release.
-  OID: 20
-  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhSeverity, nhProfile, nhExceptionId, nhTechType
+  DESCRIPTION: An event (not an error) has occurred in eHealth. This trap is an informational message from the eHealth  Diagnostic Monitor. No action is required.
+  OID: 15
+  VARIABLES: nhdErrorDate, nhdErrorTime, nhdErrorCode, nhdErrorMessage, nhdServerIp, nhdServerName, nhServerPort, nhElementId
+  ENTERPRISE: concord
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- nhLiveClearAlarm ---------------------------
+nhLiveClearAlarm:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: No se encontro el estado
+  DESCRIPTION: A eHealth alarm has been cleared. The conditions causing the corresponding alarm no longer exist.
+  OID: 23
+  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhExceptionType, nhVariable, nhSeverity, openViewSeverity, nhProfile, nhExceptionId, nhTechType, nhProblemStartTime, nhProblemDuration, nhEventCarrier, nhElementAlias, nhComponent, nhDescription, nhAlarmOccurId
+  ENTERPRISE: concord
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- nhLiveAlarm ---------------------------
+nhLiveAlarm:
+  TYPE: TRAP-TYPE
+  OBJECTS: No se encontraron objetos
+  STATUS: No se encontro el estado
+  DESCRIPTION: A eHealth alarm has occurred. This trap sends detailed information about an alarm.
+  OID: 21
+  VARIABLES: nhServerIp, nhServerName, nhServerPort, nhElementIp, nhElementName, nhElementId, nhStartTime, nhDisplayStr, nhGroup, nhGroupList, nhExceptionType, nhVariable, nhSeverity, openViewSeverity, nhProfile, nhExceptionId, nhTechType, nhEventCarrier, nhElementAlias, nhComponent, nhDescription, nhAlarmOccurId, nhProfileId, nhElementBasetype
   ENTERPRISE: concord
 ----------------------------------- Final de segmento -----------------------------------

@@ -1,3 +1,27 @@
+Archivo: RFC1155-SMI
+org OBJECT IDENTIFIER
+::= { iso 3 }
+Archivo: RFC1155-SMI
+dod OBJECT IDENTIFIER
+::= { org 6 }
+Archivo: RFC1155-SMI
+internet OBJECT IDENTIFIER
+::= { dod 1 }
+Archivo: RFC1155-SMI
+directory OBJECT IDENTIFIER
+::= { internet 1 }
+Archivo: RFC1155-SMI
+mgmt OBJECT IDENTIFIER
+::= { internet 2 }
+Archivo: RFC1155-SMI
+experimental OBJECT IDENTIFIER
+::= { internet 3 }
+Archivo: RFC1155-SMI
+private OBJECT IDENTIFIER
+::= { internet 4 }
+Archivo: RFC1155-SMI
+enterprises OBJECT IDENTIFIER
+::= { private 1 }
 Archivo: concord-diagmon.mib
 concord								OBJECT IDENTIFIER ::= { enterprises 149 }
 netHealth							OBJECT IDENTIFIER ::= { concord 2 }
@@ -671,307 +695,283 @@ authentication protocols used in SNMP Management
 Frameworks.
 "
 ::= { snmpFrameworkAdmin 1 }
-Archivo: RFC1155-SMI
-org OBJECT IDENTIFIER
-::= { iso 3 }
-Archivo: RFC1155-SMI
-dod OBJECT IDENTIFIER
-::= { org 6 }
-Archivo: RFC1155-SMI
-internet OBJECT IDENTIFIER
-::= { dod 1 }
-Archivo: RFC1155-SMI
-directory OBJECT IDENTIFIER
-::= { internet 1 }
-Archivo: RFC1155-SMI
-mgmt OBJECT IDENTIFIER
-::= { internet 2 }
-Archivo: RFC1155-SMI
-experimental OBJECT IDENTIFIER
-::= { internet 3 }
-Archivo: RFC1155-SMI
-private OBJECT IDENTIFIER
-::= { internet 4 }
-Archivo: RFC1155-SMI
-enterprises OBJECT IDENTIFIER
-::= { private 1 }
------------------------------------ netHealthMib ---------------------------
-netHealthMib:
+----------------------------------- system ---------------------------
+system:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  netHealth 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpProxys ---------------------------
-snmpProxys:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  snmpV2 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ nhArgs ---------------------------
-nhArgs:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  netHealth 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ interfaces ---------------------------
-interfaces:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  mib-2 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmp ---------------------------
-snmp:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  mib-2 11 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dod ---------------------------
-dod:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  org 6 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ experimental ---------------------------
-experimental:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  internet 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ security ---------------------------
-security:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  internet 5 
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  mib-2 1 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- SYNTAX ---------------------------
 SYNTAX:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
   OID: OID no encontrado
   Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ nm ---------------------------
-nm:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  hp 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ netHealth ---------------------------
-netHealth:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  concord 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ private ---------------------------
-private:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  internet 4 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ nhdTraps ---------------------------
-nhdTraps:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  netHealthMib 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ system ---------------------------
-system:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  mib-2 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ icmp ---------------------------
-icmp:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  mib-2 5 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ org ---------------------------
-org:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  iso 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ openViewTrapVars ---------------------------
-openViewTrapVars:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  openView 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ nhdError ---------------------------
-nhdError:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  nhdTraps 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ifSpecific ---------------------------
-ifSpecific:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID: OID no encontrado
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpDomains ---------------------------
-snmpDomains:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  snmpV2 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpV2 ---------------------------
-snmpV2:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  internet 6 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mgmt ---------------------------
-mgmt:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  internet 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ nhdServer ---------------------------
-nhdServer:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  nhdTraps 1 
-  Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpEngine ---------------------------
 snmpEngine:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
   OID:  snmpFrameworkMIBObjects 1 
   Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- netHealthMib ---------------------------
+netHealthMib:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  netHealth 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mgmt ---------------------------
+mgmt:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  internet 2 
+  Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- mib-2 ---------------------------
 mib-2:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
   OID:  mgmt 1 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ concord ---------------------------
-concord:
+----------------------------------- private ---------------------------
+private:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  enterprises 149 
-  Nivel_Busqueda: 1
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  internet 4 
+  Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ nhSysInfo ---------------------------
-nhSysInfo:
+----------------------------------- security ---------------------------
+security:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  netHealth 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ transmission ---------------------------
-transmission:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  mib-2 10 
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  internet 5 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- openView ---------------------------
 openView:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
   OID:  nm 17 
   Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- icmp ---------------------------
+icmp:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  mib-2 5 
+  Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- ipRouteInfo ---------------------------
 ipRouteInfo:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
   OID: OID no encontrado
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ at ---------------------------
-at:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  mib-2 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ip ---------------------------
-ip:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  mib-2 4 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- internet ---------------------------
 internet:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
   OID:  dod 1 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpModules ---------------------------
 snmpModules:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
   OID:  snmpV2 3 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ enterprises ---------------------------
-enterprises:
+----------------------------------- dod ---------------------------
+dod:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  private 1 
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  org 6 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ tcp ---------------------------
-tcp:
+----------------------------------- experimental ---------------------------
+experimental:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  mib-2 6 
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  internet 3 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ egp ---------------------------
-egp:
+----------------------------------- nhdError ---------------------------
+nhdError:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  mib-2 8 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ directory ---------------------------
-directory:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
-  OID:  internet 1 
-  Nivel_Busqueda: 2
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  nhdTraps 2 
+  Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- udp ---------------------------
 udp:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
   OID:  mib-2 7 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- nhdTraps ---------------------------
+nhdTraps:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  netHealthMib 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- tcp ---------------------------
+tcp:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  mib-2 6 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- nm ---------------------------
+nm:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  hp 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpV2 ---------------------------
+snmpV2:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  internet 6 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- concord ---------------------------
+concord:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  enterprises 149 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifSpecific ---------------------------
+ifSpecific:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID: OID no encontrado
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- org ---------------------------
+org:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  iso 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- transmission ---------------------------
+transmission:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  mib-2 10 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- nhSysInfo ---------------------------
+nhSysInfo:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  netHealth 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpDomains ---------------------------
+snmpDomains:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  snmpV2 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmp ---------------------------
+snmp:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  mib-2 11 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- hp ---------------------------
 hp:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: RFC-1212
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
   OID:  enterprises 11 
   Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- enterprises ---------------------------
+enterprises:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  private 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- nhArgs ---------------------------
+nhArgs:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  netHealth 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- netHealth ---------------------------
+netHealth:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  concord 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- interfaces ---------------------------
+interfaces:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  mib-2 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- at ---------------------------
+at:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  mib-2 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- egp ---------------------------
+egp:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  mib-2 8 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- nhdServer ---------------------------
+nhdServer:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  nhdTraps 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ip ---------------------------
+ip:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  mib-2 4 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- openViewTrapVars ---------------------------
+openViewTrapVars:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  openView 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- directory ---------------------------
+directory:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  internet 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpProxys ---------------------------
+snmpProxys:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  snmpV2 2 
+  Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
