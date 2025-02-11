@@ -1,47 +1,106 @@
-#----------------------------------- MODULE COMPLIANCE  snmpFrameworkMIBCompliance  ---------------------------#
+#----------------------------------- MODULE COMPLIANCE  hrMIBCompliance  ---------------------------#
 Tipo de objeto: MODULE-COMPLIANCE
-Nombre del objeto: snmpFrameworkMIBCompliance
-snmpFrameworkMIBCompliance MODULE-COMPLIANCE
-STATUS       current
-DESCRIPTION "The compliance statement for SNMP engines which
-implement the SNMP Management Framework MIB.
-"
-MODULE    -- this module
-MANDATORY-GROUPS { snmpEngineGroup }
-::= { snmpFrameworkMIBCompliances 1 }
+Nombre del objeto: hrMIBCompliance
+hrMIBCompliance MODULE-COMPLIANCE
+STATUS          current
+DESCRIPTION     
+"The requirements for conformance to the Host Resources MIB."
+MODULE          -- this module
+MANDATORY-GROUPS    { hrSystemGroup, hrStorageGroup, 
+hrDeviceGroup }
+GROUP       hrSWRunGroup
+DESCRIPTION 
+"The Running Software Group. Implementation
+of this group is mandatory only when the
+hrSWRunPerfGroup is implemented."
+GROUP       hrSWRunPerfGroup
+DESCRIPTION 
+"The Running Software Performance Group.
+Implementation of this group is at the discretion
+of the implementor."
+GROUP       hrSWInstalledGroup
+DESCRIPTION 
+"The Installed Software Group.
+Implementation of this group is at the discretion
+of the implementor."
+OBJECT      hrSystemDate
+MIN-ACCESS  read-only
+DESCRIPTION 
+"Write access is not required."
+OBJECT      hrSystemInitialLoadDevice
+MIN-ACCESS  read-only
+DESCRIPTION 
+"Write access is not required."
+OBJECT      hrSystemInitialLoadParameters
+MIN-ACCESS  read-only
+DESCRIPTION 
+"Write access is not required."
+OBJECT      hrStorageSize
+MIN-ACCESS  read-only
+DESCRIPTION 
+"Write access is not required."
+OBJECT      hrFSLastFullBackupDate
+MIN-ACCESS  read-only
+DESCRIPTION 
+"Write access is not required."
+OBJECT      hrFSLastPartialBackupDate
+MIN-ACCESS  read-only
+DESCRIPTION 
+"Write access is not required."
+OBJECT      hrSWRunStatus
+MIN-ACCESS  read-only
+DESCRIPTION 
+"Write access is not required."
+::= { hrMIBCompliances 1 }
 
-snmpFrameworkMIBCompliance MODULE-COMPLIANCE
-STATUS       current
-DESCRIPTION "The compliance statement for SNMP engines which
-implement the SNMP Management Framework MIB.
-"
-MODULE    -- this module
-MANDATORY-GROUPS { snmpEngineGroup }
-::= { snmpFrameworkMIBCompliances 1 }
-snmpEngineGroup OBJECT-GROUP
-OBJECTS {
-snmpEngineID,
-snmpEngineBoots,
-snmpEngineTime,
-snmpEngineMaxMessageSize
-}
-STATUS       current(3)
-DESCRIPTION "nd
-determining the configuration and current timeliness
-values of an SNMP engine.
-"
-::= { snmpFrameworkMIBGroups 1 }
-
------------------------------------ snmpFrameworkMIBCompliance ---------------------------
-snmpFrameworkMIBCompliance:
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  snmpFrameworkMIBCompliances 1 
-  DESCRIPTION: The compliance statement for SNMP engines which
-implement the SNMP Management Framework MIB.
-
+----------------------------------- hrMIBCompliance ---------------------------
+hrMIBCompliance:
+  ARCHIVO: HOST-RESOURCES-MIB
+  OID:  hrMIBCompliances 1 
+  DESCRIPTION: The requirements for conformance to the Host Resources MIB.
   TYPE: MODULE-COMPLIANCE
   STATUS: current
   MODULE:
     GROUPS:
+      GROUP: hrSWRunGroup
+      DESCRIPTION: The Running Software Group. Implementation
+of this group is mandatory only when the
+hrSWRunPerfGroup is implemented.
+      GROUP: hrSWRunPerfGroup
+      DESCRIPTION: The Running Software Performance Group.
+Implementation of this group is at the discretion
+of the implementor.
+      GROUP: hrSWInstalledGroup
+      DESCRIPTION: The Installed Software Group.
+Implementation of this group is at the discretion
+of the implementor.
     OBJECTS:
+      OBJECT: hrSystemDate
+      SYNTAX: undef
+      MIN_ACCESS: read-only
+      DESCRIPTION: Write access is not required.
+      OBJECT: hrSystemInitialLoadDevice
+      SYNTAX: undef
+      MIN_ACCESS: read-only
+      DESCRIPTION: Write access is not required.
+      OBJECT: hrSystemInitialLoadParameters
+      SYNTAX: undef
+      MIN_ACCESS: read-only
+      DESCRIPTION: Write access is not required.
+      OBJECT: hrStorageSize
+      SYNTAX: undef
+      MIN_ACCESS: read-only
+      DESCRIPTION: Write access is not required.
+      OBJECT: hrFSLastFullBackupDate
+      SYNTAX: undef
+      MIN_ACCESS: read-only
+      DESCRIPTION: Write access is not required.
+      OBJECT: hrFSLastPartialBackupDate
+      SYNTAX: undef
+      MIN_ACCESS: read-only
+      DESCRIPTION: Write access is not required.
+      OBJECT: hrSWRunStatus
+      SYNTAX: undef
+      MIN_ACCESS: read-only
+      DESCRIPTION: Write access is not required.
 ----------------------------------- Final de segmento -----------------------------------

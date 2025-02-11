@@ -12,7 +12,7 @@ use lib $FindBin::Bin . "/herramientas";
 use lib $FindBin::Bin . "./Script Generacion de Agentes SNMP/utilidades";
 
 
-use SNMP::MIB::Compiler;
+#use SNMP::MIB::Compiler;
 
 # Ventanas secundarias
 use MIB_utils;

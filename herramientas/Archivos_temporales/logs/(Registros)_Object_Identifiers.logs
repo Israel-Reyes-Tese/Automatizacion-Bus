@@ -1,90 +1,33 @@
-Archivo: RFC1155-SMI
-org OBJECT IDENTIFIER
-::= { iso 3 }
-Archivo: RFC1155-SMI
-dod OBJECT IDENTIFIER
-::= { org 6 }
-Archivo: RFC1155-SMI
-internet OBJECT IDENTIFIER
-::= { dod 1 }
-Archivo: RFC1155-SMI
-directory OBJECT IDENTIFIER
-::= { internet 1 }
-Archivo: RFC1155-SMI
-mgmt OBJECT IDENTIFIER
-::= { internet 2 }
-Archivo: RFC1155-SMI
-experimental OBJECT IDENTIFIER
-::= { internet 3 }
-Archivo: RFC1155-SMI
-private OBJECT IDENTIFIER
-::= { internet 4 }
-Archivo: RFC1155-SMI
-enterprises OBJECT IDENTIFIER
-::= { private 1 }
-Archivo: concord-diagmon.mib
-concord								OBJECT IDENTIFIER ::= { enterprises 149 }
-netHealth							OBJECT IDENTIFIER ::= { concord 2 }
-Archivo: concord-diagmon.mib
-netHealthMib						OBJECT IDENTIFIER ::= { netHealth 1 }	
-nhSysInfo								OBJECT IDENTIFIER ::= { netHealth 2 }	
-Archivo: concord-diagmon.mib
-nhArgs								OBJECT IDENTIFIER ::= { netHealth 3 }	
-nhdTraps							OBJECT IDENTIFIER ::= { netHealthMib 1 }
-Archivo: concord-diagmon.mib
-nhdServer							OBJECT IDENTIFIER ::= { nhdTraps 1 }
-nhdError							OBJECT IDENTIFIER ::= { nhdTraps 2 }
-Archivo: concord-diagmon.mib
-hp 			OBJECT IDENTIFIER ::= { enterprises 11 }
-nm			OBJECT IDENTIFIER ::= { hp 2 }
-Archivo: concord-diagmon.mib
-openView		OBJECT IDENTIFIER ::= { nm 17 }
-openViewTrapVars 	OBJECT IDENTIFIER ::= { openView 2 }
-Archivo: SNMPv2-SMI
-org OBJECT IDENTIFIER
-::= { iso 3 }
-Archivo: SNMPv2-SMI
-dod OBJECT IDENTIFIER
-::= { org 6 }
-Archivo: SNMPv2-SMI
-internet OBJECT IDENTIFIER
-::= { dod 1 }
-Archivo: SNMPv2-SMI
-directory OBJECT IDENTIFIER
-::= { internet 1 }
-Archivo: SNMPv2-SMI
-mgmt OBJECT IDENTIFIER
-::= { internet 2 }
-Archivo: SNMPv2-SMI
-mib-2 OBJECT IDENTIFIER
-::= { mgmt 1 }
-Archivo: SNMPv2-SMI
-transmission OBJECT IDENTIFIER
-::= { mib-2 10 }
-Archivo: SNMPv2-SMI
-experimental OBJECT IDENTIFIER
-::= { internet 3 }
-Archivo: SNMPv2-SMI
-private OBJECT IDENTIFIER
-::= { internet 4 }
-Archivo: SNMPv2-SMI
-enterprises OBJECT IDENTIFIER
-::= { private 1 }
-Archivo: SNMPv2-SMI
-security OBJECT IDENTIFIER
-::= { internet 5 }
-Archivo: SNMPv2-SMI
-snmpV2 OBJECT IDENTIFIER
-::= { internet 6 }
-Archivo: SNMPv2-SMI
-snmpDomains OBJECT IDENTIFIER
-::= { snmpV2 1 }
-Archivo: SNMPv2-SMI
-snmpProxys OBJECT IDENTIFIER
-::= { snmpV2 2 }
-Archivo: SNMPv2-SMI
-snmpModules OBJECT IDENTIFIER
-::= { snmpV2 3 }
+Archivo: SONUS-COMMON-MIB
+sonusCommonMIBObjects OBJECT IDENTIFIER
+::= { sonusCommonMIB 1 }
+Archivo: SONUS-COMMON-MIB
+sonusNetMgmt OBJECT IDENTIFIER
+::= { sonusCommonMIBObjects 1 }
+Archivo: SONUS-COMMON-MIB
+sonusNetMgmtClient OBJECT IDENTIFIER
+::= { sonusNetMgmt 1 }
+Archivo: SONUS-COMMON-MIB
+sonusNetMgmtTrap OBJECT IDENTIFIER
+::= { sonusNetMgmt 2 }
+Archivo: SONUS-COMMON-MIB
+sonusNetMgmtTrapNextIndex OBJECT IDENTIFIER
+::= { sonusNetMgmtTrap 1 }
+Archivo: SONUS-COMMON-MIB
+sonusNetMgmtNotify OBJECT IDENTIFIER
+::= { sonusNetMgmt 3 }
+Archivo: SONUS-COMMON-MIB
+sonusSnmpStat OBJECT IDENTIFIER
+::= { sonusCommonMIBObjects 2 }
+Archivo: SONUS-COMMON-MIB
+sonusCommonMIBNotifications OBJECT IDENTIFIER
+::= { sonusCommonMIB 2 }
+Archivo: SONUS-COMMON-MIB
+sonusCommonMIBNotificationsPrefix OBJECT IDENTIFIER
+::= { sonusCommonMIBNotifications 0 }
+Archivo: SONUS-COMMON-MIB
+sonusCommonMIBNotificationsObjects OBJECT IDENTIFIER
+::= { sonusCommonMIBNotifications 1 }
 Archivo: SNMPv2-TC
 SYNTAX          OBJECT IDENTIFIER
 InstancePointer ::= TEXTUAL-CONVENTION
@@ -618,6 +561,138 @@ MIB module.  Other possible textual conventions are defined in
 other MIB modules."
 SYNTAX          OCTET STRING (SIZE(1..255))
 END -- end of module SNMPv2-TC.
+Archivo: SNMPv2-SMI
+org OBJECT IDENTIFIER
+::= { iso 3 }
+Archivo: SNMPv2-SMI
+dod OBJECT IDENTIFIER
+::= { org 6 }
+Archivo: SNMPv2-SMI
+internet OBJECT IDENTIFIER
+::= { dod 1 }
+Archivo: SNMPv2-SMI
+directory OBJECT IDENTIFIER
+::= { internet 1 }
+Archivo: SNMPv2-SMI
+mgmt OBJECT IDENTIFIER
+::= { internet 2 }
+Archivo: SNMPv2-SMI
+mib-2 OBJECT IDENTIFIER
+::= { mgmt 1 }
+Archivo: SNMPv2-SMI
+transmission OBJECT IDENTIFIER
+::= { mib-2 10 }
+Archivo: SNMPv2-SMI
+experimental OBJECT IDENTIFIER
+::= { internet 3 }
+Archivo: SNMPv2-SMI
+private OBJECT IDENTIFIER
+::= { internet 4 }
+Archivo: SNMPv2-SMI
+enterprises OBJECT IDENTIFIER
+::= { private 1 }
+Archivo: SNMPv2-SMI
+security OBJECT IDENTIFIER
+::= { internet 5 }
+Archivo: SNMPv2-SMI
+snmpV2 OBJECT IDENTIFIER
+::= { internet 6 }
+Archivo: SNMPv2-SMI
+snmpDomains OBJECT IDENTIFIER
+::= { snmpV2 1 }
+Archivo: SNMPv2-SMI
+snmpProxys OBJECT IDENTIFIER
+::= { snmpV2 2 }
+Archivo: SNMPv2-SMI
+snmpModules OBJECT IDENTIFIER
+::= { snmpV2 3 }
+Archivo: SONUS-SMI
+"sonusProducts is the root OBJECT IDENTIFIER from
+which sysObjectID values are assigned."
+::= { sonus 1 }
+Archivo: SONUS-DATASTREAM-INTEGRATOR-MIB
+sonusDSIMIBObjects OBJECT IDENTIFIER
+::= { sonusDSIMIB 1 }
+Archivo: SONUS-DATASTREAM-INTEGRATOR-MIB
+sonusDSIMIBNotifications OBJECT IDENTIFIER
+::= { sonusDSIMIB 2 }
+Archivo: SONUS-DATASTREAM-INTEGRATOR-MIB
+sonusDSIMIBNotificationsPrefix OBJECT IDENTIFIER
+::= { sonusDSIMIBNotifications 0 }
+Archivo: SONUS-DATASTREAM-INTEGRATOR-MIB
+sonusDSIMIBNotificationsObjects OBJECT IDENTIFIER
+::= { sonusDSIMIBNotifications 1 }
+Archivo: HOST-RESOURCES-MIB
+these OBJECT IDENTIFIERs are allocated such that all
+products from a particular manufacturer are registered
+under a subtree distinct to that manufacturer.  In
+addition, all versions of a product should be
+registered under a subtree distinct to that product.
+With this strategy, a management station may uniquely
+determine the manufacturer and/or model of a product
+whose productID is unknown to the management station.
+Objects of this type may be useful for inventory
+purposes or for automatically detecting
+incompatibilities or version mismatches between
+various hardware and software components on a system.
+For example, the product ID for the ACME 4860 66MHz
+clock doubled processor might be:
+enterprises.acme.acmeProcessors.a4860DX2.MHz66
+A software product might be registered as:
+enterprises.acme.acmeOperatingSystems.acmeDOS.six(6).one(1)
+"
+SYNTAX          OBJECT IDENTIFIER
+InternationalDisplayString ::= TEXTUAL-CONVENTION
+STATUS          current
+DESCRIPTION     
+"This data type is used to model textual information
+in some character set.  A network management station
+should use a local algorithm to determine which
+character set is in use and how it should be
+displayed.  Note that this character set may be
+encoded with more than one octet per symbol, but will
+most often be NVT ASCII. When a size clause is
+specified for an object of this type, the size refers
+to the length in octets, not the number of symbols."
+SYNTAX          OCTET STRING
+host OBJECT IDENTIFIER
+::= { mib-2 25 }
+Archivo: HOST-RESOURCES-MIB
+hrSystem OBJECT IDENTIFIER
+::= { host 1 }
+Archivo: HOST-RESOURCES-MIB
+hrStorage OBJECT IDENTIFIER
+::= { host 2 }
+Archivo: HOST-RESOURCES-MIB
+hrStorageTypes OBJECT IDENTIFIER
+::= { hrStorage 1 }
+Archivo: HOST-RESOURCES-MIB
+hrDevice OBJECT IDENTIFIER
+::= { host 3 }
+Archivo: HOST-RESOURCES-MIB
+hrDeviceTypes OBJECT IDENTIFIER
+::= { hrDevice 1 }
+Archivo: HOST-RESOURCES-MIB
+hrFSTypes OBJECT IDENTIFIER
+::= { hrDevice 9 }
+Archivo: HOST-RESOURCES-MIB
+hrSWRun OBJECT IDENTIFIER
+::= { host 4 }
+Archivo: HOST-RESOURCES-MIB
+hrSWRunPerf OBJECT IDENTIFIER
+::= { host 5 }
+Archivo: HOST-RESOURCES-MIB
+hrSWInstalled OBJECT IDENTIFIER
+::= { host 6 }
+Archivo: HOST-RESOURCES-MIB
+hrMIBAdminInfo OBJECT IDENTIFIER
+::= { host 7 }
+Archivo: HOST-RESOURCES-MIB
+hrMIBCompliances OBJECT IDENTIFIER
+::= { hrMIBAdminInfo 2 }
+Archivo: HOST-RESOURCES-MIB
+hrMIBGroups OBJECT IDENTIFIER
+::= { hrMIBAdminInfo 3 }
 Archivo: RFC1213-MIB
 mib-2 OBJECT IDENTIFIER
 ::= { mgmt 1 }
@@ -685,293 +760,661 @@ transmission OBJECT IDENTIFIER
 Archivo: RFC1213-MIB
 snmp OBJECT IDENTIFIER
 ::= { mib-2 11 }
-Archivo: SNMP-FRAMEWORK-MIB.mib
-snmpEngine OBJECT IDENTIFIER ::= { snmpFrameworkMIBObjects 1 }
--- Registration Points for Authentication and Privacy Protocols **
-snmpAuthProtocols OBJECT-IDENTITY
-STATUS        current(1)
-DESCRIPTION  "Registration point for standards-track
-authentication protocols used in SNMP Management
-Frameworks.
-"
-::= { snmpFrameworkAdmin 1 }
------------------------------------ system ---------------------------
-system:
+Archivo: Gr1343Core-MIB
+telcordia OBJECT IDENTIFIER
+::= { enterprises 148 }
+Archivo: Gr1343Core-MIB
+requirements OBJECT IDENTIFIER
+::= { telcordia 1 }
+Archivo: Gr1343Core-MIB
+gr1343Core OBJECT IDENTIFIER
+::= { requirements 7 }
+Archivo: Gr1343Core-MIB
+session OBJECT IDENTIFIER
+::= { gr1343Core 1 }
+Archivo: Gr1343Core-MIB
+sessionComp OBJECT IDENTIFIER
+::= { session 1 }
+Archivo: Gr1343Core-MIB
+sessionFtp OBJECT IDENTIFIER
+::= { session 2 }
+Archivo: Gr1343Core-MIB
+sessionRda OBJECT IDENTIFIER
+::= { session 3 }
+Archivo: Gr1343Core-MIB
+sessionTelnet OBJECT IDENTIFIER
+::= { session 4 }
+Archivo: Gr1343Core-MIB
+sessionTftp OBJECT IDENTIFIER
+::= { session 5 }
+Archivo: Gr1343Core-MIB
+ama OBJECT IDENTIFIER
+::= { gr1343Core 2 }
+Archivo: Gr1343Core-MIB
+amaIn OBJECT IDENTIFIER
+::= { ama 1 }
+Archivo: Gr1343Core-MIB
+amaOut OBJECT IDENTIFIER
+::= { ama 2 }
+Archivo: Gr1343Core-MIB
+amaLimit OBJECT IDENTIFIER
+::= { ama 3 }
+Archivo: Gr1343Core-MIB
+amaStorage OBJECT IDENTIFIER
+::= { ama 4 }
+Archivo: Gr1343Core-MIB
+amaAudit OBJECT IDENTIFIER
+::= { ama 5 }
+Archivo: Gr1343Core-MIB
+access OBJECT IDENTIFIER
+::= { gr1343Core 3 }
+Archivo: Gr1343Core-MIB
+accessLogin OBJECT IDENTIFIER
+::= { access 1 }
+Archivo: Gr1343Core-MIB
+accessAssociation OBJECT IDENTIFIER
+::= { access 2 }
+Archivo: SONUS-DSI-TRANSPORTER-MIB
+sonusDsiTransporterMIBObjects OBJECT IDENTIFIER
+::= { sonusDsiTransporterMIB 1 }
+Archivo: SONUS-DSI-TRANSPORTER-MIB
+sonusDsiTransporterMIBNotifications OBJECT IDENTIFIER
+::= { sonusDsiTransporterMIB 2 }
+Archivo: SONUS-DSI-TRANSPORTER-MIB
+sonusDsiTransporterMIBNotificationsPrefix OBJECT IDENTIFIER
+::= { sonusDsiTransporterMIBNotifications 0 }
+Archivo: SONUS-DSI-TRANSPORTER-MIB
+sonusDsiTransporterMIBNotificationsObjects OBJECT IDENTIFIER
+::= { sonusDsiTransporterMIBNotifications 1 }
+Archivo: SONUS-HOST-MIB
+sonusHostMIBObjects OBJECT IDENTIFIER
+::= { sonusHostMIB 1 }
+Archivo: SONUS-HOST-MIB
+sonusHostNotifications OBJECT IDENTIFIER
+::= { sonusHostMIB 2 }
+Archivo: SONUS-HOST-MIB
+sonusHostNotificationsPrefix OBJECT IDENTIFIER
+::= { sonusHostNotifications 0 }
+Archivo: SONUS-HOST-MIB
+sonusHostResourceObjects OBJECT IDENTIFIER
+::= { sonusHostMIB 3 }
+Archivo: SONUS-HOST-MIB
+sonusHostManagementObjects OBJECT IDENTIFIER
+::= { sonusHostMIB 4 }
+Archivo: SONUS-HOST-MIB
+sonusHostResourceUsageStats OBJECT IDENTIFIER
+::= { sonusHostMIB 5 }
+----------------------------------- experimental ---------------------------
+experimental:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  mib-2 1 
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  internet 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- amaStorage ---------------------------
+amaStorage:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  ama 4 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusHostManagementObjects ---------------------------
+sonusHostManagementObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusHostMIB 4 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- enterprises ---------------------------
+enterprises:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  private 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- directory ---------------------------
+directory:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  internet 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mgmt ---------------------------
+mgmt:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  internet 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusDsiTransporterMIBNotificationsObjects ---------------------------
+sonusDsiTransporterMIBNotificationsObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusDsiTransporterMIBNotifications 1 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- SYNTAX ---------------------------
 SYNTAX:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID: OID no encontrado
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpEngine ---------------------------
-snmpEngine:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  snmpFrameworkMIBObjects 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ netHealthMib ---------------------------
-netHealthMib:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  netHealth 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mgmt ---------------------------
-mgmt:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  internet 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mib-2 ---------------------------
-mib-2:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  mgmt 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ private ---------------------------
-private:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  internet 4 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ security ---------------------------
-security:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  internet 5 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ openView ---------------------------
-openView:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  nm 17 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ icmp ---------------------------
-icmp:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  mib-2 5 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ipRouteInfo ---------------------------
-ipRouteInfo:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID: OID no encontrado
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ internet ---------------------------
-internet:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  dod 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpModules ---------------------------
-snmpModules:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  snmpV2 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dod ---------------------------
-dod:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  org 6 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ experimental ---------------------------
-experimental:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  internet 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ nhdError ---------------------------
-nhdError:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  nhdTraps 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ udp ---------------------------
-udp:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  mib-2 7 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ nhdTraps ---------------------------
-nhdTraps:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  netHealthMib 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ tcp ---------------------------
-tcp:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  mib-2 6 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ nm ---------------------------
-nm:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  hp 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpV2 ---------------------------
-snmpV2:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  internet 6 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ concord ---------------------------
-concord:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  enterprises 149 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ifSpecific ---------------------------
-ifSpecific:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  ARCHIVO: SONUS-HOST-MIB
   OID: OID no encontrado
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- org ---------------------------
 org:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  ARCHIVO: SONUS-HOST-MIB
   OID:  iso 3 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ transmission ---------------------------
-transmission:
+----------------------------------- accessAssociation ---------------------------
+accessAssociation:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  mib-2 10 
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  access 2 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ nhSysInfo ---------------------------
-nhSysInfo:
+----------------------------------- sonusDsiTransporterMIBNotifications ---------------------------
+sonusDsiTransporterMIBNotifications:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  netHealth 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpDomains ---------------------------
-snmpDomains:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  snmpV2 1 
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusDsiTransporterMIB 2 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmp ---------------------------
-snmp:
+----------------------------------- sonusDSIMIBNotificationsPrefix ---------------------------
+sonusDSIMIBNotificationsPrefix:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  mib-2 11 
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusDSIMIBNotifications 0 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hp ---------------------------
-hp:
+----------------------------------- sonusDsiTransporterMIBNotificationsPrefix ---------------------------
+sonusDsiTransporterMIBNotificationsPrefix:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  enterprises 11 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ enterprises ---------------------------
-enterprises:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  private 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ nhArgs ---------------------------
-nhArgs:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  netHealth 3 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ netHealth ---------------------------
-netHealth:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  concord 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ interfaces ---------------------------
-interfaces:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  mib-2 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ at ---------------------------
-at:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  mib-2 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ egp ---------------------------
-egp:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  mib-2 8 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ nhdServer ---------------------------
-nhdServer:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  nhdTraps 1 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ip ---------------------------
-ip:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  mib-2 4 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ openViewTrapVars ---------------------------
-openViewTrapVars:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  openView 2 
-  Nivel_Busqueda: 1
------------------------------------ Final de segmento -----------------------------------
------------------------------------ directory ---------------------------
-directory:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  internet 1 
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusDsiTransporterMIBNotifications 0 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpProxys ---------------------------
 snmpProxys:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  ARCHIVO: SONUS-HOST-MIB
   OID:  snmpV2 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusNetMgmtClient ---------------------------
+sonusNetMgmtClient:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusNetMgmt 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommonMIBNotificationsPrefix ---------------------------
+sonusCommonMIBNotificationsPrefix:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusCommonMIBNotifications 0 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ip ---------------------------
+ip:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  mib-2 4 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpV2 ---------------------------
+snmpV2:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  internet 6 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmp ---------------------------
+snmp:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  mib-2 11 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- internet ---------------------------
+internet:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  dod 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sessionTftp ---------------------------
+sessionTftp:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  session 5 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpDomains ---------------------------
+snmpDomains:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  snmpV2 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- system ---------------------------
+system:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  mib-2 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrDevice ---------------------------
+hrDevice:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  host 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- icmp ---------------------------
+icmp:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  mib-2 5 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSWRunPerf ---------------------------
+hrSWRunPerf:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  host 5 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrMIBGroups ---------------------------
+hrMIBGroups:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  hrMIBAdminInfo 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sessionRda ---------------------------
+sessionRda:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  session 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusHostResourceUsageStats ---------------------------
+sonusHostResourceUsageStats:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusHostMIB 5 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- telcordia ---------------------------
+telcordia:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  enterprises 148 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusHostResourceObjects ---------------------------
+sonusHostResourceObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusHostMIB 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusDSIMIBObjects ---------------------------
+sonusDSIMIBObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusDSIMIB 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusHostNotifications ---------------------------
+sonusHostNotifications:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusHostMIB 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sessionComp ---------------------------
+sessionComp:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  session 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusHostMIBObjects ---------------------------
+sonusHostMIBObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusHostMIB 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mib-2 ---------------------------
+mib-2:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  mgmt 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sessionTelnet ---------------------------
+sessionTelnet:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  session 4 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusHostNotificationsPrefix ---------------------------
+sonusHostNotificationsPrefix:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusHostNotifications 0 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- security ---------------------------
+security:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  internet 5 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusDSIMIBNotifications ---------------------------
+sonusDSIMIBNotifications:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusDSIMIB 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- dod ---------------------------
+dod:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  org 6 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- requirements ---------------------------
+requirements:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  telcordia 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSystem ---------------------------
+hrSystem:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  host 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- private ---------------------------
+private:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  internet 4 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- udp ---------------------------
+udp:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  mib-2 7 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- egp ---------------------------
+egp:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  mib-2 8 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- session ---------------------------
+session:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  gr1343Core 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusNetMgmtTrapNextIndex ---------------------------
+sonusNetMgmtTrapNextIndex:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusNetMgmtTrap 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommonMIBNotificationsObjects ---------------------------
+sonusCommonMIBNotificationsObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusCommonMIBNotifications 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- tcp ---------------------------
+tcp:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  mib-2 6 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- at ---------------------------
+at:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  mib-2 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusNetMgmt ---------------------------
+sonusNetMgmt:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusCommonMIBObjects 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- amaIn ---------------------------
+amaIn:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  ama 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusDsiTransporterMIBObjects ---------------------------
+sonusDsiTransporterMIBObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusDsiTransporterMIB 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ama ---------------------------
+ama:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  gr1343Core 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusNetMgmtTrap ---------------------------
+sonusNetMgmtTrap:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusNetMgmt 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommonMIBObjects ---------------------------
+sonusCommonMIBObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusCommonMIB 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- amaAudit ---------------------------
+amaAudit:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  ama 5 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrDeviceTypes ---------------------------
+hrDeviceTypes:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  hrDevice 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- interfaces ---------------------------
+interfaces:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  mib-2 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- gr1343Core ---------------------------
+gr1343Core:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  requirements 7 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommonMIBNotifications ---------------------------
+sonusCommonMIBNotifications:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusCommonMIB 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sessionFtp ---------------------------
+sessionFtp:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  session 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusDSIMIBNotificationsObjects ---------------------------
+sonusDSIMIBNotificationsObjects:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusDSIMIBNotifications 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ifSpecific ---------------------------
+ifSpecific:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID: OID no encontrado
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSWInstalled ---------------------------
+hrSWInstalled:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  host 6 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrStorage ---------------------------
+hrStorage:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  host 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- access ---------------------------
+access:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  gr1343Core 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpModules ---------------------------
+snmpModules:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  snmpV2 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSnmpStat ---------------------------
+sonusSnmpStat:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusCommonMIBObjects 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrMIBAdminInfo ---------------------------
+hrMIBAdminInfo:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  host 7 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- amaLimit ---------------------------
+amaLimit:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  ama 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrFSTypes ---------------------------
+hrFSTypes:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  hrDevice 9 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ipRouteInfo ---------------------------
+ipRouteInfo:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID: OID no encontrado
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- amaOut ---------------------------
+amaOut:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  ama 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- transmission ---------------------------
+transmission:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  mib-2 10 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrMIBCompliances ---------------------------
+hrMIBCompliances:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  hrMIBAdminInfo 2 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- accessLogin ---------------------------
+accessLogin:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  access 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSWRun ---------------------------
+hrSWRun:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  host 4 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrStorageTypes ---------------------------
+hrStorageTypes:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  hrStorage 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- host ---------------------------
+host:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  mib-2 25 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusNetMgmtNotify ---------------------------
+sonusNetMgmtNotify:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: SONUS-HOST-MIB
+  OID:  sonusNetMgmt 3 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------

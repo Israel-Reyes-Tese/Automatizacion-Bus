@@ -1,11 +1,58 @@
+#----------------------------------- MODULE IDENTITY  IpAddress,  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: IpAddress,
+#----------------------------------- MODULE IDENTITY  sonusCommonMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: sonusCommonMIB
+sonusCommonMIB MODULE-IDENTITY
+LAST-UPDATED    "201108010000Z"
+ORGANIZATION    
+"Sonus Networks, Inc."
+CONTACT-INFO    
+"   Customer Support    
+Sonus Networks, Inc.
+7 Technology Park Drive
+Westford, MA 01886
+USA
+Tel: 978-614-8100
+Fax: 978-614-8609"
+DESCRIPTION     
+"The MIB Module for common management of all Sonus devices."
+::= { sonusSystemMIBs 5 }
+
+#----------------------------------- MODULE IDENTITY  sonus  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: sonus
+sonus MODULE-IDENTITY
+LAST-UPDATED    "201310070000Z"
+ORGANIZATION    
+"Sonus Networks, Inc."
+CONTACT-INFO    
+"   Customer Support    
+Sonus Networks, Inc.
+4 Technology Park Drive
+Westford, MA 01886
+USA
+Tel: 978-614-8100
+Fax: 978-614-8609"
+DESCRIPTION     
+"Initial version of this MIB module."
+::= { enterprises 2879 }
+
+#----------------------------------- MODULE IDENTITY  which  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: which
+from which MODULE-IDENTITY values may be assigned."
+::= { sonus 3 }
+
 #----------------------------------- MODULE IDENTITY  inetAddressMIB  ---------------------------#
 Tipo de objeto: MODULE-IDENTITY
 Nombre del objeto: inetAddressMIB
 inetAddressMIB MODULE-IDENTITY
-LAST-UPDATED "200502040000Z"
-ORGANIZATION
+LAST-UPDATED    "200502040000Z"
+ORGANIZATION    
 "IETF Operations and Management Area"
-CONTACT-INFO
+CONTACT-INFO    
 "Juergen Schoenwaelder (Editor)
 International University Bremen
 P.O. Box 750 561
@@ -13,7 +60,7 @@ P.O. Box 750 561
 Phone: +49 421 200-3587
 EMail: j.schoenwaelder@iu-bremen.de
 Send comments to <ietfmibs@ops.ietf.org>."
-DESCRIPTION
+DESCRIPTION     
 "This MIB module defines textual conventions for
 representing Internet addresses.  An Internet
 address can be an IPv4 address, an IPv6 address,
@@ -24,97 +71,190 @@ Internet address prefix.
 Copyright (C) The Internet Society (2005).  This version
 of this MIB module is part of RFC 4001, see the RFC
 itself for full legal notices."
-REVISION     "200502040000Z"
-DESCRIPTION
+REVISION        "200502040000Z"
+DESCRIPTION     
 "Third version, published as RFC 4001.  This revision
 introduces the InetZoneIndex, InetScopeType, and
 InetVersion textual conventions."
-REVISION     "200205090000Z"
-DESCRIPTION
+REVISION        "200205090000Z"
+DESCRIPTION     
 "Second version, published as RFC 3291.  This
 revision contains several clarifications and
 introduces several new textual conventions:
 InetAddressPrefixLength, InetPortNumber,
 InetAutonomousSystemNumber, InetAddressIPv4z,
 and InetAddressIPv6z."
-REVISION     "200006080000Z"
-DESCRIPTION
+REVISION        "200006080000Z"
+DESCRIPTION     
 "Initial version, published as RFC 2851."
 ::= { mib-2 76 }
 
-#----------------------------------- MODULE IDENTITY  snmpFrameworkMIB  ---------------------------#
+#----------------------------------- MODULE IDENTITY  Integer32,  ---------------------------#
 Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: snmpFrameworkMIB
-snmpFrameworkMIB MODULE-IDENTITY
-LAST-UPDATED "200210140000Z"
-ORGANIZATION "SNMPv3 Working Group"
-CONTACT-INFO "WG-EMail:   snmpv3@lists.tislabs.com
-Subscribe:  snmpv3-request@lists.tislabs.com
-Co-Chair:   Russ Mundy
-Network Associates Laboratories
-postal:     15204 Omega Drive, Suite 300
-Rockville, MD 20850-4601
+Nombre del objeto: Integer32,
+#----------------------------------- MODULE IDENTITY  sonusDSIMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: sonusDSIMIB
+sonusDSIMIB MODULE-IDENTITY
+LAST-UPDATED    "201109230000Z"
+ORGANIZATION    
+"Sonus Networks, Inc."
+CONTACT-INFO    
+"   Customer Support    
+Sonus Networks, Inc.
+250 Apollo Drive
+Chelmsford, MA 01824
 USA
-EMail:      mundy@tislabs.com
-phone:      +1 301-947-7107
-Co-Chair &
-Co-editor:  David Harrington
-Enterasys Networks
-postal:     35 Industrial Way
-P. O. Box 5005
-Rochester, New Hampshire 03866-5005
-USA
-EMail:      dbh@enterasys.com
-phone:      +1 603-337-2614
-Co-editor:  Randy Presuhn
-BMC Software, Inc.
-postal:     2141 North First Street
-San Jose, California 95131
-USA
-EMail:      randy_presuhn@bmc.com
-phone:      +1 408-546-1006
-Co-editor:  Bert Wijnen
-Lucent Technologies
-postal:     Schagen 33
-3461 GL Linschoten
-Netherlands
-EMail:      bwijnen@lucent.com
-phone:      +31 348-680-485
-"
-DESCRIPTION  "The SNMP Management Architecture MIB
-Copyright (C) The Internet Society (2002). This
-version of this MIB module is part of RFC 3411;
-see the RFC itself for full legal notices.
-"
-REVISION     "200210140000Z"         -- 14 October 2002
-DESCRIPTION  "Changes in this revision:
-- Updated various administrative information.
-- Corrected some typos.
-- Corrected typo in description of SnmpEngineID
-that led to range overlap for 127.
-- Changed '255a' to '255t' in definition of
-SnmpAdminString to align with current SMI.
-- Reworded 'reserved' for value zero in
-DESCRIPTION of SnmpSecurityModel.
-- The algorithm for allocating security models
-should give 256 per enterprise block, rather
-than 255.
-- The example engine ID of 'abcd' is not
-legal. Replaced with '800002b804616263'H based
-on example enterprise 696, string 'abc'.
-- Added clarification that engineID should
-persist across re-initializations.
-This revision published as RFC 3411.
-"
-REVISION     "199901190000Z"         -- 19 January 1999
-DESCRIPTION  "Updated editors' addresses, fixed typos.
-Published as RFC 2571.
-"
-REVISION     "199711200000Z"         -- 20 November 1997
-DESCRIPTION  "The initial version, published in RFC 2271.
-"
-::= { snmpModules 10 }
+Tel: 978-614-8100
+Fax: 978-614-8609"
+DESCRIPTION     
+"The MIB Module for DataStreamIntegrator (DSI) Server Management."
+::= { sonusSystemMIBs 9 }
 
+#----------------------------------- MODULE IDENTITY  Integer32,  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: Integer32,
+#----------------------------------- MODULE IDENTITY  hostResourcesMibModule  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: hostResourcesMibModule
+#----------------------------------- MODULE IDENTITY  Gauge32,  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: Gauge32,
+Counter32, Integer32, Gauge32, MODULE-IDENTITY,
+OBJECT-TYPE, TEXTUAL-CONVENTION, OBJECT-IDENTITY,
+MODULE-COMPLIANCE, OBJECT-GROUP
+Used new Textual Conventions:
+TruthValue, DateAndTime, AutonomousType,
+InterfaceIndexOrZero
+Fixed typo in hrPrinterStatus.
+Added missing error bits to hrPrinterDetectedErrorState and
+clarified confusion resulting from suggested mappings to
+hrPrinterStatus.
+Clarified that size of objects of type
+InternationalDisplayString is number of octets, not number
+of encoded symbols.
+Clarified the use of the following objects based on
+implementation experience:
+hrSystemInitialLoadDevice, hrSystemInitialLoadParameters,
+hrMemorySize, hrStorageSize, hrStorageAllocationFailures,
+hrDeviceErrors, hrProcessorLoad, hrNetworkIfIndex,
+hrDiskStorageCapacity, hrSWRunStatus, hrSWRunPerfCPU,
+and hrSWInstalledDate.
+Clarified implementation technique for hrSWInstalledTable.
+Used new AUGMENTS clause for hrSWRunPerfTable.
+Added Internationalization Considerations section.
+This revision published as RFC2790."
+REVISION        "199910202200Z"
+DESCRIPTION     
+"The original version of this MIB, published as
+RFC1514."
+::= { hrMIBAdminInfo 1 }
+
+#----------------------------------- MODULE IDENTITY  sonusDsiTransporterMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: sonusDsiTransporterMIB
+sonusDsiTransporterMIB MODULE-IDENTITY
+LAST-UPDATED    "200708180000Z"
+ORGANIZATION    
+"Sonus Networks, Inc."
+CONTACT-INFO    
+"   Customer Support    
+Sonus Networks, Inc.
+250 Apollo Drive
+Chelmsford, MA 01824
+USA
+Tel: 978-614-8100
+Fax: 978-614-8609"
+DESCRIPTION     
+"The MIB Module for DataStreamIntegrator (DSI) Transporter Management."
+::= { sonusServicesMIBs 23 }
+
+#----------------------------------- MODULE IDENTITY  Integer32,  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: Integer32,
+#----------------------------------- MODULE IDENTITY  sonusHostMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: sonusHostMIB
+sonusHostMIB MODULE-IDENTITY
+LAST-UPDATED    "200811210000Z"
+ORGANIZATION    
+"Sonus Networks, Inc."
+CONTACT-INFO    
+"   Customer Support    
+Sonus Networks, Inc.
+250 Apollo Drive
+Chelmsford, MA 01824
+USA
+Tel: 978-614-8100
+Fax: 978-614-8609"
+DESCRIPTION     
+"The MIB Module for application host monitoring related objects."
+::= { sonusSystemMIBs 12 }
+
+----------------------------------- which ---------------------------
+which:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 
+  ORGANIZATION: 
+  CONTACT_INFO: 
+  ARCHIVO: SONUS-SMI
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusHostMIB ---------------------------
+sonusHostMIB:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 200811210000Z
+  ORGANIZATION: Sonus Networks, Inc.
+  CONTACT_INFO:    Customer Support    
+Sonus Networks, Inc.
+250 Apollo Drive
+Chelmsford, MA 01824
+USA
+Tel: 978-614-8100
+Fax: 978-614-8609
+  ARCHIVO: SONUS-HOST-MIB
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusDSIMIB ---------------------------
+sonusDSIMIB:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 201109230000Z
+  ORGANIZATION: Sonus Networks, Inc.
+  CONTACT_INFO:    Customer Support    
+Sonus Networks, Inc.
+250 Apollo Drive
+Chelmsford, MA 01824
+USA
+Tel: 978-614-8100
+Fax: 978-614-8609
+  ARCHIVO: SONUS-DATASTREAM-INTEGRATOR-MIB
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommonMIB ---------------------------
+sonusCommonMIB:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 201108010000Z
+  ORGANIZATION: Sonus Networks, Inc.
+  CONTACT_INFO:    Customer Support    
+Sonus Networks, Inc.
+7 Technology Park Drive
+Westford, MA 01886
+USA
+Tel: 978-614-8100
+Fax: 978-614-8609
+  ARCHIVO: SONUS-COMMON-MIB
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusDsiTransporterMIB ---------------------------
+sonusDsiTransporterMIB:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 200708180000Z
+  ORGANIZATION: Sonus Networks, Inc.
+  CONTACT_INFO:    Customer Support    
+Sonus Networks, Inc.
+250 Apollo Drive
+Chelmsford, MA 01824
+USA
+Tel: 978-614-8100
+Fax: 978-614-8609
+  ARCHIVO: SONUS-DSI-TRANSPORTER-MIB
+----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- inetAddressMIB ---------------------------
 inetAddressMIB:
   TYPE: MODULE-IDENTITY
@@ -127,45 +267,27 @@ P.O. Box 750 561
 Phone: +49 421 200-3587
 EMail: j.schoenwaelder@iu-bremen.de
 Send comments to <ietfmibs@ops.ietf.org>.
-  ARCHIVO: INET-ADDRESS-MIB.mib
+  ARCHIVO: INET-ADDRESS-MIB
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmpFrameworkMIB ---------------------------
-snmpFrameworkMIB:
+----------------------------------- Gauge32, ---------------------------
+Gauge32,:
   TYPE: MODULE-IDENTITY
-  LAST_UPDATED: 200210140000Z
-  ORGANIZATION: SNMPv3 Working Group
-  CONTACT_INFO: WG-EMail:   snmpv3@lists.tislabs.com
-Subscribe:  snmpv3-request@lists.tislabs.com
-Co-Chair:   Russ Mundy
-Network Associates Laboratories
-postal:     15204 Omega Drive, Suite 300
-Rockville, MD 20850-4601
+  LAST_UPDATED: 
+  ORGANIZATION: 
+  CONTACT_INFO: 
+  ARCHIVO: HOST-RESOURCES-MIB
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonus ---------------------------
+sonus:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 201310070000Z
+  ORGANIZATION: Sonus Networks, Inc.
+  CONTACT_INFO:    Customer Support    
+Sonus Networks, Inc.
+4 Technology Park Drive
+Westford, MA 01886
 USA
-EMail:      mundy@tislabs.com
-phone:      +1 301-947-7107
-Co-Chair &
-Co-editor:  David Harrington
-Enterasys Networks
-postal:     35 Industrial Way
-P. O. Box 5005
-Rochester, New Hampshire 03866-5005
-USA
-EMail:      dbh@enterasys.com
-phone:      +1 603-337-2614
-Co-editor:  Randy Presuhn
-BMC Software, Inc.
-postal:     2141 North First Street
-San Jose, California 95131
-USA
-EMail:      randy_presuhn@bmc.com
-phone:      +1 408-546-1006
-Co-editor:  Bert Wijnen
-Lucent Technologies
-postal:     Schagen 33
-3461 GL Linschoten
-Netherlands
-EMail:      bwijnen@lucent.com
-phone:      +31 348-680-485
-
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+Tel: 978-614-8100
+Fax: 978-614-8609
+  ARCHIVO: SONUS-SMI
 ----------------------------------- Final de segmento -----------------------------------

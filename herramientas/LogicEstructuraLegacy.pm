@@ -31,7 +31,7 @@ use Estilos;
 use Complementos;
 use Rutas;
 
-use SNMP::MIB::Compiler;
+#use SNMP::MIB::Compiler;
 
 
 use Log::Log4perl qw(get_logger :levels);

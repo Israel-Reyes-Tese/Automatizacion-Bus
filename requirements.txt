@@ -1,3 +1,60 @@
+- cpanm
+Tk.pm
+# cpanm Tk
+- CPAN shell
+## perl -MCPAN -e shell
+## install Tk
+
+- URL
+# cpanm  https://github.com/Lamprecht/perl-tk.git@Strawberry-5.38-patch 
+
+
+Tk/FileDialog.pm
+# cpanm Tk::FileDialog
+
+# Edit C:/Strawberry/perl/site/lib/Tk/FileDialog.pm
+Unrecognized character \x17; marked by <-- HERE after nSave) = $<-- HERE near column 22
+
+# Funcion original:
+####  PRIVATE METHODS AND SUBROUTINES ####
+sub IsNum {
+    my($parm) = @_;
+    my($warnSave) = $;
+    $ = 0;
+    my($res) = (($parm + 0) eq $parm);
+    $ = $warnSave;
+    return $res;
+}
+
+# Reemplazo:
+
+sub IsNum {
+    my($parm) = @_;
+    my($warnSave) = $^W;
+    $^W = 0;
+    my($res) = (($parm + 0) eq $parm);
+    $^W = $warnSave;
+    return $res;
+}
+
+Tk/JComboBox.pm
+# cpanm Tk::JComboBox
+
+Tk/TableMatrix.pm
+# cpanm Tk::TableMatrix
+
+
+Log/Log4perl.pm
+# cpanm Log::Log4perl
+
+
+Log::Dispatch::File
+# cpanm Log::Dispatch
+
+Proc/Background.pm
+# cpanm Proc::Background
+
+
 Net/SNMPTrapd.pm 
 # cpanm Net::SNMPTrapd
 
@@ -8,8 +65,6 @@ Digest/MurmurHash.pm
 # cpanm Digest::MurmurHash
 
 
-Log/Log4perl.pm
-# cpanm Log::Log4perl
 
 
 IPC/Run.pm
@@ -18,8 +73,6 @@ IPC/Run.pm
 Proc/Background.pm
 # cpanm Proc::Background
 
-Tk/JComboBox.pm
-# cpanm Tk::JComboBox
 
 
 Log/Dispatch/File.pm

@@ -1,24 +1,125 @@
-#----------------------------------- OBJECT GROUP:  snmpEngineGroup  ---------------------------#
-Nombre del grupo de objetos: snmpEngineGroup
-snmpEngineGroup OBJECT-GROUP
-OBJECTS {
-snmpEngineID,
-snmpEngineBoots,
-snmpEngineTime,
-snmpEngineMaxMessageSize
-}
-STATUS       current(3)
-DESCRIPTION "nd
-determining the configuration and current timeliness
-values of an SNMP engine.
-"
-::= { snmpFrameworkMIBGroups 1 }
+#----------------------------------- OBJECT GROUP:  hrSystemGroup  ---------------------------#
+Nombre del grupo de objetos: hrSystemGroup
+hrSystemGroup OBJECT-GROUP
+OBJECTS         { hrSystemUptime, hrSystemDate, 
+hrSystemInitialLoadDevice, 
+hrSystemInitialLoadParameters, hrSystemNumUsers, 
+hrSystemProcesses, hrSystemMaxProcesses }
+STATUS          current
+DESCRIPTION     
+"The Host Resources System Group."
+::= { hrMIBGroups 1 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
------------------------------------ snmpEngineGroup ---------------------------
-snmpEngineGroup:
+#----------------------------------- OBJECT GROUP:  hrStorageGroup  ---------------------------#
+Nombre del grupo de objetos: hrStorageGroup
+hrStorageGroup OBJECT-GROUP
+OBJECTS         { hrMemorySize, hrStorageIndex, hrStorageType, 
+hrStorageDescr, hrStorageAllocationUnits, 
+hrStorageSize, hrStorageUsed, 
+hrStorageAllocationFailures }
+STATUS          current
+DESCRIPTION     
+"The Host Resources Storage Group."
+::= { hrMIBGroups 2 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  hrDeviceGroup  ---------------------------#
+Nombre del grupo de objetos: hrDeviceGroup
+hrDeviceGroup OBJECT-GROUP
+OBJECTS         { hrDeviceIndex, hrDeviceType, hrDeviceDescr, 
+hrDeviceID, hrDeviceStatus, hrDeviceErrors, 
+hrProcessorFrwID, hrProcessorLoad, 
+hrNetworkIfIndex, hrPrinterStatus, 
+hrPrinterDetectedErrorState, hrDiskStorageAccess, 
+hrDiskStorageMedia, hrDiskStorageRemoveble, 
+hrDiskStorageCapacity, hrPartitionIndex, 
+hrPartitionLabel, hrPartitionID, hrPartitionSize, 
+hrPartitionFSIndex, hrFSIndex, hrFSMountPoint, 
+hrFSRemoteMountPoint, hrFSType, hrFSAccess, 
+hrFSBootable, hrFSStorageIndex, 
+hrFSLastFullBackupDate, hrFSLastPartialBackupDate }
+STATUS          current
+DESCRIPTION     
+"The Host Resources Device Group."
+::= { hrMIBGroups 3 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  hrSWRunGroup  ---------------------------#
+Nombre del grupo de objetos: hrSWRunGroup
+hrSWRunGroup OBJECT-GROUP
+OBJECTS         { hrSWOSIndex, hrSWRunIndex, hrSWRunName, hrSWRunID, 
+hrSWRunPath, hrSWRunParameters, hrSWRunType, 
+hrSWRunStatus }
+STATUS          current
+DESCRIPTION     
+"The Host Resources Running Software Group."
+::= { hrMIBGroups 4 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  hrSWRunPerfGroup  ---------------------------#
+Nombre del grupo de objetos: hrSWRunPerfGroup
+hrSWRunPerfGroup OBJECT-GROUP
+OBJECTS         { hrSWRunPerfCPU, hrSWRunPerfMem }
+STATUS          current
+DESCRIPTION     
+"The Host Resources Running Software
+Performance Group."
+::= { hrMIBGroups 5 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+#----------------------------------- OBJECT GROUP:  hrSWInstalledGroup  ---------------------------#
+Nombre del grupo de objetos: hrSWInstalledGroup
+hrSWInstalledGroup OBJECT-GROUP
+OBJECTS         { hrSWInstalledLastChange, 
+hrSWInstalledLastUpdateTime, hrSWInstalledIndex, 
+hrSWInstalledName, hrSWInstalledID, 
+hrSWInstalledType, hrSWInstalledDate }
+STATUS          current
+DESCRIPTION     
+"The Host Resources Installed Software Group."
+::= { hrMIBGroups 6 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+----------------------------------- hrSystemGroup ---------------------------
+hrSystemGroup:
   TYPE: OBJECT-GROUP
-  OBJECTS:  snmpEngineID, snmpEngineBoots, snmpEngineTime, snmpEngineMaxMessageSize 
-  STATUS: current(3)
-  DESCRIPTION: nd determining the configuration and current timeliness values of an SNMP engine.
-  OID: snmpFrameworkMIBGroups 1
+  OBJECTS: hrSystemUptime, hrSystemDate, hrSystemInitialLoadDevice, hrSystemInitialLoadParameters, hrSystemNumUsers, hrSystemProcesses, hrSystemMaxProcesses 
+  STATUS: current
+  DESCRIPTION: The Host Resources System Group.
+  OID: hrMIBGroups 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrStorageGroup ---------------------------
+hrStorageGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: hrMemorySize, hrStorageIndex, hrStorageType, hrStorageDescr, hrStorageAllocationUnits, hrStorageSize, hrStorageUsed, hrStorageAllocationFailures 
+  STATUS: current
+  DESCRIPTION: The Host Resources Storage Group.
+  OID: hrMIBGroups 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSWInstalledGroup ---------------------------
+hrSWInstalledGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: hrSWInstalledLastChange, hrSWInstalledLastUpdateTime, hrSWInstalledIndex, hrSWInstalledName, hrSWInstalledID, hrSWInstalledType, hrSWInstalledDate 
+  STATUS: current
+  DESCRIPTION: The Host Resources Installed Software Group.
+  OID: hrMIBGroups 6
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSWRunPerfGroup ---------------------------
+hrSWRunPerfGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: hrSWRunPerfCPU, hrSWRunPerfMem 
+  STATUS: current
+  DESCRIPTION: The Host Resources Running Software Performance Group.
+  OID: hrMIBGroups 5
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrSWRunGroup ---------------------------
+hrSWRunGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: hrSWOSIndex, hrSWRunIndex, hrSWRunName, hrSWRunID, hrSWRunPath, hrSWRunParameters, hrSWRunType, hrSWRunStatus 
+  STATUS: current
+  DESCRIPTION: The Host Resources Running Software Group.
+  OID: hrMIBGroups 4
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- hrDeviceGroup ---------------------------
+hrDeviceGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS: hrDeviceIndex, hrDeviceType, hrDeviceDescr, hrDeviceID, hrDeviceStatus, hrDeviceErrors, hrProcessorFrwID, hrProcessorLoad, hrNetworkIfIndex, hrPrinterStatus, hrPrinterDetectedErrorState, hrDiskStorageAccess, hrDiskStorageMedia, hrDiskStorageRemoveble, hrDiskStorageCapacity, hrPartitionIndex, hrPartitionLabel, hrPartitionID, hrPartitionSize, hrPartitionFSIndex, hrFSIndex, hrFSMountPoint, hrFSRemoteMountPoint, hrFSType, hrFSAccess, hrFSBootable, hrFSStorageIndex, hrFSLastFullBackupDate, hrFSLastPartialBackupDate 
+  STATUS: current
+  DESCRIPTION: The Host Resources Device Group.
+  OID: hrMIBGroups 3
 ----------------------------------- Final de segmento -----------------------------------

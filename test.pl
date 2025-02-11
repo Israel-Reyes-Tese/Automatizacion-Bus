@@ -11,7 +11,7 @@ use FindBin;  # Añadir FindBin para obtener la ruta del script
 use lib $FindBin::Bin . "/herramientas";  # Añadir la carpeta donde se encuentran los módulos
 use lib $FindBin::Bin . "./Script Generacion de Agentes SNMP/utilidades";
 
-use SNMP::MIB::Compiler;
+#use SNMP::MIB::Compiler;
 
 # Ventanas secundarias
 use MIB_utils;

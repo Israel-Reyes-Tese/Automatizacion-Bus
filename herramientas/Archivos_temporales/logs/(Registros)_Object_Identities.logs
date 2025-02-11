@@ -3,16 +3,309 @@ Archivo: SNMPv2-SMI
 Nombre objeto: zeroDotZero
 zeroDotZero OBJECT-IDENTITY
 #----------------------------------- FIN OBJECT IDENTITY ---------------------------#
-#----------------------------------- OBJECT IDENTITY:  snmpAuthProtocols  ---------------------------#
-Archivo: SNMP-FRAMEWORK-MIB.mib
-Nombre objeto: snmpAuthProtocols
-snmpAuthProtocols OBJECT-IDENTITY
+#----------------------------------- OBJECT IDENTITY:  MODULE-IDENTITY,  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: MODULE-IDENTITY,
+MODULE-IDENTITY, OBJECT-IDENTITY, enterprises
 #----------------------------------- FIN OBJECT IDENTITY ---------------------------#
-#----------------------------------- OBJECT IDENTITY:  snmpPrivProtocols  ---------------------------#
-Archivo: SNMP-FRAMEWORK-MIB.mib
-Nombre objeto: snmpPrivProtocols
-snmpPrivProtocols OBJECT-IDENTITY
+#----------------------------------- OBJECT IDENTITY:  sonusProducts  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusProducts
+sonusProducts OBJECT-IDENTITY
 #----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusGSXProducts  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusGSXProducts
+sonusGSXProducts OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusGSX9000  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusGSX9000
+sonusGSX9000 OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusGSX9000HD  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusGSX9000HD
+sonusGSX9000HD OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusGSX4000  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusGSX4000
+sonusGSX4000 OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusPSXProducts  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusPSXProducts
+sonusPSXProducts OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusPSX6000  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusPSX6000
+sonusPSX6000 OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSGXProducts  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSGXProducts
+sonusSGXProducts OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSGX2000  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSGX2000
+sonusSGX2000 OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSGX4000  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSGX4000
+sonusSGX4000 OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusASXProducts  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusASXProducts
+sonusASXProducts OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusASX  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusASX
+sonusASX OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusADS  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusADS
+sonusADS OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusInsightProducts  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusInsightProducts
+sonusInsightProducts OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusEMS  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusEMS
+sonusEMS OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusDSI  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusDSI
+sonusDSI OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusCommunicator  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusCommunicator
+sonusCommunicator OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusIAS  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusIAS
+sonusIAS OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusNFSProducts  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusNFSProducts
+sonusNFSProducts OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSolNFS  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSolNFS
+sonusSolNFS OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusIMXProducts  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusIMXProducts
+sonusIMXProducts OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusIMX  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusIMX
+sonusIMX OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSRX  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSRX
+sonusSRX OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusFMCAS  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusFMCAS
+sonusFMCAS OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSBXProducts  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSBXProducts
+sonusSBXProducts OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSBX5000  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSBX5000
+sonusSBX5000 OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSBC5200  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSBC5200
+sonusSBC5200 OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSBC5100  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSBC5100
+sonusSBC5100 OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  slb  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: slb
+slb OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusWSX  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusWSX
+sonusWSX OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusDatanode  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusDatanode
+sonusDatanode OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  ribbonVnfm  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: ribbonVnfm
+ribbonVnfm OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  ribbonSTIProducts  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: ribbonSTIProducts
+ribbonSTIProducts OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  ribbonSTI  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: ribbonSTI
+ribbonSTI OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  ribbonIDHProducts  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: ribbonIDHProducts
+ribbonIDHProducts OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  ribbonIDH  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: ribbonIDH
+ribbonIDH OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusMgmt  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusMgmt
+sonusMgmt OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSystemMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSystemMIBs
+sonusSystemMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusResourcesMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusResourcesMIBs
+sonusResourcesMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusPacketMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusPacketMIBs
+sonusPacketMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusCircuitMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusCircuitMIBs
+sonusCircuitMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusServicesMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusServicesMIBs
+sonusServicesMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSignallingMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSignallingMIBs
+sonusSignallingMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusToolsMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusToolsMIBs
+sonusToolsMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusCommonSoftwarePlatformServicesMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusCommonSoftwarePlatformServicesMIBs
+sonusCommonSoftwarePlatformServicesMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusCspsNotificationMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusCspsNotificationMIBs
+sonusCspsNotificationMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSGX4000MIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSGX4000MIBs
+sonusSGX4000MIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSGX4000NotificationMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSGX4000NotificationMIBs
+sonusSGX4000NotificationMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSBX5000MIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSBX5000MIBs
+sonusSBX5000MIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusSBX5000NotificationMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusSBX5000NotificationMIBs
+sonusSBX5000NotificationMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusWSXMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusWSXMIBs
+sonusWSXMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusWSXNotificationMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusWSXNotificationMIBs
+sonusWSXNotificationMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusDatanodeMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusDatanodeMIBs
+sonusDatanodeMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusDatanodeNotificationMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusDatanodeNotificationMIBs
+sonusDatanodeNotificationMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  ribbonVnfmMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: ribbonVnfmMIBs
+ribbonVnfmMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  ribbonVnfmNotificationMIBs  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: ribbonVnfmNotificationMIBs
+ribbonVnfmNotificationMIBs OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  sonusModules  ---------------------------#
+Archivo: SONUS-SMI
+Nombre objeto: sonusModules
+sonusModules OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  TEXTUAL-CONVENTION,  ---------------------------#
+Archivo: HOST-RESOURCES-MIB
+Nombre objeto: TEXTUAL-CONVENTION,
+OBJECT-TYPE, TEXTUAL-CONVENTION, OBJECT-IDENTITY,
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+----------------------------------- sonusSignallingMIBs ---------------------------
+sonusSignallingMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all Signalling-related Sonus MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusMgmt 6 
+----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- zeroDotZero ---------------------------
 zeroDotZero:
   TYPE: OBJECT-IDENTITY
@@ -21,24 +314,470 @@ zeroDotZero:
   ARCHIVO: SNMPv2-SMI
   OID:  0 0 
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmpAuthProtocols ---------------------------
-snmpAuthProtocols:
+----------------------------------- ribbonVnfmMIBs ---------------------------
+ribbonVnfmMIBs:
   TYPE: OBJECT-IDENTITY
-  STATUS: current(1)
-  DESCRIPTION: Registration point for standards-track
-authentication protocols used in SNMP Management
-Frameworks.
-
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  snmpFrameworkAdmin 1 
+  STATUS: current
+  DESCRIPTION: Root MIB node for all VNFM MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusMgmt 13 
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmpPrivProtocols ---------------------------
-snmpPrivProtocols:
+----------------------------------- ribbonSTI ---------------------------
+ribbonSTI:
   TYPE: OBJECT-IDENTITY
-  STATUS: current(2)
-  DESCRIPTION: Registration point for standards-track privacy
-protocols used in SNMP Management Frameworks.
-
-  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
-  OID:  snmpFrameworkAdmin 2 
+  STATUS: current
+  DESCRIPTION: The Ribbon STI Service.
+  ARCHIVO: SONUS-SMI
+  OID:  ribbonSTIProducts 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSystemMIBs ---------------------------
+sonusSystemMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all System-related Sonus MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusMgmt 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSBX5000NotificationMIBs ---------------------------
+sonusSBX5000NotificationMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all Sonus SBX5000 Notification MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusSBX5000MIBs 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSBX5000MIBs ---------------------------
+sonusSBX5000MIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all SBX5000 MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusMgmt 10 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusIMXProducts ---------------------------
+sonusIMXProducts:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus IMX family of products.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusProducts 7 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- MODULE-IDENTITY, ---------------------------
+MODULE-IDENTITY,:
+  TYPE: OBJECT-IDENTITY
+  STATUS: 
+  DESCRIPTION: Initial version of this MIB module.
+  ARCHIVO: SONUS-SMI
+  OID:  enterprises 2879 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusGSXProducts ---------------------------
+sonusGSXProducts:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus GSX family of products.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusProducts 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusDatanode ---------------------------
+sonusDatanode:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Data Warehouse product.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusProducts 11 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ribbonIDHProducts ---------------------------
+ribbonIDHProducts:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Ribbon IDH family of products
+  ARCHIVO: SONUS-SMI
+  OID:  sonusProducts 14 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusASX ---------------------------
+sonusASX:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus Access Server (ASX.)
+  ARCHIVO: SONUS-SMI
+  OID:  sonusASXProducts 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSRX ---------------------------
+sonusSRX:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus Call Session Control Function.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusIMXProducts 2 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSBC5100 ---------------------------
+sonusSBC5100:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Sonus Session Border Control 5100.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusSBXProducts 3 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSBC5200 ---------------------------
+sonusSBC5200:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Sonus Session Border Control 5200.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusSBXProducts 2 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ribbonVnfm ---------------------------
+ribbonVnfm:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The VNFM product.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusProducts 12 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- slb ---------------------------
+slb:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Session Border Controller SLB.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusSBXProducts 7 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusGSX4000 ---------------------------
+sonusGSX4000:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus GSX 4000.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusGSXProducts 3 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- TEXTUAL-CONVENTION, ---------------------------
+TEXTUAL-CONVENTION,:
+  TYPE: OBJECT-IDENTITY
+  STATUS: 
+  DESCRIPTION: The original version of this MIB, published as
+RFC1514.
+  ARCHIVO: HOST-RESOURCES-MIB
+  OID:  hrMIBAdminInfo 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSBX5000 ---------------------------
+sonusSBX5000:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Sonus Session Border Control Application Platform.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusSBXProducts 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusPSX6000 ---------------------------
+sonusPSX6000:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus PSX 6000.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusPSXProducts 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusEMS ---------------------------
+sonusEMS:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus Element Management System.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusInsightProducts 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusFMCAS ---------------------------
+sonusFMCAS:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus FMC Application Server.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusIMXProducts 3 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusDatanodeMIBs ---------------------------
+sonusDatanodeMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all Datanode MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusMgmt 12 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusProducts ---------------------------
+sonusProducts:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: sonusProducts is the root OBJECT IDENTIFIER from
+which sysObjectID values are assigned.
+  ARCHIVO: SONUS-SMI
+  OID:  sonus 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCspsNotificationMIBs ---------------------------
+sonusCspsNotificationMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all Sonus NextGen Notification MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusCommonSoftwarePlatformServicesMIBs 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusADS ---------------------------
+sonusADS:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus Access Directory Server (ADS.)
+  ARCHIVO: SONUS-SMI
+  OID:  sonusASXProducts 2 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ribbonSTIProducts ---------------------------
+ribbonSTIProducts:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Ribbon STI family of products.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusProducts 13 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSolNFS ---------------------------
+sonusSolNFS:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus NFS agent for Solaris.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusNFSProducts 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusDSI ---------------------------
+sonusDSI:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus Data Stream Integrator.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusInsightProducts 2 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusInsightProducts ---------------------------
+sonusInsightProducts:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus EMS family of products.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusProducts 5 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSGX4000 ---------------------------
+sonusSGX4000:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus SGX 4000.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusSGXProducts 2 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusServicesMIBs ---------------------------
+sonusServicesMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all Services-related Sonus MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusMgmt 5 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSGX4000NotificationMIBs ---------------------------
+sonusSGX4000NotificationMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all Sonus SGX4000 Notification MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusSGX4000MIBs 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusModules ---------------------------
+sonusModules:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: sonusModules provides a root object identifier
+from which MODULE-IDENTITY values may be assigned.
+  ARCHIVO: SONUS-SMI
+  OID:  sonus 3 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusToolsMIBs ---------------------------
+sonusToolsMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all Sonus development tools MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusMgmt 7 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusResourcesMIBs ---------------------------
+sonusResourcesMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all Resource-related Sonus MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusMgmt 2 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommunicator ---------------------------
+sonusCommunicator:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus Communicator.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusInsightProducts 3 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusNFSProducts ---------------------------
+sonusNFSProducts:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus NFS family of products.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusProducts 6 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCircuitMIBs ---------------------------
+sonusCircuitMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all Circuit-related Sonus MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusMgmt 4 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ribbonVnfmNotificationMIBs ---------------------------
+ribbonVnfmNotificationMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Ribbon Vnfm product.
+  ARCHIVO: SONUS-SMI
+  OID:  ribbonVnfmMIBs 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusWSX ---------------------------
+sonusWSX:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The WSX Product.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusProducts 10 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ribbonIDH ---------------------------
+ribbonIDH:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Ribbon IDH Service.
+  ARCHIVO: SONUS-SMI
+  OID:  ribbonIDHProducts 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusIAS ---------------------------
+sonusIAS:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus Insight Application Server.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusInsightProducts 4 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusMgmt ---------------------------
+sonusMgmt:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: sonusMgmt is the main subtree for mib configuration.
+  ARCHIVO: SONUS-SMI
+  OID:  sonus 2 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusIMX ---------------------------
+sonusIMX:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus Multimedia Application Platform.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusIMXProducts 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusWSXMIBs ---------------------------
+sonusWSXMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all WSX MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusMgmt 11 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusDatanodeNotificationMIBs ---------------------------
+sonusDatanodeNotificationMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all Sonus Datanode Notification MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusDatanodeMIBs 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSGX2000 ---------------------------
+sonusSGX2000:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus SGX 2000.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusSGXProducts 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusASXProducts ---------------------------
+sonusASXProducts:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus ASX family of products.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusProducts 4 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusGSX9000HD ---------------------------
+sonusGSX9000HD:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus GSX 9000HD.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusGSXProducts 2 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusPacketMIBs ---------------------------
+sonusPacketMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all Packet-related Sonus MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusMgmt 3 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusCommonSoftwarePlatformServicesMIBs ---------------------------
+sonusCommonSoftwarePlatformServicesMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all Common Software Platform Services MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusMgmt 8 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusPSXProducts ---------------------------
+sonusPSXProducts:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus GSX family of products.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusProducts 2 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusWSXNotificationMIBs ---------------------------
+sonusWSXNotificationMIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all Sonus WSX Notification MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusWSXMIBs 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSGXProducts ---------------------------
+sonusSGXProducts:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus SGX family of products.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusProducts 3 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSGX4000MIBs ---------------------------
+sonusSGX4000MIBs:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: Root MIB node for all SGX4000 MIBs.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusMgmt 9 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusGSX9000 ---------------------------
+sonusGSX9000:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus GSX 9000.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusGSXProducts 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- sonusSBXProducts ---------------------------
+sonusSBXProducts:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
+  DESCRIPTION: The Sonus SBX family of products.
+  ARCHIVO: SONUS-SMI
+  OID:  sonusProducts 9 
 ----------------------------------- Final de segmento -----------------------------------
