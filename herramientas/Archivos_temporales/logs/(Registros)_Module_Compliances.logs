@@ -1,0 +1,47 @@
+#----------------------------------- MODULE COMPLIANCE  snmpFrameworkMIBCompliance  ---------------------------#
+Tipo de objeto: MODULE-COMPLIANCE
+Nombre del objeto: snmpFrameworkMIBCompliance
+snmpFrameworkMIBCompliance MODULE-COMPLIANCE
+STATUS       current
+DESCRIPTION "The compliance statement for SNMP engines which
+implement the SNMP Management Framework MIB.
+"
+MODULE    -- this module
+MANDATORY-GROUPS { snmpEngineGroup }
+::= { snmpFrameworkMIBCompliances 1 }
+
+snmpFrameworkMIBCompliance MODULE-COMPLIANCE
+STATUS       current
+DESCRIPTION "The compliance statement for SNMP engines which
+implement the SNMP Management Framework MIB.
+"
+MODULE    -- this module
+MANDATORY-GROUPS { snmpEngineGroup }
+::= { snmpFrameworkMIBCompliances 1 }
+snmpEngineGroup OBJECT-GROUP
+OBJECTS {
+snmpEngineID,
+snmpEngineBoots,
+snmpEngineTime,
+snmpEngineMaxMessageSize
+}
+STATUS       current(3)
+DESCRIPTION "nd
+determining the configuration and current timeliness
+values of an SNMP engine.
+"
+::= { snmpFrameworkMIBGroups 1 }
+
+----------------------------------- snmpFrameworkMIBCompliance ---------------------------
+snmpFrameworkMIBCompliance:
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  snmpFrameworkMIBCompliances 1 
+  DESCRIPTION: The compliance statement for SNMP engines which
+implement the SNMP Management Framework MIB.
+
+  TYPE: MODULE-COMPLIANCE
+  STATUS: current
+  MODULE:
+    GROUPS:
+    OBJECTS:
+----------------------------------- Final de segmento -----------------------------------

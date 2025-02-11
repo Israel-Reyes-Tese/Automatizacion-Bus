@@ -3,6 +3,16 @@ Archivo: SNMPv2-SMI
 Nombre objeto: zeroDotZero
 zeroDotZero OBJECT-IDENTITY
 #----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  snmpAuthProtocols  ---------------------------#
+Archivo: SNMP-FRAMEWORK-MIB.mib
+Nombre objeto: snmpAuthProtocols
+snmpAuthProtocols OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
+#----------------------------------- OBJECT IDENTITY:  snmpPrivProtocols  ---------------------------#
+Archivo: SNMP-FRAMEWORK-MIB.mib
+Nombre objeto: snmpPrivProtocols
+snmpPrivProtocols OBJECT-IDENTITY
+#----------------------------------- FIN OBJECT IDENTITY ---------------------------#
 ----------------------------------- zeroDotZero ---------------------------
 zeroDotZero:
   TYPE: OBJECT-IDENTITY
@@ -10,4 +20,25 @@ zeroDotZero:
   DESCRIPTION: A value used for null identifiers.
   ARCHIVO: SNMPv2-SMI
   OID:  0 0 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpAuthProtocols ---------------------------
+snmpAuthProtocols:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current(1)
+  DESCRIPTION: Registration point for standards-track
+authentication protocols used in SNMP Management
+Frameworks.
+
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  snmpFrameworkAdmin 1 
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpPrivProtocols ---------------------------
+snmpPrivProtocols:
+  TYPE: OBJECT-IDENTITY
+  STATUS: current(2)
+  DESCRIPTION: Registration point for standards-track privacy
+protocols used in SNMP Management Frameworks.
+
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
+  OID:  snmpFrameworkAdmin 2 
 ----------------------------------- Final de segmento -----------------------------------

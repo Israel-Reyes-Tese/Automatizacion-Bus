@@ -2197,15 +2197,19 @@ sub construir_oid_completo {
     my ($nombre, $data, $oid_data) = @_;
     my @oid_parts;
     my @name_parts;
+
+    my $type_alarm;
+    my $oid_trap_type;
     my $current_name = $nombre;
+    
     while ($current_name) {
         my $found = 0;
         foreach my $type (qw(ALARM_TRAPS OBJECT_IDENTITIES OBJECT_TYPES OBJECT_IDENTIFIERS MODULE_IDENTITIES MODULE_COMPLIANCE ALARM_OBJECT_GROUPS ALARM_NOTIFICATION_GROUPS)) {
             if (exists $data->{$type}{$current_name}) {
-                my $oid_part = $data->{$type}{$current_name}{OID};
-                if ($oid_part =~ /^\s*(\S+)\s+(\d+(\s+\d+)*)\s*$/) {
-                    my $oid_search = $1;
-                    my $oid_numbers = $2;
+                $type_alarm = $data->{$type}{$current_name}{TYPE};
+                if ($type_alarm eq 'TRAP-TYPE') {
+                    my $oid_numbers = $data->{$type}{$current_name}{OID};
+                    my $oid_search = $data->{$type}{$current_name}{ENTERPRISE};
                     unshift @oid_parts, split(/\s+/, $oid_numbers);
                     unshift @name_parts, $current_name;
                     if ($oid_search =~ /^\d+(\.\d+)*$/) {
@@ -2217,23 +2221,40 @@ sub construir_oid_completo {
                     }
                     $found = 1;
                     last;
-                } elsif ($oid_part =~ /^\s*(\d+(\.\d+)*)\s*$/) {
-                    my $oid_number = $1;
-                    unshift @oid_parts, split(/\./, $oid_number);
-                    unshift @name_parts, split(/\./, $oid_number);
-                    $current_name = undef;
-                    $found = 1;
-                    last;
-                } elsif ($oid_part =~ /^\s*(\d+(\s+\d+)*)\s*$/) {
-                    my $oid_number = $1;
-                    unshift @oid_parts, split(/\s+/, $oid_number);
-                    unshift @name_parts, split(/\s+/, $oid_number);
-                    $current_name = undef;
-                    $found = 1;
-                    last;
                 } else {
-                    warn "OID no numerico encontrado para $current_name";
-                    return;
+                    my $oid_part = $data->{$type}{$current_name}{OID};
+                    if ($oid_part =~ /^\s*(\S+)\s+(\d+(\s+\d+)*)\s*$/) {
+                        my $oid_search = $1;
+                        my $oid_numbers = $2;
+                        unshift @oid_parts, split(/\s+/, $oid_numbers);
+                        unshift @name_parts, $current_name;
+                        if ($oid_search =~ /^\d+(\.\d+)*$/) {
+                            unshift @oid_parts, split(/\./, $oid_search);
+                            unshift @name_parts, split(/\./, $oid_search);
+                            $current_name = undef;
+                        } else {
+                            $current_name = $oid_search;
+                        }
+                        $found = 1;
+                        last;
+                    } elsif ($oid_part =~ /^\s*(\d+(\.\d+)*)\s*$/) {
+                        my $oid_number = $1;
+                        unshift @oid_parts, split(/\./, $oid_number);
+                        unshift @name_parts, split(/\./, $oid_number);
+                        $current_name = undef;
+                        $found = 1;
+                        last;
+                    } elsif ($oid_part =~ /^\s*(\d+(\s+\d+)*)\s*$/) {
+                        my $oid_number = $1;
+                        unshift @oid_parts, split(/\s+/, $oid_number);
+                        unshift @name_parts, split(/\s+/, $oid_number);
+                        $current_name = undef;
+                        $found = 1;
+                        last;
+                    } else {
+                        warn "OID no numerico encontrado para $current_name";
+                        return;
+                    }
                 }
             }
         }
@@ -2249,6 +2270,7 @@ sub construir_oid_completo {
 sub construir_arbol_mibs {
     my ($data, $oid_data) = @_;
     my %arbol_mibs;
+    my $type = 'NOTIFICATION-TYPE';
     # Archivo temporal para almacenar cómo se extraen los datos
     my $temp_file = Rutas::temp_files_logs_objects_mibs_path(). '/Alarmas_principales.logs';
     #herramientas::Complementos::print($data);
@@ -2257,29 +2279,36 @@ sub construir_arbol_mibs {
         if ($oid_completo) {
             $arbol_mibs{$nombre} = {
                 DESCRIPTION => $data->{ALARM_TRAPS}{$nombre}{DESCRIPTION},
+                TYPE => $data->{ALARM_TRAPS}{$nombre}{TYPE},
                 OID => $oid_completo,
                 OID_NAME => $complete_name,
                 OBJECTS => $data->{ALARM_TRAPS}{$nombre}{OBJECTS},
+                VARIABLES => $data->{ALARM_TRAPS}{$nombre}{VARIABLES},
             };
+            $type = $data->{ALARM_TRAPS}{$nombre}{TYPE};
         }
     }
 
     $temp_file = validar_o_crear_archivo_temporal($temp_file);
     escribir_datos_en_archivo($temp_file, \%arbol_mibs, "ALARM_TRAPS");
     # Construir el árbol de MIBs secundarios
-    my $arbol_mibs_secundarios = construir_arbol_mibs_secundarios($data, $oid_data);
+    my $arbol_mibs_secundarios = construir_arbol_mibs_secundarios($data, $oid_data, $type);
     return \%arbol_mibs, $arbol_mibs_secundarios;
 }
 # Función para construir el árbol de MIBs secundarios
 sub construir_arbol_mibs_secundarios {
-    my ($data, $oid_data) = @_;
+    my ($data, $oid_data, $type) = @_;
     my %arbol_mibs_secundarios;
     # Archivo temporal para almacenar cómo se extraen los datos
     my $temp_file = Rutas::temp_files_logs_objects_mibs_path(). '/Objetos_principales.logs';
     foreach my $nombre (keys %{$data->{ALARM_TRAPS}}) {
+        my $type = $data->{ALARM_TRAPS}{$nombre}{TYPE};
         my ($oid_completo, $complete_name) = construir_oid_completo($nombre, $data, $oid_data);
         if ($oid_completo) {
             my @objects = split /,\s*/, $data->{ALARM_TRAPS}{$nombre}{OBJECTS};
+            if ($type eq 'TRAP-TYPE') {
+                @objects = split /,\s*/, $data->{ALARM_TRAPS}{$nombre}{VARIABLES};
+            }
             foreach my $object (@objects) {
                 # Quita espacios en blanco al inicio y al final
                 $object =~ s/^\s+|\s+$//g;

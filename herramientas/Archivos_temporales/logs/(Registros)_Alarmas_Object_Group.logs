@@ -1,0 +1,24 @@
+#----------------------------------- OBJECT GROUP:  snmpEngineGroup  ---------------------------#
+Nombre del grupo de objetos: snmpEngineGroup
+snmpEngineGroup OBJECT-GROUP
+OBJECTS {
+snmpEngineID,
+snmpEngineBoots,
+snmpEngineTime,
+snmpEngineMaxMessageSize
+}
+STATUS       current(3)
+DESCRIPTION "nd
+determining the configuration and current timeliness
+values of an SNMP engine.
+"
+::= { snmpFrameworkMIBGroups 1 }
+#----------------------------------- FIN OBJECT GROUP ---------------------------#
+----------------------------------- snmpEngineGroup ---------------------------
+snmpEngineGroup:
+  TYPE: OBJECT-GROUP
+  OBJECTS:  snmpEngineID, snmpEngineBoots, snmpEngineTime, snmpEngineMaxMessageSize 
+  STATUS: current(3)
+  DESCRIPTION: nd determining the configuration and current timeliness values of an SNMP engine.
+  OID: snmpFrameworkMIBGroups 1
+----------------------------------- Final de segmento -----------------------------------

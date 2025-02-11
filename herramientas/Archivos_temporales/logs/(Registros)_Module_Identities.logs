@@ -1,52 +1,171 @@
-#----------------------------------- MODULE IDENTITY  enterprises,  ---------------------------#
+#----------------------------------- MODULE IDENTITY  snmpFrameworkMIB  ---------------------------#
 Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: enterprises,
-#----------------------------------- MODULE IDENTITY  casaHeMSAlarmMib  ---------------------------#
+Nombre del objeto: snmpFrameworkMIB
+snmpFrameworkMIB MODULE-IDENTITY
+LAST-UPDATED "200210140000Z"
+ORGANIZATION "SNMPv3 Working Group"
+CONTACT-INFO "WG-EMail:   snmpv3@lists.tislabs.com
+Subscribe:  snmpv3-request@lists.tislabs.com
+Co-Chair:   Russ Mundy
+Network Associates Laboratories
+postal:     15204 Omega Drive, Suite 300
+Rockville, MD 20850-4601
+USA
+EMail:      mundy@tislabs.com
+phone:      +1 301-947-7107
+Co-Chair &
+Co-editor:  David Harrington
+Enterasys Networks
+postal:     35 Industrial Way
+P. O. Box 5005
+Rochester, New Hampshire 03866-5005
+USA
+EMail:      dbh@enterasys.com
+phone:      +1 603-337-2614
+Co-editor:  Randy Presuhn
+BMC Software, Inc.
+postal:     2141 North First Street
+San Jose, California 95131
+USA
+EMail:      randy_presuhn@bmc.com
+phone:      +1 408-546-1006
+Co-editor:  Bert Wijnen
+Lucent Technologies
+postal:     Schagen 33
+3461 GL Linschoten
+Netherlands
+EMail:      bwijnen@lucent.com
+phone:      +31 348-680-485
+"
+DESCRIPTION  "The SNMP Management Architecture MIB
+Copyright (C) The Internet Society (2002). This
+version of this MIB module is part of RFC 3411;
+see the RFC itself for full legal notices.
+"
+REVISION     "200210140000Z"         -- 14 October 2002
+DESCRIPTION  "Changes in this revision:
+- Updated various administrative information.
+- Corrected some typos.
+- Corrected typo in description of SnmpEngineID
+that led to range overlap for 127.
+- Changed '255a' to '255t' in definition of
+SnmpAdminString to align with current SMI.
+- Reworded 'reserved' for value zero in
+DESCRIPTION of SnmpSecurityModel.
+- The algorithm for allocating security models
+should give 256 per enterprise block, rather
+than 255.
+- The example engine ID of 'abcd' is not
+legal. Replaced with '800002b804616263'H based
+on example enterprise 696, string 'abc'.
+- Added clarification that engineID should
+persist across re-initializations.
+This revision published as RFC 3411.
+"
+REVISION     "199901190000Z"         -- 19 January 1999
+DESCRIPTION  "Updated editors' addresses, fixed typos.
+Published as RFC 2571.
+"
+REVISION     "199711200000Z"         -- 20 November 1997
+DESCRIPTION  "The initial version, published in RFC 2271.
+"
+::= { snmpModules 10 }
+
+#----------------------------------- MODULE IDENTITY  inetAddressMIB  ---------------------------#
 Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: casaHeMSAlarmMib
-casaHeMSAlarmMib MODULE-IDENTITY
-LAST-UPDATED "201804300000Z"		-- abril 30, 2018 at 00:00 GMT (201804300000Z)
+Nombre del objeto: inetAddressMIB
+inetAddressMIB MODULE-IDENTITY
+LAST-UPDATED "200502040000Z"
 ORGANIZATION
-"CASA Systems Inc."
+"IETF Operations and Management Area"
 CONTACT-INFO
-"Casa Systems Inc.     
-100 Old River Road, Suite 100           
-Andover, MA 01810     
-TEL: +1 978 688 6706     
-FAX: +1 978 688 6584		
-E-mail: support@casa-systems.com"
+"Juergen Schoenwaelder (Editor)
+International University Bremen
+P.O. Box 750 561
+28725 Bremen, Germany
+Phone: +49 421 200-3587
+EMail: j.schoenwaelder@iu-bremen.de
+Send comments to <ietfmibs@ops.ietf.org>."
 DESCRIPTION
-"The Casa HeMS ALARM  MIB"
-::= { 1 3 6 1 4 1 20858 10 104 101 }
+"This MIB module defines textual conventions for
+representing Internet addresses.  An Internet
+address can be an IPv4 address, an IPv6 address,
+or a DNS domain name.  This module also defines
+textual conventions for Internet port numbers,
+autonomous system numbers, and the length of an
+Internet address prefix.
+Copyright (C) The Internet Society (2005).  This version
+of this MIB module is part of RFC 4001, see the RFC
+itself for full legal notices."
+REVISION     "200502040000Z"
+DESCRIPTION
+"Third version, published as RFC 4001.  This revision
+introduces the InetZoneIndex, InetScopeType, and
+InetVersion textual conventions."
+REVISION     "200205090000Z"
+DESCRIPTION
+"Second version, published as RFC 3291.  This
+revision contains several clarifications and
+introduces several new textual conventions:
+InetAddressPrefixLength, InetPortNumber,
+InetAutonomousSystemNumber, InetAddressIPv4z,
+and InetAddressIPv6z."
+REVISION     "200006080000Z"
+DESCRIPTION
+"Initial version, published as RFC 2851."
+::= { mib-2 76 }
 
-#----------------------------------- MODULE IDENTITY  casaHeMSAlarmMib  ---------------------------#
-Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: casaHeMSAlarmMib
-casaHeMSAlarmMib MODULE-IDENTITY 
-LAST-UPDATED "201804300000Z"	
-ORGANIZATION 
-"CASA Systems Inc."
-CONTACT-INFO 
-"Casa Systems Inc.     
-100 Old River Road, Suite 100           
-Andover, MA 01810     
-TEL: +1 978 688 6706     
-FAX: +1 978 688 6584		
-E-mail: support@casa-systems.com"
-DESCRIPTION 
-"The Casa HeMS ALARM  MIB"
-::= { 1 3 6 1 4 1 20858 10 104 101 }
-
------------------------------------ casaHeMSAlarmMib ---------------------------
-casaHeMSAlarmMib:
+----------------------------------- inetAddressMIB ---------------------------
+inetAddressMIB:
   TYPE: MODULE-IDENTITY
-  LAST_UPDATED: 201804300000Z
-  ORGANIZATION: CASA Systems Inc.
-  CONTACT_INFO: Casa Systems Inc.     
-100 Old River Road, Suite 100           
-Andover, MA 01810     
-TEL: +1 978 688 6706     
-FAX: +1 978 688 6584		
-E-mail: support@casa-systems.com
-  ARCHIVO: casa-hems-alarm.mib
+  LAST_UPDATED: 200502040000Z
+  ORGANIZATION: IETF Operations and Management Area
+  CONTACT_INFO: Juergen Schoenwaelder (Editor)
+International University Bremen
+P.O. Box 750 561
+28725 Bremen, Germany
+Phone: +49 421 200-3587
+EMail: j.schoenwaelder@iu-bremen.de
+Send comments to <ietfmibs@ops.ietf.org>.
+  ARCHIVO: INET-ADDRESS-MIB.mib
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkMIB ---------------------------
+snmpFrameworkMIB:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 200210140000Z
+  ORGANIZATION: SNMPv3 Working Group
+  CONTACT_INFO: WG-EMail:   snmpv3@lists.tislabs.com
+Subscribe:  snmpv3-request@lists.tislabs.com
+Co-Chair:   Russ Mundy
+Network Associates Laboratories
+postal:     15204 Omega Drive, Suite 300
+Rockville, MD 20850-4601
+USA
+EMail:      mundy@tislabs.com
+phone:      +1 301-947-7107
+Co-Chair &
+Co-editor:  David Harrington
+Enterasys Networks
+postal:     35 Industrial Way
+P. O. Box 5005
+Rochester, New Hampshire 03866-5005
+USA
+EMail:      dbh@enterasys.com
+phone:      +1 603-337-2614
+Co-editor:  Randy Presuhn
+BMC Software, Inc.
+postal:     2141 North First Street
+San Jose, California 95131
+USA
+EMail:      randy_presuhn@bmc.com
+phone:      +1 408-546-1006
+Co-editor:  Bert Wijnen
+Lucent Technologies
+postal:     Schagen 33
+3461 GL Linschoten
+Netherlands
+EMail:      bwijnen@lucent.com
+phone:      +31 348-680-485
+
+  ARCHIVO: SNMP-FRAMEWORK-MIB.mib
 ----------------------------------- Final de segmento -----------------------------------
