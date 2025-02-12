@@ -1,5 +1,3 @@
-#!/usr/bin/perl -I C:/Users/ALEX/Documents/Codigo/Automatizacion-Bus/herramientas/Archivos_temporales/Agentes_temporales/agente_snmp
-
 package ABR::Parser_aux;
 # Version=1.1
 use POSIX qw(strftime);
@@ -15,34 +13,20 @@ sub new {
     my %find_hash;
 
     %find_hash = (
-        "1.3.6.1.4.1.193.183.6.2.0.20" => { trap_name => "eriAlarmXHeartBeatNotif", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_6_2_0_20" },
-        "1.3.6.1.4.1.193.183.6.2.0.10" => { trap_name => "eriAlarmXIndAlert", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_6_2_0_10" },
-        "1.3.6.1.4.1.193.183.4.2.0.4" => { trap_name => "eriAlarmMajor", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_4_2_0_4" },
-        "1.3.6.1.4.1.193.183.4.2.0.20" => { trap_name => "eriAlarmHeartBeatNotif", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_4_2_0_20" },
-        "1.3.6.1.4.1.193.183.4.2.0.13" => { trap_name => "eriAlarmMajorAlert", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_4_2_0_13" },
-        "1.3.6.1.4.1.193.183.4.2.0.10" => { trap_name => "eriAlarmIndAlert", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_4_2_0_10" },
-        "1.3.6.1.4.1.193.183.6.2.0.15" => { trap_name => "eriAlarmXAppendAlertInfo", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_6_2_0_15" },
-        "1.3.6.1.4.1.193.183.6.2.0.3" => { trap_name => "eriAlarmXMinor", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_6_2_0_3" },
-        "1.3.6.1.4.1.193.183.4.2.0.1" => { trap_name => "eriAlarmIndeterminate", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_4_2_0_1" },
-        "1.3.6.1.4.1.193.183.4.2.0.15" => { trap_name => "eriAlarmAppendAlertInfo", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_4_2_0_15" },
-        "1.3.6.1.4.1.193.183.6.2.0.5" => { trap_name => "eriAlarmXCritical", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_6_2_0_5" },
-        "1.3.6.1.4.1.193.183.6.2.0.11" => { trap_name => "eriAlarmXWarnAlert", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_6_2_0_11" },
-        "1.3.6.1.4.1.193.183.6.2.0.12" => { trap_name => "eriAlarmXMinorAlert", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_6_2_0_12" },
-        "1.3.6.1.4.1.193.183.6.2.0.13" => { trap_name => "eriAlarmXMajorAlert", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_6_2_0_13" },
-        "1.3.6.1.4.1.193.183.4.2.0.8" => { trap_name => "eriAlarmAppendInfo", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_4_2_0_8" },
-        "1.3.6.1.4.1.193.183.6.2.0.14" => { trap_name => "eriAlarmXCriticalAlert", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_6_2_0_14" },
-        "1.3.6.1.4.1.193.183.4.2.0.14" => { trap_name => "eriAlarmCriticalAlert", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_4_2_0_14" },
-        "1.3.6.1.4.1.193.183.4.2.0.11" => { trap_name => "eriAlarmWarnAlert", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_4_2_0_11" },
-        "1.3.6.1.4.1.193.183.6.2.0.8" => { trap_name => "eriAlarmXAppendInfo", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_6_2_0_8" },
-        "1.3.6.1.4.1.193.183.6.2.0.1" => { trap_name => "eriAlarmXIndeterminate", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_6_2_0_1" },
-        "1.3.6.1.4.1.193.183.4.2.0.5" => { trap_name => "eriAlarmCritical", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_4_2_0_5" },
-        "1.3.6.1.4.1.193.183.4.2.0.7" => { trap_name => "eriAlarmCleared", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_4_2_0_7" },
-        "1.3.6.1.4.1.193.183.4.2.0.2" => { trap_name => "eriAlarmWarning", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_4_2_0_2" },
-        "1.3.6.1.4.1.193.183.6.2.0.4" => { trap_name => "eriAlarmXMajor", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_6_2_0_4" },
-        "1.3.6.1.4.1.193.183.4.2.0.3" => { trap_name => "eriAlarmMinor", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_4_2_0_3" },
-        "1.3.6.1.4.1.193.183.4.2.0.12" => { trap_name => "eriAlarmMinorAlert", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_4_2_0_12" },
-        "1.3.6.1.4.1.193.183.6.2.0.7" => { trap_name => "eriAlarmXCleared", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_6_2_0_7" },
-        "1.3.6.1.4.1.193.183.6.2.0.2" => { trap_name => "eriAlarmXWarning", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_193_183_6_2_0_2" },
+        "1.3.6.1.4.1.3902.4101.1.4.1.10" => { trap_name => "alarmServiceChange", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_3902_4101_1_4_1_10" },
+        "1.3.6.1.4.1.3902.4101.1.4.1.8" => { trap_name => "alarmSeverityChange", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_3902_4101_1_4_1_8" },
+        "1.3.6.1.4.1.3902.4101.10.2.1.1" => { trap_name => "ntsNotificationNew", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_3902_4101_10_2_1_1" },
+        "1.3.6.1.4.1.3902.4101.4.2.1.1" => { trap_name => "heartbeatNotification", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_3902_4101_4_2_1_1" },
+        "1.3.6.1.4.1.3902.4101.1.4.1.1" => { trap_name => "alarmNew", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_3902_4101_1_4_1_1" },
+        "1.3.6.1.4.1.3902.4101.1.4.1.11" => { trap_name => "alarmSyncStart", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_3902_4101_1_4_1_11" },
+        "1.3.6.1.4.1.3902.4101.1.4.1.3" => { trap_name => "alarmAckChange", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_3902_4101_1_4_1_3" },
+        "1.3.6.1.4.1.3902.4101.1.4.1.2" => { trap_name => "alarmCleared", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_3902_4101_1_4_1_2" },
+        "1.3.6.1.4.1.3902.4101.1.4.1.4" => { trap_name => "alarmCommentChange", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_3902_4101_1_4_1_4" },
+        "1.3.6.1.4.1.3902.4101.1.4.1.5" => { trap_name => "alarmListRebuild", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_3902_4101_1_4_1_5" },
+        "1.3.6.1.4.1.3902.4101.1.4.1.7" => { trap_name => "messageInfo", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_3902_4101_1_4_1_7" },
+        "1.3.6.1.4.1.3902.4101.1.4.1.9" => { trap_name => "alarmManagedObjectInstanceNameChange", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_3902_4101_1_4_1_9" },
+        "1.3.6.1.4.1.3902.4101.1.4.1.6" => { trap_name => "alarmSync", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_3902_4101_1_4_1_6" },
+        "1.3.6.1.4.1.3902.4101.1.4.1.12" => { trap_name => "alarmSyncEnd", subroutine => "ABR::agente_snmp::_1_3_6_1_4_1_3902_4101_1_4_1_12" },
     );
 
     $self = bless( { find_hash => \%find_hash, mensaje_x733 => \$mensaje_x733 }, $class );
