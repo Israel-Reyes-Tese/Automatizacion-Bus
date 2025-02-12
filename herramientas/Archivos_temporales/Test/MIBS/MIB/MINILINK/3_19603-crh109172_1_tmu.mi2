@@ -1,0 +1,289 @@
+--
+-- 
+--   No. 3/196 03-CRH 109 172/1               MANAGEMENT INFORMATION BASE
+--   =====================================================================
+--   Prepared:  EAB/MÖ/JT/ME EMWJEGE          Revision L
+--   =====================================================================
+--   Copyright (C)Ericsson AB 2004.
+--   All rights reserved.
+--   =====================================================================
+--  
+-- 
+
+	XF-TMU-MIB DEFINITIONS ::= BEGIN         
+
+		IMPORTS 
+			entPhysicalIndex
+				FROM ENTITY-MIB					
+			MODULE-COMPLIANCE, OBJECT-GROUP
+				FROM SNMPv2-CONF
+			OBJECT-TYPE, MODULE-IDENTITY			
+				FROM SNMPv2-SMI
+			xfMCR			
+				FROM XF-TOP-MIB			
+			XfMCRTerminalBoards, XfMCRProtectionMode,
+			XfMCRCapacity, XfMCROMMode, XfMCROMTimeout,
+			XfMCRUartBaudrate, XfMCRSeverityTrapEnable,
+			XfMCRSeverityLevel
+				FROM XF-MCR-MIB;
+
+	
+	
+		xfTMUMIB MODULE-IDENTITY
+			LAST-UPDATED "201210161000Z"
+			ORGANIZATION
+				"Ericsson AB"
+			CONTACT-INFO
+				"
+				Claes Jegeras
+				Ericsson AB
+				Transmission & Transport Networks
+				SE-431 84  Molndal
+				Sweden
+				+46317475851
+				Claes.Jegeras@ericsson.com
+				"
+			DESCRIPTION
+				"
+				This MIB defines objects that affects MMU2 (TMU).
+				"
+				
+			REVISION "201210161000Z"
+			DESCRIPTION             
+				"
+				Rev. L		XRSPAHO Fixed smilint warning: revision not in reverse chronological order..
+				"
+			REVISION "200404051000Z"
+			DESCRIPTION             
+				"
+				Rev. K		Made xfTMUDCCUsage obsolete.
+				"
+			REVISION "200401151000Z"
+			DESCRIPTION             
+				"
+				Rev. J		New decimal class (from 155 19).
+				"
+ 			REVISION "200304101000Z" 
+			DESCRIPTION
+				"
+				Rev. J 		Added description of the MO xfMCRBusy in the XF-MCR-MIB.
+				"
+ 			REVISION "200211121000Z" 
+			DESCRIPTION
+				"
+				Rev. G 		Added xfTMUSeverityTrapEnable and xfTMUSeverityLevel.
+							Added more description to xfTMUTerminalBoards.
+							Updated descriptions with the right product names (MMU2 and SMU2).
+				"
+            REVISION "200208191000Z" 
+			DESCRIPTION
+				"
+				Rev. F 		xfTMUDCCUsage is now read-write. 
+				"				
+            REVISION "200208161000Z" 
+			DESCRIPTION
+				"
+				Rev. E 		xfTMUDCCUsage is made current. 
+				"         
+            REVISION "200207041000Z" 
+			DESCRIPTION
+				"
+				Rev. D 		xfTMUDCCUsage is made obsolete. 
+							Renamed xfTMUAmmSIze to xfTMUTerminalBoards.
+				"
+            REVISION "200204291000Z" 
+			DESCRIPTION
+				"
+				Rev. C 		Description if xfTMUAmmSize corrected.
+				"     
+			REVISION "200112191000Z"
+			DESCRIPTION     
+				"
+				Rev. B  	Added conformance. Corrected errors found by smilint
+				"				
+			REVISION "200112121000Z"
+			DESCRIPTION     
+				"
+				Rev. A  	Initial revision
+				"
+
+			::= { xfMCR 2 }
+		
+	
+--
+-- Textual conventions
+--
+	
+--
+-- Node definitions
+--      
+	xfTMUObjects OBJECT IDENTIFIER ::= { xfTMUMIB 1 }
+	xfTMUConformance OBJECT IDENTIFIER ::= { xfTMUMIB 2 }
+
+------------------------------------------------------------------------------
+-- xfTMUTable
+------------------------------------------------------------------------------
+	xfTMUTable OBJECT-TYPE
+		SYNTAX SEQUENCE OF XfTMUEntry
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+			"
+			Table for MMU2 managed objects. The tabled is indexed with 
+			entPhysicalIndex. 
+			Note that objects might not be accessible if xfMCRBusy 
+			in XF-MCR-MIB is busy(1).
+			"
+		::= { xfTMUObjects 1 }
+		
+	xfTMUEntry OBJECT-TYPE
+		SYNTAX XfTMUEntry
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+			"An entry in the xfTMUTable"
+		INDEX { entPhysicalIndex}
+		::= { xfTMUTable 1 }
+	
+	XfTMUEntry ::=
+		SEQUENCE 
+		{
+			xfTMUTerminalBoards XfMCRTerminalBoards,
+			xfTMUProtectionMode	XfMCRProtectionMode,
+			xfTMUCapacity		XfMCRCapacity,
+			xfTMUOMMode			XfMCROMMode,
+			xfTMUOMTimeout		XfMCROMTimeout,
+			xfTMUUartBaudrate	XfMCRUartBaudrate,
+			xfTMUSeverityTrapEnable XfMCRSeverityTrapEnable,
+			xfTMUSeverityLevel		XfMCRSeverityLevel     
+		} 
+			
+--
+-- The xfTMUTable MOs
+--
+				
+	xfTMUTerminalBoards OBJECT-TYPE
+		SYNTAX XfMCRTerminalBoards
+		MAX-ACCESS read-write
+		STATUS current
+		DESCRIPTION
+			"
+			This object sets the number of MCR boards in a MCR terminal.
+			In release one only valid values are oneBoard and threeBoards.
+			In a 1+0 configuration the value has to be set by EM.
+			In a 1+1 configuration the value is set from the MO xfPCUTerminalBoards
+			in XF-PCU-MIB.  	
+			"
+		DEFVAL { oneBoard }	
+       ::= { xfTMUEntry 1 }
+
+	xfTMUProtectionMode OBJECT-TYPE
+		SYNTAX XfMCRProtectionMode        
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"
+			This object shows the Protection mode.
+			"
+		::= { xfTMUEntry 2 }
+	
+	xfTMUCapacity OBJECT-TYPE
+		SYNTAX XfMCRCapacity  
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"
+			This object shows the Capacity of the MCR Link.
+			"
+		::= { xfTMUEntry 3 }
+
+	xfTMUOMMode OBJECT-TYPE
+		SYNTAX XfMCROMMode
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"
+			This object controls the O&M-switch on the MMU2-board.
+			"
+		::= { xfTMUEntry 5 }     
+		
+	xfTMUOMTimeout OBJECT-TYPE
+		SYNTAX XfMCROMTimeout         
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"
+			This object is the timeout for OM_REQUEST.
+			"
+		::= { xfTMUEntry 6 }
+
+	xfTMUUartBaudrate OBJECT-TYPE
+		SYNTAX XfMCRUartBaudrate       
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"
+			This object control the baudrate of the PCI Uart.
+			"			
+		::= { xfTMUEntry 7 }	
+		
+	xfTMUSeverityTrapEnable OBJECT-TYPE
+		SYNTAX XfMCRSeverityTrapEnable       
+		MAX-ACCESS read-write
+		STATUS current
+		DESCRIPTION
+			"
+			This object control whether to send a trap or not if the xfTMUSeverityLevel changes
+			"
+		DEFVAL { enable }			
+		::= { xfTMUEntry 8 }	
+			
+	xfTMUSeverityLevel OBJECT-TYPE
+		SYNTAX XfMCRSeverityLevel       
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"
+			This object tells the severity level of the CSS alarm. 
+			It's the Alarm Status Indicator for the CSS alarm.
+			"			
+		::= { xfTMUEntry 9 }			
+		
+			                               
+--
+-- Conformance
+--
+	xfTMUCompliances OBJECT IDENTIFIER ::= { xfTMUConformance 1 }
+
+	xfTMUGroups OBJECT IDENTIFIER ::= { xfTMUConformance 2 }
+
+   	xfTMUFullCompliance MODULE-COMPLIANCE
+       		STATUS      current
+       		DESCRIPTION
+           		"The compliance statement for SNMP entities which
+            		implement everything."
+       		MODULE -- This Module
+           	MANDATORY-GROUPS { xfTMUCompleteGroup }
+       		::= { xfTMUCompliances 1 }
+       	
+       		
+       		
+	xfTMUCompleteGroup OBJECT-GROUP
+       	OBJECTS 
+       	{
+			xfTMUTerminalBoards,
+			xfTMUProtectionMode,
+			xfTMUCapacity,
+			xfTMUOMMode,
+			xfTMUOMTimeout,
+			xfTMUUartBaudrate,
+			xfTMUSeverityTrapEnable,
+			xfTMUSeverityLevel	
+		}
+		STATUS      current
+       		DESCRIPTION
+           		"A collection of all current objects in this MIB
+			 module."
+		::= { xfTMUGroups 1 } 
+		
+	END

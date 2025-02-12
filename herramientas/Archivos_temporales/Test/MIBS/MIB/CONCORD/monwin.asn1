@@ -1,0 +1,136 @@
+-- COPYRIGHT 2013 CA, Inc. ALL RIGHTS RESERVED.
+-- THIS DOCUMENT CONTAINS CONFIDENTIAL AND TRADE SECRET INFORMATION OF 
+-- THE CA, Inc.  COPYRIGHT NOTICE IS PRECAUTIONARY 
+-- ONLY AND DOES NOT IMPLY PUBLICATION.
+
+-- No part of this document may be reproduced, transmitted, transcribed,
+-- stored in a retrieval system, or translated into any language or
+-- computer language, in any form or by any means, without
+-- prior written consent of CA, Inc.
+
+-- This MIB is implemented by the SystemEDGE AIM for 'Monitoring (Maintenance) Windows' (monwin).
+
+-- SystemEDGE/MIB Version 5.8
+
+EMPIRE-MONWIN DEFINITIONS ::= BEGIN
+    IMPORTS
+        OBJECT-TYPE
+            FROM RFC-1212
+        DisplayString
+            FROM RFC1213-MIB
+        enterprises
+            FROM RFC1155-SMI;
+    
+    empire       OBJECT IDENTIFIER ::= { enterprises 546 }
+    applications OBJECT IDENTIFIER ::= { empire 16 }
+    monWin       OBJECT IDENTIFIER ::= { applications 20 }
+
+    monWinVersion OBJECT-TYPE
+        SYNTAX DisplayString
+        ACCESS read-only
+        STATUS mandatory
+        DESCRIPTION
+            "The description and version number of this module."
+        ::= { monWin 1 }
+
+    monWinMode OBJECT-TYPE
+        SYNTAX INTEGER {
+            fullMode(1),
+            restrictedMode(2)
+        }
+        ACCESS read-only
+        STATUS mandatory
+        DESCRIPTION
+            "This attribute is obsolete in SystemEDGE 5.0 and always fullMode(1)."
+        ::= { monWin 2 }
+
+    monWinRefresh OBJECT-TYPE
+        SYNTAX INTEGER
+        ACCESS read-write
+        STATUS mandatory
+        DESCRIPTION
+            "This attribute activates a refresh of the monwin configuration
+            specified in the sysedge.cf file if setting to any non-zero value." 
+        ::= { monWin 3 }
+
+    monWinRowTable OBJECT-TYPE
+        SYNTAX SEQUENCE OF MonWinRowEntry
+        ACCESS not-accessible
+        STATUS mandatory
+        DESCRIPTION
+            "" 
+        ::= { monWin 10 }
+
+    monWinRowEntry OBJECT-TYPE
+        SYNTAX MonWinRowEntry
+        ACCESS not-accessible
+        STATUS mandatory
+        DESCRIPTION
+            ""
+        INDEX { monWinTableIndex }
+        ::= {  monWinRowTable 1 }
+
+    MonWinRowEntry ::= SEQUENCE{
+        monWinTableIndex  INTEGER,
+        monWinTableMon    DisplayString,
+        monWinTableIdx    INTEGER,
+        monWinTableOff    INTEGER,
+        monWinTableOn     INTEGER,
+        monWinTableStatus INTEGER
+    }
+
+    monWinTableIndex OBJECT-TYPE
+        SYNTAX INTEGER (0..65535)
+        ACCESS read-only
+        STATUS mandatory
+        DESCRIPTION
+            "The index of this monitor maintenance window table entry."
+        ::= { monWinRowEntry 1 }
+  
+    monWinTableMon OBJECT-TYPE
+        SYNTAX DisplayString
+        ACCESS read-write
+        STATUS mandatory
+        DESCRIPTION
+            "The monitor table to which the maintenance window is applied, being:
+            selfmon, processmon, procgroupmon, nteventmon, logfilemon or emphistory."
+        ::= { monWinRowEntry 2 }
+
+    monWinTableIdx OBJECT-TYPE
+        SYNTAX INTEGER
+        ACCESS read-write
+        STATUS mandatory
+        DESCRIPTION
+            "The index of the monitor to which the maintenance window is applied."
+        ::= { monWinRowEntry 3 }
+
+    monWinTableOff OBJECT-TYPE
+        SYNTAX INTEGER
+        ACCESS read-write
+        STATUS mandatory
+        DESCRIPTION
+            "The time (24 hr format hhmm) at which the monitor is switched off
+            (notInService), i.e. the maintenance window begins."
+        ::= { monWinRowEntry 4 }
+
+    monWinTableOn OBJECT-TYPE
+        SYNTAX INTEGER
+        ACCESS read-write
+        STATUS mandatory
+        DESCRIPTION
+            "The time (24 hr format hhmm) at which the monitor is switched on
+            (active), i.e. the maintenance window ends."
+        ::= { monWinRowEntry 5 }
+
+    monWinTableStatus OBJECT-TYPE
+        SYNTAX INTEGER {
+            active(1),
+            notInService(2)
+        }
+        ACCESS read-write
+        STATUS mandatory
+        DESCRIPTION
+            "Indicates whether this maintenance window entry is active or not."
+        ::= { monWinRowEntry 6 }
+
+END

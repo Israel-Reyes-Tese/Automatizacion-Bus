@@ -1,0 +1,287 @@
+    
+    
+MIB-EMS-IPASOLINK-VR4-ETH-RING-MIB DEFINITIONS ::= BEGIN
+    
+    IMPORTS
+        OBJECT-TYPE
+            FROM RFC-1212
+        IpAddress
+            FROM RFC1155-SMI
+        enterprises
+            FROM SNMPv2-SMI;
+    
+    IpeAdminStatus ::=
+        INTEGER { invalid(0), down(1), up(2) }
+    
+    
+    IpeEnableDisableValue ::=
+        INTEGER { invalid(0), disabled(1), enabled(2) }
+    
+    
+    IpeEtherRingIndex ::=
+        INTEGER (1..16)
+    
+    
+    IpeEtherRingIndexOrZero ::=
+        INTEGER (0..16)
+    
+    
+    IpeEtherRingPortId ::=
+        INTEGER (1..2)
+    
+    
+    IpeEtherRingPortIdOrZero ::=
+        INTEGER (0..2)
+    
+    
+    IpeEtherRingProtoVersion ::=
+        INTEGER { invalid(0), g8032v1(1), g8032v2(2) }
+    
+    
+    IpeEtherRingVlanIndex ::=
+        INTEGER (1..4094)
+    
+    
+    IpeMepIdOrZero ::=
+        INTEGER (0..128)
+    
+    
+    IpeRingType ::=
+        INTEGER { invalid(0), major(1), sub(2) }
+    
+    
+    IpeVlanList ::=
+        OCTET STRING (SIZE(512))
+    
+    
+    -- 1.3.6.1.4.1.119
+    nec OBJECT IDENTIFIER
+        ::= { enterprises 119 }
+    
+    -- 1.3.6.1.4.1.119.2
+    nec-mib OBJECT IDENTIFIER
+        ::= { nec 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3
+    necProductDepend OBJECT IDENTIFIER
+        ::= { nec-mib 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69
+    radioEquipment OBJECT IDENTIFIER
+        ::= { necProductDepend 69 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203
+    commonPnms OBJECT IDENTIFIER
+        ::= { radioEquipment 203 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513
+    ipasolinkVr4 OBJECT IDENTIFIER
+        ::= { commonPnms 513 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501
+    pasoNeoIpe-common OBJECT IDENTIFIER
+        ::= { ipasolinkVr4 501 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3
+    alarmStatusGroup OBJECT IDENTIFIER
+        ::= { pasoNeoIpe-common 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39
+    asEtherRingGroup OBJECT IDENTIFIER
+        ::= { alarmStatusGroup 39 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.1
+    asEtherRingTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF AsEtherRingEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "This table contains Alarm & Status of Ethernet Ring Instance."
+        ::= { asEtherRingGroup 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.1.1
+    asEtherRingEntry OBJECT-TYPE
+        SYNTAX      AsEtherRingEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { asEtherRingNEAddress, asEtherRingRingIndex }
+        ::= { asEtherRingTable 1 }
+    
+    AsEtherRingEntry ::= SEQUENCE {
+        asEtherRingRingIndex            IpeEtherRingIndex,
+        asEtherRingNEAddress            IpAddress,
+        asEtherRingState                INTEGER,
+        asEtherRingCause                INTEGER,
+        asEtherRingMultiRplOwnerDetect  INTEGER
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.1.1.1
+    asEtherRingRingIndex OBJECT-TYPE
+        SYNTAX      IpeEtherRingIndex
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table."
+        ::= { asEtherRingEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.1.1.2
+    asEtherRingNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved."
+        ::= { asEtherRingEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.1.1.3
+    asEtherRingState OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), disabled(1), idle(2),
+                        protection(3), forced(4), manual(5), pending(6) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "The status of Etherring instance.
+             The value 'idle' is initial and normal value. And that means
+             there is no fault on the Ring Network (i.e. the RPL Port is
+             closed). When the RPL port is opened because of the detection of
+             Signal Failure on the Network, the value will change to
+             'protection'. 'force' and 'manual' shows switch control is
+             performed on the Ring Network. When the switch control is cleared
+             or the Signal Failure is cleared, the value will show 'pending'."
+        ::= { asEtherRingEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.1.1.4
+    asEtherRingCause OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), none(1), localSf(2), localNr(3),
+                        remoteSf(4), remoteNr(5), localFs(6), localMs(7),
+                        remoteFs(8), remoteMs(9) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "The object shows the reason of the asEtherRingStatus change.
+             'localSf' : Signal Failure of the local node.
+             'localNr' : Normal Request of the local node.
+             'remoteSf' : Signal Failure from the other node.
+             'remoteNr' : Normal Request from the other node.
+             'localFs' : Forced Switch Request of the local node.
+             'localMs' : Manual Switch Request of the local node.
+             'remoteFs' : Forced Switch Request from the other node.
+             'remoteMs' : Manual Switch Request from the other node."
+        ::= { asEtherRingEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.1.1.5
+    asEtherRingMultiRplOwnerDetect OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), none(1), detected(2) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "when the multiple RPL Owner is detected on the Ring Network, the
+             value will change to 'detected'."
+        ::= { asEtherRingEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.2
+    asEtherRingPortTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF AsEtherRingPortEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "This table contains Alarm & Status of Ethernet Ring Instance."
+        ::= { asEtherRingGroup 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.2.1
+    asEtherRingPortEntry OBJECT-TYPE
+        SYNTAX      AsEtherRingPortEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { asEtherRingPortNEAddress, asEtherRingPortRingIndex, asEtherRingPortId }
+        ::= { asEtherRingPortTable 1 }
+    
+    AsEtherRingPortEntry ::= SEQUENCE {
+        asEtherRingPortRingIndex        IpeEtherRingIndex,
+        asEtherRingPortId               IpeEtherRingPortId,
+        asEtherRingPortNEAddress        IpAddress,
+        asEtherRingPortState            INTEGER,
+        asEtherRingPortLoopDetect       INTEGER,
+        asEtherRingPortProtoTimeout     INTEGER
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.2.1.1
+    asEtherRingPortRingIndex OBJECT-TYPE
+        SYNTAX      IpeEtherRingIndex
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Ethernet Ring Instance number."
+        ::= { asEtherRingPortEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.2.1.2
+    asEtherRingPortId OBJECT-TYPE
+        SYNTAX      IpeEtherRingPortId
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table. This object represents the Ring port id of
+             the ring instance."
+        ::= { asEtherRingPortEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.2.1.3
+    asEtherRingPortNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved."
+        ::= { asEtherRingPortEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.2.1.4
+    asEtherRingPortState OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), disabled(1), initBlocking(2),
+                        rplBlocking(3), forwarding(4), signalFail(5),
+                        recovery(6), waitToRestore(7), forcedSwitch(8),
+                        manualSwitch(9), waitToBlock(10) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Port Status.
+             'initBlocking' is the initial value. At this point the no R-APS
+             frame is received. When the port is configured as RPL port and
+             the port is closed, the value will show 'rplBlocking'. The port
+             forwards the frames, the value will show 'forwarding'.
+             If the signal failure is detected on the port and the port is
+             closed, the object will return the value 'signalFail'. And then
+             the condition of Signal Failure is cleared but the port is still
+             closed, the object will return the value 'recovery'.
+             'waitToRestore' shows the RPL port is still closed till expiring
+             the wait-to-restore timer.
+             'forcedSwitch' and 'manualSwitch' represents the port is
+             controlled by the maintenance control. 'waitToBlock' is waiting
+             the RPL Port open after clearing maintenance control."
+        ::= { asEtherRingPortEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.2.1.5
+    asEtherRingPortLoopDetect OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), none(1), detected(2) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "The loop detection status.
+             The object will show the value 'detected', when the Loop
+             connection is detected."
+        ::= { asEtherRingPortEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.39.2.1.6
+    asEtherRingPortProtoTimeout OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), none(1), detected(2) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "The status of Protocol Timeout.
+             If the R-APS frame is not received in a specified time, the
+             object will show the value 'detected'."
+        ::= { asEtherRingPortEntry 6 }
+    
+END -- end of module MIB-EMS-IPASOLINK-VR4-ETH-RING-MIB.

@@ -1,0 +1,501 @@
+--
+-- MIB-PNMSJ-IPASOLINK-100-200-LAG-MIB.my
+-- Friday, May 11, 2012
+--
+
+	MIB-PNMSJ-IPASOLINK-100-200-LAG-MIB DEFINITIONS ::= BEGIN
+ 
+		IMPORTS
+			InterfaceIndex			
+				FROM IF-MIB			
+			ItuPerceivedSeverity			
+				FROM ITU-ALARM-TC-MIB			
+			OBJECT-TYPE			
+				FROM RFC-1212			
+			enterprises, IpAddress			
+				FROM RFC1155-SMI			
+			DisplayString			
+				FROM RFC1213-MIB;
+	
+	
+--
+-- Type definitions
+--
+	
+		RowStatus ::= INTEGER
+			{
+			active(1),
+			notInService(2),
+			notReady(3),
+			createAndGo(4),
+			createAndWait(5),
+			destroy(6)
+			}
+
+		IpeEnableDisableValue ::= INTEGER
+			{
+			invalid(0),
+			disabled(1),
+			enabled(2)
+			}
+
+		IpeLinkAggrGroupIndex ::= INTEGER (1..64)
+
+	
+--
+-- Node definitions
+--
+	
+		-- 1.3.6.1.4.1.119
+		nec OBJECT IDENTIFIER ::= { enterprises 119 }
+
+		
+		-- 1.3.6.1.4.1.119.2
+		nec-mib OBJECT IDENTIFIER ::= { nec 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3
+		necProductDepend OBJECT IDENTIFIER ::= { nec-mib 3 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69
+		radioEquipment OBJECT IDENTIFIER ::= { necProductDepend 69 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203
+		commonPnms OBJECT IDENTIFIER ::= { radioEquipment 203 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502
+		ipasolink200 OBJECT IDENTIFIER ::= { commonPnms 502 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501
+		pasoNeoIpe-common OBJECT IDENTIFIER ::= { ipasolink200 501 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3
+		alarmStatusGroup OBJECT IDENTIFIER ::= { pasoNeoIpe-common 3 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.38
+		asLinkAggrGroup OBJECT IDENTIFIER ::= { alarmStatusGroup 38 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.38.1
+		asLinkAggrGroupTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF AsLinkAggrGroupEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asLinkAggrGroup 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.38.1.1
+		asLinkAggrGroupEntry OBJECT-TYPE
+			SYNTAX AsLinkAggrGroupEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			INDEX { asLinkAggrGroupNEAddress, asLinkAggrGroupIfIndex }
+			::= { asLinkAggrGroupTable 1 }
+
+		
+		AsLinkAggrGroupEntry ::=
+			SEQUENCE { 
+				asLinkAggrGroupIfIndex
+					InterfaceIndex,
+				asLinkAggrGroupNEAddress
+					IpAddress,
+				asLinkAggrGroupLinkStatus
+					ItuPerceivedSeverity,
+				asLinkAggrGroupOperStatus
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.38.1.1.1
+		asLinkAggrGroupIfIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asLinkAggrGroupEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.38.1.1.2
+		asLinkAggrGroupNEAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asLinkAggrGroupEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.38.1.1.3
+		asLinkAggrGroupLinkStatus OBJECT-TYPE
+			SYNTAX ItuPerceivedSeverity
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asLinkAggrGroupEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.38.1.1.5
+		asLinkAggrGroupOperStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				invalid(0),
+				linkDown(1),
+				linkUp(2)
+				}
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asLinkAggrGroupEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.38.2
+		asLinkAggrPortTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF AsLinkAggrPortEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asLinkAggrGroup 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.38.2.1
+		asLinkAggrPortEntry OBJECT-TYPE
+			SYNTAX AsLinkAggrPortEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			INDEX { asLinkAggrPortNEAddress, asLinkAggrPortGroupIfIndex, asLinkAggrPortIfIndex }
+			::= { asLinkAggrPortTable 1 }
+
+		
+		AsLinkAggrPortEntry ::=
+			SEQUENCE { 
+				asLinkAggrPortGroupIfIndex
+					InterfaceIndex,
+				asLinkAggrPortIfIndex
+					InterfaceIndex,
+				asLinkAggrPortNEAddress
+					IpAddress,
+				asLinkAggrPortStatus
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.38.2.1.1
+		asLinkAggrPortGroupIfIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asLinkAggrPortEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.38.2.1.2
+		asLinkAggrPortIfIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asLinkAggrPortEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.38.2.1.3
+		asLinkAggrPortNEAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asLinkAggrPortEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.38.2.1.4
+		asLinkAggrPortStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				invalid(0),
+				active(1),
+				standby(2)
+				}
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asLinkAggrPortEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5
+		provisioningGroup OBJECT IDENTIFIER ::= { pasoNeoIpe-common 5 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.38
+		provLinkAggrGroup OBJECT IDENTIFIER ::= { provisioningGroup 38 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.38.1
+		provLinkAggrGroupTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF ProvLinkAggrGroupEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provLinkAggrGroup 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.38.1.1
+		provLinkAggrGroupEntry OBJECT-TYPE
+			SYNTAX ProvLinkAggrGroupEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			INDEX { provLinkAggrGroupNEAddress, provLinkAggrGroupIfIndex }
+			::= { provLinkAggrGroupTable 1 }
+
+		
+		ProvLinkAggrGroupEntry ::=
+			SEQUENCE { 
+				provLinkAggrGroupIfIndex
+					InterfaceIndex,
+				provLinkAggrGroupNEAddress
+					IpAddress,
+				provLinkAggrGroupMode
+					INTEGER,
+				provLinkAggrGroupTxType
+					INTEGER,
+				provLinkAggrGroupName
+					DisplayString,
+				provLinkAggrGroupRowStatus
+					RowStatus
+			 }
+
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.38.1.1.1
+		provLinkAggrGroupIfIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provLinkAggrGroupEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.38.1.1.2
+		provLinkAggrGroupNEAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provLinkAggrGroupEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.38.1.1.3
+		provLinkAggrGroupMode OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				invalid(0),
+				active(1),
+				passive(2),
+				local(3)
+				}
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provLinkAggrGroupEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.38.1.1.6
+		provLinkAggrGroupTxType OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				invalid(0),
+				macVid(1),
+				mplsLabel(2),
+				ipVid(3)
+				}
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			DEFVAL { macVid }
+			::= { provLinkAggrGroupEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.38.1.1.7
+		provLinkAggrGroupName OBJECT-TYPE
+			SYNTAX DisplayString (SIZE (0..32))
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			DEFVAL { ''h }
+			::= { provLinkAggrGroupEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.38.1.1.8
+		provLinkAggrGroupRowStatus OBJECT-TYPE
+			SYNTAX RowStatus
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provLinkAggrGroupEntry 8 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.38.4
+		provLinkAggrEquipmentTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF ProvLinkAggrEquipmentEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provLinkAggrGroup 4 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.38.4.1
+		provLinkAggrEquipmentEntry OBJECT-TYPE
+			SYNTAX ProvLinkAggrEquipmentEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			INDEX { provLinkAggrEquipmentNEAddress, provLinkAggrEquipmentIndex }
+			::= { provLinkAggrEquipmentTable 1 }
+
+		
+		ProvLinkAggrEquipmentEntry ::=
+			SEQUENCE { 
+				provLinkAggrEquipmentIndex
+					INTEGER,
+				provLinkAggrEquipmentNEAddress
+					IpAddress,
+				provLinkAggrEquipmentSysPriority
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.38.4.1.1
+		provLinkAggrEquipmentIndex OBJECT-TYPE
+			SYNTAX INTEGER (1)
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provLinkAggrEquipmentEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.38.4.1.2
+		provLinkAggrEquipmentNEAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provLinkAggrEquipmentEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.38.4.1.3
+		provLinkAggrEquipmentSysPriority OBJECT-TYPE
+			SYNTAX INTEGER (1..65535)
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			DEFVAL { 32768 }
+			::= { provLinkAggrEquipmentEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.6
+		maintenanceGroup OBJECT IDENTIFIER ::= { pasoNeoIpe-common 6 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.6.38
+		maintLinkAggrGroup OBJECT IDENTIFIER ::= { maintenanceGroup 38 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.6.38.1
+		maintLinkAggrGroupTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF MaintLinkAggrGroupEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { maintLinkAggrGroup 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.6.38.1.1
+		maintLinkAggrGroupEntry OBJECT-TYPE
+			SYNTAX MaintLinkAggrGroupEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			INDEX { maintLinkAggrGroupNEAddress, maintLinkAggrGroupIfIndex }
+			::= { maintLinkAggrGroupTable 1 }
+
+		
+		MaintLinkAggrGroupEntry ::=
+			SEQUENCE { 
+				maintLinkAggrGroupIfIndex
+					InterfaceIndex,
+				maintLinkAggrGroupNEAddress
+					IpAddress,
+				maintLinkAggrGroupRevert
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.6.38.1.1.1
+		maintLinkAggrGroupIfIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { maintLinkAggrGroupEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.6.38.1.1.2
+		maintLinkAggrGroupNEAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { maintLinkAggrGroupEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.6.38.1.1.3
+		maintLinkAggrGroupRevert OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				invalid(0),
+				none(1),
+				revert(2)
+				}
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { maintLinkAggrGroupEntry 3 }
+
+		
+	
+	END
+
+--
+-- MIB-PNMSJ-IPASOLINK-100-200-LAG-MIB.my
+--

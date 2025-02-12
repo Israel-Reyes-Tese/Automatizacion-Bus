@@ -1,0 +1,6 @@
+Faltan copilar bien las MIBS
+
+DISMAN-SCRIPT-MIB.txt
+DISMAN-EVENT-MIB.txt
+
+revisar

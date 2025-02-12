@@ -1,0 +1,3225 @@
+-- No. 15/196 03-CRXR 102 01/1                MANAGEMENT INFORMATION BASE
+-- =====================================================================
+-- Prepared:  EZTAMVA                         Revision   BX
+-- =====================================================================
+-- Copyright
+-- +++++++++
+--
+-- (c) Ericsson AS 2002. All rights reserved. No part of this document
+-- may be reproduced in any form without the written permission of the
+-- copyright holder.
+--
+-- Information
+-- +++++++++++
+--
+-- This document is mainly intended for internal development and contains
+-- references to other documents. This document might however, after
+-- agreement with Ericsson, be delivered to customers to serve as
+-- information for design.
+-- All referenced documents are however Ericsson internal and are not
+-- intended for customers or end users and will thus not be delivered
+-- externally.
+--
+-- Disclaimer
+-- ++++++++++
+-- The content of this document is subject to revision without notice
+-- due to continued progress in methodology, design, and manufacturing.
+-- Ericsson shall have no liability for any error or damage of any kind
+-- resulting from the use of this document.
+--
+-- =====================================================================
+--
+
+	XF-DCN-MIB DEFINITIONS ::= BEGIN
+
+		IMPORTS
+			entPhysicalIndex
+				FROM ENTITY-MIB
+			ifIndex, InterfaceIndex, InterfaceIndexOrZero
+				FROM IF-MIB
+			OBJECT-GROUP, MODULE-COMPLIANCE
+				FROM SNMPv2-CONF
+			IpAddress, Integer32, OBJECT-TYPE, MODULE-IDENTITY,
+			Counter32, Gauge32
+				FROM SNMPv2-SMI
+			InetAddressIPv6
+				FROM INET-ADDRESS-MIB
+			IpAddressOriginTC, IpAddressStatusTC
+				FROM IP-MIB
+			RowStatus, DisplayString, PhysAddress, TEXTUAL-CONVENTION
+				FROM SNMPv2-TC
+			xfPlatform
+				FROM XF-TOP-MIB
+			TimeStamp, RowPointer,
+			StorageType
+				FROM SNMPv2-TC
+			InetAddress, InetAddressType,
+			InetAddressPrefixLength,
+			InetVersion, InetZoneIndex
+				FROM INET-ADDRESS-MIB;
+
+		-- 1.3.6.1.4.1.193.81.2.8
+		xfDcnMIB MODULE-IDENTITY
+			LAST-UPDATED "201904150900Z"		-- Apr 15 2019 at 09:00 GMT
+			ORGANIZATION
+				"Ericsson Hungary, ETH"
+			CONTACT-INFO
+				"Ericsson Hungary, ETH"
+			DESCRIPTION
+				"This MIB contains information on DCN settings. Currently the following
+				services are configured:
+				OSPF routing
+				FTP file transfer
+				NTP time distribution
+				DNS name service
+				SiteLAN
+				DHCP relay
+				OSPFv3 routing for IPv6
+				Host for IPv6
+				DNS for IPv6
+				PPP for IPv6
+				NDP for IPv6
+				IP for IPv4/6
+				Counters (TCP, UDP) for IPv6"
+
+			REVISION "201904150900Z"		-- Apr 15 2019 at 09:00 GMT
+			DESCRIPTION
+				"BX
+				EZTAMVA
+					- ML66: Added xfDcnHostInterfaceRouted and xfDcnIPv6HostInterfaceRouted.
+				"
+			REVISION "201902040900Z"		-- Feb 04 2019 at 09:00 GMT
+			DESCRIPTION
+				"BW
+				ETAMJUH
+					- ML66: Changed xfDcnHostInterface to read-write, updated description.
+					- Updated description of xfDcnHostAddress and xfDcnHostSubnetMask.
+					- Fixed type of xfDcnHostInterface and xfDcnIPv6HostInterface to InterfaceIndexOrZero.
+					- Updated description of xfDcnEthernetConfigTable.
+				"
+			REVISION "201812010900Z"		-- Dec 01 2018 at 09:00 GMT
+			DESCRIPTION
+				"BV
+				ETAMJUH
+					- ML66: Updated description of xfDcnEthernetPort, xfDcnDefaultGateway, xfDcnIPv6HostAddress,
+						xfDcnIPv6HostPrefixLength, xfDcnIPv6DefaultGateway, xfDcnIPv6HostInterface.
+				"
+			REVISION "201811221500Z"		-- Nov 22 2018 at 15:00 GMT
+			DESCRIPTION
+				"BU
+				ETAMJUH
+					- ML66: Corrected descriptions, as xfDcnPppConfigTable is supported in ML66.
+					- Fixed description of XfDcnOSPFConfigEntry.
+				"
+			REVISION "201811071000Z"		-- Nov 07 2018 at 10:00 GMT
+			DESCRIPTION
+				"BT
+				EANDRVG
+					- ML66: Added xfDcnHostInterface and xfDcnIPv6HostInterface.
+				"
+			REVISION "201810311200Z"		-- Oct 31 2018 at 12:00 GMT
+			DESCRIPTION
+				"BS
+				ETAMJUH
+					- ML66: Added xfDcnIPv6EthernetConfigVrfName. Updated description of xfDcnEthernetConfigVrfName.
+				"
+			REVISION "201806070800Z"		-- June 7 2018 at 8:00 GMT
+			DESCRIPTION
+				"BR
+				ETAMJUH
+					- ML66: Updated description of xfDcnEthernetConfigLock, used as unnumbered in ML66 products.
+						Removed it from obsoleted group.
+					- Updated descriptions.
+				"
+			REVISION "201805171200Z"		-- May 17 2018 at 12:00 GMT
+			DESCRIPTION
+				"BQ
+				EVIKTIS
+					ML66: Added notSoStubbyArea(3) value to xfDcnOSPFAreaType.
+				"
+			REVISION "201804231200Z"		-- Apr 23 2018 at 12:00 GMT
+			DESCRIPTION
+				"BP
+				EVIKTIS
+					ML66: Added xfDcnEthernetConfigVrfName
+					In ML66 all L3 VLAN subinterface will be registered to xfDcnEthernetConfigTable.
+				"
+			REVISION "201709141200Z"		-- Sept 14 2017 at 12:00 GMT
+			DESCRIPTION
+				"BN
+				ETAMJUH
+					ML66: Updated description of xfDcnDomainName and xfDcnIPv6DomainName,
+					accept emptry string as 'set to default' (similar to sysname).
+				"
+			REVISION "201707051100Z"		-- July 05 2017 at 11:00 GMT
+			DESCRIPTION
+				"BM
+				ETAMJUH
+					ML66: Added xfDcnHostDscp and xfDcnIPv6HostDscp (ML66 only).
+					ML66: Updated description of xfDcnIPv6LoopbackPrefixLength.
+				"
+			REVISION "201706191330Z"		-- June 19, 2017 at 13:30 GMT
+			DESCRIPTION
+				"BL
+				ETAMJUH
+					Updated description of xfDcnUsbAddress, xfDcnUsbSubnetMask (Local Access).
+					Updated description of xfDcnIPv6UsbAddress, xfDcnIPv6UsbPrefixLength (Local Access).
+					ML66: Updated description of xfDcnIPv6HostAddress and xfDcnIPv6HostPrefixLength.
+					ML66: Updated description of xfDcnIPv6LoopbackAddress, xfDcnIPv6LoopbackPrefixLength.
+				"
+			REVISION "201705251330Z"		-- May 25, 2017 at 13:30 GMT
+			DESCRIPTION
+				"BK
+				ETAMJUH
+					ML66: New value of xfDcnEthernetPort: routed(4), updated description.
+					ML66: Updated description of xfDcnHostAddress and xfDcnHostSubnetMask.
+					ML66: Updated description of xfDcnIPv6HostAddress and xfDcnIPv6HostPrefixLength.
+					ML66: Updated description of xfDcnLoopbackAddress, xfDcnLoopbackSubnetMask.
+					ML66: Updated description of xfDcnIPv6LoopbackAddress, xfDcnIPv6LoopbackPrefixLength.
+				"
+			REVISION "201702231338Z"		-- Feb 23, 2017 at 13:38 GMT
+			DESCRIPTION
+				"BJ
+				EVIKTIS
+					ML66: Updated description of some loopback/host objects.
+				"
+			REVISION "201611031530Z"		-- Nov 3, 2016 at 15:30 GMT
+			DESCRIPTION
+				"BH
+				ETAMJUH
+					ML66: Updated description of xfDcnFTPActive. It sets all xf..ActiveFTP objects if written.
+				"
+			REVISION "201610281500Z"		-- Oct 28, 2016 at 15:00 GMT
+			DESCRIPTION
+				"BG
+				ETAMJUH
+					ML66: FTP1 and FTP2 is not supported, uses xfDcnFTPConfigTable.
+						Updated description of the related FTP objects.
+						(xfDcnFTPAddress1, xfDcnFTPUserName1, xfDcnFTPPassword1, xfDcnFTPEncryptedPwd1,
+						xfDcnFTPAddress2, xfDcnFTPUserName2, xfDcnFTPPassword2, xfDcnFTPEncryptedPwd2)
+					ML66: Updated description of xfDcnFTPActive. Indicates default FTP configuration (1..30).
+					ML66: Updated description of all xf..ActiveFTP objects (1.3.6.1.4.1.193.81.2.8.3.x).
+				"
+			REVISION "201609011430Z"		-- Sept 1, 2016 at 14:30 GMT
+			DESCRIPTION
+				"BF
+				ETAMJUH
+					ML66: OSPF and OSPFv3 is not supported - updated description of OSPF-related objects.
+				"
+			REVISION "201608031530Z"		-- Aug 3, 2016 at 15:30 GMT
+			DESCRIPTION
+				"BE
+				ETAMJUH
+					ML66: DcnHost is linked to the DCN Ethernet interface - updated description of xfDcnHostAddress, xfDcnHostSubnetMask, xfDcnIPv6HostAddress, xfDcnIPv6HostPrefixLength.
+					ML66: Loopback interface is not supported - updated description of xfDcnLoopbackAddress, xfDcnLoopbackSubnetMask, xfDcnIPv6LoopbackAddress, xfDcnIPv6LoopbackPrefixLength.
+					ML66: PPP is not supported - updated description of xfDcnPppConfigEntry and xfDcnIPv6PppConfigEntry and all sub-objects.
+					ML66: Default value of xfDcnEthernetPort is vlan(3), and this object is read-only - updated description.
+				"
+			REVISION "201603211530Z"		-- Mar 21, 2016 at 15:30 GMT
+			DESCRIPTION
+				"BD
+				ETAMJUH
+					Fixed description of xfDcnHostAddress and xfDcnHostSubnetMask (Host on L3 VLAN interface).
+					Fixed typo in description of xfDcnIPv6PppConfigNumbered.
+				"
+			REVISION "201506101747Z"		-- June 10, 2015 at 17:47 GMT
+			DESCRIPTION
+				"BC
+				XGAROBE
+					Added xfDcnFTPConfigWriteReserved (1.3.6.1.4.1.193.81.2.8.3.11.1.12) in order to fix TR HT50134
+				"
+			REVISION "201506011600Z"		-- June 01, 2015 at 16:00 GMT
+			DESCRIPTION
+				"BB
+				ETAMJUH
+					Fixed description of xfDcnEthernetConfigRxTx and xfDcnIPv6EthernetConfigRxTx.
+				"
+			REVISION "201412181400Z"		-- Dec 18, 2014 at 14:00 GMT
+			DESCRIPTION
+				"BA
+				ETAMJUH
+					Fixed naming of xfDcnEthernetAlarmStatus to xfDcnEthernetConfigAlarmStatus.
+					Fixed naming of xfDcnIPv6EthernetAlarmStatus to xfDcnIPv6EthernetConfigAlarmStatus.
+				"
+			REVISION "201411121700Z"		-- Nov 12, 2014 at 17:00 GMT
+			DESCRIPTION
+				"AZ
+				ETAMJUH
+					Modified naming of xfDcnSubnetMask to xfDcnHostSubnetMask, changed description.
+					Added xfDcnUsbAddress (1.3.6.1.4.1.193.81.2.8.2.7).
+					Added xfDcnUsbSubnetMask (1.3.6.1.4.1.193.81.2.8.2.8).
+					Added xfDcnLoopbackAddress (1.3.6.1.4.1.193.81.2.8.2.9).
+					Added xfDcnLoopbackSubnetMask (1.3.6.1.4.1.193.81.2.8.2.10).
+					Added xfDcnIPv6LoopbackAddress (1.3.6.1.4.1.193.81.2.8.12.8).
+					Added xfDcnIPv6LoopbackPrefixLength (1.3.6.1.4.1.193.81.2.8.12.9).
+					Updated description of xfDcnHostAddress and xfDcnHostSubnetMask.
+					Changed description of xfDcnIPv6HostAddress and xfDcnIPv6HostPrefixLength.
+					Changed description of xfDcnIPv6UsbAddress and xfDcnIPv6UsbPrefixLength.
+					Obsoleted xfDcnEthernetConfigLock and xfDcnIPv6EthernetConfigLock.
+					Only users with administrative rights can modify xfDcnHostSubnetMask, xfDcnLoopbackSubnetMask, xfDcnIPv6HostPrefixLength, xfDcnIPv6LoopbackPrefixLength.
+					Fixed description of xfDcnIPv6OSPFConfigTable and its columns.
+					Fixed naming of xfDCNEthernetPort to xfDcnEthernetPort.
+					Fixed naming of xfDCNConformance to xfDcnConformance.
+					Fixed naming of xfDCNCompliances to xfDcnCompliances.
+					Fixed naming of xfDCNFullCompliance to xfDcnFullCompliance.
+					Fixed naming of xfDCNR2FullCompliance to xfDcnR2FullCompliance.
+					Fixed naming of xfDCNGroup to xfDcnGroup.
+					Fixed naming of xfDCNGroups to xfDcnGroups.
+					Moved new items from xfDcnGroup to xfDcnR2Group. Arranged order.
+				"
+			REVISION "201411121600Z"		-- Nov 12, 2014 at 16:00 GMT
+			DESCRIPTION
+				"AY
+				ETAMJUH
+					Extended xfDcnFTPConfigCheckConnectivityStatus with
+					FTP error values ftpFileBusy(450), ftpInsufficientStorageSpace(452),
+					ftpFileUnavailable(550), ftpRequestedActionAborted(551),
+					ftpExceededStorageAllocation(552), ftpFileNameNotAllowed(553).
+					Extended xfDcnFTPDirectoryUpdateStatus with
+					FTP error values ftpFileBusy(450), ftpInsufficientStorageSpace(452),
+					ftpFileUnavailable(550), ftpRequestedActionAborted(551),
+					ftpExceededStorageAllocation(552), ftpFileNameNotAllowed(553).
+				"
+			REVISION "201409021600Z"		-- Sept 2, 2014 at 16:00 GMT
+			DESCRIPTION
+				"AX
+				ETAMJUH
+					HS44145 - Extended xfDcnFTPConfigCheckConnectivityStatus with generic
+					FTP error values, ftpError4xx and ftpError5xx.
+				"
+			REVISION "201407221600Z"		-- July 22, 2014 at 16:00 GMT
+			DESCRIPTION
+				"AW
+				EVIKTIS
+					HS76416 - xfDcnDomainName and xfDcnIPv6DomainName length changed.
+				"
+			REVISION "201403191600Z"		-- March 19, 2014 at 16:00 GMT
+			DESCRIPTION
+				"AV
+				EIVNFEH
+					Access value of xfDcnIPv6ipAddressRowStatus changed to read-create.
+					The xfDownloadNTPKeyActiveFTP object added to xfDcnGroup group.
+					The xfDcnEthernetConfigLock object added to xfDcnR2Group group.
+				"
+			REVISION "201403031300Z"		-- March 3, 2014 at 13:00 GMT
+			DESCRIPTION
+				"AU
+				ETAMJUH
+					Fixed description of xfDcnIPv6EthernetConfigTable.
+					Fixed some typo errors.
+				"
+			REVISION "201402281600Z"		-- Febr 28, 2014 at 16:00 GMT
+			DESCRIPTION
+				"AT
+				EIVNFEH
+					IpAddressOriginTC, IpAddressStatusTC imported from IP-MIB
+				"
+			REVISION "201402251500Z"		-- Febr 25, 2014 at 15:00 GMT
+			DESCRIPTION
+				"AS
+				ETAMJUH
+					Fixed names of xfDcnIPv6ipAddressTable objects, added missing prefix 'xfDcnIPv6'
+				"
+			REVISION "201402241500Z"		-- Febr 24, 2014 at 15:00 GMT
+			DESCRIPTION
+				"AR
+				EIVNFEH, ETAMJUH
+					Added new object: xfDcnIPv6Ethernet
+					Fixed naming: xfDcnEthernetConfigLock (previously xfDcnPppConfigLock) (1.3.6.1.4.1.193.81.2.8.9.1.1.3)
+					Removed object: xfDcnIPv6EthernetAddress (1.3.6.1.4.1.193.81.2.8.12.8), OID not reserved!
+					Removed object: xfDcnIPv6EthernetPrefixLength (1.3.6.1.4.1.193.81.2.8.12.9), OID not reserved!
+				"
+			REVISION "201402121600Z"		-- Feb 12, 2014 at 16:00 GMT
+			DESCRIPTION
+				"AP
+				    Added xfDownloadNTPKeyActiveFTP object"
+			REVISION "201310241350Z"		-- Okt 24, 2013 at 13:50 GMT
+			DESCRIPTION
+				"AO
+				ETAMJUH
+					Changed xfDcnIPv6ipAddressTable, removed ipAddressPrefix, added ipAddressPrefixPrefix and ipAddressPrefixLength.
+					See description of xfDcnIPv6ipAddressTable.
+				"
+			REVISION "201310181645Z"		-- Okt 18, 2013 at 16:45 GMT
+			DESCRIPTION
+				"AN
+				ETAMJUH
+					Changed index of xfDcnIPv6ipAddressTable, address type should be the first index.
+				"
+			REVISION "201310151345Z"		-- Okt 15, 2013 at 13:45 GMT
+			DESCRIPTION
+				"AM
+				ETAMJUH
+					Added new object: xfDcnIPv6ip
+					Added new object: xfDcnIPv6ip.xfDcnIPv6ipAddressTable
+					Minor fixes.
+				"
+			REVISION "201310041800Z"		-- October 04, 2013 at 18:00 GMT
+			DESCRIPTION
+				"AL
+					Include PhysAddress from SNMPv2-TC.
+					Use Counter32 and Gauge32 object types from SNMPv2-SMI.
+				"
+			REVISION "201309120800Z"		-- September 12, 2013 at 08:00 GMT
+			DESCRIPTION
+				"AK
+					Added new object: xfDcnIPv6OSPFRouterIDMode
+					Added new object: xfDcnIPv6OSPFRouterID
+				"
+			REVISION "201309060800Z"		-- September 06, 2013 at 08:00 GMT
+			DESCRIPTION
+				"AJ
+					Added new object: xfDcnIPv6tcp
+					Added new object: xfDcnIPv6udp
+				"
+			REVISION "201309051400Z"		-- September 05, 2013 at 14:00 GMT
+			DESCRIPTION
+				"AI
+					Added new object: xfDcnIPv6mib-2
+				"
+			REVISION "201307031600Z"		-- July 03, 2013 at 16:00 GMT
+			DESCRIPTION
+				"AH
+					Changed definition for textual convention XFIpAddressOrName
+				"
+			REVISION "201305281600Z"		-- May 28, 2013 at 16:00 GMT
+			DESCRIPTION
+				"AG
+					Added new object: xfDcnIPv6EthernetAddress: 1.3.6.1.4.1.193.81.2.8.12.8
+					Added new object: xfDcnIPv6EthernetPrefixLength: 1.3.6.1.4.1.193.81.2.8.12.9
+				"
+			REVISION "201305141600Z"		-- May 14, 2013 at 16:00 GMT
+			DESCRIPTION
+				"AE
+					Added new object: xfDcnIPv6PppLinkUpDownTrapEnable: 1.3.6.1.4.1.193.81.2.8.14.1.1.4
+				"
+			REVISION "201305081200Z"		-- May 08, 2013 at 12:00 GMT
+			DESCRIPTION
+				"AD
+					Added new object: xfDcnIPv6UsbAddress: 1.3.6.1.4.1.193.81.2.8.12.6
+					Added new object: xfDcnIPv6UsbPrefixLength: 1.3.6.1.4.1.193.81.2.8.12.7
+					Changed xfDcnIPv6PrefixLength to xfDcnIPv6HostPrefixLength
+				"
+			REVISION "201305021300Z"		-- May 02, 2013 at 11:00 GMT
+			DESCRIPTION
+				"AC
+					Added new object: xfDcnIPv6DHCPRelay: 1.3.6.1.4.1.193.81.2.8.15
+				"
+			REVISION "201304241300Z"		-- April 24, 2013 at 13:00 GMT
+			DESCRIPTION
+				"AB
+					Changed xfDcnIPv6SubnetMask to xfDcnIPv6PrefixLength
+				"
+			REVISION "201303261300Z"		-- March 26, 2013 at 13:00 GMT
+			DESCRIPTION
+				"AA
+					Added new object: xfDcnIPv6OSPF: 1.3.6.1.4.1.193.81.2.8.11 (xfDcnMIB 11}
+					Added new object: xfDcnIPv6Host: 1.3.6.1.4.1.193.81.2.8.12 {xfDcnMIB 12}
+					Added new object: xfDcnIPv6DNSServer: 1.3.6.1.4.1.193.81.2.8.13 {xfDcnMIB 13}
+					Added new object: xfDcnIPv6Ppp: 1.3.6.1.4.1.193.81.2.8.14 xfDcnMIB 14
+				"
+			REVISION "201212011500Z"		-- December 01, 2012 at 15:00 GMT
+			DESCRIPTION
+				"PZ1  Added new values xfViewFileIntegrityActiveFTP,xfUploadFileIntegrityActiveFTP to xfDcnFTP"
+
+			REVISION "201203181500Z"		-- March 21, 2012 at 15:00 GMT
+			DESCRIPTION
+				"V  Added new value to xfDcnFTPVersion , xfDcnSFTP(3).
+				    Added xfDcnFTPConfigProtocol to xfDcnFTPConfigTable."
+			REVISION "201109281500Z"		-- September 28, 2011 at 15:00 GMT
+			DESCRIPTION
+				"U  Added new value to xfDcnFTPActive, ftpConfigTable(3).
+				    Removed unwanted space in DEFVAL for passwords"
+			REVISION "201109051500Z"		-- September 05, 2011 at 15:00 GMT
+			DESCRIPTION
+				"T Changed type for xfDcnFTPConfigAddress to XFIpAddressOrName
+				and corrected oid comments"
+			REVISION "201108311000Z"		-- August 31, 2011 at 10:00 GMT
+			DESCRIPTION
+				"S Added new FTP handling:
+				xfDcnFTPVersion,
+				xfDcnFTPConfigTable,
+				ActiveFTP,
+				xfDcnFTPDirectory,
+				xfDcnFTPDirectoryTable
+				Changed old FTP handling to deprecated:
+				xfDcnFTPAddress1
+				xfDcnFTPUserName1
+				xfDcnFTPPassword1
+				xfDcnFTPAddress2
+				xfDcnFTPUserName2
+				xfDcnFTPPassword2
+				xfDcnFTPActive
+				xfDcnFTPEncryptedPwd1
+				xfDcnFTPEncryptedPwd2"
+			REVISION "200905131000Z"		-- May 13, 2009 at 10:00 GMT
+			DESCRIPTION
+				"N Added xfDcnEthernetAlarmStatus"
+			REVISION "200808151155Z"		-- August 15, 2008 at 11:55 GMT
+			DESCRIPTION
+				"M added xfDcnEthernetPort"
+			REVISION "200704121011Z"		-- April 12, 2007 at 10:11 GMT
+			DESCRIPTION
+				"K added xfDcnFTPEncryptedPwd1 and 2"
+			REVISION "200610111420Z"		-- October 11, 2006 at 14:20 GMT
+			DESCRIPTION
+				"J added xfDcnEthernetConfigPort"
+			REVISION "200508261224Z"		-- August 26, 2005 at 12:24 GMT
+			DESCRIPTION
+				"H added manualSwitched to ethernet
+				    need to add descritption"
+			REVISION "200501051341Z"		-- January 05, 2005 at 13:41 GMT
+			DESCRIPTION
+				"G added default values for
+					FTP server addresses."
+			REVISION "200410061409Z"		-- October 06, 2004 at 14:09 GMT
+			DESCRIPTION
+				"F changed range for XFIpAddressOrName to one range 0..80
+					default value for xfDcnOSPFAreaType changed to 'stubArea'"
+			REVISION "200405071257Z"		-- May 07, 2004 at 12:57 GMT
+			DESCRIPTION
+				"E Added xfDcnOSPFAreaConfigTable
+					Obsoleted xfDcnOSPFAreaId and xfDcnOSPFEnable."
+			REVISION "200401221517Z"		-- January 22, 2004 at 15:17 GMT
+			DESCRIPTION
+				"D added xfDcnPppTable, the xfDcnOSPFConfigTable and the xfDcnEthernetConfigTable"
+			REVISION "200306191222Z"		-- June 19, 2003 at 12:22 GMT
+			DESCRIPTION
+				"C
+					Changed xfDcnNTPStatus to BITs indicating severity and made xfDcnDomainName read-write
+					Added xfDcnNTPStatus
+					Added xfDcnDefaultGateway object
+				"
+			REVISION "200203080912Z"		-- March 08, 2002 at 09:12 GMT
+			DESCRIPTION
+				"B
+					Changed contact info
+					Changed description and length of the XfIpAddressorName
+					Textual Convention for XFIpAddressOrNAme
+					Added conformance
+					Added extra FTP server info
+				"
+			REVISION "200110101209Z"		-- October 10, 2001 at 12:09 GMT
+			DESCRIPTION
+				"A Initial Revision"
+			::= { xfPlatform 8 }
+
+--
+-- Textual conventions
+--
+
+		XFIpAddressOrName ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION
+				"This is a general type used for objects that can hold
+				either the IP Address of a service or a DNS name.
+				Length can be:
+				0      empty string (default)
+				7..15  IPv4 address e.g. 1.2.3.4 or 1.23.123.12
+				2..46  IPv6 address e.g. 2013::12ab:42.
+				1..80  A symbolic hostname."
+			SYNTAX OCTET STRING (SIZE (0..80))
+
+--
+-- Node definitions
+--
+
+		-- 1.3.6.1.4.1.193.81.2.8.1
+		xfDcnOSPF OBJECT IDENTIFIER ::= { xfDcnMIB 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.1.1
+		xfDcnOSPFEnable OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				ospfEnabled(1),
+				ospfDisabled(2)
+				}
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Indicates whether routing is enabled.
+				
+				ML-TN/CN/LH: This object has become obsolete. Use the
+				xfDcnOSPFConfigTable and xfDcnOSPFAreaConfigTable
+				instead.
+				
+				ML66: This object is not supported."
+			DEFVAL { ospfEnabled }
+			::= { xfDcnOSPF 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.1.2
+		xfDcnOSPFAreaId OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Indicates the OSPF area for this XF NE.
+				
+				ML-TN/CN/LH: This object has become obsolete. Use the
+				xfDcnOSPFConfigTable and xfDcnOSPFAreaConfigTable instead.
+				
+				ML66: This object is not supported."
+			::= { xfDcnOSPF 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.1.3
+		xfDcnOSPFConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfDcnOSPFConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table is used to add OSPF areas. If an interface
+				has an IP address that is not part of one of the sub-nets
+				in this table it will not be OSPF routed."
+			::= { xfDcnOSPF 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.1.3.1
+		xfDcnOSPFConfigEntry OBJECT-TYPE
+			SYNTAX XfDcnOSPFConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table."
+			INDEX { xfDcnOSPFConfigIpAddr, xfDcnOSPFConfigSubNetMask }
+			::= { xfDcnOSPFConfigTable 1 }
+
+		XfDcnOSPFConfigEntry ::=
+			SEQUENCE {
+				xfDcnOSPFConfigIpAddr
+					IpAddress,
+				xfDcnOSPFConfigSubNetMask
+					IpAddress,
+				xfDcnOSPFConfigAreaId
+					IpAddress,
+				xfDcnOSPFConfigRowStatus
+					RowStatus
+			 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.1.3.1.1
+		xfDcnOSPFConfigIpAddr OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This object indicates the IP address of the sub-net
+				assigned to the xfDcnOSPFConfigAreaId."
+			::= { xfDcnOSPFConfigEntry 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.1.3.1.2
+		xfDcnOSPFConfigSubNetMask OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This object indicates the subnet mask of the sub-net
+				assigned to the xfDcnOSPFConfigAreaId."
+			::= { xfDcnOSPFConfigEntry 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.1.3.1.3
+		xfDcnOSPFConfigAreaId OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-create
+			STATUS current
+			DESCRIPTION
+				"Indicates the OSPF area for this sub-net in dotted format."
+			::= { xfDcnOSPFConfigEntry 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.1.3.1.4
+		xfDcnOSPFConfigRowStatus OBJECT-TYPE
+			SYNTAX RowStatus
+			MAX-ACCESS read-create
+			STATUS current
+			DESCRIPTION
+				"This object is used to create, modify and destroy
+				rows in this table."
+			::= { xfDcnOSPFConfigEntry 4 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.1.4
+		xfDcnOSPFAreaConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfDcnOSPFAreaConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table is used to add OSPF area parameters.
+				Used to indicate whether the area is a stub area
+				or not. An ABR router can also use the no-summary
+				parameter on a stub area."
+			::= { xfDcnOSPF 4 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.1.4.1
+		xfDcnOSPFAreaConfigEntry OBJECT-TYPE
+			SYNTAX XfDcnOSPFAreaConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table."
+			INDEX { xfDcnOSPFAreaConfigId }
+			::= { xfDcnOSPFAreaConfigTable 1 }
+
+		XfDcnOSPFAreaConfigEntry ::=
+			SEQUENCE {
+				xfDcnOSPFAreaConfigId
+					IpAddress,
+				xfDcnOSPFAreaType
+					INTEGER,
+				xfDcnOSPFAreaConfigRowStatus
+					RowStatus
+			 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.1.4.1.1
+		xfDcnOSPFAreaConfigId OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Indicates the OSPF area identifier."
+			::= { xfDcnOSPFAreaConfigEntry 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.1.4.1.2
+		xfDcnOSPFAreaType OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				stubArea(1),
+				totallyStubbyArea(2),
+				notSoStubbyArea(3)
+				}
+			MAX-ACCESS read-create
+			STATUS current
+			DESCRIPTION
+				"This object indicates the type of an OSPF stub area.
+				Default is stubArea(1)."
+			DEFVAL { stubArea }
+			::= { xfDcnOSPFAreaConfigEntry 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.1.4.1.3
+		xfDcnOSPFAreaConfigRowStatus OBJECT-TYPE
+			SYNTAX RowStatus
+			MAX-ACCESS read-create
+			STATUS current
+			DESCRIPTION
+				"This object is used to create, modify and destroy
+				rows in this table."
+			::= { xfDcnOSPFAreaConfigEntry 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.2
+		xfDcnHost OBJECT IDENTIFIER ::= { xfDcnMIB 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.2.1
+		xfDcnDomainName OBJECT-TYPE
+			SYNTAX DisplayString (SIZE (0..253))
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates domain name of the XF NE set by the operator.
+				
+				ML66: Setting an empty string will set domain name to default."
+			REFERENCE
+				"RFC1035, section 2.3.1 Preferred name syntax."
+			::= { xfDcnHost 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.2.2
+		xfDcnHostName OBJECT-TYPE
+			SYNTAX DisplayString
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Indicates host name of the XF NE. The value of this object
+				is the same as the sysName."
+			::= { xfDcnHost 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.2.3
+		xfDcnHostAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates Host IP address of the XF NE.
+				
+				ML-TN/CN/LH:
+				
+				Dynamically linked to the address of the following interfaces:
+				(in order of precedence)
+				
+				 - Loopback interface address, if it is set to a non-default value
+				 - DCN Ethernet interface address, if it is set to a non-default value
+				 - L3 VLAN interface address, with the lowest VLAN ID, having an IP address defined
+				 - DCN Ethernet interface address, if it is default
+				
+				ML66:
+				
+				In DCN Mode vlan(3) this object is dynamically linked to the address
+				of the following interfaces (in order of precedence):
+				
+				 - DCN Loopback interface address, if it is set to a non-default value
+				 - DCN Ethernet interface address
+				
+				In DCN Mode routed(4) this object is dynamically linked to the address
+				of the interface indicated by the object xfDcnHostInterface. This object
+				is read-only in this DCN Mode.
+				
+				See xfDcnEthernetPort."
+			::= { xfDcnHost 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.2.4
+		xfDcnHostSubnetMask OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates Host IP subnet mask of the XF NE.
+				
+				ML-TN/CN/LH:
+				
+				Dynamically linked to the subnet mask of the following interfaces:
+				(in order of precedence)
+				
+				- Loopback interface subnet mask, if its address is set to a non-default value
+				- DCN Ethernet interface subnet mask, if its address is set to a non-default value
+				- L3 VLAN interface subnet mask, with the lowest VLAN ID, having an IP address defined
+				- DCN Ethernet interface subnet mask, if its address is default
+				
+				When linked to the Loopback interface subnet mask,
+				only users with administrative rights can modify this object.
+				
+				ML66:
+				
+				In DCN Mode vlan(3) this object is dynamically linked to the subnet mask
+				of the following interfaces (in order of precedence):
+				
+				 - DCN Loopback interface subnet mask, if its address is set to a non-default value
+				 - DCN Ethernet interface subnet mask
+				
+				In DCN Mode routed(4) this object is dynamically linked to the subnet mask
+				of the interface indicated by the object xfDcnHostInterface. This object
+				is read-only in this DCN Mode.
+				
+				See xfDcnEthernetPort."
+			::= { xfDcnHost 4 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.2.5
+		xfDcnDefaultGateway OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object specifies the default gateway for this node.
+				
+				ML66: This object is effective in DCN Mode vlan(3) only."
+			DEFVAL { '00000000'h }
+			::= { xfDcnHost 5 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.2.6
+		xfDcnEthernetPort OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				disabled(1),
+				frontConnector(2),
+				vlan(3),
+				routed(4)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Used to set the source of the SITE-LAN / LAN-DCN interface (DCN Mode).
+				
+				disabled(1)       : disable SITE-LAN interface
+				frontConnector(2) : SITE-LAN interface is connected to the front port
+				vlan(3)           : SITE-LAN / LAN-DCN interface is connected to the bridge
+				routed(4)         : LAN-DCN interface is connected to the router
+				
+				ML-TN/CN/LH: Default is frontConnector(2), routed(4) is not supported.
+				ML66: Default is vlan(3), routed(4) is the only other option."
+			::= { xfDcnHost 6 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.2.7
+		xfDcnUsbAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"IP address of the Local Access (USB) interface."
+			::= { xfDcnHost 7 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.2.8
+		xfDcnUsbSubnetMask OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"IP subnet mask of the Local Access (USB) interface."
+			::= { xfDcnHost 8 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.2.9
+		xfDcnLoopbackAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"IP address of the DCN Loopback interface."
+			::= { xfDcnHost 9 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.2.10
+		xfDcnLoopbackSubnetMask OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"IP subnet mask of the DCN Loopback interface.
+				
+				Only users with administrative rights can modify this object.
+				
+				ML66: The only accepted value is 255.255.255.255."
+			::= { xfDcnHost 10 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.2.11
+		xfDcnHostDscp OBJECT-TYPE
+			SYNTAX Integer32 (0..63)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"DSCP value for all IPv4 DCN services.
+				
+				Default value is 0 (best-effort forwarding).
+				
+				ML-TN/CN/LH: This object is not supported.
+				"
+			::= { xfDcnHost 11 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.2.12
+		xfDcnHostInterface OBJECT-TYPE
+			SYNTAX InterfaceIndexOrZero
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the IPv4 host interface xfDcnHostAddress and xfDcnHostSubnetMask
+				is currently linked to.
+				
+				This object is writable only in DCN Mode routed(4). The selected interface's
+				address will be used as source address in DCN communications initiated by the
+				network element. Setting 0 will set automatic selection of the host interface
+				by the NE in the following precedence:
+				
+				 - the Router Loopback interface if it has a valid IP address
+				 - the first L3 VLAN subinterface in the default VRF, having an IP address defined
+				 - the first PPP interface, having an IP address defined
+				
+				ML-TN/CN/LH: This object is not supported.
+				"
+			::= { xfDcnHost 12 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.2.13
+		xfDcnHostInterfaceRouted OBJECT-TYPE
+			SYNTAX InterfaceIndexOrZero
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the IPv4 host interface configured for DCN Mode routed.
+				
+				Setting of zero indicates automatic selection of the host interface.
+				For details see description of xfDcnHostInterface.
+				
+				ML-TN/CN/LH: This object is not supported.
+				"
+			::= { xfDcnHost 13 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3
+		xfDcnFTP OBJECT IDENTIFIER ::= { xfDcnMIB 3 }
+-- In installation mode the FTP server objects are not used.
+-- Instead the address 10.0.0.2 is used.
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.1
+		xfDcnFTPAddress1 OBJECT-TYPE
+			SYNTAX XFIpAddressOrName
+			MAX-ACCESS read-write
+			STATUS deprecated
+			DESCRIPTION
+				"Replaced by xfDcnFTPConfigTable.
+				
+				Holds the address to the first FTP server.
+				Default value is 10.0.0.2
+				
+				ML66: This object is not supported."
+			::= { xfDcnFTP 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.2
+		xfDcnFTPUserName1 OBJECT-TYPE
+			SYNTAX DisplayString
+			MAX-ACCESS read-write
+			STATUS deprecated
+			DESCRIPTION
+				"Username used to login to the first FTP server.
+				
+				ML-TN/CN/LH: Replaced by xfDcnFTPConfigTable.
+				ML66: This object is not supported."
+			DEFVAL { "anonymous" }
+			::= { xfDcnFTP 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.3
+		xfDcnFTPPassword1 OBJECT-TYPE
+			SYNTAX DisplayString
+			MAX-ACCESS read-write
+			STATUS deprecated
+			DESCRIPTION
+				"Password used to login to the first FTP server.
+				When read an empty string is returned.
+				
+				ML-TN/CN/LH: Replaced by xfDcnFTPConfigTable.
+				ML66: This object is not supported."
+			DEFVAL { "anonymous" }
+			::= { xfDcnFTP 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.4
+		xfDcnFTPAddress2 OBJECT-TYPE
+			SYNTAX XFIpAddressOrName
+			MAX-ACCESS read-write
+			STATUS deprecated
+			DESCRIPTION
+				"Holds the address to the second FTP server.
+				Default value is 10.0.0.2
+				
+				ML-TN/CN/LH: Replaced by xfDcnFTPConfigTable.
+				ML66: This object is not supported."
+			::= { xfDcnFTP 4 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.5
+		xfDcnFTPUserName2 OBJECT-TYPE
+			SYNTAX DisplayString
+			MAX-ACCESS read-write
+			STATUS deprecated
+			DESCRIPTION
+				"Username used to login to the second FTP server.
+				
+				ML-TN/CN/LH: Replaced by xfDcnFTPConfigTable.
+				ML66: This object is not supported."
+			DEFVAL { "anonymous" }
+			::= { xfDcnFTP 5 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.6
+		xfDcnFTPPassword2 OBJECT-TYPE
+			SYNTAX DisplayString
+			MAX-ACCESS read-write
+			STATUS deprecated
+			DESCRIPTION
+				"Password used to login to the second FTP server.
+				When read an empty string is returned.
+				
+				ML-TN/CN/LH: Replaced by xfDcnFTPConfigTable.
+				ML66: This object is not supported."
+			DEFVAL { "anonymous" }
+			::= { xfDcnFTP 6 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.7
+		xfDcnFTPActive OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS deprecated
+			DESCRIPTION
+				"ML-TN/CN/LH:
+					
+					Indicates which FTP object is used (as default).
+					
+					Deprecated - Replaced by individual MOs for each service using FTP(*ActiveFTP)
+					
+					Shall not be used any more, use new way for FTP handling.
+					
+					Valid values:
+					ftp1(1)            : FTP1 is active
+					ftp2(2)            : FTP2 is active
+					ftpConfigTable(3)  : Active FTP:s are handled via individual MO:s for
+					                     each service and is mapped into xfDcnFTPConfigTable.
+					                     Note: Changing value from ftpConfigTable(3) will change
+					                     the values on the *ActiveFTP for all services to point to
+					                     the new value (ftp1 or ftp2).
+					
+				ML66:
+					
+					Index of the specific FTP configuration entry (1..30) to be used as default.
+					
+					Active FTP:s are handled via individual MO:s for each service.
+					For a service not having a dedicated MO, this value is used.
+					
+					Note: If written, it will change the values on the *ActiveFTP for all services
+					to point to this default FTP configuration entry.
+				"
+			DEFVAL { 1 }
+			::= { xfDcnFTP 7 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.8
+		xfDcnFTPEncryptedPwd1 OBJECT-TYPE
+			SYNTAX DisplayString
+			MAX-ACCESS read-only
+			STATUS deprecated
+			DESCRIPTION
+				"This object contains an encrypted version of the FTP password for
+				FTP server 1. This objects can be used, if encryption is known, to
+				contact the FTP server from an external Element Manager.
+				
+				ML-TN/CN/LH: Replaced by xfDcnFTPConfigTable.
+				ML66: This object is not supported."
+			::= { xfDcnFTP 8 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.9
+		xfDcnFTPEncryptedPwd2 OBJECT-TYPE
+			SYNTAX DisplayString
+			MAX-ACCESS read-only
+			STATUS deprecated
+			DESCRIPTION
+				"This object contains an encrypted version of the FTP password for
+				FTP server 2. This objects can be used, if encryption is known, to
+				contact the FTP server from an external Element Manager.
+				
+				ML-TN/CN/LH: Replaced by xfDcnFTPConfigTable.
+				ML66: This object is not supported."
+			::= { xfDcnFTP 9 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.10
+		xfDcnFTPVersion OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				xfDcnFTP(1),
+				xfDcnFTPConfigTable(2),
+				xfDcnSFTP(3)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"If not readable, it shall be according to xfDcnFTP(1)
+				
+				Valid values:
+				xfDcnFTP(1):            The old attributes are used;
+				                        xfDcnFTPAddress1, xfDcnFTPUserName1, xfDcnFTPPassword1, xfDcnFTPEncryptedPwd1, 
+				                        xfDcnFTPAddress2, xfDcnFTPUserName2, xfDcnFTPPassword2, xfDcnFTPEncryptedPwd2.
+				
+				xfDcnFTPConfigTable(2): The xfDcnFTPConfigTable is used.
+				
+				xfDcnSFTP(3):           Same as xfDcnFTPConfigTable(2), but added selection of xfDcnFTPConfigProtocol ftp(1)/sftp(2)"
+			::= { xfDcnFTP 10 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.11
+		xfDcnFTPConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfDcnFTPConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table is used to store up to 30 FTP configurations"
+			::= { xfDcnFTP 11 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.11.1
+		xfDcnFTPConfigEntry OBJECT-TYPE
+			SYNTAX XfDcnFTPConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+					"Entry in the table."
+			INDEX { xfDcnFTPConfigIndex }
+			::= { xfDcnFTPConfigTable 1 }
+
+			XfDcnFTPConfigEntry ::=
+			SEQUENCE {
+				xfDcnFTPConfigIndex
+					Integer32,
+				xfDcnFTPConfigRowStatus
+					INTEGER,
+				xfDcnFTPConfigAddress
+					XFIpAddressOrName,
+				xfDcnFTPConfigAlias
+					DisplayString,
+				xfDcnFTPConfigTCPPort
+					DisplayString,
+				xfDcnFTPConfigUser
+					DisplayString,
+				xfDcnFTPConfigPassword
+					DisplayString,
+				xfDcnFTPConfigEncryptedPwd
+					DisplayString,
+				xfDcnFTPConfigCheckConnectivityCommand
+					INTEGER,
+				xfDcnFTPConfigCheckConnectivityStatus
+					INTEGER,
+				xfDcnFTPConfigProtocol
+					INTEGER,
+				xfDcnFTPConfigWriteReserved
+					INTEGER
+			}
+
+			-- 1.3.6.1.4.1.193.81.2.8.3.11.1.1
+		xfDcnFTPConfigIndex OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"An index of a specific FTP configuration entry.
+				
+				Index 1 and 2 is used for the default FTP configurations,
+					these cannot be deleted or renamed.
+				Index 3-30 is free for new FTP configuration entries."
+			::= { xfDcnFTPConfigEntry 1 }
+
+			-- 1.3.6.1.4.1.193.81.2.8.3.11.1.2
+		xfDcnFTPConfigRowStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				active(1),
+				notInService(2),
+				notReady(3),
+				createAndGo(4),
+				createAndWait(5),
+				destroy(6)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Used to manage creation and deletion of conceptual rows."
+			DEFVAL { active }
+			::= { xfDcnFTPConfigEntry 2 }
+
+			-- 1.3.6.1.4.1.193.81.2.8.3.11.1.3
+			xfDcnFTPConfigAddress OBJECT-TYPE
+			SYNTAX XFIpAddressOrName
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"FTP server IP/hostname address"
+			::= { xfDcnFTPConfigEntry 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.11.1.4
+		xfDcnFTPConfigAlias OBJECT-TYPE
+			SYNTAX DisplayString
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"FTP configuration alias to help user to identify server configuration by name."
+			::= { xfDcnFTPConfigEntry 4 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.11.1.5
+		xfDcnFTPConfigTCPPort OBJECT-TYPE
+			SYNTAX DisplayString
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"FTP server TCP port."
+			::= { xfDcnFTPConfigEntry 5 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.11.1.6
+		xfDcnFTPConfigUser OBJECT-TYPE
+			SYNTAX DisplayString
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"FTP account user name."
+			DEFVAL { "anonymous" }
+			::= { xfDcnFTPConfigEntry 6 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.11.1.7
+		xfDcnFTPConfigPassword OBJECT-TYPE
+			SYNTAX DisplayString
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Password used to login to the FTP server.
+				When read an empty string is returned."
+			DEFVAL { "anonymous" }
+			::= { xfDcnFTPConfigEntry 7 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.11.1.8
+		xfDcnFTPConfigEncryptedPwd OBJECT-TYPE
+			SYNTAX DisplayString
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Encrypted version of the FTP password."
+			::= { xfDcnFTPConfigEntry 8 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.11.1.9
+		xfDcnFTPConfigCheckConnectivityCommand OBJECT-TYPE
+			SYNTAX INTEGER
+			    {
+				checkAbort(0),
+				checkRun(1)
+			    }
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Initiating FTP connectivity test. See
+				xfDcnFTPConfigCheckConnectivityStatus for status."
+			::= { xfDcnFTPConfigEntry 9 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.11.1.10
+		xfDcnFTPConfigCheckConnectivityStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				checkRunning(1),
+				checkOK(2),
+				checkAborted(3),
+				errorInternalError(50),
+				errorFileStorage(51),
+				ftpPingFailed(52),
+				ftpNoAccess(53),
+				ftpConnectionDetailsMissing(54),
+				ftpConnectionDetailsInvalid(55),
+				ftpConnectionTimeout(56),
+				ftpError4xx(400),
+				ftpServiceNotAvailable(421),
+				ftpUnableToOpenDataConnection(425),
+				ftpConnectionClosed(426),
+				ftpFileBusy(450),
+				ftpLocalError(451),
+				ftpInsufficientStorageSpace(452),
+				ftpError5xx(500),
+				ftpSyntaxError(501),
+				ftpCommandNotImplemented(502),
+				ftpBadSequenceCommands(503),
+				ftpParameterNotImplemented(504),
+				ftpNotLoggedIn(530),
+				ftpNeedAccount(532),
+				ftpFileUnavailable(550),
+				ftpRequestedActionAborted(551),
+				ftpExceededStorageAllocation(552),
+				ftpFileNameNotAllowed(553)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Status for xfDcnFTPConfigCheckConnectivityCommand."
+			::= { xfDcnFTPConfigEntry 10 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.11.1.11
+		xfDcnFTPConfigProtocol OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				ftp(1),
+				sftp(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object specifies the used FTP server protocol.
+				
+				Default is sftp(2)."
+			::= { xfDcnFTPConfigEntry 11 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.11.1.12
+		xfDcnFTPConfigWriteReserved OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				reservedToAdmin(1),
+				nonReserved(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object specifies if writing to FTP server is reserved to Admin users.
+				
+				Default is nonReserved(2)."
+			::= { xfDcnFTPConfigEntry 12 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.12
+		xfConfigSaveBackUpActiveFTP OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				Will be updated with the value of xfDcnFTPActive when the specific entry is deleted.
+				
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+			::= { xfDcnFTP 12 }
+
+ 		-- 1.3.6.1.4.1.193.81.2.8.3.13
+		xfSwUpgradeActiveFTP OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				Will be updated with the value of xfDcnFTPActive when the specific entry is deleted.
+				
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+			::= { xfDcnFTP 13 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.14
+		xfConfigLoadActiveFTP OBJECT-TYPE
+		SYNTAX Integer32 (1..30)
+		MAX-ACCESS read-write
+		STATUS current
+		DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				Will be updated with the value of xfDcnFTPActive when the specific entry is deleted.
+				
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+		::= { xfDcnFTP 14 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.15
+		xfNEErrorLogActiveFTP OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				Will be updated with the value of xfDcnFTPActive when the specific entry is deleted.
+				
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+			::= { xfDcnFTP 15 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.16
+		xfNEDiagLogActiveFTP OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				Will be updated with the value of xfDcnFTPActive when the specific entry is deleted.
+				
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+			::= { xfDcnFTP 16 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.17
+		xfLicenseInstallActiveFTP OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				Will be updated with the value of xfDcnFTPActive when the specific entry is deleted.
+				
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+			::= { xfDcnFTP 17 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.18
+		xfLicenseReportActiveFTP OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				Will be updated with the value of xfDcnFTPActive when the specific entry is deleted.
+				
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+			::= { xfDcnFTP 18 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.19
+		xfNEPmActiveFTP OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				Will be updated with the value of xfDcnFTPActive when the specific entry is deleted.
+				
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+			::= { xfDcnFTP 19 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.20
+		xfAuditLogActiveFTP OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				Will be updated with the value of xfDcnFTPActive when the specific entry is deleted.
+				
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+			::= { xfDcnFTP 20 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.21
+		xfConfigReportActiveFTP OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				Will be updated with the value of xfDcnFTPActive when the specific entry is deleted.
+				
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+			::= { xfDcnFTP 21 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.22
+		xfDcnFTPDirectoryPath OBJECT-TYPE
+			SYNTAX DisplayString
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object contains the path of the directory listed in xfDcnFTPDirectoryTable."
+			::= { xfDcnFTP 22 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.23
+		xfDcnFTPDirectoryServer OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				This object specifies the FTP configuration, xfDcnFTPConfigIndex, used for listing files in the xfDcnFTPDirectoryTable."
+			::= { xfDcnFTP 23 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.24
+		xfDcnFTPDirectoryUpdateCommand OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				refreshAbort(0),
+				refreshRun(1)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Initiates or aborts refresh of xfDcnFTPDirectoryTable.
+				See xfDcnFTPDirectoryUpdateStatus for status."
+			::= { xfDcnFTP 24 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.25
+		xfDcnFTPDirectoryUpdateStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				refreshRunning(1),
+				refreshOK(2),
+				refreshAborted(3),
+				errorInternalError(50),
+				errorFileStorage(51),
+				ftpPingFailed(52),
+				ftpNoAccess(53),
+				ftpConnectionDetailsMissing(54),
+				ftpConnectionDetailsInvalid(55),
+				ftpConnectionTimeout(56),
+				ftpServiceNotAvailable(421),
+				ftpUnableToOpenDataConnection(425),
+				ftpConnectionClosed(426),
+				ftpFileBusy(450),
+				ftpLocalError(451),
+				ftpInsufficientStorageSpace(452),
+				ftpSyntaxError(501),
+				ftpCommandNotImplemented(502),
+				ftpBadSequenceCommands(503),
+				ftpParameterNotImplemented(504),
+				ftpNotLoggedIn(530),
+				ftpNeedAccount(532),
+				ftpFileUnavailable(550),
+				ftpRequestedActionAborted(551),
+				ftpExceededStorageAllocation(552),
+				ftpFileNameNotAllowed(553)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Status for xfDcnFTPDirectoryUpdateCommand."
+			::= { xfDcnFTP 25 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.26
+		xfDcnFTPDirectoryTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfDcnFTPDirectoryEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table is used to store file names in directory specified by xfDcnFTPDirectory."
+			::= { xfDcnFTP 26 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.26.1
+		xfDcnFTPDirectoryEntry OBJECT-TYPE
+			SYNTAX XfDcnFTPDirectoryEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table."
+			INDEX { xfDcnFTPDirectoryIndex }
+			::= { xfDcnFTPDirectoryTable 1 }
+
+		XfDcnFTPDirectoryEntry ::=
+			SEQUENCE {
+				xfDcnFTPDirectoryIndex
+					Integer32,
+				xfDcnFTPDirectoryName
+					DisplayString
+			 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.26.1.1
+		xfDcnFTPDirectoryIndex OBJECT-TYPE
+			SYNTAX Integer32 (1..2147483647)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"An index of a specific file in the directory."
+			::= { xfDcnFTPDirectoryEntry 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.26.1.2
+		xfDcnFTPDirectoryName OBJECT-TYPE
+			SYNTAX DisplayString
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"File or directory name.
+				Directory names end with '/'
+				"
+			::= { xfDcnFTPDirectoryEntry 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.27
+		xfSoamPmActiveFTP OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				Will be updated with the value of xfDcnFTPActive when the specific entry is deleted.
+				
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+			::= { xfDcnFTP 27 }
+
+			-- 1.3.6.1.4.1.193.81.2.8.3.28
+		xfViewFileIntegrityActiveFTP OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				Used by Craft to upload a file integrity report for viewing purpose
+				when xfFileIntegrityReportCommand (XF-NE-MIB)is set to integrityReportView(1)
+				
+				Will be updated with the value of xfDcnFTPActive when the specific entry is deleted.
+				
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+			::= { xfDcnFTP 28 }
+
+			-- 1.3.6.1.4.1.193.81.2.8.3.29
+		xfUploadFileIntegrityActiveFTP OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				Used when xfFileIntegrityReportCommand (XF-NE-MIB) is set to integrityReportUpload(2).
+				
+				Will be updated with the value of xfDcnFTPActive when the specific entry is deleted.
+				
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+			::= { xfDcnFTP 29 }
+
+			-- 1.3.6.1.4.1.193.81.2.8.3.30
+		xfDownloadNTPKeyActiveFTP OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+				
+				Used when xfNTPKeyTriggerCommand (XF-NE-MIB) is set to keyFileDownload(1).
+				
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+			::= { xfDcnFTP 30 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.3.31
+		xfLocalLogActiveFTP OBJECT-TYPE
+			SYNTAX Integer32 (1..30)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Index of the specific FTP configuration entry (1..30).
+
+				Used to automatically upload local log files after log rotate or
+				when xfNELocalLogForceUpload (XF-NE-MIB) is set to upload(1).
+
+				Will be updated with the value of xfDcnFTPActive
+				when the specific entry is deleted.
+
+				ML-TN/CN/LH: When upgrading from node SW that is not supporting
+				this MO use xfDcnFTPActive as value."
+			::= { xfDcnFTP 31 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.4
+		xfDcnNTP OBJECT IDENTIFIER ::= { xfDcnMIB 4 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.4.1
+		xfDcnNTPAddress OBJECT-TYPE
+			SYNTAX XFIpAddressOrName
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Address to the Network Time Protocol server."
+			::= { xfDcnNTP 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.4.2
+		xfDcnNTPStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				ntpStatus0(0),
+				ntpStatus1(1),
+				ntpStatus2(2)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Gives information on the alarm status of the NTP service. No
+				Alarm notification is sent for this alarm.
+				Severity is indicated by three bit per alarm:
+				bits 012
+				     000   clear
+				     001   undetermined
+				     010   warning
+				     011   minor
+				     100   major
+				     101   critical
+				Clear indicates that NTP service is OK or is not configured. Minor
+				indicates that contact with NTP server is lost.
+				"
+			::= { xfDcnNTP 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.5
+		xfDcnDNSServer OBJECT IDENTIFIER ::= { xfDcnMIB 5 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.5.1
+		xfDcnDNSServer1 OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates first DNS server for this XF NE."
+			::= { xfDcnDNSServer 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.5.2
+		xfDcnDNSServer2 OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates second DNS server for this XF NE."
+			::= { xfDcnDNSServer 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.5.3
+		xfDcnDNSServer3 OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates third DNS server for this XF NE."
+			::= { xfDcnDNSServer 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.6
+		xfDcnDHCPRelay OBJECT IDENTIFIER ::= { xfDcnMIB 6 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.6.1
+		xfDcnDHCPRelayAddress OBJECT-TYPE
+			SYNTAX XFIpAddressOrName
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Address to the DHCP server this node is a relay for."
+			::= { xfDcnDHCPRelay 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.7
+		xfDcnConformance OBJECT IDENTIFIER ::= { xfDcnMIB 7 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.7.1
+		xfDcnCompliances OBJECT IDENTIFIER ::= { xfDcnConformance 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.7.1.1
+		xfDcnFullCompliance MODULE-COMPLIANCE
+			STATUS current
+			DESCRIPTION
+				"The compliance statement for SNMP entities which
+				implement everything."
+			MODULE -- this module
+				MANDATORY-GROUPS { xfDcnGroup }
+			::= { xfDcnCompliances 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.7.1.2
+		xfDcnR2FullCompliance MODULE-COMPLIANCE
+			STATUS current
+			DESCRIPTION
+				"Description."
+			MODULE -- this module
+				MANDATORY-GROUPS { xfDcnGroup, xfDcnR2Group }
+			::= { xfDcnCompliances 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.7.2
+		xfDcnGroups OBJECT IDENTIFIER ::= { xfDcnConformance 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.7.2.1
+		xfDcnGroup OBJECT-GROUP
+			OBJECTS { xfDcnDomainName, xfDcnHostName, xfDcnHostAddress, xfDcnHostSubnetMask,
+				xfDcnNTPAddress, xfDcnDNSServer1, xfDcnDNSServer2, xfDcnDNSServer3, xfDcnNTPStatus,
+				xfDcnEthernetPort, xfDcnEthernetConfigAlarmStatus, xfDcnDHCPRelayAddress, xfDcnDefaultGateway,
+				xfDcnFTPVersion, xfDcnFTPConfigIndex, xfDcnFTPConfigRowStatus, xfDcnFTPConfigAddress,
+				xfDcnFTPConfigAlias, xfDcnFTPConfigTCPPort, xfDcnFTPConfigUser, xfDcnFTPConfigPassword,
+				xfDcnFTPConfigEncryptedPwd, xfDcnFTPConfigCheckConnectivityCommand,
+				xfDcnFTPConfigCheckConnectivityStatus, xfDcnFTPConfigProtocol, xfConfigSaveBackUpActiveFTP, xfSwUpgradeActiveFTP,
+				xfConfigLoadActiveFTP, xfNEErrorLogActiveFTP, xfNEDiagLogActiveFTP, xfLicenseInstallActiveFTP,
+				xfLicenseReportActiveFTP, xfNEPmActiveFTP, xfAuditLogActiveFTP, xfConfigReportActiveFTP,
+				xfDcnFTPDirectoryPath, xfDcnFTPDirectoryServer, xfDcnFTPDirectoryUpdateCommand,
+				xfDcnFTPDirectoryUpdateStatus, xfDcnFTPDirectoryIndex, xfDcnFTPDirectoryName,
+				xfSoamPmActiveFTP, xfViewFileIntegrityActiveFTP,
+				xfUploadFileIntegrityActiveFTP, xfDownloadNTPKeyActiveFTP, xfLocalLogActiveFTP
+				 }
+			STATUS current
+			DESCRIPTION
+				"Description."
+			::= { xfDcnGroups 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.7.2.2
+		xfDcnR2Group OBJECT-GROUP
+			OBJECTS { xfDcnUsbAddress, xfDcnUsbSubnetMask, xfDcnLoopbackAddress, xfDcnLoopbackSubnetMask, xfDcnHostDscp,
+				xfDcnHostInterface, xfDcnHostInterfaceRouted, xfDcnPppConfigNumbered, xfDcnPppConfigIpAddress, xfDcnPppConfigFarEnd,
+				xfDcnOSPFConfigRowStatus, xfDcnOSPFConfigAreaId, xfDcnOSPFAreaConfigRowStatus, xfDcnOSPFAreaType,
+				xfDcnEthernetConfigIpAddr, xfDcnEthernetConfigMask, xfDcnEthernetConfigLock, xfDcnEthernetConfigPort,
+				xfDcnEthernetConfigRxTx, xfDcnEthernetConfigAutoNeg, xfDcnEthernetConfigPriorityQueues,
+				xfDcnEthernetConfigVrfName, xfDcnIPv6OSPFConfigAreaId, xfDcnIPv6OSPFConfigRowStatus,
+				xfDcnIPv6OSPFAreaConfigRowStatus, xfDcnIPv6OSPFAreaType, xfDcnIPv6OSPFRouterIDMode, xfDcnIPv6OSPFRouterID,
+				xfDcnIPv6DomainName, xfDcnIPv6HostAddress, xfDcnIPv6HostPrefixLength, xfDcnIPv6DefaultGateway,
+				xfDcnIPv6UsbAddress, xfDcnIPv6UsbPrefixLength, xfDcnIPv6LoopbackAddress, xfDcnIPv6LoopbackPrefixLength,
+				xfDcnIPv6HostDscp, xfDcnIPv6HostInterface, xfDcnIPv6HostInterfaceRouted, xfDcnIPv6DNSServer1, xfDcnIPv6DNSServer2,
+				xfDcnIPv6DNSServer3, xfDcnIPv6PppConfigNumbered, xfDcnIPv6PppConfigIpAddress, xfDcnIPv6PppConfigFarEnd,
+				xfDcnIPv6PppLinkUpDownTrapEnable, xfDcnIPv6DHCPRelayAddress,
+				xfDcnIPv6ipAddressAddrType, xfDcnIPv6ipAddressAddr, xfDcnIPv6ipAddressIfIndex, xfDcnIPv6ipAddressType,
+				xfDcnIPv6ipAddressPrefixPrefix, xfDcnIPv6ipAddressPrefixLength, xfDcnIPv6ipAddressOrigin, xfDcnIPv6ipAddressStatus,
+				xfDcnIPv6ipAddressCreated, xfDcnIPv6ipAddressLastChanged, xfDcnIPv6ipAddressRowStatus, xfDcnIPv6ipAddressStorageType,
+				xfDcnIPv6atIfIndex, xfDcnIPv6atPhysAddress, xfDcnIPv6atNetAddress,
+				xfDcnIPv6tcpActiveOpens, xfDcnIPv6tcpPassiveOpens, xfDcnIPv6tcpAttemptFails, xfDcnIPv6tcpEstabResets,
+				xfDcnIPv6tcpCurrEstab, xfDcnIPv6tcpInSegs, xfDcnIPv6tcpOutSegs, xfDcnIPv6tcpRetransSegs,
+				xfDcnIPv6tcpInErrs, xfDcnIPv6tcpOutRsts,
+				xfDcnIPv6udpInDatagrams, xfDcnIPv6udpNoPorts, xfDcnIPv6udpInErrors, xfDcnIPv6udpOutDatagrams,
+				xfDcnIPv6EthernetConfigIpAddr, xfDcnIPv6EthernetConfigPrefixLength, xfDcnIPv6EthernetConfigPort,
+				xfDcnIPv6EthernetConfigRxTx, xfDcnIPv6EthernetConfigPriorityQueues, xfDcnIPv6EthernetConfigAutoNeg, xfDcnIPv6EthernetConfigAlarmStatus,
+				xfDcnIPv6EthernetConfigVrfName, xfDcnFTPConfigWriteReserved
+				}
+			STATUS current
+			DESCRIPTION
+				"All R11 parameters."
+			::= { xfDcnGroups 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.7.2.3
+		xfDcnObsoleteR2 OBJECT-GROUP
+			OBJECTS { xfDcnOSPFEnable, xfDcnOSPFAreaId, xfDcnIPv6EthernetConfigLock }
+			STATUS obsolete
+			DESCRIPTION
+				"Description."
+			::= { xfDcnGroups 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.7.2.4
+		xfDcnDeprecated OBJECT-GROUP
+			OBJECTS { xfDcnFTPAddress1, xfDcnFTPUserName1, xfDcnFTPPassword1, xfDcnFTPAddress2, xfDcnFTPUserName2, xfDcnFTPPassword2,
+				xfDcnFTPActive, xfDcnFTPEncryptedPwd1, xfDcnFTPEncryptedPwd2 }
+			STATUS deprecated
+			DESCRIPTION
+				"Deprecated objects."
+			::= { xfDcnGroups 4 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.8
+		xfDcnPpp OBJECT IDENTIFIER ::= { xfDcnMIB 8 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.8.1
+		xfDcnPppConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfDcnPppConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table has an entry for each PPP link and
+				is indexed by the ifindex. It can be used to
+				configure numbered/unnumbered, an IP address
+				for the numbered links and it shows the
+				IP address of the far-end."
+			::= { xfDcnPpp 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.8.1.1
+		xfDcnPppConfigEntry OBJECT-TYPE
+			SYNTAX XfDcnPppConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table."
+			INDEX { ifIndex }
+			::= { xfDcnPppConfigTable 1 }
+
+		XfDcnPppConfigEntry ::=
+			SEQUENCE {
+				xfDcnPppConfigNumbered
+					INTEGER,
+				xfDcnPppConfigIpAddress
+					IpAddress,
+				xfDcnPppConfigFarEnd
+					IpAddress
+			 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.8.1.1.1
+		xfDcnPppConfigNumbered OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				unNumbered(1),
+				numbered(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to configure the PPP link
+				to be either unNumbered(1) or numbered(2).
+				A PPP link is default unNumbered(1)."
+			::= { xfDcnPppConfigEntry 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.8.1.1.2
+		xfDcnPppConfigIpAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"In case the PPP link is configured as
+				numbered, this object specifies the IP
+				address of the near-end side of the link."
+			::= { xfDcnPppConfigEntry 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.8.1.1.3
+		xfDcnPppConfigFarEnd OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This object indicates the IP address of the
+				far-end side of the PPP link."
+			::= { xfDcnPppConfigEntry 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.9
+		xfDcnEthernet OBJECT IDENTIFIER ::= { xfDcnMIB 9 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.9.1
+		xfDcnEthernetConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfDcnEthernetConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"An entry in this table is created for each Ethernet,
+				Loopback and L3 VLAN interface. In this table it is possible
+				to change the IP address and netmask of the interface."
+			::= { xfDcnEthernet 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.9.1.1
+		xfDcnEthernetConfigEntry OBJECT-TYPE
+			SYNTAX XfDcnEthernetConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table."
+			INDEX { ifIndex }
+			::= { xfDcnEthernetConfigTable 1 }
+
+		XfDcnEthernetConfigEntry ::=
+			SEQUENCE {
+				xfDcnEthernetConfigIpAddr
+					IpAddress,
+				xfDcnEthernetConfigMask
+					IpAddress,
+				xfDcnEthernetConfigLock
+					INTEGER,
+				xfDcnEthernetConfigPort
+					INTEGER,
+				xfDcnEthernetConfigRxTx
+					INTEGER,
+				xfDcnEthernetConfigPriorityQueues
+					INTEGER,
+				xfDcnEthernetConfigAutoNeg
+					INTEGER,
+				xfDcnEthernetConfigAlarmStatus
+					BITS,
+				xfDcnEthernetConfigVrfName
+					DisplayString
+			 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.9.1.1.1
+		xfDcnEthernetConfigIpAddr OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to set the IP address of this interface."
+			::= { xfDcnEthernetConfigEntry 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.9.1.1.2
+		xfDcnEthernetConfigMask OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to set the IP subnet mask of this interface."
+			::= { xfDcnEthernetConfigEntry 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.9.1.1.3
+		xfDcnEthernetConfigLock OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				lockToNode(1),
+				noLock(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"ML-TN/CN/LH:
+				
+				This object is used to indicate whether this ethernet interface
+				should have the same IP Address and subnet mask as the node (host address).
+				This object has been obsoleted, value is always noLock(2).
+				
+				ML66:
+				
+				This object indicates unnumbered status of L3 VLAN subinterfaces. Value of
+				lockToNode(1) indicates that the interface inherits it's IP Address and
+				subnet mask from the loopback interface of the corresponding Virtual Routing
+				and Forwarding (VRF) instance. For other interfaces value is always noLock(2).
+				
+				If xfDcnEthernetConfigLock = lockToNode(1), the xfDcnEthernetConfigIpAddr
+				and xfDcnEthernetConfigMask is not writable.
+				"
+			::= { xfDcnEthernetConfigEntry 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.9.1.1.4
+		xfDcnEthernetConfigPort OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				autoDetect(1),
+				fullDuplex100(2),
+				halfDuplex100(3),
+				fullDuplex10(4),
+				halfDuplex10(5)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to set the Ethernet speed.
+				If xfDcnEthernetConfigAutoNeg=off(1) setting this object to autoDetect(1)
+				will result in a inConsistentValue error response.
+				If xfDcnEthernetConfigPort = autoDetect(1) when xfDcnEthernetConfigAutoNeg
+				is set from on(1) to off(2), xfDcnEthernetConfigPort will be set to
+				fullDuplex100(2).
+				"
+			::= { xfDcnEthernetConfigEntry 4 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.9.1.1.5
+		xfDcnEthernetConfigRxTx OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				auto(1),
+				manualNormal(2),
+				manualSwitched(3)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object indicates RX/TX configuration of this Ethernet port.
+				
+				Valid values:
+				auto(1)            : Auto-MDIX
+				manualNormal(2)    : MDI
+				manualSwitched(3)  : MDIX
+				"
+			::= { xfDcnEthernetConfigEntry 5 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.9.1.1.6
+		xfDcnEthernetConfigPriorityQueues OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				disable(1),
+				enable(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object indicates whether the VLAN priotity queues are enabled
+				or disabled for this Ethernet port."
+			::= { xfDcnEthernetConfigEntry 6 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.9.1.1.7
+		xfDcnEthernetConfigAutoNeg OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				on(1),
+				off(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to configure auto-negotiate on the ethernet port.
+				If xfDcnEthernetConfigPort = autoDetect(1) when this object is set
+				from on(1) to off(2), xfDcnEthernetConfigPort will be set to
+				fullDuplex100(2).
+				Default is on(1).
+				"
+			::= { xfDcnEthernetConfigEntry 7 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.9.1.1.8
+		xfDcnEthernetConfigAlarmStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				ethernetDown0(0),
+				ethernetDown1(1),
+				ethernetDown2(2)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Indicates alarm status of the ethernet port.
+				
+				ethernetDown : the ethernet port/interface is down.
+				
+				Severity is indicated by 3 bits per status:
+				bits 012
+				     000   clear
+				     001   undetermined
+				     010   warning
+				     011   minor
+				     100   major
+				     101   critical
+				"
+			::= { xfDcnEthernetConfigEntry 8 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.9.1.1.9
+		xfDcnEthernetConfigVrfName OBJECT-TYPE
+			SYNTAX DisplayString (SIZE (0..99))
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"ML66: The name of the Virtual Routing and Forwarding (VRF)
+				instance the interface is associated with.
+				
+				ML-TN/CN/LH: This object is not supported.
+				"
+			::= { xfDcnEthernetConfigEntry 9 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.11
+		xfDcnIPv6OSPF OBJECT IDENTIFIER ::= { xfDcnMIB 11 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.11.3
+		xfDcnIPv6OSPFConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfDcnIPv6OSPFConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table is used to add interfaces to OSPFv3 areas. If an
+				interface is not referenced here it will not be OSPFv3 routed.
+				
+				ML66: This object is not supported."
+			::= { xfDcnIPv6OSPF 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.11.3.1
+		xfDcnIPv6OSPFConfigEntry OBJECT-TYPE
+			SYNTAX XfDcnIPv6OSPFConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table.
+				
+				ML66: This object is not supported."
+			INDEX { xfDcnIPv6OSPFConfigIfIndex }
+			::= { xfDcnIPv6OSPFConfigTable 1 }
+
+		XfDcnIPv6OSPFConfigEntry ::=
+			SEQUENCE {
+				xfDcnIPv6OSPFConfigIfIndex
+					InterfaceIndex,
+				xfDcnIPv6OSPFConfigAreaId
+					IpAddress,
+				xfDcnIPv6OSPFConfigRowStatus
+					RowStatus
+			 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.11.3.1.1
+		xfDcnIPv6OSPFConfigIfIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This object indicates the interface index of the
+				interface assigned to the xfDcnIPv6OSPFConfigAreaId.
+				
+				ML66: This object is not supported."
+			::= { xfDcnIPv6OSPFConfigEntry 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.11.3.1.3
+		xfDcnIPv6OSPFConfigAreaId OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-create
+			STATUS current
+			DESCRIPTION
+				"Indicates the OSPFv3 area for this interface in dotted decimal format.
+				
+				ML66: This object is not supported."
+			::= { xfDcnIPv6OSPFConfigEntry 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.11.3.1.4
+		xfDcnIPv6OSPFConfigRowStatus OBJECT-TYPE
+			SYNTAX RowStatus
+			MAX-ACCESS read-create
+			STATUS current
+			DESCRIPTION
+				"This object is used to create, modify and destroy
+				rows in this table.
+				
+				ML66: This object is not supported."
+			::= { xfDcnIPv6OSPFConfigEntry 4 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.11.4
+		xfDcnIPv6OSPFAreaConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfDcnIPv6OSPFAreaConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table is used to add OSPFv3 area parameters.
+				Used to indicate whether the area is a stub area
+				or not. An ABR router can also use the no-summary
+				parameter on a stub area.
+				
+				ML66: This object is not supported."
+			::= { xfDcnIPv6OSPF 4 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.11.4.1
+		xfDcnIPv6OSPFAreaConfigEntry OBJECT-TYPE
+			SYNTAX XfDcnIPv6OSPFAreaConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table.
+				
+				ML66: This object is not supported."
+			INDEX { xfDcnIPv6OSPFAreaConfigId }
+			::= { xfDcnIPv6OSPFAreaConfigTable 1 }
+
+		XfDcnIPv6OSPFAreaConfigEntry ::=
+			SEQUENCE {
+				xfDcnIPv6OSPFAreaConfigId
+					IpAddress,
+				xfDcnIPv6OSPFAreaType
+					INTEGER,
+				xfDcnIPv6OSPFAreaConfigRowStatus
+					RowStatus
+			 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.11.4.1.1
+		xfDcnIPv6OSPFAreaConfigId OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Indicates the OSPFv3 area identifier.
+				
+				ML66: This object is not supported."
+			::= { xfDcnIPv6OSPFAreaConfigEntry 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.11.4.1.2
+		xfDcnIPv6OSPFAreaType OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				stubArea(1),
+				totallyStubbyArea(2)
+				}
+			MAX-ACCESS read-create
+			STATUS current
+			DESCRIPTION
+				"This objects indicates whether the OSPFv3 area is a
+				stub area or not. Default is stubArea(1).
+				
+				ML66: This object is not supported."
+			DEFVAL { stubArea }
+			::= { xfDcnIPv6OSPFAreaConfigEntry 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.11.4.1.3
+		xfDcnIPv6OSPFAreaConfigRowStatus OBJECT-TYPE
+			SYNTAX RowStatus
+			MAX-ACCESS read-create
+			STATUS current
+			DESCRIPTION
+				"This object is used to create, modify and destroy
+				rows in this table.
+				
+				ML66: This object is not supported."
+			::= { xfDcnIPv6OSPFAreaConfigEntry 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.11.5
+		xfDcnIPv6OSPFRouterIDMode OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				manual(1),
+				automatic(2)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Indicated router ID mode:
+				
+				  manual - the user has explicitly provided a Router ID,
+				  automatic - the user hasn't provided a Router ID, or revoked it, and the ID was generated automatically
+				
+				ML66: This object is not supported."
+			::= { xfDcnIPv6OSPF 5 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.11.6
+		xfDcnIPv6OSPFRouterID OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Defines the IPv6 Router ID. In order to trigger an automatic configuration set 0.0.0.0.
+				
+				ML66: This object is not supported."
+			::= { xfDcnIPv6OSPF 6 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.12
+		xfDcnIPv6Host OBJECT IDENTIFIER ::= { xfDcnMIB 12 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.12.1
+		xfDcnIPv6DomainName OBJECT-TYPE
+			SYNTAX DisplayString (SIZE (0..253))
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates domain name of the XF NE set by the operator.
+				
+				ML66: Setting an empty string will set domain name to default."
+			REFERENCE
+				"RFC1035, section 2.3.1 Preferred name syntax."
+			::= { xfDcnIPv6Host 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.12.3
+		xfDcnIPv6HostAddress OBJECT-TYPE
+			SYNTAX InetAddressIPv6
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates Host IPv6 address of the XF NE.
+				
+				ML-TN/CN/LH:
+				
+				This object is the same as xfDcnIPv6LoopbackAddress.
+				
+				ML66:
+				
+				Dynamically linked to the address of the following interfaces:
+				(in order of precedence)
+				
+				- DCN Loopback interface address, if it is set to a non-default value
+				- DCN Ethernet interface address
+				
+				In DCN Mode routed(4), this object returns 0, as there is no IPv6 access in this mode.
+				"
+			::= { xfDcnIPv6Host 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.12.4
+		xfDcnIPv6HostPrefixLength OBJECT-TYPE
+			SYNTAX INTEGER
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates Host IPv6 prefix length of the XF NE.
+				
+				Only users with administrative rights can modify this object.
+				
+				ML-TN/CN/LH:
+				
+				This object is the same as xfDcnIPv6LoopbackPrefixLength.
+				
+				ML66:
+				
+				Dynamically linked to the prefix length of the following interfaces:
+				(in order of precedence)
+				
+				- DCN Loopback interface prefix length, if its address is set to a non-default value
+				- DCN Ethernet interface prefix length
+				
+				In DCN Mode routed(4), this object returns 0, as there is no IPv6 access in this mode.
+				"
+			::= { xfDcnIPv6Host 4 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.12.5
+		xfDcnIPv6DefaultGateway OBJECT-TYPE
+			SYNTAX InetAddressIPv6
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object specifies the default gateway for this node.
+				
+				ML66: This object is effective in DCN Mode vlan(3) only."
+			DEFVAL { '00000000'h }
+			::= { xfDcnIPv6Host 5 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.12.6
+		xfDcnIPv6UsbAddress OBJECT-TYPE
+			SYNTAX InetAddressIPv6
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"IPv6 address of the Local Access (USB) interface."
+			::= { xfDcnIPv6Host 6 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.12.7
+		xfDcnIPv6UsbPrefixLength OBJECT-TYPE
+			SYNTAX INTEGER
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"IPv6 prefix length of the Local Access (USB) interface."
+			::= { xfDcnIPv6Host 7 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.12.8
+		xfDcnIPv6LoopbackAddress OBJECT-TYPE
+			SYNTAX InetAddressIPv6
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"IPv6 address of the DCN Loopback interface."
+			::= { xfDcnIPv6Host 8 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.12.9
+		xfDcnIPv6LoopbackPrefixLength OBJECT-TYPE
+			SYNTAX INTEGER
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"IPv6 prefix length of the DCN Loopback interface.
+				
+				Only users with administrative rights can modify this object.
+				
+				ML66: The only accepted value is 128."
+			::= { xfDcnIPv6Host 9 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.12.10
+		xfDcnIPv6HostDscp OBJECT-TYPE
+			SYNTAX Integer32 (0..63)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"DSCP value for all IPv6 DCN services.
+				
+				Default value is 0 (best-effort forwarding).
+				
+				ML-TN/CN/LH: This object is not supported.
+				"
+			::= { xfDcnIPv6Host 10 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.12.11
+		xfDcnIPv6HostInterface OBJECT-TYPE
+			SYNTAX InterfaceIndexOrZero
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Index of the IPv6 host interface xfDcnIPv6HostAddress and xfDcnIPv6HostPrefixLength
+				is currently linked to.
+				
+				In DCN Mode routed(4), this object returns 0, as there is no IPv6 access in this mode.
+				
+				ML-TN/CN/LH: This object is not supported.
+				"
+			::= { xfDcnIPv6Host 11 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.12.12
+		xfDcnIPv6HostInterfaceRouted OBJECT-TYPE
+			SYNTAX InterfaceIndexOrZero
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Index of the IPv6 host interface configured for DCN Mode routed.
+				This object returns 0, as there is no IPv6 access in DCN Mode routed.
+				
+				ML-TN/CN/LH: This object is not supported.
+				"
+			::= { xfDcnIPv6Host 12 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.13
+		xfDcnIPv6DNSServer OBJECT IDENTIFIER ::= { xfDcnMIB 13 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.13.1
+		xfDcnIPv6DNSServer1 OBJECT-TYPE
+			SYNTAX InetAddressIPv6
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates first DNS server for this XF NE."
+			::= { xfDcnIPv6DNSServer 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.13.2
+		xfDcnIPv6DNSServer2 OBJECT-TYPE
+			SYNTAX InetAddressIPv6
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates second DNS server for this XF NE."
+			::= { xfDcnIPv6DNSServer 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.13.3
+		xfDcnIPv6DNSServer3 OBJECT-TYPE
+			SYNTAX InetAddressIPv6
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates third DNS server for this XF NE."
+			::= { xfDcnIPv6DNSServer 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.14
+		xfDcnIPv6Ppp OBJECT IDENTIFIER ::= { xfDcnMIB 14 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.14.1
+		xfDcnIPv6PppConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfDcnIPv6PppConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table has an entry for each PPP link and
+				is indexed by the ifindex. It can be used to
+				configure an IPv6 address for the links
+				(only numbered interfaces on IPv6), and
+				it show the IPv6 address of the far-end.
+				
+				ML66: This object is not supported."
+			::= { xfDcnIPv6Ppp 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.14.1.1
+		xfDcnIPv6PppConfigEntry OBJECT-TYPE
+			SYNTAX XfDcnIPv6PppConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table.
+				
+				ML66: This object is not supported."
+			INDEX { ifIndex }
+			::= { xfDcnIPv6PppConfigTable 1 }
+
+		XfDcnIPv6PppConfigEntry ::=
+			SEQUENCE {
+				xfDcnIPv6PppConfigNumbered
+					INTEGER,
+				xfDcnIPv6PppConfigIpAddress
+					InetAddressIPv6,
+				xfDcnIPv6PppConfigFarEnd
+					InetAddressIPv6,
+				xfDcnIPv6PppLinkUpDownTrapEnable
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.14.1.1.1
+		xfDcnIPv6PppConfigNumbered OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				unNumbered(1),
+				numbered(2)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This object is used to indicate the PPP link
+				to be either unNumbered(1) or numbered(2).
+				An IPv6 PPP link is always numbered(2).
+				
+				ML66: This object is not supported."
+			::= { xfDcnIPv6PppConfigEntry 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.14.1.1.2
+		xfDcnIPv6PppConfigIpAddress OBJECT-TYPE
+			SYNTAX InetAddressIPv6
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object specifies the IPv6
+				address of the near-end side of the link.
+				
+				ML66: This object is not supported."
+			::= { xfDcnIPv6PppConfigEntry 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.14.1.1.3
+		xfDcnIPv6PppConfigFarEnd OBJECT-TYPE
+			SYNTAX InetAddressIPv6
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This object indicates the IPv6 address of the
+				far-end side of the PPP link.
+				
+				ML66: This object is not supported."
+			::= { xfDcnIPv6PppConfigEntry 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.14.1.1.4
+		xfDcnIPv6PppLinkUpDownTrapEnable OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				enabled(1),
+				disabled(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates whether linkUp/linkDown traps should be generated
+				for this interface in case of IPv6 protocol.
+				
+				ML66: This object is not supported."
+			::= { xfDcnIPv6PppConfigEntry 4 }
+
+			-- 1.3.6.1.4.1.193.81.2.8.15
+		xfDcnIPv6DHCPRelay OBJECT IDENTIFIER ::= { xfDcnMIB 15 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.15.1
+		xfDcnIPv6DHCPRelayAddress OBJECT-TYPE
+			SYNTAX XFIpAddressOrName
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"IPv6 Address to the DHCP server this node is a relay for."
+			::= { xfDcnIPv6DHCPRelay 1 }
+
+    -- 1.3.6.1.4.1.193.81.2.8.16
+    xfDcnIPv6mib-2 OBJECT IDENTIFIER ::= { xfDcnMIB 16 }
+
+        xfDcnIPv6at    OBJECT IDENTIFIER ::= { xfDcnIPv6mib-2 3 }
+
+          xfDcnIPv6atTable OBJECT-TYPE
+              SYNTAX SEQUENCE OF XfDcnIPv6AtEntry
+              MAX-ACCESS not-accessible
+              STATUS current
+              DESCRIPTION
+                      "The Address Translation tables contain the
+                      NetworkAddress to 'physical' address equivalences.
+                      Some interfaces do not use translation tables for
+                      determining address equivalences (e.g., DDN-X.25
+                      has an algorithmic method); if all interfaces are
+                      of this type, then the Address Translation table
+                      is empty, i.e., has zero entries."
+              ::= { xfDcnIPv6at 1 }
+
+          xfDcnIPv6atEntry OBJECT-TYPE
+              SYNTAX XfDcnIPv6AtEntry
+              MAX-ACCESS not-accessible
+              STATUS current
+              DESCRIPTION
+                      "Each entry contains one NetworkAddress to
+                      'physical' address equivalence."
+              INDEX   { xfDcnIPv6atIfIndex,
+                        xfDcnIPv6atNetAddress }
+              ::= { xfDcnIPv6atTable 1 }
+
+          XfDcnIPv6AtEntry ::=
+              SEQUENCE {
+                  xfDcnIPv6atIfIndex
+                      InterfaceIndex,
+                  xfDcnIPv6atPhysAddress
+                      PhysAddress,
+                  xfDcnIPv6atNetAddress
+                      InetAddressIPv6
+              }
+
+          xfDcnIPv6atIfIndex OBJECT-TYPE
+              SYNTAX InterfaceIndex
+              MAX-ACCESS read-only
+              STATUS current
+              DESCRIPTION
+                      "The interface on which this entry's equivalence
+                      is effective.  The interface identified by a
+                      particular value of this index is the same
+                      interface as identified by the same value of
+                      ifIndex."
+              ::= { xfDcnIPv6atEntry 1 }
+
+          xfDcnIPv6atPhysAddress OBJECT-TYPE
+              SYNTAX PhysAddress
+              MAX-ACCESS read-only
+              STATUS current
+              DESCRIPTION
+                      "The media-dependent 'physical' address.
+
+                      Setting this object to a null string (one of zero
+                      length) has the effect of invaliding the
+                      corresponding entry in the atTable object.  That
+                      is, it effectively dissasociates the interface
+                      identified with said entry from the mapping
+                      identified with said entry.  It is an
+                      implementation-specific matter as to whether the
+                      agent removes an invalidated entry from the table.
+                      Accordingly, management stations must be prepared
+                      to receive tabular information from agents that
+                      corresponds to entries not currently in use.
+                      Proper interpretation of such entries requires
+                      examination of the relevant atPhysAddress object."
+              ::= { xfDcnIPv6atEntry 2 }
+
+          xfDcnIPv6atNetAddress OBJECT-TYPE
+              SYNTAX InetAddressIPv6
+              MAX-ACCESS read-only
+              STATUS current
+              DESCRIPTION
+                      "The InetAddressIPv6 corresponding to the
+                      media-dependent 'physical' address."
+              ::= { xfDcnIPv6atEntry 3 }
+
+        xfDcnIPv6ip    OBJECT IDENTIFIER ::= { xfDcnIPv6mib-2 4 }
+
+          xfDcnIPv6ipAddressTable OBJECT-TYPE
+              SYNTAX SEQUENCE OF XfDcnIPv6IpAddressEntry
+              MAX-ACCESS not-accessible
+              STATUS current
+              DESCRIPTION
+                    "This table contains addressing information relevant to the
+                     entity's interfaces.
+                     
+                     This table is similar to ipAddressTable defined by RFC4293,
+                     the differences are:
+                       - It has xfDcnIPv6ipAddressIfIndex as MIB index, so same IP addresses
+                         can be added to the table assuming the xfDcnIPv6ipAddressIfIndex is
+                         different (case of Multi-Link PPPs).
+                       - It includes xfDcnIPv6ipAddressPrefixPrefix and xfDcnIPv6ipAddressPrefixLength
+                         instead of RowPointer type xfDcnIPv6ipAddressPrefix (pointing to
+                         ipAddressPrefixTable row). This makes implementation of
+                         ipAddressPrefixTable unnecessary.
+
+                     This table does not contain multicast address information.
+                     Tables for such information should be contained in multicast
+                     specific MIBs, such as RFC 3019.
+
+                     Note well: When including IPv6 link-local addresses in this
+                     table, the entry must use an InetAddressType of 'ipv6z' in
+                     order to differentiate between the possible interfaces."
+              ::= { xfDcnIPv6ip 1 }
+
+          xfDcnIPv6ipAddressEntry OBJECT-TYPE
+              SYNTAX XfDcnIPv6IpAddressEntry
+              MAX-ACCESS not-accessible
+              STATUS current
+              DESCRIPTION
+                    "An address mapping for a particular interface."
+              INDEX   { xfDcnIPv6ipAddressAddrType,
+                        xfDcnIPv6ipAddressAddr,
+                        xfDcnIPv6ipAddressIfIndex }
+              ::= { xfDcnIPv6ipAddressTable 1 }
+
+          XfDcnIPv6IpAddressEntry ::= SEQUENCE {
+                  xfDcnIPv6ipAddressAddrType     InetAddressType,
+                  xfDcnIPv6ipAddressAddr         InetAddress,
+                  xfDcnIPv6ipAddressIfIndex      InterfaceIndex,
+                  xfDcnIPv6ipAddressType         INTEGER,
+                  xfDcnIPv6ipAddressPrefixPrefix InetAddress,
+                  xfDcnIPv6ipAddressPrefixLength InetAddressPrefixLength,
+                  xfDcnIPv6ipAddressOrigin       IpAddressOriginTC,
+                  xfDcnIPv6ipAddressStatus       IpAddressStatusTC,
+                  xfDcnIPv6ipAddressCreated      TimeStamp,
+                  xfDcnIPv6ipAddressLastChanged  TimeStamp,
+                  xfDcnIPv6ipAddressRowStatus    RowStatus,
+                  xfDcnIPv6ipAddressStorageType  StorageType
+              }
+
+          xfDcnIPv6ipAddressAddrType OBJECT-TYPE
+              SYNTAX     InetAddressType
+              MAX-ACCESS read-only
+              STATUS     current
+              DESCRIPTION
+                     "The address type of xfDcnIPv6ipAddressAddr."
+              ::= { xfDcnIPv6ipAddressEntry 1 }
+
+          xfDcnIPv6ipAddressAddr OBJECT-TYPE
+              SYNTAX     InetAddress
+              MAX-ACCESS read-only
+              STATUS     current
+              DESCRIPTION
+                     "The IP address to which this entry's addressing information
+                      pertains. The address type of this object is specified in
+                      xfDcnIPv6ipAddressAddrType.
+
+                      Implementors need to be aware that if the size of
+                      xfDcnIPv6ipAddressAddr exceeds 116 octets, then OIDS of instances of
+                      columns in this row will have more than 128 sub-identifiers
+                      and cannot be accessed using SNMPv1, SNMPv2c, or SNMPv3."
+              ::= { xfDcnIPv6ipAddressEntry 2 }
+
+          xfDcnIPv6ipAddressIfIndex OBJECT-TYPE
+              SYNTAX     InterfaceIndex
+              MAX-ACCESS read-only
+              STATUS     current
+              DESCRIPTION
+                     "The index value that uniquely identifies the interface to
+                      which this entry is applicable.  The interface identified by
+                      a particular value of this index is the same interface as
+                      identified by the same value of the IF-MIB's ifIndex."
+              ::= { xfDcnIPv6ipAddressEntry 3 }
+
+          xfDcnIPv6ipAddressType OBJECT-TYPE
+              SYNTAX     INTEGER {
+                           unicast(1),
+                           anycast(2),
+                           broadcast(3)
+              }
+              MAX-ACCESS read-only
+              STATUS     current
+              DESCRIPTION
+                     "The type of address.  broadcast(3) is not a valid value for
+                      IPv6 addresses (RFC 3513)."
+              DEFVAL { unicast }
+              ::= { xfDcnIPv6ipAddressEntry 4 }
+
+          xfDcnIPv6ipAddressPrefixPrefix OBJECT-TYPE
+              SYNTAX     InetAddress
+              MAX-ACCESS read-only
+              STATUS     current
+              DESCRIPTION
+                     "The address prefix.  The address type of this object is
+                      specified in xfDcnIPv6ipAddressAddrType.  The length of this object
+                      is the standard length for objects of that type (4 or 16
+                      bytes).  Any bits after xfDcnIPv6ipAddressPrefixLength must be zero."
+              ::= { xfDcnIPv6ipAddressEntry 5 }
+
+          xfDcnIPv6ipAddressPrefixLength OBJECT-TYPE
+              SYNTAX     InetAddressPrefixLength
+              MAX-ACCESS read-only
+              STATUS     current
+              DESCRIPTION
+                     "The prefix length associated with this prefix."
+              ::= { xfDcnIPv6ipAddressEntry 6 }
+
+          xfDcnIPv6ipAddressOrigin OBJECT-TYPE
+              SYNTAX     IpAddressOriginTC
+              MAX-ACCESS read-only
+              STATUS     current
+              DESCRIPTION
+                     "The origin of the address."
+              ::= { xfDcnIPv6ipAddressEntry 7 }
+
+          xfDcnIPv6ipAddressStatus OBJECT-TYPE
+              SYNTAX     IpAddressStatusTC
+              MAX-ACCESS read-only
+              STATUS     current
+              DESCRIPTION
+                     "The status of the address, describing if the address can be
+                      used for communication.
+
+                      In the absence of other information, an IPv4 address is
+                      always preferred(1)."
+              DEFVAL { preferred }
+              ::= { xfDcnIPv6ipAddressEntry 8 }
+
+          xfDcnIPv6ipAddressCreated OBJECT-TYPE
+              SYNTAX     TimeStamp
+              MAX-ACCESS read-only
+              STATUS     current
+              DESCRIPTION
+                     "The value of sysUpTime at the time this entry was created.
+                      If this entry was created prior to the last re-
+                      initialization of the local network management subsystem,
+                      then this object contains a zero value."
+              ::= { xfDcnIPv6ipAddressEntry 9 }
+
+          xfDcnIPv6ipAddressLastChanged OBJECT-TYPE
+              SYNTAX     TimeStamp
+              MAX-ACCESS read-only
+              STATUS     current
+              DESCRIPTION
+                     "The value of sysUpTime at the time this entry was last
+                      updated.  If this entry was updated prior to the last re-
+                      initialization of the local network management subsystem,
+                      then this object contains a zero value."
+              ::= { xfDcnIPv6ipAddressEntry 10 }
+
+          xfDcnIPv6ipAddressRowStatus OBJECT-TYPE
+              SYNTAX     RowStatus
+              MAX-ACCESS read-create
+              STATUS     current
+              DESCRIPTION
+                     "The status of this conceptual row.
+
+                      The RowStatus TC requires that this DESCRIPTIONclause
+                      states under which circumstances other objects in this row
+                      can be modified.  The value of this object has no effect on
+                      whether other objects in this conceptual row can be
+                      modified.
+
+                      A conceptual row can not be made active until the
+                      xfDcnIPv6ipAddressIfIndex has been set to a valid index."
+              ::= { xfDcnIPv6ipAddressEntry 11 }
+
+          xfDcnIPv6ipAddressStorageType OBJECT-TYPE
+              SYNTAX     StorageType
+              MAX-ACCESS read-only
+              STATUS     current
+              DESCRIPTION
+                     "The storage type for this conceptual row.  If this object
+                      has a value of 'permanent', then no other objects are
+                      required to be able to be modified."
+              DEFVAL { volatile }
+              ::= { xfDcnIPv6ipAddressEntry 12 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.6
+        xfDcnIPv6tcp      OBJECT IDENTIFIER ::= { xfDcnIPv6mib-2 6 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.6.5
+          xfDcnIPv6tcpActiveOpens OBJECT-TYPE
+              SYNTAX  Counter32
+              MAX-ACCESS  read-only
+              STATUS  current
+              DESCRIPTION
+                      "The number of times TCP over IPv6 connections have made a
+                      direct transition to the SYN-SENT state from the
+                      CLOSED state."
+              ::= { xfDcnIPv6tcp 5 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.6.6
+		  xfDcnIPv6tcpPassiveOpens OBJECT-TYPE
+              SYNTAX  Counter32
+              MAX-ACCESS  read-only
+              STATUS  current
+              DESCRIPTION
+                      "The number of times TCP over IPv6 connections have made a
+                      direct transition to the SYN-RCVD state from the
+                      LISTEN state."
+              ::= { xfDcnIPv6tcp 6 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.6.7
+          xfDcnIPv6tcpAttemptFails OBJECT-TYPE
+              SYNTAX  Counter32
+              MAX-ACCESS  read-only
+              STATUS  current
+              DESCRIPTION
+                      "The number of times TCP over IPv6 connections have made a
+                      direct transition to the CLOSED state from either
+                      the SYN-SENT state or the SYN-RCVD state, plus the
+                      number of times TCP connections have made a direct
+                      transition to the LISTEN state from the SYN-RCVD
+                      state."
+              ::= { xfDcnIPv6tcp 7 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.6.8
+          xfDcnIPv6tcpEstabResets OBJECT-TYPE
+              SYNTAX  Counter32
+              MAX-ACCESS  read-only
+              STATUS  current
+              DESCRIPTION
+                      "The number of times TCP over IPv6 connections have made a
+                      direct transition to the CLOSED state from either
+                      the ESTABLISHED state or the CLOSE-WAIT state."
+              ::= { xfDcnIPv6tcp 8 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.6.9
+          xfDcnIPv6tcpCurrEstab OBJECT-TYPE
+              SYNTAX  Gauge32
+              MAX-ACCESS  read-only
+              STATUS  current
+              DESCRIPTION
+                      "The number of TCP over IPv6 connections for which the
+                      current state is either ESTABLISHED or CLOSE-
+                      WAIT."
+              ::= { xfDcnIPv6tcp 9 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.6.10
+          xfDcnIPv6tcpInSegs OBJECT-TYPE
+              SYNTAX  Counter32
+              MAX-ACCESS  read-only
+              STATUS  current
+              DESCRIPTION
+                      "The total number of segments received, including
+                      those received in error.  This count includes
+                      segments received on currently established
+                      connections."
+              ::= { xfDcnIPv6tcp 10 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.6.11
+          xfDcnIPv6tcpOutSegs OBJECT-TYPE
+              SYNTAX  Counter32
+              MAX-ACCESS  read-only
+              STATUS  current
+              DESCRIPTION
+                      "The total number of segments sent, including
+                      those on current connections but excluding those
+                      containing only retransmitted octets."
+              ::= { xfDcnIPv6tcp 11 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.6.12
+          xfDcnIPv6tcpRetransSegs OBJECT-TYPE
+              SYNTAX  Counter32
+              MAX-ACCESS  read-only
+              STATUS  current
+              DESCRIPTION
+                      "The total number of segments retransmitted - that
+                      is, the number of TCP over IPv6 segments transmitted
+                      containing one or more previously transmitted
+                      octets."
+              ::= { xfDcnIPv6tcp 12 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.6.14
+          xfDcnIPv6tcpInErrs OBJECT-TYPE
+              SYNTAX  Counter32
+              MAX-ACCESS  read-only
+              STATUS  current
+              DESCRIPTION
+                      "The total number of segments received in error
+                      (e.g., bad TCP over IPv6 checksums)."
+              ::= { xfDcnIPv6tcp 14 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.6.15
+          xfDcnIPv6tcpOutRsts OBJECT-TYPE
+              SYNTAX  Counter32
+              MAX-ACCESS  read-only
+              STATUS  current
+              DESCRIPTION
+                      "The number of TCP over IPv6 segments sent containing the
+                      RST flag."
+              ::= { xfDcnIPv6tcp 15 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.8.16.7
+		xfDcnIPv6udp      OBJECT IDENTIFIER ::= { xfDcnIPv6mib-2 7 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.7.1
+        xfDcnIPv6udpInDatagrams OBJECT-TYPE
+              SYNTAX  Counter32
+              MAX-ACCESS  read-only
+              STATUS  current
+              DESCRIPTION
+                      "The total number of UDP over IPv6 datagrams delivered to
+                      UDP users."
+              ::= { xfDcnIPv6udp 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.7.2
+		xfDcnIPv6udpNoPorts OBJECT-TYPE
+              SYNTAX  Counter32
+              MAX-ACCESS  read-only
+              STATUS  current
+              DESCRIPTION
+                      "The total number of received UDP UDP over IPv6 datagrams for
+                      which there was no application at the destination
+                      port."
+              ::= { xfDcnIPv6udp 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.7.3
+		xfDcnIPv6udpInErrors OBJECT-TYPE
+              SYNTAX  Counter32
+              MAX-ACCESS  read-only
+              STATUS  current
+              DESCRIPTION
+                      "The number of received UDP UDP over IPv6 datagrams that could
+                      not be delivered for reasons other than the lack
+                      of an application at the destination port."
+              ::= { xfDcnIPv6udp 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.16.7.4
+		xfDcnIPv6udpOutDatagrams OBJECT-TYPE
+              SYNTAX  Counter32
+              MAX-ACCESS  read-only
+              STATUS  current
+              DESCRIPTION
+                      "The total number of UDP UDP over IPv6 datagrams sent from this
+                      entity."
+              ::= { xfDcnIPv6udp 4 }
+
+	-- 1.3.6.1.4.1.193.81.2.8.17
+	xfDcnIPv6Ethernet OBJECT IDENTIFIER ::= { xfDcnMIB 17 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.17.1
+		xfDcnIPv6EthernetConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfDcnIPv6EthernetConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"An entry in this table is created for each Ethernet
+				interface. In this table it is possible to change
+				the IPv6 address and prefix length of the interface."
+			::= { xfDcnIPv6Ethernet 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.17.1.1
+		xfDcnIPv6EthernetConfigEntry OBJECT-TYPE
+			SYNTAX XfDcnIPv6EthernetConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table."
+			INDEX { ifIndex }
+			::= { xfDcnIPv6EthernetConfigTable 1 }
+
+		XfDcnIPv6EthernetConfigEntry ::=
+			SEQUENCE {
+				xfDcnIPv6EthernetConfigIpAddr
+					InetAddressIPv6,
+				xfDcnIPv6EthernetConfigPrefixLength
+					INTEGER,
+				xfDcnIPv6EthernetConfigLock
+					INTEGER,
+				xfDcnIPv6EthernetConfigPort
+					INTEGER,
+				xfDcnIPv6EthernetConfigRxTx
+					INTEGER,
+				xfDcnIPv6EthernetConfigPriorityQueues
+					INTEGER,
+				xfDcnIPv6EthernetConfigAutoNeg
+					INTEGER,
+				xfDcnIPv6EthernetConfigAlarmStatus
+					BITS,
+				xfDcnIPv6EthernetConfigVrfName
+					DisplayString
+			}
+
+		-- 1.3.6.1.4.1.193.81.2.8.17.1.1.1
+		xfDcnIPv6EthernetConfigIpAddr OBJECT-TYPE
+			SYNTAX InetAddressIPv6
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to set the IPv6 address of
+				the interface."
+			::= { xfDcnIPv6EthernetConfigEntry 1 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.17.1.1.2
+		xfDcnIPv6EthernetConfigPrefixLength OBJECT-TYPE
+			SYNTAX INTEGER
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Prefix length for this ethernet interface."
+			::= { xfDcnIPv6EthernetConfigEntry 2 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.17.1.1.3
+		xfDcnIPv6EthernetConfigLock OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				lockToNode(1),
+				noLock(2)
+				}
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"This object can be used to indicate whether this ethernet interface
+				should have the same IPv6 Address and Prefix Length as the node
+				(host address).
+				
+				If xfDcnIPv6EthernetConfigLock = lockToNode(1), the xfDcnIPv6EthernetConfigIpAddr
+				and xfDcnIPv6EthernetConfigPrefixLength is not writable.
+				
+				Note: This object has been obsoleted, value is always noLock(2).
+				"
+			::= { xfDcnIPv6EthernetConfigEntry 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.17.1.1.4
+		xfDcnIPv6EthernetConfigPort OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				autoDetect(1),
+				fullDuplex100(2),
+				halfDuplex100(3),
+				fullDuplex10(4),
+				halfDuplex10(5)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to set the Ethernet speed.
+				If xfDcnIPv6EthernetConfigAutoNeg=off(1) setting this object to autoDetect(1)
+				will result in a inConsistentValue error response.
+				If xfDcnIPv6EthernetConfigPort = autoDetect(1) when xfDcnIPv6EthernetConfigAutoNeg
+				is set from on(1) to off(2), xfDcnIPv6EthernetConfigPort will be set to
+				fullDuplex100(2).
+				"
+			::= { xfDcnIPv6EthernetConfigEntry 4 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.17.1.1.5
+		xfDcnIPv6EthernetConfigRxTx OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				auto(1),
+				manualNormal(2),
+				manualSwitched(3)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object indicates RX/TX configuration of this Ethernet port.
+				
+				Valid values:
+				auto(1)            : Auto-MDIX
+				manualNormal(2)    : MDI
+				manualSwitched(3)  : MDIX
+				"
+			::= { xfDcnIPv6EthernetConfigEntry 5 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.17.1.1.6
+		xfDcnIPv6EthernetConfigPriorityQueues OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				disable(1),
+				enable(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object indicates whether the VLAN priotity queues are enabled
+				or disabled for this Ethernet port."
+			::= { xfDcnIPv6EthernetConfigEntry 6 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.17.1.1.7
+		xfDcnIPv6EthernetConfigAutoNeg OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				on(1),
+				off(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to configure auto-negotiate on the ethernet port.
+				If xfDcnIPv6EthernetConfigPort = autoDetect(1) when this object is set
+				from on(1) to off(2), xfDcnIPv6EthernetConfigPort will be set to
+				fullDuplex100(2).
+				Default is on(1).
+				"
+			::= { xfDcnIPv6EthernetConfigEntry 7 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.17.1.1.8
+		xfDcnIPv6EthernetConfigAlarmStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				ethernetDown0(0),
+				ethernetDown1(1),
+				ethernetDown2(2)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Indicates alarm status of the ethernet port.
+				
+				ethernetDown : the ethernet port/interface is down.
+				
+				Severity is indicated by 3 bits per status:
+				bits 012
+				     000   clear
+				     001   undetermined
+				     010   warning
+				     011   minor
+				     100   major
+				     101   critical
+				"
+			::= { xfDcnIPv6EthernetConfigEntry 8 }
+
+		-- 1.3.6.1.4.1.193.81.2.8.17.1.1.9
+		xfDcnIPv6EthernetConfigVrfName OBJECT-TYPE
+			SYNTAX DisplayString (SIZE (0..99))
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"ML66: The name of the Virtual Routing and Forwarding (VRF)
+				instance the interface is associated with.
+				
+				ML-TN/CN/LH: This object is not supported.
+				"
+			::= { xfDcnIPv6EthernetConfigEntry 9 }
+
+END
+
+--
+-- 15_19603-crxr10201_1_dcn.mi2
+--

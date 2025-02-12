@@ -1,0 +1,4025 @@
+--       No. 4/196 03-CRHR 109 002/1            MANAGEMENT INFORMATION BASE
+-- =====================================================================
+--  Copyright (C)Ericsson Norway AS 2002.
+--  All rights reserved.
+--  =====================================================================
+-- Prepared:   ETO/I/NT ETOALL                 Revision A
+--             ETO/I/ND ETORHO                 Revision B
+--             ETO/I/ND ETORHO                 Revision C
+--             ETO/I/ND ETORHO                 Revision D
+--             ETO/I/ND ETORHO                 Revision E
+--             ETO/I/ND ETORHO                 Revision F
+--             ETO/I/ND ETOALL                  Revision G
+--             EAB/JM/TFE/ EMWPKA          Revision H
+--             ETO/FBM/BK ETOOST           Revision J
+--             ETO/FBM/BK ETOOST           Revision K    
+--             XRSULFH                     Revision L         
+--             XRSPAHO                     Revision M 
+--
+--  Revision history:  
+--                    M   fixed smilint warnings: revision not in reverse chronological order
+--                    L   Added xfSDHSTM1Capabilities, xfSDHSTM1ConfigConvertSlot, 
+--                        xfSDHSTM1ConfigConvertCommand, xfSDHSTM1ConfigConvertStatus, 
+--                        xfSDHSTM1ConfigConvertStatusString.
+--                    K   Removed BITS
+--                    J    Added xfSDHSTM1PortLineCapability 
+--                    H
+--                    F   Added UnusedBits in xfSDHSTM1PortTable
+--                    E   Added PMView objects for Section, Line, Path and VT.
+--                        PMStatus now obsolete for Section, Line, Path and VT.
+--                        Thresholds now obsolete for Section, Line, Path and VT.
+--                    D   Revision D.
+--                    C   Revision C.
+--                        Added new oper-status (secPassive) to xfSDHSTM1ClockTxOperStatus
+--                    B   Revision B
+--                        Corrected xfSDHLineDegThreshold default value 
+--                        from 30 to 15
+--                        Corrected error in default value for 
+--                        xfSDHApsInterfaceActiveLine
+--                        Added missing default values
+--                        ApsInterfaceOperStatus is read-only instead of read-write
+--                        Updated xfSDHApsInterface table to match                       
+--                        Revision PC7 of 'XF STM1 TM: SNMP Managed Objects'
+--                        Removed all BBE counters.
+--                        Changed the name of the BBE thresholds to 
+--                        CV thresholds.
+--                        Removed Textual Conventions that is not used.
+--                        Updated the Textual Conventions for 24h and 15min
+--                        thresholds and all counters to match FS.
+--                        The thresholds now starts at 1, instead of 0.
+--                        Updated xfSDHPrivateGroup.
+--         
+--  =====================================================================
+--  
+
+	XF-STM1-PRIVATE-MIB DEFINITIONS ::= BEGIN
+ 
+		IMPORTS
+			entPhysicalIndex			
+				FROM ENTITY-MIB			
+			ifIndex, InterfaceIndex			
+				FROM IF-MIB			
+			PerfCurrentCount, PerfIntervalCount			
+				FROM PerfHist-TC-MIB			
+			OBJECT-GROUP, MODULE-COMPLIANCE			
+				FROM SNMPv2-CONF			
+			Integer32, Unsigned32, Gauge32, Counter32, OBJECT-TYPE, 
+			MODULE-IDENTITY			
+				FROM SNMPv2-SMI			
+			TruthValue, DisplayString, TEXTUAL-CONVENTION			
+				FROM SNMPv2-TC			
+			xfSDH, Xf15MinSeconds, Xf24HrsSeconds, Xf24HrsSecondsGauge			
+				FROM XF-TOP-MIB;
+	
+	
+		-- 1.3.6.1.4.1.193.81.3.2.2
+		xfSDHPrivateMib MODULE-IDENTITY 
+			LAST-UPDATED "201210161500Z"		-- October 16, 2012 at 15:00 GMT
+			ORGANIZATION 
+				"ETO/TA/JT/TDB"
+			CONTACT-INFO 
+				" "
+			DESCRIPTION 
+				"This MIB defines private objects for the
+				XF STM-1 TM application. This private MIB 
+				contains tables for:
+				- Configuration and status objects 
+				  specific for STM-1 TM APU 
+				- Configuration and status objects for APS 
+				  (or MSP)
+				- Configuration objects for each layer; 
+				  section, line, path and VT
+				- Performance counters for the current 24 
+				  hours for each layer both near and far end
+				- Performance counters for the last 
+				  complete 24 hours for each layer
+				  both near and far end
+				
+				Other related media specific MIBs for the 
+				STM-1 TM are:
+				-SONET-MIB, RFC2558
+				-XF-STM1-EXTENSION-MIB,
+				 3/15519-CRHR109 002/1 
+				
+				Some terminology explained:
+				Section : Regenerator Section in SDH
+				Line    : Multiplexer Section in SDH
+				Path    : Higher Order Path in SDH, i.e. 
+				          VC-4 for XF STM-1 TM
+				VT      : Sonet Virtual Tributaries or 
+				          Lower Order Path in SDH,i.e. 
+				          VC-12 for XF STM-1 TM.
+				CV      : code violation equivalent with 
+				          errored blocks
+				
+				More details can be found in :
+				-1/15519-CRHR109 002/1,
+				 XF STM-1 TM: SNMP MANAGED OBJECTS
+				-1/15517-CRHR109 002/1,
+				 XF FUNCTIONAL SPECIFICATION FOR STM-1 TM
+				-1/155 19-CRH 109 625/1 Uae
+				  Managed objects for Radio Link
+				"	
+			REVISION "201210161500Z"		-- October 16, 2012 at 15:00 GMT
+			DESCRIPTION 
+				"Revision M		XRSPAHO - fixed smilint warnings: revision not in reverse chronological order "
+			REVISION "201108301000Z"		-- August 30, 2011 at 10:00 GMT
+			DESCRIPTION 
+				"Revision L 
+				Added xfSDHSTM1Capabilities, xfSDHSTM1ConfigConvertSlot, 
+				xfSDHSTM1ConfigConvertCommand, xfSDHSTM1ConfigConvertStatus,
+				xfSDHSTM1ConfigConvertStatusString."
+			REVISION "200904231500Z"		-- April 23, 2009 at 15:00 GMT
+			DESCRIPTION 
+				"Revision K
+				Removed BITS"
+			REVISION "200904221500Z"		-- April 22, 2009 at 15:00 GMT
+			DESCRIPTION 
+				" "
+			REVISION "200902231201Z"		-- February 23, 2009 at 12:01 GMT
+			DESCRIPTION 
+				"Revision J
+				Added xfSDHSTM1PortLineDCCCapability"
+
+				
+			REVISION "200706061255Z"		-- June 06, 2007 at 12:55 GMT
+			DESCRIPTION 
+				"H added xfSDHSectionCurrent15mTable
+				  xfSDHSectionInterval15mTable
+				  Added xfSDHSectionCurrent24hBBs in XfSDHSectionCurrent24hEntry etc.
+				  Added xfSDHSectionInterval24hBBs in XfSDHSectionInterval24hEntry etc.
+				  Added xfSDHSectionCurrent15mBBs in XfSDHSectionCurrent15mEntry etc.
+				  Added xfSDHSectionInterval15mBBs and xfSDHSectionInterval15mValidData in XfSDHSectionInterval15mEntry etc.
+				"				
+			REVISION "200609131410Z"		-- September 13, 2006 at 14:10 GMT
+			DESCRIPTION 
+				"G     Added xfSDHSTM1ClockSyncCapability
+				and fSDHSTM1ClockSquelch
+				
+				Added (but not yet supported in TN3.0) the following objects:
+				
+				xfSDHSectionSetThreshold15mESs                                                                       	   
+				xfSDHSectionSetThreshold15mSESs                                                                       	   
+				xfSDHSectionSetThreshold15mCVs                                                                       	   
+				xfSDHSectionResetThreshold15mESs                                                                       	   
+				xfSDHSectionResetThreshold15mSESs                                                                       	   
+				xfSDHSectionResetThreshold15mCVs                                                                       	   
+				xfSDHSectionSetThreshold24hESs                                                                       	   
+				xfSDHSectionSetThreshold24hSESs                                                                       	   
+				xfSDHSectionSetThreshold24hCVs                                                                        	 
+				
+				
+				xfSDHSectionCurrent24hElapsedTime	 
+				xfSDHSectionCurrent24hUASs
+				
+				xfSDHSectionInterval24hUASs"
+			REVISION "200605161012Z"		-- May 16, 2006 at 10:12 GMT
+			DESCRIPTION 
+				"Revision F"				
+			REVISION "200503171102Z"		-- March 17, 2005 at 11:02 GMT
+			DESCRIPTION 
+				"Rev. E"
+			REVISION "200308171119Z"		-- August 17, 2003 at 11:19 GMT
+			DESCRIPTION 
+				"Revision D."
+			REVISION "200301200809Z"		-- January 20, 2003 at 08:09 GMT
+			DESCRIPTION 
+				"Revision C"
+			REVISION "200212121448Z"		-- December 12, 2002 at 14:48 GMT
+			DESCRIPTION 
+				"Revision B"
+
+
+
+
+
+			::= { xfSDH 2 }
+
+		
+	
+--
+-- Textual conventions
+--
+	
+		XfSDHS1Byte ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"S1 bits
+				b5-b8 SDH synchronization quality level description
+				0000 0  Quality unknown (Existing Sync. Network)
+				0001 1  Reserved
+				0010 2  Rec. G.811
+				0011 3  Reserved
+				0100 4  Rec. G.812 transit
+				0101 5  Reserved
+				0110 6  Reserved
+				0111 7  Reserved
+				1000 8  Rec. G.812 local
+				1001 9  Reserved
+				1010 10 Reserved
+				1011 11 Synchronous Equipment Timing Source (SETS)
+				1100 12 Reserved
+				1101 13 Reserved
+				1110 14 Reserved
+				1111 15 Do not use for synchronization "
+			SYNTAX OCTET STRING (SIZE (1))
+
+		XfSDH24HrsBlockSectionGauge ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Textual convention for 24 Hours counter of blocks (CV)
+				for the Section. Only 30% of the blocks can be CV."
+			SYNTAX Gauge32 (0..207360000)
+
+--  Textual conventions
+-- 
+		XfSDHSTM1LineCodeFailure ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"This variable indicates the line code status and severity.
+				Severity is indicated by three bit per alarm:
+				      bits 012 
+				           000   clear
+				           001   undetermined
+				           010   warning
+				           011   minor
+				           100   major
+				           101   critical"
+			SYNTAX BITS
+				{
+				xfSDHApsInterfaceNoMismatchAlarm(0),
+				xfSDHApsInterfaceModeMismatch0(1),
+				xfSDHApsInterfaceModeMismatch1(2),
+				xfSDHApsInterfaceModeMismatch2(3)
+				}
+
+		XfSDHK1Byte ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Used to show the K1 byte received
+				from the unreliable interface 1.
+				1111	15 Lockout of protection
+				1110	14 Forced switch*
+				1101	13 SF high priority*
+				1100	12 SF low priority
+				1011	11 SD high priority*
+				1010	10 SD  low priority
+				1001	9  Unused
+				1000	8  Manual switch*
+				0111	7  Unused
+				0110	6  Wait to restore
+				0101	5  Unused
+				0100	4  Exercise
+				0011	3  Unused
+				0010	2  Reverse request
+				0001	1  Do not revert
+				0000	0  No request*
+				*Only these local actions should 
+				be sent."
+			SYNTAX OCTET STRING (SIZE (1))
+
+		XfSDH15MinBlocksLine ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Textual convention for blocks based 15
+				minute threshold on the Line."
+			SYNTAX Integer32 (1..25920000)
+
+		XfSDH24HrsBlocksLine ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Textual convention for blocks based 24
+				hours threshold on the Line."
+			SYNTAX Unsigned32 (1..2147483647)
+
+		XfSDH24HrsBlockLineGauge ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Textual convention for 24 Hours counter of blocks (CV)
+				for the Line. Only 15% of the blocks can be CV."
+			SYNTAX Gauge32 (0..2147483647)
+
+		XfSDH24HrsUAVGauge ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Textual convention for gauges counting 
+				UAV for 24 hours.There can be at the 
+				most one UAV every 20 seconds."
+			SYNTAX Gauge32 (0..4320)
+
+		XfSDH15MinBlocksPath ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Textual convention for blocks based 15
+				minute threshold on the Path."
+			SYNTAX Integer32 (1..2160000)
+
+		XfSDH24HrsBlocksPath ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Textual convention for blocks based 24 
+				hours threshold on the Path."
+			SYNTAX Integer32 (1..207360000)
+
+		XfSDHPathSignalLabel ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"One byte, C2, is allocated to indicate 
+				the composition or the maintenance 
+				status of the VC-4. See note below for 
+				values.
+				
+				00H - Unequipped (used by this 
+				        application)
+				01H - Equipped - non specific
+				02H - TUG structure (used by this 
+				      application)
+				03H - Locked TU-n
+				04H - Asynchronous mapping of 34368 
+				      Kbit/s or 44736 Kbit/s into the 
+				      container-4 
+				12H - Asynchronous mapping of 139262 
+				      Kbit/s into the container-4
+				13H - ATM mapping
+				14H - MAN (DQDB) mapping
+				15H - FDDI mapping
+				16H - PPP over SONET mapping
+				FEH - Test signal
+				FFH - Undefined
+				"
+			SYNTAX OCTET STRING (SIZE (1))
+
+		XfSDH24HrsBlockPathGauge ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Textual convention for 24 Hours counter of blocks (CV)
+				for the Path. Only 30% of the blocks can be CV."
+			SYNTAX Gauge32 (0..207360000)
+
+		XfSDH15MinBlocksVT ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Textual convention for blocks based 15
+				minute threshold on the VT."
+			SYNTAX Integer32 (1..540000)
+
+		XfSDH24HrsBlocksVT ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Textual convention for blocks based 24
+				hours threshold on the VT."
+			SYNTAX Integer32 (1..51840000)
+
+		XfSDHVTSignalLabel ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Expected Signal label (V5 byte, bit 5-7 in
+				VC-12 overhead). 
+				000 0 Unequipped or supervisory unequipped
+				001 1 Equipped - non specific
+				010 2 Asynchronous (used by this 
+				      application)
+				011 3 Bit synchronous
+				100 4 Byte synchronous
+				101 5 Undefined
+				110 6 Test signal
+				111 7 Undefined
+				"
+			SYNTAX OCTET STRING (SIZE (1))
+
+		XfSDH24HrsBlockVTGauge ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Textual convention for 24 Hours counter of blocks (CV)
+				for the VT. Only 30% of the blocks can be CV."
+			SYNTAX Gauge32 (0..51840000)
+
+		XfSDH15MinUAVGauge ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Textual convention for gauges counting 
+				UAV for 15 minutes. There can be at 
+				the most one UAV every 20 seconds."
+			SYNTAX Integer32 (0..45)
+
+		XfSDHTrailTraceIndentifier ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Trail Trace Identifier string used on the various SDH layers."
+			SYNTAX OCTET STRING (SIZE (0..15))
+
+	
+--
+-- Node definitions
+--
+	
+--  Node definitions
+-- 
+		-- 1.3.6.1.4.1.193.81.3.2.2.1
+		xfSDHPrivateObjects OBJECT IDENTIFIER ::= { xfSDHPrivateMib 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1
+		xfSDHPrivateSTM1 OBJECT IDENTIFIER ::= { xfSDHPrivateObjects 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.2
+		xfSDHSTM1ClockTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHSTM1ClockEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table is used to get the clock source,
+				the synchronisation and clock status."
+			::= { xfSDHPrivateSTM1 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.2.1
+		xfSDHSTM1ClockEntry OBJECT-TYPE
+			SYNTAX XfSDHSTM1ClockEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHSTM1ClockTable. The entityPhysicalIndex
+				of the port is used as index."
+			INDEX { entPhysicalIndex }
+			::= { xfSDHSTM1ClockTable 1 }
+
+		
+		XfSDHSTM1ClockEntry ::=
+			SEQUENCE { 
+				xfSDHSTM1ClockTxAdmStatus
+					INTEGER,
+				xfSDHSTM1ClockTxOperStatus
+					INTEGER,
+				xfSDHSTM1ClockRxSyncStatus
+					XfSDHS1Byte,
+				xfSDHSTM1ClockTxSyncStatus
+					XfSDHS1Byte,
+				xfSDHSTM1ClockFMStatus
+					BITS,
+				xfSDHSTM1ClockSyncCapability
+					BITS,
+				fSDHSTM1ClockSquelch
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.2.1.1
+		xfSDHSTM1ClockTxAdmStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				loopTiming(1),
+				localMasterTiming(2),
+				referenceFromList(3)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Used to configure the desired source of 
+				the transmit clock. 
+				1 -> loopTiming: indicates that the 
+				     recovered receive clock will be 
+				     used as the transmit clock.
+				2 -> localMasterTiming: indicates that 
+				     the local clock source will be used 
+				     as the transmit clock.
+				3 -> ReferenceFromList: indicates that 
+				     the prioritised list will be used.
+				"
+			DEFVAL { loopTiming }
+			::= { xfSDHSTM1ClockEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.2.1.2
+		xfSDHSTM1ClockTxOperStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				loopTiming(1),
+				localMasterTiming(2),
+				referenceFromList(3),
+				holdOver(10),
+				freeRunning(11),
+				secPassive(12)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Used to show the actual source of the 
+				transmit clock. 
+				1 -> loopTiming: indicates that the 
+				     recovered receive clock is used as 
+				     the transmit clock.
+				2 -> localMasterTiming: indicates that 
+				     the local clock source is used as 
+				     the transmit clock.
+				3 -> ReferenceFromList: indicates that 
+				     the clock source from the 
+				     prioritised list is used.
+				10 -> HoldOver: indicates that the last 
+				      reference is preserved.
+				11 -> FreeRunning: indicates that the 
+				      clock source from the SEC is used 
+				      (SEC accuracy).
+				12 -> SecPassive: indicates that the 
+				      SEC module is passive
+				"
+			::= { xfSDHSTM1ClockEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.2.1.3
+		xfSDHSTM1ClockRxSyncStatus OBJECT-TYPE
+			SYNTAX XfSDHS1Byte
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Used for the synchronisation status (S1 
+				byte in the MSOH), will be set according 
+				to the status received."
+			::= { xfSDHSTM1ClockEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.2.1.4
+		xfSDHSTM1ClockTxSyncStatus OBJECT-TYPE
+			SYNTAX XfSDHS1Byte
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Used for the synchronisation status (S1 
+				byte in the MSOH), will be set according 
+				to the status transmitted."
+			::= { xfSDHSTM1ClockEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.2.1.5
+		xfSDHSTM1ClockFMStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				xfSDHSTM1ClockNoAlarm(0),
+				xfSDHSTM1ClockLossOfReference0(1),
+				xfSDHSTM1ClockLossOfReference1(2),
+				xfSDHSTM1ClockLossOfReference2(3)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Gives information on the alarm status of 
+				the clock.
+				Severity is indicated by three bit per 
+				alarm:
+				bits 012
+				     000   clear
+				     001   undetermined
+				     010   warning
+				     011   minor
+				     100   major
+				     101   critical
+				
+				"
+			::= { xfSDHSTM1ClockEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.2.1.6
+		xfSDHSTM1ClockSyncCapability OBJECT-TYPE
+			SYNTAX BITS
+				{
+				xfSDHSTM1ClockLoopTiming(0),
+				xfSDHSTM1ClockLocalMasterTiming(1),
+				xfSDHSTM1ClockReferenceFromList(2)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Object set by the application to show the capabilities of the application
+				bitpos 0 -> xfSDHSTM1ClockLoopTiming
+				bitpos 1 -> xfSDHSTM1ClockLocalMasterTiming
+				bitpos 2 -> xfSDHSTM1ClockReferenceFromList
+				"
+			::= { xfSDHSTM1ClockEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.2.1.7
+		fSDHSTM1ClockSquelch OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				disable(1),
+				enable(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to enable/disable Squelch
+				1 -> Disabled
+				2 -> Enabled
+				default is disable.
+				"
+			::= { xfSDHSTM1ClockEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.3
+		xfSDHAimHATable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHAimHAEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table is used by STM-1 AIM and HA."
+			::= { xfSDHPrivateSTM1 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.3.1
+		xfSDHAimHAEntry OBJECT-TYPE
+			SYNTAX XfSDHAimHAEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Description."
+			INDEX { entPhysicalIndex }
+			::= { xfSDHAimHATable 1 }
+
+		
+		XfSDHAimHAEntry ::=
+			SEQUENCE { 
+				xfSDHAimHA
+					Integer32
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.3.1.1
+		xfSDHAimHA OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"
+				Object used by HA.
+				"
+			::= { xfSDHAimHAEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.1
+		xfSDHSTM1PortTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHSTM1PortEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table is used to configure the STM-1 
+				TM board."
+			::= { xfSDHPrivateSTM1 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.1.1
+		xfSDHSTM1PortEntry OBJECT-TYPE
+			SYNTAX XfSDHSTM1PortEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHSTM1PortTable.The entityPhysicalIndex
+				of the port is used as index."
+			INDEX { entPhysicalIndex }
+			::= { xfSDHSTM1PortTable 1 }
+
+		
+		XfSDHSTM1PortEntry ::=
+			SEQUENCE { 
+				xfSDHSTM1PortAdmStatus
+					INTEGER,
+				xfSDHSTM1PortOperStatus
+					INTEGER,
+				xfSDHSTM1PortUnusedBits
+					INTEGER,
+				xfSDHSTM1PortLineDCCMode
+					INTEGER,
+				xfSDHSTM1PortLineDCCCapability
+					BITS
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.1.1.1
+		xfSDHSTM1PortAdmStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				notConfigured(1),
+				standAloneVC12(2),
+				msp1plus1VC12(3)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Used to configure the desired status of 
+				the STM-1 board. 
+				1 -> Not configured (default) 
+				     The rows for VC-4 and VC-12 in the 
+				     Interface MIB will not be created. 
+				     The Signal Label for VC-4 will 
+				     signal unequipped.
+				2 -> Standalone VC-12 
+				     All rows for VC-4 and VC-12 in the 
+				     Interface MIB will be created. The 
+				     Signal Label for VC-4 will be 
+				     TUG-structure and for VC-12 it will 
+				     be asynchronous mapping.
+				3 -> MSP 1 + 1 VC-12 
+				     For the first board in a protection 
+				     pair, the xfSDHApsInterfaceTable-row
+				     is created. The rows for the MSP, 
+				     VC-4 and VC-12 in the Interface MIB 
+				     will also be created. 
+				     The Signal Label for VC-4 will be 
+				     TUG-structure and for VC-12 it will 
+				     be asynchronous mapping.
+				     For the second board in a protection
+				     pair, the xfSDHApsInterfaceTable-row 
+				     is updated. 
+				"
+			DEFVAL { notConfigured }
+			::= { xfSDHSTM1PortEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.1.1.2
+		xfSDHSTM1PortOperStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				notConfigured(1),
+				standAloneVC12(2),
+				msp1plus1VC12(3),
+				waitForNeighbour(4)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Used to show the actual status of the STM-1 board.
+				1 -> Not configured 
+				     The rows for VC-4 and VC-12 in the 
+				     Interface MIB are not created. 
+				     The Signal Label for VC-4 signals unequipped.
+				2 -> Standalone VC-12 
+				     All rows for VC-4 and VC-12 in the 
+				     Interface MIB are created. The 
+				     Signal Label for VC-4 is 
+				     TUG-structure and for VC-12 it is
+				     asynchronous mapping.
+				3 -> MSP 1 + 1 VC-12 
+				     Both STM-1 boards are configured. 
+				     The xfSDHApsInterfaceTable-row 
+				     is updated with information for
+				     both boards.
+				4 -> MSP 1+1 waiting for neighbour board
+				     Only the first board in a protection 
+				     pair is configured.
+				     The xfSDHApsInterfaceTable-row is created.
+				     The rows for the MSP, VC-4 and VC-12 
+				     in the Interface MIB are created. 
+				     The Signal Label for VC-4 is TUG-structure 
+				     and for VC-12 it is asynchronous mapping.
+				"
+			::= { xfSDHSTM1PortEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.1.1.3
+		xfSDHSTM1PortUnusedBits OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				clearBits(1),
+				setBits(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Used to set all unused bits to 1 (SetBits) or 0 (ClearBits)."
+			DEFVAL { clearBits }
+			::= { xfSDHSTM1PortEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.1.1.4
+		xfSDHSTM1PortLineDCCMode OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				splitInThreeChannels(1),
+				singleChannel(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Used to configure the DCC mode 
+				
+				1 -> splitInThreeChannels
+				2 -> singleChannel"
+			DEFVAL { 1 }
+			::= { xfSDHSTM1PortEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.1.1.1.5
+		xfSDHSTM1PortLineDCCCapability OBJECT-TYPE
+			SYNTAX BITS
+				{
+				xfSDHSTM1PortLineDCCSplitInThreeChannels(0),
+				xfSDHSTM1PortLineDCCSingleChannel(1)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Object set by the application to show the DCC capabilities 
+				bitpos 0 -> xfSDHSTM1PortLineDCCSplitInThreeChannels
+				bitpos 1 -> xfSDHSTM1PortLineDCCSingleChannel"
+			::= { xfSDHSTM1PortEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2
+		xfSDHPrivateSection OBJECT IDENTIFIER ::= { xfSDHPrivateObjects 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1
+		xfSDHSectionConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHSectionConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table describes the criteria for the 
+				BIP and REI on section and line level."
+			::= { xfSDHPrivateSection 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1.1
+		xfSDHSectionConfigEntry OBJECT-TYPE
+			SYNTAX XfSDHSectionConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHSectionConfigTable."
+			INDEX { ifIndex }
+			::= { xfSDHSectionConfigTable 1 }
+
+		
+		XfSDHSectionConfigEntry ::=
+			SEQUENCE { 
+				xfSDHLineREISupport
+					INTEGER,
+				xfSDHLineDEGThreshold
+					Integer32,
+				xfSDHLineDEGMonPeriod
+					Integer32,
+				xfSDHSectionPMView
+					INTEGER,
+				xfSDHSectionSetThreshold15mESs
+					Xf15MinSeconds,
+				xfSDHSectionSetThreshold15mSESs
+					Xf15MinSeconds,
+				xfSDHSectionSetThreshold15mCVs
+					Integer32,
+				xfSDHSectionResetThreshold15mESs
+					Xf15MinSeconds,
+				xfSDHSectionResetThreshold15mSESs
+					Xf15MinSeconds,
+				xfSDHSectionResetThreshold15mCVs
+					Integer32,
+				xfSDHSectionSetThreshold24hESs
+					Xf24HrsSeconds,
+				xfSDHSectionSetThreshold24hSESs
+					Xf24HrsSeconds,
+				xfSDHSectionSetThreshold24hCVs
+					Integer32
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1.1.1
+		xfSDHLineREISupport OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				disabled(1),
+				enabled(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Used to define whether MS-REI shall be 
+				used for Performance Monitoring or not.
+				1 -> Disabled
+				2 -> Enabled (supported)                         
+				"
+			DEFVAL { enabled }
+			::= { xfSDHSectionConfigEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1.1.2
+		xfSDHLineDEGThreshold OBJECT-TYPE
+			SYNTAX Integer32 (1..100)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Used to specify the threshold, DEGTHR, 
+				that is used to detect a degraded defect 
+				at MS."
+			DEFVAL { 15 }
+			::= { xfSDHSectionConfigEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1.1.3
+		xfSDHLineDEGMonPeriod OBJECT-TYPE
+			SYNTAX Integer32 (2..10)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Used to specify the monitoring period, 
+				DEGM, that is used to detect a degraded 
+				defect at MS."
+			DEFVAL { 3 }
+			::= { xfSDHSectionConfigEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1.1.4
+		xfSDHSectionPMView OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				pmEnable(1),
+				pmDisable(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Enable/disable visibility of PM tables 
+				for a specific section interface. "
+			DEFVAL { pmDisable }
+			::= { xfSDHSectionConfigEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1.1.5
+		xfSDHSectionSetThreshold15mESs OBJECT-TYPE
+			SYNTAX Xf15MinSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The 15 minute set threshold for ES.
+				Default value is 180.
+				"
+			::= { xfSDHSectionConfigEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1.1.6
+		xfSDHSectionSetThreshold15mSESs OBJECT-TYPE
+			SYNTAX Xf15MinSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The 15 minute set threshold for SES.
+				Default value is 15.
+				"
+			::= { xfSDHSectionConfigEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1.1.7
+		xfSDHSectionSetThreshold15mCVs OBJECT-TYPE
+			SYNTAX Integer32
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The 15 minute set threshold for BBE.
+				Default value is 900.
+				"
+			::= { xfSDHSectionConfigEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1.1.8
+		xfSDHSectionResetThreshold15mESs OBJECT-TYPE
+			SYNTAX Xf15MinSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The 15 minute reset threshold for ES.
+				Default value is 20.
+				"
+			::= { xfSDHSectionConfigEntry 8 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1.1.9
+		xfSDHSectionResetThreshold15mSESs OBJECT-TYPE
+			SYNTAX Xf15MinSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The 15 minute reset threshold for SES.
+				Default value is 1.
+				"
+			::= { xfSDHSectionConfigEntry 9 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1.1.10
+		xfSDHSectionResetThreshold15mCVs OBJECT-TYPE
+			SYNTAX Integer32
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The 15 minute reset threshold for CV.
+				Default value is 200.
+				"
+			::= { xfSDHSectionConfigEntry 10 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1.1.11
+		xfSDHSectionSetThreshold24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The 24 hours set threshold for ES.
+				Default value is 1500.
+				"
+			::= { xfSDHSectionConfigEntry 11 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1.1.12
+		xfSDHSectionSetThreshold24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The 24 hours set threshold for SES.
+				Default value is 20.
+				"
+			::= { xfSDHSectionConfigEntry 12 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.1.1.13
+		xfSDHSectionSetThreshold24hCVs OBJECT-TYPE
+			SYNTAX Integer32
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The 24 hours set threshold for BBE.
+				Default value is 48000.
+				"
+			::= { xfSDHSectionConfigEntry 13 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.2
+		xfSDHSectionCurrent24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHSectionCurrent24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains section performance 
+				data for the current 24 hours."
+			::= { xfSDHPrivateSection 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.2.1
+		xfSDHSectionCurrent24hEntry OBJECT-TYPE
+			SYNTAX XfSDHSectionCurrent24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHSectionCurrent24hTable."
+			INDEX { ifIndex }
+			::= { xfSDHSectionCurrent24hTable 1 }
+
+		
+		XfSDHSectionCurrent24hEntry ::=
+			SEQUENCE { 
+				xfSDHSectionCurrent24hESs
+					Xf24HrsSecondsGauge,
+				xfSDHSectionCurrent24hSESs
+					Xf24HrsSecondsGauge,
+				xfSDHSectionCurrent24hSEFSs
+					Xf24HrsSecondsGauge,
+				xfSDHSectionCurrent24hCVs
+					XfSDH24HrsBlockSectionGauge,
+				xfSDHSectionCurrent24hElapsedTime
+					Xf24HrsSeconds,
+				xfSDHSectionCurrent24hUASs
+					Xf24HrsSecondsGauge,
+				xfSDHSectionCurrent24hBBs
+					Xf24HrsSecondsGauge
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.2.1.1
+		xfSDHSectionCurrent24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of
+				Errored Seconds encountered by a SONET/SDH
+				Section in the current 24-hour interval."
+			::= { xfSDHSectionCurrent24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.2.1.2
+		xfSDHSectionCurrent24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of
+				Severely Errored Seconds encountered by a
+				SONET/SDH Section in the current 24-hour 
+				interval."
+			::= { xfSDHSectionCurrent24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.2.1.3
+		xfSDHSectionCurrent24hSEFSs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of
+				Severely Errored Framing Seconds 
+				encountered by a SONET/SDH Section in the 
+				current 24-hour interval."
+			::= { xfSDHSectionCurrent24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.2.1.4
+		xfSDHSectionCurrent24hCVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlockSectionGauge
+			UNITS "errors"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of
+				Coding Violations (Errored Blocks) 
+				encountered by a SONET/SDH Section in the 
+				current 24-hour interval."
+			::= { xfSDHSectionCurrent24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.2.1.5
+		xfSDHSectionCurrent24hElapsedTime OBJECT-TYPE
+			SYNTAX Xf24HrsSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The number of seconds that have elapsed since the 
+				beginning of the current error-measurement period.
+				
+				If the current interval exceeds the maximum value, 
+				the agent will return the maximum value.
+				"
+			::= { xfSDHSectionCurrent24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.2.1.6
+		xfSDHSectionCurrent24hUASs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Description."
+			::= { xfSDHSectionCurrent24hEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.2.1.7
+		xfSDHSectionCurrent24hBBs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The number of Background Blocks in a
+				SONET/SDH Section in the current 24
+				hour interval."
+			::= { xfSDHSectionCurrent24hEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.3
+		xfSDHSectionInterval24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHSectionInterval24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains section performance 
+				data for the previous 24 hours."
+			::= { xfSDHPrivateSection 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.3.1
+		xfSDHSectionInterval24hEntry OBJECT-TYPE
+			SYNTAX XfSDHSectionInterval24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHSectionInterval24hTable."
+			INDEX { ifIndex }
+			::= { xfSDHSectionInterval24hTable 1 }
+
+		
+		XfSDHSectionInterval24hEntry ::=
+			SEQUENCE { 
+				xfSDHSectionInterval24hESs
+					Xf24HrsSecondsGauge,
+				xfSDHSectionInterval24hSESs
+					Xf24HrsSecondsGauge,
+				xfSDHSectionInterval24hSEFSs
+					Xf24HrsSecondsGauge,
+				xfSDHSectionInterval24hCVs
+					XfSDH24HrsBlockSectionGauge,
+				xfSDHSectionInterval24hValidData
+					TruthValue,
+				xfSDHSectionInterval24hUASs
+					Xf24HrsSecondsGauge,
+				xfSDHSectionInterval24hBBs
+					Xf24HrsSecondsGauge
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.3.1.1
+		xfSDHSectionInterval24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of
+				Errored Seconds encountered by a SONET/SDH
+				Section in the previous 24-hour interval."
+			::= { xfSDHSectionInterval24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.3.1.2
+		xfSDHSectionInterval24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of Severely 
+				Errored Seconds encountered by a SONET/SDH
+				Section in the previous 24-hour interval."
+			::= { xfSDHSectionInterval24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.3.1.3
+		xfSDHSectionInterval24hSEFSs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of Severely 
+				Errored Framing Seconds encountered by a 
+				SONET/SDH Section in the previous 24-hour
+				interval."
+			::= { xfSDHSectionInterval24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.3.1.4
+		xfSDHSectionInterval24hCVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlockSectionGauge
+			UNITS "errors"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of
+				Coding Violations (Errored Blocks) 
+				encountered by a SONET/SDH Section in the
+				previous 24-hour interval."
+			::= { xfSDHSectionInterval24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.3.1.5
+		xfSDHSectionInterval24hValidData OBJECT-TYPE
+			SYNTAX TruthValue
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This variable indicates whether the data 
+				for this interval is valid."
+			::= { xfSDHSectionInterval24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.3.1.6
+		xfSDHSectionInterval24hUASs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The number of UnAvailable Seconds encountered by 
+				a SONET/SDH Section in the previous 24 hour 
+				interval."
+			::= { xfSDHSectionInterval24hEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.3.1.7
+		xfSDHSectionInterval24hBBs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The number of Background Blocks in a
+				SONET/SDH Section in the previous
+				24 hour interval."
+			::= { xfSDHSectionInterval24hEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.4
+		xfSDHSectionCurrent15mTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHSectionCurrent15mEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains section performance data for the current 15 minutes."
+			::= { xfSDHPrivateSection 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.4.1
+		xfSDHSectionCurrent15mEntry OBJECT-TYPE
+			SYNTAX XfSDHSectionCurrent15mEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table."
+			INDEX { ifIndex }
+			::= { xfSDHSectionCurrent15mTable 1 }
+
+		
+		XfSDHSectionCurrent15mEntry ::=
+			SEQUENCE { 
+				xfSDHSectionCurrent15mElapsedTime
+					Xf15MinSeconds,
+				xfSDHSectionCurrent15mUASs
+					PerfCurrentCount,
+				xfSDHSectionCurrent15mBBs
+					PerfCurrentCount
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.4.1.1
+		xfSDHSectionCurrent15mElapsedTime OBJECT-TYPE
+			SYNTAX Xf15MinSeconds
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The number of seconds that have elapsed since the beginning of 
+				the current error-measurement period.
+				
+				If the current interval exceeds the maximum value, the agent 
+				will return the maximum value.
+				"
+			::= { xfSDHSectionCurrent15mEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.4.1.2
+		xfSDHSectionCurrent15mUASs OBJECT-TYPE
+			SYNTAX PerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The number of UnAvailable Seconds encountered by a SONET/SDH Section 
+				in the current 15 minute interval."
+			::= { xfSDHSectionCurrent15mEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.4.1.3
+		xfSDHSectionCurrent15mBBs OBJECT-TYPE
+			SYNTAX PerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The number of Background Blocks encountered by a SONET/SDH
+				Section in the current 15 minute interval."
+			::= { xfSDHSectionCurrent15mEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.5
+		xfSDHSectionInterval15mTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHSectionInterval15mEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains section performance data for the 
+				previous 15 minutes."
+			::= { xfSDHPrivateSection 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.5.1
+		xfSDHSectionInterval15mEntry OBJECT-TYPE
+			SYNTAX XfSDHSectionInterval15mEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table."
+			INDEX { ifIndex, xfSDHSectionInterval15mIntervalNumber }
+			::= { xfSDHSectionInterval15mTable 1 }
+
+		
+		XfSDHSectionInterval15mEntry ::=
+			SEQUENCE { 
+				xfSDHSectionInterval15mIntervalNumber
+					Integer32,
+				xfSDHSectionInterval15mUASs
+					PerfIntervalCount,
+				xfSDHSectionInterval15mBBs
+					PerfIntervalCount,
+				xfSDHSectionInterval15mValidData
+					TruthValue
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.5.1.1
+		xfSDHSectionInterval15mIntervalNumber OBJECT-TYPE
+			SYNTAX Integer32 (1..96)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"A number between 1 and 96, which identifies the interval for which 
+				the set of statistics is available. The interval identified by 1 
+				is the most recently completed 15 minute interval, and the interval 
+				identified by N is the interval immediately preceding the one 
+				identified by N-1."
+			::= { xfSDHSectionInterval15mEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.5.1.2
+		xfSDHSectionInterval15mUASs OBJECT-TYPE
+			SYNTAX PerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The number of UnAvailable Seconds encountered by a SONET/SDH Section
+				in the xfSDHSectionInterval15mIntervalNumber 15 minute interval."
+			::= { xfSDHSectionInterval15mEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.5.1.3
+		xfSDHSectionInterval15mBBs OBJECT-TYPE
+			SYNTAX PerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The number of Background Blocks encountered by a SONET/SDH Section in the
+				xfSDHSectionInterval15mIntervalNumber 15 minute interval."
+			::= { xfSDHSectionInterval15mEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.2.5.1.4
+		xfSDHSectionInterval15mValidData OBJECT-TYPE
+			SYNTAX TruthValue
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This variable indicates if the data for this interval is valid."
+			::= { xfSDHSectionInterval15mEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3
+		xfSDHPrivateLine OBJECT IDENTIFIER ::= { xfSDHPrivateObjects 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.1
+		xfSDHApsInterfaceTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHApsInterfaceEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table holds an entry for every APS, 
+				i.e. a board pair that that is configured
+				in the xfSDHSTM1PortTable as MSP 1+1 VC12
+				The xfSDHApsInterfaceTable is indexed by 
+				use of the ifIndex for the reliable MS/RS
+				interface.  
+				
+				"
+			::= { xfSDHPrivateLine 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.1.1
+		xfSDHApsInterfaceEntry OBJECT-TYPE
+			SYNTAX XfSDHApsInterfaceEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHApsInterfaceTable."
+			INDEX { ifIndex }
+			::= { xfSDHApsInterfaceTable 1 }
+
+		
+		XfSDHApsInterfaceEntry ::=
+			SEQUENCE { 
+				xfSDHApsInterfaceUnprotectedInterface1
+					InterfaceIndex,
+				xfSDHApsInterfaceUnprotectedInterface2
+					InterfaceIndex,
+				xfSDHApsInterfaceActiveLine
+					INTEGER,
+				xfSDHApsInterfaceActiveMapper
+					Integer32,
+				xfSDHApsInterfaceSwitchCount
+					Counter32,
+				xfSDHApsInterfaceMode
+					INTEGER,
+				xfSDHApsInterfaceLine1FailureStatus
+					XfSDHSTM1LineCodeFailure,
+				xfSDHApsInterfaceLine2FailureStatus
+					XfSDHSTM1LineCodeFailure,
+				xfSDHApsInterfaceLine1ReceivedK1
+					XfSDHK1Byte,
+				xfSDHApsInterfaceLine2ReceivedK1
+					XfSDHK1Byte,
+				xfSDHApsInterfaceProtectionStatus
+					BITS,
+				xfSDHApsInterfaceOperStatus
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.1.1.1
+		xfSDHApsInterfaceUnprotectedInterface1 OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The interface index of the first 
+				unprotected interface."
+			::= { xfSDHApsInterfaceEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.1.1.2
+		xfSDHApsInterfaceUnprotectedInterface2 OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The interface index of the second 
+				unprotected interface."
+			::= { xfSDHApsInterfaceEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.1.1.3
+		xfSDHApsInterfaceActiveLine OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				unProtectedInterface1(1),
+				unProtectedInterface2(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object indicates which line is 
+				currently active. The object can be used 
+				by external management to perform a MSP
+				switch.
+				1 -> UnprotectedInterface1
+				2 -> UnprotectedInterface2
+				Upon creation of an entry 1 is default."
+			DEFVAL { unProtectedInterface1 }
+			::= { xfSDHApsInterfaceEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.1.1.4
+		xfSDHApsInterfaceActiveMapper OBJECT-TYPE
+			SYNTAX Integer32 (2..21)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Shows the physical slot number of the 
+				board with the active Mapper.
+				"
+			::= { xfSDHApsInterfaceEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.1.1.5
+		xfSDHApsInterfaceSwitchCount OBJECT-TYPE
+			SYNTAX Counter32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The number of protection switching events
+				in the multiplex section caused by 
+				external events. Equipment protection 
+				switching is not included in this counter."
+			::= { xfSDHApsInterfaceEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.1.1.6
+		xfSDHApsInterfaceMode OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				manual(1),
+				automatic(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Used to switch between manual and 
+				automatic mode.
+				In manual mode . In automatic mode
+				a switch will be made based on the
+				SF/SD/MS-AIS condition at the line 
+				or on demand from external 
+				management.
+				1-> Manual, the APS will not react
+				    on Signal Failure i.e.a switch
+				    will only be made on demand 
+				    from external management .
+				2-> Automatic, the APS react on 
+				    Signal Failure and a switch 
+				    from external management.
+				"
+			DEFVAL { automatic }
+			::= { xfSDHApsInterfaceEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.1.1.7
+		xfSDHApsInterfaceLine1FailureStatus OBJECT-TYPE
+			SYNTAX XfSDHSTM1LineCodeFailure
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Used to show the failure 
+				encountered from the unprotected 
+				interface 1.
+				"
+			::= { xfSDHApsInterfaceEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.1.1.8
+		xfSDHApsInterfaceLine2FailureStatus OBJECT-TYPE
+			SYNTAX XfSDHSTM1LineCodeFailure
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Used to show the failure 
+				encountered from the unprotected 
+				interface 2.
+				
+				"
+			::= { xfSDHApsInterfaceEntry 8 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.1.1.9
+		xfSDHApsInterfaceLine1ReceivedK1 OBJECT-TYPE
+			SYNTAX XfSDHK1Byte
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Used to show the K1 byte received
+				from the unprotected interface 1.
+				"
+			::= { xfSDHApsInterfaceEntry 9 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.1.1.10
+		xfSDHApsInterfaceLine2ReceivedK1 OBJECT-TYPE
+			SYNTAX XfSDHK1Byte
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Used to show the K1 byte received 
+				from the unprotected interface 2.
+				"
+			::= { xfSDHApsInterfaceEntry 10 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.1.1.11
+		xfSDHApsInterfaceProtectionStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				xfSDHApsInterfaceNoProtectionAlarm(0),
+				xfSDHApsInterfaceUnprotected0(1),
+				xfSDHApsInterfaceUnprotected1(2),
+				xfSDHApsInterfaceUnprotected2(3)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This variable indicates the protection status and severity.
+				Severity is indicated by three bit per alarm:
+				      bits 012 
+				           000   clear
+				           001   undetermined
+				           010   warning
+				           011   minor
+				           100   major
+				           101   critical
+				"
+			::= { xfSDHApsInterfaceEntry 11 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.1.1.12
+		xfSDHApsInterfaceOperStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				protected(1),
+				unprotectedSF(2),
+				unprotected1port(3),
+				unprotectedManual(4),
+				unprotectedEquipFail(5),
+				completeFail(6)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Used to show the operational status of the 
+				protection pair.
+				1 -> Protected (OK)
+				2 -> Unprotected because we have 
+				     SF at one line
+				3 -> Unprotected because only one 
+				     port configured
+				4 -> Unprotected because 
+				     xfSDHApsinterfaceMode = Manual
+				5 -> Unprotected because we have equipment 
+				     failure or one board is missing
+				6 -> Both interfaces have failed, 
+				     no traffic running
+				"
+			::= { xfSDHApsInterfaceEntry 12 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.2
+		xfSDHLineConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHLineConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Configuration table for interfaces in the
+				Sonet line or SDH MS layer. Mainly for 
+				setting ES, SES and BBE alarm thresholds 
+				for 15 minutes and 24 hours intervals."
+			::= { xfSDHPrivateLine 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.2.1
+		xfSDHLineConfigEntry OBJECT-TYPE
+			SYNTAX XfSDHLineConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHLineConfigTable."
+			INDEX { ifIndex }
+			::= { xfSDHLineConfigTable 1 }
+
+		
+		XfSDHLineConfigEntry ::=
+			SEQUENCE { 
+				xfSDHLineThreshold1ES
+					Xf15MinSeconds,
+				xfSDHLineThreshold1SES
+					Xf15MinSeconds,
+				xfSDHLineThreshold1CV
+					XfSDH15MinBlocksLine,
+				xfSDHLineThreshold2ES
+					Xf24HrsSeconds,
+				xfSDHLineThreshold2SES
+					Xf24HrsSeconds,
+				xfSDHLineThreshold2CV
+					XfSDH24HrsBlocksLine,
+				xfSDHLinePMView
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.2.1.1
+		xfSDHLineThreshold1ES OBJECT-TYPE
+			SYNTAX Xf15MinSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 15-minute counter
+				for ES for Line. This threshold will also
+				be used to generate threshold trap for 
+				Far End."
+			DEFVAL { 150 }
+			::= { xfSDHLineConfigEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.2.1.2
+		xfSDHLineThreshold1SES OBJECT-TYPE
+			SYNTAX Xf15MinSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 15-minute counter 
+				for SES for Line. This threshold will also
+				be used to generate threshold trap for 
+				Far-end."
+			DEFVAL { 30 }
+			::= { xfSDHLineConfigEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.2.1.3
+		xfSDHLineThreshold1CV OBJECT-TYPE
+			SYNTAX XfSDH15MinBlocksLine
+			UNITS "errors"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 15-minute counter 
+				for BBE for Line. This threshold will also
+				be used to generate threshold trap for 
+				Far-end."
+			DEFVAL { 9600 }
+			::= { xfSDHLineConfigEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.2.1.4
+		xfSDHLineThreshold2ES OBJECT-TYPE
+			SYNTAX Xf24HrsSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 24 hours counter 
+				for ES for Line. This threshold will also
+				be used to generate threshold trap for 
+				Far-end."
+			DEFVAL { 1500 }
+			::= { xfSDHLineConfigEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.2.1.5
+		xfSDHLineThreshold2SES OBJECT-TYPE
+			SYNTAX Xf24HrsSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 24 hours counter 
+				for SES for Line. This threshold will also
+				be used to generate threshold trap for 
+				Far-end."
+			DEFVAL { 300 }
+			::= { xfSDHLineConfigEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.2.1.6
+		xfSDHLineThreshold2CV OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlocksLine
+			UNITS "errors"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 24 hours counter 
+				for BBE for Line. This threshold will also
+				be used to generate threshold trap for 
+				Far-end."
+			DEFVAL { 960000 }
+			::= { xfSDHLineConfigEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.2.1.7
+		xfSDHLinePMView OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				pmEnable(1),
+				pmDisable(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Enable/disable visibility of PM tables 
+				for a specific section interface. "
+			DEFVAL { pmDisable }
+			::= { xfSDHLineConfigEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.3
+		xfSDHLineCurrent24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHLineCurrent24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains line performance data
+				for the current 24 hours."
+			::= { xfSDHPrivateLine 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.3.1
+		xfSDHLineCurrent24hEntry OBJECT-TYPE
+			SYNTAX XfSDHLineCurrent24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHLineCurrent24hTable."
+			INDEX { ifIndex }
+			::= { xfSDHLineCurrent24hTable 1 }
+
+		
+		XfSDHLineCurrent24hEntry ::=
+			SEQUENCE { 
+				xfSDHLineCurrent24hPMStatus
+					BITS,
+				xfSDHLineCurrent24hESs
+					Xf24HrsSecondsGauge,
+				xfSDHLineCurrent24hSESs
+					Xf24HrsSecondsGauge,
+				xfSDHLineCurrent24hCVs
+					XfSDH24HrsBlockLineGauge,
+				xfSDHLineCurrent24hUASs
+					Xf24HrsSecondsGauge,
+				xfSDHLineCurrent24hUAVs
+					XfSDH24HrsUAVGauge
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.3.1.1
+		xfSDHLineCurrent24hPMStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				xfSDHLineNo24hPMAlarm(0),
+				xfSDHLineES0(1),
+				xfSDHLineES1(2),
+				xfSDHLineES2(3),
+				xfSDHLineSES0(4),
+				xfSDHLineSES1(5),
+				xfSDHLineSES2(6),
+				xfSDHLineCV0(7),
+				xfSDHLineCV1(8),
+				xfSDHLineCV2(9)
+				}
+			MAX-ACCESS read-only
+			STATUS obsolete
+			DESCRIPTION
+				"This variable indicates the performance alarm status and severity of 
+				a Sonet/SDH Line.Severity is indicated by three bit 
+				per alarm:
+				      bits 012 
+				           000   clear
+				           001   undetermined
+				           010   warning
+				           011   minor
+				           100   major
+				           101   critical"
+			::= { xfSDHLineCurrent24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.3.1.2
+		xfSDHLineCurrent24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Errored Seconds encountered by a SONET/SDH
+				Line in the current 24-hour interval."
+			::= { xfSDHLineCurrent24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.3.1.3
+		xfSDHLineCurrent24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Severely Errored Seconds encountered by a 
+				SONET/SDH Line in the current 24-hour 
+				interval."
+			::= { xfSDHLineCurrent24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.3.1.4
+		xfSDHLineCurrent24hCVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlockLineGauge
+			UNITS "errors"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Coding Violations (Errored Blocks) 
+				encountered by a SONET/SDH Line in the
+				current 24-hour interval."
+			::= { xfSDHLineCurrent24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.3.1.5
+		xfSDHLineCurrent24hUASs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable Seconds encountered by a 
+				SONET/SDH Line in the current 24-hour 
+				interval."
+			::= { xfSDHLineCurrent24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.3.1.6
+		xfSDHLineCurrent24hUAVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsUAVGauge
+			UNITS "events"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of
+				Unavailable states encountered by a 
+				SONET/SDH Line in the current 24-hour 
+				interval."
+			::= { xfSDHLineCurrent24hEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.4
+		xfSDHLineInterval24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHLineInterval24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains line performance data 
+				for the previous 24 hours."
+			::= { xfSDHPrivateLine 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.4.1
+		xfSDHLineInterval24hEntry OBJECT-TYPE
+			SYNTAX XfSDHLineInterval24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHLineInterval24hTable."
+			INDEX { ifIndex }
+			::= { xfSDHLineInterval24hTable 1 }
+
+		
+		XfSDHLineInterval24hEntry ::=
+			SEQUENCE { 
+				xfSDHLineInterval24hESs
+					Xf24HrsSecondsGauge,
+				xfSDHLineInterval24hSESs
+					Xf24HrsSecondsGauge,
+				xfSDHLineInterval24hCVs
+					XfSDH24HrsBlockLineGauge,
+				xfSDHLineInterval24hUASs
+					Xf24HrsSecondsGauge,
+				xfSDHLineInterval24hUAVs
+					XfSDH24HrsUAVGauge,
+				xfSDHLineInterval24hValidData
+					TruthValue
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.4.1.1
+		xfSDHLineInterval24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Errored Seconds encountered by a SONET/SDH
+				Line in the previous 24-hour interval."
+			::= { xfSDHLineInterval24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.4.1.2
+		xfSDHLineInterval24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Severely Errored Seconds encountered by a 
+				SONET/SDH Line in the previous 24-hour 
+				interval."
+			::= { xfSDHLineInterval24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.4.1.3
+		xfSDHLineInterval24hCVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlockLineGauge
+			UNITS "errors"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Coding Violations (Errored Blocks) 
+				encountered by a SONET/SDH Line in the 
+				previous 24-hour interval."
+			::= { xfSDHLineInterval24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.4.1.4
+		xfSDHLineInterval24hUASs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable Seconds encountered by a 
+				SONET/SDH Line in the previous 24-hour
+				interval."
+			::= { xfSDHLineInterval24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.4.1.5
+		xfSDHLineInterval24hUAVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsUAVGauge
+			UNITS "events"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable states encountered by a SONET/
+				SDH Line in the previous 24-hour interval."
+			::= { xfSDHLineInterval24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.4.1.6
+		xfSDHLineInterval24hValidData OBJECT-TYPE
+			SYNTAX TruthValue
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This variable indicates whether the data 
+				for this interval is valid."
+			::= { xfSDHLineInterval24hEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.5
+		xfSDHFarEndLineCurrent24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHFarEndLineCurrent24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains far end line 
+				performance data for the current 
+				24 hours."
+			::= { xfSDHPrivateLine 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.5.1
+		xfSDHFarEndLineCurrent24hEntry OBJECT-TYPE
+			SYNTAX XfSDHFarEndLineCurrent24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the 
+				xfSDHFarEndLineCurrent24hTable."
+			INDEX { ifIndex }
+			::= { xfSDHFarEndLineCurrent24hTable 1 }
+
+		
+		XfSDHFarEndLineCurrent24hEntry ::=
+			SEQUENCE { 
+				xfSDHFarEndLineCurrent24hPMStatus
+					BITS,
+				xfSDHFarEndLineCurrent24hESs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndLineCurrent24hSESs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndLineCurrent24hCVs
+					XfSDH24HrsBlockLineGauge,
+				xfSDHFarEndLineCurrent24hUASs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndLineCurrent24hUAVs
+					XfSDH24HrsUAVGauge
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.5.1.1
+		xfSDHFarEndLineCurrent24hPMStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				xfSDHFarEndLineNo24hPMAlarm(0),
+				xfSDHFarEndLineES0(1),
+				xfSDHFarEndLineES1(2),
+				xfSDHFarEndLineES2(3),
+				xfSDHFarEndLineSES0(4),
+				xfSDHFarEndLineSES1(5),
+				xfSDHFarEndLineSES2(6),
+				xfSDHFarEndLineCV0(7),
+				xfSDHFarEndLineCV1(8),
+				xfSDHFarEndLineCV2(9)
+				}
+			MAX-ACCESS read-only
+			STATUS obsolete
+			DESCRIPTION
+				"This variable indicates the performance alarm status and severity of 
+				a Sonet/SDH Far-End Line.Severity is indicated by three bit 
+				per alarm:
+				      bits 012 
+				           000   clear
+				           001   undetermined
+				           010   warning
+				           011   minor
+				           100   major
+				           101   critical"
+			::= { xfSDHFarEndLineCurrent24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.5.1.2
+		xfSDHFarEndLineCurrent24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Errored Seconds encountered by a SONET/SDH
+				Far End Line in the current 24-hour 
+				interval."
+			::= { xfSDHFarEndLineCurrent24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.5.1.3
+		xfSDHFarEndLineCurrent24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Severely Errored Seconds encountered by a
+				SONET/SDH Far End Line in the current
+				24-hour interval."
+			::= { xfSDHFarEndLineCurrent24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.5.1.4
+		xfSDHFarEndLineCurrent24hCVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlockLineGauge
+			UNITS "errors"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Coding Violations (Errored Blocks) 
+				encountered by a SONET/SDH Far End Line
+				in the current 24-hour interval."
+			::= { xfSDHFarEndLineCurrent24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.5.1.5
+		xfSDHFarEndLineCurrent24hUASs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable Seconds encountered by a 
+				SONET/SDH Far End Line in the current 
+				24-hour interval."
+			::= { xfSDHFarEndLineCurrent24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.5.1.6
+		xfSDHFarEndLineCurrent24hUAVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsUAVGauge
+			UNITS "events"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable states encountered by a SONET/
+				SDH Far End Line in the current 24-hour 
+				interval."
+			::= { xfSDHFarEndLineCurrent24hEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.6
+		xfSDHFarEndLineInterval24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHFarEndLineInterval24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains far end line 
+				performance data for the previous 
+				24 hours."
+			::= { xfSDHPrivateLine 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.6.1
+		xfSDHFarEndLineInterval24hEntry OBJECT-TYPE
+			SYNTAX XfSDHFarEndLineInterval24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHFarEndLineInterval24hTable."
+			INDEX { ifIndex }
+			::= { xfSDHFarEndLineInterval24hTable 1 }
+
+		
+		XfSDHFarEndLineInterval24hEntry ::=
+			SEQUENCE { 
+				xfSDHFarEndLineInterval24hESs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndLineInterval24hSESs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndLineInterval24hCVs
+					XfSDH24HrsBlockLineGauge,
+				xfSDHFarEndLineInterval24hUASs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndLineInterval24hUAVs
+					XfSDH24HrsUAVGauge,
+				xfSDHFarEndLineInterval24hValidData
+					TruthValue
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.6.1.1
+		xfSDHFarEndLineInterval24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Errored Seconds encountered by a SONET/SDH
+				Far End Line in the previous 24-hour 
+				interval."
+			::= { xfSDHFarEndLineInterval24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.6.1.2
+		xfSDHFarEndLineInterval24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Severely Errored Seconds encountered by a 
+				SONET/SDH Far End Line in the previous 
+				24-hour interval."
+			::= { xfSDHFarEndLineInterval24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.6.1.3
+		xfSDHFarEndLineInterval24hCVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlockLineGauge
+			UNITS "errors"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Coding Violations (Errored Blocks) 
+				encountered by a SONET/SDH Far End Line 
+				in the previous 24-hour interval."
+			::= { xfSDHFarEndLineInterval24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.6.1.4
+		xfSDHFarEndLineInterval24hUASs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable Seconds encountered by a 
+				SONET/SDH Far End Line in the previous 
+				24-hour interval."
+			::= { xfSDHFarEndLineInterval24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.6.1.5
+		xfSDHFarEndLineInterval24hUAVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsUAVGauge
+			UNITS "events"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable states encountered by a SONET/
+				SDH Far End Line in the previous 24-hour 
+				interval."
+			::= { xfSDHFarEndLineInterval24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.3.6.1.6
+		xfSDHFarEndLineInterval24hValidData OBJECT-TYPE
+			SYNTAX TruthValue
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This variable indicates whether the data 
+				for this interval is valid."
+			::= { xfSDHFarEndLineInterval24hEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4
+		xfSDHPrivatePath OBJECT IDENTIFIER ::= { xfSDHPrivateObjects 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1
+		xfSDHPathConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHPathConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Configuration table for interfaces in the 
+				Sonet Path or SDH Higher Order Path layer.
+				Mainly for setting ES, SES and BBE alarm 
+				thresholds for 15 minutes and 24 hours 
+				intervals.
+				For all interfaces in the VT layer having
+				the same Path as lower layer the BIP, REI
+				and DEG parameters will be the same and 
+				therefor set in this table."
+			::= { xfSDHPrivatePath 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1.1
+		xfSDHPathConfigEntry OBJECT-TYPE
+			SYNTAX XfSDHPathConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHPathConfigTable."
+			INDEX { ifIndex }
+			::= { xfSDHPathConfigTable 1 }
+
+		
+		XfSDHPathConfigEntry ::=
+			SEQUENCE { 
+				xfSDHPathDEGThreshold
+					Integer32,
+				xfSDHPathDEGMonPeriod
+					Integer32,
+				xfSDHVTDEGThreshold
+					Integer32,
+				xfSDHVTDEGMonPeriod
+					Integer32,
+				xfSDHPathThreshold1ES
+					Xf15MinSeconds,
+				xfSDHPathThreshold1SES
+					Xf15MinSeconds,
+				xfSDHPathThreshold1CV
+					XfSDH15MinBlocksPath,
+				xfSDHPathThreshold2ES
+					Xf24HrsSeconds,
+				xfSDHPathThreshold2SES
+					Xf24HrsSeconds,
+				xfSDHPathThreshold2CV
+					XfSDH24HrsBlocksPath,
+				xfSDHPathPLMExpect
+					XfSDHPathSignalLabel,
+				xfSDHPathPLMReceive
+					XfSDHPathSignalLabel,
+				xfSDHPathPMView
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1.1.1
+		xfSDHPathDEGThreshold OBJECT-TYPE
+			SYNTAX Integer32 (1..100)
+			UNITS "%"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Used to specify the threshold, DEGTHR, 
+				that is used to detect a degraded defect 
+				at Path."
+			DEFVAL { 30 }
+			::= { xfSDHPathConfigEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1.1.2
+		xfSDHPathDEGMonPeriod OBJECT-TYPE
+			SYNTAX Integer32 (2..10)
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Used to specify the threshold, DEGTHR, 
+				that is used to detect a degraded defect 
+				at the Path."
+			DEFVAL { 3 }
+			::= { xfSDHPathConfigEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1.1.3
+		xfSDHVTDEGThreshold OBJECT-TYPE
+			SYNTAX Integer32 (1..100)
+			UNITS "%"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Used to specify the threshold, DEGTHR, 
+				that is used to detect a degraded defect 
+				at VT."
+			DEFVAL { 30 }
+			::= { xfSDHPathConfigEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1.1.4
+		xfSDHVTDEGMonPeriod OBJECT-TYPE
+			SYNTAX Integer32 (2..10)
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Used to specify the threshold, DEGTHR, 
+				that is used to detect a degraded defect 
+				at VT."
+			DEFVAL { 3 }
+			::= { xfSDHPathConfigEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1.1.5
+		xfSDHPathThreshold1ES OBJECT-TYPE
+			SYNTAX Xf15MinSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 15-minute counter
+				for ES for Path. This threshold will also
+				be used to generate threshold trap for Far
+				End."
+			DEFVAL { 150 }
+			::= { xfSDHPathConfigEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1.1.6
+		xfSDHPathThreshold1SES OBJECT-TYPE
+			SYNTAX Xf15MinSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 15-minute counter 
+				for SES for Path. This threshold will also
+				be used to generate threshold trap for Far
+				End."
+			DEFVAL { 30 }
+			::= { xfSDHPathConfigEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1.1.7
+		xfSDHPathThreshold1CV OBJECT-TYPE
+			SYNTAX XfSDH15MinBlocksPath
+			UNITS "errors"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 15-minute counter 
+				for BBE for Path. This threshold will also
+				be used to generate threshold trap for Far
+				End."
+			DEFVAL { 9600 }
+			::= { xfSDHPathConfigEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1.1.8
+		xfSDHPathThreshold2ES OBJECT-TYPE
+			SYNTAX Xf24HrsSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 24 hours counter 
+				for ES for Path. This threshold will also
+				be used to generate threshold trap for Far
+				End."
+			DEFVAL { 1500 }
+			::= { xfSDHPathConfigEntry 8 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1.1.9
+		xfSDHPathThreshold2SES OBJECT-TYPE
+			SYNTAX Xf24HrsSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 24 hours counter 
+				for SES for Path. This threshold will also
+				be used to generate threshold trap for Far
+				End."
+			DEFVAL { 300 }
+			::= { xfSDHPathConfigEntry 9 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1.1.10
+		xfSDHPathThreshold2CV OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlocksPath
+			UNITS "errors"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 24 hours counter 
+				for BBE for Path. This threshold will also
+				be used to generate threshold trap for Far
+				End."
+			DEFVAL { 960000 }
+			::= { xfSDHPathConfigEntry 10 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1.1.11
+		xfSDHPathPLMExpect OBJECT-TYPE
+			SYNTAX XfSDHPathSignalLabel
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Expected Signal Label (C2 byte in VC-4
+				overhead)
+				"
+			::= { xfSDHPathConfigEntry 11 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1.1.12
+		xfSDHPathPLMReceive OBJECT-TYPE
+			SYNTAX XfSDHPathSignalLabel
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Received Signal Label (C2 byte in VC-4
+				overhead)
+				"
+			::= { xfSDHPathConfigEntry 12 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.1.1.13
+		xfSDHPathPMView OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				pmEnable(1),
+				pmDisable(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Enable/disable visibility of PM tables 
+				for a specific section interface. "
+			DEFVAL { pmDisable }
+			::= { xfSDHPathConfigEntry 13 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.2
+		xfSDHPathCurrent24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHPathCurrent24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains path performance data 
+				for the current 24 hours."
+			::= { xfSDHPrivatePath 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.2.1
+		xfSDHPathCurrent24hEntry OBJECT-TYPE
+			SYNTAX XfSDHPathCurrent24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHPathCurrent24hTable."
+			INDEX { ifIndex }
+			::= { xfSDHPathCurrent24hTable 1 }
+
+		
+		XfSDHPathCurrent24hEntry ::=
+			SEQUENCE { 
+				xfSDHPathCurrent24hPMStatus
+					BITS,
+				xfSDHPathCurrent24hESs
+					Xf24HrsSecondsGauge,
+				xfSDHPathCurrent24hSESs
+					Xf24HrsSecondsGauge,
+				xfSDHPathCurrent24hCVs
+					XfSDH24HrsBlockPathGauge,
+				xfSDHPathCurrent24hUASs
+					Xf24HrsSecondsGauge,
+				xfSDHPathCurrent24hUAVs
+					XfSDH24HrsUAVGauge
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.2.1.1
+		xfSDHPathCurrent24hPMStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				xfSDHPathNo24hPMAlarm(0),
+				xfSDHPathES0(1),
+				xfSDHPathES1(2),
+				xfSDHPathES2(3),
+				xfSDHPathSES0(4),
+				xfSDHPathSES1(5),
+				xfSDHPathSES2(6),
+				xfSDHPathCV0(7),
+				xfSDHPathCV1(8),
+				xfSDHPathCV2(9)
+				}
+			MAX-ACCESS read-only
+			STATUS obsolete
+			DESCRIPTION
+				"This variable indicates the performance alarm status and severity of 
+				a Sonet/SDH Path.Severity is indicated by three bit 
+				per alarm:
+				      bits 012 
+				           000   clear
+				           001   undetermined
+				           010   warning
+				           011   minor
+				           100   major
+				           101   critical"
+			::= { xfSDHPathCurrent24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.2.1.2
+		xfSDHPathCurrent24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Errored Seconds encountered by a SONET/SDH
+				Path in the current 24-hour interval."
+			::= { xfSDHPathCurrent24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.2.1.3
+		xfSDHPathCurrent24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Severely Errored Seconds encountered by a 
+				SONET/SDH Path in the current 24-hour 
+				interval."
+			::= { xfSDHPathCurrent24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.2.1.4
+		xfSDHPathCurrent24hCVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlockPathGauge
+			UNITS "errors"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Coding Violations (Errored Blocks) 
+				encountered by a SONET/SDH Path in the 
+				current 24-hour interval."
+			::= { xfSDHPathCurrent24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.2.1.5
+		xfSDHPathCurrent24hUASs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable Seconds encountered by a 
+				SONET/SDH Path in the current 24-hour 
+				interval."
+			::= { xfSDHPathCurrent24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.2.1.6
+		xfSDHPathCurrent24hUAVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsUAVGauge
+			UNITS "events"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable states encountered by a SONET/
+				SDH Path in the current 24-hour interval."
+			::= { xfSDHPathCurrent24hEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.3
+		xfSDHPathInterval24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHPathInterval24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains path performance data 
+				for the previous 24 hours."
+			::= { xfSDHPrivatePath 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.3.1
+		xfSDHPathInterval24hEntry OBJECT-TYPE
+			SYNTAX XfSDHPathInterval24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHPathInterval24hTable."
+			INDEX { ifIndex }
+			::= { xfSDHPathInterval24hTable 1 }
+
+		
+		XfSDHPathInterval24hEntry ::=
+			SEQUENCE { 
+				xfSDHPathInterval24hESs
+					Xf24HrsSecondsGauge,
+				xfSDHPathInterval24hSESs
+					Xf24HrsSecondsGauge,
+				xfSDHPathInterval24hCVs
+					XfSDH24HrsBlockPathGauge,
+				xfSDHPathInterval24hUASs
+					Xf24HrsSecondsGauge,
+				xfSDHPathInterval24hUAVs
+					XfSDH24HrsUAVGauge,
+				xfSDHPathInterval24hValidData
+					TruthValue
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.3.1.1
+		xfSDHPathInterval24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Errored Seconds encountered by a SONET/SDH
+				Path in the previous 24-hour interval."
+			::= { xfSDHPathInterval24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.3.1.2
+		xfSDHPathInterval24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Severely Errored Seconds encountered by a 
+				SONET/SDH Path in the previous 24-hour 
+				interval."
+			::= { xfSDHPathInterval24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.3.1.3
+		xfSDHPathInterval24hCVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlockPathGauge
+			UNITS "errors"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Coding Violations (Errored Blocks) 
+				encountered by a SONET/SDH Path in the 
+				previous 24-hour interval."
+			::= { xfSDHPathInterval24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.3.1.4
+		xfSDHPathInterval24hUASs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable Seconds encountered by a 
+				SONET/SDH Path in the previous 24-hour 
+				interval."
+			::= { xfSDHPathInterval24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.3.1.5
+		xfSDHPathInterval24hUAVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsUAVGauge
+			UNITS "events"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable states encountered by a SONET/
+				SDH Path in the previous 24-hour interval."
+			::= { xfSDHPathInterval24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.3.1.6
+		xfSDHPathInterval24hValidData OBJECT-TYPE
+			SYNTAX TruthValue
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This variable indicates whether the data 
+				for this interval is valid."
+			::= { xfSDHPathInterval24hEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.4
+		xfSDHFarEndPathCurrent24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHFarEndPathCurrent24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains far end path 
+				performance data for the current 
+				24 hours."
+			::= { xfSDHPrivatePath 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.4.1
+		xfSDHFarEndPathCurrent24hEntry OBJECT-TYPE
+			SYNTAX XfSDHFarEndPathCurrent24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the 
+				xfSDHFarEndPathCurrent24hTable."
+			INDEX { ifIndex }
+			::= { xfSDHFarEndPathCurrent24hTable 1 }
+
+		
+		XfSDHFarEndPathCurrent24hEntry ::=
+			SEQUENCE { 
+				xfSDHFarEndPathCurrent24hPMStatus
+					BITS,
+				xfSDHFarEnPathCurrent24hESs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndPathCurrent24hSESs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndPathCurrent24hCVs
+					XfSDH24HrsBlockPathGauge,
+				xfSDHFarEndPathCurrent24hUASs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndPathCurrent24hUAVs
+					XfSDH24HrsUAVGauge
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.4.1.1
+		xfSDHFarEndPathCurrent24hPMStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				xfSDHFarEndPathNo24hPMAlarm(0),
+				xfSDHFarEndPathES0(1),
+				xfSDHFarEndPathES1(2),
+				xfSDHFarEndPathES2(3),
+				xfSDHFarEndPathSES0(4),
+				xfSDHFarEndPathSES1(5),
+				xfSDHFarEndPathSES2(6),
+				xfSDHFarEndPathCV0(7),
+				xfSDHFarEndPathCV1(8),
+				xfSDHFarEndPathCV2(9)
+				}
+			MAX-ACCESS read-only
+			STATUS obsolete
+			DESCRIPTION
+				"This variable indicates the performance alarm status and severity of 
+				a Sonet/SDH Far-End Path.Severity is indicated by three bit 
+				per alarm:
+				      bits 012 
+				           000   clear
+				           001   undetermined
+				           010   warning
+				           011   minor
+				           100   major
+				           101   critical"
+			::= { xfSDHFarEndPathCurrent24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.4.1.2
+		xfSDHFarEnPathCurrent24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Errored Seconds encountered by a SONET/SDH
+				Far End Path in the current 24-hour 
+				interval."
+			::= { xfSDHFarEndPathCurrent24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.4.1.3
+		xfSDHFarEndPathCurrent24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Severely Errored Seconds encountered by a 
+				SONET/SDH Far End Path in the current 
+				24-hour interval."
+			::= { xfSDHFarEndPathCurrent24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.4.1.4
+		xfSDHFarEndPathCurrent24hCVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlockPathGauge
+			UNITS "errors"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Coding Violations (Errored Blocks) 
+				encountered by a SONET/SDH Far End Path 
+				in the current 24-hour interval."
+			::= { xfSDHFarEndPathCurrent24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.4.1.5
+		xfSDHFarEndPathCurrent24hUASs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable Seconds encountered by a 
+				SONET/SDH Far End Path in the current 
+				24-hour interval."
+			::= { xfSDHFarEndPathCurrent24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.4.1.6
+		xfSDHFarEndPathCurrent24hUAVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsUAVGauge
+			UNITS "events"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable states encountered by a SONET/
+				SDH Far End Path in the current 24-hour 
+				interval."
+			::= { xfSDHFarEndPathCurrent24hEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.5
+		xfSDHFarEndPathInterval24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHFarEndPathInterval24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains far end path performance data for the previous 
+				24 hours."
+			::= { xfSDHPrivatePath 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.5.1
+		xfSDHFarEndPathInterval24hEntry OBJECT-TYPE
+			SYNTAX XfSDHFarEndPathInterval24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHFarEndPathInterval24hTable."
+			INDEX { ifIndex }
+			::= { xfSDHFarEndPathInterval24hTable 1 }
+
+		
+		XfSDHFarEndPathInterval24hEntry ::=
+			SEQUENCE { 
+				xfSDHFarEndPathInterval24hESs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndPathInterval24hSESs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndPathInterval24hCVs
+					XfSDH24HrsBlockPathGauge,
+				xfSDHFarEndPathInterval24hUASs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndPathInterval24hUAVs
+					XfSDH24HrsUAVGauge,
+				xfSDHFarEndPathInterval24hValidData
+					TruthValue
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.5.1.1
+		xfSDHFarEndPathInterval24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Errored Seconds encountered by a SONET/SDH
+				Far End Path in the previous 24-hour 
+				interval."
+			::= { xfSDHFarEndPathInterval24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.5.1.2
+		xfSDHFarEndPathInterval24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Severely Errored Seconds encountered by a 
+				SONET/SDH Far End Path in the previous 
+				24-hour interval."
+			::= { xfSDHFarEndPathInterval24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.5.1.3
+		xfSDHFarEndPathInterval24hCVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlockPathGauge
+			UNITS "errors"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Coding Violations (Errored Blocks) 
+				encountered by a SONET/SDH Far End Path 
+				in the previous 24-hour interval."
+			::= { xfSDHFarEndPathInterval24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.5.1.4
+		xfSDHFarEndPathInterval24hUASs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable Seconds encountered by a 
+				SONET/SDH Far End Path in the previous 
+				24-hour interval."
+			::= { xfSDHFarEndPathInterval24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.5.1.5
+		xfSDHFarEndPathInterval24hUAVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsUAVGauge
+			UNITS "events"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable states encountered by a SONET/
+				SDH Far End Path in the previous 24-hour 
+				interval."
+			::= { xfSDHFarEndPathInterval24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.4.5.1.6
+		xfSDHFarEndPathInterval24hValidData OBJECT-TYPE
+			SYNTAX TruthValue
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This variable indicates whether the data 
+				for this interval is valid."
+			::= { xfSDHFarEndPathInterval24hEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5
+		xfSDHPrivateVT OBJECT IDENTIFIER ::= { xfSDHPrivateObjects 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.1
+		xfSDHVTConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHVTConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Configuration table for interfaces in the 
+				Sonet line or SDH Lower Order Path layer. 
+				Mainly for setting ES, SES and BBE alarm 
+				thresholds for 15 minutes and 24 hours 
+				intervals."
+			::= { xfSDHPrivateVT 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.1.1
+		xfSDHVTConfigEntry OBJECT-TYPE
+			SYNTAX XfSDHVTConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHVTConfigTable."
+			INDEX { ifIndex }
+			::= { xfSDHVTConfigTable 1 }
+
+		
+		XfSDHVTConfigEntry ::=
+			SEQUENCE { 
+				xfSDHVTThreshold1ES
+					Xf15MinSeconds,
+				xfSDHVTThreshold1SES
+					Xf15MinSeconds,
+				xfSDHVTThreshold1CV
+					XfSDH15MinBlocksVT,
+				xfSDHVTThreshold2ES
+					Xf24HrsSeconds,
+				xfSDHVTThreshold2SES
+					Xf24HrsSeconds,
+				xfSDHVTThreshold2CV
+					XfSDH24HrsBlocksVT,
+				xfSDHVTPLMExpected
+					XfSDHVTSignalLabel,
+				xfSDHVTPLMReceived
+					OCTET STRING,
+				xfSDHVTPMView
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.1.1.1
+		xfSDHVTThreshold1ES OBJECT-TYPE
+			SYNTAX Xf15MinSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 15-minute counter 
+				for ES for VT. This threshold will also 
+				be used to generate threshold trap for 
+				Far End."
+			DEFVAL { 20 }
+			::= { xfSDHVTConfigEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.1.1.2
+		xfSDHVTThreshold1SES OBJECT-TYPE
+			SYNTAX Xf15MinSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 15-minute counter 
+				for ES for VT. This threshold will also 
+				be used to generate threshold trap for 
+				Far End."
+			DEFVAL { 4 }
+			::= { xfSDHVTConfigEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.1.1.3
+		xfSDHVTThreshold1CV OBJECT-TYPE
+			SYNTAX XfSDH15MinBlocksVT
+			UNITS "errors"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 15-minute counter 
+				for ES for VT. This threshold will also 
+				be used to generate threshold trap for 
+				Far End."
+			DEFVAL { 1200 }
+			::= { xfSDHVTConfigEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.1.1.4
+		xfSDHVTThreshold2ES OBJECT-TYPE
+			SYNTAX Xf24HrsSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 24 hours counter 
+				for ES for VT. This threshold will also 
+				be used to generate threshold trap for 
+				Far End."
+			DEFVAL { 200 }
+			::= { xfSDHVTConfigEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.1.1.5
+		xfSDHVTThreshold2SES OBJECT-TYPE
+			SYNTAX Xf24HrsSeconds
+			UNITS "seconds"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 24 hours counter 
+				for ES for Path. This threshold will also 
+				be used to generate threshold trap for 
+				Far End."
+			DEFVAL { 40 }
+			::= { xfSDHVTConfigEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.1.1.6
+		xfSDHVTThreshold2CV OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlocksVT
+			UNITS "errors"
+			MAX-ACCESS read-write
+			STATUS obsolete
+			DESCRIPTION
+				"Threshold used to generate and clear a 
+				threshold alarm for the 24 hours counter 
+				for ES for Path. This threshold will also 
+				be used to generate threshold trap for 
+				Far End."
+			DEFVAL { 90000 }
+			::= { xfSDHVTConfigEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.1.1.7
+		xfSDHVTPLMExpected OBJECT-TYPE
+			SYNTAX XfSDHVTSignalLabel
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Expected Signal label (V5 byte, bit 5-7 in
+				VC-12 overhead). 
+				"
+			::= { xfSDHVTConfigEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.1.1.8
+		xfSDHVTPLMReceived OBJECT-TYPE
+			SYNTAX OCTET STRING (SIZE (1))
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Received Signal label (V5 byte, bit 5-7 in
+				VC-12 overhead). 
+				"
+			::= { xfSDHVTConfigEntry 8 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.1.1.9
+		xfSDHVTPMView OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				pmEnable(1),
+				pmDisable(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Enable/disable visibility of PM tables 
+				for a specific section interface. "
+			DEFVAL { pmDisable }
+			::= { xfSDHVTConfigEntry 9 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.2
+		xfSDHVTCurrent24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHVTCurrent24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains VT performance data 
+				for the current 24 hours."
+			::= { xfSDHPrivateVT 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.2.1
+		xfSDHVTCurrent24hEntry OBJECT-TYPE
+			SYNTAX XfSDHVTCurrent24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHVTCurrent24hTable."
+			INDEX { ifIndex }
+			::= { xfSDHVTCurrent24hTable 1 }
+
+		
+		XfSDHVTCurrent24hEntry ::=
+			SEQUENCE { 
+				xfSDHVTCurrent24hPMStatus
+					BITS,
+				xfSDHVTCurrent24hESs
+					Xf24HrsSecondsGauge,
+				xfSDHVTCurrent24hSESs
+					Xf24HrsSecondsGauge,
+				xfSDHVTCurrent24hCVs
+					XfSDH24HrsBlockVTGauge,
+				xfSDHVTCurrent24hUASs
+					Xf24HrsSecondsGauge,
+				xfSDHVTCurrent24hUAVs
+					XfSDH24HrsUAVGauge
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.2.1.1
+		xfSDHVTCurrent24hPMStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				xfSDHVTNo24hPMAlarm(0),
+				xfSDHVTES0(1),
+				xfSDHVTES1(2),
+				xfSDHVTES2(3),
+				xfSDHVTSES0(4),
+				xfSDHVTSES1(5),
+				xfSDHVTSES2(6),
+				xfSDHVTCV0(7),
+				xfSDHVTCV1(8),
+				xfSDHVTCV2(9)
+				}
+			MAX-ACCESS read-only
+			STATUS obsolete
+			DESCRIPTION
+				"This variable indicates the performance alarm status and severity of 
+				a Sonet/SDH VT.Severity is indicated by three bit 
+				per alarm:
+				      bits 012 
+				           000   clear
+				           001   undetermined
+				           010   warning
+				           011   minor
+				           100   major
+				           101   critical"
+			::= { xfSDHVTCurrent24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.2.1.2
+		xfSDHVTCurrent24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Errored Seconds encountered by a SONET/SDH
+				VT in the current 24-hour interval."
+			::= { xfSDHVTCurrent24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.2.1.3
+		xfSDHVTCurrent24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of Severely 
+				Errored Seconds encountered by a SONET/SDH VT 
+				in the current 24-hour interval."
+			::= { xfSDHVTCurrent24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.2.1.4
+		xfSDHVTCurrent24hCVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlockVTGauge
+			UNITS "errors"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of Coding Violations 
+				(Errored Blocks) encountered by a SONET/SDH VT in the 
+				current 24-hour interval."
+			::= { xfSDHVTCurrent24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.2.1.5
+		xfSDHVTCurrent24hUASs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of Unavailable Seconds 
+				encountered by a SONET/SDH VT in the 
+				current 24-hour interval."
+			::= { xfSDHVTCurrent24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.2.1.6
+		xfSDHVTCurrent24hUAVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsUAVGauge
+			UNITS "events"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable states encountered by a SONET/
+				SDH VT in the current 24-hour interval."
+			::= { xfSDHVTCurrent24hEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.3
+		xfSDHVTInterval24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHVTInterval24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains VT performance data 
+				for the previous 24 hours."
+			::= { xfSDHPrivateVT 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.3.1
+		xfSDHVTInterval24hEntry OBJECT-TYPE
+			SYNTAX XfSDHVTInterval24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHVTInterval24hTable."
+			INDEX { ifIndex }
+			::= { xfSDHVTInterval24hTable 1 }
+
+		
+		XfSDHVTInterval24hEntry ::=
+			SEQUENCE { 
+				xfSDHVTInterval24hESs
+					Xf24HrsSecondsGauge,
+				xfSDHVTInterval24hSESs
+					Xf24HrsSecondsGauge,
+				xfSDHVTInterval24hCVs
+					XfSDH24HrsBlockVTGauge,
+				xfSDHVTInterval24hUASs
+					Xf24HrsSecondsGauge,
+				xfSDHVTInterval24hUAVs
+					XfSDH24HrsUAVGauge,
+				xfSDHVTInterval24hValidData
+					TruthValue
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.3.1.1
+		xfSDHVTInterval24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Errored Seconds encountered by a SONET/SDH
+				 VT in the previous 24-hour interval."
+			::= { xfSDHVTInterval24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.3.1.2
+		xfSDHVTInterval24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Severely Errored Seconds encountered by a 
+				SONET/SDH VT in the previous 24-hour 
+				interval."
+			::= { xfSDHVTInterval24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.3.1.3
+		xfSDHVTInterval24hCVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlockVTGauge
+			UNITS "errors"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Coding Violations (Errored Blocks) 
+				encountered by a SONET/SDH VT in the 
+				previous 24-hour interval."
+			::= { xfSDHVTInterval24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.3.1.4
+		xfSDHVTInterval24hUASs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable Seconds encountered by a 
+				SONET/SDH VT in the previous 24-hour 
+				interval."
+			::= { xfSDHVTInterval24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.3.1.5
+		xfSDHVTInterval24hUAVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsUAVGauge
+			UNITS "events"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of
+				Unavailable states encountered by a SONET/
+				SDH VT in the previous 24-hour interval."
+			::= { xfSDHVTInterval24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.3.1.6
+		xfSDHVTInterval24hValidData OBJECT-TYPE
+			SYNTAX TruthValue
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This variable indicates whether the data 
+				for this interval is valid."
+			::= { xfSDHVTInterval24hEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.4
+		xfSDHFarEndVTCurrent24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHFarEndVTCurrent24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains far end VT performance
+				data for the current 24 hours."
+			::= { xfSDHPrivateVT 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.4.1
+		xfSDHFarEndVTCurrent24hEntry OBJECT-TYPE
+			SYNTAX XfSDHFarEndVTCurrent24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHFarEndVTCurrent24hTable."
+			INDEX { ifIndex }
+			::= { xfSDHFarEndVTCurrent24hTable 1 }
+
+		
+		XfSDHFarEndVTCurrent24hEntry ::=
+			SEQUENCE { 
+				xfSDHFarEndVTCurrent24hPMStatus
+					BITS,
+				xfSDHFarEndVTCurrent24hESs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndVTCurrent24hSESs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndVTCurrent24hCVs
+					XfSDH24HrsBlockVTGauge,
+				xfSDHFarEndVTCurrent24hUASs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndVTCurrent24hUAVs
+					XfSDH24HrsUAVGauge
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.4.1.1
+		xfSDHFarEndVTCurrent24hPMStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				xfSDHFarEndPathVTNo24hPMAlarm(0),
+				xfSDHFarEndVTES0(1),
+				xfSDHFarEndVTES1(2),
+				xfSDHFarEndVTES2(3),
+				xfSDHFarEndVTSES0(4),
+				xfSDHFarEndVTSES1(5),
+				xfSDHFarEndVTSES2(6),
+				xfSDHFarEndVTCV0(7),
+				xfSDHFarEndVTCV1(8),
+				xfSDHFarEndVTCV2(9)
+				}
+			MAX-ACCESS read-only
+			STATUS obsolete
+			DESCRIPTION
+				"This variable indicates the performance alarm status and severity of 
+				a Sonet/SDH Far-End VT.Severity is indicated by three bit 
+				per alarm:
+				      bits 012 
+				           000   clear
+				           001   undetermined
+				           010   warning
+				           011   minor
+				           100   major
+				           101   critical"
+			::= { xfSDHFarEndVTCurrent24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.4.1.2
+		xfSDHFarEndVTCurrent24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Errored Seconds encountered by a SONET/SDH
+				Far End VT in the current 24-hour 
+				interval."
+			::= { xfSDHFarEndVTCurrent24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.4.1.3
+		xfSDHFarEndVTCurrent24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Severely Errored Seconds encountered by a 
+				SONET/SDH Far End VT in the current 
+				24-hour interval."
+			::= { xfSDHFarEndVTCurrent24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.4.1.4
+		xfSDHFarEndVTCurrent24hCVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlockVTGauge
+			UNITS "errors"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Coding Violations (Errored Blocks) 
+				encountered by a SONET/SDH Far End VT in 
+				the current 24-hour interval."
+			::= { xfSDHFarEndVTCurrent24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.4.1.5
+		xfSDHFarEndVTCurrent24hUASs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable Seconds encountered by a 
+				SONET/SDH Far End VT in the current 
+				24-hour interval."
+			::= { xfSDHFarEndVTCurrent24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.4.1.6
+		xfSDHFarEndVTCurrent24hUAVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsUAVGauge
+			UNITS "events"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable states encountered by a SONET/
+				SDH Far End VT in the current 24-hour 
+				interval."
+			::= { xfSDHFarEndVTCurrent24hEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.5
+		xfSDHFarEndVTInterval24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfSDHFarEndVTInterval24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains far end VT performance 
+				data for the previous 24 hours."
+			::= { xfSDHPrivateVT 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.5.1
+		xfSDHFarEndVTInterval24hEntry OBJECT-TYPE
+			SYNTAX XfSDHFarEndVTInterval24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the xfSDHFarEndVTInterval24hTable."
+			INDEX { ifIndex }
+			::= { xfSDHFarEndVTInterval24hTable 1 }
+
+		
+		XfSDHFarEndVTInterval24hEntry ::=
+			SEQUENCE { 
+				xfSDHFarEndVTInterval24hESs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndVTInterval24hSESs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndVTInterval24hCVs
+					XfSDH24HrsBlockVTGauge,
+				xfSDHFarEndVTInterval24hUASs
+					Xf24HrsSecondsGauge,
+				xfSDHFarEndVTInterval24hUAVs
+					XfSDH24HrsUAVGauge,
+				xfSDHFarEndVTInterval24hValidData
+					TruthValue
+			 }
+
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.5.1.1
+		xfSDHFarEndVTInterval24hESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Errored Seconds encountered by a SONET/SDH
+				Far End VT in the previous 24-hour 
+				interval."
+			::= { xfSDHFarEndVTInterval24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.5.1.2
+		xfSDHFarEndVTInterval24hSESs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Severely Errored Seconds encountered by a 
+				SONET/SDH Far End VT in the previous 
+				24-hour interval."
+			::= { xfSDHFarEndVTInterval24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.5.1.3
+		xfSDHFarEndVTInterval24hCVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsBlockVTGauge
+			UNITS "errors"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Coding Violations (Errored Blocks) 
+				encountered by a SONET/SDH Far End VT in 
+				the previous 24-hour interval."
+			::= { xfSDHFarEndVTInterval24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.5.1.4
+		xfSDHFarEndVTInterval24hUASs OBJECT-TYPE
+			SYNTAX Xf24HrsSecondsGauge
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable Seconds encountered by a 
+				SONET/SDH Far End VT in the previous 
+				24-hour interval."
+			::= { xfSDHFarEndVTInterval24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.5.1.5
+		xfSDHFarEndVTInterval24hUAVs OBJECT-TYPE
+			SYNTAX XfSDH24HrsUAVGauge
+			UNITS "events"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The counter associated with the number of 
+				Unavailable states encountered by a SONET/
+				SDH Far End VT in the previous 24-hour 
+				interval."
+			::= { xfSDHFarEndVTInterval24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.5.5.1.6
+		xfSDHFarEndVTInterval24hValidData OBJECT-TYPE
+			SYNTAX TruthValue
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This variable indicates whether the data 
+				for this interval is valid."
+			::= { xfSDHFarEndVTInterval24hEntry 6 }
+
+		             
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.6
+		xfSDHSTM1ScalarObjects OBJECT IDENTIFIER ::= { xfSDHPrivateObjects 6 } 
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.6.1
+		xfSDHSTM1Capabilities OBJECT-TYPE
+			SYNTAX BITS
+			{
+			convertLtu155toLtu2155(0)
+			}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"A bitmap that shows supported functionality, 
+				used for compatibility check by management systems.
+				
+				convertLtu155toLtu2155(0)  : Support for converting config files from LTU 155 to LTU2 155"
+			::= { xfSDHSTM1ScalarObjects 1 }   
+			
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.6.2
+		xfSDHSTM1ConfigConvertSlot OBJECT-TYPE
+			SYNTAX Integer32 (0..2147483647)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The slot that will have its config file converted"
+			::= { xfSDHSTM1ScalarObjects 2 }
+	
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.6.3
+		xfSDHSTM1ConfigConvertCommand OBJECT-TYPE
+			SYNTAX INTEGER
+			{
+			convertLtu155toLtu2155(1),
+			activate(2)
+			}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The command to be performed
+				
+				convertLtu155toLtu2155(1)  : Converts the config file from LTU 155 to LTU2 155
+				activate(2)                : Activates the config that is converted. NOTE: This will trigger a restart of the node"
+			::= { xfSDHSTM1ScalarObjects 3 }
+			
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.6.4
+		xfSDHSTM1ConfigConvertStatus OBJECT-TYPE
+			SYNTAX INTEGER
+			{
+			undefined(1),
+			ongoing(2),
+			ready(3),
+			failed(4)
+			}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The status of the current command."
+			DEFVAL { undefined }
+			::= { xfSDHSTM1ScalarObjects 4 }
+			
+			
+		-- 1.3.6.1.4.1.193.81.3.2.2.1.6.5
+		xfSDHSTM1ConfigConvertStatusString OBJECT-TYPE   
+			SYNTAX DisplayString (SIZE (0..80))
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"A textual description used to track progress"  
+			::= { xfSDHSTM1ScalarObjects 5 }
+	
+
+		             
+		-- 1.3.6.1.4.1.193.81.3.2.2.2
+		xfSDHPrivateConformance OBJECT IDENTIFIER ::= { xfSDHPrivateMib 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.2.1
+		xfSDHPrivateCompliance OBJECT IDENTIFIER ::= { xfSDHPrivateConformance 1 }
+
+		
+--  this module
+		-- 1.3.6.1.4.1.193.81.3.2.2.2.1.1
+		xfSDHPrivateFullCompliance MODULE-COMPLIANCE
+			STATUS current
+			DESCRIPTION 
+				"XF will have to comply to the complete MIB."
+			MODULE -- this module
+				MANDATORY-GROUPS { xfSDHPrivateGroup }
+			::= { xfSDHPrivateCompliance 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.2.2
+		xfSDHPrivateGroups OBJECT IDENTIFIER ::= { xfSDHPrivateConformance 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.2.2.1
+		xfSDHPrivateGroup OBJECT-GROUP
+			OBJECTS { xfSDHSTM1PortAdmStatus, xfSDHSTM1PortOperStatus, xfSDHSTM1ClockTxAdmStatus, xfSDHSTM1ClockTxOperStatus, xfSDHSTM1ClockRxSyncStatus, 
+				xfSDHSTM1ClockTxSyncStatus, xfSDHSTM1ClockFMStatus, xfSDHLineREISupport, xfSDHLineDEGThreshold, xfSDHLineDEGMonPeriod, 
+				xfSDHSectionCurrent24hESs, xfSDHSectionCurrent24hSESs, xfSDHSectionCurrent24hSEFSs, xfSDHSectionCurrent24hCVs, xfSDHSectionInterval24hESs, 
+				xfSDHSectionInterval24hSESs, xfSDHSectionInterval24hSEFSs, xfSDHSectionInterval24hCVs, xfSDHSectionInterval24hValidData, xfSDHApsInterfaceUnprotectedInterface1, 
+				xfSDHApsInterfaceUnprotectedInterface2, xfSDHApsInterfaceActiveLine, xfSDHApsInterfaceActiveMapper, xfSDHApsInterfaceSwitchCount, xfSDHApsInterfaceMode, 
+				xfSDHApsInterfaceLine1FailureStatus, xfSDHApsInterfaceLine2FailureStatus, xfSDHApsInterfaceLine1ReceivedK1, xfSDHApsInterfaceLine2ReceivedK1, xfSDHApsInterfaceProtectionStatus, 
+				xfSDHApsInterfaceOperStatus, xfSDHLineCurrent24hESs, xfSDHLineCurrent24hSESs, xfSDHLineCurrent24hCVs, xfSDHLineCurrent24hUASs, 
+				xfSDHLineCurrent24hUAVs, xfSDHLineInterval24hESs, xfSDHLineInterval24hSESs, xfSDHLineInterval24hCVs, xfSDHLineInterval24hUASs, 
+				xfSDHLineInterval24hUAVs, xfSDHLineInterval24hValidData, xfSDHFarEndLineCurrent24hESs, xfSDHFarEndLineCurrent24hSESs, xfSDHFarEndLineCurrent24hCVs, 
+				xfSDHFarEndLineCurrent24hUASs, xfSDHFarEndLineCurrent24hUAVs, xfSDHFarEndLineInterval24hESs, xfSDHFarEndLineInterval24hSESs, xfSDHFarEndLineInterval24hCVs, 
+				xfSDHFarEndLineInterval24hUASs, xfSDHFarEndLineInterval24hUAVs, xfSDHFarEndLineInterval24hValidData, xfSDHPathDEGThreshold, xfSDHPathDEGMonPeriod, 
+				xfSDHVTDEGThreshold, xfSDHVTDEGMonPeriod, xfSDHPathPLMExpect, xfSDHPathPLMReceive, xfSDHPathCurrent24hESs, 
+				xfSDHPathCurrent24hSESs, xfSDHPathCurrent24hCVs, xfSDHPathCurrent24hUASs, xfSDHPathCurrent24hUAVs, xfSDHPathInterval24hESs, 
+				xfSDHPathInterval24hSESs, xfSDHPathInterval24hCVs, xfSDHPathInterval24hUASs, xfSDHPathInterval24hUAVs, xfSDHPathInterval24hValidData, 
+				xfSDHFarEnPathCurrent24hESs, xfSDHFarEndPathCurrent24hSESs, xfSDHFarEndPathCurrent24hCVs, xfSDHFarEndPathCurrent24hUASs, xfSDHFarEndPathCurrent24hUAVs, 
+				xfSDHFarEndPathInterval24hESs, xfSDHFarEndPathInterval24hSESs, xfSDHFarEndPathInterval24hCVs, xfSDHFarEndPathInterval24hUASs, xfSDHFarEndPathInterval24hUAVs, 
+				xfSDHFarEndPathInterval24hValidData, xfSDHVTPLMExpected, xfSDHVTPLMReceived, xfSDHVTCurrent24hESs, xfSDHVTCurrent24hSESs, 
+				xfSDHVTCurrent24hCVs, xfSDHVTCurrent24hUASs, xfSDHVTCurrent24hUAVs, xfSDHVTInterval24hESs, xfSDHVTInterval24hSESs, 
+				xfSDHVTInterval24hCVs, xfSDHVTInterval24hUASs, xfSDHVTInterval24hUAVs, xfSDHVTInterval24hValidData, xfSDHFarEndVTCurrent24hESs, 
+				xfSDHFarEndVTCurrent24hSESs, xfSDHFarEndVTCurrent24hCVs, xfSDHFarEndVTCurrent24hUASs, xfSDHFarEndVTCurrent24hUAVs, xfSDHFarEndVTInterval24hESs, 
+				xfSDHFarEndVTInterval24hSESs, xfSDHFarEndVTInterval24hCVs, xfSDHFarEndVTInterval24hUASs, xfSDHFarEndVTInterval24hUAVs, xfSDHSectionPMView, 
+				xfSDHLinePMView, xfSDHPathPMView, xfSDHVTPMView, xfSDHSTM1PortUnusedBits, xfSDHSTM1ClockSyncCapability, 
+				fSDHSTM1ClockSquelch, xfSDHSTM1PortLineDCCCapability, xfSDHSTM1PortLineDCCMode, xfSDHFarEndVTInterval24hValidData, xfSDHAimHA,
+				xfSDHSTM1Capabilities, xfSDHSTM1ConfigConvertSlot, xfSDHSTM1ConfigConvertCommand, xfSDHSTM1ConfigConvertStatus, xfSDHSTM1ConfigConvertStatusString
+				 }
+			STATUS current
+			DESCRIPTION 
+				"Description."
+			::= { xfSDHPrivateGroups 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.2.2.2
+		xfSDHPrivateObsoleteGroup OBJECT-GROUP
+			OBJECTS { xfSDHLineThreshold1ES, xfSDHLineThreshold1SES, xfSDHLineThreshold1CV, xfSDHLineThreshold2ES, xfSDHLineThreshold2SES, 
+				xfSDHLineThreshold2CV, xfSDHPathThreshold1ES, xfSDHPathThreshold1SES, xfSDHPathThreshold1CV, xfSDHPathThreshold2ES, 
+				xfSDHPathThreshold2SES, xfSDHFarEndPathCurrent24hPMStatus, xfSDHFarEndLineCurrent24hPMStatus, xfSDHPathThreshold2CV, xfSDHLineCurrent24hPMStatus, 
+				xfSDHPathCurrent24hPMStatus, xfSDHVTThreshold1ES, xfSDHVTThreshold1SES, xfSDHVTThreshold1CV, xfSDHVTThreshold2ES, 
+				xfSDHVTThreshold2SES, xfSDHVTThreshold2CV, xfSDHVTCurrent24hPMStatus, xfSDHFarEndVTCurrent24hPMStatus }
+			STATUS obsolete
+			DESCRIPTION 
+				"Description."
+			::= { xfSDHPrivateGroups 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.3.2.2.2.2.3
+		xfSDHPrivateRLGroup OBJECT-GROUP
+			OBJECTS { xfSDHSectionSetThreshold15mSESs, xfSDHSectionSetThreshold15mCVs, xfSDHSectionResetThreshold15mESs, xfSDHSectionResetThreshold15mSESs, xfSDHSectionCurrent24hElapsedTime, 
+				xfSDHSectionCurrent24hUASs, xfSDHSectionCurrent24hBBs, xfSDHSectionInterval24hUASs, xfSDHSectionInterval24hBBs, xfSDHSectionInterval15mUASs, 
+				xfSDHSectionInterval15mIntervalNumber, xfSDHSectionInterval15mBBs, xfSDHSectionInterval15mValidData, xfSDHSectionCurrent15mUASs, xfSDHSectionCurrent15mBBs, 
+				xfSDHSectionCurrent15mElapsedTime, xfSDHSectionResetThreshold15mCVs, xfSDHSectionSetThreshold15mESs, xfSDHSectionSetThreshold24hESs, xfSDHSectionSetThreshold24hSESs, 
+				xfSDHSectionSetThreshold24hCVs }
+			STATUS current
+			DESCRIPTION 
+				"Objects added for SDH Radio Link."
+			::= { xfSDHPrivateGroups 3 }
+
+		
+	
+	END
+
+--
+-- 4_19603-crhr109002_1_stm1_private.mi2
+--

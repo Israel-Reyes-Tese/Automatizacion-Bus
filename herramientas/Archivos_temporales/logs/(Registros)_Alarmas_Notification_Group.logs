@@ -1,0 +1,29 @@
+#----------------------------------- NOTIFICATION GROUP:  alarmNotificationMandatoryGroup  ---------------------------#
+Nombre del grupo de notificaciones: alarmNotificationMandatoryGroup
+alarmNotificationMandatoryGroup NOTIFICATION-GROUP
+NOTIFICATIONS { alarmNew,
+alarmCleared,
+alarmAckChange,
+alarmCommentChange,
+alarmListRebuild,
+alarmSync,
+messageInfo,
+alarmSeverityChange,
+alarmManagedObjectInstanceNameChange,
+alarmServiceChange,
+alarmSyncStart,
+alarmSyncEnd
+}
+STATUS      current
+DESCRIPTION 
+"A collection of mandatory alarm notifications."
+::= { alarmGroups 5 }
+#----------------------------------- FIN NOTIFICATION GROUP ---------------------------#
+----------------------------------- alarmNotificationMandatoryGroup ---------------------------
+alarmNotificationMandatoryGroup:
+  TYPE: NOTIFICATION-GROUP
+  OBJECTS: alarmNew, alarmCleared, alarmAckChange, alarmCommentChange, alarmListRebuild, alarmSync, messageInfo, alarmSeverityChange, alarmManagedObjectInstanceNameChange, alarmServiceChange, alarmSyncStart, alarmSyncEnd 
+  STATUS: current
+  DESCRIPTION: A collection of mandatory alarm notifications.
+  OID: alarmGroups 5
+----------------------------------- Final de segmento -----------------------------------

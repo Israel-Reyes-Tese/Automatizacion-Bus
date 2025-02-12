@@ -1,0 +1,954 @@
+-- No: 8/196 03-CXC 172 6149/1              MANAGEMENT INFORMATION BASE
+-- ======================================================================
+-- Prepared:  EDD/XMB/SWD   EDD             Revision A
+-- ======================================================================
+
+XF-VCAT-MIB DEFINITIONS ::= BEGIN
+    IMPORTS
+        MODULE-IDENTITY,
+        OBJECT-TYPE,
+        Integer32
+            FROM SNMPv2-SMI
+
+        TEXTUAL-CONVENTION,
+        TruthValue
+            FROM SNMPv2-TC
+
+        ifIndex, InterfaceIndexOrZero
+            FROM IF-MIB
+
+        XfSdhTrailTrace, XfSdhSignalLabel,
+        XfTimeDurationSeconds, XfTimeDuration100Millis
+            FROM XF-SDH-TC-MIB
+
+        xfSdhAdm
+            FROM XF-TOP-MIB;
+
+
+    xfVcatConfigMib MODULE-IDENTITY
+       LAST-UPDATED    "200802281200Z"    -- Feb. 28, 2008 at 12:00 GMT
+       ORGANIZATION    "Ericsson Communications Germany"
+       CONTACT-INFO
+          "Herbert Leuwer
+           Postal: Ericsson
+           Gerberstrasse 33
+           71522 Backnang
+           Germany
+           Phone:  +49 7191/13-3676
+           Email:  herbert.leuwer@ericsson.com"
+       DESCRIPTION
+           "This MIB module describes specific objects for Virtual Concatenation
+           (VCAT) functionality in the Ericsson TN product."
+       REVISION     "200802281200Z"    -- Feb. 28, 2008 at 12:00 GMT
+       DESCRIPTION
+           "REV PA2: Use official MIB module OID (Jens Engel)."
+       REVISION         "200802201700Z"
+       DESCRIPTION
+           "Licensing support (Juergen Fischer, Jens Engel):
+           - XfVcatPortType: Add none(0) value.
+           - xfVcatConfigVcType: Use none(0) as default value and
+             trigger condition for license check."
+       REVISION         "200712181000Z"
+       DESCRIPTION
+           "Minor corrections (Jens Engel):
+             - xfVcatVc12TtpConfigVcgIfIndexEgress: Add DEFVAL=0 (like others).
+             - Correct revision order/dates (newest first).
+           "
+       REVISION         "200712171000Z"
+       DESCRIPTION
+           "Cleanup comitted (Herbert Leuwer)."
+       REVISION         "200712170800Z"
+       DESCRIPTION
+           "Cleanup (Jens Engel):
+             - Remove unused-imports
+             - Remove unused-types (XfImplemented, XfOnOff)
+             - Replace type-alias with TEXTUAL-CONVENTION (required by SMIv2).
+             - integer-misuse: Use Integer32 instead of INTEGER for non-enum types."
+       REVISION         "200709120800Z"
+       DESCRIPTION
+           "Revised Version 1.2:
+           Changed access to sequence numbers to read-only."
+       REVISION         "200707090800Z"
+       DESCRIPTION
+           "Initial Version 1.1"
+
+     ::= { xfSdhAdm 8 }
+
+    xfVcatConfigMibObjects             OBJECT IDENTIFIER ::= { xfVcatConfigMib 1 }
+    xfVcatConfigMibNotifications OBJECT IDENTIFIER ::= { xfVcatConfigMib 2 }
+    xfVcatConfigMibConformance         OBJECT IDENTIFIER ::= { xfVcatConfigMib 3 }
+
+--
+-- Local data types
+--
+
+    XfVcatPortType ::= TEXTUAL-CONVENTION
+        STATUS      current
+        DESCRIPTION
+            "Indicates which VC type is used.
+            The value 'none' indicates that the VCAT port is not assigned (yet)."
+        SYNTAX INTEGER {
+                    none (0),   -- Unassigned state.
+                    vc12 (1),
+                    vc3  (2),
+                    vc4  (3)
+                }
+
+    XfVcatOperationalMode ::= TEXTUAL-CONVENTION
+        STATUS      current
+        DESCRIPTION
+            "Defines the LCAS mode."
+        SYNTAX INTEGER {
+                    lcas                (1),
+                    nolcas              (2)
+                }
+
+    XfVcatNonLcasOperationalMode ::= TEXTUAL-CONVENTION
+        STATUS      current
+        DESCRIPTION
+            "Defines the NON-LCAS mode."
+        SYNTAX INTEGER {
+                    config  (1),
+                    learn   (2)
+                }
+
+
+-------------------------------------------------------------------------------
+-- MIB Object Definitions
+-------------------------------------------------------------------------------
+
+    xfVcatConfig     OBJECT IDENTIFIER ::= { xfVcatConfigMibObjects 1 }
+    xfVcatStatus     OBJECT IDENTIFIER ::= { xfVcatConfigMibObjects 2 }
+
+    --------------------------------------------------------------
+    -- VCAT config group tables.
+    --------------------------------------------------------------
+
+    xfVcatConfigTable OBJECT-TYPE
+        SYNTAX     SEQUENCE OF XfVcatConfigEntry
+        MAX-ACCESS not-accessible
+        STATUS     current
+        DESCRIPTION
+            "This table contains the VCAT configuration entries for all VCAT
+            interfaces."
+        ::= { xfVcatConfig 1 }
+
+    xfVcatConfigEntry OBJECT-TYPE
+        SYNTAX     XfVcatConfigEntry
+        MAX-ACCESS not-accessible
+        STATUS     current
+        DESCRIPTION
+            "The entry contains VCAT configuration parameters for one VCAT
+            interface."
+        INDEX { ifIndex }
+        ::= { xfVcatConfigTable 1 }
+
+    XfVcatConfigEntry ::= SEQUENCE
+    {
+        xfVcatConfigVcType                       XfVcatPortType,
+        xfVcatConfigOperationMode                XfVcatOperationalMode,
+        xfVcatConfigNonLcasOperationMode         XfVcatNonLcasOperationalMode,
+        xfVcatConfigAdminCapacityEgress          Integer32,
+        xfVcatConfigAdminCapacityIngress         Integer32,
+        xfVcatConfigAvailableCapacityEgress      Integer32,
+        xfVcatConfigAvailableCapacityIngress     Integer32,
+        xfVcatConfigPathTraceEnabled             TruthValue,
+        xfVcatConfigPathTraceTransmit            XfSdhTrailTrace,
+        xfVcatConfigPathTraceExpect              XfSdhTrailTrace,
+        xfVcatConfigPathTraceReceivedVcN         InterfaceIndexOrZero,
+        xfVcatConfigPathTraceReceived            XfSdhTrailTrace,
+        xfVcatConfigSignalLabelReceivedVcN       InterfaceIndexOrZero,
+        xfVcatConfigSignalLabelReceived          XfSdhSignalLabel,
+        xfVcatConfigExcDegEnable                 TruthValue,
+        xfVcatConfigWaitToRestore                XfTimeDurationSeconds,
+        xfVcatConfigHoldOff                      XfTimeDuration100Millis,
+        xfVcatConfigAlarmStatusEnable            BITS
+    }
+
+    xfVcatConfigVcType OBJECT-TYPE
+        SYNTAX     XfVcatPortType
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "This object is to define the type of trail termination points
+            to be used in a VCG."
+        DEFVAL { none }
+        ::= { xfVcatConfigEntry 1 }
+
+    xfVcatConfigOperationMode OBJECT-TYPE
+        SYNTAX     XfVcatOperationalMode
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "This object defines the LCAS operation mode of a VCG: LCAS, NON-LCAS
+            or LCAS bidirectional."
+        DEFVAL { lcas }
+        ::= { xfVcatConfigEntry 2 }
+
+    xfVcatConfigNonLcasOperationMode OBJECT-TYPE
+        SYNTAX     XfVcatNonLcasOperationalMode
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "This object defines the operation mode for non-LCAS operation.
+            The VCAT sink can be instructed to either operate on configured
+            receive sequence numbers or to learn the receive sequence number
+            from the incoming path overhead.
+            This object is only valid if xfVcatConfigOperationMode is set to either
+             NON-LCAS or LCAS bidirectional."
+        DEFVAL { config }
+        ::= { xfVcatConfigEntry 3 }
+
+    xfVcatConfigAdminCapacityEgress OBJECT-TYPE
+        SYNTAX     Integer32
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "This object shows how many VC-n channels are configured to be
+            used in egress (VCG source) direction."
+        ::= { xfVcatConfigEntry 4 }
+
+    xfVcatConfigAdminCapacityIngress OBJECT-TYPE
+        SYNTAX     Integer32
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "This object shows how many VC-n channels are configured to be
+            used in ingress (VCG sink) direction."
+        ::= { xfVcatConfigEntry 5 }
+
+    xfVcatConfigAvailableCapacityEgress OBJECT-TYPE
+        SYNTAX     Integer32
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "This object shows the absolute maximum number of trail termination
+            point that can be used to configure a VCG in egress direction.
+            The actual bandwidth depends on the type of trail termination
+            points used."
+        ::= { xfVcatConfigEntry 6 }
+
+    xfVcatConfigAvailableCapacityIngress OBJECT-TYPE
+        SYNTAX     Integer32
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "This object shows the absolute maximum number of trail termination
+            point that can be used to configure a VCG in ingress direction.
+            The actual bandwidth depends on the type of trail termination
+            points used."
+        ::= { xfVcatConfigEntry 7 }
+
+    xfVcatConfigPathTraceEnabled OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "This object defines whether path tracing shall be enabled or
+            disabled on all trail termination points belonging to this VCG."
+        DEFVAL { false }
+        ::= { xfVcatConfigEntry 8 }
+
+    xfVcatConfigPathTraceTransmit OBJECT-TYPE
+        SYNTAX     XfSdhTrailTrace
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "This object contains the transmitted trace pattern. This is a
+            string that is transmitted to perform VC SDH path trace
+            diagnostics. The trace string is repetitively transmited so
+            that a trace receiving terminal can verify its continued
+            connection to the intended transmitter.
+            This trace pattern will be used for all VCs assigned to this VCG."
+        DEFVAL { "" }
+        ::= { xfVcatConfigEntry 9 }
+
+    xfVcatConfigPathTraceExpect OBJECT-TYPE
+        SYNTAX     XfSdhTrailTrace
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "This object contains the expected trace pattern. The receiving
+            terminal verifies if the incoming string matches this string.
+            This trace pattern will be expected for all VCs assigned to
+            this VCG."
+        DEFVAL { "" }
+        ::= { xfVcatConfigEntry 10 }
+
+    xfVcatConfigPathTraceReceivedVcN OBJECT-TYPE
+        SYNTAX     InterfaceIndexOrZero
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "This object represents the trail termination point  that
+            should be used to display the received path trace for this VCG.
+            If the indicated interface is removed from the VCG this value
+            shall be set to it's default value 0 indicating an undefined state."
+        DEFVAL { 0 }
+        ::= { xfVcatConfigEntry 11 }
+
+    xfVcatConfigPathTraceReceived OBJECT-TYPE
+        SYNTAX     XfSdhTrailTrace
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "This object contains the received trace pattern for this VCG
+            monitored on the trail termination point set via the object
+            'xfVcatCoonfigPathTraceReceivedVcN'."
+        ::= { xfVcatConfigEntry 12 }
+
+    xfVcatConfigSignalLabelReceivedVcN OBJECT-TYPE
+        SYNTAX     InterfaceIndexOrZero
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "This object represents the trail termination point  that
+            should be used to display the received signal label for this VCG.
+            If the indicated interface is removed from the VCG this value
+            shall be set to it's default value 0 indicating an undefined state."
+        DEFVAL { 0 }
+        ::= { xfVcatConfigEntry 13 }
+
+    xfVcatConfigSignalLabelReceived OBJECT-TYPE
+        SYNTAX     XfSdhSignalLabel
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "This object contains the received signal label for this VCG
+            monitored on the trail termination point set via the object
+            'xfVcatConfigSignalLabelReceivedVcN'."
+        ::= { xfVcatConfigEntry 14 }
+
+    xfVcatConfigExcDegEnable OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "Enables or Disables LCAS-on-VC behaviour in case of EXC/DEG
+            conditions."
+        DEFVAL { false }
+        ::= { xfVcatConfigEntry 15 }
+
+    xfVcatConfigWaitToRestore OBJECT-TYPE
+        SYNTAX     XfTimeDurationSeconds (0..900)
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "This object defines the amount of time in seconds the VCAT
+            sink function shall wait before signaling MST=OK for a member
+            that has been temporary removed from the VCG.
+            Unit:  1 second
+            Range: 0 to 15 minutes."
+        DEFVAL { 0 }
+        ::= { xfVcatConfigEntry 16 }
+
+    xfVcatConfigHoldOff OBJECT-TYPE
+        SYNTAX     XfTimeDuration100Millis (0..300)
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "This object defines the amount of time in 100 milliseconds the
+            VCAT sink shall wait after detecting MSU_L or TSD and before
+            signaling MST=FAIL for a member to be temporary removed from the
+            VCG."
+        DEFVAL { 0 }
+        ::= { xfVcatConfigEntry 17 }
+
+    xfVcatConfigAlarmStatusEnable OBJECT-TYPE
+       SYNTAX BITS
+       {
+         plct(0),
+         tlct(1),
+         fopt(2),
+         lom(3),
+         sqm(4),
+         loa(5),
+         lcascrc(6),
+         plcr(7),
+         tlcr(8),
+         fopr(9),
+         sqnc(10),
+         mnd(11),
+         giderr(12),
+         nonlcas(13),
+         sqmultiple(14),
+         sqor(15),
+         ctrlor(16),
+         eosmultiple(17),
+         eosmissing(18),
+         sqnoncont(19)
+       }
+       MAX-ACCESS read-write
+       STATUS     current
+       DESCRIPTION
+           "This object is used to enable or disable alarm reporting for
+           VCAT related alarms."
+        ::= { xfVcatConfigEntry 18 }
+
+    --------------------------------------------------------------
+    -- VCAT status group tables.
+    --------------------------------------------------------------
+
+    xfVcatStatusTable OBJECT-TYPE
+        SYNTAX     SEQUENCE OF XfVcatStatusEntry
+        MAX-ACCESS not-accessible
+        STATUS     current
+        DESCRIPTION
+            "This table contains the VCAT status information for all VCAT
+            interfaces."
+        ::= { xfVcatStatus 1 }
+
+    xfVcatStatusEntry OBJECT-TYPE
+        SYNTAX     XfVcatStatusEntry
+        MAX-ACCESS not-accessible
+        STATUS     current
+        DESCRIPTION
+            "The entry contains VCAT status information for one VCAT interface."
+        INDEX      { ifIndex }
+        ::= { xfVcatStatusTable 1 }
+
+    XfVcatStatusEntry ::= SEQUENCE
+        {
+            xfVcatStatusOperCapacityEgress  Integer32,
+            xfVcatStatusOperCapacityIngress Integer32,
+            xfVcatStatusDelayStatusTraffic  Integer32,
+            xfVcatStatusAlarmStatus1        BITS,
+            xfVcatStatusAlarmStatus2        BITS
+        }
+
+    xfVcatStatusOperCapacityEgress OBJECT-TYPE
+        SYNTAX     Integer32
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "This object displays how many trail termination points
+            are configured on this VCG in egress direction."
+       ::= { xfVcatStatusEntry 1}
+
+    xfVcatStatusOperCapacityIngress OBJECT-TYPE
+        SYNTAX     Integer32
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "This object displays how many trail termination points
+            are configured on this VCG in ingress direction."
+       ::= { xfVcatStatusEntry 2}
+
+    xfVcatStatusDelayStatusTraffic OBJECT-TYPE
+        SYNTAX     Integer32
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "This objects displays the maximum delay between different
+            trail termination points belonging to the same VCG. Only
+            trail termination points carrying traffic are regarded."
+       ::= { xfVcatStatusEntry 3}
+
+    xfVcatStatusAlarmStatus1 OBJECT-TYPE
+        SYNTAX     BITS
+           {
+             plct0(0),
+             plct1(1),
+             plct2(2),
+             tlct0(3),
+             tlct1(4),
+             tlct2(5),
+             fopt0(6),
+             fopt1(7),
+             fopt2(8),
+             lom0(9),
+             lom1(10),
+             lom2(11),
+             sqm0(12),
+             sqm1(13),
+             sqm2(14),
+             loa0(15),
+             loa1(16),
+             loa2(17),
+             lcascrc0(18),
+             lcascrc1(19),
+             lcascrc2(20),
+             plcr0(21),
+             plcr1(22),
+             plcr2(23),
+             tlcr0(24),
+             tlcr1(25),
+             tlcr2(26),
+             fopr0(27),
+             fopr1(28),
+             fopr2(29)
+           }
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "This objects provides information on the alarm status of a
+            VCAT interface.
+            The severity is indicated by three bits per alarm:
+              bits 012
+                   000   clear
+                   001   undetermined
+                   010   warning
+                   011   minor
+                   100   major
+                   101   critical
+           The following severities are assigned to the alarms:
+           plct  partial loss of capacity transmit  ==> major
+           tlct  total loss of capacity transmit    ==> critical
+           fopt  failure on protocol transmit       ==> minor
+           lom   loss of multiframe                 ==> major
+           sqm   sequence number mismatch           ==> critical
+           loa   loss of alignment                  ==> critical
+           lcascrc LCAS protocol CRC error          ==> minor
+           plcr  partial loss of capacity receive   ==> major
+           tlcr  total loss of capacity receive     ==> critical
+           fopr  failure on protocol receive        ==> minor
+           sqnc  inconsistent sequenc number        ==> major
+           mnd   member not descewable              ==> critical
+           giderr      group id error               ==> minor
+           nonlcas     non-LCAS source detected     ==> warning
+           sqmultiple  multiple sequence number     ==> major
+           sqor        sequence number or of range  ==> major
+           ctrlor      undefined control word       ==> major
+           eosmultiple multiple VCs carry EOS       ==> minor
+           eosmissing  EOS is missing               ==> minor
+           sqnoncont   Non-continous sequence numbe ==> major
+
+           Critical alarms also leads to a linkDown condition.
+           "
+       ::= { xfVcatStatusEntry 4}
+
+
+    xfVcatStatusAlarmStatus2 OBJECT-TYPE
+        SYNTAX     BITS
+           {
+             sqnc0(0),
+             sqnc1(1),
+             sqnc2(2),
+             mnd0(3),
+             mnd1(4),
+             mnd2(5),
+             giderr0(6),
+             giderr1(7),
+             giderr2(8),
+             nonlcas0(9),
+             nonlcas1(10),
+             nonlcas2(11),
+             sqmultiple0(12),
+             sqmultiple1(13),
+             sqmultiple2(14),
+             sqor0(15),
+             sqor1(16),
+             sqor2(17),
+             ctrlor0(18),
+             ctrlor1(19),
+             ctrlor2(20),
+             eosmultiple0(21),
+             eosmultiple1(22),
+             eosmultiple2(23),
+             eosmissing0(24),
+             eosmissing1(25),
+             eosmissing2(26),
+             sqnoncont0(27),
+             sqnoncont1(28),
+             sqnoncont2(29)
+           }
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "This objects provides information on the alarm status of a
+            VCAT interface.
+            The severity is indicated by three bits per alarm:
+              bits 012
+                   000   clear
+                   001   undetermined
+                   010   warning
+                   011   minor
+                   100   major
+                   101   critical
+           The following severities are assigned to the alarms:
+           plct  partial loss of capacity transmit  ==> major
+           tlct  total loss of capacity transmit    ==> critical
+           fopt  failure on protocol transmit       ==> minor
+           lom   loss of multiframe                 ==> major
+           sqm   sequence number mismatch           ==> critical
+           loa   loss of alignment                  ==> critical
+           lcascrc LCAS protocol CRC error          ==> minor
+           plcr  partial loss of capacity receive   ==> major
+           tlcr  total loss of capacity receive     ==> critical
+           fopr  failure on protocol receive        ==> minor
+           sqnc  inconsistent sequenc number        ==> major
+           mnd   member not descewable              ==> critical
+           giderr      group id error               ==> minor
+           nonlcas     non-LCAS source detected     ==> warning
+           sqmultiple  multiple sequence number     ==> major
+           sqor        sequence number or of range  ==> major
+           ctrlor      undefined control word       ==> major
+           eosmultiple multiple VCs carry EOS       ==> minor
+           eosmissing  EOS is missing               ==> minor
+           sqnoncont   Non-continous sequence numbe ==> major
+
+           Critical alarms also leads to a linkDown condition.
+           "
+       ::= { xfVcatStatusEntry 5}
+
+    --------------------------------------------------------------
+    -- VCAT oriented TTP configuration: VC-12.
+    --------------------------------------------------------------
+
+    xfVcatVc12ConfigTable OBJECT-TYPE
+        SYNTAX     SEQUENCE OF XfVcatVc12ConfigEntry
+        MAX-ACCESS not-accessible
+        STATUS     current
+        DESCRIPTION
+            "This table contains the VCAT configuration entries for all VCAT
+            interfaces."
+        ::= { xfVcatConfig 2 }
+
+    xfVcatVc12ConfigEntry OBJECT-TYPE
+        SYNTAX     XfVcatVc12ConfigEntry
+        MAX-ACCESS not-accessible
+        STATUS     current
+        DESCRIPTION
+            "The entry contains VCAT configuration parameters for one VCAT
+            interface."
+        INDEX { ifIndex }
+        ::= { xfVcatVc12ConfigTable 1 }
+
+    XfVcatVc12ConfigEntry ::= SEQUENCE
+    {
+      xfVcatVc12TtpConfigVcgIfIndexEgress   InterfaceIndexOrZero,
+      xfVcatVc12TtpConfigVcgIfIndexIngress  InterfaceIndexOrZero,
+      xfVcatVc12TtpConfigWithinCapEgress    TruthValue,
+      xfVcatVc12TtpConfigTxSeqNumber        Integer32,
+      xfVcatVc12TtpConfigWithinCapIngress   TruthValue,
+      xfVcatVc12TtpConfigRxSeqNumber        Integer32,
+      xfVcatVc12TtpConfigBusyEgress         TruthValue,
+      xfVcatVc12TtpConfigBusyIngress        TruthValue,
+      xfVcatVc12TtpConfigLcasEnable         TruthValue
+    }
+
+    xfVcatVc12TtpConfigVcgIfIndexEgress OBJECT-TYPE
+        SYNTAX     InterfaceIndexOrZero
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "Assigns the source of the given TTP to the VCG using the
+            ifIndex of the VCG interface.
+            Note that assigning the TTP must update objects containing the
+            operative egress capacity of the VCG.
+            A value of 0 defines the TTP as unassigned."
+        DEFVAL { 0 }
+        ::= { xfVcatVc12ConfigEntry 1 }
+
+    xfVcatVc12TtpConfigVcgIfIndexIngress OBJECT-TYPE
+        SYNTAX     InterfaceIndexOrZero
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "Assigns the sink of the given TTP to the VCG using the
+            ifIndex of the VCG interface.
+            Note that assigning the TTP must update objects containing the
+            operative ingress capacity of the VCG.
+            A value of 0 defines the TTP as unassigned."
+        DEFVAL { 0 }
+        ::= { xfVcatVc12ConfigEntry 2 }
+
+    xfVcatVc12TtpConfigWithinCapEgress OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Shows whether the indexed TTP contributes to the VCG capacity or not."
+        ::= { xfVcatVc12ConfigEntry 3 }
+
+    xfVcatVc12TtpConfigTxSeqNumber OBJECT-TYPE
+        SYNTAX     Integer32
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Provides information about the sequence number sent on the TTP."
+        ::= { xfVcatVc12ConfigEntry 4 }
+
+    xfVcatVc12TtpConfigWithinCapIngress OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Shows whether the indexed TTP contributes to the VCG capacity or not."
+        ::= { xfVcatVc12ConfigEntry 5 }
+
+    xfVcatVc12TtpConfigRxSeqNumber OBJECT-TYPE
+        SYNTAX     Integer32
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Provides information about the sequence number expected on the TTP."
+        ::= { xfVcatVc12ConfigEntry 6 }
+
+    xfVcatVc12TtpConfigBusyEgress OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Shows whether the indexed TTP is available for use."
+        ::= { xfVcatVc12ConfigEntry 7 }
+
+    xfVcatVc12TtpConfigBusyIngress OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Shows whether the indexed TTP is available for use."
+        ::= { xfVcatVc12ConfigEntry 8 }
+
+    xfVcatVc12TtpConfigLcasEnable OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "This object defines whether the LCAS protocol shall be enabled or
+            disabled on the given TTP."
+        DEFVAL { true }
+        ::= { xfVcatVc12ConfigEntry 9 }
+
+    --------------------------------------------------------------
+    -- VCAT oriented TTP configuration: VC-3.
+    --------------------------------------------------------------
+    xfVcatVc3ConfigTable OBJECT-TYPE
+        SYNTAX     SEQUENCE OF XfVcatVc3ConfigEntry
+        MAX-ACCESS not-accessible
+        STATUS     current
+        DESCRIPTION
+            "This table contains the VCAT configuration entries for all VCAT
+            interfaces."
+        ::= { xfVcatConfig 3 }
+
+    xfVcatVc3ConfigEntry OBJECT-TYPE
+        SYNTAX     XfVcatVc3ConfigEntry
+        MAX-ACCESS not-accessible
+        STATUS     current
+        DESCRIPTION
+            "The entry contains VCAT configuration parameters for one VCAT
+            interface."
+        INDEX { ifIndex }
+        ::= { xfVcatVc3ConfigTable 1 }
+
+    XfVcatVc3ConfigEntry ::= SEQUENCE
+    {
+      xfVcatVc3TtpConfigVcgIfIndexEgress   InterfaceIndexOrZero,
+      xfVcatVc3TtpConfigVcgIfIndexIngress  InterfaceIndexOrZero,
+      xfVcatVc3TtpConfigWithinCapEgress    TruthValue,
+      xfVcatVc3TtpConfigTxSeqNumber        Integer32,
+      xfVcatVc3TtpConfigWithinCapIngress   TruthValue,
+      xfVcatVc3TtpConfigRxSeqNumber        Integer32,
+      xfVcatVc3TtpConfigBusyEgress         TruthValue,
+      xfVcatVc3TtpConfigBusyIngress        TruthValue,
+      xfVcatVc3TtpConfigLcasEnable         TruthValue
+    }
+
+    xfVcatVc3TtpConfigVcgIfIndexEgress OBJECT-TYPE
+        SYNTAX     InterfaceIndexOrZero
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "Assigns the source of the given TTP to the VCG using the
+            ifIndex of the VCG interface.
+            Note that assigning the TTP must update objects containing the
+            operative egress capacity of the VCG.
+            A value of 0 defines the TTP as unassigned."
+        DEFVAL { 0 }
+        ::= { xfVcatVc3ConfigEntry 1 }
+
+    xfVcatVc3TtpConfigVcgIfIndexIngress OBJECT-TYPE
+        SYNTAX     InterfaceIndexOrZero
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "Assigns the sink of the given TTP to the VCG using the
+            ifIndex of the VCG interface.
+            Note that assigning the TTP must update objects containing the
+            operative ingress capacity of the VCG.
+            A value of 0 defines the TTP as unassigned."
+        DEFVAL { 0 }
+        ::= { xfVcatVc3ConfigEntry 2 }
+
+    xfVcatVc3TtpConfigWithinCapEgress OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Shows whether the indexed TTP contributes to the VCG capacity or not."
+        ::= { xfVcatVc3ConfigEntry 3 }
+
+    xfVcatVc3TtpConfigTxSeqNumber OBJECT-TYPE
+        SYNTAX     Integer32
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Provides information about the sequence number sent on the TTP."
+        ::= { xfVcatVc3ConfigEntry 4 }
+
+    xfVcatVc3TtpConfigWithinCapIngress OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Shows whether the indexed TTP contributes to the VCG capacity or not."
+        ::= { xfVcatVc3ConfigEntry 5 }
+
+    xfVcatVc3TtpConfigRxSeqNumber OBJECT-TYPE
+        SYNTAX     Integer32
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Provides information about the sequence number expected on the TTP."
+        ::= { xfVcatVc3ConfigEntry 6 }
+
+    xfVcatVc3TtpConfigBusyEgress OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Shows whether the indexed TTP is available for use."
+        ::= { xfVcatVc3ConfigEntry 7 }
+
+    xfVcatVc3TtpConfigBusyIngress OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Shows whether the indexed TTP is available for use."
+        ::= { xfVcatVc3ConfigEntry 8 }
+
+    xfVcatVc3TtpConfigLcasEnable OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "This object defines whether the LCAS protocol shall be enabled or
+            disabled on the given TTP."
+        DEFVAL { true }
+        ::= { xfVcatVc3ConfigEntry 9 }
+
+    --------------------------------------------------------------
+    -- VCAT oriented TTP configuration: VC-4.
+    --------------------------------------------------------------
+    xfVcatVc4ConfigTable OBJECT-TYPE
+        SYNTAX     SEQUENCE OF XfVcatVc4ConfigEntry
+        MAX-ACCESS not-accessible
+        STATUS     current
+        DESCRIPTION
+            "This table contains the VCAT configuration entries for all VCAT
+            interfaces."
+        ::= { xfVcatConfig 4 }
+
+    xfVcatVc4ConfigEntry OBJECT-TYPE
+        SYNTAX     XfVcatVc4ConfigEntry
+        MAX-ACCESS not-accessible
+        STATUS     current
+        DESCRIPTION
+            "The entry contains VCAT configuration parameters for one VCAT
+            interface."
+        INDEX { ifIndex }
+        ::= { xfVcatVc4ConfigTable 1 }
+
+    XfVcatVc4ConfigEntry ::= SEQUENCE
+    {
+      xfVcatVc4TtpConfigVcgIfIndexEgress   InterfaceIndexOrZero,
+      xfVcatVc4TtpConfigVcgIfIndexIngress  InterfaceIndexOrZero,
+      xfVcatVc4TtpConfigWithinCapEgress    TruthValue,
+      xfVcatVc4TtpConfigTxSeqNumber        Integer32,
+      xfVcatVc4TtpConfigWithinCapIngress   TruthValue,
+      xfVcatVc4TtpConfigRxSeqNumber        Integer32,
+      xfVcatVc4TtpConfigBusyEgress         TruthValue,
+      xfVcatVc4TtpConfigBusyIngress        TruthValue,
+      xfVcatVc4TtpConfigLcasEnable         TruthValue
+    }
+
+    xfVcatVc4TtpConfigVcgIfIndexEgress OBJECT-TYPE
+        SYNTAX     InterfaceIndexOrZero
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "Assigns the source of the given TTP to the VCG using the
+            ifIndex of the VCG interface.
+            Note that assigning the TTP must update objects containing the
+            operative egress capacity of the VCG.
+             A value of 0 defines the TTP as unassigned."
+        DEFVAL { 0 }
+        ::= { xfVcatVc4ConfigEntry 1 }
+
+    xfVcatVc4TtpConfigVcgIfIndexIngress OBJECT-TYPE
+        SYNTAX     InterfaceIndexOrZero
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "Assigns the sink of the given TTP to the VCG using the
+            ifIndex of the VCG interface.
+            Note that assigning the TTP must update objects containing the
+            operative ingress capacity of the VCG.
+             A value of 0 defines the TTP as unassigned."
+        DEFVAL { 0 }
+        ::= { xfVcatVc4ConfigEntry 2 }
+
+    xfVcatVc4TtpConfigWithinCapEgress OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Shows whether the indexed TTP contributes to the VCG capacity or not."
+        ::= { xfVcatVc4ConfigEntry 3 }
+
+    xfVcatVc4TtpConfigTxSeqNumber OBJECT-TYPE
+        SYNTAX     Integer32
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Provides information about the sequence number sent on the TTP."
+        ::= { xfVcatVc4ConfigEntry 4 }
+
+    xfVcatVc4TtpConfigWithinCapIngress OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Shows whether the indexed TTP contributes to the VCG capacity or not."
+        ::= { xfVcatVc4ConfigEntry 5 }
+
+    xfVcatVc4TtpConfigRxSeqNumber OBJECT-TYPE
+        SYNTAX     Integer32
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Provides information about the sequence number expected on the TTP."
+        ::= { xfVcatVc4ConfigEntry 6 }
+
+    xfVcatVc4TtpConfigBusyEgress OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Shows whether the indexed TTP is available for use."
+        ::= { xfVcatVc4ConfigEntry 7 }
+
+    xfVcatVc4TtpConfigBusyIngress OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-only
+        STATUS     current
+        DESCRIPTION
+            "Shows whether the indexed TTP is available for use."
+        ::= { xfVcatVc4ConfigEntry 8 }
+
+    xfVcatVc4TtpConfigLcasEnable OBJECT-TYPE
+        SYNTAX     TruthValue
+        MAX-ACCESS read-write
+        STATUS     current
+        DESCRIPTION
+            "This object defines whether the LCAS protocol shall be enabled or
+            disabled on the given TTP."
+        DEFVAL { true }
+        ::= { xfVcatVc4ConfigEntry 9 }
+
+END
+
+

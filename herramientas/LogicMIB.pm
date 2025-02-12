@@ -401,8 +401,9 @@ sub validar_mib {
     my $paren_count = 0;
     # Hashes para verificar campos SYNTAX
     my %base_syntax = map { $_ => 1 } qw(
-        INTEGER INTEGER32 UNSIGNED32 Counter32 Gauge32 TimeTicks Counter64
-        OCTET STRING OBJECT IDENTIFIER IpAddress Opaque
+        INTEGER INTEGER32 Integer32 ManagedObjectInstance AlarmEntry UNSIGNED32 Counter32 Gauge32 TimeTicks Counter64
+        OCTET STRING OBJECT IDENTIFIER IpAddress Opaque TypeOfEvent ProbableCause PerceivedSeverity AdditionalText
+        TypeFilter SeverityFilter
     );
 
     my %textual_conventions = map { $_ => 1 } qw(
@@ -472,8 +473,9 @@ sub validar_mib {
     if (@warnings) {
         my $warnings_str = join "\n", @warnings;
         my $response = herramientas::Complementos::create_alert_with_picture_label_and_button(
-            $ventana_principal, 'Advertencias de Validación', 
-            "Se encontraron las siguientes advertencias:\n$warnings_str\n¿Desea ignorar estas advertencias?", 'question'
+            $ventana_principal, 'Advertencias de Validacion', 
+            "Se encontraron las siguientes advertencias:\n$warnings_str\n Desea ignorar estas advertencias?", 
+            'question' , "Ignorar" , "Revisar"
         );
 
         if (!$response) {
@@ -548,7 +550,7 @@ sub validar_importaciones {
         my $missing_imports = join ', ', @missing_imports;
         my $response = herramientas::Complementos::create_alert_with_picture_label_and_button(
             $ventana_principal, 'Importaciones Faltantes', 
-            "Los siguientes modulos no estan disponibles: $missing_imports\n¿Desea buscar los modulos localmente?", 'question'
+            "Los siguientes modulos no estan disponibles: $missing_imports\n Desea buscar los modulos localmente?", 'question'
         );
 
         if ($response) {
@@ -574,7 +576,7 @@ sub validar_importaciones {
                 );
             } else {
                 herramientas::Complementos::show_alert(
-                    $ventana_principal, 'ÉXITO', 
+                    $ventana_principal, 'EXITO', 
                     "Los modulos faltantes se han encontrado localmente", 'success'
                 );
             }
@@ -1870,7 +1872,7 @@ sub mostrar_ventana_seleccion_empresa {
                               "Contacto: $selected_company->{Contact}\n" .
                               "Email: $selected_company->{Email}";
                 herramientas::Complementos::show_alert(
-                    $mw, 'Éxito', 
+                    $mw, 'Exito', 
                     $message, 'success'
                 );
                 $mw->destroy();

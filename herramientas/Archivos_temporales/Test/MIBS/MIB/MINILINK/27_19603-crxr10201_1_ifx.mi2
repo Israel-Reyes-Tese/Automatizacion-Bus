@@ -1,0 +1,1043 @@
+-- No.27/196 03-CRXR 102 01/1                MANAGEMENT INFORMATION BASE
+-- =====================================================================
+-- Prepared:  ETH  ETAMJUH                   Revision  AR
+-- =====================================================================
+-- Copyright
+-- +++++++++
+-- 
+-- (c) Ericsson AS 2002. All rights reserved. No part of this document 
+-- may be reproduced in any form without the written permission of the 
+-- copyright holder.
+-- 
+-- Information
+-- +++++++++++
+-- 
+-- This document is mainly intended for internal development and contains 
+-- references to other documents. This document might however, after 
+-- agreement with Ericsson, be delivered to customers to serve as 
+-- information for design.
+-- All referenced documents are however Ericsson internal and are not 
+-- intended for customers or end users and will thus not be delivered 
+-- externally.
+-- 
+-- Disclaimer
+-- ++++++++++
+-- The content of this document is subject to revision without notice 
+-- due to continued progress in methodology, design, and manufacturing. 
+-- Ericsson shall have no liability for any error or damage of any kind 
+-- resulting from the use of this document. 
+-- 
+-- =====================================================================
+-- 
+
+    XF-IF-EXTENSION-MIB DEFINITIONS ::= BEGIN
+ 
+        IMPORTS
+            ifIndex
+                FROM IF-MIB
+            SnmpAdminString
+                FROM SNMP-FRAMEWORK-MIB
+            OBJECT-GROUP, MODULE-COMPLIANCE
+                FROM SNMPv2-CONF
+            Integer32, OBJECT-TYPE, MODULE-IDENTITY
+                FROM SNMPv2-SMI
+            xfPlatform
+                FROM XF-TOP-MIB;
+
+
+        -- 1.3.6.1.4.1.193.81.2.12
+        xfIfXMib MODULE-IDENTITY
+            LAST-UPDATED "201708171000Z"                -- Aug 17, 2017 at 10:00 GMT
+            ORGANIZATION
+                "Ericsson"
+            CONTACT-INFO
+                " "
+            DESCRIPTION
+                "This module contains various extensions of the ifTable."
+            REVISION "201708171000Z"                -- Aug 17, 2017 at 10:00 GMT
+            DESCRIPTION
+                "AR ETAMJUH: Updated description of ifPacketSize, ifPacketMaxSize, ifPacketMinSize"
+            REVISION "201510061300Z"                -- Oct 06, 2015 at 13:00 GMT
+            DESCRIPTION
+                "AQ ECSITAM: Add 2.5Gbit full duplex support"
+            REVISION "201506161000Z"                -- Jun 16, 2015 at 10:00 GMT
+            DESCRIPTION                  
+                "AP ETHBOZO: removing 10Gbit master/slave sync ethernet settings
+                    - xfEthernetConfigSupportedSpeeds
+                    - xfEthernetConfigPort
+                    - xfEthernetSpeedStatus"
+            REVISION "201504141000Z"                -- Apr 14, 2015 at 10:00 GMT
+            DESCRIPTION
+                "AO ETHBOZO: modifying 10Gbit full duplex, master/slave and sync ethernet settings
+                    - xfEthernetConfigSupportedSpeeds"
+            REVISION "201504131000Z"                -- Apr 13, 2015 at 10:00 GMT
+            DESCRIPTION
+                "AN ETHBOZO: Fix version information"
+            REVISION "201503301000Z"                -- Mar 30, 2015 at 10:00 GMT
+            DESCRIPTION
+                "AM ETHBOZO
+                Fix version information"
+            REVISION "201503241000Z"                -- Mar 24, 2015 at 10:00 GMT
+            DESCRIPTION
+                "AL ETAMJUH
+                Fix version information"
+            REVISION "201503171730Z"        -- March 17, 2015 at 17:30 GMT
+            DESCRIPTION
+                "AK Adding 10Gbit full duplex, master/slave settings to xfEthernetConfigPort"
+            REVISION "201501131000Z"        -- Jan 13, 2015 at 10:00 GMT
+            DESCRIPTION
+                "AJ xfIfXCapabilities updated with new flag for LAN&WAN that represent support for EPM Alarm"
+            REVISION "201412091000Z"        -- Dec 17, 2014 at 10:00 GMT
+            DESCRIPTION
+                "AH This module contains various extensions of the ifTable."
+            REVISION "201411201000Z"        -- Nov 20, 2014 at 10:00 GMT
+            DESCRIPTION                  
+                "AG Adding 10Gbit full duplex, master/slave and sync ethernet settings.
+                - xfEthernetConfigPort
+                - xfEthernetSpeedStatus
+                - xfEthernetConfigSupportedSpeeds"
+            REVISION "201410131000Z"        -- Oct 13, 2014 at 10:00 GMT
+            DESCRIPTION
+                "AF Minor correction."
+            REVISION "201410130900Z"        -- Oct 13, 2014 at 09:00 GMT
+            DESCRIPTION
+                "AE Added entries of xfPtCapacity table to conformance group."
+            REVISION "201410010900Z"        -- Oct 01, 2014 at 09:00 GMT
+            DESCRIPTION
+                "AD Added xfHDME group and xfPtCapacity table."
+            REVISION "201409180900Z"        -- Sep 18, 2014 at 09:00 GMT
+            DESCRIPTION
+                "AC xfIfXCapabilities updated with new flag for RL-IME that represent support for llUnableToProtect"
+            REVISION "201408071440Z"        -- Aug 07, 2014 at 14:40 GMT
+            DESCRIPTION
+                "AB Added ifXPacketMinSize to IfXPacketEntry."
+            REVISION "201305311200Z"        -- May 31, 2013 at 12:00 GMT
+            DESCRIPTION
+                "AA Added new values for SyncE on FE feature to: xfEthernetConfigPort,
+                   xfEthernetConfigSupportedSpeeds and xfEthernetSpeedStatus."
+            REVISION "201201191200Z"        -- Jan 19, 2012 at 12:00 GMT
+            DESCRIPTION
+                "Z Corrected description on xfIfXCapabilities"
+            REVISION "201112121600Z"        -- Dec 12, 2011 at 16:00 GMT
+            DESCRIPTION
+                "Y Added:
+                   ifXPacketMaxSize"
+            REVISION "201109231600Z"        -- September 23, 2011 at 16:00 GMT
+            DESCRIPTION
+                "X Updated description of usage on xfIfVariant and xfIfXCapabilities.
+                   xfIfXCapabilities shall now be used instead of xfIfVariant"
+            REVISION "201102221600Z"        -- February 22, 2011 at 16:00 GMT
+            DESCRIPTION
+                "W xfIfVariant updated"
+            REVISION "201102091500Z"        -- February 09, 2011 at 15:00 GMT
+            DESCRIPTION
+                "V xfIfVariant updated for support of Ethernet PM"
+            REVISION "201101281500Z"        -- January 28, 2011 at 15:00 GMT
+            DESCRIPTION
+                "U xfIfVariant
+                    - updated for WAN interfaces."
+            REVISION "201012171700Z"        -- December 17, 2010 at 17:00 GMT
+            DESCRIPTION
+                "T xfIfVariant
+                    - updated for WAN interfaces."
+            REVISION "201005031100Z"        -- May 03, 2010 at 11:00 GMT
+            DESCRIPTION
+                "S xfEthernetConfigPort
+                   - value 2 named back from fullDuplexMaster1000 to fullDuplex1000.
+                   - value 9 named from fullDuplex1000 to fullDuplexMaster1000
+                  
+                   xfEthernetConfigSupportedSpeeds
+                    - bit 2 named back from speed1GbitFullDuplexMaster speed1GbitFullDuplex
+                    - bit 9 named from speed1GbitFullDuplex to speed1GbitFullDuplexMaster
+                    
+                   xfEthernetSpeedStatus  
+                     - added fullDuplex1000
+                "
+            REVISION "201004201700Z"        -- April 20, 2010 at 17:00 GMT
+            DESCRIPTION
+                "N xfIfVariant
+                    - added variant 3 for RL-IME."
+            REVISION "201004121500Z"        -- April 12, 2010 at 15:00 GMT
+            DESCRIPTION
+                "M : xfIfVariant
+                     - added syncE
+                    xfEthernetAlarmStatus
+                     - added syncE bits
+                    xfEthernetAlarmEnable
+                     - downStreamBufferOverflow used by CompactNode.
+                     - added syncE bits
+                    xfEthernetConfigSupportedSpeeds
+                     - added 1GfullDuplex
+                     - added syncE capability"
+            REVISION "200912021400Z"        -- December 02, 2009 at 14:00 GMT
+            DESCRIPTION
+                "L   Added
+                      - xfEthernetAlarmEnable
+                      - xfEthernetEventEnable
+                
+                    ifVariant 
+                      - moved from ifXPacketTable to xfIfXTable
+                
+                    - xfEthernetAlarmStatus
+                       - added new values.
+                       - updated with downStreamBufferOverflow
+                         bits which are used by CompactNode.
+                "
+            REVISION "200904231700Z"        -- April 23, 2009 at 17:00 GMT
+            DESCRIPTION
+                "REV K Added ifVariant"
+            REVISION "200904231200Z"        -- April 23, 2009 at 12:00 GMT
+            DESCRIPTION
+                "J Added
+                    - xfEthernetSpeedStatus
+                    - xfEthernetFlowControlStatus
+                    - fullDuplex1000 to xfEthernetConfigPort
+                    - autoneg to xfEthernetConfigFlowControl
+                
+                   Updated with Master/Slave 1000
+                     - xfEthernetConfigPort
+                     - xfEthernetConfigSupportedSpeeds
+                "
+            REVISION "200810011000Z"        -- October 01, 2008 at 10:00 GMT
+            DESCRIPTION
+                "H : Updated xfEthernetConfigSupportedSpeeds with regard to halfduplex
+                "
+            REVISION "200808181100Z"        -- August 18, 2008 at 11:00 GMT
+            DESCRIPTION
+                "G : added xfOpticalAlsTable"
+            REVISION "200803061527Z"        -- March 06, 2008 at 15:27 GMT
+            DESCRIPTION 
+                "F: Removed import of BITS"
+            REVISION "200801161254Z"        -- January 16, 2008 at 12:54 GMT
+            DESCRIPTION
+                "E : Added xfEthernetConfigSupportedSpeeds
+                    xfEthernetConfigAlarmStatus"
+            REVISION "200704120914Z"        -- April 12, 2007 at 09:14 GMT
+            DESCRIPTION
+                "D added xfIfXCapabilities"
+            REVISION "200610111100Z"        -- October 11, 2006 at 11:00 GMT
+            DESCRIPTION 
+                "C   added xfIfXSquelch and indicated 
+                    that the xfIfXAltName isn't implemented yet.
+                    Added xfEthernetConfigAutoNeg
+                    Added ifPacketSize"
+            REVISION "200604181321Z"        -- April 18, 2006 at 13:21 GMT
+            DESCRIPTION
+                "B Added xfEthernetConfigTable
+                    Added the xfIfAltName"
+            REVISION "200508261328Z"        -- August 26, 2005 at 13:28 GMT
+            DESCRIPTION
+                "A first revision"
+            ::= { xfPlatform 12 }
+
+
+--
+-- Node definitions
+--
+
+        -- 1.3.6.1.4.1.193.81.2.12.1
+        xfIfXPacket OBJECT IDENTIFIER ::= { xfIfXMib 1 }
+-- Tables and objects for packet based interfaces only.
+
+        -- 1.3.6.1.4.1.193.81.2.12.1.1
+        ifXPacketTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF IfXPacketEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "In this table there are only entries for packet based interfaces."
+            ::= { xfIfXPacket 1 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.1.1.1
+        ifXPacketEntry OBJECT-TYPE
+            SYNTAX IfXPacketEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "Entry in the table."
+            INDEX { ifIndex }
+            ::= { ifXPacketTable 1 }
+
+
+        IfXPacketEntry ::=
+            SEQUENCE {
+                ifCountersClear
+                    INTEGER,
+                ifPacketSize
+                    Integer32,
+                ifPacketMaxSize
+                    Integer32,
+                ifPacketMinSize
+                    Integer32
+            }
+
+        -- 1.3.6.1.4.1.193.81.2.12.1.1.1.1
+        ifCountersClear OBJECT-TYPE
+            SYNTAX INTEGER { reset(1) }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "This object resets all packet related counters in ifTable and ifXTable."
+            ::= { ifXPacketEntry 1 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.1.1.1.2
+        ifPacketSize OBJECT-TYPE
+            SYNTAX Integer32
+            UNITS "bytes"
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "This object can be used to configure:
+                
+                - MTU size for Site-LAN, LAN-DCN interfaces
+                - MRU size for PPP interfaces
+                
+                Default value is 1500."
+            ::= { ifXPacketEntry 2 }
+
+        -- 1.3.6.1.4.1.193.81.2.12.1.1.1.3
+        ifPacketMaxSize OBJECT-TYPE
+            SYNTAX Integer32
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "This object holds the maximum value accepted for the ifPacketSize"
+            ::= { ifXPacketEntry 3 }
+
+        -- 1.3.6.1.4.1.193.81.2.12.1.1.1.4
+        ifPacketMinSize OBJECT-TYPE
+            SYNTAX Integer32 
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "This object holds the minimum value accepted for the ifPacketSize"
+            ::= { ifXPacketEntry 4 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.10
+        xfIfXConformance OBJECT IDENTIFIER ::= { xfIfXMib 10 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.10.1
+        xfIfXCompliances OBJECT IDENTIFIER ::= { xfIfXConformance 1 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.10.1.1
+        xfIfXCompliance MODULE-COMPLIANCE
+            STATUS current
+            DESCRIPTION 
+                "Full compliance."
+            MODULE -- this module
+                MANDATORY-GROUPS { xfIfXGroup21 }
+            ::= { xfIfXCompliances 1 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.10.2
+        xfIfXGroups OBJECT IDENTIFIER ::= { xfIfXConformance 2 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.10.2.1
+        xfIfXGroup21 OBJECT-GROUP
+            OBJECTS { ifCountersClear, xfEthernetConfigPort, xfEthernetDuplexStatus, xfIfAltName, xfIfXSquelch, 
+                xfEthernetConfigAutoNeg, xfEthernetConfigFlowControl, xfIfXCapabilities, xfEthernetConfigSupportedSpeeds, xfOpticalAlsRestartCommand, 
+                xfOpticalAlsOperStatus, xfOpticalAlsMode, xfEthernetFlowControlStatus, xfEthernetSpeedStatus, xfEthernetAlarmEnable, 
+                xfEthernetEventEnable, xfEthernetConfigRxTx, ifPacketSize, ifPacketMaxSize, ifPacketMinSize, xfEthernetAlarmStatus, xfIfVariant,
+                xfPtCapacityCurrent, xfPtCapacityMinimum, xfPtCapacityMaximum
+                 }
+            STATUS current
+            DESCRIPTION 
+                "All objects."
+            ::= { xfIfXGroups 1 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.11
+        xfEthernet OBJECT IDENTIFIER ::= { xfIfXMib 11 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.11.1
+        xfEthernetConfigTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfEthernetConfigEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "Description."
+            ::= { xfEthernet 1 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.11.1.1
+        xfEthernetConfigEntry OBJECT-TYPE
+            SYNTAX XfEthernetConfigEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "Description."
+            INDEX { ifIndex }
+            ::= { xfEthernetConfigTable 1 }
+
+
+        XfEthernetConfigEntry ::=
+            SEQUENCE {
+                xfEthernetConfigPort
+                    INTEGER,
+                xfEthernetConfigRxTx
+                    INTEGER,
+                xfEthernetConfigFlowControl
+                    INTEGER,
+                xfEthernetDuplexStatus
+                    INTEGER,
+                xfEthernetConfigAutoNeg
+                    INTEGER,
+                xfEthernetConfigSupportedSpeeds
+                    BITS,
+                xfEthernetAlarmStatus
+                    BITS,
+                xfEthernetSpeedStatus
+                    INTEGER,
+                xfEthernetFlowControlStatus
+                    INTEGER,
+                xfEthernetAlarmEnable
+                    BITS,
+                xfEthernetEventEnable
+                    BITS
+             }
+
+        -- 1.3.6.1.4.1.193.81.2.12.11.1.1.1
+        xfEthernetConfigPort OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                autoDetect(1),
+                fullDuplex1000(2),
+                halfDuplex1000(3),
+                fullDuplex100(4),
+                halfDuplex100(5),
+                fullDuplex10(6),
+                halfDuplex10(7),
+                fullDuplexSlave1000(8),
+                fullDuplexMaster1000(9),
+                fullDuplexSlave100(10),
+                fullDuplexMaster100(11),
+                fullDuplex10000(12),
+                fullDuplex2500(13)
+                }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "This object is used to set the Ethernet speed.
+                If xfEthernetConfigAutoNeg=off(1) setting this object to autoDetect(1)
+                will result in a inConsistentValue error response.
+                If xfEthernetConfigPort = autoDetect(1) when xfEthernetConfigAutoNeg
+                is set from on(1) to off(2), xfEthernetConfigPort will be set to 
+                fullDuplex100(2).
+                "
+            DEFVAL { 1 }
+            ::= { xfEthernetConfigEntry 1 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.11.1.1.2
+        xfEthernetConfigRxTx OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                auto(1),
+                manualNormal(2),
+                manualSwitched(3)
+                }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "This objects indicates RX/TX configuration of the Ethernetport.
+                !!Need to add info on manualSwitched"
+            DEFVAL { 1 }
+            ::= { xfEthernetConfigEntry 2 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.11.1.1.3
+        xfEthernetConfigFlowControl OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                activated(1),
+                deactivated(2),
+                autoneg(3)
+                }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "Description."
+            DEFVAL { 1 }
+            ::= { xfEthernetConfigEntry 3 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.11.1.1.4
+        xfEthernetDuplexStatus OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                unknown(0),
+                halfDuplex(1),
+                fullDuplex(2)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Description."
+            ::= { xfEthernetConfigEntry 4 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.11.1.1.5
+        xfEthernetConfigAutoNeg OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                on(1),
+                off(2)
+                }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "This object is used to configure auto-negotiate on the ethernet port. 
+                If xfEthernetConfigPort = autoDetect(1) when this object is set
+                from on(1) to off(2), xfEthernetConfigPort will be set to 
+                fullDuplex100(2).
+                Default is on(1).
+                "
+            ::= { xfEthernetConfigEntry 5 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.11.1.1.6
+        xfEthernetConfigSupportedSpeeds OBJECT-TYPE
+            SYNTAX BITS
+                {
+                speed10MbitFullDuplex(0),
+                speed100MbitFullDuplex(1),
+                speed1GbitFullDuplex(2),
+                speed10GbitFullDuplex(3),
+                speed100GbitFullDuplex(4),
+                speed10MbitHalfDuplex(5),
+                speed100MbitHalfDuplex(6),
+                speed1GbitHalfDuplex(7),
+                speed1GbitFullDuplexSlave(8),
+                speed1GbitFullDuplexMaster(9),
+                speed1GbitFullDuplexMasterSync(10),
+                speed1GbitFullDuplexSlaveSync(11),
+                speed1GbitFullDuplexSync(12),
+                speed100MbitFullDuplexSlave(13),
+                speed100MbitFullDuplexMaster(14),
+                speed100MbitFullDuplexMasterSync(15),
+                speed100MbitFullDuplexSlaveSync(16),
+                speed100MbitFullDuplexSync(17),
+                speed10GbitFullDuplexSync(18),
+                speed2500MbitFullDuplex(19),
+                speed2500MbitFullDuplexSync(20)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Indicates the supported speed supported by this interface.
+                
+                speed10MbitFullDuplex(0)            : this interface supports 10 MBit ethernet, full duplex
+                speed100MbitFullDuplex(1)           : this interface supports 100 MBit ethernet, full duplex
+                speed1GbitFullDuplex(2)             : this interface supports 1GBit ethernet, full duplex
+                speed10GbitFullDuplex(3)            : this interface supports 10GBit ethernet, full duplex
+                speed100GbitFullDuplex(4)           : this interface supports 100GBit ethernet, full duplex
+                speed10MbitHalfDuplex(5)            : this interface supports 10 MBit ethernet, half duplex
+                speed100MbitHalfDuplex(6)           : this interface supports 100 MBit ethernet, half duplex
+                speed1GbitHalfDuplex(7)             : this interface supports 1GBit ethernet, half duplex
+                speed1GbitFullDuplexSlave(8)        : this interface supports 1GBit ethernet, full duplex, Slave
+                speed1GbitFullDuplexMaster(9)       : this interface supports 1GBit ethernet, full duplex, Master 
+                speed1GbitFullDuplexMasterSync(10)  : this interface supports 1GBit ethernet, full duplex, master, sync out
+                speed1GbitFullDuplexSlaveSync(11)   : this interface supports 1GBit ethernet, full duplex, slave, sync in 
+                speed1GbitFullDuplexSync(12)        : this interface supports 1GBit ethernet, full duplex, sync
+                speed100MbitFullDuplexSlave(13)     : this interface supports 100MBit ethernet, full duplex, Slave
+                speed100MbitFullDuplexMaster(14)    : this interface supports 100MBit ethernet, full duplex, Master 
+                speed100MbitFullDuplexMasterSync(15): this interface supports 100MBit ethernet, full duplex, master, sync out
+                speed100MbitFullDuplexSlaveSync(16) : this interface supports 100MBit ethernet, full duplex, slave, sync in 
+                speed100MbitFullDuplexSync(17)      : this interface supports 100MBit ethernet, full duplex, sync
+                speed10GbitFullDuplexSync(18)       : this interface supports 10GBit ethernet, full duplex, sync
+                speed2500MbitFullDuplex(19)         : this interface supports 2500 MBit ethernet, full duplex
+                speed2500MbitFullDuplexSync(20)     : this interface supports 2500 MBit ethernet, full duplex sync"
+            ::= { xfEthernetConfigEntry 6 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.11.1.1.7
+        xfEthernetAlarmStatus OBJECT-TYPE
+            SYNTAX BITS
+                {
+                ethernetDown0(0),
+                ethernetDown1(1),
+                ethernetDown2(2),
+                ethernetOamLinkFault0(3),
+                ethernetOamLinkFault1(4),
+                ethernetOamLinkFault2(5),
+                ethernetOamLoopback0(6),
+                ethernetOamLoopback1(7),
+                ethernetOamLoopback2(8),
+                downStreamBufferOverflow0(9),
+                downStreamBufferOverflow1(10),
+                downStreamBufferOverflow2(11),
+                ethernetSyncNotSupported0(12),
+                ethernetSyncNotSupported1(13),
+                ethernetSyncNotSupported2(14)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Indicates alarm status of an ethernet port/interface.
+                
+                ethernetDown0                   : the ethernet port/interface is down.
+                ethernetDown1                   : the ethernet port/interface is down.
+                ethernetDown2                   : the ethernet port/interface is down.
+                ethernetOamLinkFault0           : the ethernet port/interface tx is down (reported by remote OAM).
+                ethernetOamLinkFault1           : the ethernet port/interface tx is down (reported by remote OAM).
+                ethernetOamLinkFault2           : the ethernet port/interface tx is down (reported by remote OAM).
+                ethernetOamLoopback0            : the ethernet port/interface is set in loop by remote OAM.
+                ethernetOamLoopback1            : the ethernet port/interface is set in loop by remote OAM.
+                ethernetOamLoopback2            : the ethernet port/interface is set in loop by remote OAM.
+                downStreamBufferOverflow0       : used only by CompactNode.
+                downStreamBufferOverflow1       : used only by CompactNode.
+                downStreamBufferOverflow2       : used only by CompactNode.
+                ethernetSyncNotSupported0       : syncEthernet is enabled in config, 
+                                                  but the interface does not support syncEthernet.
+                ethernetSyncNotSupported1       : syncEthernet is enabled in config, 
+                                                  but the interface does not support syncEthernet.
+                ethernetSyncNotSupported2       : syncEthernet is enabled in config, 
+                                                  but the interface does not support syncEthernet.
+                
+                
+                Severity is indicated by 3 bits per status:
+                bits 012
+                    000   clear
+                    001   undetermined
+                    010   warning
+                    011   minor
+                    100   major
+                    101   critical
+                
+                Only supported on LAN ports."
+            ::= { xfEthernetConfigEntry 7 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.11.1.1.8
+        xfEthernetSpeedStatus OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                fullDuplex10(1),
+                halfDuplex10(2),
+                fullDuplex100(3),
+                halfDuplex100(4),
+                fullDuplexMaster1000(5),
+                fullDuplexSlave1000(6),
+                fullDuplex1000(7),
+                fullDuplexMaster100(8),
+                fullDuplexSlave100(9),
+                fullDuplex10000(10),
+                fullDuplex2500(11)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Shows the current status of speed.
+                
+                fullDuplex10(1)          : Full duplex, 10
+                halfDuplex10(2)          : Half duplex, 10
+                fullDuplex100(3)         : Full duplex, 100
+                halfDuplex100(4)         : Half duplex, 100
+                fullDuplexMaster1000(5)  : Full duplex 1000, Master
+                fullDuplexSlave1000(6)   : Full duplex 1000, Slave
+                fullDuplex1000(7)        : Full duplex 1000 
+                fullDuplexMaster100(8)   : Full duplex 100, Master
+                fullDuplexSlave100(9)    : Full duplex 100, Slave
+                fullDuplex10000(10)      : Full duplex, 10000
+                fullDuplex2500(11)       : Full duplex, 2500 Mbit/s
+                "
+            ::= { xfEthernetConfigEntry 8 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.11.1.1.9
+        xfEthernetFlowControlStatus OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                active(1),
+                inactive(2)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Shows the current status of flow control.
+                
+                active(1)     : flow control is currently active.
+                inactive(2)   : flow control is currently inactive.
+                "
+            ::= { xfEthernetConfigEntry 9 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.11.1.1.10
+        xfEthernetAlarmEnable OBJECT-TYPE
+            SYNTAX BITS
+                {
+                ethernetDown(0),
+                ethernetOamLinkFault(1),
+                ethernetOamLoopback(2),
+                downStreamBufferOverflow(3),
+                ethernetSyncNotSupported(4)
+                }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "Used to enable/disable ethernet alarm traps.
+                
+                ethernetDown(0)              : enable/disable ethernet down alarm trap.
+                ethernetOamLinkFault(1)      : enable/disable ethernet LinkFault/RDI(via OAM) alarm trap.
+                ethernetOamLoopback(2)       : enable/disable ethernet loopback(via OAM) alarm trap.
+                downStreamBufferOverflow(3)  : used only by CompactNode.
+                ethernetSyncNotSupported(4)  : enable/disable syncEthernet alarm trap.
+                "
+            ::= { xfEthernetConfigEntry 10 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.11.1.1.11
+        xfEthernetEventEnable OBJECT-TYPE
+            SYNTAX BITS
+                {
+                oamErrSym(0),
+                oamErrFramePeriod(1),
+                oamErrFrame(2),
+                oamErrFrameSecsSummary(3),
+                oamDyingGasp(4),
+                oamCriticalEvent(5)
+                }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "Used to enable/disable ethernet events towards managment. '0' at a bit position means disable and '1' means enable.
+                
+                Bitmap
+                oamErrSym(0)               : enable/disable errSym oam event
+                oamErrFramePeriod(1)       : enable/disable errFramePeriod oam event
+                oamErrFrame(2)             : enable/disable errFram oam event
+                oamErrFrameSecsSummary(3)  : enable/disable errFrameSecsSummary oam event
+                oamDyingGasp(4)            : enable/disable dyingGasp oam
+                oamCriticalEvent(5)        : enable/disable critical oam event
+                
+                Default is 0x0 (all ethernet events off)."
+            ::= { xfEthernetConfigEntry 11 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.12
+        xfIfGeneral OBJECT IDENTIFIER ::= { xfIfXMib 12 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.12.1
+        xfIfXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfIfXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "Description."
+            ::= { xfIfGeneral 1 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.12.1.1
+        xfIfXEntry OBJECT-TYPE
+            SYNTAX XfIfXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "Description."
+            INDEX { ifIndex }
+            ::= { xfIfXTable 1 }
+
+
+        XfIfXEntry ::=
+            SEQUENCE {
+                xfIfAltName
+                    SnmpAdminString,
+                xfIfXSquelch
+                    INTEGER,
+                xfIfXCapabilities
+                    BITS,
+                xfIfVariant
+                    Integer32
+             }
+
+        -- 1.3.6.1.4.1.193.81.2.12.12.1.1.1
+        xfIfAltName OBJECT-TYPE
+            SYNTAX SnmpAdminString (SIZE (0..32))
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "The object can be used as an alternative to the ifName in the ifXTable.
+                However this object is not implemented yet."
+            ::= { xfIfXEntry 1 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.12.1.1.2
+        xfIfXSquelch OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                enable(1),
+                disable(2)
+                }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "This object is used to enable the squelch function on 
+                individual interfaces. This object only makes sense when 
+                xfSyncSqlch is enabled for the node.
+                If squelch is not possible, see xfIfXCapablities, settting this object
+                to enable(1) will lead to an inconstententValue response.
+                Default is disable(2)."
+            ::= { xfIfXEntry 2 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.12.1.1.3
+        xfIfXCapabilities OBJECT-TYPE
+            SYNTAX BITS {bit0(0),bit1(1),bit2(2)}
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "This objects inidicates the capabilities of the interface:
+                
+                bit squelch(0): if '1' squelch can be enabled through xfIfXSquelch.
+                NOTE: Do not use bit 0 on any other interface.
+                
+                Each bit represents a capability per interface type.
+                
+                For LAN interfaces:
+                    bit 1 : (1) Supports large egress queues, WRED, Aging, Color Dropping
+                    bit 2 : (1) Supports Ethernet PM alarm
+
+                For WAN interfaces:
+                    bit 2 : (1) Supports Ethernet PM alarm              
+                    
+                For RL-IME interfaces:
+                    bit 1 : (1) Supports unable to protect alarm correlation with lower layer (llUnableToProtect)
+                "
+            ::= { xfIfXEntry 3 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.12.1.1.4
+        xfIfVariant OBJECT-TYPE
+            SYNTAX Integer32
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Shows the variant of an interface.
+                
+                NOTE: variants shall not be used anymore, Use xfIfXCapabilities to add new functionality.  
+                
+                E.g. For a LAN interface, 4 represents LANv4.
+                
+                Please refer to the object model diagrams for exact content of the variants. The variant is added to the class name,e.g LANv4, WANv3 etc.
+                
+                For LAN interfaces:
+                
+                  variant 1 : Start value
+                  variant 2 : Supports both half and full duples
+                  variant 3 : Optical interface
+                  variant 4 : Replaces variant 1
+                  variant 5 : Replaces variant 2
+                  variant 6 : Replaces variant 3
+                  variant 7 : Replaces variant 4, Added min and max speed for variant 4
+                  variant 8 : Replaces variant 5, Added min and max speed for variant 5
+                  variant 9 : Replaces variant 6, Added min and max speed for variant 6
+                  variant 10 : Replaces variant 7, Added linkOam and Scheduling
+                  variant 11 : Replaces variant 8, Added linkOam and Scheduling
+                  variant 12 : Replaces variant 9, Added linkOam and Scheduling
+                  variant 13 : Replaces variant 10, Added syncEthernet
+                  variant 14 : Replaces variant 11, Added syncEthernet
+                  variant 15 : Replaces variant 12, Added syncEthernet
+                  variant 16 : Replaces variant 13, Added Ethernet PM
+                  variant 17 : Replaces variant 14, Added Ethernet PM
+                  variant 18 : Replaces variant 15, Added Ethernet PM
+                  variant 19 : Replaces variant 7, Added Ethernet PM
+                
+                For WAN interfaces:
+                  variant 1 : starting value.Buffer size of 16M. 
+                  variant 2 : replaces variant 1.Buffer size of 16M.
+                  variant 3 : Added min,max speed.Buffer size of 16M.
+                  variant 4 : Replaces variant 3, Added Wred,color-dropping and scheduling.Buffer size of 16M.
+                  variant 5 : Same as variant 4, but has buffer size of 32M.
+                  variant 6 : Replaces variant 4, Added AdminStatus and Ethernet PM
+                  variant 7 : Replaces variant 5, Added AdminStatus and Ethernet PM
+                  variant 8 : Replaces variant 3, Added Ethernet PM
+                
+                For RL-IME interfaces:
+                  variant 1 : starting value 
+                  variant 2 : replaces variant 1. L1 RL Bonding introduced.
+                  variant 3 : replaces variant 2. adMod is supported together with L1 RL Bonding.
+                
+                For PDH-IME interfaces:
+                  variant 1 : starting value 
+                  variant 2 : replaces variant 1"
+            ::= { xfIfXEntry 4 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.13
+        xfOptical OBJECT IDENTIFIER ::= { xfIfXMib 13 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.13.1
+        xfOpticalAlsTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfOpticalAlsEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "A table used for ALS (Automatic Laser Shutdown) control
+                of optical interfaces."
+            ::= { xfOptical 1 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.13.1.1
+        xfOpticalAlsEntry OBJECT-TYPE
+            SYNTAX XfOpticalAlsEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry of ALS."
+            INDEX { ifIndex }
+            ::= { xfOpticalAlsTable 1 }
+
+
+        XfOpticalAlsEntry ::=
+            SEQUENCE {
+                xfOpticalAlsMode
+                    INTEGER,
+                xfOpticalAlsOperStatus
+                    INTEGER,
+                xfOpticalAlsRestartCommand
+                    INTEGER
+             }
+
+        -- 1.3.6.1.4.1.193.81.2.12.13.1.1.1
+        xfOpticalAlsMode OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                manualOn(1),
+                manualOff(2),
+                alsAuto(3)
+                }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "Used to specify the operational mode of the laser.
+                
+                manualOn(1)    : Laser is manually set to on.
+                manualOff(2)   : Laser is manually set to off.
+                alsAuto(3)     : Laser is controlled by ALS mechanism.
+                
+                Default is alsAuto(3)."
+            ::= { xfOpticalAlsEntry 1 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.13.1.1.2
+        xfOpticalAlsOperStatus OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                manualOn(1),
+                manualOff(2),
+                alsAutoLsrOn(3),
+                alsAutoLsrOff(4),
+                alsAutoLsrRestarting(5)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Shows the current status of the laser.
+                
+                manualOn(1)             : Laser is manually set to on.
+                manualOff(2)            : Laser is manually set to off.
+                alsAutoLsrOn(3)         : ALS is enabled, laser is on.
+                alsAutoLsrOff(4)        : ALS is enabled, laser is off.
+                alsAutoLsrRestarting(5) : ALS is enabled, laser is restarting.
+                "
+            ::= { xfOpticalAlsEntry 2 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.13.1.1.3
+        xfOpticalAlsRestartCommand OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                alsManualRestart(1),
+                alsManualRestartTest12(2),
+                alsManualRestartTest90(3)
+                }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "Used to restart the laser manually when ALS is enabled.
+                
+                alsManualRestart(1)       : Initiate a 2 sec restart.
+                alsManualRestartTest12(2) : Initiate a 12 sec restart.
+                alsManualRestartTest90(3) : Initiate a 90 sec restart.
+                "
+            ::= { xfOpticalAlsEntry 3 }
+
+        -- 1.3.6.1.4.1.193.81.2.12.14
+        xfHDME OBJECT IDENTIFIER ::= { xfIfXMib 14 }
+        
+        -- 1.3.6.1.4.1.193.81.2.12.14.1
+        xfPtCapacity OBJECT IDENTIFIER ::= { xfHDME 1 }
+
+        -- 1.3.6.1.4.1.193.81.2.12.14.1.1
+        xfPtCapacityTable OBJECT-TYPE
+                        SYNTAX SEQUENCE OF XfPtCapacityEntry
+                        MAX-ACCESS not-accessible
+                        STATUS current
+                        DESCRIPTION
+                                        "This table holds items describing radio channel capacity values of the attached MINI-LINK PT nodes in HDME mode. The table is indexed by the ifIndex of the PT Radio Channel."
+                        ::= { xfPtCapacity 1 }
+
+
+        -- 1.3.6.1.4.1.193.81.2.12.14.1.1.1
+        xfPtCapacityEntry OBJECT-TYPE
+                        SYNTAX XfPtCapacityEntry
+                        MAX-ACCESS not-accessible
+                        STATUS current
+                        DESCRIPTION
+                                        "This entry holds the minimum, maximum and current radio channel capacity values of an attached MINI-LINK PT node in HDME mode."
+                        INDEX { ifIndex }
+                        ::= { xfPtCapacityTable 1 }
+
+
+        XfPtCapacityEntry ::=
+                        SEQUENCE {
+                                        xfPtCapacityCurrent
+                                                        INTEGER,
+                                        xfPtCapacityMinimum
+                                                        INTEGER,
+                                        xfPtCapacityMaximum
+                                                        INTEGER
+                        }
+
+        -- 1.3.6.1.4.1.193.81.2.12.14.1.1.1.1
+        xfPtCapacityCurrent OBJECT-TYPE
+                        SYNTAX INTEGER
+                        MAX-ACCESS read-only
+                        STATUS current
+                        DESCRIPTION
+                                        "The current capacity in kbps, which corresponds to the current modulation."
+                        ::= { xfPtCapacityEntry 1 }
+
+        -- 1.3.6.1.4.1.193.81.2.12.14.1.1.1.2
+        xfPtCapacityMinimum OBJECT-TYPE
+                        SYNTAX INTEGER
+                        MAX-ACCESS read-only
+                        STATUS current
+                        DESCRIPTION
+                                        "The selected minimum capacity in kbps, which corresponds to the selected minimum modulation."
+                        ::= { xfPtCapacityEntry 2 }
+                        
+        -- 1.3.6.1.4.1.193.81.2.12.14.1.1.1.3
+        xfPtCapacityMaximum OBJECT-TYPE
+                        SYNTAX INTEGER
+                        MAX-ACCESS read-only
+                        STATUS current
+                        DESCRIPTION
+                                        "The selected maximum capacity in kbps, which corresponds to the selected maximum modulation."
+                        ::= { xfPtCapacityEntry 3 }
+
+
+    END
+
+--
+-- 27_19603-crxr10201_1_ifx.mi2
+--

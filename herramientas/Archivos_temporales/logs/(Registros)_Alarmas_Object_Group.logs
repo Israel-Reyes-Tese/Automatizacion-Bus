@@ -1,125 +1,88 @@
-#----------------------------------- OBJECT GROUP:  hrSystemGroup  ---------------------------#
-Nombre del grupo de objetos: hrSystemGroup
-hrSystemGroup OBJECT-GROUP
-OBJECTS         { hrSystemUptime, hrSystemDate, 
-hrSystemInitialLoadDevice, 
-hrSystemInitialLoadParameters, hrSystemNumUsers, 
-hrSystemProcesses, hrSystemMaxProcesses }
-STATUS          current
-DESCRIPTION     
-"The Host Resources System Group."
-::= { hrMIBGroups 1 }
+#----------------------------------- OBJECT GROUP:  alarmAdminMandatoryGroup  ---------------------------#
+Nombre del grupo de objetos: alarmAdminMandatoryGroup
+alarmAdminMandatoryGroup OBJECT-GROUP  
+OBJECTS {   alarmIrpVersion        			
+}
+STATUS      current
+DESCRIPTION 
+"A collection of mandatory objects holding administrative
+information."
+::= { alarmGroups 1 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  hrStorageGroup  ---------------------------#
-Nombre del grupo de objetos: hrStorageGroup
-hrStorageGroup OBJECT-GROUP
-OBJECTS         { hrMemorySize, hrStorageIndex, hrStorageType, 
-hrStorageDescr, hrStorageAllocationUnits, 
-hrStorageSize, hrStorageUsed, 
-hrStorageAllocationFailures }
-STATUS          current
-DESCRIPTION     
-"The Host Resources Storage Group."
-::= { hrMIBGroups 2 }
+#----------------------------------- OBJECT GROUP:  alarmAdminOptionalGroup  ---------------------------#
+Nombre del grupo de objetos: alarmAdminOptionalGroup
+alarmAdminOptionalGroup OBJECT-GROUP  
+OBJECTS {  
+systemDN
+}
+STATUS      current
+DESCRIPTION 
+"A collection of optional objects holding administrative
+information."
+::= { alarmGroups 2 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  hrDeviceGroup  ---------------------------#
-Nombre del grupo de objetos: hrDeviceGroup
-hrDeviceGroup OBJECT-GROUP
-OBJECTS         { hrDeviceIndex, hrDeviceType, hrDeviceDescr, 
-hrDeviceID, hrDeviceStatus, hrDeviceErrors, 
-hrProcessorFrwID, hrProcessorLoad, 
-hrNetworkIfIndex, hrPrinterStatus, 
-hrPrinterDetectedErrorState, hrDiskStorageAccess, 
-hrDiskStorageMedia, hrDiskStorageRemoveble, 
-hrDiskStorageCapacity, hrPartitionIndex, 
-hrPartitionLabel, hrPartitionID, hrPartitionSize, 
-hrPartitionFSIndex, hrFSIndex, hrFSMountPoint, 
-hrFSRemoteMountPoint, hrFSType, hrFSAccess, 
-hrFSBootable, hrFSStorageIndex, 
-hrFSLastFullBackupDate, hrFSLastPartialBackupDate }
-STATUS          current
-DESCRIPTION     
-"The Host Resources Device Group."
-::= { hrMIBGroups 3 }
+#----------------------------------- OBJECT GROUP:  alarmNumberGroup  ---------------------------#
+Nombre del grupo de objetos: alarmNumberGroup
+alarmNumberGroup OBJECT-GROUP
+OBJECTS {   alarmNumber,
+alarmIndeterminateNumber,
+alarmCriticalNumber,
+alarmMajorNumber,
+alarmMinorNumber,
+alarmWarningNumber }
+STATUS      current
+DESCRIPTION 
+"A collection of optional objects for retrieval of 
+the number of currently active alarms."
+::= { alarmGroups 3 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  hrSWRunGroup  ---------------------------#
-Nombre del grupo de objetos: hrSWRunGroup
-hrSWRunGroup OBJECT-GROUP
-OBJECTS         { hrSWOSIndex, hrSWRunIndex, hrSWRunName, hrSWRunID, 
-hrSWRunPath, hrSWRunParameters, hrSWRunType, 
-hrSWRunStatus }
-STATUS          current
-DESCRIPTION     
-"The Host Resources Running Software Group."
-::= { hrMIBGroups 4 }
+#----------------------------------- OBJECT GROUP:  alarmMandatoryGroup  ---------------------------#
+Nombre del grupo de objetos: alarmMandatoryGroup
+alarmMandatoryGroup OBJECT-GROUP
+OBJECTS {   alarmIndex,
+alarmId,
+alarmManagedObjectInstance,
+alarmEventTime,
+alarmEventType,
+alarmProbableCause,
+alarmPerceivedSeverity,
+alarmSpecificProblem,
+alarmAdditionalText }
+STATUS      current
+DESCRIPTION 
+"A collection of objects that represents mandatory 
+alarm attributes."
+::= { alarmGroups 4 }
 #----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  hrSWRunPerfGroup  ---------------------------#
-Nombre del grupo de objetos: hrSWRunPerfGroup
-hrSWRunPerfGroup OBJECT-GROUP
-OBJECTS         { hrSWRunPerfCPU, hrSWRunPerfMem }
-STATUS          current
-DESCRIPTION     
-"The Host Resources Running Software
-Performance Group."
-::= { hrMIBGroups 5 }
-#----------------------------------- FIN OBJECT GROUP ---------------------------#
-#----------------------------------- OBJECT GROUP:  hrSWInstalledGroup  ---------------------------#
-Nombre del grupo de objetos: hrSWInstalledGroup
-hrSWInstalledGroup OBJECT-GROUP
-OBJECTS         { hrSWInstalledLastChange, 
-hrSWInstalledLastUpdateTime, hrSWInstalledIndex, 
-hrSWInstalledName, hrSWInstalledID, 
-hrSWInstalledType, hrSWInstalledDate }
-STATUS          current
-DESCRIPTION     
-"The Host Resources Installed Software Group."
-::= { hrMIBGroups 6 }
-#----------------------------------- FIN OBJECT GROUP ---------------------------#
------------------------------------ hrSystemGroup ---------------------------
-hrSystemGroup:
+----------------------------------- alarmMandatoryGroup ---------------------------
+alarmMandatoryGroup:
   TYPE: OBJECT-GROUP
-  OBJECTS: hrSystemUptime, hrSystemDate, hrSystemInitialLoadDevice, hrSystemInitialLoadParameters, hrSystemNumUsers, hrSystemProcesses, hrSystemMaxProcesses 
+  OBJECTS: alarmIndex, alarmId, alarmManagedObjectInstance, alarmEventTime, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem, alarmAdditionalText 
   STATUS: current
-  DESCRIPTION: The Host Resources System Group.
-  OID: hrMIBGroups 1
+  DESCRIPTION: A collection of objects that represents mandatory  alarm attributes.
+  OID: alarmGroups 4
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hrStorageGroup ---------------------------
-hrStorageGroup:
+----------------------------------- alarmAdminOptionalGroup ---------------------------
+alarmAdminOptionalGroup:
   TYPE: OBJECT-GROUP
-  OBJECTS: hrMemorySize, hrStorageIndex, hrStorageType, hrStorageDescr, hrStorageAllocationUnits, hrStorageSize, hrStorageUsed, hrStorageAllocationFailures 
+  OBJECTS:  systemDN 
   STATUS: current
-  DESCRIPTION: The Host Resources Storage Group.
-  OID: hrMIBGroups 2
+  DESCRIPTION: A collection of optional objects holding administrative information.
+  OID: alarmGroups 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hrSWInstalledGroup ---------------------------
-hrSWInstalledGroup:
+----------------------------------- alarmAdminMandatoryGroup ---------------------------
+alarmAdminMandatoryGroup:
   TYPE: OBJECT-GROUP
-  OBJECTS: hrSWInstalledLastChange, hrSWInstalledLastUpdateTime, hrSWInstalledIndex, hrSWInstalledName, hrSWInstalledID, hrSWInstalledType, hrSWInstalledDate 
+  OBJECTS: alarmIrpVersion        			 
   STATUS: current
-  DESCRIPTION: The Host Resources Installed Software Group.
-  OID: hrMIBGroups 6
+  DESCRIPTION: A collection of mandatory objects holding administrative information.
+  OID: alarmGroups 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hrSWRunPerfGroup ---------------------------
-hrSWRunPerfGroup:
+----------------------------------- alarmNumberGroup ---------------------------
+alarmNumberGroup:
   TYPE: OBJECT-GROUP
-  OBJECTS: hrSWRunPerfCPU, hrSWRunPerfMem 
+  OBJECTS: alarmNumber, alarmIndeterminateNumber, alarmCriticalNumber, alarmMajorNumber, alarmMinorNumber, alarmWarningNumber 
   STATUS: current
-  DESCRIPTION: The Host Resources Running Software Performance Group.
-  OID: hrMIBGroups 5
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrSWRunGroup ---------------------------
-hrSWRunGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS: hrSWOSIndex, hrSWRunIndex, hrSWRunName, hrSWRunID, hrSWRunPath, hrSWRunParameters, hrSWRunType, hrSWRunStatus 
-  STATUS: current
-  DESCRIPTION: The Host Resources Running Software Group.
-  OID: hrMIBGroups 4
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrDeviceGroup ---------------------------
-hrDeviceGroup:
-  TYPE: OBJECT-GROUP
-  OBJECTS: hrDeviceIndex, hrDeviceType, hrDeviceDescr, hrDeviceID, hrDeviceStatus, hrDeviceErrors, hrProcessorFrwID, hrProcessorLoad, hrNetworkIfIndex, hrPrinterStatus, hrPrinterDetectedErrorState, hrDiskStorageAccess, hrDiskStorageMedia, hrDiskStorageRemoveble, hrDiskStorageCapacity, hrPartitionIndex, hrPartitionLabel, hrPartitionID, hrPartitionSize, hrPartitionFSIndex, hrFSIndex, hrFSMountPoint, hrFSRemoteMountPoint, hrFSType, hrFSAccess, hrFSBootable, hrFSStorageIndex, hrFSLastFullBackupDate, hrFSLastPartialBackupDate 
-  STATUS: current
-  DESCRIPTION: The Host Resources Device Group.
-  OID: hrMIBGroups 3
+  DESCRIPTION: A collection of optional objects for retrieval of  the number of currently active alarms.
+  OID: alarmGroups 3
 ----------------------------------- Final de segmento -----------------------------------

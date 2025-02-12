@@ -1,0 +1,348 @@
+--
+-- 
+--   No. 4/196 03-CRH 109 172/1                MANAGEMENT INFORMATION BASE
+--   =====================================================================
+--   Prepared:  EAB/MÖ/JT/ME EMWJEGE           Revision N
+--   =====================================================================
+--   Copyright (C)Ericsson AB 2004.
+--   All rights reserved.
+--   =====================================================================
+--  
+-- 
+
+	XF-PCU-MIB DEFINITIONS ::= BEGIN         
+
+		IMPORTS 
+			entPhysicalIndex
+				FROM ENTITY-MIB	
+			OBJECT-TYPE, MODULE-IDENTITY			
+				FROM SNMPv2-SMI			
+			MODULE-COMPLIANCE, OBJECT-GROUP
+				FROM SNMPv2-CONF
+			xfMCR			
+				FROM XF-TOP-MIB 
+			XfMCRTerminalBoards, XfMCROMMode,
+			XfMCROMTimeout, XfMCRMode,
+			XfMCRUartBaudrate, XfMCROnceRunning,
+			XfMCRSeverityTrapEnable, XfMCRSeverityLevel,
+			XfMCRCapacity, XfMCRDcnClock, XfMCRDcnClockCapability
+  				FROM XF-MCR-MIB;	
+	
+		xfPCUMIB MODULE-IDENTITY
+			LAST-UPDATED "201210161000Z"
+			ORGANIZATION
+				"Ericsson AB"
+			CONTACT-INFO
+				"
+				Claes Jegeras
+				Ericsson AB
+				Transmission & Transport Networks
+				SE-431 84  Molndal
+				Sweden
+				+46317475851
+				Claes.Jegeras@ericsson.com
+				"
+			DESCRIPTION
+				"
+				This MIB defines objects that affects SMU2.
+				"
+
+
+			REVISION "201210161000Z"
+			DESCRIPTION             
+				"
+				Rev. N		XRSPAHO Fixed smilint warning: revision not in reverse chronological order.
+				"
+			REVISION "200510251000Z"
+			DESCRIPTION             
+				"
+				Rev. M		Added xfPCUDcnClock and xfPCUDcnClockCapability for SMU2.
+				"
+			REVISION "200404051000Z"
+			DESCRIPTION             
+				"
+				Rev. L		Made xfPCUDCCUsage obsolete.
+				"
+    		REVISION "200401151000Z"
+			DESCRIPTION             
+				"
+				Rev. K		New decimal class (from 155 19).
+				"
+ 			REVISION "200304101000Z" 
+			DESCRIPTION
+				"
+				Rev. K 		Added description of the MO xfMCRBusy in the XF-MCR-MIB.
+				"
+			REVISION "200212161000Z"
+			DESCRIPTION
+				"
+				Rev. J		Set notConfigured of the MO xfPCUMode to DEFVAL.
+				"
+			REVISION "200211251000Z" 
+			DESCRIPTION
+				"
+				Rev. H	 	Added xfPCUCapacity. 
+							Updated descriptions with protection/co-site differences.
+							Made xfPCUMode read-write 
+				"
+			REVISION "200211121000Z" 
+			DESCRIPTION
+				"
+				Rev. G	 	Added xfPCUSeverityTrapEnable and xfPCUSeverityLevel.
+							Added more description to xfTMUTerminalBoards.
+							Updated descriptions with the right product names (MMU2 and SMU2).
+				"                         
+			REVISION "200208191000Z" 
+			DESCRIPTION
+				"
+				Rev. F 		xfPCUDCCUsage is now read-write.
+				"               
+				
+			REVISION "200208161000Z" 
+			DESCRIPTION
+				"
+				Rev. E 		xfPCUDCCUsage is made current.
+				"     				
+			REVISION "200207041000Z" 
+			DESCRIPTION
+				"
+				Rev. D 		xfPCUDCCUsage is made obsolete.
+							Renamed xfPCUAmmSize to xfPCUTerminalBoards.
+				"   				
+			REVISION "200204291000Z"
+			DESCRIPTION
+				"
+				Rev. C 		Added MO xfPCUOnceRunning
+				"				
+			REVISION "200112191000Z"
+			DESCRIPTION
+				"
+				Rev. B  	Added conformance. Corrected errors found by smilint
+				"				
+			REVISION "200112121000Z" 
+			DESCRIPTION
+				"
+				Rev. A 		Initial version, some MOs will be 
+							read-write in future releases 
+				"
+
+			::= { xfMCR 3 }
+		
+	
+--
+-- Textual conventions
+--
+	
+--
+-- Node definitions
+--  
+
+	xfPCUObjects OBJECT IDENTIFIER ::= { xfPCUMIB 1 }
+	xfPCUConformance OBJECT IDENTIFIER ::= { xfPCUMIB 2 }
+
+------------------------------------------------------------------------------
+-- xfPCUTable
+------------------------------------------------------------------------------
+	xfPCUTable OBJECT-TYPE
+		SYNTAX SEQUENCE OF XfPCUEntry
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+			"
+			Table for SMU2 managed objects. The table is indexed with 
+			entPhysicalIndex.
+			Note that some MOs' validity is depending on xfPCUMode (cosite/protection).
+			Note that objects might not be accessible if xfMCRBusy 
+			in XF-MCR-MIB is busy(1).
+			"
+		::= { xfPCUObjects 1 }
+		
+	xfPCUEntry OBJECT-TYPE
+		SYNTAX XfPCUEntry
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+			"An entry in the xfPCUTable"
+		INDEX { entPhysicalIndex}
+		::= { xfPCUTable 1 }
+	
+	
+	XfPCUEntry ::=
+		SEQUENCE
+		{
+			xfPCUTerminalBoards	XfMCRTerminalBoards,
+			xfPCUOMMode			XfMCROMMode,
+			xfPCUOMTimeout		XfMCROMTimeout,
+			xfPCUMode			XfMCRMode,
+			xfPCUUartBaudrate	XfMCRUartBaudrate,
+			xfPCUOnceRunning	XfMCROnceRunning,
+			xfPCUSeverityTrapEnable XfMCRSeverityTrapEnable,
+			xfPCUSeverityLevel		XfMCRSeverityLevel,
+			xfPCUCapacity		XfMCRCapacity,
+			xfPCUDcnClock		XfMCRDcnClock,
+			xfPCUDcnClockCapability	XfMCRDcnClockCapability
+		} 
+			
+--
+-- The xfPCUTable MOs
+--				
+	xfPCUTerminalBoards OBJECT-TYPE
+		SYNTAX XfMCRTerminalBoards
+		MAX-ACCESS read-write
+		STATUS current
+		DESCRIPTION
+			"
+			This object sets the number of boards in a MCR Terminal.
+			In current release only valid values are oneBoard and threeBoards.
+			In a 1+1 configuration this MO sets the MO xfTMUTerminalBoards
+			on the MMU2 boards in the 1+1 terminal.  		
+			If the SMU2 is configured as a co-siting board, this MO is set to other(1).
+			" 
+		DEFVAL { oneBoard }
+        ::= { xfPCUEntry 1 } 
+     
+	xfPCUOMMode OBJECT-TYPE
+		SYNTAX XfMCROMMode          
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"
+			This object controls the O&M-switch on the SMU2-board.
+			"
+		::= {xfPCUEntry 3}
+
+	xfPCUOMTimeout OBJECT-TYPE
+		SYNTAX XfMCROMTimeout         
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"
+			This object is the time out for OM_REQUEST.
+ 			"	
+		::= { xfPCUEntry 4 }
+	
+	xfPCUMode OBJECT-TYPE
+		SYNTAX XfMCRMode         
+		MAX-ACCESS read-write
+		STATUS current
+		DESCRIPTION
+			"
+			This objects sets the working mode of the PCU board.
+			"
+		DEFVAL { notConfigured }
+		::= {xfPCUEntry 5}
+	
+	xfPCUUartBaudrate OBJECT-TYPE
+		SYNTAX XfMCRUartBaudrate      
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"
+			This object control the baudrate of the PCI Uart.
+			"
+		::= {xfPCUEntry 6}	
+			
+	xfPCUOnceRunning OBJECT-TYPE
+		SYNTAX XfMCROnceRunning      
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"
+			This object tells if the MCR Link hop once was up and running.
+			If the SMU2 is configured as a co-siting board, this MO is set to other(1).
+			"
+		::= {xfPCUEntry 7}
+		
+	xfPCUSeverityTrapEnable OBJECT-TYPE
+		SYNTAX XfMCRSeverityTrapEnable       
+		MAX-ACCESS read-write
+		STATUS current
+		DESCRIPTION
+			"
+			This object control whether to send a trap or not if the xfPCUSeverityLevel changes.
+			If the SMU2 is configured as a co-siting board, this MO is set to disable(2).
+			"
+		DEFVAL { enable }			
+		::= { xfPCUEntry 8 }	
+			
+	xfPCUSeverityLevel OBJECT-TYPE
+		SYNTAX XfMCRSeverityLevel       
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"
+			This object tells the severity level of the CSS alarm. 
+			It's the Alarm Status Indicator for the CSS alarm.
+			If the SMU2 is configured as a co-siting board, this MO is set to clear(000).
+			"			
+		::= { xfPCUEntry 9 }
+			
+	xfPCUCapacity OBJECT-TYPE
+		SYNTAX XfMCRCapacity  
+		MAX-ACCESS read-write
+		STATUS current
+		DESCRIPTION
+			"
+			This object control the Capacity of the PCU co-site.
+			If the SMU2 is configured as protection board, this MO is set to other(1).
+			"
+		::= { xfPCUEntry 10 }
+
+	xfPCUDcnClock OBJECT-TYPE
+		SYNTAX XfMCRDcnClock
+		MAX-ACCESS read-write
+		STATUS current
+		DESCRIPTION
+			"
+			This object control the DCN Clock of the PCU in co-site.
+			"
+		::= { xfPCUEntry 11 }
+
+	xfPCUDcnClockCapability OBJECT-TYPE
+		SYNTAX XfMCRDcnClockCapability
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"
+			This object shows the the DCN clock capability of the PCU in co-site.
+			"
+		::= { xfPCUEntry 12 }
+			
+ 
+--
+-- Conformance
+--
+
+	xfPCUCompliances OBJECT IDENTIFIER ::= { xfPCUConformance 1 }
+
+	xfPCUGroups OBJECT IDENTIFIER ::= { xfPCUConformance 2 }
+
+   	xfPCUFullCompliance MODULE-COMPLIANCE
+       		STATUS      current
+       		DESCRIPTION
+           		"The compliance statement for SNMP entities which
+            		implement everything."
+       		MODULE -- This Module
+           	MANDATORY-GROUPS { xfPCUCompleteGroup }
+       		::= { xfPCUCompliances 1 }
+
+	xfPCUCompleteGroup OBJECT-GROUP
+       		OBJECTS {
+        		xfPCUTerminalBoards,
+        		xfPCUOMMode,
+        		xfPCUOMTimeout,
+        		xfPCUMode,
+        		xfPCUUartBaudrate,
+        		xfPCUOnceRunning,
+        		xfPCUSeverityTrapEnable,
+        		xfPCUSeverityLevel,
+        		xfPCUCapacity,
+        		xfPCUDcnClock,
+        		xfPCUDcnClockCapability
+		}
+		STATUS      current
+       		DESCRIPTION
+           		"A collection of all current objects in this MIB module."
+		::= { xfPCUGroups 1 }
+					
+	END

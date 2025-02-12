@@ -1,0 +1,553 @@
+--
+-- MIB-PNMSJ-IPASOLINK-100-200-MSE-MIB.my
+-- Monday, August 29, 2011
+--
+
+	MIB-PNMSJ-IPASOLINK-100-200-MSE-MIB DEFINITIONS ::= BEGIN
+ 
+		IMPORTS
+			InterfaceIndex			
+				FROM IF-MIB			
+			ItuPerceivedSeverity			
+				FROM ITU-ALARM-TC-MIB			
+			OBJECT-TYPE			
+				FROM RFC-1212			
+			enterprises, IpAddress			
+				FROM RFC1155-SMI;
+	
+	
+--
+-- Type definitions
+--
+	
+		IpeEnableDisableValue ::= INTEGER
+			{
+			invalid(0),
+			disabled(1),
+			enabled(2)
+			}
+
+		IpeAtmImaId ::= INTEGER (0..255)
+
+		IpeAtmImaIndex ::= INTEGER (1..32)
+
+		IpeAtmVci ::= INTEGER (32..65535)
+
+		IpeAtmVpi ::= INTEGER (0..255)
+
+		IpeExpBitValue ::= INTEGER (0..7)
+
+		IpeImaIndexOrZero ::= INTEGER (0..32)
+
+		IpeLabelIndex ::= INTEGER (0..1048575)
+
+		IpePwIndex ::= INTEGER (1..256)
+
+		IpeVlanIndex ::= INTEGER (1..4094)
+
+	
+--
+-- Node definitions
+--
+	
+		-- 1.3.6.1.4.1.119
+		nec OBJECT IDENTIFIER ::= { enterprises 119 }
+
+		
+		-- 1.3.6.1.4.1.119.2
+		nec-mib OBJECT IDENTIFIER ::= { nec 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3
+		necProductDepend OBJECT IDENTIFIER ::= { nec-mib 3 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69
+		radioEquipment OBJECT IDENTIFIER ::= { necProductDepend 69 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203
+		commonPnms OBJECT IDENTIFIER ::= { radioEquipment 203 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502
+		ipasolink200 OBJECT IDENTIFIER ::= { commonPnms 502 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501
+		pasoNeoIpe-common OBJECT IDENTIFIER ::= { ipasolink200 501 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3
+		alarmStatusGroup OBJECT IDENTIFIER ::= { pasoNeoIpe-common 3 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.40
+		asMseGroup OBJECT IDENTIFIER ::= { alarmStatusGroup 40 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.40.1
+		asMseCardTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF AsMseCardEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asMseGroup 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.40.1.1
+		asMseCardEntry OBJECT-TYPE
+			SYNTAX AsMseCardEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			INDEX { asMseCardNEAddress, asMseCardIndex }
+			::= { asMseCardTable 1 }
+
+		
+		AsMseCardEntry ::=
+			SEQUENCE { 
+				asMseCardIndex
+					INTEGER,
+				asMseCardNEAddress
+					IpAddress,
+				asMseCardModuleFail
+					ItuPerceivedSeverity,
+				asMseCardComFailAlarm
+					ItuPerceivedSeverity,
+				asMseCardUnequipped
+					ItuPerceivedSeverity,
+				asMseCardTypeMismatch
+					ItuPerceivedSeverity
+			 }
+
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.40.1.1.1
+		asMseCardIndex OBJECT-TYPE
+			SYNTAX INTEGER
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asMseCardEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.40.1.1.2
+		asMseCardNEAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asMseCardEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.40.1.1.3
+		asMseCardModuleFail OBJECT-TYPE
+			SYNTAX ItuPerceivedSeverity
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asMseCardEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.40.1.1.4
+		asMseCardComFailAlarm OBJECT-TYPE
+			SYNTAX ItuPerceivedSeverity
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asMseCardEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.40.1.1.5
+		asMseCardUnequipped OBJECT-TYPE
+			SYNTAX ItuPerceivedSeverity
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asMseCardEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.40.1.1.6
+		asMseCardTypeMismatch OBJECT-TYPE
+			SYNTAX ItuPerceivedSeverity
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asMseCardEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.40.2
+		asMseLineTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF AsMseLineEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asMseGroup 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.40.2.1
+		asMseLineEntry OBJECT-TYPE
+			SYNTAX AsMseLineEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			INDEX { asMseLineNEAddress, asMseLineIfIndex }
+			::= { asMseLineTable 1 }
+
+		
+		AsMseLineEntry ::=
+			SEQUENCE { 
+				asMseLineIfIndex
+					InterfaceIndex,
+				asMseLineNEAddress
+					IpAddress,
+				asMseLineAdaptiveClkStatus
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.40.2.1.1
+		asMseLineIfIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asMseLineEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.40.2.1.2
+		asMseLineNEAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asMseLineEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.3.40.2.1.6
+		asMseLineAdaptiveClkStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				invalid(0),
+				holdover(1),
+				acquiring(2),
+				acquired(3)
+				}
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { asMseLineEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5
+		provisioningGroup OBJECT IDENTIFIER ::= { pasoNeoIpe-common 5 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40
+		provMseGroup OBJECT IDENTIFIER ::= { provisioningGroup 40 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.1
+		provMseLineModeTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF ProvMseLineModeEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provMseGroup 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.1.1
+		provMseLineModeEntry OBJECT-TYPE
+			SYNTAX ProvMseLineModeEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			INDEX { provMseLineModeNEAddress, provMseLineModeIfIndex }
+			::= { provMseLineModeTable 1 }
+
+		
+		ProvMseLineModeEntry ::=
+			SEQUENCE { 
+				provMseLineModeIfIndex
+					InterfaceIndex,
+				provMseLineModeNEAddress
+					IpAddress,
+				provMseLineModeType
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.1.1.1
+		provMseLineModeIfIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provMseLineModeEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.1.1.2
+		provMseLineModeNEAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provMseLineModeEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.1.1.3
+		provMseLineModeType OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				invalid(0),
+				none(1),
+				satop(2),
+				cesopsn(3),
+				atmop(4),
+				atm(5)
+				}
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			DEFVAL { none }
+			::= { provMseLineModeEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.2
+		provMseClockModeTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF ProvMseClockModeEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provMseGroup 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.2.1
+		provMseClockModeEntry OBJECT-TYPE
+			SYNTAX ProvMseClockModeEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			INDEX { provMseClockModeNEAddress, provMseClockModeIfIndex }
+			::= { provMseClockModeTable 1 }
+
+		
+		ProvMseClockModeEntry ::=
+			SEQUENCE { 
+				provMseClockModeIfIndex
+					InterfaceIndex,
+				provMseClockModeNEAddress
+					IpAddress,
+				provMseClockModeType
+					INTEGER,
+				provMseClockACRLineSelect
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.2.1.1
+		provMseClockModeIfIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provMseClockModeEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.2.1.2
+		provMseClockModeNEAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provMseClockModeEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.2.1.3
+		provMseClockModeType OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				invalid(0),
+				syncToSystem(1),
+				syncToPw(2),
+				syncToLine(3)
+				}
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			DEFVAL { syncToPw }
+			::= { provMseClockModeEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.2.1.4
+		provMseClockACRLineSelect OBJECT-TYPE
+			SYNTAX INTEGER (1..16)
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provMseClockModeEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.3
+		provMseClockModeExtTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF ProvMseClockModeExtEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provMseGroup 3 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.3.1
+		provMseClockModeExtEntry OBJECT-TYPE
+			SYNTAX ProvMseClockModeExtEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			INDEX { provMseClockModeExtNEAddress, provMseClockModeExtIfIndex }
+			::= { provMseClockModeExtTable 1 }
+
+		
+		ProvMseClockModeExtEntry ::=
+			SEQUENCE { 
+				provMseClockModeExtIfIndex
+					InterfaceIndex,
+				provMseClockModeExtNEAddress
+					IpAddress,
+				provMseClockModeReply2Master
+					IpeEnableDisableValue,
+				provMseClockSupplyMode
+					IpeEnableDisableValue
+			 }
+
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.3.1.1
+		provMseClockModeExtIfIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provMseClockModeExtEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.3.1.2
+		provMseClockModeExtNEAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provMseClockModeExtEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.3.1.3
+		provMseClockModeReply2Master OBJECT-TYPE
+			SYNTAX IpeEnableDisableValue
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			DEFVAL { enabled }
+			::= { provMseClockModeExtEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.3.1.4
+		provMseClockSupplyMode OBJECT-TYPE
+			SYNTAX IpeEnableDisableValue
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			DEFVAL { disabled }
+			::= { provMseClockModeExtEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.4
+		provMseClockSelectTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF ProvMseClockSelectEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provMseGroup 4 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.4.1
+		provMseClockSelectEntry OBJECT-TYPE
+			SYNTAX ProvMseClockSelectEntry
+			ACCESS not-accessible
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			INDEX { provMseClockSelectNEAddress, provMseClockSelectCardId }
+			::= { provMseClockSelectTable 1 }
+
+		
+		ProvMseClockSelectEntry ::=
+			SEQUENCE { 
+				provMseClockSelectCardId
+					INTEGER,
+				provMseClockSelectNEAddress
+					IpAddress,
+				provMseClockSelectLineNum
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.4.1.1
+		provMseClockSelectCardId OBJECT-TYPE
+			SYNTAX INTEGER
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provMseClockSelectEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.4.1.2
+		provMseClockSelectNEAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			::= { provMseClockSelectEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.119.2.3.69.203.502.501.5.40.4.1.3
+		provMseClockSelectLineNum OBJECT-TYPE
+			SYNTAX INTEGER (1..16)
+			ACCESS read-only
+			STATUS mandatory
+			DESCRIPTION
+				" "
+			DEFVAL { 1 }
+			::= { provMseClockSelectEntry 3 }
+
+		
+	
+	END
+
+--
+-- MIB-PNMSJ-IPASOLINK-100-200-MSE-MIB.my
+--

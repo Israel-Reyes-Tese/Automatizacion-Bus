@@ -1,0 +1,1311 @@
+--  No. 3/196 03-CRHR 109 002/1                 MANAGEMENT INFORMATION BASE
+--  =====================================================================
+--  Copyright (C)Ericsson AB 2006.
+--  All rights reserved.
+--  =====================================================================
+--  Prepared:  ETO/TA/JT/TDB ETOHWT                Revision A
+--             ETO/TA/JT/TDB ETORHO                Revision B
+--             ETO/TA/JT/TDB ETORHO                Revision C
+--             ETO/TA/JT/TT  ETOALL                Revision D
+--             ETO/TA/JT/TT  ETOALL                Revision PE2
+--             EAB/JM/TFE    EMWPKA                Revision PE3
+--             EAB/JM/TFE    EMWPKA                Revision PE4
+--		   ETO/FBM/BT    ETOVIN                Revision F
+-- 
+--  =====================================================================
+--  
+
+    XF-STM1-EXTENSION-MIB DEFINITIONS ::= BEGIN
+ 
+        IMPORTS
+            OBJECT-GROUP, MODULE-COMPLIANCE            
+                FROM SNMPv2-CONF            
+            Integer32, OBJECT-TYPE, MODULE-IDENTITY            
+                FROM SNMPv2-SMI            
+            sonetMediumEntry, sonetSectionCurrentEntry, sonetLineCurrentEntry, sonetLineIntervalEntry, sonetFarEndLineCurrentEntry, 
+            sonetFarEndLineIntervalEntry, sonetPathCurrentEntry, sonetPathIntervalEntry, sonetFarEndPathCurrentEntry, sonetFarEndPathIntervalEntry, 
+            sonetVTCurrentEntry, sonetVTIntervalEntry, sonetFarEndVTCurrentEntry, sonetFarEndVTIntervalEntry            
+                FROM SONET-MIB            
+            XfSDH15MinUAVGauge, XfSDHTrailTraceIndentifier            
+                FROM XF-STM1-PRIVATE-MIB            
+            xfSDH            
+                FROM XF-TOP-MIB;
+    
+    
+        xfSDHsonetExtensionMIB MODULE-IDENTITY 
+            LAST-UPDATED "200612010000Z"		-- December 1, 2006
+            ORGANIZATION 
+                "Ericsson AB"
+            CONTACT-INFO 
+                " "
+            DESCRIPTION 
+                "Extension to the Sonet/SDH Interface Type MIB. 
+                Other related media specific MIBs for the STM-1 TM are:
+                    -SONET-MIB, RFC2558
+                    -XF-STM1-PRIVATE-MIB,
+                     4/15519-CRHR109 002/1 
+                                
+                Some terminology explained:
+                    Section : Regenerator Section in SDH
+                    Line    : Multiplexer Section in SDH
+                    Path    : Higher Order Path in SDH, i.e. 
+                              VC-4 for XF STM-1 TM
+                    VT      : Sonet Virtual Tributaries or 
+                              Lower Order Path in SDH,i.e. 
+                              VC-12 for XF STM-1 TM.
+                
+                More detailed information can be found in 
+                1/155 19-CRH 109 625/1 Uae, Managed objects for Radio Link,
+                1/155 19-CRHR 109 002/1, 
+                XF STM-1 TM: SNMP Managed Objects,
+                and in 
+                1/155 17-CRHR 109 002/1, 
+                Functional Specification for the STM-1 TM.
+                "
+                
+            REVISION "200612010000Z"		-- December 1, 2006
+            DESCRIPTION 
+                "PE4
+                 Changes according to 1/155 19-CRH 109 625/1 Uae Rev N:
+                 Corrected syntax for xfSDHsonetMediumInsertAISOnBER.                 
+                
+                "
+            REVISION "200611130000Z"		-- November 13, 2006
+            DESCRIPTION 
+                "PE3 
+                 Changes according to 1/155 19-CRH 109 625/1 Uae Rev N:
+                 xfSDHsonetMediumInsertAISOnJ0Line and xfSDHsonetMediumInsertAISOnJ0Radio
+                 replaced by xfSDHsonetMediumInsertAISOnJ0, in XfSDHsonetMediumXEntry.
+                 alsManualRestartUserDefined(7) renamed to alsManualRestartRLSpecific(7)
+                 in syntax for xfSDHsonetMediumLaserMode, and updated description for this object. 
+                "
+                
+            REVISION "200609290000Z"		-- September 29, 2006
+            DESCRIPTION 
+                "PE2-PATCH Altered values for xfSDHsonetMediumLaserMode 
+                 according to 1/155 19-CRH 109 625/1 Uae Rev M"
+            REVISION "200609151232Z"		-- September 15, 2006 at 12:32 GMT
+            DESCRIPTION 
+                "PE2 some small fixes after review"
+            REVISION "200609131423Z"		-- September 13, 2006 at 14:23 GMT
+            DESCRIPTION 
+                "PE1 Added
+                 
+                xfSDHsonetMediumInsertAISOnJ0Line	   
+                xfSDHsonetMediumInsertAISOnJ0Radio	   
+                xfSDHsonetMediumInsertAISOnBER	 
+                "
+            REVISION "200605291552Z"		-- May 29, 2006 at 15:52 GMT
+            DESCRIPTION 
+                "D added xfSDHsonetMediumLaserMode, 
+                    XfSDHsonetMediumTrailTraceIdMode, 
+                    xfSDHsonetMediumTrailTraceC1Expect, 
+                    xfSDHsonetMediumTrailTraceC1Receive 
+                    and xfSDHsonetMediumTrailTraceC1Transmit "
+            REVISION "200303141328Z"		-- March 14, 2003 at 13:28 GMT
+            DESCRIPTION 
+                "Revision C"
+            REVISION "200212121438Z"		-- December 12, 2002 at 14:38 GMT
+            DESCRIPTION 
+                "Revision B"
+            ::= { xfSDH 1 }
+
+        
+    
+    
+--
+-- Node definitions
+--
+    
+        xfSDHsonetExtensionObjects OBJECT IDENTIFIER ::= { xfSDHsonetExtensionMIB 1 }
+
+        
+        xfSDHsonetExtensionMedium OBJECT IDENTIFIER ::= { xfSDHsonetExtensionObjects 1 }
+
+        
+        xfSDHsonetMediumXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfSDHsonetMediumXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "The SONET/SDH Medium Extension table.
+                The table is indexed by the ifIndex for the layer. 
+                All SDH interfaces have one entry in this table.
+                Section and Line have one entry since they have the 
+                same ifIndex."
+            ::= { xfSDHsonetExtensionMedium 1 }
+
+        
+        xfSDHsonetMediumXEntry OBJECT-TYPE
+            SYNTAX XfSDHsonetMediumXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry in the SONET/SDH Medium Extension table."
+            AUGMENTS { sonetMediumEntry }
+            ::= { xfSDHsonetMediumXTable 1 }
+
+        
+        XfSDHsonetMediumXEntry ::=
+            SEQUENCE { 
+                xfSDHsonetMediumTrailTraceExpect
+                    XfSDHTrailTraceIndentifier,
+                xfSDHsonetMediumTrailTraceReceive
+                    XfSDHTrailTraceIndentifier,
+                xfSDHsonetMediumTrailTraceTransmit
+                    XfSDHTrailTraceIndentifier,
+                xfSDHsonetMediumLineAutoDetect
+                    INTEGER,
+                xfSDHsonetMediumLineOperStatus
+                    INTEGER,
+                xfSDHsonetMediumLaserMode
+                    INTEGER,
+                xfSDHsonetMediumTrailTraceIdMode
+                    INTEGER,
+                xfSDHsonetMediumTrailTraceC1Expect
+                    Integer32,
+                xfSDHsonetMediumTrailTraceC1Receive
+                    Integer32,
+                xfSDHsonetMediumTrailTraceC1Transmit
+                    Integer32,
+                xfSDHsonetMediumInsertAISOnJ0
+                    INTEGER,
+                xfSDHsonetMediumInsertAISOnBER
+                    INTEGER
+             }
+
+        xfSDHsonetMediumTrailTraceExpect OBJECT-TYPE
+            SYNTAX XfSDHTrailTraceIndentifier
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "The Trail Trace Identifier (TTI) value expected from the 
+                far end. If the Trail Trace Expected is empty string, the detection 
+                of the Trail Identifier Mismatch (TIM) is disabled."
+            DEFVAL { "" }
+            ::= { xfSDHsonetMediumXEntry 1 }
+
+        
+        xfSDHsonetMediumTrailTraceReceive OBJECT-TYPE
+            SYNTAX XfSDHTrailTraceIndentifier
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The Trail Trace Identifier (TTI) value received 
+                from the far end."
+            ::= { xfSDHsonetMediumXEntry 2 }
+
+        
+        xfSDHsonetMediumTrailTraceTransmit OBJECT-TYPE
+            SYNTAX XfSDHTrailTraceIndentifier
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "The Trail Trace Identifier (TTI) to be sent as an 
+                identification of the transmitting termination point."
+            DEFVAL { "" }
+            ::= { xfSDHsonetMediumXEntry 3 }
+
+        
+        xfSDHsonetMediumLineAutoDetect OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                disabled(1),
+                enabled(2),
+                notApplicable(3)
+                }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "Used to determine if the line detected or the line 
+                configured by external management is used.
+                1 -> disabled
+                2 -> enabled 
+                3 -> notApplicable
+                For Section the default value is enabled, for all 
+                other layers the default value is notApplicable.
+                "
+            ::= { xfSDHsonetMediumXEntry 4 }
+
+        
+        xfSDHsonetMediumLineOperStatus OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                noLineSelected(1),
+                automaticElectrical(2),
+                automaticOptical(3),
+                manualElectrical(4),
+                manualOptical(5)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Used to show which line that is used.
+                The information is only valis for Section layer
+                1 -> No Line is selected
+                2 -> Automatic detection of Electrical line
+                3 -> Automatic detection of Optical line
+                4 -> Manual set of Electrical line
+                5 -> Manual set of Optical line
+                "
+            ::= { xfSDHsonetMediumXEntry 5 }
+
+        
+        xfSDHsonetMediumLaserMode OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                unKnown(0),
+                other(1),
+                manualOn(2),
+                manualOff(3),
+                alsAuto(4),
+                alsManualRestart(5),
+                alsManualRestartForTest(6),
+                alsManualRestartRLSpecific(7)
+                }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "unKnown (0)
+                 other (1)
+                 manualOn (2) (SDH default)
+                 manualOff (3)
+                 alsAuto (4) automatic laser shutdown
+                 alsManualRestart (5) manual restart, transmitter on for 2 seconds
+                 alsManualRestartForTest (6) manual restart for test, transmitter on for 90 seconds
+                 alsManualRestartRLSpecific (7) proprietary manual restart for test, transmitter on for 12 seconds
+                  
+                 ifAdminStatus turns off the laser regardless of xfSDHsonetMediumLaserMode setting.
+                 In protection the laser is controlled by the equipment protection logic if ifAdminStatus
+                 is up and if xfSDHsonetMediumLaserMode is alsAuto.
+                 
+                 Only applicable to Line RS.
+                "
+            ::= { xfSDHsonetMediumXEntry 6 }
+
+        
+        xfSDHsonetMediumTrailTraceIdMode OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                passThrough(0),
+                singleValueMode(1),
+                stringValueMode(2)
+                }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "Mode of the TTI."
+            ::= { xfSDHsonetMediumXEntry 7 }
+
+        
+        xfSDHsonetMediumTrailTraceC1Expect OBJECT-TYPE
+            SYNTAX Integer32 (0..255)
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "The expected TTI value when in single mode
+                Meaningful only when xfSDHsonetMediumTrailTraceIdMode 
+                contains the singleValueMode value.
+                "
+            ::= { xfSDHsonetMediumXEntry 8 }
+
+        
+        xfSDHsonetMediumTrailTraceC1Receive OBJECT-TYPE
+            SYNTAX Integer32 (0..255)
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The received TTI value when in single mode. Meaningful only when 
+                xfSDHsonetMediumTrailTraceIdMode contains the singleValueMode 
+                value."
+            ::= { xfSDHsonetMediumXEntry 9 }
+
+        
+        xfSDHsonetMediumTrailTraceC1Transmit OBJECT-TYPE
+            SYNTAX Integer32 (0..255)
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "The transmitted TTI value when in single mode. Meaningful only when 
+                xfSDHsonetMediumTrailTraceIdMode contains the singleValueMode value.
+                "
+            ::= { xfSDHsonetMediumXEntry 10 }
+
+        
+        xfSDHsonetMediumInsertAISOnJ0 OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                unknown(0),
+                other(1),
+                disabled(2),
+                enabled(3)
+                }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "Default disabled(2)"
+            ::= { xfSDHsonetMediumXEntry 11 }
+
+       
+        xfSDHsonetMediumInsertAISOnBER OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                unknown(0),
+                other(1),
+                disabled(2),
+                earlywarning(3),
+                lowber(4),
+                highber(5)
+                }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "Default is disabled(2)."
+            ::= { xfSDHsonetMediumXEntry 12 }
+
+        
+        xfSDHsonetExtensionSection OBJECT IDENTIFIER ::= { xfSDHsonetExtensionObjects 2 }
+
+        
+        xfSDHsonetSectionCurrentXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfSDHsonetSectionCurrentXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "The SONET/SDH Section Current Extension table
+                contains various statistics being collected for 
+                the current 15 minute interval.
+                "
+            ::= { xfSDHsonetExtensionSection 1 }
+
+        
+        xfSDHsonetSectionCurrentXEntry OBJECT-TYPE
+            SYNTAX XfSDHsonetSectionCurrentXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry in the SONET/SDH Section Current Extension table."
+            AUGMENTS { sonetSectionCurrentEntry }
+            ::= { xfSDHsonetSectionCurrentXTable 1 }
+
+        
+        XfSDHsonetSectionCurrentXEntry ::=
+            SEQUENCE { 
+                xfSDHsonetSectionCurrentFMStatus
+                    BITS
+             }
+
+        xfSDHsonetSectionCurrentFMStatus OBJECT-TYPE
+            SYNTAX BITS
+                {
+                xfSDHsonetSectionNoDefect(0),
+                xfSDHsonetSectionLOS0(1),
+                xfSDHsonetSectionLOS1(2),
+                xfSDHsonetSectionLOS2(3),
+                xfSDHsonetSectionLOF0(4),
+                xfSDHsonetSectionLOF1(5),
+                xfSDHsonetSectionLOF2(6),
+                xfSDHsonetSectionTIM0(7),
+                xfSDHsonetSectionTIM1(8),
+                xfSDHsonetSectionTIM2(9)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Gives information on the alarm status of a 
+                Sonet/SDH Section along with the sonetSectionCurrentStatus 
+                in the Sonet/SDH MIB.
+                Severity is indicated by three bit per alarm:
+                   bits 012 
+                        000   clear
+                        001   undetermined
+                        010   warning
+                        011   minor
+                        100   major
+                        101   critical"
+            ::= { xfSDHsonetSectionCurrentXEntry 1 }
+
+        
+        xfSDHsonetExtensionLine OBJECT IDENTIFIER ::= { xfSDHsonetExtensionObjects 3 }
+
+        
+        xfSDHsonetLineCurrentXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfSDHsonetLineCurrentXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "The SONET/SDH Line Current Extension table contains 
+                various statistics being collected for the current 
+                15 minute interval.
+                "
+            ::= { xfSDHsonetExtensionLine 1 }
+
+        
+        xfSDHsonetLineCurrentXEntry OBJECT-TYPE
+            SYNTAX XfSDHsonetLineCurrentXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry in the SONET/SDH Line Current Extension table."
+            AUGMENTS { sonetLineCurrentEntry }
+            ::= { xfSDHsonetLineCurrentXTable 1 }
+
+        
+        XfSDHsonetLineCurrentXEntry ::=
+            SEQUENCE { 
+                xfSDHsonetLineCurrentFMStatus
+                    BITS,
+                xfSDHsonetLineCurrentPMStatus
+                    BITS,
+                xfSDHsonetLineCurrentUAVs
+                    XfSDH15MinUAVGauge
+             }
+
+        xfSDHsonetLineCurrentFMStatus OBJECT-TYPE
+            SYNTAX BITS
+                {
+                xfSDHsonetLineNoDefect(0),
+                xfSDHsonetLineAIS0(1),
+                xfSDHsonetLineAIS1(2),
+                xfSDHsonetLineAIS2(3),
+                xfSDHsonetLineRDI0(4),
+                xfSDHsonetLineRDI1(5),
+                xfSDHsonetLineRDI2(6),
+                xfSDHsonetLineDEG0(7),
+                xfSDHsonetLineDEG1(8),
+                xfSDHsonetLineDEG2(9)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Gives information on the alarm status of a 
+                Sonet/SDH Line along with the sonetLineCurrentStatus 
+                in the Sonet/SDH MIB.
+                Severity is indicated by three bit per alarm:
+                   bits 012 
+                        000   clear
+                        001   undetermined
+                        010   warning
+                        011   minor
+                        100   major
+                        101   critical
+                "
+            ::= { xfSDHsonetLineCurrentXEntry 1 }
+
+        
+        xfSDHsonetLineCurrentPMStatus OBJECT-TYPE
+            SYNTAX BITS
+                {
+                xfSDHsonetLineNoPMAlarm(0),
+                xfSDHsonetLineES0(1),
+                xfSDHsonetLineES1(2),
+                xfSDHsonetLineES2(3),
+                xfSDHsonetLineSES0(4),
+                xfSDHsonetLineSES1(5),
+                xfSDHsonetLineSES2(6),
+                xfSDHsonetLineCV0(7),
+                xfSDHsonetLineCV1(8),
+                xfSDHsonetLineCV2(9),
+                xfSDHsonetLineUnavailableState0(10),
+                xfSDHsonetLineUnavailableState1(11),
+                xfSDHsonetLineUnavailableState2(12)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "This variable indicates the performance alarm status and 
+                severity of a Sonet/SDH Line.
+                Severity is indicated by three bit per alarm:
+                   bits 012 
+                        000   clear
+                        001   undetermined
+                        010   warning
+                        011   minor
+                        100   major
+                        101   critical
+                "
+            ::= { xfSDHsonetLineCurrentXEntry 2 }
+
+        
+        xfSDHsonetLineCurrentUAVs OBJECT-TYPE
+            SYNTAX XfSDH15MinUAVGauge
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The counter associated with the number of 
+                Unavailable States encountered by a SONET/SDH Line 
+                in the current 15-minute interval"
+            ::= { xfSDHsonetLineCurrentXEntry 3 }
+
+        
+        xfSDHsonetLineIntervalXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfSDHsonetLineIntervalXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "The SONET/SDH Line Interval Extension table contains 
+                various statistics collected by each system over a maximum
+                of the previous 24 hours of operation.  The past 24 hours 
+                may be broken into 96 completed 15 minute intervals.
+                "
+            ::= { xfSDHsonetExtensionLine 2 }
+
+        
+        xfSDHsonetLineIntervalXEntry OBJECT-TYPE
+            SYNTAX XfSDHsonetLineIntervalXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry in the SONET/SDH Line Interval Extension table."
+            AUGMENTS { sonetLineIntervalEntry }
+            ::= { xfSDHsonetLineIntervalXTable 1 }
+
+        
+        XfSDHsonetLineIntervalXEntry ::=
+            SEQUENCE { 
+                xfSDHsonetLineIntervalUAVs
+                    XfSDH15MinUAVGauge
+             }
+
+        xfSDHsonetLineIntervalUAVs OBJECT-TYPE
+            SYNTAX XfSDH15MinUAVGauge
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The counter associated with the number of 
+                Unavailable States encountered by a SONET/SDH Line 
+                in a particular 15-minute interval"
+            ::= { xfSDHsonetLineIntervalXEntry 1 }
+
+        
+        xfSDHsonetFarEndLineCurrentXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfSDHsonetFarEndLineCurrentXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "The SONET/SDH Far End Line Current Extension table
+                contains various statistics being collected for the 
+                current 15 minute interval.
+                The statistics are collected from the far end block error 
+                code (FEBE) within the third Z2 byte of the Line Overhead
+                in Broadband ISDN applications.
+                "
+            ::= { xfSDHsonetExtensionLine 3 }
+
+        
+        xfSDHsonetFarEndLineCurrentXEntry OBJECT-TYPE
+            SYNTAX XfSDHsonetFarEndLineCurrentXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry in the SONET/SDH Far End Line 
+                Current Extension table."
+            AUGMENTS { sonetFarEndLineCurrentEntry }
+            ::= { xfSDHsonetFarEndLineCurrentXTable 1 }
+
+        
+        XfSDHsonetFarEndLineCurrentXEntry ::=
+            SEQUENCE { 
+                xfSDHsonetFarEndLineCurrentPMStatus
+                    BITS,
+                xfSDHsonetFarEndLineCurrentUAVs
+                    XfSDH15MinUAVGauge
+             }
+
+        xfSDHsonetFarEndLineCurrentPMStatus OBJECT-TYPE
+            SYNTAX BITS
+                {
+                xfSDHsonetFarEndLineNoPMAlarm(0),
+                xfSDHsonetFarEndLineES0(1),
+                xfSDHsonetFarEndLineES1(2),
+                xfSDHsonetFarEndLineES2(3),
+                xfSDHsonetFarEndLineSES0(4),
+                xfSDHsonetFarEndLineSES1(5),
+                xfSDHsonetFarEndLineSES2(6),
+                xfSDHsonetFarEndLineCV0(7),
+                xfSDHsonetFarEndLineCV1(8),
+                xfSDHsonetFarEndLineCV2(9),
+                xfSDHsonetFarEndLineUnavailableState0(10),
+                xfSDHsonetFarEndLineUnavailableState1(11),
+                xfSDHsonetFarEndLineUnavailableState2(12)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "This variable indicates the performance alarm status and 
+                severity of a Sonet/SDH Far End Line.
+                Severity is indicated by three bit per alarm:
+                   bits 012 
+                        000   clear
+                        001   undetermined
+                        010   warning
+                        011   minor
+                        100   major
+                        101   critical
+                "
+            ::= { xfSDHsonetFarEndLineCurrentXEntry 1 }
+
+        
+        xfSDHsonetFarEndLineCurrentUAVs OBJECT-TYPE
+            SYNTAX XfSDH15MinUAVGauge
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The counter associated with the number of 
+                Unavailable States encountered by a SONET/SDH 
+                Far End Line in the current 15-minute interval"
+            ::= { xfSDHsonetFarEndLineCurrentXEntry 2 }
+
+        
+        xfSDHsonetFarEndLineIntervalXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfSDHsonetFarEndLineIntervalXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "The SONET/SDH Far End Line Interval Extension table 
+                contains various statistics collected by each system over 
+                a maximum of the previous 24 hours of operation.  
+                The past 24 hours may be broken into 96 completed 
+                15 minute intervals.
+                "
+            ::= { xfSDHsonetExtensionLine 4 }
+
+        
+        xfSDHsonetFarEndLineIntervalXEntry OBJECT-TYPE
+            SYNTAX XfSDHsonetFarEndLineIntervalXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry in the SONET/SDH Far End Line 
+                Interval Extension table."
+            AUGMENTS { sonetFarEndLineIntervalEntry }
+            ::= { xfSDHsonetFarEndLineIntervalXTable 1 }
+
+        
+        XfSDHsonetFarEndLineIntervalXEntry ::=
+            SEQUENCE { 
+                xfSDHsonetFarEndLineIntervalUAVs
+                    XfSDH15MinUAVGauge
+             }
+
+        xfSDHsonetFarEndLineIntervalUAVs OBJECT-TYPE
+            SYNTAX XfSDH15MinUAVGauge
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The counter associated with the number of 
+                Unavailable States encountered by a SONET/SDH 
+                Far End Line in a particular 15-minute interval"
+            ::= { xfSDHsonetFarEndLineIntervalXEntry 1 }
+
+        
+        xfSDHsonetExtensionPath OBJECT IDENTIFIER ::= { xfSDHsonetExtensionObjects 4 }
+
+        
+        xfSDHsonetPathCurrentXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfSDHsonetPathCurrentXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "The SONET/SDH Path Current Extension table 
+                contains various statistics being collected for the 
+                current 15 minute interval."
+            ::= { xfSDHsonetExtensionPath 1 }
+
+        
+        xfSDHsonetPathCurrentXEntry OBJECT-TYPE
+            SYNTAX XfSDHsonetPathCurrentXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry in the SONET/SDH Path Current Extension table."
+            AUGMENTS { sonetPathCurrentEntry }
+            ::= { xfSDHsonetPathCurrentXTable 1 }
+
+        
+        XfSDHsonetPathCurrentXEntry ::=
+            SEQUENCE { 
+                xfSDHsonetPathCurrentFMStatus
+                    BITS,
+                xfSDHsonetPathCurrentPMStatus
+                    BITS,
+                xfSDHsonetPathCurrentUAVs
+                    XfSDH15MinUAVGauge
+             }
+
+        xfSDHsonetPathCurrentFMStatus OBJECT-TYPE
+            SYNTAX BITS
+                {
+                xfSDHsonetPathNoDefect(0),
+                xfSDHsonetPathSTSLOP0(1),
+                xfSDHsonetPathSTSLOP1(2),
+                xfSDHsonetPathSTSLOP2(3),
+                xfSDHsonetPathSTSAIS0(4),
+                xfSDHsonetPathSTSAIS1(5),
+                xfSDHsonetPathSTSAIS2(6),
+                xfSDHsonetPathSTSRDI0(7),
+                xfSDHsonetPathSTSRDI1(8),
+                xfSDHsonetPathSTSRDI2(9),
+                xfSDHsonetPathUnequipped0(10),
+                xfSDHsonetPathUnequipped1(11),
+                xfSDHsonetPathUnequipped2(12),
+                xfSDHsonetPathPLM0(13),
+                xfSDHsonetPathPLM1(14),
+                xfSDHsonetPathPLM2(15),
+                xfSDHsonetPathTIM0(16),
+                xfSDHsonetPathTIM1(17),
+                xfSDHsonetPathTIM2(18),
+                xfSDHsonetPathDEG0(19),
+                xfSDHsonetPathDEG1(20),
+                xfSDHsonetPathDEG2(21),
+                xfSDHsonetPathTULOM0(22),
+                xfSDHsonetPathTULOM1(23),
+                xfSDHsonetPathTULOM2(24)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Gives information on the alarm status of a 
+                Sonet/SDH Path along with the sonetPathCurrentStatus 
+                in the Sonet/SDH MIB.
+                Severity is indicated by three bit per alarm:
+                   bits 012 
+                        000   clear
+                        001   undetermined
+                        010   warning
+                        011   minor
+                        100   major
+                        101   critical"
+            ::= { xfSDHsonetPathCurrentXEntry 1 }
+
+        
+        xfSDHsonetPathCurrentPMStatus OBJECT-TYPE
+            SYNTAX BITS
+                {
+                xfSDHsonetPathNoPMAlarm(0),
+                xfSDHsonetPathES0(1),
+                xfSDHsonetPathES1(2),
+                xfSDHsonetPathES2(3),
+                xfSDHsonetPathSES0(4),
+                xfSDHsonetPathSES1(5),
+                xfSDHsonetPathSES2(6),
+                xfSDHsonetPathCV0(7),
+                xfSDHsonetPathCV1(8),
+                xfSDHsonetPathCV2(9),
+                xfSDHsonetPathUnavailableState0(10),
+                xfSDHsonetPathUnavailableState1(11),
+                xfSDHsonetPathUnavailableState2(12)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "This variable indicates the performance alarm status and 
+                severity of a Sonet/SDH Path.
+                Severity is indicated by three bit per alarm:
+                   bits 012 
+                        000   clear
+                        001   undetermined
+                        010   warning
+                        011   minor
+                        100   major
+                        101   critical
+                "
+            ::= { xfSDHsonetPathCurrentXEntry 2 }
+
+        
+        xfSDHsonetPathCurrentUAVs OBJECT-TYPE
+            SYNTAX XfSDH15MinUAVGauge
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The counter associated with the number of 
+                Unavailable States encountered by a SONET/SDH Path 
+                in the current 15-minute interval."
+            ::= { xfSDHsonetPathCurrentXEntry 3 }
+
+        
+        xfSDHsonetPathIntervalXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfSDHsonetPathIntervalXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "The SONET/SDH Path Interval Extension table contains 
+                various statistics collected by each system over a 
+                maximum of the previous 24 hours of operation.  
+                The past 24 hours may be broken into 96 completed 
+                15 minute intervals."
+            ::= { xfSDHsonetExtensionPath 2 }
+
+        
+        xfSDHsonetPathIntervalXEntry OBJECT-TYPE
+            SYNTAX XfSDHsonetPathIntervalXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry in the SONET/SDH Path Interval Extension table."
+            AUGMENTS { sonetPathIntervalEntry }
+            ::= { xfSDHsonetPathIntervalXTable 1 }
+
+        
+        XfSDHsonetPathIntervalXEntry ::=
+            SEQUENCE { 
+                xfSDHsonetPathIntervalUAVs
+                    XfSDH15MinUAVGauge
+             }
+
+        xfSDHsonetPathIntervalUAVs OBJECT-TYPE
+            SYNTAX XfSDH15MinUAVGauge
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The counter associated with the number of 
+                Unavailable States encountered by a SONET/SDH Path 
+                in a particular 15-minute interval."
+            ::= { xfSDHsonetPathIntervalXEntry 1 }
+
+        
+        xfSDHsonetFarEndPathCurrentXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfSDHsonetFarEndPathCurrentXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "The SONET/SDH Far End Path Current Extension table 
+                contains various statistics being collected for the 
+                current 15 minute interval.
+                The statistics are collected from the far end block error 
+                code (FEBE) within the G1 byte of the Path Overhead."
+            ::= { xfSDHsonetExtensionPath 3 }
+
+        
+        xfSDHsonetFarEndPathCurrentXEntry OBJECT-TYPE
+            SYNTAX XfSDHsonetFarEndPathCurrentXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry in the SONET/SDH Far End Path 
+                Current Extension table."
+            AUGMENTS { sonetFarEndPathCurrentEntry }
+            ::= { xfSDHsonetFarEndPathCurrentXTable 1 }
+
+        
+        XfSDHsonetFarEndPathCurrentXEntry ::=
+            SEQUENCE { 
+                xfSDHsonetFarEndPathCurrentPMStatus
+                    BITS,
+                xfSDHsonetFarEndPathCurrentUAVs
+                    XfSDH15MinUAVGauge
+             }
+
+        xfSDHsonetFarEndPathCurrentPMStatus OBJECT-TYPE
+            SYNTAX BITS
+                {
+                xfSDHsonetFarEndPathNoPMAlarm(0),
+                xfSDHsonetFarEndPathES0(1),
+                xfSDHsonetFarEndPathES1(2),
+                xfSDHsonetFarEndPathES2(3),
+                xfSDHsonetFarEndPathSES0(4),
+                xfSDHsonetFarEndPathSES1(5),
+                xfSDHsonetFarEndPathSES2(6),
+                xfSDHsonetFarEndPathCV0(7),
+                xfSDHsonetFarEndPathCV1(8),
+                xfSDHsonetFarEndPathCV2(9),
+                xfSDHsonetFarEndPathUnavailableState0(10),
+                xfSDHsonetFarEndPathUnavailableState1(11),
+                xfSDHsonetFarEndPathUnavailableState2(12)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "This variable indicates the performance alarm status and 
+                severity of a Sonet/SDH Far End Path.
+                Severity is indicated by three bit per alarm:
+                   bits 012 
+                        000   clear
+                        001   undetermined
+                        010   warning
+                        011   minor
+                        100   major
+                        101   critical
+                "
+            ::= { xfSDHsonetFarEndPathCurrentXEntry 1 }
+
+        
+        xfSDHsonetFarEndPathCurrentUAVs OBJECT-TYPE
+            SYNTAX XfSDH15MinUAVGauge
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The counter associated with the number of 
+                Unavailable States encountered by a SONET/SDH Far End 
+                Path in the current 15-minute interval."
+            ::= { xfSDHsonetFarEndPathCurrentXEntry 2 }
+
+        
+        xfSDHsonetFarEndPathIntervalXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfSDHsonetFarEndPathIntervalXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "The SONET/SDH Far End Path Interval Extension table
+                contains various statistics collected by each system 
+                over a maximum of the previous 24 hours of operation.  
+                The past 24 hours may be broken into 96 completed 
+                15 minute intervals."
+            ::= { xfSDHsonetExtensionPath 4 }
+
+        
+        xfSDHsonetFarEndPathIntervalXEntry OBJECT-TYPE
+            SYNTAX XfSDHsonetFarEndPathIntervalXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry in the SONET/SDH Far End Path 
+                Interval Extension table."
+            AUGMENTS { sonetFarEndPathIntervalEntry }
+            ::= { xfSDHsonetFarEndPathIntervalXTable 1 }
+
+        
+        XfSDHsonetFarEndPathIntervalXEntry ::=
+            SEQUENCE { 
+                xfSDHsonetFarEndPathIntervalUAVs
+                    XfSDH15MinUAVGauge
+             }
+
+        xfSDHsonetFarEndPathIntervalUAVs OBJECT-TYPE
+            SYNTAX XfSDH15MinUAVGauge
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The counter associated with the number of 
+                Unavailable States encountered by a SONET/SDH Far End 
+                Path in a particular 15-minute interval."
+            ::= { xfSDHsonetFarEndPathIntervalXEntry 1 }
+
+        
+        xfSDHsonetExtensionVT OBJECT IDENTIFIER ::= { xfSDHsonetExtensionObjects 5 }
+
+        
+        xfSDHsonetVTCurrentXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfSDHsonetVTCurrentXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "The SONET/SDH VT Current Extension table contains 
+                various statistics being collected for the current 
+                15 minute interval."
+            ::= { xfSDHsonetExtensionVT 1 }
+
+        
+        xfSDHsonetVTCurrentXEntry OBJECT-TYPE
+            SYNTAX XfSDHsonetVTCurrentXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry in the SONET/SDH VT Current Extension table."
+            AUGMENTS { sonetVTCurrentEntry }
+            ::= { xfSDHsonetVTCurrentXTable 1 }
+
+        
+        XfSDHsonetVTCurrentXEntry ::=
+            SEQUENCE { 
+                xfSDHsonetVTCurrentFMStatus
+                    BITS,
+                xfSDHsonetVTCurrentPMStatus
+                    BITS,
+                xfSDHsonetVTCurrentUAVs
+                    XfSDH15MinUAVGauge
+             }
+
+        xfSDHsonetVTCurrentFMStatus OBJECT-TYPE
+            SYNTAX BITS
+                {
+                xfSDHsonetVTNoDefect(0),
+                xfSDHsonetVTLOP0(1),
+                xfSDHsonetVTLOP1(2),
+                xfSDHsonetVTLOP2(3),
+                xfSDHsonetVTAIS0(4),
+                xfSDHsonetVTAIS1(5),
+                xfSDHsonetVTAIS2(6),
+                xfSDHsonetVTRDI0(7),
+                xfSDHsonetVTRDI1(8),
+                xfSDHsonetVTRDI2(9),
+                xfSDHsonetVTUnequipped0(10),
+                xfSDHsonetVTUnequipped1(11),
+                xfSDHsonetVTUnequipped2(12),
+                xfSDHsonetVTPLM0(13),
+                xfSDHsonetVTPLM1(14),
+                xfSDHsonetVTPLM2(15),
+                xfSDHsonetVTTIM0(16),
+                xfSDHsonetVTTIM1(17),
+                xfSDHsonetVTTIM2(18),
+                xfSDHsonetVTDEG0(19),
+                xfSDHsonetVTDEG1(20),
+                xfSDHsonetVTDEG2(21)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Gives information on the alarm status of a 
+                Sonet/SDH VT along with the sonetVTCurrentStatus 
+                in the Sonet/SDH MIB.
+                Severity is indicated by three bit per alarm:
+                   bits 012 
+                        000   clear
+                        001   undetermined
+                        010   warning
+                        011   minor
+                        100   major
+                        101   critical
+                "
+            ::= { xfSDHsonetVTCurrentXEntry 1 }
+
+        
+        xfSDHsonetVTCurrentPMStatus OBJECT-TYPE
+            SYNTAX BITS
+                {
+                xfSDHsonetVTNoPMAlarm(0),
+                xfSDHsonetVTES0(1),
+                xfSDHsonetVTES1(2),
+                xfSDHsonetVTES2(3),
+                xfSDHsonetVTSES0(4),
+                xfSDHsonetVTSES1(5),
+                xfSDHsonetVTSES2(6),
+                xfSDHsonetVTCV0(7),
+                xfSDHsonetVTCV1(8),
+                xfSDHsonetVTCV2(9),
+                xfSDHsonetVTUnavailableState0(10),
+                xfSDHsonetVTUnavailableState1(11),
+                xfSDHsonetVTUnavailableState2(12)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "This variable indicates the performance alarm status and 
+                severity of a Sonet/SDH VT.
+                Severity is indicated by three bit per alarm:
+                   bits 012 
+                        000   clear
+                        001   undetermined
+                        010   warning
+                        011   minor
+                        100   major
+                        101   critical
+                "
+            ::= { xfSDHsonetVTCurrentXEntry 2 }
+
+        
+        xfSDHsonetVTCurrentUAVs OBJECT-TYPE
+            SYNTAX XfSDH15MinUAVGauge
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The counter associated with the number of 
+                Unavailable States encountered by a SONET/SDH VT 
+                in the current 15-minute interval."
+            ::= { xfSDHsonetVTCurrentXEntry 3 }
+
+        
+        xfSDHsonetVTIntervalXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfSDHsonetVTIntervalXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "The SONET/SDH VT Interval Extension table contains 
+                various statistics collected by each system over a maximum
+                of the previous 24 hours of operation.  
+                The past 24 hours may be broken into 96 completed 
+                15 minute intervals."
+            ::= { xfSDHsonetExtensionVT 2 }
+
+        
+        xfSDHsonetVTIntervalXEntry OBJECT-TYPE
+            SYNTAX XfSDHsonetVTIntervalXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry in the SONET/SDH VT Interval Extension table."
+            AUGMENTS { sonetVTIntervalEntry }
+            ::= { xfSDHsonetVTIntervalXTable 1 }
+
+        
+        XfSDHsonetVTIntervalXEntry ::=
+            SEQUENCE { 
+                xfSDHsonetVTIntervalUAVs
+                    XfSDH15MinUAVGauge
+             }
+
+        xfSDHsonetVTIntervalUAVs OBJECT-TYPE
+            SYNTAX XfSDH15MinUAVGauge
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The counter associated with the number of 
+                Unavailable States encountered by a SONET/SDH VT 
+                in a particular 15-minute interval."
+            ::= { xfSDHsonetVTIntervalXEntry 1 }
+
+        
+        xfSDHsonetFarEndVTCurrentXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfSDHsonetFarEndVTCurrentXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "The SONET/SDH Far End VT Current Extension table contains 
+                various statistics being collected for the current 
+                15 minute interval.
+                The statistics are collected from the far end block error 
+                code (FEBE) within the G1 byte of the VT Overhead."
+            ::= { xfSDHsonetExtensionVT 3 }
+
+        
+        xfSDHsonetFarEndVTCurrentXEntry OBJECT-TYPE
+            SYNTAX XfSDHsonetFarEndVTCurrentXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry in the SONET/SDH Far End VT 
+                Current Extension table."
+            AUGMENTS { sonetFarEndVTCurrentEntry }
+            ::= { xfSDHsonetFarEndVTCurrentXTable 1 }
+
+        
+        XfSDHsonetFarEndVTCurrentXEntry ::=
+            SEQUENCE { 
+                xfSDHsonetFarEndVTCurrentPMStatus
+                    BITS,
+                xfSDHsonetFarEndVTCurrentUAVs
+                    XfSDH15MinUAVGauge
+             }
+
+        xfSDHsonetFarEndVTCurrentPMStatus OBJECT-TYPE
+            SYNTAX BITS
+                {
+                xfSDHsonetFarEndVTNoPMAlarm(0),
+                xfSDHsonetFarEndVTVTES0(1),
+                xfSDHsonetFarEndVTVTES1(2),
+                xfSDHsonetFarEndVTVTES2(3),
+                xfSDHsonetFarEndVTVTSES0(4),
+                xfSDHsonetFarEndVTVTSES1(5),
+                xfSDHsonetFarEndVTVTSES2(6),
+                xfSDHsonetFarEndVTVTCV0(7),
+                xfSDHsonetFarEndVTVTCV1(8),
+                xfSDHsonetFarEndVTVTCV2(9),
+                xfSDHsonetFarEndVTVTUnavailableState0(10),
+                xfSDHsonetFarEndVTVTUnavailableState1(11),
+                xfSDHsonetFarEndVTVTUnavailableState2(12)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "This variable indicates the performance alarm status and 
+                severity of a Sonet/SDH Far End VT.
+                Severity is indicated by three bit per alarm:
+                   bits 012 
+                        000   clear
+                        001   undetermined
+                        010   warning
+                        011   minor
+                        100   major
+                        101   critical
+                "
+            ::= { xfSDHsonetFarEndVTCurrentXEntry 1 }
+
+        
+        xfSDHsonetFarEndVTCurrentUAVs OBJECT-TYPE
+            SYNTAX XfSDH15MinUAVGauge
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The counter associated with the number of 
+                Unavailable States encountered by a SONET/SDH Far End VT 
+                in the current 15-minute interval."
+            ::= { xfSDHsonetFarEndVTCurrentXEntry 2 }
+
+        
+        xfSDHsonetFarEndVTIntervalXTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfSDHsonetFarEndVTIntervalXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "The SONET/SDH Far End VT Interval Extension table contains 
+                various statistics collected by each system over a maximum
+                of the previous 24 hours of operation.  
+                The past 24 hours may be broken into 96 completed 
+                15 minute intervals."
+            ::= { xfSDHsonetExtensionVT 4 }
+
+        
+        xfSDHsonetFarEndVTIntervalXEntry OBJECT-TYPE
+            SYNTAX XfSDHsonetFarEndVTIntervalXEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "An entry in the SONET/SDH Far End VT 
+                Interval Extension table."
+            AUGMENTS { sonetFarEndVTIntervalEntry }
+            ::= { xfSDHsonetFarEndVTIntervalXTable 1 }
+
+        
+        XfSDHsonetFarEndVTIntervalXEntry ::=
+            SEQUENCE { 
+                xfSDHsonetFarEndVTIntervalUAVs
+                    XfSDH15MinUAVGauge
+             }
+
+        xfSDHsonetFarEndVTIntervalUAVs OBJECT-TYPE
+            SYNTAX XfSDH15MinUAVGauge
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The counter associated with the number of 
+                Unavailable States encountered by a SONET/SDH Far End VT 
+                in a particular 15-minute interval."
+            ::= { xfSDHsonetFarEndVTIntervalXEntry 1 }
+
+        
+        xfSDHExtensionConformance OBJECT IDENTIFIER ::= { xfSDHsonetExtensionMIB 17 }
+
+        
+        xfSDHExtensionCompliance OBJECT IDENTIFIER ::= { xfSDHExtensionConformance 1 }
+
+        
+        xfSDHExtensionFullCompliance MODULE-COMPLIANCE
+            STATUS current
+            DESCRIPTION 
+                "XF will have to comply to the complete MIB."
+            MODULE -- this module
+                MANDATORY-GROUPS { xfSDHExtensionGroup }
+            ::= { xfSDHExtensionCompliance 1 }
+
+        
+        xfSDHExtensionGroups OBJECT IDENTIFIER ::= { xfSDHExtensionConformance 2 }
+
+        
+        xfSDHExtensionGroup OBJECT-GROUP
+            OBJECTS { xfSDHsonetMediumTrailTraceExpect, xfSDHsonetMediumTrailTraceReceive, xfSDHsonetMediumTrailTraceTransmit, xfSDHsonetMediumLineAutoDetect, xfSDHsonetSectionCurrentFMStatus, 
+                xfSDHsonetLineCurrentFMStatus, xfSDHsonetLineCurrentPMStatus, xfSDHsonetLineCurrentUAVs, xfSDHsonetLineIntervalUAVs, xfSDHsonetFarEndLineCurrentPMStatus, 
+                xfSDHsonetFarEndLineCurrentUAVs, xfSDHsonetFarEndLineIntervalUAVs, xfSDHsonetPathCurrentFMStatus, xfSDHsonetPathCurrentPMStatus, xfSDHsonetPathCurrentUAVs, 
+                xfSDHsonetPathIntervalUAVs, xfSDHsonetFarEndPathCurrentPMStatus, xfSDHsonetFarEndPathCurrentUAVs, xfSDHsonetFarEndPathIntervalUAVs, xfSDHsonetVTCurrentFMStatus, 
+                xfSDHsonetVTCurrentPMStatus, xfSDHsonetVTCurrentUAVs, xfSDHsonetVTIntervalUAVs, xfSDHsonetFarEndVTCurrentPMStatus, xfSDHsonetFarEndVTCurrentUAVs, 
+                xfSDHsonetMediumLaserMode, xfSDHsonetFarEndVTIntervalUAVs, xfSDHsonetMediumLineOperStatus }
+            STATUS current
+            DESCRIPTION 
+                " "
+            ::= { xfSDHExtensionGroups 1 }
+
+        
+        xfSDHExtensionRLGroup OBJECT-GROUP
+            OBJECTS { xfSDHsonetMediumLaserMode, xfSDHsonetMediumInsertAISOnJ0, xfSDHsonetMediumTrailTraceIdMode, xfSDHsonetMediumTrailTraceC1Expect, xfSDHsonetMediumTrailTraceC1Receive, 
+                xfSDHsonetMediumTrailTraceC1Transmit, xfSDHsonetMediumInsertAISOnBER }
+            STATUS current
+            DESCRIPTION 
+                "Objects added for SDH Radio Link."
+            ::= { xfSDHExtensionGroups 2 }
+
+        
+    
+    END
+
+--
+-- 3_19603-crhr109002_1_stm1_extension.mi2
+--

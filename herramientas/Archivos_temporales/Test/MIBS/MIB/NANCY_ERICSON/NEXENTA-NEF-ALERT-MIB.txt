@@ -1,0 +1,86 @@
+NEXENTA-ALERT-MIB DEFINITIONS ::= BEGIN
+IMPORTS
+    MODULE-IDENTITY FROM SNMPv2-SMI
+    MODULE-COMPLIANCE FROM SNMPv2-CONF
+    OBJECT-TYPE, Integer32 FROM SNMPv2-SMI
+    OBJECT-GROUP FROM SNMPv2-CONF
+    NOTIFICATION-TYPE FROM SNMPv2-SMI
+    NOTIFICATION-GROUP FROM SNMPv2-CONF
+    nexentaNef FROM NEXENTA-MIB
+    sysLocation, sysContact FROM SNMPv2-MIB
+;
+alert MODULE-IDENTITY
+    LAST-UPDATED "201804100000Z"
+    ORGANIZATION "Nexenta Systems, Inc."
+    CONTACT-INFO "postal: 2025 Gateway Place, Suite 160, San Jose, CA 95110 USA
+email: support@nexenta.com"
+    DESCRIPTION "MIB to support alert worker"
+    REVISION "201804100000Z"
+    DESCRIPTION "Second revision"
+    ::= { nexentaNef 4 }
+alertEvent OBJECT IDENTIFIER ::= { alert 1 }
+alertNotifications OBJECT IDENTIFIER ::= { alert 0 }
+alertEventHost OBJECT-TYPE
+    SYNTAX OCTET STRING
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "Hostname of the node"
+    ::= { alertEvent 1 }
+alertEventCluster OBJECT-TYPE
+    SYNTAX OCTET STRING
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "Cluster name where event happened"
+    ::= { alertEvent 2 }
+alertEventUuid OBJECT-TYPE
+    SYNTAX OCTET STRING
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "UUID of the alert case"
+    ::= { alertEvent 100 }
+alertEventCode OBJECT-TYPE
+    SYNTAX OCTET STRING
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "Code of the event"
+    ::= { alertEvent 101 }
+alertEventSeverity OBJECT-TYPE
+    SYNTAX OCTET STRING
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "Severity level"
+    ::= { alertEvent 102 }
+alertEventType OBJECT-TYPE
+    SYNTAX OCTET STRING
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "Event type"
+    ::= { alertEvent 103 }
+alertEventDescription OBJECT-TYPE
+    SYNTAX OCTET STRING
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "Verbose description of the event"
+    ::= { alertEvent 104 }
+alertGenericNotification NOTIFICATION-TYPE
+    OBJECTS { sysLocation, sysContact, alertEventHost, alertEventCluster, alertEventUUID, alertEventCode, alertEventSeverity, alertEventType, alertEventDescription }
+    STATUS current
+    DESCRIPTION "Generic notification about case events"
+    ::= { alertNotifications 1 }
+alertCompliances OBJECT IDENTIFIER ::= { alert 1000 }
+alertObjGrp OBJECT-GROUP
+    OBJECTS { alertEventHost, alertEventCluster, alertEventUuid, alertEventCode, alertEventSeverity, alertEventType, alertEventDescription }
+    STATUS current
+    DESCRIPTION "Default objects conformance group for NEXENTA-ALERT-MIB"
+    ::= { alertCompliances 2 }
+alertNotGrp NOTIFICATION-GROUP
+    NOTIFICATIONS { alertGenericNotification }
+    STATUS current
+    DESCRIPTION "Default notifications conformance group for NEXENTA-ALERT-MIB"
+    ::= { alertCompliances 3 }
+alertCompliance MODULE-COMPLIANCE
+    STATUS current
+    DESCRIPTION "Default compliance statement for NEXENTA-ALERT-MIB"
+    MODULE MANDATORY-GROUPS { alertObjGrp, alertNotGrp }
+    ::= { alertCompliances 1 }
+END

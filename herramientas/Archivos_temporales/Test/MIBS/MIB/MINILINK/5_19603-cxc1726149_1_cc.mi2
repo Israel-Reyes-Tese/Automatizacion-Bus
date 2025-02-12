@@ -1,0 +1,1852 @@
+-- No: 5/196 03-CXC 172 6149/1              MANAGEMENT INFORMATION BASE
+-- ======================================================================
+-- Prepared:  EDD/XMB/SWD   EDD             Revision A
+-- ======================================================================
+
+XF-CC-MIB DEFINITIONS ::= BEGIN
+
+    IMPORTS
+        MODULE-IDENTITY,
+        OBJECT-TYPE,
+        Integer32,
+        NOTIFICATION-TYPE
+            FROM SNMPv2-SMI
+
+        RowStatus,
+        TimeStamp,
+        TEXTUAL-CONVENTION,
+        TruthValue
+            FROM SNMPv2-TC
+
+        SnmpAdminString
+            FROM SNMP-FRAMEWORK-MIB
+
+        InterfaceIndex,
+        ifIndex
+            FROM IF-MIB
+
+        MODULE-COMPLIANCE,
+        NOTIFICATION-GROUP,
+        OBJECT-GROUP
+            FROM SNMPv2-CONF
+
+        xfSdhAdm
+            FROM XF-TOP-MIB;
+
+
+
+    xfCcMib MODULE-IDENTITY
+       LAST-UPDATED    "201011111800Z"    -- Nov. 11, 2010 at 18:00 GMT
+       ORGANIZATION    "Ericsson China"
+       CONTACT-INFO
+            "Thomas Oexner
+             Postal: Ericsson
+             Gerberstrasse 33
+             71522 Backnang
+             Germany
+             Phone:  +49 7191/13-0
+             Email:  thomas.oexner@ericsson.com
+
+             Joachim Hasler
+             Postal: Ericsson
+             Gerberstrasse 33
+             71522 Backnang
+             Germany
+             Phone:  +49 7191/13-0
+             Email:  joachim.hasler@ericsson.com
+             
+             Sherry Cai
+             Postal: Ericsson
+             100102 Beijing
+             China
+             Phone:  +86 10 84768259
+             Email:  sherry.cai@ericsson.com"
+       DESCRIPTION
+        "This MIB module is used to create and monitor cross-connections
+        (horizontal relationships) between peer interfaces on Ericsson network elements.
+        Vertical relationships are represented in the ifStackTable from the IF-MIB.
+
+        The IB Module is derived from ciscoOpticalIfCrossConnectMIB and adapted
+        for Ericsson needs.
+
+        While first focus is on modelling PDH crossconnections and related protections
+        in principle this MIB module can be used to model various types of cross-connects
+        between peer interfaces, including time-division (e.g.
+        SDH/SONET, PDH), wavelength (lambda), and spatial switching
+        (e.g. incoming port or fiber to outgoing port or fiber) but first focus is on
+        PDH Crossconnections.
+
+        This MIB does not apply to cross-connects between packet flows
+        (e.g. packets in the same forwarding equivalence class at a
+        MPLS-capable switch or router) or cell flows (e.g. ATM Virtual
+        Path connections or ATM Virtual Channel connections), since
+        there are scalability issues in modeling each packet flow or
+        cell flow as a logical interface.
+
+        Cross-connects can be created through provisioning or
+        automatically by the network element.
+
+        The cross-connect model includes support for pairs of
+        interfaces used to protect each other (e.g. SONET 1+1
+        Automatic Protection Switching, PDH Protection Switching, Radio Link
+        Protection, ....).  Cross-connects to protection
+        interfaces may be shown in this MIB module."
+
+        REVISION     "201011111800Z"    -- Nov. 11, 2010 at 18:00 GMT
+        DESCRIPTION
+           "REV PA3: Change xfVc12CcCcName/xfVc3CcCcName/xfVc4CcCcName from 32 to 128 characters,
+           Add xfVc12CcCcVariant/xfVc3CcCcVariant/xfVc4CcCcVariant to indicate if it supports 128 characters (Sherry Cai)."
+        REVISION     "200802281200Z"    -- Feb. 28, 2008 at 12:00 GMT
+        DESCRIPTION
+           "REV PA2: Use official MIB module OID (Jens Engel)."
+        REVISION     "200711061000Z"
+        DESCRIPTION
+            "Cleanup imports, access rights and naming conventions.
+
+            MAX-ACCESS for INDEX columns:
+                read-create -> not-accessible in xfVc<n>CcTables.
+
+            RANGE CORRECTED:
+                1.. -> 0.. in xfVc<n>CcIfSourceCcIndex, xfVc<n>CcIfSinkCcIndex.
+
+            MISSING-IMPORTS:
+              - NOTIFICATION-GROUP (added)
+
+            NAME-CONVENTIONS:
+              - xfVC3... -> xfVc3...
+              - XfVC3... -> XfVc3...
+              - xfVC4... -> xfVc4...
+              - XfVC4... -> XfVc4...
+
+            SEQUENCE-ORDER: Of index columns corrected (...CcTable).
+                xfVc<n>CcIfHighIndex .4 -> .3 (corrected)
+
+            MODULE-COMPLIANCE statement:
+                Notification groups added (VC12, VC3, VC4).
+
+            OBJECT-GROUP:
+                Index columns removed from group, only data columns allowed."
+
+        REVISION     "200705220800Z"
+        DESCRIPTION
+            "Initial Version 1.0"
+     ::= { xfSdhAdm 5 }
+
+
+xfVc12CcMibObjects     OBJECT IDENTIFIER ::= {
+ xfCcMib 1 }
+
+xfVc3CcMibObjects     OBJECT IDENTIFIER ::= {
+ xfCcMib 2 }
+
+xfVc4CcMibObjects     OBJECT IDENTIFIER ::= {
+ xfCcMib 3 }
+
+xfVc12CcMibNotifications OBJECT IDENTIFIER ::= {
+ xfCcMib 4 }
+
+xfVc3CcMibNotifications OBJECT IDENTIFIER ::= {
+ xfCcMib 5 }
+
+xfVc4CcMibNotifications OBJECT IDENTIFIER ::= {
+ xfCcMib 6 }
+
+xfVc12CcMibConformance OBJECT IDENTIFIER ::= {
+ xfCcMib 7 }
+
+xfVc3CcMibConformance OBJECT IDENTIFIER ::= {
+ xfCcMib 8 }
+
+xfVc4CcMibConformance OBJECT IDENTIFIER ::= {
+ xfCcMib 9 }
+
+
+
+
+
+
+-- Textual Conventions
+
+XfCcCrossConnectOperStatus ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION
+        "The operational status of a cross-connection
+        between two interfaces.
+
+        The 'up' state indicates that the traffic flow is enabled on
+        the cross-connect.
+
+        The 'down' state indicates that the traffic flow is disabled
+        on the cross-connect, since it is either administratively
+        down or there is a fault that prevents it from going to the
+        'up' state.
+
+        The 'dormant' state indicates that the traffic flow is
+        disabled, but it is administratively up and there is no fault
+        that prevents it from going to the 'up' state.
+        The 'dormant' state is used when the interface from which the
+        traffic flows across the cross-connection is participating in
+        a protection but is currently not selected by the protection
+        control.
+        In case of a unidirectional crossconnection and the protection
+        is on the sink interfaces and protection in tx direction is
+        implemented by using a permanent bridge, the dormant state is
+        not used as there is no selector but the traffic is permanently
+        bridged.
+        In case of a bidirectional crossconnection the dormant state
+        is assigned depending on the interfaces selected by the selector
+        function of the protection (In case of n:m protection schemes it
+        is assumed that tx and rx direction are aligned).
+
+        The 'unknown' state indicates that the state of the
+        cross-connect cannot be determined.
+
+        The state will be 'down' or 'unknown' if one or both of the
+        interfaces are 'down' or 'unknown', respectively."
+    SYNTAX      INTEGER  {
+                    up(1),
+                    down(2),
+                    dormant(3),
+                    unknown(4)
+                }
+
+
+XfCcIfDirType ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION
+        "The DirectionType of the IF.
+        Only the following crossconnections are possible:
+
+        Low interface      High interface     Notes
+        -----------------------------------------------------------------
+        source             sink               unidirectional cc Low->High
+        sink               source             unidirectional cc High->Low
+        bidirectional      bidirectional      bidirectional  cc Low<->High
+
+        All other combinations will be denied.
+
+        In case of unidirectional crossconnections the LowInterface and the
+        HighInterface may be the same (same ifIndex). Application of such a
+        cross connection is a loopback connection (using the PDH-CC function).
+
+        In case of bidirectional crossconnections, the LowInterface and the
+        HighInterface have to be different ones (different ifIndex)
+
+        Further Information is to be added"
+
+
+    SYNTAX      INTEGER  {
+                    sink(1),
+                    source(2),
+                    bidirectional(3)
+                }
+
+
+
+-- MIB Object Definitions
+
+xfVc12CcInterface              OBJECT IDENTIFIER ::= { xfVc12CcMibObjects 1 }
+xfVc12CcCrossConnect          OBJECT IDENTIFIER ::= { xfVc12CcMibObjects 2 }
+
+xfVc3CcInterface              OBJECT IDENTIFIER ::= { xfVc3CcMibObjects 1 }
+xfVc3CcCrossConnect           OBJECT IDENTIFIER ::= { xfVc3CcMibObjects 2 }
+
+xfVc4CcInterface              OBJECT IDENTIFIER ::= { xfVc4CcMibObjects 1 }
+xfVc4CcCrossConnect           OBJECT IDENTIFIER ::= { xfVc4CcMibObjects 2 }
+
+
+
+-- xfVc12CcInterface Group
+
+xfVc12CcInterfaceTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfVc12CcInterfaceEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all TU12CTP and Vc12TTP interfaces that are cross-connected
+        to one or more other interfaces.  The table is used to find
+        cross-connects that include a particular interface.
+        The table lists as well all TU12 connection termination point interfaces
+        and Vc12 trail termination point interfaces that are not
+        cross connected but which are ready for cross connecting
+        (e.g. if the particular higher order assembler substructure
+        is created).
+        "
+    ::= { xfVc12CcInterface 1 }
+
+xfVc12CcInterfaceEntry OBJECT-TYPE
+    SYNTAX      XfVc12CcInterfaceEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry is automatically created when a TU12CTP or Vc12TTP interface is ready for cross connecting.
+        An entry is updated when a TU12CTP or Vc12TTP is cross-connected
+        to one or more other termination points (i.e. when the associated entries in the
+        xfVc12CcCrossConnectTable have been created).
+
+        An entry is automatically deleted when a TU12CTP or Vc12TTP is no longer involved in
+        a cross connection and no longer ready for cross connecting
+        (e.g. if the particular higher order assembler substructure is deleted)."
+    INDEX { ifIndex }
+    ::= { xfVc12CcInterfaceTable 1 }
+
+XfVc12CcInterfaceEntry ::= SEQUENCE  {
+        xfVc12CcIfSourceCcIndex Integer32,
+        xfVc12CcIfSinkCcIndex   Integer32
+    }
+
+xfVc12CcIfSourceCcIndex OBJECT-TYPE
+    SYNTAX      Integer32 (0..2147483547)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of the xfVc12CcCcIndex used in the xfVc12CcCrossConnectTable
+        to identify a cross-connect that includes this interface as source. Each
+        interface included in that cross-connect has an entry in this
+        table with the same value of this object, in addition to the
+        entries in the xfVc12CcCrossConnectTable with this value of
+        xfVc12CcCcIndex.
+        A value of 0 indicates that the interface is not involved in a cross connection
+        as source, but ready for cross connecting."
+    ::= { xfVc12CcInterfaceEntry 1 }
+
+xfVc12CcIfSinkCcIndex OBJECT-TYPE
+    SYNTAX      Integer32 (0..2147483547)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of the xfVc12CcCcIndex used in the xfVc12CcCrossConnectTable
+        to identify a cross-connect that includes this interface as sink. Each
+        interface included in that cross-connect has an entry in this
+        table with the same value of this object, in addition to the
+        entries in the xfVc12CcCrossConnectTable with this value of
+        xfVc12CcCcIndex.
+        A value of 0 indicates that the interface is not involved in a cross connection
+        as sink, but ready for cross connecting."
+    ::= { xfVc12CcInterfaceEntry 2 }
+
+
+
+-- xfVc12Cc Cross-Connect Group
+
+
+xfVc12CcCcIndexNext OBJECT-TYPE
+    SYNTAX      Integer32 (0..2147483647)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "This object contains an appropriate value to be used for
+        xfVc12CcCcIndex when creating entries in the
+        xfVc12CcCrossConnectTable. The value 0 indicates that no
+        unassigned entries are available. To obtain the xfVc12CcCcIndex
+        value for a new entry, the manager issues a management protocol
+        retrieval operation to obtain the current value of this object.
+        The agent will modify the value to the next unassigned index,
+        when a new row is created in xfVc12CcCrossConnectTable with
+        xfVc12CcCcIndex value equal to the current value of this object.
+        After deletion of a row in xfVc12CcCrossConnectTable the agent
+        will determine through its local policy when its index value
+        will be made available for reuse.
+
+        This object has not to be used when cross-connections are created
+        with index 1. In that case the agent will autoatically assign a new
+        index."
+    ::= { xfVc12CcCrossConnect 1 }
+
+xfVc12CcCrossConnectTableLastChange  OBJECT-TYPE
+    SYNTAX      TimeStamp
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of sysUpTime at the time of the last
+        creation, deletion or modification of an entry
+        in the xfVc12CcCrossConnectTable.
+        If the xfVc12CcCrossConnectTable entries has been unchanged
+        since the last re-initialization of the local network
+        management subsystem, then this object contains a zero value."
+    ::= { xfVc12CcCrossConnect 2 }
+
+xfVc12CcCrossConnectTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfVc12CcCrossConnectEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table contains configuration and state information of
+        point-to-point and point-to-multipoint interface
+        cross-connects.
+
+        Each entry in the table models a crossconnection between interfaces
+        of the same type.
+
+        For a point-to-point cross-connect, there can be up to four
+        entries in the table with the same value of xfVc12CcCcIndex, due
+        to the presence of protection interfaces.
+        All four entries are associated with each other due to
+        APS configuration. If both sides are configured
+        for 1+1 APS protection, and a cross-connect between
+        interfaces is created, then the following
+        cross-connect entries will be present:
+
+        The cross-connect with xfVc12CcCcType value 'provisioned' is the
+        one that is created through cross-connect configuration and the
+        cross-connects with xfVc12CcCcType value 'protection' are those
+        that are created automatically due to APS configuration.
+
+        Low interface    High interface        xfVc12CcCcType
+
+        A                C                     provisioned
+        A                D                     protection
+        B                C                     protection
+        B                D                     protection
+
+        When the cross-connect between A and C is deleted, all four
+        cross-connect entries will disappear.
+
+        Each side of the point-to-point cross-connect can have up to
+        two interfaces, for example when SONET 1+1 Automatic
+        Protection Switching (APS) is used.  Any one of the four
+        entries of a point-to-point cross-connect can be created,
+        and the remaining three entries will be created
+        automatically. However only the 'provisioned' entry can be
+        explicitly deleted, which also causes the corresponding
+        'protection' entries to be deleted.  Note that use of the
+        word 'protection' is different from its usage in SONET 1+1 APS.
+        In particular, there is no requirement that the 'provisioned'
+        cross-connect must be between the SONET 'working' interfaces.
+
+        A point-to-multipoint connection consists of one root and
+        many leaves.  Copies of the traffic received at the root
+        interface are transmitted out each of the leaf interfaces.
+
+        For a point-to-multipoint cross-connect with N leafs,
+        the manager creates N 'provisioned' entries in this table.
+        Where N is determined by the manager based on some application.
+        In the presence of  APS configuration, the same
+        point-to-multipoint (N leafs) cross-connect, in addition
+        to having N 'provisioned' entries in this table, can have upto
+        an additional 3N 'protection' entries automatically configured.
+
+        For a point-to-multipoint cross-connect with N leafs,
+        all N entries have the same xfVc12CcCcIndex.
+
+        The terms low and high are chosen to represent numerical
+        ordering of the two interfaces associated with a cross-connect.
+        That is, the interface with the lower value of ifIndex is
+        termed 'low', while the other interface associated with the
+        cross-connect is termed 'high'."
+    ::= { xfVc12CcCrossConnect 3 }
+
+
+xfVc12CcCcVariant OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "To indicate if the xfVc12CcCcName supports 128 characters."
+    ::= { xfVc12CcCrossConnect 4 }    
+    
+    
+xfVc12CcCrossConnectEntry OBJECT-TYPE
+    SYNTAX      XfVc12CcCrossConnectEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This entry is used to model two bi-directional cross-connected
+        interfaces.
+
+        Cross-connects can be created through provisioning,
+        automatically by the network element or due to the presence of
+        protection interfaces.
+
+        When creating an entry through provisioning, the following
+        procedures are used to cross-connect two interfaces:
+        (1) The manager obtains a unique xfVc12CcCcIndex by reading the
+            xfVc12CcCcIndexNext object.
+        (2) Next, the manager creates a set of one or more rows in the
+            Cross Connect Table.  For a point-to-point connection, one
+            row is created by the manager.  For a point-to-multipoint
+            connection, one row is created for each leaf to an
+            unprotected interface, or one row is created for each leaf
+            to a pair of protected interfaces.  Additional rows for
+            protection interfaces are created automatically by the
+            agent.  Each row is indexed by the ifIndex values of the
+            two interfaces at the ends of that cross-connection.  This
+            set of rows is identified by a single value of
+            xfVc12CcCcIndex.  As each row is created, the agent checks if
+            the requested topology is supported and also checks for
+            internal errors in building the cross-connect.  The
+            xfVc12CcIfCrossConnectIdentifier values in the corresponding
+            xfVc12CcInterfaceTable rows are filled in by the agent at
+            this point.  The traffic flow is turned on when the manager
+            sets xfVc12CcCcRowStatus to active(1) or createAndGo(4).
+
+        A cross-connect identified by a particular value of
+        xfVc12CcCcIndex is released by setting xfVc12CcCcRowStatus of all
+        rows identified by this value of xfVc12CcCcIndex, other than the
+        rows with a xfVc12CcCcType value of 'protection', to destroy(6).
+        The agent may release associated resources, and the
+        xfVc12CcIfCrossConnectIdentifier values in the corresponding
+        xfVc12CcInterfaceTable are removed.  Note that a situation when
+        only a subset of the associated rows are deleted corresponds to
+        a topology change.
+
+        At the discretion of the agent, a cross-connect may be
+        reconfigured by adding and/or deleting leafs to/from the
+        topology as per the cross-connect establishment/retirement
+        guidelines described below.
+
+        Each leaf is added by creating a row with the same value of
+        xfVc12CcCcIndex in this table.  Each leaf is deleted by deleting
+        a row with the same value of xfVc12CcCcIndex in the table. To
+        delete an entire point-to-multipoint connection, all entries
+        with the same xfVc12CcCcIndex value must be deleted."
+    INDEX       { xfVc12CcCcIndex,
+                  xfVc12CcCcLowIfIndex,
+                  xfVc12CcCcHighIfIndex }
+    ::= { xfVc12CcCrossConnectTable 1 }
+
+XfVc12CcCrossConnectEntry ::= SEQUENCE  {
+        xfVc12CcCcIndex                        Integer32,
+        xfVc12CcCcLowIfIndex                   InterfaceIndex,
+        xfVc12CcCcHighIfIndex                  InterfaceIndex,
+        xfVc12CcCcLowIfDirType                 XfCcIfDirType,
+        xfVc12CcCcHighIfDirType                XfCcIfDirType,
+        xfVc12CcCcType                         INTEGER,
+        xfVc12CcCcCreationTime                 TimeStamp,
+        xfVc12CcCcOperStatus                   XfCcCrossConnectOperStatus,
+        xfVc12CcCrossConnectionLastChange      TimeStamp,
+        xfVc12CcCcName                         SnmpAdminString,
+        xfVc12CcCcRowStatus                    RowStatus
+   }
+
+
+
+xfVc12CcCcIndex OBJECT-TYPE
+    SYNTAX      Integer32 (1..2147483647)
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "A unique value used to identify this cross-connect.  For each
+        interface associated with this cross-connect, the agent reports
+        this cross-connect index value in the
+        xfVc12CcIfCrossConnectIdentifier object of the corresponding
+        xfVc12CcInterfaceTable entry.
+        When the value of this index is equal to the current value
+        of xfVc12CcCcIndexNext, the agent will modify the value of
+        xfVc12CcCcIndexNext to the next unassigned index."
+    ::= { xfVc12CcCrossConnectEntry 1 }
+
+xfVc12CcCcLowIfIndex OBJECT-TYPE
+    SYNTAX      InterfaceIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "The value of this object is equal to MIB II's ifIndex value of
+        the interface for this cross-connect.  The term low implies
+        that this interface has the numerically lower ifIndex value
+        than the other interface identified in the same
+        xfVc12CcCrossConnectEntry."
+    ::= { xfVc12CcCrossConnectEntry 2 }
+
+
+xfVc12CcCcHighIfIndex OBJECT-TYPE
+    SYNTAX      InterfaceIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "The value of this object is equal to MIB II's ifIndex value of
+        the interface for this cross-connect.  The term high implies
+        that this interface has the numerically higher ifIndex value
+        than the other interface identified in the same
+        xfVc12CcCrossConnectEntry."
+    ::= { xfVc12CcCrossConnectEntry 3 }
+
+
+xfVc12CcCcLowIfDirType OBJECT-TYPE
+    SYNTAX      XfCcIfDirType
+    MAX-ACCESS  read-create
+    STATUS      current
+    DESCRIPTION
+        "TBA"
+    ::= { xfVc12CcCrossConnectEntry 4 }
+
+
+xfVc12CcCcHighIfDirType OBJECT-TYPE
+    SYNTAX      XfCcIfDirType
+    MAX-ACCESS  read-create
+    STATUS      current
+    DESCRIPTION
+        "TBA"
+    ::= { xfVc12CcCrossConnectEntry 5 }
+
+
+xfVc12CcCcType OBJECT-TYPE
+    SYNTAX      INTEGER {
+                    other (1),
+                    provisioned(2),
+                    automatic(3),
+                    protection(4)
+                }
+    MAX-ACCESS  read-create
+    STATUS      current
+    DESCRIPTION
+        "The type of call control used to establish a cross-connect.
+
+        If no value of this object is provided when a row is activated
+        through SNMP, then the value 'provisioned' is assigned by the
+        agent.
+
+        For point-to-point cross-connects, the only sets allowed on
+        this object are during initial row creation, and to change the
+        value of this object from 'protection' to 'provisioned', which
+        automatically changes the xfVc12CcCcType value of the
+        'provisioned' cross-connect with the same xfVc12CcCcIndex value
+        to 'protection'.  A change from 'protection' to 'provisioned'
+        is allowed when xfVc12CcCcRowStatus is 'active'.
+
+        The use is as follows:
+            provisioned(2)
+                Provisioned by the user or by a management system
+                using the Command Line Interface, SNMP, or other
+                means of management access to the network element.
+            automatic(3)
+                Created automatically by the network element, without
+                user, management, or control plane intervention.  In
+                particular, this is used to represent fixed interface
+                cross-connects due to the presence of entities such as
+                optical add/drop multiplexers.
+            protection(4)
+                Created to include the second of a pair of protected
+                interfaces in a cross-connect, when a cross-connect
+                entry for the first interface in the pair is being
+                created.  Such an entry cannot be deleted directly.
+                It is deleted when the cross-connect entry containing
+                the other interface(s) of the protected pair(s) is
+                deleted."
+    ::= { xfVc12CcCrossConnectEntry 6 }
+
+xfVc12CcCcCreationTime OBJECT-TYPE
+    SYNTAX      TimeStamp
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of MIB II's sysUpTime object at the time this
+        bi-directional cross-connect was created.  If the current state
+        was entered prior to the last re-initialization of the agent
+        then this object contains a zero value."
+    ::= { xfVc12CcCrossConnectEntry 7 }
+
+xfVc12CcCcOperStatus OBJECT-TYPE
+    SYNTAX      XfCcCrossConnectOperStatus
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The operational status of the cross-connection"
+    ::= { xfVc12CcCrossConnectEntry 8 }
+
+xfVc12CcCrossConnectionLastChange OBJECT-TYPE
+    SYNTAX      TimeStamp
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of MIB II's sysUpTime at the time this cross-connect
+        entered its current operational state.
+        If the current state was entered prior to the last
+        re-initialization of the agent then this object contains a zero
+        value."
+    ::= { xfVc12CcCrossConnectEntry 9 }
+
+
+xfVc12CcCcName OBJECT-TYPE
+   SYNTAX      SnmpAdminString (SIZE (1..128))
+   MAX-ACCESS  read-create
+   STATUS      current
+   DESCRIPTION
+       "A textual name for the crossconnection"
+   ::= { xfVc12CcCrossConnectEntry 10 }
+
+
+
+xfVc12CcCcRowStatus OBJECT-TYPE
+    SYNTAX      RowStatus
+    MAX-ACCESS  read-create
+    STATUS      current
+    DESCRIPTION
+        "The status of this entry in the xfVc12CcCrossConnectTable.  This
+        object is used to create a cross-connect or to modify or delete
+        an existing cross-connect.
+
+        Write access does not apply to entries with xfVc12CcCcType values
+        of 'automatic' or 'protection'.
+
+        Entries with a xfVc12CcCcType value of 'protection' cannot be
+        deleted using this object.  Such an entry is deleted when the
+        cross-connect entry containing the other interface(s) of the
+        protected pair(s) is deleted."
+    ::= { xfVc12CcCrossConnectEntry 11 }
+
+
+
+--
+-- Vc12 Cc EVENTS
+--
+
+xfVc12CcMibNotificationsPrefix OBJECT IDENTIFIER
+    ::= {  xfVc12CcMibNotifications 0 }
+
+xfVc12CcMibEventOperStatus NOTIFICATION-TYPE
+   OBJECTS { xfVc12CcCcOperStatus
+           }
+   STATUS  current
+   DESCRIPTION
+       "An  xfVc12CcMibEventOperStatus notification is sent when the
+        value of an instance of xfVc12CcCcOperStatus changes."
+   ::= { xfVc12CcMibNotificationsPrefix 1 }
+
+
+
+-- Vc12 Cross-Connect Conformance
+
+xfVc12CcMIBCompliances OBJECT IDENTIFIER ::= { xfVc12CcMibConformance 1 }
+xfVc12CcMIBGroups      OBJECT IDENTIFIER ::= { xfVc12CcMibConformance 2 }
+
+
+-- Vc12 Compliance
+
+
+xfVc12CcMIBCompliance MODULE-COMPLIANCE
+        STATUS current
+        DESCRIPTION
+                "The compliance statement for entities which implement
+                this Interface Cross-Connect MIB"
+        MODULE        -- this module
+            MANDATORY-GROUPS {  xfVc12CcInterfaceGroup,
+                                xfVc12CcCrossConnectGroup }
+
+            GROUP xfVc12CcEventOptional
+            DESCRIPTION
+                "Optional VC12 notifications."
+
+            OBJECT      xfVc12CcCcType
+            MIN-ACCESS  read-only
+            DESCRIPTION
+                "Write access is not required."
+
+            OBJECT      xfVc12CcCcRowStatus
+            MIN-ACCESS  read-only
+            DESCRIPTION
+                "Write access does not apply when the only supported value
+                of xfVc12CcCcType is 'automatic', or when the only two
+                supported values are 'automatic' and 'protection'."
+
+        ::= { xfVc12CcMIBCompliances 1 }
+
+
+-- Vc12 Units of Conformance
+
+xfVc12CcInterfaceGroup OBJECT-GROUP
+        OBJECTS { xfVc12CcIfSourceCcIndex,
+                  xfVc12CcIfSinkCcIndex
+        }
+        STATUS current
+        DESCRIPTION
+                "Object needed to implement interfaces with
+                 cross-connections."
+        ::= { xfVc12CcMIBGroups 1 }
+
+xfVc12CcCrossConnectGroup  OBJECT-GROUP
+        OBJECTS { xfVc12CcCcIndexNext,
+                  xfVc12CcCrossConnectTableLastChange,
+                  -- NO-DATA-COLUMN: xfVc12CcCcIndex,
+                  -- NO-DATA-COLUMN: xfVc12CcCcLowIfIndex,
+                  -- NO-DATA-COLUMN: xfVc12CcCcHighIfIndex,
+                  xfVc12CcCcLowIfDirType,
+                  xfVc12CcCcHighIfDirType,
+                  xfVc12CcCcType,
+                  xfVc12CcCcCreationTime,
+                  xfVc12CcCcOperStatus,
+                  xfVc12CcCrossConnectionLastChange,
+                  xfVc12CcCcName,
+                  xfVc12CcCcRowStatus,
+                  xfVc12CcCcVariant
+        }
+        STATUS current
+        DESCRIPTION
+            "Collection of objects needed to implement
+             crossconnections between interfaces."
+        ::= { xfVc12CcMIBGroups 2 }
+
+
+xfVc12CcEventOptional NOTIFICATION-GROUP
+   NOTIFICATIONS { xfVc12CcMibEventOperStatus
+                 }
+   STATUS    current
+   DESCRIPTION
+       "A collection of crossconnection notifications that may
+        optionally be implemented."
+   ::= {  xfVc12CcMIBGroups 3 }
+
+
+
+
+
+
+-- xfVc3CcInterface Group
+
+xfVc3CcInterfaceTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfVc3CcInterfaceEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all TU3CTP and VC3TTP interfaces that are cross-connected
+        to one or more other interfaces.  The table is used to find
+        cross-connects that include a particular interface.
+        The table lists as well all TU3 connection termination point interfaces
+        and VC3 trail termination point interfaces that are not
+        cross connected but which are ready for cross connecting
+        (e.g. if the particular higher order assembler substructure
+        is created)."
+    ::= { xfVc3CcInterface 1 }
+
+xfVc3CcInterfaceEntry OBJECT-TYPE
+    SYNTAX      XfVc3CcInterfaceEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry is automatically created when a TU3CTP or VC3TTP interface is ready for cross connecting.
+        An entry is updated when a TU3CTP or VC3TTP is cross-connected
+        to one or more other termination points (i.e. when the associated entries in the
+        xfVc3CcCrossConnectTable have been created).
+
+        An entry is automatically deleted when a TU3CTP or VC3TTP is no longer involved in
+        a cross connection and no longer ready for cross connecting
+        (e.g. if the particular higher order assembler substructure is deleted)."
+    INDEX { ifIndex }
+    ::= { xfVc3CcInterfaceTable 1 }
+
+XfVc3CcInterfaceEntry ::=
+    SEQUENCE  {
+        xfVc3CcIfSourceCcIndex  Integer32,
+        xfVc3CcIfSinkCcIndex    Integer32
+    }
+
+xfVc3CcIfSourceCcIndex OBJECT-TYPE
+    SYNTAX      Integer32 (0..2147483547)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of the xfVc3CcCcIndex used in the xfVc3CcCrossConnectTable
+        to identify a cross-connect that includes this interface as source.  Each
+        interface included in that cross-connect has an entry in this
+        table with the same value of this object, in addition to the
+        entries in the xfVc3CcCrossConnectTable with this value of
+        xfVc3CcCcIndex.
+        A value of 0 indicates that the interface is not involved in a cross connection
+        as source but ready for cross connecting."
+    ::= { xfVc3CcInterfaceEntry 1 }
+
+xfVc3CcIfSinkCcIndex OBJECT-TYPE
+    SYNTAX      Integer32 (0..2147483547)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of the xfVc3CcCcIndex used in the xfVc3CcCrossConnectTable
+        to identify a cross-connect that includes this interface as sink.  Each
+        interface included in that cross-connect has an entry in this
+        table with the same value of this object, in addition to the
+        entries in the xfVc3CcCrossConnectTable with this value of
+        xfVc3CcCcIndex.
+        A value of 0 indicates that the interface is not involved in a cross connection
+        as sink but ready for cross connecting."
+    ::= { xfVc3CcInterfaceEntry 2 }
+
+
+-- xfVc3Cc Cross-Connect Group
+
+
+xfVc3CcCcIndexNext OBJECT-TYPE
+    SYNTAX      Integer32 (0..2147483647)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "This object contains an appropriate value to be used for
+        xfVc3CcCcIndex when creating entries in the
+        xfVc3CcCrossConnectTable. The value 0 indicates that no
+        unassigned entries are available. To obtain the xfVc3CcCcIndex
+        value for a new entry, the manager issues a management protocol
+        retrieval operation to obtain the current value of this object.
+        The agent will modify the value to the next unassigned index,
+        when a new row is created in xfVc3CcCrossConnectTable with
+        xfVc3CcCcIndex value equal to the current value of this object.
+        After deletion of a row in xfVc3CcCrossConnectTable the agent
+        will determine through its local policy when its index value
+        will be made available for reuse.
+
+        This object has not to be used when cross-connections are created
+        with index 1. In that case the agent will autoatically assign a new
+        index.
+        "
+    ::= { xfVc3CcCrossConnect 1 }
+
+xfVc3CcCrossConnectTableLastChange  OBJECT-TYPE
+    SYNTAX      TimeStamp
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of sysUpTime at the time of the last
+        creation, deletion or modification of an entry
+        in the xfVc3CcCrossConnectTable.
+        If the xfVc3CcCrossConnectTable entries has been unchanged
+        since the last re-initialization of the local network
+        management subsystem, then this object contains a zero value."
+    ::= { xfVc3CcCrossConnect 2 }
+
+xfVc3CcCrossConnectTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfVc3CcCrossConnectEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table contains configuration and state information of
+        point-to-point and point-to-multipoint interface
+        cross-connects.
+
+        Each entry in the table models a crossconnection between interfaces
+        of the same type.
+
+        For a point-to-point cross-connect, there can be up to four
+        entries in the table with the same value of xfVc3CcCcIndex, due
+        to the presence of protection interfaces.
+        All four entries are associated with each other due to
+        APS configuration. If both sides are configured
+        for 1+1 APS protection, and a cross-connect between
+        interfaces is created, then the following
+        cross-connect entries will be present:
+
+        The cross-connect with xfVc3CcCcType value 'provisioned' is the
+        one that is created through cross-connect configuration and the
+        cross-connects with xfVc3CcCcType value 'protection' are those
+        that are created automatically due to APS configuration.
+
+        Low interface    High interface        xfVc3CcCcType
+
+        A                C                     provisioned
+        A                D                     protection
+        B                C                     protection
+        B                D                     protection
+
+        When the cross-connect between A and C is deleted, all four
+        cross-connect entries will disappear.
+
+        Each side of the point-to-point cross-connect can have up to
+        two interfaces, for example when SONET 1+1 Automatic
+        Protection Switching (APS) is used.  Any one of the four
+        entries of a point-to-point cross-connect can be created,
+        and the remaining three entries will be created
+        automatically. However only the 'provisioned' entry can be
+        explicitly deleted, which also causes the corresponding
+        'protection' entries to be deleted.  Note that use of the
+        word 'protection' is different from its usage in SONET 1+1 APS.
+        In particular, there is no requirement that the 'provisioned'
+        cross-connect must be between the SONET 'working' interfaces.
+
+        A point-to-multipoint connection consists of one root and
+        many leaves.  Copies of the traffic received at the root
+        interface are transmitted out each of the leaf interfaces.
+
+        For a point-to-multipoint cross-connect with N leafs,
+        the manager creates N 'provisioned' entries in this table.
+        Where N is determined by the manager based on some application.
+        In the presence of  APS configuration, the same
+        point-to-multipoint (N leafs) cross-connect, in addition
+        to having N 'provisioned' entries in this table, can have upto
+        an additional 3N 'protection' entries automatically configured.
+
+        For a point-to-multipoint cross-connect with N leafs,
+        all N entries have the same xfVc12CcCcIndex.
+
+        The terms low and high are chosen to represent numerical
+        ordering of the two interfaces associated with a cross-connect.
+        That is, the interface with the lower value of ifIndex is
+        termed 'low', while the other interface associated with the
+        cross-connect is termed 'high'."
+    ::= { xfVc3CcCrossConnect 3 }
+    
+xfVc3CcCcVariant OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "To indicate if the xfVc3CcCcName supports 128 characters."
+    ::= { xfVc3CcCrossConnect 4 }        
+
+xfVc3CcCrossConnectEntry OBJECT-TYPE
+    SYNTAX      XfVc3CcCrossConnectEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This entry is used to model two bi-directional cross-connected
+        interfaces.
+
+        Cross-connects can be created through provisioning,
+        automatically by the network element or due to the presence of
+        protection interfaces.
+
+        When creating an entry through provisioning, the following
+        procedures are used to cross-connect two interfaces:
+        (1) The manager obtains a unique xfVc3CcCcIndex by reading the
+            xfVc3CcCcIndexNext object.
+        (2) Next, the manager creates a set of one or more rows in the
+            Cross Connect Table.  For a point-to-point connection, one
+            row is created by the manager.  For a point-to-multipoint
+            connection, one row is created for each leaf to an
+            unprotected interface, or one row is created for each leaf
+            to a pair of protected interfaces.  Additional rows for
+            protection interfaces are created automatically by the
+            agent.  Each row is indexed by the ifIndex values of the
+            two interfaces at the ends of that cross-connection.  This
+            set of rows is identified by a single value of
+            xfVc3CcCcIndex.  As each row is created, the agent checks if
+            the requested topology is supported and also checks for
+            internal errors in building the cross-connect.  The
+            xfVc3CcIfCrossConnectIdentifier values in the corresponding
+            xfVc3CcInterfaceTable rows are filled in by the agent at
+            this point.  The traffic flow is turned on when the manager
+            sets xfVc3CcCcRowStatus to active(1) or createAndGo(4).
+
+        A cross-connect identified by a particular value of
+        xfVc3CcCcIndex is released by setting xfVc3CcCcRowStatus of all
+        rows identified by this value of xfVc3CcCcIndex, other than the
+        rows with a xfVc3CcCcType value of 'protection', to destroy(6).
+        The agent may release associated resources, and the
+        xfVc3CcIfCrossConnectIdentifier values in the corresponding
+        xfVc3CcInterfaceTable are removed.  Note that a situation when
+        only a subset of the associated rows are deleted corresponds to
+        a topology change.
+
+        At the discretion of the agent, a cross-connect may be
+        reconfigured by adding and/or deleting leafs to/from the
+        topology as per the cross-connect establishment/retirement
+        guidelines described below.
+
+        Each leaf is added by creating a row with the same value of
+        xfVc3CcCcIndex in this table.  Each leaf is deleted by deleting
+        a row with the same value of xfVc3CcCcIndex in the table. To
+        delete an entire point-to-multipoint connection, all entries
+        with the same xfVc3CcCcIndex value must be deleted."
+    INDEX       { xfVc3CcCcIndex,
+                  xfVc3CcCcLowIfIndex,
+                  xfVc3CcCcHighIfIndex }
+    ::= { xfVc3CcCrossConnectTable 1 }
+
+XfVc3CcCrossConnectEntry ::=
+    SEQUENCE  {
+        xfVc3CcCcIndex                        Integer32,
+        xfVc3CcCcLowIfIndex                   InterfaceIndex,
+        xfVc3CcCcHighIfIndex                  InterfaceIndex,
+        xfVc3CcCcLowIfDirType                 XfCcIfDirType,
+        xfVc3CcCcHighIfDirType                XfCcIfDirType,
+        xfVc3CcCcType                         INTEGER,
+        xfVc3CcCcCreationTime                 TimeStamp,
+        xfVc3CcCcOperStatus                   XfCcCrossConnectOperStatus,
+        xfVc3CcCrossConnectionLastChange      TimeStamp,
+        xfVc3CcCcName                         SnmpAdminString,
+        xfVc3CcCcRowStatus                    RowStatus    }
+
+
+
+xfVc3CcCcIndex OBJECT-TYPE
+    SYNTAX      Integer32 (1..2147483647)
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "A unique value used to identify this cross-connect.  For each
+        interface associated with this cross-connect, the agent reports
+        this cross-connect index value in the
+        xfVc3CcIfCrossConnectIdentifier object of the corresponding
+        xfVc3CcInterfaceTable entry.
+        When the value of this index is equal to the current value
+        of xfVc3CcCcIndexNext, the agent will modify the value of
+        xfVc3CcCcIndexNext to the next unassigned index."
+    ::= { xfVc3CcCrossConnectEntry 1 }
+
+xfVc3CcCcLowIfIndex OBJECT-TYPE
+    SYNTAX      InterfaceIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "The value of this object is equal to MIB II's ifIndex value of
+        the interface for this cross-connect.  The term low implies
+        that this interface has the numerically lower ifIndex value
+        than the other interface identified in the same
+        xfVc3CcCrossConnectEntry."
+    ::= { xfVc3CcCrossConnectEntry 2 }
+
+
+xfVc3CcCcHighIfIndex OBJECT-TYPE
+    SYNTAX      InterfaceIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "The value of this object is equal to MIB II's ifIndex value of
+        the interface for this cross-connect.  The term high implies
+        that this interface has the numerically higher ifIndex value
+        than the other interface identified in the same
+        xfVc3CcCrossConnectEntry."
+    ::= { xfVc3CcCrossConnectEntry 3 }
+
+
+xfVc3CcCcLowIfDirType OBJECT-TYPE
+    SYNTAX      XfCcIfDirType
+    MAX-ACCESS  read-create
+    STATUS      current
+    DESCRIPTION
+        "TBA"
+    ::= { xfVc3CcCrossConnectEntry 4 }
+
+
+xfVc3CcCcHighIfDirType OBJECT-TYPE
+    SYNTAX      XfCcIfDirType
+    MAX-ACCESS  read-create
+    STATUS      current
+    DESCRIPTION
+        "TBA"
+    ::= { xfVc3CcCrossConnectEntry 5 }
+
+
+xfVc3CcCcType OBJECT-TYPE
+    SYNTAX      INTEGER {
+                    other (1),
+                    provisioned(2),
+                    automatic(3),
+                    protection(4)
+                }
+    MAX-ACCESS  read-create
+    STATUS      current
+    DESCRIPTION
+        "The type of call control used to establish a cross-connect.
+
+        If no value of this object is provided when a row is activated
+        through SNMP, then the value 'provisioned' is assigned by the
+        agent.
+
+        For point-to-point cross-connects, the only sets allowed on
+        this object are during initial row creation, and to change the
+        value of this object from 'protection' to 'provisioned', which
+        automatically changes the xfVc3CcCcType value of the
+        'provisioned' cross-connect with the same xfVc3CcCcIndex value
+        to 'protection'.  A change from 'protection' to 'provisioned'
+        is allowed when xfVc3CcCcRowStatus is 'active'.
+
+        The use is as follows:
+            provisioned(2)
+                Provisioned by the user or by a management system
+                using the Command Line Interface, SNMP, or other
+                means of management access to the network element.
+            automatic(3)
+                Created automatically by the network element, without
+                user, management, or control plane intervention.  In
+                particular, this is used to represent fixed interface
+                cross-connects due to the presence of entities such as
+                optical add/drop multiplexers.
+            protection(4)
+                Created to include the second of a pair of protected
+                interfaces in a cross-connect, when a cross-connect
+                entry for the first interface in the pair is being
+                created.  Such an entry cannot be deleted directly.
+                It is deleted when the cross-connect entry containing
+                the other interface(s) of the protected pair(s) is
+                deleted."
+    ::= { xfVc3CcCrossConnectEntry 6 }
+
+xfVc3CcCcCreationTime OBJECT-TYPE
+    SYNTAX      TimeStamp
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of MIB II's sysUpTime object at the time this
+        bi-directional cross-connect was created.  If the current state
+        was entered prior to the last re-initialization of the agent
+        then this object contains a zero value."
+    ::= { xfVc3CcCrossConnectEntry 7 }
+
+xfVc3CcCcOperStatus OBJECT-TYPE
+    SYNTAX      XfCcCrossConnectOperStatus
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The operational status of the cross-connection"
+    ::= { xfVc3CcCrossConnectEntry 8 }
+
+xfVc3CcCrossConnectionLastChange OBJECT-TYPE
+    SYNTAX      TimeStamp
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of MIB II's sysUpTime at the time this cross-connect
+        entered its current operational state.
+        If the current state was entered prior to the last
+        re-initialization of the agent then this object contains a zero
+        value."
+    ::= { xfVc3CcCrossConnectEntry 9 }
+
+
+xfVc3CcCcName OBJECT-TYPE
+   SYNTAX      SnmpAdminString (SIZE (1..128))
+   MAX-ACCESS  read-create
+   STATUS      current
+   DESCRIPTION
+       "A textual name for the crossconnection"
+   ::= { xfVc3CcCrossConnectEntry 10 }
+
+
+
+xfVc3CcCcRowStatus OBJECT-TYPE
+    SYNTAX      RowStatus
+    MAX-ACCESS  read-create
+    STATUS      current
+    DESCRIPTION
+        "The status of this entry in the xfVc3CcCrossConnectTable.  This
+        object is used to create a cross-connect or to modify or delete
+        an existing cross-connect.
+
+        Write access does not apply to entries with xfVc3CcCcType values
+        of 'automatic' or 'protection'.
+
+        Entries with a xfVc3CcCcType value of 'protection' cannot be
+        deleted using this object.  Such an entry is deleted when the
+        cross-connect entry containing the other interface(s) of the
+        protected pair(s) is deleted.
+        "
+    ::= { xfVc3CcCrossConnectEntry 11 }
+
+
+
+--
+-- VC3 Cc EVENTS
+--
+
+xfVc3CcMibNotificationsPrefix OBJECT IDENTIFIER
+    ::= {  xfVc3CcMibNotifications 0 }
+
+xfVc3CcMibEventOperStatus NOTIFICATION-TYPE
+   OBJECTS { xfVc3CcCcOperStatus
+           }
+   STATUS  current
+   DESCRIPTION
+       "An  xfVc3CcMibEventOperStatus notification is sent when the
+        value of an instance of xfVc3CcCcOperStatus changes."
+   ::= { xfVc3CcMibNotificationsPrefix 1 }
+
+
+
+-- VC3 Cross-Connect Conformance
+
+xfVc3CcMIBCompliances OBJECT IDENTIFIER ::= { xfVc3CcMibConformance 1 }
+xfVc3CcMIBGroups      OBJECT IDENTIFIER ::= { xfVc3CcMibConformance 2 }
+
+
+-- VC3 Compliance
+
+
+xfVc3CcMIBCompliance MODULE-COMPLIANCE
+        STATUS current
+        DESCRIPTION
+                "The compliance statement for entities which implement
+                this Interface Cross-Connect MIB"
+        MODULE        -- this module
+            MANDATORY-GROUPS {  xfVc3CcInterfaceGroup,
+                                xfVc3CcCrossConnectGroup }
+
+            GROUP xfVc3CcEventOptional
+            DESCRIPTION
+                "Optional VC3 notifications."
+            OBJECT      xfVc3CcCcType
+            MIN-ACCESS  read-only
+            DESCRIPTION
+                "Write access is not required."
+
+            OBJECT      xfVc3CcCcRowStatus
+            MIN-ACCESS  read-only
+            DESCRIPTION
+                "Write access does not apply when the only supported value
+                of xfVc3CcCcType is 'automatic', or when the only two
+                supported values are 'automatic' and 'protection'."
+
+        ::= { xfVc3CcMIBCompliances 1 }
+
+
+-- VC3 Units of Conformance
+
+xfVc3CcInterfaceGroup OBJECT-GROUP
+        OBJECTS { xfVc3CcIfSourceCcIndex,
+                  xfVc3CcIfSinkCcIndex
+        }
+        STATUS current
+        DESCRIPTION
+                "Object needed to implement interfaces with
+                 cross-connections."
+        ::= { xfVc3CcMIBGroups 1 }
+
+xfVc3CcCrossConnectGroup  OBJECT-GROUP
+        OBJECTS { xfVc3CcCcIndexNext,
+                  xfVc3CcCrossConnectTableLastChange,
+                  -- ONLY DATA-COLUMN: xfVc3CcCcIndex,
+                  -- ONLY DATA-COLUMN: xfVc3CcCcLowIfIndex,
+                  -- ONLY DATA-COLUMN: xfVc3CcCcHighIfIndex,
+                  xfVc3CcCcLowIfDirType,
+                  xfVc3CcCcHighIfDirType,
+                  xfVc3CcCcType,
+                  xfVc3CcCcCreationTime,
+                  xfVc3CcCcOperStatus,
+                  xfVc3CcCrossConnectionLastChange,
+                  xfVc3CcCcName,
+                  xfVc3CcCcRowStatus,
+                  xfVc3CcCcVariant
+        }
+        STATUS current
+        DESCRIPTION
+            "Collection of objects needed to implement
+             crossconnections between interfaces."
+        ::= { xfVc3CcMIBGroups 2 }
+
+
+xfVc3CcEventOptional NOTIFICATION-GROUP
+   NOTIFICATIONS { xfVc3CcMibEventOperStatus
+                 }
+   STATUS    current
+   DESCRIPTION
+       "A collection of crossconnection notifications that may
+        optionally be implemented."
+   ::= {  xfVc3CcMIBGroups 3 }
+
+
+
+-- xfVc4CcInterface Group
+
+xfVc4CcInterfaceTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfVc4CcInterfaceEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all AU4CTP and VC4TTP interfaces that are cross-connected
+        to one or more other interfaces.  The table is used to find
+        cross-connects that include a particular interface.
+        The table lists as well all AU4 connection termination point interfaces
+        and VC4 trail termination point interfaces that are not
+        cross connected but which are ready for cross connecting
+        (e.g. if the particular higher order assembler substructure
+        is created).
+        "
+    ::= { xfVc4CcInterface 1 }
+
+xfVc4CcInterfaceEntry OBJECT-TYPE
+    SYNTAX      XfVc4CcInterfaceEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry is automatically created when a AU4CTP or VC4TTP interface is ready for cross connecting.
+        An entry is updated when a AU4CTP or VC4TTP is cross-connected
+        to one or more other termination points (i.e. when the associated entries in the
+        xfVc4CcCrossConnectTable have been created).
+
+        An entry is automatically deleted when a AU4CTP or VC4TTP is no longer involved in
+        a cross connection and no longer ready for cross connecting
+        (e.g. if the particular higher order assembler substructure is deleted).
+        "    INDEX       { ifIndex }
+    ::= { xfVc4CcInterfaceTable 1 }
+
+XfVc4CcInterfaceEntry ::=
+    SEQUENCE  {
+        xfVc4CcIfSourceCcIndex  Integer32,
+        xfVc4CcIfSinkCcIndex    Integer32
+    }
+
+xfVc4CcIfSourceCcIndex OBJECT-TYPE
+    SYNTAX      Integer32 (0..2147483547)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of the xfVc4CcCcIndex used in the xfVc4CcCrossConnectTable
+        to identify a cross-connect that includes this interface as source. Each
+        interface included in that cross-connect has an entry in this
+        table with the same value of this object, in addition to the
+        entries in the xfVc4CcCrossConnectTable with this value of
+        xfVc4CcCcIndex.
+        A value of 0 indicates that the interface is not involved in a cross connection
+        as source, but ready for cross connecting."
+    ::= { xfVc4CcInterfaceEntry 1 }
+
+xfVc4CcIfSinkCcIndex OBJECT-TYPE
+    SYNTAX      Integer32 (0..2147483547)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of the xfVc4CcCcIndex used in the xfVc4CcCrossConnectTable
+        to identify a cross-connect that includes this interface as sink. Each
+        interface included in that cross-connect has an entry in this
+        table with the same value of this object, in addition to the
+        entries in the xfVc4CcCrossConnectTable with this value of
+        xfVc4CcCcIndex.
+        A value of 0 indicates that the interface is not involved in a cross connection
+        as sink, but ready for cross connecting."
+    ::= { xfVc4CcInterfaceEntry 2 }
+
+
+-- xfVc4Cc Cross-Connect Group
+
+
+xfVc4CcCcIndexNext OBJECT-TYPE
+    SYNTAX      Integer32 (0..2147483647)
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "This object contains an appropriate value to be used for
+        xfVc4CcCcIndex when creating entries in the
+        xfVc4CcCrossConnectTable. The value 0 indicates that no
+        unassigned entries are available. To obtain the xfVc4CcCcIndex
+        value for a new entry, the manager issues a management protocol
+        retrieval operation to obtain the current value of this object.
+        The agent will modify the value to the next unassigned index,
+        when a new row is created in xfVc4CcCrossConnectTable with
+        xfVc4CcCcIndex value equal to the current value of this object.
+        After deletion of a row in xfVc4CcCrossConnectTable the agent
+        will determine through its local policy when its index value
+        will be made available for reuse.
+
+        This object has not to be used when cross-connections are created
+        with index 1. In that case the agent will autoatically assign a new
+        index.
+        "
+    ::= { xfVc4CcCrossConnect 1 }
+
+xfVc4CcCrossConnectTableLastChange  OBJECT-TYPE
+    SYNTAX      TimeStamp
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of sysUpTime at the time of the last
+        creation, deletion or modification of an entry
+        in the xfVc4CcCrossConnectTable.
+        If the xfVc4CcCrossConnectTable entries has been unchanged
+        since the last re-initialization of the local network
+        management subsystem, then this object contains a zero value."
+    ::= { xfVc4CcCrossConnect 2 }
+
+xfVc4CcCrossConnectTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfVc4CcCrossConnectEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table contains configuration and state information of
+        point-to-point and point-to-multipoint interface
+        cross-connects.
+
+        Each entry in the table models a crossconnection between interfaces
+        of the same type.
+
+        For a point-to-point cross-connect, there can be up to four
+        entries in the table with the same value of xfVc4CcCcIndex, due
+        to the presence of protection interfaces.
+        All four entries are associated with each other due to
+        APS configuration. If both sides are configured
+        for 1+1 APS protection, and a cross-connect between
+        interfaces is created, then the following
+        cross-connect entries will be present:
+
+        The cross-connect with xfVc4CcCcType value 'provisioned' is the
+        one that is created through cross-connect configuration and the
+        cross-connects with xfVc4CcCcType value 'protection' are those
+        that are created automatically due to APS configuration.
+
+        Low interface    High interface        xfVc4CcCcType
+
+        A                C                     provisioned
+        A                D                     protection
+        B                C                     protection
+        B                D                     protection
+
+        When the cross-connect between A and C is deleted, all four
+        cross-connect entries will disappear.
+
+        Each side of the point-to-point cross-connect can have up to
+        two interfaces, for example when SONET 1+1 Automatic
+        Protection Switching (APS) is used.  Any one of the four
+        entries of a point-to-point cross-connect can be created,
+        and the remaining three entries will be created
+        automatically. However only the 'provisioned' entry can be
+        explicitly deleted, which also causes the corresponding
+        'protection' entries to be deleted.  Note that use of the
+        word 'protection' is different from its usage in SONET 1+1 APS.
+        In particular, there is no requirement that the 'provisioned'
+        cross-connect must be between the SONET 'working' interfaces.
+
+        A point-to-multipoint connection consists of one root and
+        many leaves.  Copies of the traffic received at the root
+        interface are transmitted out each of the leaf interfaces.
+
+        For a point-to-multipoint cross-connect with N leafs,
+        the manager creates N 'provisioned' entries in this table.
+        Where N is determined by the manager based on some application.
+        In the presence of  APS configuration, the same
+        point-to-multipoint (N leafs) cross-connect, in addition
+        to having N 'provisioned' entries in this table, can have upto
+        an additional 3N 'protection' entries automatically configured.
+
+        For a point-to-multipoint cross-connect with N leafs,
+        all N entries have the same xfVc12CcCcIndex.
+
+        The terms low and high are chosen to represent numerical
+        ordering of the two interfaces associated with a cross-connect.
+        That is, the interface with the lower value of ifIndex is
+        termed 'low', while the other interface associated with the
+        cross-connect is termed 'high'."
+    ::= { xfVc4CcCrossConnect 3 }
+    
+xfVc4CcCcVariant OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "To indicate if the xfVc4CcCcName supports 128 characters."
+    ::= { xfVc4CcCrossConnect 4 }        
+
+xfVc4CcCrossConnectEntry OBJECT-TYPE
+    SYNTAX      XfVc4CcCrossConnectEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This entry is used to model two bi-directional cross-connected
+        interfaces.
+
+        Cross-connects can be created through provisioning,
+        automatically by the network element or due to the presence of
+        protection interfaces.
+
+        When creating an entry through provisioning, the following
+        procedures are used to cross-connect two interfaces:
+        (1) The manager obtains a unique xfVc4CcCcIndex by reading the
+            xfVc4CcCcIndexNext object.
+        (2) Next, the manager creates a set of one or more rows in the
+            Cross Connect Table.  For a point-to-point connection, one
+            row is created by the manager.  For a point-to-multipoint
+            connection, one row is created for each leaf to an
+            unprotected interface, or one row is created for each leaf
+            to a pair of protected interfaces.  Additional rows for
+            protection interfaces are created automatically by the
+            agent.  Each row is indexed by the ifIndex values of the
+            two interfaces at the ends of that cross-connection.  This
+            set of rows is identified by a single value of
+            xfVc4CcCcIndex.  As each row is created, the agent checks if
+            the requested topology is supported and also checks for
+            internal errors in building the cross-connect.  The
+            xfVc4CcIfCrossConnectIdentifier values in the corresponding
+            xfVc4CcInterfaceTable rows are filled in by the agent at
+            this point.  The traffic flow is turned on when the manager
+            sets xfVc4CcCcRowStatus to active(1) or createAndGo(4).
+
+        A cross-connect identified by a particular value of
+        xfVc4CcCcIndex is released by setting xfVc4CcCcRowStatus of all
+        rows identified by this value of xfVc4CcCcIndex, other than the
+        rows with a xfVc4CcCcType value of 'protection', to destroy(6).
+        The agent may release associated resources, and the
+        xfVc4CcIfCrossConnectIdentifier values in the corresponding
+        xfVc4CcInterfaceTable are removed.  Note that a situation when
+        only a subset of the associated rows are deleted corresponds to
+        a topology change.
+
+        At the discretion of the agent, a cross-connect may be
+        reconfigured by adding and/or deleting leafs to/from the
+        topology as per the cross-connect establishment/retirement
+        guidelines described below.
+
+        Each leaf is added by creating a row with the same value of
+        xfVc4CcCcIndex in this table.  Each leaf is deleted by deleting
+        a row with the same value of xfVc4CcCcIndex in the table. To
+        delete an entire point-to-multipoint connection, all entries
+        with the same xfVc4CcCcIndex value must be deleted."
+    INDEX       { xfVc4CcCcIndex,
+                  xfVc4CcCcLowIfIndex,
+                  xfVc4CcCcHighIfIndex }
+    ::= { xfVc4CcCrossConnectTable 1 }
+
+XfVc4CcCrossConnectEntry ::=
+    SEQUENCE  {
+        xfVc4CcCcIndex                        Integer32,
+        xfVc4CcCcLowIfIndex                   InterfaceIndex,
+        xfVc4CcCcHighIfIndex                  InterfaceIndex,
+        xfVc4CcCcLowIfDirType                 XfCcIfDirType,
+        xfVc4CcCcHighIfDirType                XfCcIfDirType,
+        xfVc4CcCcType                         INTEGER,
+        xfVc4CcCcCreationTime                 TimeStamp,
+        xfVc4CcCcOperStatus                   XfCcCrossConnectOperStatus,
+        xfVc4CcCrossConnectionLastChange      TimeStamp,
+        xfVc4CcCcName                         SnmpAdminString,
+        xfVc4CcCcRowStatus                    RowStatus    }
+
+
+
+xfVc4CcCcIndex OBJECT-TYPE
+    SYNTAX      Integer32 (1..2147483647)
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "A unique value used to identify this cross-connect.  For each
+        interface associated with this cross-connect, the agent reports
+        this cross-connect index value in the
+        xfVc4CcIfCrossConnectIdentifier object of the corresponding
+        xfVc4CcInterfaceTable entry.
+        When the value of this index is equal to the current value
+        of xfVc4CcCcIndexNext, the agent will modify the value of
+        xfVc4CcCcIndexNext to the next unassigned index."
+    ::= { xfVc4CcCrossConnectEntry 1 }
+
+xfVc4CcCcLowIfIndex OBJECT-TYPE
+    SYNTAX      InterfaceIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "The value of this object is equal to MIB II's ifIndex value of
+        the interface for this cross-connect.  The term low implies
+        that this interface has the numerically lower ifIndex value
+        than the other interface identified in the same
+        xfVc4CcCrossConnectEntry."
+    ::= { xfVc4CcCrossConnectEntry 2 }
+
+
+xfVc4CcCcHighIfIndex OBJECT-TYPE
+    SYNTAX      InterfaceIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "The value of this object is equal to MIB II's ifIndex value of
+        the interface for this cross-connect.  The term high implies
+        that this interface has the numerically higher ifIndex value
+        than the other interface identified in the same
+        xfVc4CcCrossConnectEntry."
+    ::= { xfVc4CcCrossConnectEntry 3 }
+
+xfVc4CcCcLowIfDirType OBJECT-TYPE
+    SYNTAX      XfCcIfDirType
+    MAX-ACCESS  read-create
+    STATUS      current
+    DESCRIPTION
+        "TBA"
+    ::= { xfVc4CcCrossConnectEntry 4 }
+
+xfVc4CcCcHighIfDirType OBJECT-TYPE
+    SYNTAX      XfCcIfDirType
+    MAX-ACCESS  read-create
+    STATUS      current
+    DESCRIPTION
+        "TBA"
+    ::= { xfVc4CcCrossConnectEntry 5 }
+
+
+xfVc4CcCcType OBJECT-TYPE
+    SYNTAX      INTEGER {
+                    other (1),
+                    provisioned(2),
+                    automatic(3),
+                    protection(4)
+                }
+    MAX-ACCESS  read-create
+    STATUS      current
+    DESCRIPTION
+        "The type of call control used to establish a cross-connect.
+
+        If no value of this object is provided when a row is activated
+        through SNMP, then the value 'provisioned' is assigned by the
+        agent.
+
+        For point-to-point cross-connects, the only sets allowed on
+        this object are during initial row creation, and to change the
+        value of this object from 'protection' to 'provisioned', which
+        automatically changes the xfVc4CcCcType value of the
+        'provisioned' cross-connect with the same xfVc4CcCcIndex value
+        to 'protection'.  A change from 'protection' to 'provisioned'
+        is allowed when xfVc4CcCcRowStatus is 'active'.
+
+        The use is as follows:
+            provisioned(2)
+                Provisioned by the user or by a management system
+                using the Command Line Interface, SNMP, or other
+                means of management access to the network element.
+            automatic(3)
+                Created automatically by the network element, without
+                user, management, or control plane intervention.  In
+                particular, this is used to represent fixed interface
+                cross-connects due to the presence of entities such as
+                optical add/drop multiplexers.
+            protection(4)
+                Created to include the second of a pair of protected
+                interfaces in a cross-connect, when a cross-connect
+                entry for the first interface in the pair is being
+                created.  Such an entry cannot be deleted directly.
+                It is deleted when the cross-connect entry containing
+                the other interface(s) of the protected pair(s) is
+                deleted."
+    ::= { xfVc4CcCrossConnectEntry 6 }
+
+xfVc4CcCcCreationTime OBJECT-TYPE
+    SYNTAX      TimeStamp
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of MIB II's sysUpTime object at the time this
+        bi-directional cross-connect was created.  If the current state
+        was entered prior to the last re-initialization of the agent
+        then this object contains a zero value."
+    ::= { xfVc4CcCrossConnectEntry 7 }
+
+xfVc4CcCcOperStatus OBJECT-TYPE
+    SYNTAX      XfCcCrossConnectOperStatus
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The operational status of the cross-connection"
+    ::= { xfVc4CcCrossConnectEntry 8 }
+
+xfVc4CcCrossConnectionLastChange OBJECT-TYPE
+    SYNTAX      TimeStamp
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "The value of MIB II's sysUpTime at the time this cross-connect
+        entered its current operational state.
+        If the current state was entered prior to the last
+        re-initialization of the agent then this object contains a zero
+        value."
+    ::= { xfVc4CcCrossConnectEntry 9 }
+
+
+xfVc4CcCcName OBJECT-TYPE
+   SYNTAX      SnmpAdminString (SIZE (1..128))
+   MAX-ACCESS  read-create
+   STATUS      current
+   DESCRIPTION
+       "A textual name for the crossconnection"
+   ::= { xfVc4CcCrossConnectEntry 10 }
+
+
+
+xfVc4CcCcRowStatus OBJECT-TYPE
+    SYNTAX      RowStatus
+    MAX-ACCESS  read-create
+    STATUS      current
+    DESCRIPTION
+        "The status of this entry in the xfVc4CcCrossConnectTable.  This
+        object is used to create a cross-connect or to modify or delete
+        an existing cross-connect.
+
+        Write access does not apply to entries with xfVc4CcCcType values
+        of 'automatic' or 'protection'.
+
+        Entries with a xfVc4CcCcType value of 'protection' cannot be
+        deleted using this object.  Such an entry is deleted when the
+        cross-connect entry containing the other interface(s) of the
+        protected pair(s) is deleted."
+    ::= { xfVc4CcCrossConnectEntry 11 }
+
+
+
+--
+-- VC4 Cc EVENTS
+--
+
+xfVc4CcMibNotificationsPrefix OBJECT IDENTIFIER
+    ::= {  xfVc4CcMibNotifications 0 }
+
+xfVc4CcMibEventOperStatus NOTIFICATION-TYPE
+   OBJECTS { xfVc4CcCcOperStatus }
+   STATUS  current
+   DESCRIPTION
+       "An  xfVc4CcMibEventOperStatus notification is sent when the
+        value of an instance of xfVc4CcCcOperStatus changes."
+   ::= { xfVc4CcMibNotificationsPrefix 1 }
+
+
+
+-- VC4 Cross-Connect Conformance
+
+xfVc4CcMIBCompliances OBJECT IDENTIFIER ::= { xfVc4CcMibConformance 1 }
+xfVc4CcMIBGroups      OBJECT IDENTIFIER ::= { xfVc4CcMibConformance 2 }
+
+
+-- VC4Compliance
+
+
+xfVc4CcMIBCompliance MODULE-COMPLIANCE
+        STATUS current
+        DESCRIPTION
+                "The compliance statement for entities which implement
+                this Interface Cross-Connect MIB"
+        MODULE        -- this module
+            MANDATORY-GROUPS {  xfVc4CcInterfaceGroup,
+                                xfVc4CcCrossConnectGroup }
+
+            GROUP xfVc4CcEventOptional
+            DESCRIPTION
+                "Optional VC4 notifications."
+
+            OBJECT      xfVc4CcCcType
+            MIN-ACCESS  read-only
+            DESCRIPTION
+                "Write access is not required."
+
+            OBJECT      xfVc4CcCcRowStatus
+            MIN-ACCESS  read-only
+            DESCRIPTION
+                "Write access does not apply when the only supported value
+                of xfVc4CcCcType is 'automatic', or when the only two
+                supported values are 'automatic' and 'protection'."
+
+        ::= { xfVc4CcMIBCompliances 1 }
+
+
+-- VC4 Units of Conformance
+
+xfVc4CcInterfaceGroup OBJECT-GROUP
+        OBJECTS { xfVc4CcIfSourceCcIndex,
+                  xfVc4CcIfSinkCcIndex
+        }
+        STATUS current
+        DESCRIPTION
+                "Object needed to implement interfaces with
+                 cross-connections."
+        ::= { xfVc4CcMIBGroups 1 }
+
+xfVc4CcCrossConnectGroup  OBJECT-GROUP
+        OBJECTS { xfVc4CcCcIndexNext,
+                  xfVc4CcCrossConnectTableLastChange,
+                  -- ONLY DATA-COLUMNS: xfVc4CcCcIndex,
+                  -- ONLY DATA-COLUMNS: xfVc4CcCcLowIfIndex,
+                  -- ONLY DATA-COLUMNS: xfVc4CcCcHighIfIndex,
+                  xfVc4CcCcLowIfDirType,
+                  xfVc4CcCcHighIfDirType,
+                  xfVc4CcCcType,
+                  xfVc4CcCcCreationTime,
+                  xfVc4CcCcOperStatus,
+                  xfVc4CcCrossConnectionLastChange,
+                  xfVc4CcCcName,
+                  xfVc4CcCcRowStatus,
+                  xfVc4CcCcVariant
+        }
+        STATUS current
+        DESCRIPTION
+            "Collection of objects needed to implement
+             crossconnections between interfaces."
+        ::= { xfVc4CcMIBGroups 2 }
+
+
+xfVc4CcEventOptional NOTIFICATION-GROUP
+   NOTIFICATIONS { xfVc4CcMibEventOperStatus
+                 }
+   STATUS    current
+   DESCRIPTION
+       "A collection of crossconnection notifications that may
+        optionally be implemented."
+   ::= {  xfVc4CcMIBGroups 3 }
+
+END
+
+

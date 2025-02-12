@@ -318,7 +318,7 @@ sub execute_local_agent {
         $logger->info("Agente ejecutado con PID: $pid");
 
         # Mostrar el PID al usuario
-        $text_widget->insert('end', "Agente ejecutado con éxito (PID: $pid).\n");
+        $text_widget->insert('end', "Agente ejecutado con exito (PID: $pid).\n");
         $text_widget->see('end');
 
         # Opcional: Botón para detener el proceso

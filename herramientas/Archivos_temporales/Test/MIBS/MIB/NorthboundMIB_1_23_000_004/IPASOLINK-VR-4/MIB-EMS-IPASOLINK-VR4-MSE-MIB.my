@@ -1,0 +1,268 @@
+    
+    
+MIB-EMS-IPASOLINK-VR4-MSE-MIB DEFINITIONS ::= BEGIN
+    
+    IMPORTS
+        InterfaceIndex
+            FROM IF-MIB
+        OBJECT-TYPE
+            FROM RFC-1212
+        IpAddress
+            FROM RFC1155-SMI
+        enterprises
+            FROM SNMPv2-SMI;
+    
+    IpeEnableDisableValue ::=
+        INTEGER { invalid(0), disabled(1), enabled(2) }
+    
+    
+    SeverityValue ::=
+        INTEGER { cleared(1), indetermine(2), critical(3), major(4),
+                        minor(5), warning(6), notReport(7) }
+    
+    
+    -- 1.3.6.1.4.1.119
+    nec OBJECT IDENTIFIER
+        ::= { enterprises 119 }
+    
+    -- 1.3.6.1.4.1.119.2
+    nec-mib OBJECT IDENTIFIER
+        ::= { nec 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3
+    necProductDepend OBJECT IDENTIFIER
+        ::= { nec-mib 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69
+    radioEquipment OBJECT IDENTIFIER
+        ::= { necProductDepend 69 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203
+    commonPnms OBJECT IDENTIFIER
+        ::= { radioEquipment 203 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513
+    ipasolinkVr4 OBJECT IDENTIFIER
+        ::= { commonPnms 513 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501
+    pasoNeoIpe-common OBJECT IDENTIFIER
+        ::= { ipasolinkVr4 501 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3
+    alarmStatusGroup OBJECT IDENTIFIER
+        ::= { pasoNeoIpe-common 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40
+    asMseGroup OBJECT IDENTIFIER
+        ::= { alarmStatusGroup 40 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.1
+    asMseCardTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF AsMseCardEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "This table represents the alarm status for mse card."
+        ::= { asMseGroup 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.1.1
+    asMseCardEntry OBJECT-TYPE
+        SYNTAX      AsMseCardEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { asMseCardNEAddress, asMseCardIndex }
+        ::= { asMseCardTable 1 }
+    
+    AsMseCardEntry ::= SEQUENCE {
+        asMseCardIndex          INTEGER,
+        asMseCardNEAddress      IpAddress,
+        asMseCardModuleFail     SeverityValue,
+        asMseCardComFailAlarm   SeverityValue,
+        asMseCardUnequipped     SeverityValue,
+        asMseCardTypeMismatch   SeverityValue,
+        asMseCardBusErrorTx     SeverityValue,
+        asMseCardBusErrorRx     SeverityValue,
+        asMseCardClkFail        SeverityValue
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.1.1.1
+    asMseCardIndex OBJECT-TYPE
+        SYNTAX      INTEGER
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "index of this table. The value is equivalent to the physical
+             slot number + 1."
+        ::= { asMseCardEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.1.1.2
+    asMseCardNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved"
+        ::= { asMseCardEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.1.1.3
+    asMseCardModuleFail OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "MSE Module Alarm"
+        ::= { asMseCardEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.1.1.4
+    asMseCardComFailAlarm OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "MSE Communication FAIL Alarm."
+        ::= { asMseCardEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.1.1.5
+    asMseCardUnequipped OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "MSE Unequipped Alarm. The alarm shows status that the
+             provisioned card is not installed."
+        ::= { asMseCardEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.1.1.6
+    asMseCardTypeMismatch OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "MSE Type Mismatch Alarm. The alarm shows status that the card
+             which is different from provisioned is installed."
+        ::= { asMseCardEntry 6 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.1.1.7
+    asMseCardBusErrorTx OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "MSE Tx Bus Error Alarm."
+        ::= { asMseCardEntry 7 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.1.1.8
+    asMseCardBusErrorRx OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "MSE Rx Bus Error Alarm"
+        ::= { asMseCardEntry 8 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.1.1.9
+    asMseCardClkFail OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "obsoleted"
+        ::= { asMseCardEntry 9 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.2
+    asMseLineTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF AsMseLineEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "MSE E1 Channel Alarm Status table."
+        ::= { asMseGroup 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.2.1
+    asMseLineEntry OBJECT-TYPE
+        SYNTAX      AsMseLineEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { asMseLineNEAddress, asMseLineIfIndex }
+        ::= { asMseLineTable 1 }
+    
+    AsMseLineEntry ::= SEQUENCE {
+        asMseLineIfIndex            InterfaceIndex,
+        asMseLineNEAddress          IpAddress,
+        asMseLineLof                SeverityValue,
+        asMseLineCrc4Error          SeverityValue,
+        asMseLineBfrUnderrun        SeverityValue,
+        asMseLineAdaptiveClkStatus  INTEGER,
+        asMseLineRdi                INTEGER
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.2.1.1
+    asMseLineIfIndex OBJECT-TYPE
+        SYNTAX      InterfaceIndex
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table."
+        ::= { asMseLineEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.2.1.2
+    asMseLineNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved"
+        ::= { asMseLineEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.2.1.3
+    asMseLineLof OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "MSE E1 Channel LOF Alarm."
+        ::= { asMseLineEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.2.1.4
+    asMseLineCrc4Error OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "MSE E1 Channel CRC4 Error Alarm."
+        ::= { asMseLineEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.2.1.5
+    asMseLineBfrUnderrun OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "MSE E1 Channel TDM Buffer Underrun Alarm."
+        ::= { asMseLineEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.2.1.6
+    asMseLineAdaptiveClkStatus OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), holdover(1), acquiring(2),
+                        acquired(3) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "MSE E1 Channel Adaptive Clock Status."
+        ::= { asMseLineEntry 6 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.40.2.1.7
+    asMseLineRdi OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), normal(1), received(2) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "MSE E1 Channel RDI Alarm."
+        ::= { asMseLineEntry 7 }
+    
+END -- end of module MIB-EMS-IPASOLINK-VR4-MSE-MIB.

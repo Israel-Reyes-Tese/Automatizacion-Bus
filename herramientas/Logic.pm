@@ -150,7 +150,7 @@ sub crear_archivo_unix {
     }
     # Cierra el archivo
     close($fh);
-    print "Archivo '$nombre_archivo' creado con éxito.\n";
+    print "Archivo '$nombre_archivo' creado con exito.\n";
 }
 
 
@@ -174,7 +174,7 @@ sub transformar_archivos_unix {
     }
     # Cierra el archivo
     close($fh);
-    print "Archivo '$nombre_archivo' creado con éxito.\n";
+    print "Archivo '$nombre_archivo' creado con exito.\n";
 
 
     my $ruta_agente_completa = File::Spec->catfile($ruta_agente, $agente);
@@ -286,7 +286,7 @@ sub crear_archivo_unix {
         close $out;
 
         # Validate the new file format
-        open my $validate, '<', $nuevo_archivo or die "Error al abrir $nuevo_archivo para validación: $!";
+        open my $validate, '<', $nuevo_archivo or die "Error al abrir $nuevo_archivo para validacion: $!";
         my $is_unix_format = 1;
         while (my $line = <$validate>) {
             if ($line =~ /\r/ || $line =~ /\r\n/) {

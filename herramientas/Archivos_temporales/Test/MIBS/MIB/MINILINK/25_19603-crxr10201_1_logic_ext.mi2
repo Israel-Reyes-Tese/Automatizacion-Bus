@@ -1,0 +1,252 @@
+-- No.25/196 03-CRXR 102 01/1                MANAGEMENT INFORMATION BASE
+-- =====================================================================
+-- Prepared:  ETO/I/NT ETOALL                 Revision   B
+-- =====================================================================
+-- Copyright
+-- +++++++++
+-- 
+-- (c) Ericsson AS 2002. All rights reserved. No part of this document 
+-- may be reproduced in any form without the written permission of the 
+-- copyright holder.
+-- 
+-- Information
+-- +++++++++++
+-- 
+-- This document is mainly intended for internal development and contains 
+-- references to other documents. This document might however, after 
+-- agreement with Ericsson, be delivered to customers to serve as 
+-- information for design.
+-- All referenced documents are however Ericsson internal and are not 
+-- intended for customers or end users and will thus not be delivered 
+-- externally.
+--  
+-- Disclaimer
+-- ++++++++++
+-- The content of this document is subject to revision without notice 
+-- due to continued progress in methodology, design, and manufacturing. 
+-- Ericsson shall have no liability for any error or damage of any kind 
+-- resulting from the use of this document. 
+-- 
+-- =====================================================================
+-- 
+
+	XF-ENTITY-LOGICAL-EXT-MIB DEFINITIONS ::= BEGIN
+ 
+		IMPORTS
+			entPhysicalIndex, entLogicalIndex, entLogicalEntry			
+				FROM ENTITY-MIB			
+			OBJECT-GROUP, MODULE-COMPLIANCE			
+				FROM SNMPv2-CONF			
+			Integer32, OBJECT-TYPE, MODULE-IDENTITY			
+				FROM SNMPv2-SMI			
+			TEXTUAL-CONVENTION			
+				FROM SNMPv2-TC			
+			xfPlatform			
+				FROM XF-TOP-MIB;
+	
+	
+		xfEntLogicalExtMib MODULE-IDENTITY 
+			LAST-UPDATED "200408260911Z"		-- August 26, 2004 at 09:11 GMT
+			ORGANIZATION 
+				"Organization."
+			CONTACT-INFO 
+				"Contact-info."
+			DESCRIPTION 
+				"This MIB is an extension to the ENTITY-MIB and to
+				the entLogical part in specific. It provides
+				a name and 'contained in' and 'contains' relation to the 
+				logical entities.
+				It also provides a 'inverse' LP mapping for
+				easy navigation."
+			REVISION "200408260911Z"		-- August 26, 2004 at 09:11 GMT
+			DESCRIPTION 
+				"B changed header"
+			REVISION "200401291236Z"		-- January 29, 2004 at 12:36 GMT
+			DESCRIPTION 
+				"A First revision"
+			::= { xfPlatform 10 }
+
+		
+	
+--
+-- Textual conventions
+--
+	
+--  Textual conventions
+-- 
+		XfEntLogicalIndex ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Syntax for the index of entity logical entities."
+			SYNTAX Integer32 (1..2147483647)
+
+	
+--
+-- Node definitions
+--
+	
+--  Node definitions
+-- 
+-- 
+		xfLogicalEntObjects OBJECT IDENTIFIER ::= { xfEntLogicalExtMib 1 }
+
+		
+		xfEntLogicalTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfEntLogicalEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table extend the entLogicalTable and 
+				provides a name and a 'contained in' relation .
+				"
+			::= { xfLogicalEntObjects 1 }
+
+		
+		xfEntLogicalEntry OBJECT-TYPE
+			SYNTAX XfEntLogicalEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table."
+			AUGMENTS { entLogicalEntry }
+			::= { xfEntLogicalTable 1 }
+
+		
+		XfEntLogicalEntry ::=
+			SEQUENCE { 
+				xfEntLogicalName
+					OCTET STRING,
+				xfEntLogicalContainedIn
+					Integer32
+			 }
+
+		xfEntLogicalName OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This objects indicated the name of a logical entity."
+			::= { xfEntLogicalEntry 1 }
+
+		
+		xfEntLogicalContainedIn OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This objects indicates the parent logical entity 
+				in the containment hierarchy. An example could be:
+				a far-end terminal that is contained in a near-end 
+				terminal."
+			::= { xfEntLogicalEntry 2 }
+
+		
+		xfEntPLMappingTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfEntPLMappingEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table gives the inverse relationship of the 
+				entLPMappingTable. I.e. indicates which logical entity 
+				is implemented by a given physical entity."
+			::= { xfLogicalEntObjects 2 }
+
+		
+		xfEntPLMappingEntry OBJECT-TYPE
+			SYNTAX XfEntPLMappingEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table."
+			INDEX { entPhysicalIndex, xfPLLogicalIndex }
+			::= { xfEntPLMappingTable 1 }
+
+		
+		XfEntPLMappingEntry ::=
+			SEQUENCE { 
+				xfPLLogicalIndex
+					XfEntLogicalIndex
+			 }
+
+		xfPLLogicalIndex OBJECT-TYPE
+			SYNTAX XfEntLogicalIndex
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Indicates the logical entity that is implemented by
+				the index, i.e. physical entity."
+			::= { xfEntPLMappingEntry 1 }
+
+		
+		xfEntLogicalContainsTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfEntLogicalContainsEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This tables gives the inverse relationship of the
+				xfEntLogicalContainedIn."
+			::= { xfLogicalEntObjects 3 }
+
+		
+		xfEntLogicalContainsEntry OBJECT-TYPE
+			SYNTAX XfEntLogicalContainsEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table."
+			INDEX { entLogicalIndex, xfEntLogicalChildIndex }
+			::= { xfEntLogicalContainsTable 1 }
+
+		
+		XfEntLogicalContainsEntry ::=
+			SEQUENCE { 
+				xfEntLogicalChildIndex
+					XfEntLogicalIndex
+			 }
+
+--  Indicates the child logical entity for the index. E.g.
+-- the far-end terminal for a given near-end terminal.
+-- 
+		xfEntLogicalChildIndex OBJECT-TYPE
+			SYNTAX XfEntLogicalIndex
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Index of the child contained by the logical
+				entity with index to this table."
+			::= { xfEntLogicalContainsEntry 1 }
+
+		
+		xfEntLogicalConformance OBJECT IDENTIFIER ::= { xfEntLogicalExtMib 2 }
+
+		
+		xfEntLogicalCompliance OBJECT IDENTIFIER ::= { xfEntLogicalConformance 1 }
+
+		
+-- this module
+		xfEntLogicalFullCompliance MODULE-COMPLIANCE
+			STATUS current
+			DESCRIPTION 
+				"The implementation shall be fully compliant."
+			MODULE -- this module
+				MANDATORY-GROUPS { xfEntLogicalGroup }
+			::= { xfEntLogicalCompliance 1 }
+
+		
+		xfEntLogicalGroups OBJECT IDENTIFIER ::= { xfEntLogicalConformance 2 }
+
+		
+		xfEntLogicalGroup OBJECT-GROUP
+			OBJECTS { xfEntLogicalName, xfEntLogicalContainedIn, xfPLLogicalIndex, xfEntLogicalChildIndex }
+			STATUS current
+			DESCRIPTION 
+				"Group with objects in this module."
+			::= { xfEntLogicalGroups 1 }
+
+		
+	
+	END
+
+--
+-- 25_19603-crxr10201_1_logic_ext.mi2
+--

@@ -1,0 +1,1002 @@
+    
+    
+MIB-EMS-IPASOLINK-VR4-COMMON1000-MIB DEFINITIONS ::= BEGIN
+    
+    IMPORTS
+        Ipv6Address
+            FROM IPV6-TC
+        OBJECT-TYPE
+            FROM RFC-1212
+        IpAddress
+            FROM RFC1155-SMI
+        enterprises
+            FROM SNMPv2-SMI
+        DateAndTime, DisplayString
+            FROM SNMPv2-TC;
+    
+    EnableDisableValue ::=
+        INTEGER { invalid(0), disable(1), enable(2) }
+    
+    
+    IpeStatsInfo ::=
+        INTEGER { invalid(0), validNoMaint(1), validMaint(2),
+                        invalidNoMaint(3), invalidMaint(4) }
+    
+    
+    OffOnValue ::=
+        INTEGER { invalid(0), off(1), on(2) }
+    
+    
+    SeverityValue ::=
+        INTEGER { cleared(1), indetermine(2), critical(3), major(4),
+                        minor(5), warning(6), notReport(7) }
+    
+    
+    -- 1.3.6.1.4.1.119
+    nec OBJECT IDENTIFIER
+        ::= { enterprises 119 }
+    
+    -- 1.3.6.1.4.1.119.2
+    nec-mib OBJECT IDENTIFIER
+        ::= { nec 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3
+    necProductDepend OBJECT IDENTIFIER
+        ::= { nec-mib 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69
+    radioEquipment OBJECT IDENTIFIER
+        ::= { necProductDepend 69 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203
+    commonPnms OBJECT IDENTIFIER
+        ::= { radioEquipment 203 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513
+    ipasolinkVr4 OBJECT IDENTIFIER
+        ::= { commonPnms 513 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5
+    system5 OBJECT IDENTIFIER
+        ::= { ipasolinkVr4 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5.3
+    ipeConfigurationGroup OBJECT IDENTIFIER
+        ::= { system5 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5.3.15
+    ipeCfgPortGroup OBJECT IDENTIFIER
+        ::= { ipeConfigurationGroup 15 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5.3.15.8
+    ipeCfgPortLct1kTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF IpeCfgPortLct1kEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "LCT port set up information table.
+             TABSZ=1"
+        ::= { ipeCfgPortGroup 8 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5.3.15.8.1
+    ipeCfgPortLct1kEntry OBJECT-TYPE
+        SYNTAX      IpeCfgPortLct1kEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "entry of  LCT port set up information table."
+        INDEX       { ipeCfgPortLct1kNEAddress, ipeCfgPortLct1kIndex }
+        ::= { ipeCfgPortLct1kTable 1 }
+    
+    IpeCfgPortLct1kEntry ::= SEQUENCE {
+        ipeCfgPortLct1kIndex                    INTEGER,
+        ipeCfgPortLct1kNEAddress                IpAddress,
+        ipeCfgPortLct1kIpAddress                IpAddress,
+        ipeCfgPortLct1kNetMask                  IpAddress,
+        ipeCfgPortLct1kEnable                   INTEGER,
+        ipeCfgPortLct1kMtu                      INTEGER,
+        ipeCfgPortLct1kAutoNeg                  INTEGER,
+        ipeCfgPortLct1kLinkLocalAddress         Ipv6Address,
+        ipeCfgPortLct1kLinkLocalAddressOrigin   INTEGER,
+        ipeCfgPortLct1kHttpReverseProxyEnable   EnableDisableValue
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5.3.15.8.1.1
+    ipeCfgPortLct1kIndex OBJECT-TYPE
+        SYNTAX      INTEGER (1..2)
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of table."
+        ::= { ipeCfgPortLct1kEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5.3.15.8.1.2
+    ipeCfgPortLct1kNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        ::= { ipeCfgPortLct1kEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5.3.15.8.1.3
+    ipeCfgPortLct1kIpAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "IPaddress of LCT port."
+        ::= { ipeCfgPortLct1kEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5.3.15.8.1.4
+    ipeCfgPortLct1kNetMask OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Subnet mask of LCT port."
+        ::= { ipeCfgPortLct1kEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5.3.15.8.1.5
+    ipeCfgPortLct1kEnable OBJECT-TYPE
+        SYNTAX      INTEGER { enabled(1), disabled(2) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Effective/invalid setting of LCT port.
+             default value is 'enabled'.(iPASOLINK EX Advanced)"
+        ::= { ipeCfgPortLct1kEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5.3.15.8.1.6
+    ipeCfgPortLct1kMtu OBJECT-TYPE
+        SYNTAX      INTEGER (256..1500)
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "MTU value of LCT.
+             value range:256 to 1500"
+        ::= { ipeCfgPortLct1kEntry 6 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5.3.15.8.1.7
+    ipeCfgPortLct1kAutoNeg OBJECT-TYPE
+        SYNTAX      INTEGER { enabled(1), disabled(2) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Effective/invalid setting of LCT AUTO NEGOTIATION.
+             value range: enabled
+                         disabled"
+        ::= { ipeCfgPortLct1kEntry 7 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5.3.15.8.1.8
+    ipeCfgPortLct1kLinkLocalAddress OBJECT-TYPE
+        SYNTAX      Ipv6Address
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "The IPv6 Link Local address of the LCT port."
+        ::= { ipeCfgPortLct1kEntry 8 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5.3.15.8.1.9
+    ipeCfgPortLct1kLinkLocalAddressOrigin OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), manual(1), linklayer(2) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "The origin of the address.
+             manual(1):
+             indicates that the address was manually configured to a specified
+             address, e.g., by user configuration.
+    
+             linklayer(2):
+             indicates the address to be created by IPv6 stateless address
+             auto-configuration."
+        ::= { ipeCfgPortLct1kEntry 9 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.5.3.15.8.1.10
+    ipeCfgPortLct1kHttpReverseProxyEnable OBJECT-TYPE
+        SYNTAX      EnableDisableValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Enables or disables HTTP Reverse proxy on this interface."
+        ::= { ipeCfgPortLct1kEntry 10 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501
+    pasoNeoIpe-common OBJECT IDENTIFIER
+        ::= { ipasolinkVr4 501 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3
+    alarmStatusGroup OBJECT IDENTIFIER
+        ::= { pasoNeoIpe-common 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.9
+    asTCNGroup OBJECT IDENTIFIER
+        ::= { alarmStatusGroup 9 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.9.9
+    tcn15minMainCtrlCardGroup OBJECT IDENTIFIER
+        ::= { asTCNGroup 9 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.9.9.2
+    tcn15minMainCtrlCardTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF Tcn15minMainCtrlCardEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Represents Threshold Crossing Alarm Status of 15 minutes Main
+             Card Temperature."
+        ::= { tcn15minMainCtrlCardGroup 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.9.9.2.1
+    tcn15minMainCtrlCardEntry OBJECT-TYPE
+        SYNTAX      Tcn15minMainCtrlCardEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { tcn15minMainCtrlCardNEAddress, tcn15minMainCtrlCardIfIndex }
+        ::= { tcn15minMainCtrlCardTable 1 }
+    
+    Tcn15minMainCtrlCardEntry ::= SEQUENCE {
+        tcn15minMainCtrlCardIfIndex     INTEGER,
+        tcn15minMainCtrlCardNEAddress   IpAddress,
+        tcn15minMainTemperature         SeverityValue
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.9.9.2.1.1
+    tcn15minMainCtrlCardIfIndex OBJECT-TYPE
+        SYNTAX      INTEGER (17..18)
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table. value range: 17 (VR 1/VR 2/VR 4), 17-18 (VR
+             10)"
+        ::= { tcn15minMainCtrlCardEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.9.9.2.1.2
+    tcn15minMainCtrlCardNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved"
+        ::= { tcn15minMainCtrlCardEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.9.9.2.1.3
+    tcn15minMainTemperature OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "TCN 15 minutes Main Card Temperature"
+        ::= { tcn15minMainCtrlCardEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.9.10
+    tcn1dayMainCtrlCardGroup OBJECT IDENTIFIER
+        ::= { asTCNGroup 10 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.9.10.2
+    tcn1dayMainCtrlCardTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF Tcn1dayMainCtrlCardEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Represents Threshold Crossing Alarm Status of 1 day Main Card
+             Temperature."
+        ::= { tcn1dayMainCtrlCardGroup 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.9.10.2.1
+    tcn1dayMainCtrlCardEntry OBJECT-TYPE
+        SYNTAX      Tcn1dayMainCtrlCardEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { tcn1dayMainCtrlCardNEAddress, tcn1dayMainCtrlCardIfIndex }
+        ::= { tcn1dayMainCtrlCardTable 1 }
+    
+    Tcn1dayMainCtrlCardEntry ::= SEQUENCE {
+        tcn1dayMainCtrlCardIfIndex      INTEGER,
+        tcn1dayMainCtrlCardNEAddress    IpAddress,
+        tcn1dayMainTemperature          SeverityValue
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.9.10.2.1.1
+    tcn1dayMainCtrlCardIfIndex OBJECT-TYPE
+        SYNTAX      INTEGER (17..18)
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table. value range: 17 (VR 1/VR 2/VR 4), 17-18 (VR
+             10)"
+        ::= { tcn1dayMainCtrlCardEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.9.10.2.1.2
+    tcn1dayMainCtrlCardNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved"
+        ::= { tcn1dayMainCtrlCardEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.9.10.2.1.3
+    tcn1dayMainTemperature OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "TCN 1 day Main Card Temperature"
+        ::= { tcn1dayMainCtrlCardEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35
+    asMainCtrlGroup OBJECT IDENTIFIER
+        ::= { alarmStatusGroup 35 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1
+    asMainCtrlGroupTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF AsMainCtrlGroupEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Main card group object for iPASO1000."
+        ::= { asMainCtrlGroup 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1
+    asMainCtrlGroupEntry OBJECT-TYPE
+        SYNTAX      AsMainCtrlGroupEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { asMainCtrlGroupNEAddress, asMainCtrlGroupIndex }
+        ::= { asMainCtrlGroupTable 1 }
+    
+    AsMainCtrlGroupEntry ::= SEQUENCE {
+        asMainCtrlGroupIndex                    INTEGER,
+        asMainCtrlGroupNEAddress                IpAddress,
+        ctrlGroupSvLineAlarm                    SeverityValue,
+        ctrlGroupIduTotalAlarm                  SeverityValue,
+        ctrlGroupMaintenance                    OffOnValue,
+        ctrlGroupComFail                        SeverityValue,
+        ctrlGroupFirmwareVerMismatch            SeverityValue,
+        ctrlGroupCardMismatch                   SeverityValue,
+        ctrlGroupHardwareVerMismatch            SeverityValue,
+        ctrlGroupMountedClk2mMismatch           SeverityValue,
+        ctrlGroupSwitchOverFailure              OffOnValue,
+        ctrlGroupSwitchComplete                 OffOnValue,
+        ctrlGroupForcedSbySwitchComplete        OffOnValue,
+        ctrlGroupSwitchedTime                   DateAndTime,
+        ctrlGroupSwitchedReason                 DisplayString,
+        ctrlGroupConfigDataStoredTime           DateAndTime,
+        ctrlGroupSbyBusErrorTx                  SeverityValue,
+        ctrlGroupSbyBusErrorRx                  SeverityValue,
+        ctrlGroupSbyTermComFailAlarm            SeverityValue,
+        ctrlGroupDbMismatch                     SeverityValue,
+        ctrlGroupSoftkeyEquipSerialMismatch     SeverityValue,
+        ctrlGroupTrapSuppressionStatus          OffOnValue,
+        ctrlGroupStartupStatus                  INTEGER
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.1
+    asMainCtrlGroupIndex OBJECT-TYPE
+        SYNTAX      INTEGER (1)
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.2
+    asMainCtrlGroupNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.3
+    ctrlGroupSvLineAlarm OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.4
+    ctrlGroupIduTotalAlarm OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.5
+    ctrlGroupMaintenance OBJECT-TYPE
+        SYNTAX      OffOnValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.6
+    ctrlGroupComFail OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 6 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.7
+    ctrlGroupFirmwareVerMismatch OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 7 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.8
+    ctrlGroupCardMismatch OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 8 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.9
+    ctrlGroupHardwareVerMismatch OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 9 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.10
+    ctrlGroupMountedClk2mMismatch OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 10 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.11
+    ctrlGroupSwitchOverFailure OBJECT-TYPE
+        SYNTAX      OffOnValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 11 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.12
+    ctrlGroupSwitchComplete OBJECT-TYPE
+        SYNTAX      OffOnValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 12 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.13
+    ctrlGroupForcedSbySwitchComplete OBJECT-TYPE
+        SYNTAX      OffOnValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 13 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.14
+    ctrlGroupSwitchedTime OBJECT-TYPE
+        SYNTAX      DateAndTime
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 14 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.15
+    ctrlGroupSwitchedReason OBJECT-TYPE
+        SYNTAX      DisplayString (SIZE(0..32))
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 15 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.16
+    ctrlGroupConfigDataStoredTime OBJECT-TYPE
+        SYNTAX      DateAndTime
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 16 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.17
+    ctrlGroupSbyBusErrorTx OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 17 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.18
+    ctrlGroupSbyBusErrorRx OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 18 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.19
+    ctrlGroupSbyTermComFailAlarm OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 19 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.20
+    ctrlGroupDbMismatch OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 20 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.21
+    ctrlGroupSoftkeyEquipSerialMismatch OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlGroupEntry 21 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.22
+    ctrlGroupTrapSuppressionStatus OBJECT-TYPE
+        SYNTAX      OffOnValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Trap Suppression Status"
+        ::= { asMainCtrlGroupEntry 22 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.1.1.23
+    ctrlGroupStartupStatus OBJECT-TYPE
+        SYNTAX      INTEGER { powerOn(1), cpuReset(2), deviceReset(3) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Main Card Startup Status."
+        ::= { asMainCtrlGroupEntry 23 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2
+    asMainCtrlCardTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF AsMainCtrlCardEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Main card object for iPASO1000."
+        ::= { asMainCtrlGroup 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1
+    asMainCtrlCardEntry OBJECT-TYPE
+        SYNTAX      AsMainCtrlCardEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { asMainCtrlCardNEAddress, asMainCtrlCardIndex }
+        ::= { asMainCtrlCardTable 1 }
+    
+    AsMainCtrlCardEntry ::= SEQUENCE {
+        asMainCtrlCardIndex             INTEGER,
+        asMainCtrlCardNEAddress         IpAddress,
+        mainCardAlarm                   SeverityValue,
+        mainUsbFailure                  SeverityValue,
+        mainCpuAlarm                    SeverityValue,
+        mainMemoryFailure               SeverityValue,
+        mainClk2mMount                  INTEGER,
+        mainCardRunningStatus           INTEGER,
+        mainTempAlarm                   SeverityValue,
+        mainCtrlUnequipped              SeverityValue,
+        mainCtrlBusError                SeverityValue,
+        mainTemperature                 INTEGER,
+        mainFPGAMismatch                SeverityValue,
+        mainClkOptionCardUnequipped     SeverityValue,
+        mainClkOptionCardTypeMismatch   SeverityValue
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.1
+    asMainCtrlCardIndex OBJECT-TYPE
+        SYNTAX      INTEGER (17..18)
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table. value range: 17 (VR 1/VR 2/VR 4), 17-18
+             (1000/VR 10)"
+        ::= { asMainCtrlCardEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.2
+    asMainCtrlCardNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlCardEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.3
+    mainCardAlarm OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlCardEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.4
+    mainUsbFailure OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlCardEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.5
+    mainCpuAlarm OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlCardEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.6
+    mainMemoryFailure OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlCardEntry 6 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.7
+    mainClk2mMount OBJECT-TYPE
+        SYNTAX      INTEGER { mount(2) }
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlCardEntry 7 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.8
+    mainCardRunningStatus OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), act(1), sby(2), flt(3), actFlt(4),
+                        sbyFlt(5), init(6), oos(7), initFlt(8), unmount(9) }
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlCardEntry 8 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.9
+    mainTempAlarm OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlCardEntry 9 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.10
+    mainCtrlUnequipped OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlCardEntry 10 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.11
+    mainCtrlBusError OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlCardEntry 11 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.12
+    mainTemperature OBJECT-TYPE
+        SYNTAX      INTEGER (-999 | -500..1500)
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Main Card Temperature.
+             range: -200~900(iPASOLINK200/400/1000series/EX/iX),
+             -200~1500(iPASOLINK VR series), -500~1500(iPASOLINK EX Advanced)
+             if the unexpected condition happened, the object reports value
+             '-999'."
+        ::= { asMainCtrlCardEntry 12 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.13
+    mainFPGAMismatch OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            ""
+        ::= { asMainCtrlCardEntry 13 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.14
+    mainClkOptionCardUnequipped OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "CLK Option Card Unequipped Alarm."
+        ::= { asMainCtrlCardEntry 14 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.35.2.1.15
+    mainClkOptionCardTypeMismatch OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "CLK Option Card Type Mismatch Alarm."
+        ::= { asMainCtrlCardEntry 15 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.7
+    inventoryGroup OBJECT IDENTIFIER
+        ::= { pasoNeoIpe-common 7 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.7.11
+    invClkOptionCardInfoTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF InvClkOptionCardInfoEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Equipment Inventory Information for CLK Option Card."
+        ::= { inventoryGroup 11 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.7.11.1
+    invClkOptionCardInfoEntry OBJECT-TYPE
+        SYNTAX      InvClkOptionCardInfoEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { invClkOptionCardInfoNEAddress, invClkOptionCardInfoIndex }
+        ::= { invClkOptionCardInfoTable 1 }
+    
+    InvClkOptionCardInfoEntry ::= SEQUENCE {
+        invClkOptionCardInfoIndex           INTEGER,
+        invClkOptionCardInfoNEAddress       IpAddress,
+        invClkOptionCardName                DisplayString,
+        invClkOptionCardCodeNo              DisplayString,
+        invClkOptionCardSerialNo            DisplayString,
+        invClkOptionCardManufacturedDate    DisplayString,
+        invClkOptionCardHardVersion         DisplayString
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.7.11.1.1
+    invClkOptionCardInfoIndex OBJECT-TYPE
+        SYNTAX      INTEGER (1..2)
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table. value range: 1 (VR 1/VR 2/VR 4), 1-2 (VR
+             10)"
+        ::= { invClkOptionCardInfoEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.7.11.1.2
+    invClkOptionCardInfoNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved."
+        ::= { invClkOptionCardInfoEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.7.11.1.3
+    invClkOptionCardName OBJECT-TYPE
+        SYNTAX      DisplayString
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Name"
+        ::= { invClkOptionCardInfoEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.7.11.1.4
+    invClkOptionCardCodeNo OBJECT-TYPE
+        SYNTAX      DisplayString
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Code No."
+        ::= { invClkOptionCardInfoEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.7.11.1.5
+    invClkOptionCardSerialNo OBJECT-TYPE
+        SYNTAX      DisplayString
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Serial No."
+        ::= { invClkOptionCardInfoEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.7.11.1.6
+    invClkOptionCardManufacturedDate OBJECT-TYPE
+        SYNTAX      DisplayString
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Manufactured Date"
+        ::= { invClkOptionCardInfoEntry 6 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.7.11.1.7
+    invClkOptionCardHardVersion OBJECT-TYPE
+        SYNTAX      DisplayString
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Hardware Version."
+        ::= { invClkOptionCardInfoEntry 7 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9
+    pmonGroup OBJECT IDENTIFIER
+        ::= { pasoNeoIpe-common 9 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9.11
+    pmon15minMainCtrlCardGroup OBJECT IDENTIFIER
+        ::= { pmonGroup 11 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9.11.1
+    pmon15minMainCtrlCardTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF Pmon15minMainCtrlCardEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "15minutes Monitoring Table"
+        ::= { pmon15minMainCtrlCardGroup 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9.11.1.1
+    pmon15minMainCtrlCardEntry OBJECT-TYPE
+        SYNTAX      Pmon15minMainCtrlCardEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { pmon15minMainCtrlCardNEAddress, pmon15minMainCtrlCardIfIndex }
+        ::= { pmon15minMainCtrlCardTable 1 }
+    
+    Pmon15minMainCtrlCardEntry ::= SEQUENCE {
+        pmon15minMainCtrlCardIfIndex            INTEGER,
+        pmon15minMainCtrlCardNEAddress          IpAddress,
+        pmon15minMainTemperatureDataStatusInfo  IpeStatsInfo,
+        pmon15minMainTemperatureData            DisplayString
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9.11.1.1.1
+    pmon15minMainCtrlCardIfIndex OBJECT-TYPE
+        SYNTAX      INTEGER (17..18)
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table. value range: 17 (VR 1/VR 2/VR 4), 17-18 (VR
+             10)"
+        ::= { pmon15minMainCtrlCardEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9.11.1.1.2
+    pmon15minMainCtrlCardNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved"
+        ::= { pmon15minMainCtrlCardEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9.11.1.1.3
+    pmon15minMainTemperatureDataStatusInfo OBJECT-TYPE
+        SYNTAX      IpeStatsInfo
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "15minutes Main Card Temperature Status"
+        ::= { pmon15minMainCtrlCardEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9.11.1.1.4
+    pmon15minMainTemperatureData OBJECT-TYPE
+        SYNTAX      DisplayString
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "15minutes Main Card Temperature"
+        ::= { pmon15minMainCtrlCardEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9.12
+    pmon1dayMainCtrlCardGroup OBJECT IDENTIFIER
+        ::= { pmonGroup 12 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9.12.2
+    pmon1dayMainCtrlCardTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF Pmon1dayMainCtrlCardEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "1day Monitoring Table"
+        ::= { pmon1dayMainCtrlCardGroup 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9.12.2.1
+    pmon1dayMainCtrlCardEntry OBJECT-TYPE
+        SYNTAX      Pmon1dayMainCtrlCardEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { pmon1dayMainCtrlCardNEAddress, pmon1dayMainCtrlCardIfIndex }
+        ::= { pmon1dayMainCtrlCardTable 1 }
+    
+    Pmon1dayMainCtrlCardEntry ::= SEQUENCE {
+        pmon1dayMainCtrlCardIfIndex             INTEGER,
+        pmon1dayMainCtrlCardNEAddress           IpAddress,
+        pmon1dayMainTemperatureDataStatusInfo   IpeStatsInfo,
+        pmon1dayMainTemperatureData             DisplayString
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9.12.2.1.1
+    pmon1dayMainCtrlCardIfIndex OBJECT-TYPE
+        SYNTAX      INTEGER (17..18)
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table. value range: 17 (VR 1/VR 2/VR 4), 17-18 (VR
+             10)"
+        ::= { pmon1dayMainCtrlCardEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9.12.2.1.2
+    pmon1dayMainCtrlCardNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved"
+        ::= { pmon1dayMainCtrlCardEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9.12.2.1.3
+    pmon1dayMainTemperatureDataStatusInfo OBJECT-TYPE
+        SYNTAX      IpeStatsInfo
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "1day Main Card Temperature Status"
+        ::= { pmon1dayMainCtrlCardEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.9.12.2.1.4
+    pmon1dayMainTemperatureData OBJECT-TYPE
+        SYNTAX      DisplayString
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "1day Main Card Temperature"
+        ::= { pmon1dayMainCtrlCardEntry 4 }
+    
+END -- end of module MIB-EMS-IPASOLINK-VR4-COMMON1000-MIB.

@@ -1,0 +1,1658 @@
+-- No.29/196 03-CRXR 102 01/1                MANAGEMENT INFORMATION BASE
+-- =====================================================================
+-- Prepared:  ESZATOP                        Revision   V
+-- =====================================================================
+-- Copyright
+-- +++++++++
+--
+-- (c) Ericsson AS 2002. All rights reserved. No part of this document
+-- may be reproduced in any form without the written permission of the
+-- copyright holder.
+--
+-- Information
+-- +++++++++++
+-- 
+-- This document is mainly intended for internal development and contains 
+-- references to other documents. This document might however, after 
+-- agreement with Ericsson, be delivered to customers to serve as 
+-- information for design.
+-- All referenced documents are however Ericsson internal and are not 
+-- intended for customers or end users and will thus not be delivered 
+-- externally.
+--  
+-- Disclaimer
+-- ++++++++++
+-- The content of this document is subject to revision without notice 
+-- due to continued progress in methodology, design, and manufacturing. 
+-- Ericsson shall have no liability for any error or damage of any kind 
+-- resulting from the use of this document. 
+-- 
+-- =====================================================================
+-- 
+
+	XF-LICENSE-MIB DEFINITIONS ::= BEGIN
+ 
+		IMPORTS
+			OBJECT-GROUP, MODULE-COMPLIANCE
+				FROM SNMPv2-CONF
+			TimeTicks, Integer32, Gauge32, Counter32, OBJECT-TYPE,
+			MODULE-IDENTITY
+				FROM SNMPv2-SMI
+			DateAndTime
+				FROM SNMPv2-TC
+			xfPlatform
+				FROM XF-TOP-MIB;
+
+
+		-- 1.3.6.1.4.1.193.81.2.13
+		xfLicenseMIB MODULE-IDENTITY
+			LAST-UPDATED "201906051600Z"            -- June 05, 2019 at 16:00 CET
+			ORGANIZATION
+				"Ericsson"
+			CONTACT-INFO
+				" "
+			DESCRIPTION
+				"The MIB for the license functionality in traffic node."
+
+      REVISION "201906051600Z"            -- June 05, 2019 at 16:00 CET
+      DESCRIPTION
+        "Rev V:
+          Extended xfLicenseInfoEntry with xfLicenseInfoSlot and xfLicenseInfoPort
+        "
+      REVISION "201806201600Z"            -- June 20, 2018 at 16:00 CET
+      DESCRIPTION
+        "Rev U:
+          Added NPU protection unlock period:
+          New value (activeByNPUprot) in list of xfLicenseUnlockedPeriodStatus
+          New statistic object (xfLicenseNrOfUnlockedPeriodNPUprot)
+        "
+			REVISION "201411131300Z"		-- November 13, 2014 at 13:00 CET
+			DESCRIPTION
+				"Rev T:
+				  Extended xfLicenseInstallOperStatus with FTP error value ftpRequestedActionAborted(551).
+				  Extended xfLicenseReportStatus with FTP error values ftpFileBusy(450),
+				  ftpFileUnavailable(550), ftpRequestedActionAborted(551).
+				"
+			REVISION "201404241800Z"		-- April 24, 2014 at 18:00 GMT
+			DESCRIPTION
+				"Rev S:
+				  Changed value error(3) of xfLicenseFeatureStatus to degraded(3).
+				  Changed values error(3) of xfLicenseInfoStatus to degraded(3).
+				  Changed values error(3) of xfLicenseNEStatus to degraded(3).
+				"
+			REVISION "201308281400Z"		-- August 28, 2013 at 14:00 GMT
+			DESCRIPTION 
+				"Rev R:
+				  Changed values of xfLicenseCraftLicInstalled to craftLicenseInstalled(1) and craftLicenseNotInstalled(2).
+				  Changed values of xfLicenseMonitoringLicInstalled to monitoringLicenseInstalled(1) and monitoringLicenseNotInstalled(2).
+				"
+			REVISION "201306241000Z"		-- June 24, 2013 at 10:00 GMT
+			DESCRIPTION
+				"Rev P: Correction of some warnings.
+				"
+
+			REVISION "201306201600Z"		-- June 20, 2013 at 16:00 GMT
+			DESCRIPTION
+				"Rev O: Changed the values of xfLicenseUnlockedPeriodExitByUser to true(1) and false(2)
+					Changed values of xfLicenseInfoStatus to warning(2), error(3). The value ok(0) is unchanged.
+				"
+
+			REVISION "201306061300Z"		-- June 06, 2013 at 13:00 GMT
+			DESCRIPTION
+				"Rev N: Added new MO xfLicenseNEStatus,
+					Added new MO xfLicenseCraftLicInstalled,
+					Added new MO xfLicenseMonitoringInstalled
+					Remark: the values notSupported(1) and newInstalled(4)
+							of the xfLicenseFeatureStatus will not be used but reamain in the MIB
+				"
+
+			REVISION "201305301000Z"		-- May 30, 2013 at 10:00 GMT
+			DESCRIPTION
+				"Rev M: Added new bit position to xfLicenseCapabilities: lockedLicensing(2)."
+
+			REVISION "201305211800Z"		-- May 21, 2013 at 18:00 GMT
+			DESCRIPTION
+				"Rev L: Added new MO xfLicenseInfoTableLastChanged,
+				        modified xfLicenseInstance to xfLicenseInfoInstance,
+				        added new index to xfLicenseInfoTable: xfLicenseInfoInstance."
+
+			REVISION "201303061000Z"		-- March 06, 2013 at 10:00 GMT
+			DESCRIPTION
+				"Rev K: Changed MO xfLicenseUnlockedPeriodEnteredByUser to read-write"
+				
+				REVISION "201302261000Z"		-- Februari 26, 2013 at 10:00 GMT
+			DESCRIPTION
+				"Rev J: Added XfLicenseInfoTable in xfLicenseFeatureObjects"
+			
+			REVISION "201301231200Z"		-- Januari 23, 2013 at 10:00 GMT
+			DESCRIPTION
+				"Rev I: Changed MO xfLicenseUnlockedPeriodExitByUser to read-write and
+				        added MO xfLicenseUnlockedPeriodEnteredByUser read-only"
+				
+			REVISION "201301181200Z"		-- Januari 18, 2013 at 15:00 GMT
+			DESCRIPTION
+				"Rev H: Modified type of MO xfLicenseUnlockedPeriodDate"
+				
+			REVISION "201212181200Z"		-- December 18, 2012 at 15:00 GMT
+			DESCRIPTION
+				"Rev G: Added the following Object-types
+				        xfLicenseUnlockedPeriod
+                        xfLicenseUnlockedPeriodStatus
+                        xfLicenseUnlockedPeriodExitByUser
+                        xfLicenseUnlockedPeriodDate
+                        xfLicenseNrOfUnlockedPeriodSU
+                        xfLicenseNrOfUnlockedPeriodRMM
+                        xfLicenseNrOfUnlockedPeriodIU
+                        xfLicenseNrOfUnlockedPeriodMU
+                        xfLicenseNrOfUnlockedPeriodEU
+                        xfLicenseIUtoken
+                        xfLicenseMUtoken
+                        xfLicenseEUtoken." 
+			REVISION "201109141200Z"		-- September 14, 2011 at 15:00 GMT
+			DESCRIPTION
+				"Rev F: Added xfLicenseReportCommand and
+				        xfLicenseReportStatus.
+				        Updated xfLicenseCapabilities with
+				        licenseReport." 
+			REVISION "201109011200Z"		-- September 01, 2011 at 15:00 GMT
+			DESCRIPTION
+				"Rev E: Added xfLicenseFeatureUnlockedQty, 
+				        xfLicenseFeatureSumUnlockedInstalled
+				        and xfLicenseCapabilities"
+			REVISION "200808151200Z"		-- August 15, 2008 at 12:00 GMT
+			DESCRIPTION 
+				"D xfLicenseInstallOperStatus extended
+				  with FTP error codes."
+			REVISION "200610241400Z"		-- October 24, 2006 at 14:00 GMT
+			DESCRIPTION
+				"Rev. C : xfLicenseFeatureOidTree is RO
+				          Added xfLicenseAlarmObjects"
+			REVISION "200605091044Z"		-- May 09, 2006 at 10:44 GMT
+			DESCRIPTION
+				"Rev. B : Corrected OID collision
+				         with other MIBs under xfPlatform"
+			REVISION "200605021500Z"		-- May 02, 2006 at 15:00 GMT
+			DESCRIPTION
+				"Rev. A"
+			::= { xfPlatform 13 }
+
+
+--
+-- Node definitions
+--
+
+		-- 1.3.6.1.4.1.193.81.2.13.2
+		xfLicenseMIBObjects OBJECT IDENTIFIER ::= { xfLicenseMIB 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1
+		xfLicenseFeatureObjects OBJECT IDENTIFIER ::= { xfLicenseMIBObjects 1 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.1
+		xfLicenseFeatureTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfLicenseFeatureEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"An agregation table of all features available from license files and/or
+				supported by the node software."
+			::= { xfLicenseFeatureObjects 1 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.1.1
+		xfLicenseFeatureEntry OBJECT-TYPE
+			SYNTAX XfLicenseFeatureEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"An entry of a feature."
+			INDEX { xfLicenseFeatureProductNumber }
+			::= { xfLicenseFeatureTable 1 }
+
+
+		XfLicenseFeatureEntry ::=
+			SEQUENCE { 
+				xfLicenseFeatureProductNumber
+					OCTET STRING,
+				xfLicenseFeatureProductName
+					OCTET STRING,
+				xfLicenseFeatureQuantity
+					Counter32,
+				xfLicenseFeatureSubscribed
+					Counter32,
+				xfLicenseFeatureStatus
+					INTEGER,
+				xfLicenseFeatureUnlockedQty
+					Integer32,
+				xfLicenseFeatureSumUnlockedInstalled
+					Integer32,
+				xfLicenseFeatureMissingStatus
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.1.1.1
+		xfLicenseFeatureProductNumber OBJECT-TYPE
+			SYNTAX OCTET STRING (SIZE (1..65535))
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"The product number of an optional or licensed feature."
+			::= { xfLicenseFeatureEntry 1 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.1.1.2
+		xfLicenseFeatureProductName OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The product name of a feature."
+			::= { xfLicenseFeatureEntry 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.1.1.3
+		xfLicenseFeatureQuantity OBJECT-TYPE
+			SYNTAX Counter32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The total number of license available for the feature."
+			::= { xfLicenseFeatureEntry 3 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.1.1.4
+		xfLicenseFeatureSubscribed OBJECT-TYPE
+			SYNTAX Counter32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"A number of licenses currently subscribed/in-use by application."
+			::= { xfLicenseFeatureEntry 4 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.1.1.5
+		xfLicenseFeatureStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				oK(0),
+				notSupported(1),
+				warning(2),
+				degraded(3),
+				newInstalled(4)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The current status of a feature.
+				 
+				   oK           : supported by node SW and no warning/degraded
+				
+				   notSupported : The node SW does not know this feature.
+				
+				   warning      : A warning that one or more licenses are 
+				                  missing for this feature.
+				
+				   degraded     : One or more licenses are missing for 
+				                  this feature and is currently locked.
+				
+				   newInstalled : Operator has newly installed one or more 
+				                  licenses for this feature.
+				"
+			::= { xfLicenseFeatureEntry 5 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.1.1.6
+		xfLicenseFeatureUnlockedQty OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"A number of unlocked licenses for the feature. This MO can only be edited by admin_user."
+			::= { xfLicenseFeatureEntry 6 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.1.1.7
+		xfLicenseFeatureSumUnlockedInstalled OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The total number of licenses unlocked and installed."
+			::= { xfLicenseFeatureEntry 7 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.1.1.8
+		xfLicenseFeatureMissingStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				oK(0),
+				missing(1)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The current status of the license.
+				 
+				   oK           : There is enough license.
+				
+				   missing      : Not enough licenses.
+				"
+			::= { xfLicenseFeatureEntry 8 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.2
+		xfLicenseFeatureTableLastChanged OBJECT-TYPE
+			SYNTAX TimeTicks
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The value of sysUpTime when xfLicenseFeatureTable is changed."
+			::= { xfLicenseFeatureObjects 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.3
+		xfLicenseFeatureOidTreeTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfLicenseFeatureOidTreeEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"A table of license locking OID trees. All MIB objects 
+				under an OID tree requires a license."
+			::= { xfLicenseFeatureObjects 3 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.3.1
+		xfLicenseFeatureOidTreeEntry OBJECT-TYPE
+			SYNTAX XfLicenseFeatureOidTreeEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"An entry of OID tree."
+			INDEX { xfLicenseFeatureOidTree, xfLicenseFeatureProductNumber }
+			::= { xfLicenseFeatureOidTreeTable 1 }
+
+
+		XfLicenseFeatureOidTreeEntry ::=
+			SEQUENCE { 
+				xfLicenseFeatureOidTree
+					OBJECT IDENTIFIER,
+				xfLicenseFeatureOidTreeProductNumber
+					OCTET STRING
+			 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.3.1.1
+		xfLicenseFeatureOidTree OBJECT-TYPE
+			SYNTAX OBJECT IDENTIFIER
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"All MIB objects under this OID tree require a license. 
+				Its last subid is appended by 2147483648 so that all 
+				objects under the OID tree get the same feature/license 
+				product number.
+				"
+			::= { xfLicenseFeatureOidTreeEntry 1 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.3.1.2
+		xfLicenseFeatureOidTreeProductNumber OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The product number of the license required for MIB objects 
+				under the OID tree. Its value is the same as 
+				xfLicenseFeatureProductNumber."
+			::= { xfLicenseFeatureOidTreeEntry 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.4
+		xfLicenseInfoTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfLicenseInfoEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"A table of license features in warning or degraded state."
+			::= { xfLicenseFeatureObjects 4 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.4.1
+		xfLicenseInfoEntry OBJECT-TYPE
+			SYNTAX XfLicenseInfoEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION                
+				"An entry of a license feature."
+			INDEX { xfLicenseFeatureProductNumber, xfLicenseInfoInstance}
+			::= { xfLicenseInfoTable 1 }
+
+
+		XfLicenseInfoEntry ::=
+			SEQUENCE { 
+				xfLicenseInfoProductNumber
+					OCTET STRING,
+				xfLicenseInfoProductName
+					OCTET STRING,
+				xfLicenseInfoInstance
+					Integer32,
+				xfLicenseInfoStatus
+					INTEGER,
+				xfLicenseInfo
+					OCTET STRING,
+				xfLicenseInfoSlot
+					Integer32,
+				xfLicenseInfoPort
+					Integer32
+			 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.4.1.1
+		xfLicenseInfoProductNumber OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The product number of an optional or licensed feature."
+			::= { xfLicenseInfoEntry 1 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.4.1.2
+		xfLicenseInfoProductName OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The product name of a feature."
+			::= { xfLicenseInfoEntry 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.4.1.3
+		xfLicenseInfoInstance OBJECT-TYPE
+			SYNTAX Integer32 (1..2147483647)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The instance number of the license feature."
+			::= { xfLicenseInfoEntry 3 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.4.1.4
+		xfLicenseInfoStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				ok(0),
+				warning(2),
+				degraded(3)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The current status of a license feature.
+				 
+				   ok
+				
+				   warning      : A warning that one or more licenses are 
+				                  missing for this feature.
+				
+				   degraded     : One or more licenses are missing for 
+				                  this feature and is currently locked.
+				"
+			::= { xfLicenseInfoEntry 4 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.4.1.5
+		xfLicenseInfo OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Information of license feature."
+			::= { xfLicenseInfoEntry 5 }
+
+    -- 1.3.6.1.4.1.193.81.2.13.2.1.4.1.6
+    xfLicenseInfoSlot OBJECT-TYPE
+      SYNTAX Integer32 (-1..2147483647)
+      MAX-ACCESS read-only
+      STATUS current
+      DESCRIPTION
+        "Slot of license feature. -1 implies node level license."
+      ::= { xfLicenseInfoEntry 6 }
+
+    -- 1.3.6.1.4.1.193.81.2.13.2.1.4.1.7
+    xfLicenseInfoPort OBJECT-TYPE
+      SYNTAX Integer32 (-1..2147483647)
+      MAX-ACCESS read-only
+      STATUS current
+      DESCRIPTION
+        "Port of license feature. -1 implies slot/node level license."
+      ::= { xfLicenseInfoEntry 7 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.1.5
+		xfLicenseInfoTableLastChanged OBJECT-TYPE
+			SYNTAX TimeTicks
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The value of sysUpTime when xfLicenseInfoTable is changed."
+			::= { xfLicenseFeatureObjects 5 }
+
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2
+		xfLicenseFileObjects OBJECT IDENTIFIER ::= { xfLicenseMIBObjects 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.1
+		xfLicenseFileTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfLicenseFileEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"A table showing all the license files available in the 
+				node."
+			::= { xfLicenseFileObjects 1 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.1.1
+		xfLicenseFileEntry OBJECT-TYPE
+			SYNTAX XfLicenseFileEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"An entry of a license file."
+			INDEX { xfLicenseFileIndex }
+			::= { xfLicenseFileTable 1 }
+
+
+		XfLicenseFileEntry ::=
+			SEQUENCE { 
+				xfLicenseFileIndex
+					Integer32,
+				xfLicenseFileIssuer
+					OCTET STRING,
+				xfLicenseFileFingerPrint
+					OCTET STRING,
+				xfLicenseFileSequenceNumber
+					Counter32,
+				xfLicenseFileFormatVersion
+					OCTET STRING,
+				xfLicenseFileName
+					OCTET STRING,
+				xfLicenseFileGeneratedDate
+					DateAndTime,
+				xfLicenseFileInstallationDate
+					DateAndTime,
+				xfLicenseFileSWLT
+					OCTET STRING,
+				xfLicenseFileStatus
+					BITS
+			 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.1.1.1
+		xfLicenseFileIndex OBJECT-TYPE
+			SYNTAX Integer32 (1..2147483647)
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"An index to distinguish a license file."
+			::= { xfLicenseFileEntry 1 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.1.1.2
+		xfLicenseFileIssuer OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"An issuer of the license file."
+			::= { xfLicenseFileEntry 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.1.1.3
+		xfLicenseFileFingerPrint OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The fingerprint of a node to which the license file is bound to."
+			::= { xfLicenseFileEntry 3 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.1.1.4
+		xfLicenseFileSequenceNumber OBJECT-TYPE
+			SYNTAX Counter32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The sequence number of the license file from an issuer. An issuer has 
+				a sequence number for each of its license.
+				"
+			::= { xfLicenseFileEntry 4 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.1.1.5
+		xfLicenseFileFormatVersion OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The format version of the license file."
+			::= { xfLicenseFileEntry 5 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.1.1.6
+		xfLicenseFileName OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The name of the license file."
+			::= { xfLicenseFileEntry 6 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.1.1.7
+		xfLicenseFileGeneratedDate OBJECT-TYPE
+			SYNTAX DateAndTime
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The date when the license file is generated."
+			::= { xfLicenseFileEntry 7 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.1.1.8
+		xfLicenseFileInstallationDate OBJECT-TYPE
+			SYNTAX DateAndTime
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The date when a license file is installed in traffic node. 
+				A valid licnese file is stored in RMM (Removable Memory 
+				Module) smart card and an invalid license file is stored 
+				in flash."
+			::= { xfLicenseFileEntry 8 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.1.1.9
+		xfLicenseFileSWLT OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The software license target, which is a logical or 
+				juridical identity of a license file. It is closely 
+				related to fingerprint."
+			::= { xfLicenseFileEntry 9 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.1.1.10
+		xfLicenseFileStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				unknownFormat(0),
+				unknowSignatureType(1),
+				unknownFingerPrintMethod(2),
+				unknownFingerPrint(3)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The current status of a license file.
+				
+				unknownFormat                 : The format version of the 
+				                                license file is not 
+				                                supported by the current 
+				                                node software.
+				
+				unknowSignatureType           : The signature type of the 
+				                                license file is not 
+				                                supported by the current 
+				                                node software
+				
+				unknownFingerPrintMethod      : The finger print method of 
+				                                the license file is not 
+				                                supported by the current 
+				                                node software
+				
+				
+				unknownFingerPrint            : The finger print of the 
+				                                license file is not 
+				                                supported by the current 
+				                                node software
+				"
+			::= { xfLicenseFileEntry 10 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.2
+		xfLicenseKeyTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfLicenseKeyEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"A table that shows the license keys installed in the node. These keys
+				come from only from the valid license files."
+			::= { xfLicenseFileObjects 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.2.1
+		xfLicenseKeyEntry OBJECT-TYPE
+			SYNTAX XfLicenseKeyEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"An entry of a license key."
+			INDEX { xfLicenseFileIndex, xfLicenseKeyGroupId, xfLicenseFeatureProductNumber }
+			::= { xfLicenseKeyTable 1 }
+
+
+		XfLicenseKeyEntry ::=
+			SEQUENCE { 
+				xfLicenseKeyGroupId
+					OCTET STRING,
+				xfLicenseKeyProductNumber
+					OCTET STRING,
+				xfLicenseKeyProductName
+					OCTET STRING,
+				xfLicenseKeyQuantity
+					Gauge32,
+				xfLicenseKeyContainedInFile
+					Integer32
+			 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.2.1.1
+		xfLicenseKeyGroupId OBJECT-TYPE
+			SYNTAX OCTET STRING (SIZE (1..65535))
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The group a license key belongs to. It is set to zero 
+				character if a license key does not have a group."
+			::= { xfLicenseKeyEntry 1 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.2.1.2
+		xfLicenseKeyProductNumber OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The prodcut number of a license key. Its value is the 
+				same as xfLicenseFeatureProductNumber."
+			::= { xfLicenseKeyEntry 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.2.1.3
+		xfLicenseKeyProductName OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The product name of a license key."
+			::= { xfLicenseKeyEntry 3 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.2.1.4
+		xfLicenseKeyQuantity OBJECT-TYPE
+			SYNTAX Gauge32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The quantity of a license key."
+			::= { xfLicenseKeyEntry 4 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.2.2.1.5
+		xfLicenseKeyContainedInFile OBJECT-TYPE
+			SYNTAX Integer32 (0..2147483647)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"xfLicenseFileIndex of the source license file."
+			::= { xfLicenseKeyEntry 5 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.3
+		xfLicenseInstallObjects OBJECT IDENTIFIER ::= { xfLicenseMIBObjects 3 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.3.1
+		xfLicenseInstallFileName OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The name of the license file to be downloaded from the 
+				FTP server and installed."
+			::= { xfLicenseInstallObjects 1 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.3.2
+		xfLicenseInstallAdminStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				downloadAndInstall(1),
+				acceptInvalidLicense(2),
+				rejectInvalidLicense(3)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This is object is written to download and install a 
+				license file. xfLicenseInstallOperStatus shall the 
+				progress of the download and installation process.
+				
+				
+				downloadAndInstall    : A license file is download from 
+				                        FTP server and is parsed and 
+				                        xfLicenseOperStatus will show
+				                        the progress. If the license 
+				                        file is valid, it is stored 
+				                        in RMM. If an error occurs, 
+				                        the license file is discarded. 
+				                        If the license file is invalid 
+				                        a further action expected from 
+				                        the operator.
+				
+				
+				acceptInvalidLicense  : The invalid license file is stored 
+				                        in flash.
+				
+				rejectInvalidLicense  : The invalid license file is 
+				                        discarded.
+				"
+			::= { xfLicenseInstallObjects 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.3.3
+		xfLicenseInstallOperStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				lkfInstallFinished(0),
+				lkfDownloadStarted(1),
+				lkfValidationStarted(2),
+				lkfInstallingOnRMM(3),
+				lkfEnabling(4),
+				unKnownVersion(5),
+				unKnownSignatureType(6),
+				unknownFingerprintMethod(7),
+				unknownFingerprint(8),
+				errorCorruptSignature(9),
+				errorNoSpaceOnRMM(10),
+				errorRMMUnavailable(11),
+				errorTransferFailed(12),
+				errorSequenceNumber(13),
+				errorXMLSyntax(14),
+				errorInternalError(50),
+				errorFileStorage(51),
+				ftpPingFailed(52),
+				ftpNoAccess(53),
+				ftpConnectionDetailsMissing(54),
+				ftpConnectionDetailsInvalid(55),
+				ftpConnectionTimeout(56),
+				ftpNoSuchRemoteFile(57),
+				ftpNoSuchRemoteDir(58),
+				ftpServiceNotAvailable(421),
+				ftpUnableToOpenDataConnection(425),
+				ftpConnectionClosed(426),
+				ftpFileBusy(450),
+				ftpLocalError(451),
+				ftpInsufficientStorageSpace(452),
+				ftpSyntaxError(501),
+				ftpCommandNotImplemented(502),
+				ftpBadSequenceCommands(503),
+				ftpParameterNotImplemented(504),
+				ftpNotLoggedIn(530),
+				ftpNeedAccount(532),
+				ftpFileUnavailable(550),
+				ftpRequestedActionAborted(551),
+				ftpExceededStorageAllocation(552),
+				ftpFileNameNotAllowed(553)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"A status to inform progress of the license installation 
+				process.
+				
+				
+				lkfInstallFinished(0)        
+				   The license file is downloaded,stored in RMM successfully 
+				   and is currently active.
+				
+				lkfDownloadStarted(1)        
+				   The license file is being downloaded from the 
+				   FTP server.
+				 
+				lkfValidationStarted(2)
+				   The license file is being validated.
+				
+				lkfInstallingOnRMM(3)        
+				   The license file is being stored in RMM.
+				
+				lkfEnabling(4)
+				   The license file is being activated.
+				
+				unKnownVersion(5)            
+				   The format version of the license file is not supported 
+				   by the current software.The license file is considered 
+				   as invalid.
+				
+				unKnownSignatureType(6)
+				   The signature type of the license file is not supported 
+				   by the current software.The license file is considered 
+				   as invalid.
+				
+				unknownFingerprintMethod(7)
+				   The finger print method is not supported by the 
+				   current software. The license file is then 
+				   considered as invalid.
+				
+				unknownFingerprint(8)        
+				   The finger print the license file is not supported by the 
+				   current software. The license file is considered as invalid.
+				
+				errorCorruptSignature(9)     
+				   The signature of the license file is corrupt and is 
+				   discarded.
+				
+				errorNoSpaceOnRMM(10)         
+				   There is no more space in RMM for the license file 
+				   and is discarded.
+				
+				errorRMMUnavailable(11)       
+				   The RMM is not available and is unable to store
+				   it in RMM. The file is discarded.
+				
+				errorTransferFailed(12)       
+				   Unable to download the license file from the 
+				   FTP server.
+				
+				errorSequenceNumber(13)       
+				   The sequence number of the license file is not greater
+				   than the sequence number of the previous license file
+				   from the same issuer.
+				
+				errorXMLSyntax(14)            
+				   Not well formed XML file.
+				
+				
+				The 50 series errors are reported by the FTP client on 
+				the node.
+				
+				
+				errorInternalError(50)
+				   An internal error detected before FTP operation.
+				
+				errorFileStorage(51)
+				   Error when erasing flash to store the downloaded
+				   file at the node.
+				
+				ftpPingFailed(52)
+				   FTP ping failed.
+				
+				ftpNoAccess(53)
+				   Not able to send the FTP commands.
+				
+				ftpConnectionDetailsMissing(54)
+				   FTP connection details are missing.
+				
+				ftpConnectionDetailsInvalid(55)
+				   FTP connection details are invalid.
+				
+				ftpConnectionTimeout(56)
+				   FTP connection timeout is detected.
+				 
+				ftpNoSuchRemoteFile(57)
+				   No such remote file exists.
+				
+				ftpNoSuchRemoteDir(58)
+				   No such remote directory exists.
+				
+				
+				The 400 series errors occur when the command was not accepted
+				and the requested action did not take place, but the error
+				condition is temporary and the action may be requested again.
+				
+				
+				ftpServiceNotAvailable(421)
+				   Service not available, closing control connection. This 
+				   may be a reply to any command if the service knows it 
+				   must shut down. Possible causes are transfer timeouts
+				   and/or FTP server resets.
+				
+				ftpUnableToOpenDataConnection(425)
+				  Can't open data connection. Try changing from PASV to 
+				  PORT mode.
+				
+				ftpConnectionClosed(426)
+				  Connection closed and file transfer is aborted. Possible 
+				  causes are out of local diskspace and loss of connection.
+				
+				
+				ftpFileBusy(450)
+				  Requested file action not taken. File 
+				  unavailable (e.g file busy).
+				
+				ftpLocalError(451)
+				  Requested action aborted due to local error in processing.
+				
+				ftpInsufficienStorageSpace(452)
+				  Requested action not taken due to insufficient 
+				  storage space on the server.
+				
+				
+				The 500 series errors occur when the command was not accepted
+				and the requested action did not take place.
+				
+				
+				ftpSyntaxError(501)
+				  FTP Syntax error in parameters or arguments.
+				
+				ftpCommandNotImplemented(502)
+				  FTP Command not implemented.
+				
+				ftpBadSequenceCommands(503)
+				  Bad sequence of the FTP commands.
+				
+				ftpParameterNotImplemented(504)
+				  FTP command not implemented for that parameter.
+				
+				ftpNotLoggedIn(530)
+				  Not logged in. Your username and/or password is being 
+				  rejected, contact the server administrator.
+				
+				ftpNeedAccount(532)
+				  Need account for storing files.
+				
+				ftpFileUnavailable(550)
+				  Requested action not taken. File unavailable 
+				  (e.g.file not found, no access). Contact the server 
+				  administrator.
+				
+				ftpRequestedActionAborted(551)
+				  Requested action aborted. Contact the server 
+				  administrator.
+				
+				ftpExceededStorageAllocation(552)
+				  Requested file action aborted.Exceeded storage allocation (for
+				  current directory or data set). Contact the server administrator.
+				
+				ftpFileNameNotAllowed(553)
+				  Requested action not taken. File name not allowed. Try changing
+				  the file name or getting rid of spaces in the file name."
+			::= { xfLicenseInstallObjects 3 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.4
+		xfLicenseGeneral OBJECT IDENTIFIER ::= { xfLicenseMIBObjects 4 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.4.1
+		xfLicenseFingerPrint OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The fingerprint of the node used to bind a license 
+				to the node."
+			::= { xfLicenseGeneral 1 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.4.2
+		xfLicenseGracePeriodTimeLeft OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"A number of seconds left before grace period expires 
+				and all licenses are lost.It is to be used together 
+				with xfLicenseGracePeriodStatus"
+			::= { xfLicenseGeneral 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.4.3
+		xfLicenseGracePeriodStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				notStarted(1),
+				started(2),
+				expired(3)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The current status of the grace period.
+				
+				notStarted   : The node is not in grace period currently.
+				
+				started      : The grace period has started and licenses 
+				               are available until the grace period 
+				               expires.
+				
+				expired      : The grace period is expired and licenses 
+				               are not available.
+				"
+			::= { xfLicenseGeneral 3 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.4.4
+		xfLicenseCapabilities OBJECT-TYPE
+			SYNTAX BITS
+			{
+			monitoringLicense(0),
+			licenseReport(1),
+			lockedLicensing(2),
+			rlLicensingMode(3),
+			licenseMissingStatus(4)
+			}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"A bitmap that shows supported licensing functionality, 
+				used for compatibility check by management systems.
+				
+				monitoringLicense(0)    : Support for Monitoring License
+				licenseReport(1)        : Support for License Report
+				lockedLicensing(2)      : The NE supports locking of licenses
+ 				RLlicensingMode(3)      : The NE supports radio link licensing mode selection
+ 				licenseMissingStatus(4) : Support for distinguished Feature and License Status columns"
+			::= { xfLicenseGeneral 4 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.4.5
+		xfLicenseNEStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				oK(0),
+				warning(2),
+				degraded(3)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The current summarized license controlled feature status of the node.
+
+				oK		 : the license controlled feature statuses of all license
+				warning	 : No DEGRADED state AND at least one of the license
+				 		  controlled features in the NE have a license status
+				 		  that is WARNING
+				degraded : At least one of the license controlled features in the
+				 		  NE has a license status that is DEGRADED.
+				"
+			::= { xfLicenseGeneral 5 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.4.6
+		xfLicenseCraftLicInstalled OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				craftLicenseInstalled(1),
+				craftLicenseNotInstalled(2)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The current summarized license status of the node.
+				craftLicenseInstalled		: Craft license is installed
+				craftLicenseNotInstalled	: Craft license is not installed
+				"
+			::= { xfLicenseGeneral 6 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.4.7
+		xfLicenseMonitoringLicInstalled OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				monitoringLicenseInstalled(1),
+				monitoringLicenseNotInstalled(2)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The current summarized license status of the node.
+				monitoringLicenseInstalled		: Monitoring license is installed
+				monitoringLicenseNotInstalled		: Monitoring license is not installed
+				"
+			::= { xfLicenseGeneral 7 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.4.8
+		xfRLlicenseMode OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				rlLicenseModeChannelBased(1),
+				rlLicenseModePairBased(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The current summarized license status of the node.
+				rlLicenseModeChannelBased : Use per modem (ESM) licenses
+				rlLicenseModePairBased		: Use per feature (legacy) licenses
+				"
+			::= { xfLicenseGeneral 8 }
+
+     -- 1.3.6.1.4.1.193.81.2.13.2.4.9
+        xfLicenseNELicenseStatus OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                oK(0),
+                missing(1)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "The current summarized license status of the node.
+
+                oK       : the license statuses of all license
+                missing  : at least one of the license is missing
+                "
+            ::= { xfLicenseGeneral 9 }
+		
+		-- 1.3.6.1.4.1.193.81.2.13.2.5
+		xfLicenseAlarmObjects OBJECT IDENTIFIER ::= { xfLicenseMIBObjects 5 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.5.1
+		xfLicenseAlarmWarning OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				enable(1),
+				disable(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Enable/disable license warning alarms."
+			::= { xfLicenseAlarmObjects 1 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.5.2
+		xfLicenseAlarmError OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				enable(1),
+				disable(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Enable/disable license error alarms."
+			::= { xfLicenseAlarmObjects 2 } 
+			
+			
+		-- 1.3.6.1.4.1.193.81.2.13.2.6
+		xfLicenseReportObjects OBJECT IDENTIFIER ::= { xfLicenseMIBObjects 6 }
+
+        -- 1.3.6.1.4.1.193.81.2.13.2.6.1
+        xfLicenseReportCommand OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				generateAndUpload(1)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to initiate a report command.
+
+				generateAndUpload(1): Generates a license report and uploads it to the xfLicenseReportActiveFTP.
+				"
+			::= { xfLicenseReportObjects 1 }      
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.6.2
+		xfLicenseReportStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				inProgress(1),
+				finished(2),
+				errorInternalError(50),
+				ftpPingFailed(52),
+				ftpNoAccess(53),
+				ftpConnectionDetailsMissing(54),
+				ftpConnectionDetailsInvalid(55),
+				ftpConnectionTimeout(56),
+				ftpServiceNotAvailable(421),
+				ftpUnableToOpenDataConnection(425),
+				ftpConnectionClosed(426),
+				ftpFileBusy(450),
+				ftpLocalError(451),
+				ftpInsufficientStorageSpace(452),
+				ftpSyntaxError(501),
+				ftpCommandNotImplemented(502),
+				ftpBadSequenceCommands(503),
+				ftpParameterNotImplemented(504),
+				ftpNotLoggedIn(530),
+				ftpNeedAccount(532),
+				ftpFileUnavailable(550),
+				ftpRequestedActionAborted(551),
+				ftpExceededStorageAllocation(552),
+				ftpFileNameNotAllowed(553)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This object is used to indicate the status of the report command.
+				
+				inProgress(1):
+					Set whilst generation/transfer is active.
+					
+				finished(2):
+					Set if transfer is succeded.  
+				
+				errorInternalError(50):
+					An interal error detected before FTP operation.
+				
+				ftpPingFailed(52):
+					FTP ping failed.
+				
+				ftpNoAccess(53):
+					Not able to send the FTP commands.
+				
+				ftpConnectionDetailsMissing(54):
+					FTP connection details are missing.
+				
+				ftpConnectionDetailsInvalid(55):
+					FTP connection details are invalid.
+				
+				ftpConnectionTimeout(56):
+					FTP connection timeout is detected.
+				
+				ftpServiceNotAvailable(421):
+					Service not available, closing control connection.
+				
+				ftpUnableToOpenDataConnection(425):
+					Can't open data connection.
+				
+				ftpConnectionClosed(426):
+					Connection closed, transfer aborted.
+				
+				ftpFileBusy(450):
+				  Requested file action not taken. File 
+				  unavailable (e.g file busy).
+				
+				ftpLocalError(451):
+					Requested action aborted, local error in processing.
+				
+				ftpInsufficientStorageSpace(452):
+					Requested action not taken. Insufficient storage space in system.
+				
+				ftpSyntaxError(501):
+					Syntax error in parameters or arguments.
+				
+				ftpCommandNotImplemented(502):
+					Command not implemented.
+				
+				ftpBadSequenceCommands(503):
+					Bad sequence of commands.
+				
+				ftpParameterNotImplemented(504):
+					Command not implemented for that parameter.
+				
+				ftpNotLoggedIn(530):
+					User not logged in.
+				
+				ftpNeedAccount(532):
+					Need account for storing files.
+				
+				ftpFileUnavailable(550)
+				  Requested action not taken. File unavailable 
+				  (e.g.file not found, no access). Contact the server 
+				  administrator.
+				
+				ftpRequestedActionAborted(551)
+				  Requested action aborted. Contact the server 
+				  administrator.
+				
+				ftpExceededStorageAllocation(552):
+					Requested file action aborted, storage allocation exceeded.
+				
+				ftpFileNameNotAllowed(553):
+					Requested action not taken. Illegal file name.
+				"
+			::= { xfLicenseReportObjects 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.7
+		xfLicenseUnlockedPeriodObjects OBJECT IDENTIFIER ::= { xfLicenseMIBObjects 7 } 
+		
+		-- 1.3.6.1.4.1.193.81.2.13.2.7.1
+        xfLicenseUnlockedPeriod OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The time left of the Unlocked Period. [h]"
+			::= { xfLicenseUnlockedPeriodObjects 1 }      
+			
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.7.2
+		xfLicenseUnlockedPeriodStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				activeBySWupgrade(1),
+				activeByRMMmissing(2),
+				activeByIU(3),
+				activeByMU(4),
+				activeByEU(5),
+				inactive(6),
+				activeByNPUprotection(7)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This object is used to indicate the status of SW Upgrade trigged Unlocked Period.
+
+				activeBySWupgrade(1):
+					The Unlocked Period is active and was triggered by SW Upgrade.
+
+				activeByRMMmissing(2):
+					The Unlocked Period is active and was triggered by RMM missing.
+
+				activeByIU(3):
+					The Unlocked Period is active and was triggered by Integration Unlock.
+
+				activeByMU(4):
+					The Unlocked Period is active and was triggered by  Maintenance Unlock.
+
+				activeByEU(5):
+					The Unlocked Period is active and was triggered by  Emergency Unlock.
+
+				inactive(6):
+					The Unlocked Period is inactive.
+
+				activeByNPUprot(7):
+					The Unlocked Period is active and was triggered by NPU mastership handover.
+				"
+			::= { xfLicenseUnlockedPeriodObjects 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.7.3
+		xfLicenseUnlockedPeriodEnteredByUser OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				enterByIU(1),
+				enterByMU(2),
+				enterByEU(3),
+				notEnteredByUser(4)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to indicate which Unlocked Period has entered the.
+				
+				enterByIU(1):
+					The IU Unlocked Period is entered.
+				
+				enterByMU(2):
+					The IU Unlocked Period is entered.  
+				
+				enterByEU(3):
+					The IU Unlocked Period is entered. 
+					
+				NotEnteredByUser(4):
+					The Unlocked Period, if it is active, is not entered by user.
+				"
+			::= { xfLicenseUnlockedPeriodObjects 3 }
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.7.4
+		xfLicenseUnlockedPeriodExitByUser OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				true(1),
+				false(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to indicate if the Unlocked Period is exit by the user.
+				
+				true(1):
+					When the user orders an exit of the Unlocked Period.
+					
+				false(2):
+					False is default. False is set when an Unlocked Period is started.
+				"
+			::= { xfLicenseUnlockedPeriodObjects 4 }
+
+      
+		-- 1.3.6.1.4.1.193.81.2.13.2.7.5
+        xfLicenseUnlockedPeriodDate OBJECT-TYPE
+			SYNTAX DateAndTime
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The date the latest Unlocked Period was enterd.
+				Shall not be cleared after exit of the Unlocked Period."
+			::= { xfLicenseUnlockedPeriodObjects 5 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.7.6
+        xfLicenseNrOfUnlockedPeriodSU OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Total number the Unlocked Period have been entered by SW Upgrade."
+			::= { xfLicenseUnlockedPeriodObjects 6 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.7.7
+        xfLicenseNrOfUnlockedPeriodRMM OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Total number the Unlocked Period have been entered by RMM missing."
+			::= { xfLicenseUnlockedPeriodObjects 7 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.7.8
+        xfLicenseNrOfUnlockedPeriodIU OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Total number the Unlocked Period have been entered by Integration Unlock."
+			::= { xfLicenseUnlockedPeriodObjects 8 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.7.9
+        xfLicenseNrOfUnlockedPeriodMU OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Total number the Unlocked Period have been entered by Maintenance Unlock."
+			::= { xfLicenseUnlockedPeriodObjects 9 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.7.10
+        xfLicenseNrOfUnlockedPeriodEU OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Total number the Unlocked Period have been entered by Emergency Unlock."
+			::= { xfLicenseUnlockedPeriodObjects 10 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.7.11
+        xfLicenseIUtoken OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of Integration Unlock tokens left."
+			::= { xfLicenseUnlockedPeriodObjects 11 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.7.12
+        xfLicenseMUtoken OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of Maintenance Unlock tokens left."
+			::= { xfLicenseUnlockedPeriodObjects 12 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.7.13
+        xfLicenseEUtoken OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of Emergency Unlock tokens left."
+			::= { xfLicenseUnlockedPeriodObjects 13 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.2.7.14
+	xfLicenseNrOfUnlockedPeriodNPUprotection OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Total number the Unlocked Period have been entered by NPU mastership handover."
+			::= { xfLicenseUnlockedPeriodObjects 14 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.7
+		xfLicenseConformance OBJECT IDENTIFIER ::= { xfLicenseMIB 7 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.7.1
+		xfLicenseCompliances OBJECT IDENTIFIER ::= { xfLicenseConformance 1 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.7.1.1
+		xfLicenseCompliance MODULE-COMPLIANCE
+			STATUS current
+			DESCRIPTION 
+				"Description."
+			MODULE -- this module
+				MANDATORY-GROUPS { xfLicenseObjectGroup1 }
+			::= { xfLicenseCompliances 1 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.7.2
+		xfLicenseObjectGroups OBJECT IDENTIFIER ::= { xfLicenseConformance 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.2.13.7.2.1
+		xfLicenseObjectGroup1 OBJECT-GROUP
+			OBJECTS { xfLicenseFileIssuer, xfLicenseFileFingerPrint, xfLicenseFileSequenceNumber, xfLicenseFileName, xfLicenseFileGeneratedDate, 
+				xfLicenseFileInstallationDate, xfLicenseFileSWLT, xfLicenseFileStatus, xfLicenseKeyProductNumber, xfLicenseKeyGroupId, 
+				xfLicenseKeyProductName, xfLicenseKeyQuantity, xfLicenseFeatureProductName, xfLicenseFeatureQuantity, xfLicenseFeatureSubscribed, 
+				xfLicenseFeatureStatus, xfLicenseFeatureTableLastChanged, xfLicenseInstallFileName, xfLicenseInstallAdminStatus, xfLicenseInstallOperStatus, 
+				xfLicenseGracePeriodTimeLeft, xfLicenseGracePeriodStatus, xfLicenseKeyContainedInFile, xfLicenseAlarmError, xfLicenseAlarmWarning, 
+  			xfLicenseFeatureOidTree, xfLicenseFileFormatVersion, xfLicenseFeatureOidTreeProductNumber, xfLicenseFingerPrint,
+				xfLicenseFeatureUnlockedQty, xfLicenseFeatureSumUnlockedInstalled, xfLicenseFeatureMissingStatus, xfLicenseCapabilities, xfLicenseReportCommand, xfLicenseReportStatus,
+				xfLicenseUnlockedPeriod, xfLicenseUnlockedPeriodStatus, xfLicenseUnlockedPeriodEnteredByUser, xfLicenseUnlockedPeriodExitByUser, xfLicenseUnlockedPeriodDate, xfLicenseNrOfUnlockedPeriodSU,
+				xfLicenseNrOfUnlockedPeriodRMM, xfLicenseNrOfUnlockedPeriodIU, xfLicenseNrOfUnlockedPeriodMU, xfLicenseNrOfUnlockedPeriodEU, xfLicenseIUtoken,
+				xfLicenseMUtoken, xfLicenseEUtoken, xfLicenseNrOfUnlockedPeriodNPUprotection, xfLicenseInfoProductNumber, xfLicenseInfoProductName, xfLicenseInfoInstance, xfLicenseInfoStatus, xfLicenseInfo, xfLicenseInfoSlot, xfLicenseInfoPort,
+				xfLicenseInfoInstance, xfLicenseInfoTableLastChanged, xfLicenseNEStatus, xfLicenseCraftLicInstalled,
+				xfLicenseMonitoringLicInstalled, xfRLlicenseMode, xfLicenseNELicenseStatus}
+			STATUS current
+			DESCRIPTION 
+				"All objects in this MIB."
+			::= { xfLicenseObjectGroups 1 }
+
+
+	END
+
+--
+-- 29_19603-crxr10201_1_licensing.mi2
+--

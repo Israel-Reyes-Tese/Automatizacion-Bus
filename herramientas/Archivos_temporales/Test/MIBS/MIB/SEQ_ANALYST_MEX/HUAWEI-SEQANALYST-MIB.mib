@@ -1,0 +1,1223 @@
+-- =================================================================
+-- Copyright (C) 2014 by  HUAWEI TECHNOLOGIES. All rights reserved.
+--
+-- Description: HUAWEI SEQ Analyst solution mib
+-- Reference:   huawei enterprise mib, RFC2578
+-- Version:     V1.1           
+-- History:     V1.0  yanzhenjie, 2014-01-10, initial release. 
+--              V1.1  yanzhenjie, 2014-04-02, correct the OIDs in the notation from 1.3.6.1.4.1.1.2.255.x to 1.3.6.1.4.1.2011.2.255.x. 
+-- =================================================================
+
+	HUAWEI-SEQANALYST-MIB DEFINITIONS ::= BEGIN
+ 
+		IMPORTS
+			seqAnalyst			
+				FROM HUAWEI-MIB			
+			IpAddress, OBJECT-TYPE, MODULE-IDENTITY, OBJECT-IDENTITY, NOTIFICATION-TYPE			
+				FROM SNMPv2-SMI;
+	
+	
+		hwSeqAnalyst MODULE-IDENTITY 
+			LAST-UPDATED "201401021855Z"		-- January 02, 2014 at 18:55 GMT
+			ORGANIZATION 
+				"Huawei Technologies co.,Ltd."
+			CONTACT-INFO 
+				" Floot 5 ,Block 4, R&D Building,
+                  Huawei Longgang Production Base,
+                  Shenzhen,  P.R.C.
+                  http://www.huawei.com
+                  Zip:518129
+                  E-mail:support@huawei.com
+                "
+			DESCRIPTION 
+				"The HUAWEI-SEQANALYST-MIB contains objects for SEQ Analyst solution.
+				"
+            REVISION "201401021855Z"		-- January 02, 2014 at 18:55 GMT
+            DESCRIPTION 
+                  "The initial revision of this MIB module.
+                  "
+			::= { seqAnalyst 2 }
+	
+     
+--
+-- Node definitions
+--
+	
+		-- 1.3.6.1.4.1.2011.2.255.2.1
+		hwSeqAnalystManagement OBJECT IDENTIFIER ::= { hwSeqAnalyst 1 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.1.1
+		hwSeqAnalystNEInformation OBJECT IDENTIFIER ::= { hwSeqAnalystManagement 1 }
+
+		-- 1.3.6.1.4.1.2011.2.255.2.1.1.2
+		hwSeqAnalystNEVersionNo OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The version number of the network element. It has the format of ProductName
+				 VxxxRxxxCxx[SPCxxx] such as SEQ Analyst V200R002C03, NetProbe3010 V100R002C01SPC100.
+				"
+			::= { hwSeqAnalystNEInformation 2 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.1.1.3
+		hwSeqAnalystNEInterfaceID OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The interface identification according to the version number of the network element.				 
+				 The interface identification is used to identify the adapter information for the management.
+				"
+			::= { hwSeqAnalystNEInformation 3 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.1.1.6
+		hwSeqAnalystProbeQuantity OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The quantity of the probes for NetProbe product. It is only available for NetProbe
+				 product.
+				"
+			::= { hwSeqAnalystNEInformation 6 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.1.2
+		hwSeqAnalystHeartbeatOne OBJECT IDENTIFIER ::= { hwSeqAnalystManagement 2 }
+
+		-- 1.3.6.1.4.1.2011.2.255.2.1.2.1
+		hwSeqAnalystHeartbeatSecond OBJECT IDENTIFIER ::= { hwSeqAnalystHeartbeatOne 1 }
+
+		-- 1.3.6.1.4.1.2011.2.255.2.1.2.1.1
+		hwSeqAnalystHeartbeatThird OBJECT IDENTIFIER ::= { hwSeqAnalystHeartbeatSecond 1 }
+
+		-- 1.3.6.1.4.1.2011.2.255.2.1.2.1.1.1
+		hwSeqAnalystHeartbeatForth OBJECT IDENTIFIER ::= { hwSeqAnalystHeartbeatThird 1 }
+
+		-- 1.3.6.1.4.1.2011.2.255.2.1.2.1.1.1.0
+		hwSeqAnalystHeartbeatNotificationV2 OBJECT-IDENTITY
+			STATUS current
+			DESCRIPTION 
+				"The trap of heartbeat."
+			::= { hwSeqAnalystHeartbeatForth 0 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.1.2.1.1.1.0.5
+		hwSeqAnalystHeartbeatNotificationType NOTIFICATION-TYPE
+			OBJECTS { hwSeqAnalystHeartbeatProductName, hwSeqAnalystHeartbeatInterval, hwSeqAnalystHeartbeatTime }
+			STATUS current
+			DESCRIPTION 
+				"The objects included in trap of heartbeat."
+			::= { hwSeqAnalystHeartbeatNotificationV2 5 }
+
+		-- 1.3.6.1.4.1.2011.2.255.2.1.2.1.1.1.1
+		hwSeqAnalystHeartbeatProductName OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The product name of heartbeat."
+			::= { hwSeqAnalystHeartbeatForth 1 }
+
+		-- 1.3.6.1.4.1.2011.2.255.2.1.2.1.1.1.2
+		hwSeqAnalystHeartbeatInterval OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The interval of heartbeat. The unit is second."
+			::= { hwSeqAnalystHeartbeatForth 2 }
+
+		-- 1.3.6.1.4.1.2011.2.255.2.1.2.1.1.1.3
+		hwSeqAnalystHeartbeatTime OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The time of heartbeat."
+			::= { hwSeqAnalystHeartbeatForth 3 }
+
+		-- 1.3.6.1.4.1.2011.2.255.2.1.4
+		hwSeqAnalystTrapSubscribe OBJECT IDENTIFIER ::= { hwSeqAnalystManagement 4 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.1.4.1
+		hwSeqAnalystSubscriberName OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"The subscriber name.
+				"
+			::= { hwSeqAnalystTrapSubscribe 1 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.1.4.2
+		hwSeqAnalystSubscriberIP OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The IP of the subscriber to receive trap. If subscribe successfully, the network
+				 element will send trap to the IP address.
+				"
+			::= { hwSeqAnalystTrapSubscribe 2 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.1.4.3
+		hwSeqAnalystSubscriberPort OBJECT-TYPE
+			SYNTAX INTEGER
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The port of the subscriber to receive trap. If subscribe successfully, the network
+				 element will send trap to the port.
+				"
+			::= { hwSeqAnalystTrapSubscribe 3 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.1.4.4
+		hwSeqAnalystSubscriberSNMPVersionNo OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				snmpV1(1),
+				snmpV2c(2),
+				snmpV3(3)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The SNMP version used by the subscriber.
+				"
+			::= { hwSeqAnalystTrapSubscribe 4 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.1.4.5
+		hwSeqAnalystSubscriberComunityOrUser OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The community or user name. If the SNMP version is snmpV1 or snmpV2, it is the
+				 community name. If the SNMP version is snmpV3, it is the user name.
+				"
+			::= { hwSeqAnalystTrapSubscribe 5 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.1.4.6
+		hwSeqAnalystSubscriberStatus OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				active(1),
+				notInService(2),
+				notReady(3),
+				createAndGo(4),
+				createAndWait(5),
+				destroy(6)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The status of subscriber. The value of destroy means that the subscriber cancel
+				 the subscription. The value of createAndGo means that the subscriber enable the
+				 subscription.
+				"
+			::= { hwSeqAnalystTrapSubscribe 6 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4
+		hwSeqAnalystFault OBJECT IDENTIFIER ::= { hwSeqAnalyst 4 }
+		
+			-- 1.3.6.1.4.1.2011.2.255.2.4.1
+			--   Active alarm
+			hwSeqAnalystActiveAlarm OBJECT IDENTIFIER ::= { hwSeqAnalystFault 1 }
+			
+				-- 1.3.6.1.4.1.2011.2.255.2.4.1.1
+				hwSeqAnalystActiveAlarmSerialNo OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"Alarm serial number that uniquely identifies an alarm."
+					::= { hwSeqAnalystActiveAlarm 1 }
+				
+				-- 1.3.6.1.4.1.2011.2.255.2.4.1.2
+				hwSeqAnalystActiveAlarmSeverity OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"Alarm severity level: '0' - Critical, '1' - Major, '2' - Minor, '3' - Warning."
+					::= { hwSeqAnalystActiveAlarm 2 }
+
+				-- 1.3.6.1.4.1.2011.2.255.2.4.1.7
+				hwSeqAnalystActiveAlarmID OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"Alarm ID. It is used to distinguish the type of alarm device of the same type."
+					::= { hwSeqAnalystActiveAlarm 7 }
+			
+				-- 1.3.6.1.4.1.2011.2.255.2.4.1.11
+				hwSeqAnalystActiveAlarmFirstOccurence OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-write
+					STATUS current
+					DESCRIPTION
+						"The first occurence time of the same alarm. It has the format of YYYY-MM-DD HH:MM:SS.XXX 
+						 such as '2013-12-21 12:01:30.912'."
+					::= { hwSeqAnalystActiveAlarm 11 }
+				
+				-- 1.3.6.1.4.1.2011.2.255.2.4.1.13
+				hwSeqAnalystActiveAlarmLocationInfo OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The location information of the alarm. It provides some information to analyze the alarm."
+					::= { hwSeqAnalystActiveAlarm 13 }
+
+			-- 1.3.6.1.4.1.2011.2.255.2.4.2
+			--   Active alarm table for NMS
+	    hwSeqAnalystActiveAlarm1Table OBJECT-TYPE
+	       SYNTAX     SEQUENCE OF HwSeqAnalystActiveAlarm1Entry
+	       MAX-ACCESS not-accessible
+	       STATUS     current
+	       DESCRIPTION
+	               "The (conceptual) table listing the capabilities of
+	               the local SNMP application acting as a command
+	               responder with respect to various MIB modules.
+	               SNMP entities having dynamically-configurable support
+	               of MIB modules will have a dynamically-varying number
+	               of conceptual rows."
+	       ::= { hwSeqAnalystFault 2 }
+
+		  	-- 1.3.6.1.4.1.2011.2.255.2.4.2.1
+		    hwSeqAnalystActiveAlarm1Entry OBJECT-TYPE
+		       SYNTAX     HwSeqAnalystActiveAlarm1Entry
+		       MAX-ACCESS not-accessible
+		       STATUS     current
+		       DESCRIPTION
+		               "An entry (conceptual row) in the hwSeqAnalystActiveAlarmTable."
+		       INDEX      { hwSeqAnalystActiveAlarm1SerialNo }
+		       ::= { hwSeqAnalystActiveAlarm1Table 1 }
+
+		    HwSeqAnalystActiveAlarm1Entry ::= SEQUENCE {
+		       hwSeqAnalystActiveAlarm1SerialNo        OCTET STRING,
+		       hwSeqAnalystActiveAlarm1Severity        OCTET STRING,
+		       hwSeqAnalystActiveAlarm1Count           OCTET STRING,
+		       hwSeqAnalystActiveAlarm1SubType         OCTET STRING,
+		       hwSeqAnalystActiveAlarm1Object          OCTET STRING,
+		       hwSeqAnalystActiveAlarm1Type            OCTET STRING,
+		       hwSeqAnalystActiveAlarm1ID              OCTET STRING,
+		       hwSeqAnalystActiveAlarm1Name            OCTET STRING,
+		       hwSeqAnalystActiveAlarm1TotalUsers      OCTET STRING,
+		       hwSeqAnalystActiveAlarm1EffectUsers     OCTET STRING,
+		       hwSeqAnalystActiveAlarm1FirstOccurence  OCTET STRING,
+		       hwSeqAnalystActiveAlarm1LastUpdated     OCTET STRING,
+		       hwSeqAnalystActiveAlarm1LocationInfo    OCTET STRING,
+		       hwSeqAnalystActiveAlarm1ClearedTime     OCTET STRING,
+		       hwSeqAnalystActiveAlarm1ClearedType     OCTET STRING,
+		       hwSeqAnalystActiveAlarm1ConfirmedTime   OCTET STRING,
+		       hwSeqAnalystActiveAlarm1UserIdentity    OCTET STRING,
+		       hwSeqAnalystActiveAlarm1Category        OCTET STRING,
+		       hwSeqAnalystActiveAlarm1DemarcationInfo OCTET STRING,
+		       hwSeqAnalystActiveAlarm1HandlingSuggestion OCTET STRING
+		    }
+			
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.1
+				hwSeqAnalystActiveAlarm1SerialNo OBJECT-TYPE
+					SYNTAX OCTET STRING (SIZE (1..255))
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"Alarm serial number that uniquely identifies an alarm."
+					::= { hwSeqAnalystActiveAlarm1Entry 1 }
+				
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.2
+				hwSeqAnalystActiveAlarm1Severity OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"Alarm severity level: '0' - Critical, '1' - Major, '2' - Minor, '3' - Warning."
+					::= { hwSeqAnalystActiveAlarm1Entry 2 }
+
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.3
+				hwSeqAnalystActiveAlarm1Count OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The number of times the same alarm occurs continuously."
+					::= { hwSeqAnalystActiveAlarm1Entry 3 }
+
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.4
+				hwSeqAnalystActiveAlarm1SubType OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The subtype of the alarm."
+					::= { hwSeqAnalystActiveAlarm1Entry 4 }
+
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.5
+				hwSeqAnalystActiveAlarm1Object OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The module of which the alarm is generated."
+					::= { hwSeqAnalystActiveAlarm1Entry 5 }
+
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.6
+				hwSeqAnalystActiveAlarm1Type OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The type of the alarm."
+					::= { hwSeqAnalystActiveAlarm1Entry 6 }
+
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.7
+				hwSeqAnalystActiveAlarm1ID OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"Alarm ID. It is used to distinguish the type of alarm device of the same type."
+					::= { hwSeqAnalystActiveAlarm1Entry 7 }
+			
+		    -- 1.3.6.1.4.1.2011.2.255.2.4.2.1.8
+		    hwSeqAnalystActiveAlarm1Name OBJECT-TYPE
+		    	SYNTAX OCTET STRING
+		    	MAX-ACCESS read-only
+		    	STATUS current
+		    	DESCRIPTION
+	    			"The name of the alarm."
+	    		::= { hwSeqAnalystActiveAlarm1Entry 8 }
+		
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.9
+				hwSeqAnalystActiveAlarm1TotalUsers OBJECT-TYPE
+			    SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The total number of the subscribers."
+					::= { hwSeqAnalystActiveAlarm1Entry 9 }
+		
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.10
+				hwSeqAnalystActiveAlarm1EffectUsers OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The number of the subscribers affected by the alarm."
+					::= { hwSeqAnalystActiveAlarm1Entry 10 }
+
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.11
+				hwSeqAnalystActiveAlarm1FirstOccurence OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-write
+					STATUS current
+					DESCRIPTION
+						"The first occurence time of the same alarm. It has the format of YYYY-MM-DD HH:MM:SS.XXX 
+						 such as '2013-12-21 12:01:30.912'."
+					::= { hwSeqAnalystActiveAlarm1Entry 11 }
+				
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.12
+				hwSeqAnalystActiveAlarm1LastUpdated OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The last occurence time of the same alarm."
+					::= { hwSeqAnalystActiveAlarm1Entry 12 }
+
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.13
+				hwSeqAnalystActiveAlarm1LocationInfo OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The location information of the alarm. It provides some information to analyze the alarm."
+					::= { hwSeqAnalystActiveAlarm1Entry 13 }
+
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.14
+				hwSeqAnalystActiveAlarm1ClearedTime OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The clear time of the alarm."
+					::= { hwSeqAnalystActiveAlarm1Entry 14 }
+				
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.15
+				hwSeqAnalystActiveAlarm1ClearedType OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The clear type of the alarm.
+						 '0' - Uncleared, 
+						 '1' - Automatically cleared, 
+						 '2' - Manually cleared.
+						"
+					::= { hwSeqAnalystActiveAlarm1Entry 15 }
+				
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.16
+				hwSeqAnalystActiveAlarm1ConfirmedTime OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The time of alarm confirmed."
+					::= { hwSeqAnalystActiveAlarm1Entry 16 }
+				
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.17
+				hwSeqAnalystActiveAlarm1UserIdentity OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The identity of the subscriber affected by the alarm."
+					::= { hwSeqAnalystActiveAlarm1Entry 17 }
+				
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.18
+				hwSeqAnalystActiveAlarm1Category OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The category of the alarm. 
+						 '1' - Fault,
+						 '2' - Event, 
+						 '3' - Fault-->Confirm, 
+						 '4' - Event-->Confirm,
+						 '5' - Falut-->Change, 
+						 '6' - Event-->Change.
+						"
+					::= { hwSeqAnalystActiveAlarm1Entry 18 }
+	
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.19
+				hwSeqAnalystActiveAlarm1DemarcationInfo OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The demarcation infomation of alarm."
+					::= { hwSeqAnalystActiveAlarm1Entry 19 }
+				
+				-- 1.3.6.1.4.1.2011.2.255.2.4.2.1.20
+				hwSeqAnalystActiveAlarm1HandlingSuggestion OBJECT-TYPE
+					SYNTAX OCTET STRING
+					MAX-ACCESS read-only
+					STATUS current
+					DESCRIPTION
+						"The handling suggestion of alarm."
+					::= { hwSeqAnalystActiveAlarm1Entry 20 }
+
+			-- 1.3.6.1.4.1.2011.2.255.2.4.3
+			hwSeqAnalystTrap OBJECT IDENTIFIER ::= { hwSeqAnalystFault 3 }
+		
+			-- 1.3.6.1.4.1.2011.2.255.2.4.3.3
+			hwSeqAnalystTrapAlarm OBJECT IDENTIFIER ::= { hwSeqAnalystTrap 3 }
+			
+			-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.0
+			hwSeqAnalystTrapAlarmV2 OBJECT-IDENTITY
+				STATUS current
+				DESCRIPTION 
+					"The trap of alarm."
+				::= { hwSeqAnalystTrapAlarm 0 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.0.1
+		hwSeqAnalystTrapAlarmNotification NOTIFICATION-TYPE
+			OBJECTS { hwSeqAnalystAlarmSerialNo, hwSeqAnalystAlarmSeverity, hwSeqAnalystAlarmCount, hwSeqAnalystAlarmSubType, hwSeqAnalystAlarmObject, 
+				hwSeqAnalystAlarmType, hwSeqAnalystAlarmID, hwSeqAnalystAlarmName, hwSeqAnalystAlarmTotalUsers, hwSeqAnalystAlarmEffectUsers, 
+				hwSeqAnalystAlarmFirstOccurence, hwSeqAnalystAlarmLastUpdated, hwSeqAnalystAlarmLocationInfo, hwSeqAnalystAlarmClearedTime, 
+				hwSeqAnalystAlarmClearedType, hwSeqAnalystAlarmConfirmedTime, hwSeqAnalystAlarmUserIdentity, hwSeqAnalystAlarmCategory, 
+				hwSeqAnalystAlarmDemarcationInfo, hwSeqAnalystAlarmHandlingSuggestion, hwSeqAnalystAlarmPeriod, hwSeqAnalystAlarmDemarcationObjectType, 
+				hwSeqAnalystAlarmDemarcationObject, hwSeqAnalystAlarmOtherDescription, hwSeqAnalystAlarmObjectType, hwSeqAnalystAlarmCellId, 
+				hwSeqAnalystAlarmFailureDetail1, hwSeqAnalystAlarmFailureDetail2, hwSeqAnalystAlarmFailureDetail3, hwSeqAnalystAlarmFailureDetail4, 
+				hwSeqAnalystAlarmFailureDetail5, hwSeqAnalystAlarmEqptVendor, hwSeqAnalystAlarmParas1, hwSeqAnalystAlarmParas2, 
+				hwSeqAnalystAlarmParas3, hwSeqAnalystAlarmParas4, hwSeqAnalystAlarmParas5, hwSeqAnalystAlarmParas6, hwSeqAnalystAlarmParas7, 
+				hwSeqAnalystAlarmParas8, hwSeqAnalystAlarmParas9, hwSeqAnalystAlarmParas10, hwSeqAnalystAlarmParas11, hwSeqAnalystAlarmParas12, 
+				hwSeqAnalystAlarmParas13, hwSeqAnalystAlarmParas14, hwSeqAnalystAlarmParas15 }
+			STATUS current
+			DESCRIPTION 
+				"The objects included in trap of alarm."
+			::= { hwSeqAnalystTrapAlarmV2 1 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.1
+		hwSeqAnalystAlarmSerialNo OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Alarm serial number that uniquely identifies an alarm."
+			::= { hwSeqAnalystTrapAlarm 1 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.2
+		hwSeqAnalystAlarmSeverity OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Alarm severity level: '0' - Critical, '1' - Major, '2' - Minor, '3' - Warning."
+			::= { hwSeqAnalystTrapAlarm 2 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.3
+		hwSeqAnalystAlarmCount OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The number of times the same alarm occurs continuously."
+			::= { hwSeqAnalystTrapAlarm 3 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.4
+		hwSeqAnalystAlarmSubType OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The subtype of the alarm."
+			::= { hwSeqAnalystTrapAlarm 4 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.5
+		hwSeqAnalystAlarmObject OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The module of which the alarm is generated."
+			::= { hwSeqAnalystTrapAlarm 5 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.6
+		hwSeqAnalystAlarmType OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The type of the alarm."
+			::= { hwSeqAnalystTrapAlarm 6 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.7
+		hwSeqAnalystAlarmID OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Alarm ID. It is used to distinguish the type of alarm device of the same type."
+			::= { hwSeqAnalystTrapAlarm 7 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.8
+		hwSeqAnalystAlarmName OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The name of the alarm."
+			::= { hwSeqAnalystTrapAlarm 8 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.9
+		hwSeqAnalystAlarmTotalUsers OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The total number of the subscribers."
+			::= { hwSeqAnalystTrapAlarm 9 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.10
+		hwSeqAnalystAlarmEffectUsers OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The number of the subscribers affected by the alarm."
+			::= { hwSeqAnalystTrapAlarm 10 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.11
+		hwSeqAnalystAlarmFirstOccurence OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The first occurence time of the same alarm."
+			::= { hwSeqAnalystTrapAlarm 11 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.12
+		hwSeqAnalystAlarmLastUpdated OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The last occurence time of the same alarm."
+			::= { hwSeqAnalystTrapAlarm 12 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.13
+		hwSeqAnalystAlarmLocationInfo OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The location information of the alarm."
+			::= { hwSeqAnalystTrapAlarm 13 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.14
+		hwSeqAnalystAlarmClearedTime OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The clear time of the alarm."
+			::= { hwSeqAnalystTrapAlarm 14 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.15
+		hwSeqAnalystAlarmClearedType OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The clear type of the alarm.
+				 '0' - Uncleared, 
+				 '1' - Automatically cleared, 
+				 '2' - Manually cleared.
+				"
+			::= { hwSeqAnalystTrapAlarm 15 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.16
+		hwSeqAnalystAlarmConfirmedTime OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The time of alarm confirmed."
+			::= { hwSeqAnalystTrapAlarm 16 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.17
+		hwSeqAnalystAlarmUserIdentity OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The identity of the subscriber affected by the alarm."
+			::= { hwSeqAnalystTrapAlarm 17 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.18
+		hwSeqAnalystAlarmCategory OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The category of the alarm. 
+				 '1' - Fault,
+				 '2' - Event, 
+				 '3' - Fault-->Confirm, 
+				 '4' - Event-->Confirm,
+				 '5' - Falut-->Change, 
+				 '6' - Event-->Change.
+				"
+			::= { hwSeqAnalystTrapAlarm 18 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.19
+		hwSeqAnalystAlarmDemarcationInfo OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The demarcation infomation of alarm."
+			::= { hwSeqAnalystTrapAlarm 19 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.20
+		hwSeqAnalystAlarmHandlingSuggestion OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The handling suggestion of alarm."
+			::= { hwSeqAnalystTrapAlarm 20 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.21
+		hwSeqAnalystAlarmPeriod OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 21 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.22
+		hwSeqAnalystAlarmDemarcationObjectType OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 22 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.23
+		hwSeqAnalystAlarmDemarcationObject OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 23 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.24
+		hwSeqAnalystAlarmOtherDescription OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 24 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.25
+		hwSeqAnalystAlarmObjectType OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 25 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.26
+		hwSeqAnalystAlarmCellId OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 26 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.27
+		hwSeqAnalystAlarmFailureDetail1 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 27 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.28
+		hwSeqAnalystAlarmFailureDetail2 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 28 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.29
+		hwSeqAnalystAlarmFailureDetail3 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 29 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.30
+		hwSeqAnalystAlarmFailureDetail4 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 30 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.31
+		hwSeqAnalystAlarmFailureDetail5 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 31 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.32
+		hwSeqAnalystAlarmEqptVendor OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 32 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.33
+		hwSeqAnalystAlarmParas1 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 33 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.34
+		hwSeqAnalystAlarmParas2 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 34 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.35
+		hwSeqAnalystAlarmParas3 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 35 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.36
+		hwSeqAnalystAlarmParas4 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 36 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.37
+		hwSeqAnalystAlarmParas5 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 37 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.38
+		hwSeqAnalystAlarmParas6 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 38 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.39
+		hwSeqAnalystAlarmParas7 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 39 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.40
+		hwSeqAnalystAlarmParas8 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 40 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.41
+		hwSeqAnalystAlarmServiceParas1 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 41 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.42
+		hwSeqAnalystAlarmServiceParas2 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 42 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.43
+		hwSeqAnalystAlarmServiceParas3 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 43 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.44
+		hwSeqAnalystAlarmServiceParas4 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 44 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.45
+		hwSeqAnalystAlarmServiceParas5 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 45 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.46
+		hwSeqAnalystAlarmServiceParas6 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 46 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.47
+		hwSeqAnalystAlarmServiceParas7 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 47 }
+			
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.48
+		hwSeqAnalystAlarmServiceParas8 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 48 }
+			
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.49
+		hwSeqAnalystAlarmServiceParas9 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 49 } 
+			
+		-- 1.3.6.1.4.1.2011.2.255.2.4.3.3.50
+		hwSeqAnalystAlarmServiceParas10 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 50 }
+          
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.51
+		hwSeqAnalystAlarmServiceParas11 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 51 }
+  
+          -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.52
+		hwSeqAnalystAlarmServiceParas12 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 52 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.53
+		hwSeqAnalystAlarmServiceParas13 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 53 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.54
+		hwSeqAnalystAlarmServiceParas14 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 54 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.55
+		hwSeqAnalystAlarmServiceParas15 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 55 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.56
+		hwSeqAnalystAlarmServiceParas16 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 56 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.57
+		hwSeqAnalystAlarmServiceParas17 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 57 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.58
+		hwSeqAnalystAlarmServiceParas18 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 58 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.59
+		hwSeqAnalystAlarmServiceParas19 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 59 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.60
+		hwSeqAnalystAlarmServiceParas20 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 60 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.61
+		hwSeqAnalystAlarmServiceParas21 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 61 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.62
+		hwSeqAnalystAlarmServiceParas22 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 62 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.63
+		hwSeqAnalystAlarmServiceParas23 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 63 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.64
+		hwSeqAnalystAlarmServiceParas24 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 64 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.65
+		hwSeqAnalystAlarmServiceParas25 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 65 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.66
+		hwSeqAnalystAlarmServiceParas26 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 66 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.67
+		hwSeqAnalystAlarmServiceParas27 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 67 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.68
+		hwSeqAnalystAlarmServiceParas28 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 68 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.69
+		hwSeqAnalystAlarmServiceParas29 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 69 }
+
+        -- 1.3.6.1.4.1.2011.2.255.2.4.3.3.70
+		hwSeqAnalystAlarmServiceParas30 OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Reserved parameter."
+			::= { hwSeqAnalystTrapAlarm 70 }
+
+		-- 1.3.6.1.4.1.2011.2.255.2.4.4
+		hwSeqAnalystAlarmConfirm OBJECT IDENTIFIER ::= { hwSeqAnalystFault 4 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.4.1
+		hwSeqAnalystAlarmConfirmSerialNo OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The serial number of the alarm to be confirm."
+			::= { hwSeqAnalystAlarmConfirm 1 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.6
+		hwSeqAnalystAlarmControl OBJECT IDENTIFIER ::= { hwSeqAnalystFault 6 }
+		
+		-- 1.3.6.1.4.1.2011.2.255.2.4.6.1
+		hwSeqAnalystAlarmClearSerialNo OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The serial number of the alarm to be cleared."
+			::= { hwSeqAnalystAlarmControl 1 }
+
+		-- 1.3.6.1.4.1.2011.2.255.2.4.6.2
+		hwSeqAnalystAlarmCheckSerialNo OBJECT-TYPE
+			SYNTAX OCTET STRING
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The serial number of the alarm to be checked."
+			::= { hwSeqAnalystAlarmControl 2 }
+		
+	
+	END
+
+--
+-- HUAWEI-SEQANALYST-MIB.mib
+--

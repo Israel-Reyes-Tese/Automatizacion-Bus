@@ -1,0 +1,35 @@
+Date: Wed Oct  5 10:54:04 PDT 2016
+Company: VMware, Inc
+Subject: VMWARE SNMP MIB MODULES
+
+This directory contains mib modules
+for VMWARE products in SMIv2 (RFC 2578) compliant format.
+Mibs module files may also be distributed by the individual VMware products.
+Use the REVISION clause in the MIB module to determine which is the latest
+version to install. MIB modules are always backward compatible.
+
+To load these into various management stations
+software use this suggested order to prevent any lookup
+errors.
+
+For any given VMware product (ESX, VCHA, NSX-MANAGER)
+and version release, to find the set of MIB modules it supports
+please review the agent capability *-AGENTCAP-MIB file.
+
+ESXi
+   VMWARE-ESX-AGENTCAP-MIB.mib -- describes the ESXi agent since ESX 5.1 (2009)
+
+Virtual Center Management
+   VMWARE-VA-AGENTCAP-MIB.mib  -- describes SNMPv1/v2/v3 agent since VSPHERE 6.0 (2015)
+
+NSX Manager
+   VMWARE-NSX-MANAGER-AGENTCAP-MIB.mib -- describes the SNMPv2c trap only agent in NSX-Manager (2016)
+
+vRealize Operations IT Operations Management
+   tbd.
+
+Note: loading the latest version of any given mib module should provide backward compatiblity
+for prior releases. Only one MIB module (NSX-MANAGER) presently may not follow SNMP backward
+compatiblity rules.
+
+End of document

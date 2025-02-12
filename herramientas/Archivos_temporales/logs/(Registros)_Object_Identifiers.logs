@@ -1,33 +1,84 @@
-Archivo: SONUS-COMMON-MIB
-sonusCommonMIBObjects OBJECT IDENTIFIER
-::= { sonusCommonMIB 1 }
-Archivo: SONUS-COMMON-MIB
-sonusNetMgmt OBJECT IDENTIFIER
-::= { sonusCommonMIBObjects 1 }
-Archivo: SONUS-COMMON-MIB
-sonusNetMgmtClient OBJECT IDENTIFIER
-::= { sonusNetMgmt 1 }
-Archivo: SONUS-COMMON-MIB
-sonusNetMgmtTrap OBJECT IDENTIFIER
-::= { sonusNetMgmt 2 }
-Archivo: SONUS-COMMON-MIB
-sonusNetMgmtTrapNextIndex OBJECT IDENTIFIER
-::= { sonusNetMgmtTrap 1 }
-Archivo: SONUS-COMMON-MIB
-sonusNetMgmtNotify OBJECT IDENTIFIER
-::= { sonusNetMgmt 3 }
-Archivo: SONUS-COMMON-MIB
-sonusSnmpStat OBJECT IDENTIFIER
-::= { sonusCommonMIBObjects 2 }
-Archivo: SONUS-COMMON-MIB
-sonusCommonMIBNotifications OBJECT IDENTIFIER
-::= { sonusCommonMIB 2 }
-Archivo: SONUS-COMMON-MIB
-sonusCommonMIBNotificationsPrefix OBJECT IDENTIFIER
-::= { sonusCommonMIBNotifications 0 }
-Archivo: SONUS-COMMON-MIB
-sonusCommonMIBNotificationsObjects OBJECT IDENTIFIER
-::= { sonusCommonMIBNotifications 1 }
+Archivo: zxcomc-snmp-notificationirp-mib-v1.0.txt
+notificationIRP                  OBJECT IDENTIFIER ::= { alarm 10 }
+ntsAttribute                     OBJECT IDENTIFIER ::= { notificationIRP 1 }
+Archivo: zxcomc-snmp-notificationirp-mib-v1.0.txt
+ntsNotifications        		 OBJECT IDENTIFIER ::= { notificationIRP 2 }
+ntsNotificationProfile  		 OBJECT IDENTIFIER ::= { ntsNotifications 1 }
+Archivo: zxcomc-snmp-notificationirp-mib-v1.0.txt
+ntsNotificationFilter            OBJECT IDENTIFIER ::= { notificationIRP 3 }
+--======================================================================
+-- NOTIFICATION ATTR
+--======================================================================
+--======================================================================
+-- ALARM FILTER
+--======================================================================
+ntsNotificationFilterCondition  OBJECT IDENTIFIER ::= { ntsNotificationFilter 2}
+Archivo: zxcomc-snmp-alarmirp-mib-v1.1.txt
+alarmIRP                  OBJECT IDENTIFIER ::= { alarm 1 }
+alarmIRPInfo			  OBJECT IDENTIFIER ::= { alarmIRP 1 }
+Archivo: zxcomc-snmp-alarmirp-mib-v1.1.txt
+alarmCount		  		  OBJECT IDENTIFIER ::= { alarmIRP 2 }	
+alarmNotifications        OBJECT IDENTIFIER ::= { alarmIRP 4 }
+Archivo: zxcomc-snmp-alarmirp-mib-v1.1.txt
+alarmNotificationProfile  OBJECT IDENTIFIER ::= { alarmNotifications 1 }
+alarmConformance          OBJECT IDENTIFIER ::= { alarmIRP 5 }
+Archivo: zxcomc-snmp-alarmirp-mib-v1.1.txt
+alarmFilter               OBJECT IDENTIFIER ::= { alarmIRP 6 }
+alarmOperation            OBJECT IDENTIFIER ::= { alarmIRP 7 }
+Archivo: zxcomc-snmp-alarmirp-mib-v1.1.txt
+alarmFilterCondition  OBJECT IDENTIFIER ::= { alarmFilter 3}
+--======================================================================
+-- ALARM FILTER
+--======================================================================
+--======================================================================
+-- ALARM RELATED NOTIFICATIONS
+--======================================================================
+alarmNew NOTIFICATION-TYPE
+OBJECTS {   alarmEventTime,
+sendNotificationId,
+lastSendNotificationId,
+systemDN,
+alarmCode,
+alarmManagedObjectInstance,
+alarmEventType,
+alarmProbableCause,
+alarmPerceivedSeverity,
+alarmSpecificProblem ,
+alarmAdditionalText,                    
+alarmNetype,
+alarmIndex,
+alarmId,
+alarmCodeName,
+alarmManagedObjectInstanceName,
+alarmSystemType,
+alarmNeIP,
+alarmAck,
+cleiCode,
+timeZoneID,
+timeZoneOffset,
+dSTSaving,
+aid,
+id,
+alarmMocObjectInstance,
+alarmComment,
+alarmOtherInfo
+}
+STATUS      current
+DESCRIPTION 
+"This notification is sent when a new Alarm is 
+generated and stored in the Active Alarm Table. 
+Note that the notification does not include all
+objects for the corresponding entry in the Alarm 
+Table. The reason is that some environments may have 
+problems with large PDUs. Thus, the notification 
+receiver must get the missing objects from the
+Active Alarm Table.
+The value 'cleared' for the PerceivedSeverity
+is not allowed for an alarm notification."
+::= { alarmNotificationProfile 1 }
+Archivo: zxcomc-snmp-alarmirp-mib-v1.1.txt
+alarmCompliances OBJECT IDENTIFIER ::= { alarmConformance 1 }
+alarmGroups      OBJECT IDENTIFIER ::= { alarmConformance 2 }
 Archivo: SNMPv2-TC
 SYNTAX          OBJECT IDENTIFIER
 InstancePointer ::= TEXTUAL-CONVENTION
@@ -561,6 +612,9 @@ MIB module.  Other possible textual conventions are defined in
 other MIB modules."
 SYNTAX          OCTET STRING (SIZE(1..255))
 END -- end of module SNMPv2-TC.
+Archivo: ZTE-IRP-MIB
+alarm				  OBJECT IDENTIFIER ::= { zteMIB 4101 }
+END
 Archivo: SNMPv2-SMI
 org OBJECT IDENTIFIER
 ::= { iso 3 }
@@ -606,815 +660,278 @@ snmpProxys OBJECT IDENTIFIER
 Archivo: SNMPv2-SMI
 snmpModules OBJECT IDENTIFIER
 ::= { snmpV2 3 }
-Archivo: SONUS-SMI
-"sonusProducts is the root OBJECT IDENTIFIER from
-which sysObjectID values are assigned."
-::= { sonus 1 }
-Archivo: SONUS-DATASTREAM-INTEGRATOR-MIB
-sonusDSIMIBObjects OBJECT IDENTIFIER
-::= { sonusDSIMIB 1 }
-Archivo: SONUS-DATASTREAM-INTEGRATOR-MIB
-sonusDSIMIBNotifications OBJECT IDENTIFIER
-::= { sonusDSIMIB 2 }
-Archivo: SONUS-DATASTREAM-INTEGRATOR-MIB
-sonusDSIMIBNotificationsPrefix OBJECT IDENTIFIER
-::= { sonusDSIMIBNotifications 0 }
-Archivo: SONUS-DATASTREAM-INTEGRATOR-MIB
-sonusDSIMIBNotificationsObjects OBJECT IDENTIFIER
-::= { sonusDSIMIBNotifications 1 }
-Archivo: HOST-RESOURCES-MIB
-these OBJECT IDENTIFIERs are allocated such that all
-products from a particular manufacturer are registered
-under a subtree distinct to that manufacturer.  In
-addition, all versions of a product should be
-registered under a subtree distinct to that product.
-With this strategy, a management station may uniquely
-determine the manufacturer and/or model of a product
-whose productID is unknown to the management station.
-Objects of this type may be useful for inventory
-purposes or for automatically detecting
-incompatibilities or version mismatches between
-various hardware and software components on a system.
-For example, the product ID for the ACME 4860 66MHz
-clock doubled processor might be:
-enterprises.acme.acmeProcessors.a4860DX2.MHz66
-A software product might be registered as:
-enterprises.acme.acmeOperatingSystems.acmeDOS.six(6).one(1)
-"
-SYNTAX          OBJECT IDENTIFIER
-InternationalDisplayString ::= TEXTUAL-CONVENTION
-STATUS          current
-DESCRIPTION     
-"This data type is used to model textual information
-in some character set.  A network management station
-should use a local algorithm to determine which
-character set is in use and how it should be
-displayed.  Note that this character set may be
-encoded with more than one octet per symbol, but will
-most often be NVT ASCII. When a size clause is
-specified for an object of this type, the size refers
-to the length in octets, not the number of symbols."
-SYNTAX          OCTET STRING
-host OBJECT IDENTIFIER
-::= { mib-2 25 }
-Archivo: HOST-RESOURCES-MIB
-hrSystem OBJECT IDENTIFIER
-::= { host 1 }
-Archivo: HOST-RESOURCES-MIB
-hrStorage OBJECT IDENTIFIER
-::= { host 2 }
-Archivo: HOST-RESOURCES-MIB
-hrStorageTypes OBJECT IDENTIFIER
-::= { hrStorage 1 }
-Archivo: HOST-RESOURCES-MIB
-hrDevice OBJECT IDENTIFIER
-::= { host 3 }
-Archivo: HOST-RESOURCES-MIB
-hrDeviceTypes OBJECT IDENTIFIER
-::= { hrDevice 1 }
-Archivo: HOST-RESOURCES-MIB
-hrFSTypes OBJECT IDENTIFIER
-::= { hrDevice 9 }
-Archivo: HOST-RESOURCES-MIB
-hrSWRun OBJECT IDENTIFIER
-::= { host 4 }
-Archivo: HOST-RESOURCES-MIB
-hrSWRunPerf OBJECT IDENTIFIER
-::= { host 5 }
-Archivo: HOST-RESOURCES-MIB
-hrSWInstalled OBJECT IDENTIFIER
-::= { host 6 }
-Archivo: HOST-RESOURCES-MIB
-hrMIBAdminInfo OBJECT IDENTIFIER
-::= { host 7 }
-Archivo: HOST-RESOURCES-MIB
-hrMIBCompliances OBJECT IDENTIFIER
-::= { hrMIBAdminInfo 2 }
-Archivo: HOST-RESOURCES-MIB
-hrMIBGroups OBJECT IDENTIFIER
-::= { hrMIBAdminInfo 3 }
-Archivo: RFC1213-MIB
-mib-2 OBJECT IDENTIFIER
-::= { mgmt 1 }
-Archivo: RFC1213-MIB
-system OBJECT IDENTIFIER
-::= { mib-2 1 }
-Archivo: RFC1213-MIB
-interfaces OBJECT IDENTIFIER
-::= { mib-2 2 }
-Archivo: RFC1213-MIB
-ifSpecific                      OBJECT IDENTIFIER
-}
-MAX-ACCESS      read-only
-STATUS          current
-DESCRIPTION     
-"The type of interface, distinguished according to
-the physical/link protocol(s) immediately `below'
-the network layer in the protocol stack."
-::= { ifEntry 3 }
-Archivo: RFC1213-MIB
-at OBJECT IDENTIFIER
-::= { mib-2 3 }
-Archivo: RFC1213-MIB
-ip OBJECT IDENTIFIER
-::= { mib-2 4 }
-Archivo: RFC1213-MIB
-ipRouteInfo                     OBJECT IDENTIFIER
-}
-MAX-ACCESS      read-write
-STATUS          current
-DESCRIPTION     
-"The type of route.  Note that the values
-direct(3) and indirect(4) refer to the notion of
-direct and indirect routing in the IP
-architecture.
-Setting this object to the value invalid(2) has
-the effect of invalidating the corresponding entry
-in the ipRouteTable object.  That is, it
-effectively dissasociates the destination
-identified with said entry from the route
-identified with said entry.  It is an
-implementation-specific matter as to whether the
-agent removes an invalidated entry from the table.
-Accordingly, management stations must be prepared
-to receive tabular information from agents that
-corresponds to entries not currently in use.
-Proper interpretation of such entries requires
-examination of the relevant ipRouteType object."
-::= { ipRouteEntry 8 }
-Archivo: RFC1213-MIB
-icmp OBJECT IDENTIFIER
-::= { mib-2 5 }
-Archivo: RFC1213-MIB
-tcp OBJECT IDENTIFIER
-::= { mib-2 6 }
-Archivo: RFC1213-MIB
-udp OBJECT IDENTIFIER
-::= { mib-2 7 }
-Archivo: RFC1213-MIB
-egp OBJECT IDENTIFIER
-::= { mib-2 8 }
-Archivo: RFC1213-MIB
-transmission OBJECT IDENTIFIER
-::= { mib-2 10 }
-Archivo: RFC1213-MIB
-snmp OBJECT IDENTIFIER
-::= { mib-2 11 }
-Archivo: Gr1343Core-MIB
-telcordia OBJECT IDENTIFIER
-::= { enterprises 148 }
-Archivo: Gr1343Core-MIB
-requirements OBJECT IDENTIFIER
-::= { telcordia 1 }
-Archivo: Gr1343Core-MIB
-gr1343Core OBJECT IDENTIFIER
-::= { requirements 7 }
-Archivo: Gr1343Core-MIB
-session OBJECT IDENTIFIER
-::= { gr1343Core 1 }
-Archivo: Gr1343Core-MIB
-sessionComp OBJECT IDENTIFIER
-::= { session 1 }
-Archivo: Gr1343Core-MIB
-sessionFtp OBJECT IDENTIFIER
-::= { session 2 }
-Archivo: Gr1343Core-MIB
-sessionRda OBJECT IDENTIFIER
-::= { session 3 }
-Archivo: Gr1343Core-MIB
-sessionTelnet OBJECT IDENTIFIER
-::= { session 4 }
-Archivo: Gr1343Core-MIB
-sessionTftp OBJECT IDENTIFIER
-::= { session 5 }
-Archivo: Gr1343Core-MIB
-ama OBJECT IDENTIFIER
-::= { gr1343Core 2 }
-Archivo: Gr1343Core-MIB
-amaIn OBJECT IDENTIFIER
-::= { ama 1 }
-Archivo: Gr1343Core-MIB
-amaOut OBJECT IDENTIFIER
-::= { ama 2 }
-Archivo: Gr1343Core-MIB
-amaLimit OBJECT IDENTIFIER
-::= { ama 3 }
-Archivo: Gr1343Core-MIB
-amaStorage OBJECT IDENTIFIER
-::= { ama 4 }
-Archivo: Gr1343Core-MIB
-amaAudit OBJECT IDENTIFIER
-::= { ama 5 }
-Archivo: Gr1343Core-MIB
-access OBJECT IDENTIFIER
-::= { gr1343Core 3 }
-Archivo: Gr1343Core-MIB
-accessLogin OBJECT IDENTIFIER
-::= { access 1 }
-Archivo: Gr1343Core-MIB
-accessAssociation OBJECT IDENTIFIER
-::= { access 2 }
-Archivo: SONUS-DSI-TRANSPORTER-MIB
-sonusDsiTransporterMIBObjects OBJECT IDENTIFIER
-::= { sonusDsiTransporterMIB 1 }
-Archivo: SONUS-DSI-TRANSPORTER-MIB
-sonusDsiTransporterMIBNotifications OBJECT IDENTIFIER
-::= { sonusDsiTransporterMIB 2 }
-Archivo: SONUS-DSI-TRANSPORTER-MIB
-sonusDsiTransporterMIBNotificationsPrefix OBJECT IDENTIFIER
-::= { sonusDsiTransporterMIBNotifications 0 }
-Archivo: SONUS-DSI-TRANSPORTER-MIB
-sonusDsiTransporterMIBNotificationsObjects OBJECT IDENTIFIER
-::= { sonusDsiTransporterMIBNotifications 1 }
-Archivo: SONUS-HOST-MIB
-sonusHostMIBObjects OBJECT IDENTIFIER
-::= { sonusHostMIB 1 }
-Archivo: SONUS-HOST-MIB
-sonusHostNotifications OBJECT IDENTIFIER
-::= { sonusHostMIB 2 }
-Archivo: SONUS-HOST-MIB
-sonusHostNotificationsPrefix OBJECT IDENTIFIER
-::= { sonusHostNotifications 0 }
-Archivo: SONUS-HOST-MIB
-sonusHostResourceObjects OBJECT IDENTIFIER
-::= { sonusHostMIB 3 }
-Archivo: SONUS-HOST-MIB
-sonusHostManagementObjects OBJECT IDENTIFIER
-::= { sonusHostMIB 4 }
-Archivo: SONUS-HOST-MIB
-sonusHostResourceUsageStats OBJECT IDENTIFIER
-::= { sonusHostMIB 5 }
+Archivo: zxcomc-snmp-irp-common-mib.txt
+alarm				  OBJECT IDENTIFIER ::= { zteMIB 4101 }
+END
+Archivo: zxcomc-snmp-csirp-mib.txt
+csIRP 		              OBJECT IDENTIFIER ::= { alarm 4 }
+csIRPInfo			  	  OBJECT IDENTIFIER ::= { csIRP 1 }
+Archivo: zxcomc-snmp-csirp-mib.txt
+csNotifications  	      OBJECT IDENTIFIER ::= { csIRP 2 }
+csNotificationProfile	  OBJECT IDENTIFIER ::= { csNotifications 1 }
+----------------------------------- alarmIRP ---------------------------
+alarmIRP:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  alarm 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- csIRP ---------------------------
+csIRP:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  alarm 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ntsNotifications ---------------------------
+ntsNotifications:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  notificationIRP 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- alarmNotificationProfile ---------------------------
+alarmNotificationProfile:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  alarmNotifications 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- alarmConformance ---------------------------
+alarmConformance:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  alarmIRP 5 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpModules ---------------------------
+snmpModules:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  snmpV2 3 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- csNotifications ---------------------------
+csNotifications:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  csIRP 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- notificationIRP ---------------------------
+notificationIRP:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  alarm 10 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- alarmIRPInfo ---------------------------
+alarmIRPInfo:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  alarmIRP 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- alarmFilter ---------------------------
+alarmFilter:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  alarmIRP 6 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- alarmGroups ---------------------------
+alarmGroups:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  alarmConformance 2 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- internet ---------------------------
+internet:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  dod 1 
+  Nivel_Busqueda: 2
+----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- experimental ---------------------------
 experimental:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
   OID:  internet 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ amaStorage ---------------------------
-amaStorage:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  ama 4 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusHostManagementObjects ---------------------------
-sonusHostManagementObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusHostMIB 4 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ enterprises ---------------------------
-enterprises:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  private 1 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- directory ---------------------------
 directory:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
   OID:  internet 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mgmt ---------------------------
-mgmt:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  internet 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusDsiTransporterMIBNotificationsObjects ---------------------------
-sonusDsiTransporterMIBNotificationsObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusDsiTransporterMIBNotifications 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ SYNTAX ---------------------------
-SYNTAX:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID: OID no encontrado
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ org ---------------------------
-org:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  iso 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ accessAssociation ---------------------------
-accessAssociation:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  access 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusDsiTransporterMIBNotifications ---------------------------
-sonusDsiTransporterMIBNotifications:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusDsiTransporterMIB 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusDSIMIBNotificationsPrefix ---------------------------
-sonusDSIMIBNotificationsPrefix:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusDSIMIBNotifications 0 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusDsiTransporterMIBNotificationsPrefix ---------------------------
-sonusDsiTransporterMIBNotificationsPrefix:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusDsiTransporterMIBNotifications 0 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpProxys ---------------------------
-snmpProxys:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  snmpV2 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusNetMgmtClient ---------------------------
-sonusNetMgmtClient:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusNetMgmt 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusCommonMIBNotificationsPrefix ---------------------------
-sonusCommonMIBNotificationsPrefix:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusCommonMIBNotifications 0 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ip ---------------------------
-ip:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  mib-2 4 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmpV2 ---------------------------
-snmpV2:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  internet 6 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ snmp ---------------------------
-snmp:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  mib-2 11 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ internet ---------------------------
-internet:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  dod 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sessionTftp ---------------------------
-sessionTftp:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  session 5 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- snmpDomains ---------------------------
 snmpDomains:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
   OID:  snmpV2 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ system ---------------------------
-system:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  mib-2 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrDevice ---------------------------
-hrDevice:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  host 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ icmp ---------------------------
-icmp:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  mib-2 5 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrSWRunPerf ---------------------------
-hrSWRunPerf:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  host 5 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrMIBGroups ---------------------------
-hrMIBGroups:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  hrMIBAdminInfo 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sessionRda ---------------------------
-sessionRda:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  session 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusHostResourceUsageStats ---------------------------
-sonusHostResourceUsageStats:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusHostMIB 5 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ telcordia ---------------------------
-telcordia:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  enterprises 148 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusHostResourceObjects ---------------------------
-sonusHostResourceObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusHostMIB 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusDSIMIBObjects ---------------------------
-sonusDSIMIBObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusDSIMIB 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusHostNotifications ---------------------------
-sonusHostNotifications:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusHostMIB 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sessionComp ---------------------------
-sessionComp:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  session 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusHostMIBObjects ---------------------------
-sonusHostMIBObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusHostMIB 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ mib-2 ---------------------------
-mib-2:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  mgmt 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sessionTelnet ---------------------------
-sessionTelnet:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  session 4 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusHostNotificationsPrefix ---------------------------
-sonusHostNotificationsPrefix:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusHostNotifications 0 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ security ---------------------------
-security:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  internet 5 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusDSIMIBNotifications ---------------------------
-sonusDSIMIBNotifications:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusDSIMIB 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ dod ---------------------------
-dod:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  org 6 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ requirements ---------------------------
-requirements:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  telcordia 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrSystem ---------------------------
-hrSystem:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  host 1 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- private ---------------------------
 private:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
   OID:  internet 4 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ udp ---------------------------
-udp:
+----------------------------------- ntsNotificationFilter ---------------------------
+ntsNotificationFilter:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  mib-2 7 
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  notificationIRP 3 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mib-2 ---------------------------
+mib-2:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  mgmt 1 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ egp ---------------------------
-egp:
+----------------------------------- ntsNotificationProfile ---------------------------
+ntsNotificationProfile:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  mib-2 8 
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  ntsNotifications 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- csIRPInfo ---------------------------
+csIRPInfo:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  csIRP 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpV2 ---------------------------
+snmpV2:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  internet 6 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ session ---------------------------
-session:
+----------------------------------- dod ---------------------------
+dod:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  gr1343Core 1 
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  org 6 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ sonusNetMgmtTrapNextIndex ---------------------------
-sonusNetMgmtTrapNextIndex:
+----------------------------------- alarmCompliances ---------------------------
+alarmCompliances:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusNetMgmtTrap 1 
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  alarmConformance 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ntsNotificationFilterCondition ---------------------------
+ntsNotificationFilterCondition:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  ntsNotificationFilter 2
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- alarmNotifications ---------------------------
+alarmNotifications:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  alarmIRP 4 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- mgmt ---------------------------
+mgmt:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  internet 2 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ sonusCommonMIBNotificationsObjects ---------------------------
-sonusCommonMIBNotificationsObjects:
+----------------------------------- org ---------------------------
+org:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusCommonMIBNotifications 1 
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  iso 3 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ tcp ---------------------------
-tcp:
+----------------------------------- alarmOperation ---------------------------
+alarmOperation:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  mib-2 6 
-  Nivel_Busqueda: 2
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  alarmIRP 7 
+  Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ at ---------------------------
-at:
+----------------------------------- SYNTAX ---------------------------
+SYNTAX:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  mib-2 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusNetMgmt ---------------------------
-sonusNetMgmt:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusCommonMIBObjects 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ amaIn ---------------------------
-amaIn:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  ama 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusDsiTransporterMIBObjects ---------------------------
-sonusDsiTransporterMIBObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusDsiTransporterMIB 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ama ---------------------------
-ama:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  gr1343Core 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusNetMgmtTrap ---------------------------
-sonusNetMgmtTrap:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusNetMgmt 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusCommonMIBObjects ---------------------------
-sonusCommonMIBObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusCommonMIB 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ amaAudit ---------------------------
-amaAudit:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  ama 5 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrDeviceTypes ---------------------------
-hrDeviceTypes:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  hrDevice 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ interfaces ---------------------------
-interfaces:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  mib-2 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ gr1343Core ---------------------------
-gr1343Core:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  requirements 7 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusCommonMIBNotifications ---------------------------
-sonusCommonMIBNotifications:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusCommonMIB 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sessionFtp ---------------------------
-sessionFtp:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  session 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusDSIMIBNotificationsObjects ---------------------------
-sonusDSIMIBNotificationsObjects:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusDSIMIBNotifications 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ifSpecific ---------------------------
-ifSpecific:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
   OID: OID no encontrado
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hrSWInstalled ---------------------------
-hrSWInstalled:
+----------------------------------- ntsAttribute ---------------------------
+ntsAttribute:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  host 6 
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  notificationIRP 1 
+  Nivel_Busqueda: 1
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- security ---------------------------
+security:
+  TYPE: OBJECT IDENTIFIER
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  internet 5 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hrStorage ---------------------------
-hrStorage:
+----------------------------------- alarm ---------------------------
+alarm:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  host 2 
-  Nivel_Busqueda: 2
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  zteMIB 4101 
+  Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ access ---------------------------
-access:
+----------------------------------- alarmFilterCondition ---------------------------
+alarmFilterCondition:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  gr1343Core 3 
-  Nivel_Busqueda: 2
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  alarmFilter 3
+  Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ snmpModules ---------------------------
-snmpModules:
+----------------------------------- csNotificationProfile ---------------------------
+csNotificationProfile:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  snmpV2 3 
-  Nivel_Busqueda: 2
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  csNotifications 1 
+  Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ sonusSnmpStat ---------------------------
-sonusSnmpStat:
+----------------------------------- alarmCount ---------------------------
+alarmCount:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusCommonMIBObjects 2 
-  Nivel_Busqueda: 2
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  alarmIRP 2 
+  Nivel_Busqueda: 1
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hrMIBAdminInfo ---------------------------
-hrMIBAdminInfo:
+----------------------------------- enterprises ---------------------------
+enterprises:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  host 7 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ amaLimit ---------------------------
-amaLimit:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  ama 3 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrFSTypes ---------------------------
-hrFSTypes:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  hrDevice 9 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ ipRouteInfo ---------------------------
-ipRouteInfo:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID: OID no encontrado
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ amaOut ---------------------------
-amaOut:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  ama 2 
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  private 1 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
 ----------------------------------- transmission ---------------------------
 transmission:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
   OID:  mib-2 10 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------
------------------------------------ hrMIBCompliances ---------------------------
-hrMIBCompliances:
+----------------------------------- snmpProxys ---------------------------
+snmpProxys:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  hrMIBAdminInfo 2 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ accessLogin ---------------------------
-accessLogin:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  access 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrSWRun ---------------------------
-hrSWRun:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  host 4 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ hrStorageTypes ---------------------------
-hrStorageTypes:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  hrStorage 1 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ host ---------------------------
-host:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  mib-2 25 
-  Nivel_Busqueda: 2
------------------------------------ Final de segmento -----------------------------------
------------------------------------ sonusNetMgmtNotify ---------------------------
-sonusNetMgmtNotify:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: SONUS-HOST-MIB
-  OID:  sonusNetMgmt 3 
+  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  OID:  snmpV2 2 
   Nivel_Busqueda: 2
 ----------------------------------- Final de segmento -----------------------------------

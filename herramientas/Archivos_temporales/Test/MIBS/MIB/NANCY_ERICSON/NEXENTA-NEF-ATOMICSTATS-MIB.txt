@@ -1,0 +1,79 @@
+NEXENTA-ATOMICSTATS-MIB DEFINITIONS ::= BEGIN
+IMPORTS
+    MODULE-IDENTITY FROM SNMPv2-SMI
+    MODULE-COMPLIANCE FROM SNMPv2-CONF
+    OBJECT-TYPE, Integer32 FROM SNMPv2-SMI
+    OBJECT-GROUP FROM SNMPv2-CONF
+    nexentaNef FROM NEXENTA-MIB
+;
+atomicStats MODULE-IDENTITY
+    LAST-UPDATED "201810100000Z"
+    ORGANIZATION "Nexenta Systems, Inc."
+    CONTACT-INFO "postal: 2025 Gateway Place, Suite 160, San Jose, CA 95110 USA
+email: support@nexenta.com"
+    DESCRIPTION "MIB to support atomicStats metrics and traps"
+    REVISION "201810100000Z"
+    DESCRIPTION "Second revision"
+    ::= { nexentaNef 3 }
+atomicStatsMetrics OBJECT IDENTIFIER ::= { atomicStats 1 }
+atomicStatsConsumers OBJECT IDENTIFIER ::= { atomicStats 2 }
+atomicStatsCarbon OBJECT IDENTIFIER ::= { atomicStatsConsumers 1 }
+atomicStatsCarbonTypes OBJECT IDENTIFIER ::= { atomicStatsCarbon 0 }
+atomicStatsCarbonStats OBJECT IDENTIFIER ::= { atomicStatsCarbon 1 }
+atomicStatsCarbonConnectionAddress OBJECT IDENTIFIER ::= { atomicStatsCarbonTypes 1 }
+atomicStatsCarbonConnectionError OBJECT IDENTIFIER ::= { atomicStatsCarbonTypes 1 }
+atomicStatsCarbonConnectionsTableTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF AtomicStatsCarbonConnectionsTableSequence
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION "SNMP table containing connections information"
+    ::= { atomicStatsCarbonStats 10 }
+atomicStatsCarbonConnectionsTableEntry OBJECT-TYPE
+    SYNTAX AtomicStatsCarbonConnectionsTableSequence
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION "Single row of the table"
+    INDEX { atomicStatsCarbonConnectionId }
+    ::= { atomicStatsCarbonConnectionsTableTable 1 }
+AtomicStatsCarbonConnectionsTableSequence ::= SEQUENCE {
+    atomicStatsCarbonConnectionId Integer32,
+    atomicStatsCarbonConnectionAddress OCTET STRING,
+    atomicStatsCarbonConnectionState OCTET STRING,
+    atomicStatsCarbonConnectionError OCTET STRING
+}
+atomicStatsCarbonConnectionId OBJECT-TYPE
+    SYNTAX Integer32
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION "Integer row key"
+    ::= { atomicStatsCarbonConnectionsTableEntry 1 }
+atomicStatsCarbonConnectionAddress OBJECT-TYPE
+    SYNTAX OCTET STRING
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "Address of the connection target"
+    ::= { atomicStatsCarbonConnectionsTableEntry 2 }
+atomicStatsCarbonConnectionState OBJECT-TYPE
+    SYNTAX OCTET STRING
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "State of the connection"
+    ::= { atomicStatsCarbonConnectionsTableEntry 3 }
+atomicStatsCarbonConnectionError OBJECT-TYPE
+    SYNTAX OCTET STRING
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "Last connection error"
+    ::= { atomicStatsCarbonConnectionsTableEntry 4 }
+atomicStatsCompliances OBJECT IDENTIFIER ::= { atomicStats 1000 }
+atomicStatsObjGrp OBJECT-GROUP
+    OBJECTS { atomicStatsCarbonConnectionAddress, atomicStatsCarbonConnectionState, atomicStatsCarbonConnectionError }
+    STATUS current
+    DESCRIPTION "Default objects conformance group for NEXENTA-ATOMICSTATS-MIB"
+    ::= { atomicStatsCompliances 2 }
+atomicStatsCompliance MODULE-COMPLIANCE
+    STATUS current
+    DESCRIPTION "Default compliance statement for NEXENTA-ATOMICSTATS-MIB"
+    MODULE MANDATORY-GROUPS { atomicStatsObjGrp }
+    ::= { atomicStatsCompliances 1 }
+END

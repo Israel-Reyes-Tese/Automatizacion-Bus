@@ -1,0 +1,310 @@
+-- No.37/196 03-CRXR 102 01/1                MANAGEMENT INFORMATION BASE
+-- =====================================================================
+-- Prepared:  ETHBOZO                        Revision   PA4
+-- =====================================================================
+-- Copyright
+-- +++++++++
+--
+-- (c) Ericsson AS 2002. All rights reserved. No part of this document
+-- may be reproduced in any form without the written permission of the
+-- copyright holder.
+--
+-- Information
+-- +++++++++++
+--
+-- This document is mainly intended for internal development and contains
+-- references to other documents. This document might however, after
+-- agreement with Ericsson, be delivered to customers to serve as
+-- information for design.
+-- All referenced documents are however Ericsson internal and are not
+-- intended for customers or end users and will thus not be delivered
+-- externally.
+--
+-- Disclaimer
+-- ++++++++++
+-- The content of this document is subject to revision without notice
+-- due to continued progress in methodology, design, and manufacturing.
+-- Ericsson shall have no liability for any error or damage of any kind
+-- resulting from the use of this document.
+--
+-- =====================================================================
+--
+
+XF-TWAMP-MIB DEFINITIONS ::= BEGIN
+
+        IMPORTS
+            Integer32, Unsigned32, OBJECT-TYPE, MODULE-IDENTITY
+                FROM SNMPv2-SMI
+            ifIndex, InterfaceIndex
+                FROM IF-MIB
+            TEXTUAL-CONVENTION, TimeStamp, TruthValue, RowStatus
+                FROM SNMPv2-TC
+            OBJECT-GROUP
+                FROM SNMPv2-CONF
+            xfPlatform
+                FROM XF-TOP-MIB;
+
+
+    -- 1.3.6.1.4.1.193.81.2.16
+        xfTwampMIB MODULE-IDENTITY
+            LAST-UPDATED "201810021200Z"    -- October 2, 2018 at 12:00 GMT
+            ORGANIZATION
+                "Ericsson"
+            CONTACT-INFO
+                " "
+            DESCRIPTION
+                "Two-way Active Measurement Protocol Management Information Base."
+
+            REVISION "201810021200Z"    -- October 2, 2018 at 12:00 GMT
+            DESCRIPTION
+                "PA4 : added xfTwampStatReset to xfTwampReflStatTable"
+
+            REVISION "201809281200Z"    -- September 28, 2018 at 12:00 GMT
+            DESCRIPTION
+                "PA3 : renaming xfifIndex to xfTwampIfIndex and modifying some of the xfTwampTable's object accessibility"
+
+            REVISION "201809071200Z"    -- September 7, 2018 at 12:00 GMT
+            DESCRIPTION
+                "PA2 : Added Timestamp, and xfTwampTimestSrc leaf/object"
+
+            REVISION "201809031200Z"    -- September 3, 2018 at 12:00 GMT
+            DESCRIPTION
+                "PA1 : First Revision"
+
+            ::= { xfPlatform 16 }
+
+    -- 1.3.6.1.4.1.193.81.2.16.1
+        xfTwampObjects OBJECT IDENTIFIER ::= { xfTwampMIB 1 }
+
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.1
+        xfTwampTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfTWAMPEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "A table that shows TWAMP sessions."
+            ::= { xfTwampObjects 1 }
+
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.1.1
+        xfTwampEntry OBJECT-TYPE
+            SYNTAX XfTWAMPEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "Entry for one TWAMP session."
+            INDEX { xfTwampSessionId }
+            ::= { xfTwampTable 1 }
+
+
+        XfTWAMPEntry ::=
+            SEQUENCE {
+                xfTwampSessionId
+                    Unsigned32,
+                xfTwampIfIndex
+                    InterfaceIndex,
+                xfTwampUDPPort
+                    Unsigned32,
+                xfTwampDSCPMode
+                    INTEGER,
+                xfTwampDSCPValue
+                    Unsigned32,
+                xfTwampState
+                    INTEGER,
+                xfTwampRowStatus
+                    RowStatus
+             }
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.1.1.1
+        xfTwampSessionId OBJECT-TYPE
+            SYNTAX Unsigned32 (1..4294967295)
+            MAX-ACCESS read-create
+            STATUS current
+            DESCRIPTION
+                "TWAMP Session ID."
+            ::= { xfTwampEntry 1 }
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.1.1.2
+        xfTwampIfIndex OBJECT-TYPE
+            SYNTAX InterfaceIndex
+            MAX-ACCESS read-create
+            STATUS current
+            DESCRIPTION
+                "This object indicates the interface index of the TWAMP session."
+            ::= { xfTwampEntry 2 }
+
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.1.1.3
+        xfTwampUDPPort OBJECT-TYPE
+            SYNTAX Unsigned32 (862..49151)
+            MAX-ACCESS read-create
+            STATUS current
+            DESCRIPTION
+                "TWAMP Session's UDP port."
+            ::= { xfTwampEntry 3 }
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.1.1.4
+        xfTwampDSCPMode OBJECT-TYPE
+            SYNTAX INTEGER
+            {
+                copyRecvValue(0),
+                useConfValue(1)
+            }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "TWAMP Session's DSCP Mode.
+                copyRecvValue: Copies the value received from received IP-packets.
+                useConfValue: Use the predefined value (xfTwampDSCPValue)."
+
+            ::= { xfTwampEntry 4 }
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.1.1.5
+        xfTwampDSCPValue OBJECT-TYPE
+            SYNTAX Unsigned32 (0..63)
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "TWAMP Session's DSCP value."
+            ::= { xfTwampEntry 5 }
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.1.1.6
+        xfTwampState OBJECT-TYPE
+            SYNTAX INTEGER
+            {
+                disabled(0),
+                enabled(1)
+            }
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "TWAMP Session's state.
+                disabled: The session won't response, nor send any data.
+                enabled: The session works as intended."
+
+            ::= { xfTwampEntry 6 }
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.1.1.7
+        xfTwampRowStatus OBJECT-TYPE
+            SYNTAX RowStatus
+            MAX-ACCESS read-create
+            STATUS current
+            DESCRIPTION
+                "TWAMP Session's row status."
+            ::= { xfTwampEntry 7 }
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.2
+        xfTwampReflStatTable OBJECT-TYPE
+            SYNTAX SEQUENCE OF XfTWAMPReflStatEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "A table that shows TWAMP Reflector Light statistics."
+            ::= { xfTwampObjects 2 }
+
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.2.1
+        xfTwampReflStatEntry OBJECT-TYPE
+            SYNTAX XfTWAMPReflStatEntry
+            MAX-ACCESS not-accessible
+            STATUS current
+            DESCRIPTION
+                "Statistics for one TWAMP Reflector Light session."
+            INDEX { xfTwampSessionId }
+            ::= { xfTwampReflStatTable 1 }
+
+
+        XfTWAMPReflStatEntry ::=
+            SEQUENCE {
+                xfTwampRecvPkt
+                    Unsigned32,
+                xfTwampRecvBytes
+                    Unsigned32,
+                xfTwampSentPkt
+                    Unsigned32,
+                xfTwampSentBytes
+                    Unsigned32,
+                xfTwampLastReset
+                    TimeStamp,
+                xfTwampStatReset
+                    TruthValue
+             }
+
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.2.1.1
+        xfTwampRecvPkt OBJECT-TYPE
+            SYNTAX Unsigned32
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Number of received TWAMP packets by the session."
+            ::= { xfTwampReflStatEntry 1 }
+
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.2.1.2
+        xfTwampRecvBytes OBJECT-TYPE
+            SYNTAX Unsigned32
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Size of received TWAMP packets in bytes by the session."
+            ::= { xfTwampReflStatEntry 2 }
+
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.2.1.3
+        xfTwampSentPkt OBJECT-TYPE
+            SYNTAX Unsigned32
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Number of sent TWAMP packets by the session."
+            ::= { xfTwampReflStatEntry 3 }
+
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.2.1.4
+        xfTwampSentBytes OBJECT-TYPE
+            SYNTAX Unsigned32
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Size of sent TWAMP packets in bytes by the session."
+            ::= { xfTwampReflStatEntry 4 }
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.2.1.5
+        xfTwampLastReset OBJECT-TYPE
+            SYNTAX TimeStamp
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Elapsed time since the last reset of the statistics."
+            ::= { xfTwampReflStatEntry 5 }
+
+    -- 1.3.6.1.4.1.193.81.2.16.1.2.1.6
+        xfTwampStatReset OBJECT-TYPE
+            SYNTAX TruthValue
+            MAX-ACCESS read-write
+            STATUS current
+            DESCRIPTION
+                "Reset statistics for this session"
+            ::= { xfTwampReflStatEntry 6 }
+
+    -- 1.3.6.1.4.1.193.81.2.16.2
+        xfTwampConformance OBJECT IDENTIFIER ::= { xfTwampMIB 2 }
+
+    -- 1.3.6.1.4.1.193.81.2.16.2.1
+        xfTwampGroups OBJECT IDENTIFIER ::= { xfTwampConformance 1 }
+
+    -- 1.3.6.1.4.1.193.81.2.16.2.1.1
+        xfTwampGroup OBJECT-GROUP
+        OBJECTS {xfTwampSessionId,xfTwampIfIndex,xfTwampUDPPort,xfTwampDSCPMode,xfTwampDSCPValue,xfTwampState,xfTwampRowStatus,
+                xfTwampRecvPkt,xfTwampRecvBytes,xfTwampSentPkt,xfTwampSentBytes,xfTwampLastReset,xfTwampStatReset}
+       STATUS current
+       DESCRIPTION
+            "Description."
+       ::= { xfTwampGroups 1 }
+
+END
+--
+-- 37_19603-crxr10201_1_twamp.mi2
+--

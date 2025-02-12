@@ -1,0 +1,3028 @@
+-- No.32/196 03-CRXR 102 01/1                MANAGEMENT INFORMATION BASE
+-- =====================================================================
+-- Prepared:  ETH/XUS QPTEDAR,EDMMARQ                Revision   B
+-- =====================================================================
+-- Copyright
+-- +++++++++
+-- 
+-- (c) Ericsson AB 2011. All rights reserved. No part of this document 
+-- may be reproduced in any form without the written permission of the 
+-- copyright holder.
+-- 
+-- Information
+-- +++++++++++
+-- 
+-- This document is mainly intended for internal development and contains 
+-- references to other documents. This document might however, after 
+-- agreement with Ericsson, be delivered to customers to serve as 
+-- information for design.
+-- All referenced documents are however Ericsson internal and are not 
+-- intended for customers or end users and will thus not be delivered 
+-- externally.
+--  
+-- Disclaimer
+-- ++++++++++
+-- The content of this document is subject to revision without notice 
+-- due to continued progress in methodology, design, and manufacturing. 
+-- Ericsson shall have no liability for any error or damage of any kind 
+-- resulting from the use of this document. 
+-- 
+-- =====================================================================
+-- 
+
+	XF-CES-MIB DEFINITIONS ::= BEGIN
+ 
+		IMPORTS
+			PerfCurrentCount, PerfIntervalCount
+				FROM PerfHist-TC-MIB
+			HCPerfCurrentCount, HCPerfIntervalCount
+				FROM HC-PerfHist-TC-MIB			
+			ifIndex, InterfaceIndex, InterfaceIndexOrZero			
+				FROM IF-MIB			
+			InetAddressType, InetAddress, InetAddressPrefixLength
+				FROM INET-ADDRESS-MIB			
+			SnmpAdminString
+				FROM SNMP-FRAMEWORK-MIB
+			OBJECT-GROUP, MODULE-COMPLIANCE			
+				FROM SNMPv2-CONF			
+			Integer32, Unsigned32, Counter32, Counter64, OBJECT-TYPE, 
+			MODULE-IDENTITY			
+				FROM SNMPv2-SMI			
+			RowStatus, TruthValue, TEXTUAL-CONVENTION, MacAddress			
+				FROM SNMPv2-TC			
+			xfCesService			
+				FROM XF-TOP-MIB
+      pwEntry
+        FROM PW-STD-MIB
+      pwTDMEntry, pwTDMCfgEntry
+        FROM PW-TDM-MIB;
+
+   
+		-- 1.3.6.1.4.1.193.81.4.4.1
+		xfCesMib MODULE-IDENTITY 
+			LAST-UPDATED "201205211100Z"		-- May 21, 2012 at 11:00 GMT
+			ORGANIZATION 
+				"Ericsson Hungary Ltd."
+			CONTACT-INFO 
+				" "
+			DESCRIPTION 
+				"This MIB defines objects for the Circuit Emulation functionality 
+				 in MINI-LINK Traffic Node.
+				 
+				 Ref: SNMP IWD 1/155 19-5/FCP 121 4904 Uen
+				 "
+			REVISION "201205211100Z"		-- May 21, 2012 at 11:00 GMT
+			DESCRIPTION
+				"B: Revision for TN5.0 GA.
+				  - Increased xfCesServiceVariant to 2.
+				  - Changed the default value to mean 'unspecified' for following MOs:
+				      xfCesIpLocalIpAccessIndex (65535)
+				      xfCesIpLocalUdpPort       (0)
+				      xfCesMefReceiveEcid       (0)
+				    As a consequence 0 cannot be used for Local UDP port and local ECID.
+				    Above MOs are mandatory to SET before PW activation (HP33897,HP43909).
+				"
+			REVISION "201204211600Z"		-- April 21, 2012 at 16:00 GMT
+			DESCRIPTION
+				"PB1: Changes:
+				  - Added xfCesPdhIfPwConnId for SOEM (CR-3586).
+				  - Removed unsupported values from xfCesPwPsnType.
+				  - Changed default value of xfCesPwPsnType to udpOverIp (HP47112).
+				"
+			REVISION "201203021700Z"		-- March 02, 2012 at 17:00 GMT
+			DESCRIPTION
+				"A: Set to full revision for TN5.0 PRA.
+				  - Updated xfCesPwRtpHeaderUsed
+				  - Updated xfCesPwClockRecoveryMode
+				  - Removed xfCesPdhIfNextPwIndex
+				  - Removed xfCesPdhIfTimestampMode
+				  - Added value range for xfCesServiceArpRetransmitTime
+				  - Deleted interface counters from xfCesServerTable description
+				"
+			REVISION "201112090900Z"		-- Dec 09, 2011 at 09:00 GMT
+			DESCRIPTION 
+				"PA4: Changes:
+				  - Deprecated xfCesPdhIfTimestampMode
+				  - xfCesPwClockRecoveryMode controls RTP timestamp mode
+				  - Added value restrictions for xfCesPwPayloadSize
+				  - Added uniqueness criteria on xfCesIpLocalUdpPort and xfCesMefReceiveEcid
+				  - Clarified xfCesServerEthPortMacAddress
+				  - Renamed xfCesIpTOS to xfCesIpDscp. Value range changed to 0..63
+				"
+			REVISION "201110211953Z"		-- Oct 21, 2011 at 19:53 GMT
+			DESCRIPTION 
+				"PA3: Changes:
+				  - Add xfCesServerInterfaceMode
+				  - Add xfCesServerEthPortHwMacAddress
+				  - Maximum for xfCesPwPayloadSize specified
+				 Corrections and editorial changes to attribute descriptions.
+				"
+			REVISION "201109061430Z"		-- Sept 06, 2011 at 14:30 GMT
+			DESCRIPTION 
+				"PA2: Updates to PM tables."
+			REVISION "201106061106Z"		-- June 06, 2011 at 11:06 GMT
+			DESCRIPTION 
+				"PA1: This MIB module was generated according the CES-SNMP model
+				 (TN_SystemModel) on 6/15/2011. "
+			::= { xfCesService 1 }
+
+
+
+--
+-- Type definitions
+--
+	
+		XfCesTimeslots ::= BITS
+			{
+			ts0(0),
+			ts1(1),
+			ts2(2),
+			ts3(3),
+			ts4(4),
+			ts5(5),
+			ts6(6),
+			ts7(7),
+			ts8(8),
+			ts9(9),
+			ts10(10),
+			ts11(11),
+			ts12(12),
+			ts13(13),
+			ts14(14),
+			ts15(15),
+			ts16(16),
+			ts17(17),
+			ts18(18),
+			ts19(19),
+			ts20(20),
+			ts21(21),
+			ts22(22),
+			ts23(23),
+			ts24(24),
+			ts25(25),
+			ts26(26),
+			ts27(27),
+			ts28(28),
+			ts29(29),
+			ts30(30),
+			ts31(31)
+			}
+
+	
+	
+--
+-- Node definitions
+--
+	
+		-- 1.3.6.1.4.1.193.81.4.4.1.1
+		xfCesMIBScalars OBJECT IDENTIFIER ::= { xfCesMib 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.1.1
+		xfCesServiceVariant OBJECT-TYPE
+			SYNTAX Unsigned32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Indicates the revision of XF-CES-MIB.
+				
+				Values:
+				  1: Initial revision for TN5.0 PRA (revision A of this file).
+				    Only string format is accepted/returned by MOs storing IPv4 addresses:
+				      xfCesIPAccessAddress,
+				      xfCesIPAccessDefaultRouter,
+				      xfCesIpRemoteIPAddress,
+				      xfCesIpNexthopIPAddress
+
+				  2: Revision for TN5.0 GA (revision B of this file)
+				    New MO: xfCesPdhIfPwConnId.
+				    Changed value range for:
+				      xfCesIpLocalIpAccessIndex
+				      xfCesIpLocalUdpPort
+				      xfCesMefReceiveEcid
+				    MOs for IPv4 addresses accept binary form also as per INET-ADDRESS-MIB.
+				"
+			::= { xfCesMIBScalars 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.1.2
+		xfCesServiceArpRetransmitTime OBJECT-TYPE
+			SYNTAX Unsigned32 (60000..3600000)
+			UNITS "milliseconds"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The time between retransmissions of ARP requests to a neighbor when 
+				resolving the address or when probing the reachability of a neighbor.
+				
+				The ARP entry is aged out if no ARP request/response packet recieved
+				from neighbor for 3 consecutive ARP retransmissions.
+				
+				NOTE: setting this object to a too low value may flood the network with 
+				broadcasts. The agent SHOULD employ unicast probing and fall back to 
+				broadcast only if unicast probe fails.
+				"
+			DEFVAL { 90000 }
+			::= { xfCesMIBScalars 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2
+		xfCesConfiguration OBJECT IDENTIFIER ::= { xfCesMib 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1
+		xfCesServerTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfCesServerEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table holds capability, status and configuration data for each CES 
+				Server in the node.
+
+				A CES Server is a logical representation of a HW module that comprises 
+				an Ethernet port and several CES TDM ports. A CES Server can terminate a 
+				number of Pseudowires for the transport of TDM signals over the packet 
+				switched network.
+
+				Pseudowires are created and deleted on demand. The object 
+				xfCesServerNextPwIndex gives an unallocated index to xfCesPwTable that 
+				can be used when creating a new Pseudowire terminated on the CES Server. 
+				Each pseudowire is associated to a E1/DS1/J1 interface in the node.
+
+				Following attributes are configured on CES Server level and affect all 
+				PWs or associated PDH interfaces:
+				- DS1 vs. J1 interface mode (xfCesServerInterfaceMode).
+				- Local MAC address for the Ethernet port. By default the MAC address of 
+				  the board is used. (xfCesServerEthPortMacAddress).
+
+				A CES Server is represented in the ifTable of IF-MIB using the value of 
+				xfCesServerIndex as ifIndex. CES Servers use static indexing with 
+				'ifPrefix 011110' format in TN and 'ifPrefix 01111111' in MINI-LINK 6600
+        as shown below. See 1/1056-9/CSH 109 32/1 Uen for format definition.
+
+        TN
+				   3                   2                   1
+				 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0
+				+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+				|0 1 1 1 1 0|      0xE5     | --slot--  |      --offset--       |
+				+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+				  ifPrefix    staticIfDescr    ifPos           ifOffset
+				  (6 bits)      (8 bits)      (6 bits)        (12 bits)
+
+        MINI-LINK 6600
+				   3                   2                   1
+				 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0
+				+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+				|      0x7F     |0 0 1|      0xE5     |  --slot-- |  --offset-- |
+				+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+				  ifPrefix       rack   staticIfDescr    ifPos       ifOffset
+				  (8 bits)     (3 bits)   (8 bits)      (6 bits)      (7 bits)
+
+				In addition to the objects defined in XF-CES-MIB the following MOs are 
+				supported on each CES Server:
+
+				IF_MIB__ifTable
+				---------------
+				ifIndex     staticIfDescr(bits 25-18) = 0xE5
+				ifDescr     'CES-Server'
+				ifType      ethernetCsmacd(6)
+				ifSpeed
+				ifOperStatus
+				ifLastChange
+				ifMtu
+				ifPhysAddress
+
+				IF_MIB__ifXTable
+				----------------
+				ifName      'r/s/p'
+				ifHighSpeed
+				ifConnectorPresent
+				ifAlias
+
+				xfIfX_MIB__ifXPacketTable
+				-------------------------
+				ifCountersClear
+
+				xfIfX_MIB__xfIfXTable
+				---------------------
+				xfIfVariant
+
+				The ifStackTable and ifInvStackTable are used to stack multiple CES-PWs 
+				upon a CES-Server interface.
+				"
+			::= { xfCesConfiguration 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1.1
+		xfCesServerEntry OBJECT-TYPE
+			SYNTAX XfCesServerEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Each CES Servers in the node has an entry in this table."
+			INDEX { xfCesServerIndex }
+			::= { xfCesServerTable 1 }
+
+		
+		XfCesServerEntry ::=
+			SEQUENCE { 
+				xfCesServerIndex
+					InterfaceIndex,
+				xfCesServerPwTypesSupported
+					BITS,
+				xfCesServerPsnTypesSupported
+					BITS,
+				xfCesServerTDMPortNumber
+					Unsigned32,
+				xfCesServerPwNumber
+					Unsigned32,
+				xfCesServerIPv4AddressNumber
+					Unsigned32,
+				xfCesServerIPv6AddressNumber
+					Unsigned32,
+				xfCesServerMaxJtrBfrDepth
+					Unsigned32,
+				xfCesServerSyncCapabilities
+					BITS,
+				xfCesServerXCCapability
+					Unsigned32,
+				xfCesServerNumFreeTdmPorts
+					Unsigned32,
+				xfCesServerNextPwIndex
+					InterfaceIndexOrZero,
+				xfCesServerInterfaceMode
+					INTEGER
+			 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1.1.1
+		xfCesServerIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This is a TN wide identifier of a CES Server. The value of this object 
+				is equal to the value of ifIndex of the corresponding row in the 
+				ifTable. "
+			::= { xfCesServerEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1.1.2
+		xfCesServerPwTypesSupported OBJECT-TYPE
+			SYNTAX BITS
+				{
+				e1Satop(0),
+				t1Satop(1),
+				basicCesPsn(2)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Shows the emulation types this CES server is supporting."
+			::= { xfCesServerEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1.1.3
+		xfCesServerPsnTypesSupported OBJECT-TYPE
+			SYNTAX BITS
+				{
+				mef(0),
+				udpOverIp(1),
+				mpls(2)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Shows the PSN types this CES Server is supporting."
+			::= { xfCesServerEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1.1.4
+		xfCesServerTDMPortNumber OBJECT-TYPE
+			SYNTAX Unsigned32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The maximum number of PDH interfaces this CES Server can emulate."
+			::= { xfCesServerEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1.1.5
+		xfCesServerPwNumber OBJECT-TYPE
+			SYNTAX Unsigned32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The maximum number of Pseudowires this CES Server can terminate."
+			::= { xfCesServerEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1.1.6
+		xfCesServerIPv4AddressNumber OBJECT-TYPE
+			SYNTAX Unsigned32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The maximum number of local IPv4 addresses this CES Server can support."
+			::= { xfCesServerEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1.1.7
+		xfCesServerIPv6AddressNumber OBJECT-TYPE
+			SYNTAX Unsigned32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The maximum number of local IPv6 addresses this CES Server can support."
+			::= { xfCesServerEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1.1.8
+		xfCesServerMaxJtrBfrDepth OBJECT-TYPE
+			SYNTAX Unsigned32
+			UNITS "microseconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The maximum jitter buffer depth this CES Server supports for each 
+				Pseudowire in units of microseconds. "
+			::= { xfCesServerEntry 8 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1.1.9
+		xfCesServerSyncCapabilities OBJECT-TYPE
+			SYNTAX BITS
+				{
+				loopTiming(0),
+				localTiming(1),
+				recoverACR(2),
+				recoverDCR(3),
+				rtpAbsolute(4),
+				rtpDifferential(5)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Lists the supported methods for PDH interface Tx clocking and RTP 
+				timestamp generation modes on this CES Server."
+			::= { xfCesServerEntry 9 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1.1.10
+		xfCesServerXCCapability OBJECT-TYPE
+			SYNTAX Unsigned32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This capability states the maximum number of PWs that can be 
+				multiplexed into a PDH interface on this CES Server in Structure-Aware 
+				emulation mode.
+				
+				Values:  1..31
+				
+				1:   1 E1 : 1 PW
+				N:   1 E1 : N PW
+				"
+			::= { xfCesServerEntry 10 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1.1.11
+		xfCesServerNumFreeTdmPorts OBJECT-TYPE
+			SYNTAX Unsigned32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The number of free (non-connected) CES TDM ports available on this 
+				Server."
+			::= { xfCesServerEntry 11 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1.1.12
+		xfCesServerNextPwIndex OBJECT-TYPE
+			SYNTAX InterfaceIndexOrZero
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This object contains an appropriate value to be used for xfCesPwIndex 
+				when creating a new entry in the xfCesPwTable that shall belong to this 
+				CES Server. The value 0 indicates that no unassigned entries are 
+				available."
+			::= { xfCesServerEntry 12 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.1.1.13
+		xfCesServerInterfaceMode OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				ds1(1),
+				j1(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Selects between DS1 and J1 interface modes. Applicable to all PDH 
+				interfaces that are connected to PWs on this CES Server. Changing this 
+				object is only possible if no PWs exist on the Server.
+
+				The set of PDH interfaces that PWs can be	connected to depend on the 
+				Telecom Standard and the value of this object:
+
+				ETSI:    any free E1 interface from local or remote boards can be 
+				         connected. The value of this attribute is ignored.
+				ANSI: 
+				  'ds1': any free PDH interface from local or remote boards can	be
+				         connected and will use DS1 mode.
+				  'j1':  only PDH interfaces from local board can be connected and will
+				         use J1 mode.
+
+				Framing type selection per PDH interface is possible using dsx1LineType:
+
+				          Structure-agnostic    Structure-aware
+				ETSI-E1     dsx1E1Unframed     dsx1E1 / dsx1E1CRC
+				ANSI-DS1    dsx1Unframed       dsx1D4 / dsx1ESF
+				ANSI-J1     dsx1J1Unframed        dsx1J1ESF
+				"
+			DEFVAL { ds1 }
+			::= { xfCesServerEntry 13 }
+
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2
+		xfCesPwTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfCesPwEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This is the main table where PW instants are created and deleted by 
+				operator command.
+
+				CES PWs are managed as an interface and use static indexing with 
+				'ifPrefix 011110' format as shown below. See 1/1056-9/CSH 109 32/1 Uen 
+				for format definition.
+
+				   3                   2                   1
+				 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0
+				+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+				|0 1 1 1 1 0|  0xE6(CES-PW) | --slot--  |      --offset--       |
+				+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+				  ifPrefix    staticIfDescr    ifPos           ifOffset
+				  (6 bits)      (8 bits)      (6 bits)        (12 bits)
+
+
+				In addition to the objects defined in XF-CES-MIB the following MOs are 
+				supported on each PW:
+
+				IF_MIB__ifTable
+				---------------
+				ifIndex     staticIfDescr(bits 25-18) = 0xE6
+				ifDescr     'CES-PW'
+				ifType      ifPwType(246)
+				ifSpeed
+				ifOperStatus
+				ifLastChange
+				ifAdminStatus
+
+				NOTE: setting ifAdminStatus to down stops packet transmission and 
+				disables alarms on the PW and generates AIS out of the connected PDH 
+				interface.
+
+				IF_MIB__ifXTable
+				----------------
+				ifName      'r/s/p pw'
+				ifHighSpeed
+				ifConnectorPresent
+				ifAlias
+				ifLinkUpDownTrapEnable
+
+				The ifStackTable and ifInvStackTable are used to stack multiple CES-PWs 
+				upon a CES-Server interface.
+
+
+				A PW is created in this and associated tables by setting 
+				xfCesPwRowStatus to createAndWait(5) and deleted by setting it to 
+				destroy(6). After create the PW is not active and all mandatory 
+				parameters must be specified before it can be activated. A PW is 
+				activated by setting ifAdminStatus to up(1).
+
+				The objects of a PW are divided into following categories:
+		
+				1) Objects that MAY be changed when the PW is defined as not active. A 
+				change of these objects might be traffic affecting. If the operator 
+				needs to change one of the values for an active row, the operator must 
+				set ifAdminStatus to down(2). The PW is activated again upon setting the 
+				ifAdminStatus to up(1).
+
+				2) Objects that MAY be changed at any time.
+				  xfCesPwRowStatus,
+				  xfCesPwPmView,
+				  xfCesPwPmResetCounters,
+				  xfCesPwPmXXXThreshold,
+				  ifAdminStatus,
+				  ifLinkUpDownTrapEnable,
+				  ifAlias
+				"
+			::= { xfCesConfiguration 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1
+		xfCesPwEntry OBJECT-TYPE
+			SYNTAX XfCesPwEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry for a PseudoWire."
+			INDEX { xfCesPwIndex }
+			::= { xfCesPwTable 1 }
+
+		
+		XfCesPwEntry ::=
+			SEQUENCE { 
+				xfCesPwIndex
+					InterfaceIndex,
+				xfCesPwType
+					INTEGER,
+				xfCesPwPsnType
+					INTEGER,
+				xfCesPwRowStatus
+					RowStatus,
+				xfCesPwTDMIfIndex
+					InterfaceIndexOrZero,
+				xfCesPwTDMIfTimeslots
+					XfCesTimeslots,
+				xfCesPwTDMRate
+					Unsigned32,
+				xfCesPwPayloadSize
+					Unsigned32,
+				xfCesPwRtpHeaderUsed
+					TruthValue,
+				xfCesPwClockRecoveryMode
+					INTEGER,
+				xfCesPwJtrBfrDepth
+					Unsigned32,
+				xfCesPwJtrBfrMaxDepth
+					Unsigned32,
+				xfCesPwTrapEnable
+					INTEGER,
+				xfCesPwAlarmStatus
+					BITS,
+				xfCesPwServerIndex
+					InterfaceIndex
+			 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.1
+		xfCesPwIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"A unique index for the conceptual row identifying a PW within this 
+				table. This index is made equal to the ifIndex of the corresponding 
+				entry in ifTable.
+				When an NMS creates a new entry/row in this table, it best makes use of 
+				the value of the xfCesServerNextPwIndex object in order to find a free 
+				or available index value.
+				"
+			::= { xfCesPwEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.2
+		xfCesPwType OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				e1Satop(17),
+				t1Satop(18),
+				basicCesPsn(21)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This value indicates the emulated service to be carried over this PW.
+				It cannot be changed while the PW is connected to a PDH interface.
+
+				Applicable in ETSI mode:
+				  e1Satop(17)
+				  basicCesPsn(21)
+
+				Applicable in ANSI mode:
+				  t1Satop(18)
+				  basicCesPsn(21)
+
+				Note: in ANSI mode both DS1 and J1 interface modes are supported. DS1/J1 
+				mode is selected per CES Server in xfCesServerInterfaceMode. Framing is 
+				configured on the PDH interface using dsx1LineType."
+			::= { xfCesPwEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.3
+		xfCesPwPsnType OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				udpOverIp(3),
+				mef(6)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION	
+				"This object is set by the operator to indicate the PSN type. Based on 
+				this object, the relevant PSN table's entry is created in the PSN-
+				specific MIB modules.
+
+				Possible values:
+				  udpOverIp(3) ; UDP/IP encapsulation (xfCesPwIPTable)
+				  mef(6)       ; MEF8 encapsulation (xfCesPwMefTable)
+				"
+			DEFVAL { udpOverIp }
+			::= { xfCesPwEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.4
+		xfCesPwRowStatus OBJECT-TYPE
+			SYNTAX RowStatus
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION		
+				"This object is used to create a new row or modify or delete an existing 
+				row in this table."
+			::= { xfCesPwEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.5
+		xfCesPwTDMIfIndex OBJECT-TYPE
+			SYNTAX InterfaceIndexOrZero
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This is a unique index within the ifTable. It represents the interface 
+				index of the full link or the interface index for the bundle holding the 
+				group of time slots to be transmitted via this PW connection.
+
+				A value of zero indicates an interface index that has yet to be 
+				determined. Once set, if the TDM ifIndex is (for some reason) later 
+				removed, the agent SHOULD delete the associated PW rows (e.g., this 
+				pwTDMTable entry).  If the agent does not delete the rows, the agent 
+				MUST set this object to zero.
+
+				  MINI-LINK Traffic Node: this object must be set to the ifIndex of an 
+				  E1/DS1/J1 interface listed in xfCrossConnectIfTable as non-connected. 
+				  The set of allowed PDH interfaces is further restricted by the value 
+				  of xfCesServerInterfaceMode. Bundles are not supported.
+
+				For a PW using Structure-Aware emulation the set of timeslots must be 
+				configured in xfCesTDMIfTimeslots before this object is set."
+			DEFVAL { 0 }
+			::= { xfCesPwEntry 5 }
+
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.6
+		xfCesPwTDMIfTimeslots OBJECT-TYPE
+			SYNTAX XfCesTimeslots
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Selects the set of timeslots of the connected E1/DS1/J1 interface that 
+				is transported on this PW in Structure-Aware emulation mode. A bit value 
+				of '1' indicates that the corresponding timeslot shall be included. 
+				Timeslots need not be contiguous and are mapped in the order they appear 
+				on the PDH interface.
+
+				In ANSI mode up to 24 timeslots (TS#1-24) of the DS1/J1 may be 
+				transported. In ETSI mode up to 31 TSs (TS#1-31) of the E1 can be mapped 
+				into a PW.
+
+				This value is not used for Structure-Agnostic emulation."
+			DEFVAL { {} }
+			::= { xfCesPwEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.7
+		xfCesPwTDMRate OBJECT-TYPE
+			SYNTAX Unsigned32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The parameter represents the bit-rate of the TDM service in multiples 
+				of the 'basic' 64 Kbit/s rate (i.e. number of DS0 channels).
+
+				In MINI-LINK Traffic Node this object is read-only and calculated based 
+				on xfCesPwType:
+				- structure-agnostic emulation: E1: 32, DS1/J1: 24
+				- structure-aware emulation: equals to the number of timeslots selected 
+				  in xfCesPwTDMIfTimeslots.
+				"
+			::= { xfCesPwEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.8
+		xfCesPwPayloadSize OBJECT-TYPE
+			SYNTAX Unsigned32
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The value of this object indicates the Payload Size (in bytes) to be 
+				defined during the PW setup.  Upon TX, implementation must be capable of 
+				carrying that amount of bytes.  Upon RX, when the LEN field is set to 0, 
+				the payload of packet MUST assume this size, and if the actual packet 
+				size is inconsistent with this length, the packet MUST be considered to 
+				be malformed.
+
+				For structure-aware emulation, the value of this object MUST be an 
+				integer multiple of N, where N is the number of timeslots in the 
+				attachment circuit, i.e., the number of set bits in the 
+				xfCesPwTDMIfTimeslots object.
+
+				The table lists the Payload Size values accepted by the agent:
+
+				 Emulation type            |  minimum  | increment
+				                           |   value   |    step
+				---------------------------|-----------|-----------
+				 structure-agnostic DS1/J1 | 192 bytes |  24 bytes
+				 structure-agnostic E1     | 256 bytes |  32 bytes
+				 structure-aware Nx64kbps  | 8xN bytes |   N bytes
+
+				Maximum value: 1440 bytes
+				Default value: equals minimum.
+				"
+			::= { xfCesPwEntry 8 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.9
+		xfCesPwRtpHeaderUsed OBJECT-TYPE
+			SYNTAX TruthValue
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"If SET to False: an RTP header is not pre-pended to the TDM packet.
+				The use of RTP MUST be symmetric for both directions, i.e. consistently 
+				configured in local and peer node.
+
+
+				If RTP header is enabled then the timestamp in transmitted PW packets is 
+				generated in one of the following modes:
+				
+				1. Absolute mode: The PSN-bound IWF sets timestamps using the clock 
+				recovered from the incoming TDM attachment circuit.  As a consequence, 
+				the timestamps are closely correlated with the sequence numbers.
+				
+				2. Differential mode: Both IWFs have access to a common high-quality 
+				timing source, and this source is used for timestamp generation.
+
+				NOTE: the timestamp clock frequency is 8 kHz for the absolute and 19.44 MHz
+				for the differential mode.
+
+
+				The RTP timestamp mode may be asymmetric. For the transmit direction it 
+				depends on the setting of the Tx clock source of the TDM interface 
+				attached to this PW as per below table:
+
+				ClockSource | Recovery || RTP header | Tx timestamp
+				----------------------------------------------------
+  				loop      |  *none*  =>  optional  | differential
+  				local     |  *none*  =>  optional  | differential
+  				recover   |   ACR    =>  optional  | absolute
+  				recover   |   DCR    =>  mandatory | differential
+
+				  ClockSource : xfCesPdhIfTxClockSource
+				  Recovery    : xfCesPwClockRecoveryMode
+				  RTP header  : xfCesPwRtpHeaderUsed
+
+				NOTE: RTP header must be enabled if the selected clock recovery mode is 
+				differential (DCR).
+				"
+			DEFVAL { false }
+			::= { xfCesPwEntry 9 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.10
+		xfCesPwClockRecoveryMode OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				adaptive(2),
+				differential(3)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Selects the method used to recover clock from the PSN network.
+
+				'Adaptive clock recovery' (ACR): the local PW endpoint regenerates the 
+				TDM service clock by tracking the rate of received PW packets. Use of RTP 
+				header is optional.
+
+				'Differential clock recovery' (DCR): makes use of a high quality common 
+				clock present at both PW endpoints. The remote PW endpoint sends a 
+				timestamp with each packet that encodes the sending time measured by this 
+				clock. Use of RTP header is mandatory (xfCesPwRtpHeaderUsed). The peer 
+				node is expected to send RTP with differential timestamps.
+
+				NOTE: clock recovery is only applied if the connected PDH interface is 
+				configured to base its Tx clock on the recovered clock of this PW 
+				(xfCesPdhIfTxClockSource). Otherwise, the value of this object is ignored.
+				"
+			DEFVAL { adaptive }
+			::= { xfCesPwEntry 10 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.11
+		xfCesPwJtrBfrDepth OBJECT-TYPE
+			SYNTAX Unsigned32
+			UNITS "microseconds"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The size of this buffer SHOULD be locally configured to allow 
+				accommodation to the PSN-specific packet delay variation.
+				
+				This object sets the initial size of the jitter buffer. After a PW is 
+				set up or after an underflow occurs, the buffer will queue up the 
+				configured amount of TDM payload before the actual playout towards the 
+				PDH interface starts.
+
+				The maximum size of the jitter buffer is configured in 
+				xfCesPwJtrBfrMaxDepth.
+				
+				NOTE: must be set to an integer multiple of 1000 microseconds.
+				"
+			DEFVAL { 3000 }
+			::= { xfCesPwEntry 11 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.12
+		xfCesPwJtrBfrMaxDepth OBJECT-TYPE
+			SYNTAX Unsigned32
+			UNITS "microseconds"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This attribute specifies the desired maximum depth of the playout 
+				buffer in the PSN to TDM direction. It's value must be higher than 
+				xfCesPwJtrBfrDepth but less than or equal to xfCesServerMaxJtrBfrDepth.
+				
+				NOTE: must be set to an integer multiple of 1000 microseconds.
+				"
+			DEFVAL { 7000 }
+			::= { xfCesPwEntry 12 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.13
+		xfCesPwTrapEnable OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				enabled(1),
+				disabled(2)
+				}
+			MAX-ACCESS read-write
+			STATUS deprecated
+			DESCRIPTION
+				"Deprecated: same as ifLinkUpDownTrapEnable"
+			DEFVAL { enabled }
+			::= { xfCesPwEntry 13 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.14
+		xfCesPwAlarmStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				pwLossOfFrames0(0),
+				pwLossOfFrames1(1),
+				pwLossOfFrames2(2),
+				pwLateFrames0(3),
+				pwLateFrames1(4),
+				pwLateFrames2(5),
+				pwJtrBufferOverrun0(6),
+				pwJtrBufferOverrun1(7),
+				pwJtrBufferOverrun2(8),
+				pwMalformedFrames0(9),
+				pwMalformedFrames1(10),
+				pwMalformedFrames2(11),
+				pwRemoteLossOfFrames0(12),
+				pwRemoteLossOfFrames1(13),
+				pwRemoteLossOfFrames2(14)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Indicates the alarm status of a CES Pseudowire.
+				
+				Severity is indicated by 3 bits per status:
+				   bits 012
+					    000   clear
+					    001   undetermined
+					    010   warning
+					    011   minor
+					    100   major
+					    101   critical
+				
+				E.g. If
+				   pwMalformedFrames0=0
+				   pwMalformedFrames1=1
+				   pwMalformedFrames2=1
+				then this MO reports a Malformed Frames alarm whose severity is minor.
+				"
+			::= { xfCesPwEntry 14 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.2.1.15
+		xfCesPwServerIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				" Index of the CES Server in xfCesServerTable at which this PW is 
+				terminated. Assigned at PW creation."
+			::= { xfCesPwEntry 15 }
+
+
+
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.3
+		xfCesPwIPTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfCesPwIPEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table contains the PSN encapsulation parameters for a 
+				CES pseudowire that follows IETF specifications for UDP over 
+				IP transport.
+				An entry is created in this table by the agent for every entry in 
+				the xfCesPwTable with a PSN type of 'udpOverIp'."
+			::= { xfCesConfiguration 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.3.1
+		xfCesPwIPEntry OBJECT-TYPE
+			SYNTAX XfCesPwIPEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry for a PW with IP over UDP encapsulation."
+			INDEX { xfCesPwIndex }
+			::= { xfCesPwIPTable 1 }
+
+		
+		XfCesPwIPEntry ::=
+			SEQUENCE { 
+				xfCesIpAddressType
+					InetAddressType,
+				xfCesIpLocalIPAccessIndex
+					Unsigned32,
+				xfCesIpRemoteIPAddress
+					InetAddress,
+				xfCesIpNexthopResolutionMode
+					INTEGER,
+				xfCesIpNexthopIPAddress
+					InetAddress,
+				xfCesIpNexthopMacAddress
+					MacAddress,
+				xfCesIpVlanPriority
+					Unsigned32,
+				xfCesIpDscp
+					Unsigned32,
+				xfCesIpTTL
+					Unsigned32,
+				xfCesIpLocalUdpPort
+					Unsigned32,
+				xfCesIpRemoteUdpPort
+					Unsigned32
+			 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.3.1.1
+		xfCesIpAddressType OBJECT-TYPE
+			SYNTAX InetAddressType
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Denotes the address type of the following objects in xfCesPwIPTable:
+				  - xfCesIpRemoteIPAddress
+				  - xfCesIpNexthopIPAddress
+				
+				Possible value:
+				ipv4(1)
+				"
+			DEFVAL { ipv4 }
+			::= { xfCesPwIPEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.3.1.2
+		xfCesIpLocalIPAccessIndex OBJECT-TYPE
+			SYNTAX Unsigned32 (0..4094 | 65535)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Specifies the VLAN-id on which packets of this PW are transmitted.
+				Note: in Provider Bridge mode it refers to the (inner) C-VLAN tag.
+				
+				Possible values:
+				0..4094: a VLAN-id pointing out an existing IP interface in 
+				         xfCesIpAccessTable. The 0 VLAN-id means packets are untagged.
+				65535: no IP interface is selected for the PW.
+				
+				This field together with xfCesPwServerIndex and xfCesIPAddressType must 
+				form a valid index into the xfCesIPAccessTable from where the local IP 
+				address of this PW is determined.
+				Set this object to 65535 to remove the reference to the IP interface.
+				"
+			DEFVAL { 65535 }
+			::= { xfCesPwIPEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.3.1.3
+		xfCesIpRemoteIPAddress OBJECT-TYPE
+			SYNTAX InetAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"IP address of the remote PW endpoint. Used as Destination IP address in 
+				packets transmitted on this PW.
+				
+				An IP PW cannot be activated if this value is zero (uninitialized).
+
+				The address type of this object is specified in	xfCesIpAddressType.
+				On SET the following IPv4 address formats are accepted:
+				  LENGTH        FORMAT
+				     4        InetAddressIPv4
+				  7..15       textual representation, e.g. '10.10.10.10'
+				On GET returns the textual representation of the IPv4 address."
+			DEFVAL { "0.0.0.0" }   -- 0.0.0.0
+			::= { xfCesPwIPEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.3.1.4
+		xfCesIpNexthopResolutionMode OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				staticMAC(1),
+				staticIP(2),
+				defaultRouter(3)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object controls how the MAC address of the next-hop IP node to 
+				which PW packets are to be sent is determined.
+
+					'staticMAC' :  Destination MAC address is configured statically in 
+					xfCesIpNexthopMacAddress.
+
+					'staticIP' :  Nexthop IP address is configured in 
+					xfCesIpNexthopIPAddress. The MAC address is resolved using ARP and 
+					readable through xfCesIpNexthopMacAddress.
+
+					'defaultRouter' :  If the remote PW endpoint (xfCesIpRemoteIPAddress) 
+					is within the subnet of the local IP interface than packets are 
+					directly sent to it. Otherwise, the default router configured for the 
+					local IP interface (xfCesIpAccessDefaultRouter) is used. The MAC 
+					address is resolved using ARP and readable through 
+					xfCesIpNexthopMacAddress.
+				"
+			::= { xfCesPwIPEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.3.1.5
+		xfCesIpNexthopIPAddress OBJECT-TYPE
+			SYNTAX InetAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION		
+				"Specifies the IP address of the next hop node towards the remote PW 
+				endpoint. It's MAC address is resolved using ARP.
+
+				Note: This field is only applicable if xfCesIpNexthopResolutionMode is 
+				set to 'staticIP'.
+				
+				An IP PW with xfCesIpNexthopResolutionMode of 'staticIP' cannot be 
+				activated if this value is zero (uninitialized).
+
+				The address type of this object is specified in	xfCesIpAddressType.
+				On SET the following IPv4 address formats are accepted:
+				  LENGTH        FORMAT
+				     4        InetAddressIPv4
+				  7..15       textual representation, e.g. '10.10.10.10'
+				On GET returns the textual representation of the IPv4 address."
+			DEFVAL { "0.0.0.0" }   -- 0.0.0.0
+			::= { xfCesPwIPEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.3.1.6
+		xfCesIpNexthopMacAddress OBJECT-TYPE
+			SYNTAX MacAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to configure the MAC address to which PW packets 
+				shall be transmitted if xfCesIpNexthopResolutionMode is set 'staticMAC'.
+
+				For other settings of xfCesIpNexthopResolutionMode this value is read-
+				only and shows the ARP resolved MAC address. An all-zero value means the 
+				destination MAC is still unknown.
+				
+				An IP PW with xfCesIpNexthopResolutionMode of 'staticMAC' cannot be 
+				activated if this value is zero (uninitialized)."
+			DEFVAL { '000000000000'h }   -- 00:00:00:00:00:00
+			::= { xfCesPwIPEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.3.1.7
+		xfCesIpVlanPriority OBJECT-TYPE
+			SYNTAX Unsigned32 (0..7)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION	
+				"The 802.1p priority assigned to transmit frames on this PW. Applicable 
+				only if VLAN tagging is enabled for the local IP interface (see 
+				xfCesIpLocalIPAccessIndex).
+				
+				Note: in Provider Bridge mode it refers to the (inner) C-VLAN tag.
+				"
+			DEFVAL { 5 }
+			::= { xfCesPwIPEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.3.1.8
+		xfCesIpDscp OBJECT-TYPE
+			SYNTAX Unsigned32 (0..63)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Value of the DSCP field in the IP header of transmitted packets on this
+				PW. The DSCP is encoded as the 6 most significant bits of the IP header 
+				TOS field (see rfc2474). Default value corresponds to the Expedited 
+				Forwarding class."
+			DEFVAL { 46 }
+			::= { xfCesPwIPEntry 8 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.3.1.9
+		xfCesIpTTL OBJECT-TYPE
+			SYNTAX Unsigned32 (0..255)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Sets the TTL field in the IP header of packets transmitted on this PW."
+			DEFVAL { 255 }
+			::= { xfCesPwIPEntry 9 }
+
+	
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.3.1.10
+		xfCesIpLocalUdpPort OBJECT-TYPE
+			SYNTAX Unsigned32 (0 | 1..65535)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This field specifies the expected Destination UDP port number in Rx 
+				packets in order to be demultiplexed to this PW. The value is used as 
+				the Source UDP port number in Tx packets.
+				
+				NOTE: xfCesMefReceiveEcid and xfCesIpLocalUdpPort are allocated from the
+				same ID space and must be unique across all PWs of the CES Server.
+				
+				An IP PW cannot be activated if this value is 0. The value 0 means this 
+				field is uninitialized and cannot be used as local UDP port."
+			DEFVAL { 0 }
+			::= { xfCesPwIPEntry 10 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.3.1.11
+		xfCesIpRemoteUdpPort OBJECT-TYPE
+			SYNTAX Unsigned32 (0..65535)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This field specifies the destination UDP port number in transmitted 
+				packets on this PW. The peer PE will use it for PW demultiplexing.
+				"
+			DEFVAL { 0 }
+			::= { xfCesPwIPEntry 11 }
+
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.4
+		xfCesPwMefTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfCesPwMefEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION		
+				"This table contains the PSN encapsulation parameters required for a CES 
+				pseudowire that follows the MEF8 specification.
+
+				An entry is created in this table by the agent for every entry in the 
+				xfCesPwTable with a PSN type of 'mef'."
+			::= { xfCesConfiguration 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.4.1
+		xfCesPwMefEntry OBJECT-TYPE
+			SYNTAX XfCesPwMefEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry for a PW with Ethernet encapsulation."
+			INDEX { xfCesPwIndex }
+			::= { xfCesPwMefTable 1 }
+
+		
+		XfCesPwMefEntry ::=
+			SEQUENCE { 
+				xfCesMefRemoteMacAddress
+					MacAddress,
+				xfCesMefReceiveEcid
+					Unsigned32,
+				xfCesMefTransmitEcid
+					Unsigned32,
+				xfCesMefVlanId
+					INTEGER,
+				xfCesMefVlanPriority
+					Unsigned32
+			 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.4.1.1
+		xfCesMefRemoteMacAddress OBJECT-TYPE
+			SYNTAX MacAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to configure the destination MAC address of the PW.
+				
+				A MEF PW cannot be activated if this value is zero (uninitialized)."
+			DEFVAL { '000000000000'h }   -- 00:00:00:00:00:00
+			::= { xfCesPwMefEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.4.1.2
+		xfCesMefReceiveEcid OBJECT-TYPE
+			SYNTAX Unsigned32 (0 | 1..1048575)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The local IWF compares the ECID field in received frames to this value. 
+				If they match the frame is demultiplexed to this Pseudowire.
+				
+				NOTE: xfCesMefReceiveEcid and xfCesIpLocalUdpPort are allocated from the
+				same ID space and must be unique across all PWs of the CES Server.
+
+				A MEF PW cannot be activated if this value is 0. The value 0 means this 
+				field is uninitialized and cannot be used as local ECID."
+			DEFVAL { 0 }
+			::= { xfCesPwMefEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.4.1.3
+		xfCesMefTransmitEcid OBJECT-TYPE
+			SYNTAX Unsigned32 (0..1048575)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The value of the ECID field in transmitted frames on this MEF 
+				Pseudowire. The remote PE uses it for PW demultiplexing.
+				"
+			DEFVAL { 0 }
+			::= { xfCesPwMefEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.4.1.4
+		xfCesMefVlanId OBJECT-TYPE
+			SYNTAX INTEGER (0 | 1..4094)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The VLAN-Id assigned to transmitted frames on this PW.
+
+				Note: in Provider Bridge mode it refers to the (inner) C-VLAN tag.
+
+				Valid values:
+				1..4094: VLAN tagging is enabled using specified C-VLAN-Id.
+				      0: PW packets are untagged.
+				"
+			DEFVAL { 0 }
+			::= { xfCesPwMefEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.4.1.5
+		xfCesMefVlanPriority OBJECT-TYPE
+			SYNTAX Unsigned32 (0..7)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The 802.1p priority assigned to transmitted frames on this PW. 
+				Applicable only if VLAN tagging is enabled (see xfCesMefVlanId).
+				
+				Note: in Provider Bridge mode it refers to the (inner) C-VLAN tag.
+				"
+			DEFVAL { 5 }
+			::= { xfCesPwMefEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.5
+		xfCesPdhIfPwTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfCesPdhIfPwEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table lists all the PWs that are assigned to an E1/DS1/J1 
+				interface. The agent creates an entry in this table when the PW-to-E1 
+				connection is made by setting xfCesPwTDMIfIndex."
+			::= { xfCesConfiguration 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.5.1
+		xfCesPdhIfPwEntry OBJECT-TYPE
+			SYNTAX XfCesPdhIfPwEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"An entry for a PW-PDH interface association indexed by the ifIndex of 
+				the PDH interface and the PW."
+			INDEX { ifIndex, xfCesPdhIfConnectedPwIndex }
+			::= { xfCesPdhIfPwTable 1 }
+
+		
+		XfCesPdhIfPwEntry ::=
+			SEQUENCE { 
+				xfCesPdhIfConnectedPwIndex
+					InterfaceIndex,
+				xfCesPdhIfPwConnId
+					SnmpAdminString
+			 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.5.1.1
+		xfCesPdhIfConnectedPwIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Index of the PW that is connected to the PDH interface."
+			::= { xfCesPdhIfPwEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.5.1.2
+		xfCesPdhIfPwConnId OBJECT-TYPE
+			SYNTAX      SnmpAdminString (SIZE (0..64))
+			MAX-ACCESS  read-write
+			STATUS      current
+			DESCRIPTION
+				"An administratively assigned string, which may be used	to identify 
+				this PW-PDH interface association."
+			DEFVAL { "" }
+			::= { xfCesPdhIfPwEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.6
+		xfCesPdhIfTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfCesPdhIfEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				" This table lists those PDH interfaces that are currently being 
+				emulated using CES services.  This table extends the PDH interface 
+				with CES related MOs.
+				A row for a PDH interface is automatically created in this table when 
+				the operator connects the PDH interface to a PW by setting the 
+				xfCesPwTDMIfIndex in xfCesPwTable to the index of the PDH interface. 
+				The table row is destroyed when the PW is deleted or disconnected from 
+				the PDH interface. "
+			::= { xfCesConfiguration 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.6.1
+		xfCesPdhIfEntry OBJECT-TYPE
+			SYNTAX XfCesPdhIfEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry for an E1/DS1/J1 interface that is being circuit emulated.
+				Table is indexed by the index of the PDH interface in dsx1ConfigTable"
+			INDEX { ifIndex }
+			::= { xfCesPdhIfTable 1 }
+
+		
+		XfCesPdhIfEntry ::=
+			SEQUENCE { 
+				xfCesPdhIfEmulationType
+					INTEGER,
+				xfCesPdhIfFreeTimeslots
+					XfCesTimeslots,
+				xfCesPdhIfTxClockSource
+					INTEGER,
+				xfCesPdhIfRecoverFromPw
+					InterfaceIndexOrZero,
+				xfCesPdhIfServerIndex
+					InterfaceIndex
+			 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.6.1.1
+		xfCesPdhIfEmulationType OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				e1Satop(17),
+				t1Satop(18),
+				basicCesPsn(21)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				" The emulated service carried on PWs connected to this PDH interface.
+				
+				Possible values:
+				   e1Satop(17)         Structure-Agnostic emulation in ETSI mode
+				   t1Satop(18)         Structure-Agnostic emulation in ANSI mode
+				   basicCesPsn(21)     Structure-Aware emulation in ETSI/ANSI mode
+				
+				Note: in ANSI mode both DS1 and J1 interface modes are supported. DS1/J1 
+				mode is selected per CES Server in xfCesServerInterfaceMode. Framing is 
+				configured on the PDH interface using dsx1LineType."
+			::= { xfCesPdhIfEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.6.1.2
+		xfCesPdhIfFreeTimeslots OBJECT-TYPE
+			SYNTAX XfCesTimeslots
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This bitmap shows which timeslots of the PDH interface are not 
+				allocated (bit=1) and can be used when creating new PW connections. 
+				Unallocated timeslots are filled with AIS code towards the PDH 
+				interface.
+
+				The set of timeslots available depend on:
+				1 Structure-Aware vs. Structure-Agnostic emulation (xfCesPdhIfEmulationType)
+				2 Telecom Standard is ETSI or ANSI (configured on node level).
+
+				For ANSI all 24 timeslots (TS#1-24) can be used. For ETSI all 32 
+				timeslots (TS#0-31) are available in Structure-Agnostic mode and 31 TSs 
+				(TS#1-31) in Structure-Aware mode for mapping into PWs. The connection 
+				to PW is configured in the xfCesPwTable.
+				"
+			::= { xfCesPdhIfEntry 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.6.1.3
+		xfCesPdhIfTxClockSource OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				loopTiming(1),
+				localTiming(2),
+				recover(3)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Source of the transmit clock on this PDH interface.
+
+				'loopTiming' indicates that the TDM receive clock is looped and used as 
+				the transmit clock.
+
+				'localTiming' indicates that the local node clock usually synchronized 
+				to an external source - like 2Mhz, E1, SyncE - is used as transmit 
+				clock.
+
+				'recover' indicates that the recovered receive clock of the connected 
+				Pseudowire is used as the transmit clock. The clock recovery method is 
+				configured in xfCesPwClockRecoveryMode.
+				"
+			DEFVAL { localTiming }
+			::= { xfCesPdhIfEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.6.1.4
+		xfCesPdhIfRecoverFromPw OBJECT-TYPE
+			SYNTAX InterfaceIndexOrZero
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Index of the Pseudowire in xfCesPwTable whose recovered clock is 
+				used for timing this PDH interface in the Tx direction. 
+				The clock recovery method (ACR, DCR) is configured on the PW.
+				
+				This attribute is read-only and is zero if PW clock recovery is not used 
+				(i.e., xfCesPdhIfTxClockSource is not set to 'recover'). 
+				"
+			::= { xfCesPdhIfEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.6.1.5
+		xfCesPdhIfServerIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Index to the xfCesServerTable. Indicates the CES Server module that 
+				emulates this PDH interface."
+			::= { xfCesPdhIfEntry 5 }
+
+
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.7
+		xfCesServerEthPortTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfCesServerEthPortEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table holds MOs pertaining to the Ethernet port of each CES Server. 
+				It extends the set of attributes available via IF-MIB. The objects in 
+				this table relate to all PWs that terminate at a particular CES Server."
+			::= { xfCesConfiguration 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.7.1
+		xfCesServerEthPortEntry OBJECT-TYPE
+			SYNTAX XfCesServerEthPortEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry for a CES Server Ethernet port."
+			INDEX { xfCesServerIndex }
+			::= { xfCesServerEthPortTable 1 }
+
+		
+		XfCesServerEthPortEntry ::=
+			SEQUENCE { 
+				xfCesServerEthPortMacAddress
+					MacAddress,
+				xfCesServerEthPortTotalErrorPackets
+					HCPerfCurrentCount,
+				xfCesServerEthPortHwMacAddress
+					MacAddress
+			 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.7.1.1
+		xfCesServerEthPortMacAddress OBJECT-TYPE
+			SYNTAX MacAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Assigns a permanent unicast MAC address to the Ethernet port of this CES
+				Server. Setting this object to 00:00:00:00:00:00 removes the configured 
+				address and the CES Server reverts back to using the burnt-in hardware 
+				address of the board in xfCesServerHwMacAddress.
+
+				In either case the Manager can retrieve the local MAC address currently 
+				used by PWs on this Ethernet port from ifPhysAddress.
+
+				Changing this object is only possible if no PWs exist on the Ethernet
+				port.
+				"
+			DEFVAL { '000000000000'h }   -- 00:00:00:00:00:00
+			::= { xfCesServerEthPortEntry 1 }
+
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.7.1.2
+		xfCesServerEthPortTotalErrorPackets OBJECT-TYPE
+			SYNTAX HCPerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Counter for number of errors at the PW processing level, for example,
+				packets received with unknown PW label."
+			::= { xfCesServerEthPortEntry 2 }
+
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.8.1.3
+		xfCesServerEthPortHwMacAddress OBJECT-TYPE
+			SYNTAX MacAddress
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The MAC address associated with the CES Server in board EEPROM. It can 
+				be overriden by configuring a board-independent MAC address in 
+				xfCesServerEthPortMacAddress."
+			::= { xfCesServerEthPortEntry 3 }
+
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.8
+		xfCesIPAccessTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfCesIPAccessEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table holds available local IP-addresses that can be used by PWs.  
+				Each entry is associated with a CES server and a VLANId.  
+				The table is indexed with CES Server, VLAN-id and Address type.
+				
+				IP addresses are created or deleted by the operator dynamically.  
+				For an IP/UDP encapsulated PW at a CES Server the operator must
+				choose one of the assigned IP addresses of that CES Server from this table.
+				
+				A CES Server can support a limited number of local IP addresses, 
+				see the xfCesServerTable for capabilities. Agent will reject SET if 
+				there are no more free IP addresses.
+				"
+			::= { xfCesConfiguration 8 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.8.1
+		xfCesIPAccessEntry OBJECT-TYPE
+			SYNTAX XfCesIPAccessEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry for a local IP address used for CES service."
+			INDEX { xfCesServerIndex, xfCesIPAccessVlanId, xfCesIPAccessAddressType }
+			::= { xfCesIPAccessTable 1 }
+
+		
+		XfCesIPAccessEntry ::=
+			SEQUENCE { 
+				xfCesIPAccessVlanId
+					Unsigned32,
+				xfCesIPAccessAddressType
+					InetAddressType,
+				xfCesIPAccessAddress
+					InetAddress,
+				xfCesIPAccessPrefixLength
+					InetAddressPrefixLength,
+				xfCesIPAccessDefaultRouter
+					InetAddress,
+				xfCesIPAccessRowStatus
+					RowStatus
+			 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.8.1.1
+		xfCesIPAccessVlanId OBJECT-TYPE
+			SYNTAX Unsigned32 (0 | 1..4094)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The VLAN id on this CES Server ethernet port to which this IP address 
+				is bound.
+
+				Valid values: 0 | 1-4094
+				Value 0 indicates that the interface sends untagged packets.
+				"
+			::= { xfCesIPAccessEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.8.1.2
+		xfCesIPAccessAddressType OBJECT-TYPE
+			SYNTAX InetAddressType
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Denotes the address type of the following objects in xfCesIPAccessTable:
+				- xfCesIPAccessAddress
+				- xfCesIPAccessPrefixLength
+				- xfCesIPAccessDefaultRouter
+
+				Possible value:
+				ipv4(1)
+				"
+			::= { xfCesIPAccessEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.8.1.3
+		xfCesIPAccessAddress OBJECT-TYPE
+			SYNTAX InetAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION	
+				"The local IP address for PWs using this interface.  As long as this 
+				table entry is active ARP requests to this IP address are replied by the 
+				MAC address of the CES Server Ethernet interface.
+
+				The address type of this object is specified in	xfCesIPAccessAddressType.
+				On SET the following IPv4 address formats are accepted:
+				  LENGTH        FORMAT
+				     4        InetAddressIPv4
+				  7..15       textual representation, e.g. '10.10.10.10'
+				On GET returns the textual representation of the IPv4 address.
+				"
+			::= { xfCesIPAccessEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.8.1.4
+		xfCesIPAccessPrefixLength OBJECT-TYPE
+			SYNTAX InetAddressPrefixLength
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The prefix length associated with the subnet to which this IP address belongs.
+
+				The address type of this object is specified in xfCesIPAccessAddressType.
+
+				Possible values:
+				ipv4: 0..32
+				"
+			::= { xfCesIPAccessEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.8.1.5
+		xfCesIPAccessDefaultRouter OBJECT-TYPE
+			SYNTAX InetAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The IP address of the default router associated with the local IP 
+				interface.
+
+				PW packets originated from this IP interface are sent to this router if:
+				(1) xfCesIpNexthopResolutionMode is set to defaultRouter for the PW, and
+				(2) the destination PW endpoint (xfCesIpRemoteIPAddress) is outside the 
+				    local IP interface's subnet.
+				Specifying a default router for other cases is optional.
+
+				The address type of this object is specified in	xfCesIPAccessAddressType.
+				On SET the following IPv4 address formats are accepted:
+				  LENGTH        FORMAT
+				     4        InetAddressIPv4
+				  7..15       textual representation, e.g. '10.10.10.10'
+				On GET returns the textual representation of the IPv4 address.
+				"
+			DEFVAL { "0.0.0.0" }   -- 0.0.0.0
+			::= { xfCesIPAccessEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.8.1.6
+		xfCesIPAccessRowStatus OBJECT-TYPE
+			SYNTAX RowStatus
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION		
+				"This object is used to create a new row or modify or delete an existing 
+				row in this table.
+
+				Note: an IP address cannot be modified or deleted while there are PWs 
+				using it. The Agent will reject such an attempt.
+				"
+			::= { xfCesIPAccessEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.9
+		xfCesConfigurationGroups OBJECT IDENTIFIER ::= { xfCesConfiguration 9 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.9.1
+		xfCesConfMandatoryGroup OBJECT-GROUP
+			OBJECTS { xfCesServiceVariant, xfCesPwType, xfCesPwPsnType, xfCesPwAlarmStatus, xfCesPwRowStatus, 
+				xfCesPdhIfFreeTimeslots, xfCesPdhIfTxClockSource, xfCesPdhIfRecoverFromPw, xfCesPdhIfServerIndex, xfCesPdhIfEmulationType, 
+				xfCesPwClockRecoveryMode, xfCesPwRtpHeaderUsed, xfCesPwTDMIfIndex, xfCesPwServerIndex, 
+				xfCesIpLocalIPAccessIndex, xfCesIpAddressType, xfCesIpRemoteIPAddress, xfCesIpLocalUdpPort, xfCesIpRemoteUdpPort, 
+				xfCesIpTTL, xfCesPwJtrBfrMaxDepth, xfCesPwJtrBfrDepth, xfCesPwTDMRate, 
+				xfCesPwTDMIfTimeslots, xfCesPwPayloadSize, xfCesIpDscp, xfCesIpNexthopIPAddress, xfCesIpNexthopMacAddress, 
+				xfCesIpVlanPriority, xfCesServerPwTypesSupported, xfCesServerPsnTypesSupported, xfCesServerTDMPortNumber, xfCesServerPwNumber, 
+				xfCesServerIPv4AddressNumber, xfCesServerIPv6AddressNumber, xfCesServerMaxJtrBfrDepth, xfCesServerSyncCapabilities, xfCesServerXCCapability, 
+				xfCesServerNextPwIndex, xfCesMefVlanPriority, xfCesMefVlanId, xfCesMefTransmitEcid, xfCesMefReceiveEcid, 
+				xfCesMefRemoteMacAddress, xfCesIPAccessRowStatus, xfCesIPAccessDefaultRouter, xfCesIPAccessPrefixLength, xfCesIPAccessAddress, 
+				xfCesIPAccessAddressType, xfCesIPAccessVlanId, xfCesServerEthPortTotalErrorPackets, xfCesServerEthPortMacAddress, 
+				xfCesServerEthPortHwMacAddress, xfCesServerInterfaceMode, xfCesServerNumFreeTdmPorts, xfCesServiceArpRetransmitTime, xfCesIpNexthopResolutionMode, 
+				xfCesPdhIfConnectedPwIndex, xfCesPdhIfPwConnId, pwTDMAlarmStatus, pwTDMCfgJtrBfrSize, pwTimingInput
+				 }
+			STATUS current
+			DESCRIPTION 
+				"This group contains mandatory objects required for configuration."
+			::= { xfCesConfigurationGroups 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.2.9.2
+		xfCesConfOptionGroup OBJECT-GROUP
+			OBJECTS { xfCesPwTrapEnable }
+			STATUS current
+			DESCRIPTION 
+				"This group contains the objects designed for future use."
+			::= { xfCesConfigurationGroups 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3
+		xfCesPerformanceManagement OBJECT IDENTIFIER ::= { xfCesMib 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.1
+		xfCesPwPMConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfCesPwPMConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table is an extension to the xfCesPwTable and holds objects 
+				to control Performance Management behavior on Pseudowire interfaces."
+			::= { xfCesPerformanceManagement 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.1.1
+		xfCesPwPMConfigEntry OBJECT-TYPE
+			SYNTAX XfCesPwPMConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry for a Pseudowire."
+			INDEX { xfCesPwIndex }
+			::= { xfCesPwPMConfigTable 1 }
+
+		
+		XfCesPwPMConfigEntry ::=
+			SEQUENCE { 
+				xfCesPwPmView
+					INTEGER,
+				xfCesPwPmResetCounters
+					INTEGER,
+				xfCesPwPmLossOfFramesThreshold
+					Unsigned32,
+				xfCesPwPmLateFramesThreshold
+					Unsigned32,
+				xfCesPwPmMalformedFramesThreshold
+					Unsigned32,
+				xfCesPwPmJitterBufferOverrunThreshold
+					Unsigned32,
+				xfCesPwPmValidIntervals
+					Unsigned32,
+				xfCesPwPmValidDayIntervals
+					Unsigned32
+			 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.1.1.1
+		xfCesPwPmView OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				enable(1),
+				disable(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Enable/disable visibility of PM tables for a specific PW."
+			DEFVAL { disable }
+			::= { xfCesPwPMConfigEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.1.1.2
+		xfCesPwPmResetCounters OBJECT-TYPE
+			SYNTAX INTEGER { reset(1) }
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Writing this object will reset counters of the PW.
+				Reset means that the current counters, both 15 min and 24 h are set to 0."
+			::= { xfCesPwPMConfigEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.1.1.3
+		xfCesPwPmLossOfFramesThreshold OBJECT-TYPE
+			SYNTAX Unsigned32 (0..1000)
+			UNITS "1/10 percentage"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"If the Frame Loss Ratio (as defined in [MEF 5]) persists above the 
+				threshold configured in this object for a pre-configured period of time 
+				(by default, 2.5 seconds), a Loss of Frames alarm is sent to the 
+				management system.
+
+				Expressed in units of 1/10 percentage. Setting this object to its 
+				maximum value disables the alarm.
+				"
+			::= { xfCesPwPMConfigEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.1.1.4
+		xfCesPwPmLateFramesThreshold OBJECT-TYPE
+			SYNTAX Unsigned32 (0..1000)
+			UNITS "1/10 percentage"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"If the percentage of frames arriving too late to be played out exceeds 
+				the threshold level configured in this object for a pre-configured 
+				period of time (by default, 2.5 seconds), a Late Frame alarm is sent to 
+				the management system.
+
+				Expressed in units of 1/10 percentage. Setting this object to its 
+				maximum value disables the alarm.
+				"
+			::= { xfCesPwPMConfigEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.1.1.5
+		xfCesPwPmMalformedFramesThreshold OBJECT-TYPE
+			SYNTAX Unsigned32 (0..1000)
+			UNITS "1/10 percentage"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"If the percentage of malformed frames persists above the threshold 
+				level configured in this object for a pre-configured period of time (by 
+				default, 2.5 seconds), a Malformed Frames alarm is sent to the 
+				management system.
+
+				Expressed in units of 1/10 percentage. Setting this object to its 
+				maximum value disables the alarm.
+				"
+			::= { xfCesPwPMConfigEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.1.1.6
+		xfCesPwPmJitterBufferOverrunThreshold OBJECT-TYPE
+			SYNTAX Unsigned32 (0..1000)
+			UNITS "1/10 percentage"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"If the percentage of frames causing Jitter Buffer Overruns persists 
+				above the threshold level configured in this object for a pre-configured 
+				period of time (by default, 2.5 seconds), a Jitter Buffer Overrun alarm 
+				is sent to the management system.
+
+				Expressed in units of 1/10 percentage. Setting this object to its 
+				maximum value disables the alarm.
+				"
+			::= { xfCesPwPMConfigEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.1.1.7
+		xfCesPwPmValidIntervals OBJECT-TYPE
+			SYNTAX Unsigned32 (0..96)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The number of previous 15-minute intervals for which data was collected.
+
+				The value will be 96 unless the measurement was (re-) started within the 
+				last (96*15) minutes, in which case, the value will be the number of 
+				complete 15-minute intervals for which the agent has at least some data.
+
+				In certain cases (e.g., in the case where the agent is a proxy), it is 
+				possible that some intervals are unavailable. In this case, this interval 
+				is the maximum interval number for which data is available.
+				"
+			::= { xfCesPwPMConfigEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.1.1.8
+		xfCesPwPmValidDayIntervals OBJECT-TYPE
+			SYNTAX Unsigned32 (0..1)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The number of previous days for which data was collected. Previous day 
+				statistics are stored in xfCesPwPM24hTable with inetval number 2."
+			::= { xfCesPwPMConfigEntry 8 }
+
+
+
+		-- xfCesPwPMCurrent15mTable --
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2
+		xfCesPwPMCurrent15mTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfCesPwPMCurrent15mEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table provides per-PW performance information for the current 15 
+				minutes interval."
+			::= { xfCesPerformanceManagement 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1
+		xfCesPwPMCurrent15mEntry OBJECT-TYPE
+			SYNTAX XfCesPwPMCurrent15mEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Description."
+			INDEX { ifIndex }
+			::= { xfCesPwPMCurrent15mTable 1 }
+
+		
+		XfCesPwPMCurrent15mEntry ::=
+			SEQUENCE { 
+				xfCesPwPerfCurrentValidData
+					TruthValue,
+				xfCesPwPerfCurrentTimeElapsed
+					Unsigned32,
+				xfCesPwPerfCurrentInHCPackets
+					HCPerfCurrentCount,
+				xfCesPwPerfCurrentInHCBytes
+					HCPerfCurrentCount,
+				xfCesPwPerfCurrentOutHCPackets
+					HCPerfCurrentCount,
+				xfCesPwPerfCurrentOutHCBytes
+					HCPerfCurrentCount,
+				xfCesPwTDMPerfCurrentMissingPkts
+					PerfCurrentCount,
+				xfCesPwTDMPerfCurrentPktReorders
+					PerfCurrentCount,
+				xfCesPwTDMPerfCurrentJtrBufferUnderruns
+					PerfCurrentCount,
+				xfCesPwTDMPerfCurrentMisOrderDrop
+					PerfCurrentCount,
+				xfCesPwTDMPerfCurrentMalformedPkts
+					PerfCurrentCount,
+				xfCesPwTDMPerfCurrentES
+					PerfCurrentCount,
+				xfCesPwTDMPerfCurrentSES
+					PerfCurrentCount,
+				xfCesPwTDMPerfCurrentUAS
+					PerfCurrentCount,
+				xfCesPwTDMPerfCurrentFC
+					PerfCurrentCount
+			 }
+
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.1
+		xfCesPwPerfCurrentValidData OBJECT-TYPE
+			SYNTAX TruthValue
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This variable indicates if the data for this interval is valid."
+			::= { xfCesPwPMCurrent15mEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.2
+		xfCesPwPerfCurrentTimeElapsed OBJECT-TYPE
+			SYNTAX Unsigned32
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The number of seconds, including partial seconds, that have elapsed 
+				since the beginning of the current measurement period.  If, for some 
+				reason, such as an adjustment in the system's time-of-day clock, the 
+				current interval exceeds the maximum value, the agent will return 
+				the maximum value."
+			::= { xfCesPwPMCurrent15mEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.3
+		xfCesPwPerfCurrentInHCPackets OBJECT-TYPE
+			SYNTAX HCPerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"High-capacity counter for number of packets received by the PW
+				(from the PSN) in the current 15-minute interval."
+			::= { xfCesPwPMCurrent15mEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.4
+		xfCesPwPerfCurrentInHCBytes OBJECT-TYPE
+			SYNTAX HCPerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"High-capacity counter for number of bytes received by the PW 
+				(from the PSN) in the current 15-minute interval."
+			::= { xfCesPwPMCurrent15mEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.5
+		xfCesPwPerfCurrentOutHCPackets OBJECT-TYPE
+			SYNTAX HCPerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"High-capacity counter for number of packets forwarded by the PW 
+				(to the PSN) in the current 15-minute interval."
+			::= { xfCesPwPMCurrent15mEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.6
+		xfCesPwPerfCurrentOutHCBytes OBJECT-TYPE
+			SYNTAX HCPerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"High-capacity counter for number of bytes forwarded by the PW 
+				(to the PSN) in the current 15-minute interval."
+			::= { xfCesPwPMCurrent15mEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.7
+		xfCesPwTDMPerfCurrentMissingPkts OBJECT-TYPE
+			SYNTAX PerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of missing packets (as detected via control word 
+				sequence number gaps) in the current 15-minute interval."
+			::= { xfCesPwPMCurrent15mEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.8
+		xfCesPwTDMPerfCurrentPktReorders OBJECT-TYPE
+			SYNTAX PerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of packets detected out of sequence (via control 
+				word sequence number) but successfully re-ordered in the 
+				current 15-minute interval."
+			::= { xfCesPwPMCurrent15mEntry 8 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.9
+		xfCesPwTDMPerfCurrentJtrBufferUnderruns OBJECT-TYPE
+			SYNTAX PerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of times a packet needed to be played out and the 
+				jitter buffer was empty in the current 15-minute interval."
+			::= { xfCesPwPMCurrent15mEntry 9 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.10
+		xfCesPwTDMPerfCurrentMisOrderDrop OBJECT-TYPE
+			SYNTAX PerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of packets detected out of order (via control word 
+				sequence numbers) that could not be re-ordered or could not 
+				fit in the jitter buffer in the current 15-minute interval."
+			::= { xfCesPwPMCurrent15mEntry 10 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.11
+		xfCesPwTDMPerfCurrentMalformedPkts OBJECT-TYPE
+			SYNTAX PerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of packets detected with unexpected size bad 
+				headers' stack in the current 15-minute interval."
+			::= { xfCesPwPMCurrent15mEntry 11 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.12
+		xfCesPwTDMPerfCurrentES OBJECT-TYPE
+			SYNTAX PerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This attribute counts errored seconds. Any discarded, lost, 
+				malformed or unusable packet received from the PSN during a 
+				given second causes this counter to increment. 
+				ITU-T G.984.4 (2008)"
+			::= { xfCesPwPMCurrent15mEntry 12 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.13
+		xfCesPwTDMPerfCurrentSES OBJECT-TYPE
+			SYNTAX PerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This attribute counts severely errored seconds. The criteria 
+				for SES detection is based on the percentage of lost, malformed 
+				or otherwise unusable packets over the total number of packets 
+				expected in the PSN to TDM direction within a one-second interval. 
+				Stray packets do not count toward a severely errored second, nor 
+				do packets whose L-bit is set at the far end.
+
+				By default an errored packet percentage over 30% shall cause a 
+				severely errored second to be counted.
+
+				NOTE: MEF-8 and RFC 5604 use 'Frame Error Rate', respectively 
+				'percent of missing packets' metrics to define a threshold.
+				"
+			::= { xfCesPwPMCurrent15mEntry 13 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.14
+		xfCesPwTDMPerfCurrentUAS OBJECT-TYPE
+			SYNTAX PerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This attribute counts Unavailable Seconds. An unavailable period 
+				begins at the onset of ten consecutive SESs and ends at the onset 
+				of ten consecutive seconds that are not severely errored. A service 
+				is unavailable if either its payload or its signalling, if any, 
+				are unavailable. During unavailable time, only UAS should be counted; 
+				other anomalies should not be counted. 
+				ITU-T G.984.4 (2008)"
+			::= { xfCesPwPMCurrent15mEntry 14 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.2.1.15
+		xfCesPwTDMPerfCurrentFC OBJECT-TYPE
+			SYNTAX PerfCurrentCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"TDM Failure Counts (FC-TDM).  The number of TDM failure events.  
+				A failure event begins when the LOPS failure is declared, and it 
+				ends when the failure is cleared.  A failure event that begins in 
+				one period and ends in another period is counted only in the period 
+				in which it begins."
+			::= { xfCesPwPMCurrent15mEntry 15 }
+
+		
+        -- xfCesPwPMInterval15mTable --
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4
+		xfCesPwPMInterval15mTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfCesPwPMInterval15mEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table provides per-PW performance information for 15 minute 
+				history intervals."
+			::= { xfCesPerformanceManagement 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1
+		xfCesPwPMInterval15mEntry OBJECT-TYPE
+			SYNTAX XfCesPwPMInterval15mEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Description."
+			INDEX { ifIndex, xfCesPwPerfIntervalNumber }
+			::= { xfCesPwPMInterval15mTable 1 }
+
+		
+		XfCesPwPMInterval15mEntry ::=
+			SEQUENCE { 
+				xfCesPwPerfIntervalNumber
+					Unsigned32,
+				xfCesPwPerfIntervalValidData
+					TruthValue,
+				xfCesPwPerfIntervalTimeElapsed
+					Unsigned32,
+				xfCesPwPerfIntervalInHCPackets
+					HCPerfIntervalCount,
+				xfCesPwPerfIntervalInHCBytes
+					HCPerfIntervalCount,
+				xfCesPwPerfIntervalOutHCPackets
+					HCPerfIntervalCount,
+				xfCesPwPerfIntervalOutHCBytes
+					HCPerfIntervalCount,
+				xfCesPwTDMPerfIntervalMissingPkts
+					PerfIntervalCount,
+				xfCesPwTDMPerfIntervalPktReorders
+					PerfIntervalCount,
+				xfCesPwTDMPerfIntervalJtrBufferUnderruns
+					PerfIntervalCount,
+				xfCesPwTDMPerfIntervalMisOrderDrop
+					PerfIntervalCount,
+				xfCesPwTDMPerfIntervalMalformedPkts
+					PerfIntervalCount,
+				xfCesPwTDMPerfIntervalES
+					PerfIntervalCount,
+				xfCesPwTDMPerfIntervalSES
+					PerfIntervalCount,
+				xfCesPwTDMPerfIntervalUAS
+					PerfIntervalCount,
+				xfCesPwTDMPerfIntervalFC
+					PerfIntervalCount
+			 }
+
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.1
+		xfCesPwPerfIntervalNumber OBJECT-TYPE
+			SYNTAX Unsigned32 (1..96)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"A number N, between 1 and 96, which identifies the interval for 
+				which the set of statistics is available. The interval identified 
+				by 1 is the most recently completed 15-minute interval, and the interval 
+				identified by N is the interval immediately preceding the one 
+				identified by N-1."
+			::= { xfCesPwPMInterval15mEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.2
+		xfCesPwPerfIntervalValidData OBJECT-TYPE
+			SYNTAX TruthValue
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This variable indicates if the data for this interval is valid."
+			::= { xfCesPwPMInterval15mEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.3
+		xfCesPwPerfIntervalTimeElapsed OBJECT-TYPE
+			SYNTAX Unsigned32
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The duration of a particular interval in seconds.  Adjustments in the 
+				system's time-of-day clock may cause the interval to be greater or less 
+				than the normal value.  Therefore, this actual interval value is 
+				provided."
+			::= { xfCesPwPMInterval15mEntry 3 }
+
+			
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.4
+		xfCesPwPerfIntervalInHCPackets OBJECT-TYPE
+			SYNTAX HCPerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"High-capacity counter for number of packets received 
+				by the PW (from the PSN) during the interval."
+			::= { xfCesPwPMInterval15mEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.5
+		xfCesPwPerfIntervalInHCBytes OBJECT-TYPE
+			SYNTAX HCPerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"High-capacity counter for number of bytes received 
+				by the PW (from the PSN) during the interval."
+			::= { xfCesPwPMInterval15mEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.6
+		xfCesPwPerfIntervalOutHCPackets OBJECT-TYPE
+			SYNTAX HCPerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"High-capacity counter for number of packets forwarded 
+				by the PW (to the PSN) during the interval."
+			::= { xfCesPwPMInterval15mEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.7
+		xfCesPwPerfIntervalOutHCBytes OBJECT-TYPE
+			SYNTAX HCPerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"High-capacity counter for number of bytes forwarded 
+				by the PW (to the PSN) during the interval."
+			::= { xfCesPwPMInterval15mEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.8
+		xfCesPwTDMPerfIntervalMissingPkts OBJECT-TYPE
+			SYNTAX PerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of missing packets (as detected via control word 
+				sequence number gaps)."
+			::= { xfCesPwPMInterval15mEntry 8 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.9
+		xfCesPwTDMPerfIntervalPktReorders OBJECT-TYPE
+			SYNTAX PerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of packets detected out of sequence (via control 
+				word sequence number) but successfully re-ordered."
+			::= { xfCesPwPMInterval15mEntry 9 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.10
+		xfCesPwTDMPerfIntervalJtrBufferUnderruns OBJECT-TYPE
+			SYNTAX PerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of times a packet needed to be played out and the 
+				jitter buffer was empty."
+			::= { xfCesPwPMInterval15mEntry 10 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.11
+		xfCesPwTDMPerfIntervalMisOrderDrop OBJECT-TYPE
+			SYNTAX PerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of packets detected out of order (via control word 
+				sequence numbers) that could not be re-ordered or could not 
+				fit in the jitter buffer."
+			::= { xfCesPwPMInterval15mEntry 11 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.12
+		xfCesPwTDMPerfIntervalMalformedPkts OBJECT-TYPE
+			SYNTAX PerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of packets detected with unexpected size, or bad 
+				headers' stack"
+			::= { xfCesPwPMInterval15mEntry 12 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.13
+		xfCesPwTDMPerfIntervalES OBJECT-TYPE
+			SYNTAX PerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This attribute counts errored seconds. Any discarded, lost, 
+				malformed or unusable packet received from the PSN during a 
+				given second causes this counter to increment. 
+				ITU-T G.984.4 (2008)"
+			::= { xfCesPwPMInterval15mEntry 13 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.14
+		xfCesPwTDMPerfIntervalSES OBJECT-TYPE
+			SYNTAX PerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This attribute counts severely errored seconds. The criteria for SES 
+				detection is based on the percentage of lost, malformed or otherwise 
+				unusable packets over the total number of packets expected in the PSN to 
+				TDM direction within a one-second interval. Stray packets do not count 
+				toward a severely errored second, nor do packets whose L-bit is set at 
+				the far end.
+
+				By default an errored packet percentage over 30% shall cause a severely 
+				errored second to be counted.
+
+				NOTE: MEF-8 and RFC 5604 use 'Frame Error Rate', respectively 'percent 
+				of missing packets' metrics to define a threshold."
+			::= { xfCesPwPMInterval15mEntry 14 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.15
+		xfCesPwTDMPerfIntervalUAS OBJECT-TYPE
+			SYNTAX PerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This attribute counts Unavailable Seconds. An unavailable period begins 
+				at the onset of ten consecutive SESs and ends at the onset of ten 
+				consecutive seconds that are not severely errored. A service is 
+				unavailable if either its payload or its signalling, if any, are 
+				unavailable. During unavailable time, only UAS should be counted; other 
+				anomalies should not be counted. ITU-T G.984.4 (2008)"
+			::= { xfCesPwPMInterval15mEntry 15 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.4.1.16
+		xfCesPwTDMPerfIntervalFC OBJECT-TYPE
+			SYNTAX PerfIntervalCount
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"TDM Failure Counts (FC-TDM).  The number of TDM failure events.  A 
+				failure event begins when the LOPS failure is declared, and it ends when 
+				the failure is cleared.  A failure event that begins in one period and 
+				ends in another period is counted only in the period in which it 
+				begins."
+			::= { xfCesPwPMInterval15mEntry 16 }
+
+
+		-- xfCesPwPM24hTable --
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5
+		xfCesPwPM24hTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfCesPwPM24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"This table provides per-PW performance information for the current 
+				day's measurement and the previous day's interval.
+				"
+			::= { xfCesPerformanceManagement 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1
+		xfCesPwPM24hEntry OBJECT-TYPE
+			SYNTAX XfCesPwPM24hEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Description."
+			INDEX { ifIndex, xfCesPwPerf1DayIntervalNumber }
+			::= { xfCesPwPM24hTable 1 }
+
+		
+		XfCesPwPM24hEntry ::=
+			SEQUENCE { 
+				xfCesPwPerf1DayIntervalNumber
+					Unsigned32,
+				xfCesPwPerf1DayIntervalValidData
+					TruthValue,
+				xfCesPwPerf1DayIntervalTimeElapsed
+					Unsigned32,
+				xfCesPwPerf1DayIntervalInHCPackets
+					Counter64,
+				xfCesPwPerf1DayIntervalInHCBytes
+					Counter64,
+				xfCesPwPerf1DayIntervalOutHCPackets
+					Counter64,
+				xfCesPwPerf1DayIntervalOutHCBytes
+					Counter64,
+				xfCesPwTDMPerf1DayIntervalMissingPkts
+					Counter32,
+				xfCesPwTDMPerf1DayIntervalPktReorders
+					Counter32,
+				xfCesPwTDMPerf1DayIntervalJtrBufferUnderruns
+					Counter32,
+				xfCesPwTDMPerf1DayIntervalMisOrderDrop
+					Counter32,
+				xfCesPwTDMPerf1DayIntervalMalformedPkts
+					Counter32,
+				xfCesPwTDMPerf1DayIntervalES
+					Counter32,
+				xfCesPwTDMPerf1DayIntervalSES
+					Counter32,
+				xfCesPwTDMPerf1DayIntervalUAS
+					Counter32,
+				xfCesPwTDMPerf1DayIntervalFC
+					Counter32
+			 }
+
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.1
+		xfCesPwPerf1DayIntervalNumber OBJECT-TYPE
+			SYNTAX Unsigned32 (1..2)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Interval 1 is the current day's measurement period, interval 2 is the 
+				most recent previous day."
+			::= { xfCesPwPM24hEntry 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.2
+		xfCesPwPerf1DayIntervalValidData OBJECT-TYPE
+			SYNTAX TruthValue
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This variable indicates if the data for this interval is valid."
+			::= { xfCesPwPM24hEntry 2 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.3
+		xfCesPwPerf1DayIntervalTimeElapsed OBJECT-TYPE
+			SYNTAX Unsigned32
+			UNITS "seconds"
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The number of seconds in the 1-day interval over which the performance 
+				monitoring information is actually counted. This value will be the same 
+				as the interval duration except in a situation where performance 
+				monitoring data could not be collected for any reason or where agent 
+				clock adjustments have been made."
+			::= { xfCesPwPM24hEntry 3 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.4
+		xfCesPwPerf1DayIntervalInHCPackets OBJECT-TYPE
+			SYNTAX Counter64
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"High-capacity counter for the total number of packets received 
+				by the PW (from the PSN)."
+			::= { xfCesPwPM24hEntry 4 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.5
+		xfCesPwPerf1DayIntervalInHCBytes OBJECT-TYPE
+			SYNTAX Counter64
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"High-capacity counter for the total number of bytes received 
+				by the PW (from the PSN)."
+			::= { xfCesPwPM24hEntry 5 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.6
+		xfCesPwPerf1DayIntervalOutHCPackets OBJECT-TYPE
+			SYNTAX Counter64
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"High-capacity counter for the total number of packets forwarded 
+				by the PW (to the PSN)."
+			::= { xfCesPwPM24hEntry 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.7
+		xfCesPwPerf1DayIntervalOutHCBytes OBJECT-TYPE
+			SYNTAX Counter64
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"High-capacity counter for the total number of bytes forwarded 
+				by the PW (to the PSN)."
+			::= { xfCesPwPM24hEntry 7 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.8
+		xfCesPwTDMPerf1DayIntervalMissingPkts OBJECT-TYPE
+			SYNTAX Counter32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of missing packets (as detected via control word 
+				sequence number gaps)."
+			::= { xfCesPwPM24hEntry 8 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.9
+		xfCesPwTDMPerf1DayIntervalPktReorders OBJECT-TYPE
+			SYNTAX Counter32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of packets detected out of sequence (via control 
+				word sequence number) but successfully re-ordered."
+			::= { xfCesPwPM24hEntry 9 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.10
+		xfCesPwTDMPerf1DayIntervalJtrBufferUnderruns OBJECT-TYPE
+			SYNTAX Counter32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of times a packet needed to be played out and the 
+				jitter buffer was empty."
+			::= { xfCesPwPM24hEntry 10 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.11
+		xfCesPwTDMPerf1DayIntervalMisOrderDrop OBJECT-TYPE
+			SYNTAX Counter32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of packets detected out of order (via control word sequence 
+				numbers) that could not be re-ordered or could not fit in the jitter 
+				buffer."
+			::= { xfCesPwPM24hEntry 11 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.12
+		xfCesPwTDMPerf1DayIntervalMalformedPkts OBJECT-TYPE
+			SYNTAX Counter32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Number of packets detected with unexpected size or bad headers' stack."
+			::= { xfCesPwPM24hEntry 12 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.13
+		xfCesPwTDMPerf1DayIntervalES OBJECT-TYPE
+			SYNTAX Counter32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This attribute counts errored seconds. Any discarded, lost, malformed 
+				or unusable packet received from the PSN during a given second causes 
+				this counter to increment. ITU-T G.984.4 (2008)"
+			::= { xfCesPwPM24hEntry 13 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.14
+		xfCesPwTDMPerf1DayIntervalSES OBJECT-TYPE
+			SYNTAX Counter32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This attribute counts severely errored seconds. The criteria for SES 
+				detection is based on the percentage of lost, malformed or otherwise 
+				unusable packets over the total number of packets expected in the PSN to 
+				TDM direction within a one-second interval. Stray packets do not count 
+				toward a severely errored second, nor do packets whose L-bit is set at 
+				the far end.
+
+				By default an errored packet percentage over 30% shall cause a severely 
+				errored second to be counted.
+
+				NOTE: MEF-8 and RFC 5604 use 'Frame Error Rate', respectively 'percent 
+				of missing packets' metrics to define a threshold."
+			::= { xfCesPwPM24hEntry 14 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.15
+		xfCesPwTDMPerf1DayIntervalUAS OBJECT-TYPE
+			SYNTAX Counter32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION	
+				"This attribute counts Unavailable Seconds. An unavailable period begins 
+				at the onset of ten consecutive SESs and ends at the onset of ten 
+				consecutive seconds that are not severely errored. A service is 
+				unavailable if either its payload or its signalling, if any, are 
+				unavailable. During unavailable time, only UAS should be counted; other 
+				anomalies should not be counted. ITU-T G.984.4 (2008)"
+			::= { xfCesPwPM24hEntry 15 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.5.1.16
+		xfCesPwTDMPerf1DayIntervalFC OBJECT-TYPE
+			SYNTAX Counter32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION	
+				"TDM Failure Counts (FC-TDM).  The number of TDM failure events.  A 
+				failure event begins when the LOPS failure is declared, and it ends when 
+				the failure is cleared."
+			::= { xfCesPwPM24hEntry 16 }
+
+		          
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.6
+		xfCesPefrormanceGroups OBJECT IDENTIFIER ::= { xfCesPerformanceManagement 6 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.3.6.1
+		xfCesPerfMandatoryGroup OBJECT-GROUP
+			OBJECTS { xfCesPwPerfCurrentInHCPackets, xfCesPwPerfCurrentInHCBytes, xfCesPwPerfCurrentOutHCPackets, xfCesPwTDMPerfCurrentMissingPkts, xfCesPwTDMPerfCurrentPktReorders, 
+				xfCesPwTDMPerfCurrentJtrBufferUnderruns, xfCesPwTDMPerfCurrentMisOrderDrop, xfCesPwTDMPerfCurrentMalformedPkts, xfCesPwTDMPerfCurrentES, xfCesPwTDMPerfCurrentSES, 
+				xfCesPwTDMPerfCurrentUAS, xfCesPwTDMPerfCurrentFC, xfCesPwPerfCurrentOutHCBytes, xfCesPwPmView, xfCesPwPmMalformedFramesThreshold, 
+				xfCesPwPmJitterBufferOverrunThreshold, xfCesPwPerfIntervalNumber, xfCesPwPerfIntervalValidData, xfCesPwPerfIntervalTimeElapsed, xfCesPwPerfIntervalInHCPackets, 
+				xfCesPwPerfIntervalInHCBytes, xfCesPwPerfIntervalOutHCPackets, xfCesPwPerfIntervalOutHCBytes, xfCesPwTDMPerfIntervalMissingPkts, xfCesPwTDMPerfIntervalPktReorders, 
+				xfCesPwTDMPerfIntervalJtrBufferUnderruns, xfCesPwTDMPerfIntervalMisOrderDrop, xfCesPwTDMPerfIntervalMalformedPkts, xfCesPwTDMPerfIntervalES, xfCesPwTDMPerfIntervalSES, 
+				xfCesPwTDMPerfIntervalUAS, xfCesPwTDMPerfIntervalFC, xfCesPwPerfCurrentTimeElapsed, xfCesPwPerf1DayIntervalNumber, xfCesPwPerfCurrentValidData, 
+				xfCesPwPerf1DayIntervalValidData, xfCesPwPerf1DayIntervalTimeElapsed, xfCesPwPerf1DayIntervalInHCPackets, xfCesPwPerf1DayIntervalInHCBytes, xfCesPwPerf1DayIntervalOutHCPackets, 
+				xfCesPwPerf1DayIntervalOutHCBytes, xfCesPwTDMPerf1DayIntervalMissingPkts, xfCesPwTDMPerf1DayIntervalPktReorders, xfCesPwTDMPerf1DayIntervalJtrBufferUnderruns, xfCesPwTDMPerf1DayIntervalMisOrderDrop, 
+				xfCesPwTDMPerf1DayIntervalMalformedPkts, xfCesPwTDMPerf1DayIntervalES, xfCesPwTDMPerf1DayIntervalSES, xfCesPwTDMPerf1DayIntervalUAS, xfCesPwTDMPerf1DayIntervalFC, 
+				xfCesPwPmResetCounters, xfCesPwPmLossOfFramesThreshold, xfCesPwPmLateFramesThreshold, xfCesPwPmValidDayIntervals, xfCesPwPmValidIntervals
+				 }
+			STATUS current
+			DESCRIPTION 
+				"This group contains the mandatory objects for PW Performance Monitoring."
+			::= { xfCesPefrormanceGroups 1 }
+
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.4
+		xfCesModuleCompliance MODULE-COMPLIANCE
+			STATUS current
+			DESCRIPTION 
+				"Description."
+			MODULE -- this module
+				MANDATORY-GROUPS { xfCesConfMandatoryGroup, xfCesPerfMandatoryGroup }
+			::= { xfCesMib 4 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.5
+		xfCesStandardExtensions OBJECT IDENTIFIER ::= { xfCesMib 5 }
+
+    --
+    -- pwXTable --
+    --
+		
+		-- 1.3.6.1.4.1.193.81.4.4.1.5.1
+    pwXTable        OBJECT-TYPE
+        SYNTAX      SEQUENCE OF PwXEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION
+                "This table extends the pwTable"
+        ::= { xfCesStandardExtensions 1 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.5.1.1
+    pwXEntry        OBJECT-TYPE
+        SYNTAX      PwXEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION
+                "An entry containing additional TDM configuration
+                applicable to a particular PW."
+        AUGMENTS    { pwEntry }
+        ::= { pwXTable 1 }
+
+    pwTimingInput OBJECT-TYPE
+        SYNTAX INTEGER
+            {
+            looped(1),
+            external(2),
+            recovered(3)
+            }
+        MAX-ACCESS read-write
+        STATUS current
+        DESCRIPTION
+            "This object is used to set one of the following timing:
+            looped(1)    Emulated service is used for timing
+            external(2)  Node sync is used for timing (Network Synchronization)
+            recovered(3) Ethernet line is used to recover the clock"
+        DEFVAL { 1 }
+        ::= { pwXEntry 1 }
+
+		PwXEntry ::=
+			SEQUENCE { 
+        pwTimingInput 
+            INTEGER
+			 }
+
+    --
+    -- pwTDMXTable --
+    --
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.5.1.2
+    pwTDMXTable        OBJECT-TYPE
+        SYNTAX      SEQUENCE OF PwTDMXEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION
+                "This table extends the pwTDMTable"
+        ::= { xfCesStandardExtensions 2 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.5.1.2.1
+    pwTDMXEntry        OBJECT-TYPE
+        SYNTAX      PwTDMXEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION
+                "An entry containing additional management information
+                applicable to a particular PW."
+        AUGMENTS    { pwTDMEntry }
+        ::= { pwTDMXTable 1 }
+	
+		PwTDMXEntry ::=
+			SEQUENCE { 
+				pwTDMAlarmStatus
+					BITS
+			 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.5.1.2.1.1
+		pwTDMAlarmStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				pwTDMLossOfFrames0(0),
+				pwTDMLossOfFrames1(1),
+				pwTDMLossOfFrames2(2),
+				pwTDMLateFrames0(3),
+				pwTDMLateFrames1(4),
+				pwTDMLateFrames2(5),
+				pwTDMJtrBufferOverrun0(6),
+				pwTDMJtrBufferOverrun1(7),
+				pwTDMJtrBufferOverrun2(8),
+				pwTDMMalformedFrames0(9),
+				pwTDMMalformedFrames1(10),
+				pwTDMMalformedFrames2(11),
+				pwTDMRemoteLossOfFrames0(12),
+				pwTDMRemoteLossOfFrames1(13),
+				pwTDMRemoteLossOfFrames2(14),
+				pwTDMJtrBufferUndererrun0(15),
+				pwTDMJtrBufferUndererrun1(16),
+				pwTDMJtrBufferUndererrun2(17)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Indicates the alarm status of a CES Pseudowire.
+				
+				Severity is indicated by 3 bits per status:
+				   bits 012
+					    000   clear
+					    001   undetermined
+					    010   warning
+					    011   minor
+					    100   major
+					    101   critical
+				
+				E.g. If
+				   pwTDMMalformedFrames0=0
+				   pwTDMMalformedFrames1=1
+				   pwTDMMalformedFrames2=1
+				then this MO reports a Malformed Frames alarm whose severity is minor.
+				"
+			::= { pwTDMXEntry 1 }
+
+
+    --
+    -- pwTDMCfgXTable --
+    --
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.5.1.3
+    pwTDMCfgXTable        OBJECT-TYPE
+        SYNTAX      SEQUENCE OF PwTDMCfgXEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION
+                "This table extends the pwTable"
+        ::= { xfCesStandardExtensions 3 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.5.1.3.1
+    pwTDMCfgXEntry       OBJECT-TYPE
+        SYNTAX      PwTDMCfgXEntry
+        MAX-ACCESS  not-accessible
+        STATUS      current
+        DESCRIPTION
+                "An entry containing additional TDM configuration
+                applicable to a particular PW."
+        AUGMENTS    { pwTDMCfgEntry }
+        ::= { pwTDMCfgXTable 1 }
+
+		-- 1.3.6.1.4.1.193.81.4.4.1.5.1.3.1.1
+		pwTDMCfgJtrBfrSize OBJECT-TYPE
+			SYNTAX Unsigned32
+			UNITS "bytes"
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"The jitter buffer size of the Pseudowire in units of bytes."
+			::= { pwTDMCfgXEntry 1 }
+
+		PwTDMCfgXEntry ::=
+			SEQUENCE { 
+        pwTDMCfgJtrBfrSize
+			      Unsigned32
+			 }
+
+	END
+
+--
+-- 32_19603-crxr10201_1_ces.mi2
+--

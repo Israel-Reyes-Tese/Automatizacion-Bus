@@ -1,0 +1,1779 @@
+--
+-- Roamware Call Service MIB definition.
+-- Release : 1.0
+-- Revision : R120401
+-- Revision date : 10-Apr-2012
+--
+-- This specification is supplied "AS IS," and no warranty,
+-- either expressed or implied, as to the use, operation, condition,
+-- or performance of the specification, is made by the publisher.
+--
+-- Publisher: Roamware Inc., USA
+-- **************************************************************
+
+Roamware-CALLSVC10-V2-MIB DEFINITIONS ::= BEGIN
+IMPORTS
+    MODULE-IDENTITY, OBJECT-TYPE, NOTIFICATION-TYPE, enterprises,
+    TimeTicks, Counter32, IpAddress, Integer32
+        FROM SNMPv2-SMI
+    DisplayString
+        FROM SNMPv2-TC
+    OBJECT-GROUP
+        FROM SNMPv2-CONF
+	roamware, mobGenSeverity, mobGenDescription, mobGenPoolName, mobGenMachineID,
+	mobGenRemoteHostAddr, mobGenRemotePort, mobGenAlarmTime, mobGenThresholdValue,
+	mobGenSequenceNumber, mobGenNotificationId, mobGenServiceName, mobGenAlarmType, mobGenProbableCause,
+	mobGenCacheName, mobGenErrorText, mobGenThresholdLWM, mobGenThresholdHWM,
+	mobGenThresholdArmTime, mobGenThresholdName, mobGenUtilization, mobGenCapacity,
+	mobGenSourcePath, mobGenTargetPath, mobGenInstanceName, mobGenRole, mobGenFeatureName
+		FROM Roamware-SDS-V2-MIB;
+
+callService-mob			MODULE-IDENTITY
+	LAST-UPDATED "201204100000Z"
+	ORGANIZATION "Roamware Inc."
+	CONTACT-INFO "info@roamware.com"
+	DESCRIPTION  "This is the top level entry for Roamware Call Service 1.0"
+	REVISION     "201204100000Z"
+	DESCRIPTION  "Initial version."
+	::= { roamware 95 }													-- 1.3.6.1.4.1.11150.95
+
+
+--
+-- Call Service KPI
+--
+callServiceKPIGroup				OBJECT IDENTIFIER ::= { callService-mob 1 }			-- 1.3.6.1.4.1.11150.95.1
+
+--
+-- Call Service TCAP Messaging KPI
+--
+callServiceTCAPKPIGroup				OBJECT IDENTIFIER ::= { callServiceKPIGroup 1 }			-- 1.3.6.1.4.1.11150.95.1.1
+
+--
+-- Call Service Call KPI
+--
+callServiceCallKPIGroup				OBJECT IDENTIFIER ::= { callServiceTCAPKPIGroup 1 }		-- 1.3.6.1.4.1.11150.95.1.1.1
+
+---
+--- MO Call KPI
+---
+callServiceMOCallKPIGroup			OBJECT IDENTIFIER ::= { callServiceCallKPIGroup 1 }		-- 1.3.6.1.4.1.11150.95.1.1.1.1
+
+callServiceMOCallAttempts			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Call attempts in last one minute"
+		   ::= { callServiceMOCallKPIGroup 1 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.1
+
+callServiceMOCallsAnswered			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls answered in last one minute"
+		   ::= { callServiceMOCallKPIGroup 2 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.2
+
+callServiceMOCallsCompleted			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls completed in last one minute"
+		   ::= { callServiceMOCallKPIGroup 3 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.3
+
+callServiceMOCallsActive			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls that were active at the end of last minute"
+		   ::= { callServiceMOCallKPIGroup 4 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.4
+
+callServiceMOCallsTimedOut			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls that timed out by SCF in last one minute"
+		   ::= { callServiceMOCallKPIGroup 5 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.5
+
+callServiceMOCallsReleased			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls that were released by SCF in last one minute"
+		   ::= { callServiceMOCallKPIGroup 6 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.6
+
+callServiceMOCallsAborted			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls that were aborted by SCF in last one minute"
+		   ::= { callServiceMOCallKPIGroup 7 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.7
+
+callServiceMOCallsError				OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls for which SCF sent Return Error in last one minute"
+		   ::= { callServiceMOCallKPIGroup 8 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.8
+
+callServiceMOCallsNotAnswered			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls not answered in last one minute"
+		   ::= { callServiceMOCallKPIGroup 9 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.9
+
+callServiceMOCallsBusy				OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls not answered due to user busy in last one minute"
+		   ::= { callServiceMOCallKPIGroup 10 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.10
+
+callServiceMOCallsAbandoned			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls abandoned in last one minute"
+		   ::= { callServiceMOCallKPIGroup 11 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.11
+
+callServiceMOCallsRouteSelectFailure			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls with route select failure in last one minute"
+		   ::= { callServiceMOCallKPIGroup 12 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.12
+
+callServiceMOCallsRelayed			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls relayed to SCF in last one minute"
+		   ::= { callServiceMOCallKPIGroup 13 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.13
+
+callServiceMOCallsReleaseResponse	OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls released by Call Service in last one minute"
+		   ::= { callServiceMOCallKPIGroup 14 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.14
+
+callServiceMOCallsAbortResponse			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls aborted by Call Service in last one minute"
+		   ::= { callServiceMOCallKPIGroup 15 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.15
+
+callServiceMOCallsErrorResponse			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls for which Call Service sent Return Error in last one minute"
+		   ::= { callServiceMOCallKPIGroup 16 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.16
+
+callServiceMOCallsCalledPartyNotReachable			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls with Called Party Not Reachable in last one minute"
+		   ::= { callServiceMOCallKPIGroup 17 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.17		   
+
+callServiceMOCallsAlerting			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls with Alerting in last one minute"
+		   ::= { callServiceMOCallKPIGroup 18 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.18
+
+callServiceMOCallsSSPTimeout			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls timed out from SSP in last one minute"
+		   ::= { callServiceMOCallKPIGroup 19 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.19
+
+callServiceMOCallsSSPAborted			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls aborted by SSP in last one minute"
+		   ::= { callServiceMOCallKPIGroup 20 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.20
+
+callServiceMOCallsSSPError			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Calls for which SSP sent Return Error in last one minute"
+		   ::= { callServiceMOCallKPIGroup 21 }											-- 1.3.6.1.4.1.11150.95.1.1.1.1.21
+
+---
+--- MT Call KPI
+---
+callServiceMTCallKPIGroup			OBJECT IDENTIFIER ::= { callServiceCallKPIGroup 2 }		-- 1.3.6.1.4.1.11150.95.1.1.1.2
+
+callServiceMTCallAttempts			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Call attempts in last one minute"
+		   ::= { callServiceMTCallKPIGroup 1 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.1
+
+callServiceMTCallsAnswered			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls answered in last one minute"
+		   ::= { callServiceMTCallKPIGroup 2 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.2
+
+callServiceMTCallsCompleted			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls completed in last one minute"
+		   ::= { callServiceMTCallKPIGroup 3 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.3
+
+callServiceMTCallsActive			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls that were active at the end of last minute"
+		   ::= { callServiceMTCallKPIGroup 4 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.4
+
+callServiceMTCallsTimedOut			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls that timed out by SCF in last one minute"
+		   ::= { callServiceMTCallKPIGroup 5 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.5
+
+callServiceMTCallsReleased			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls that were released by SCF in last one minute"
+		   ::= { callServiceMTCallKPIGroup 6 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.6
+
+callServiceMTCallsAborted			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls that were aborted by SCF in last one minute"
+		   ::= { callServiceMTCallKPIGroup 7 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.7
+
+callServiceMTCallsError				OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls for which Return Error was received from SCF in last one minute"
+		   ::= { callServiceMTCallKPIGroup 8 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.8
+
+callServiceMTCallsNotAnswered			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls not answered in last one minute"
+		   ::= { callServiceMTCallKPIGroup 9 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.9
+
+callServiceMTCallsBusy				OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls not answered due to user busy in last one minute"
+		   ::= { callServiceMTCallKPIGroup 10 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.10
+
+callServiceMTCallsAbandoned			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls abandoned in last one minute"
+		   ::= { callServiceMTCallKPIGroup 11 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.11
+
+callServiceMTCallsRouteSelectFailure			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls with route select failure in last one minute"
+		   ::= { callServiceMTCallKPIGroup 12 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.12
+
+callServiceMTCallsRelayed			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls relayed to SCF in last one minute"
+		   ::= { callServiceMTCallKPIGroup 13 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.13
+
+callServiceMTCallsReleaseResponse	OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls released by Call Service in last one minute"
+		   ::= { callServiceMTCallKPIGroup 14 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.14
+
+callServiceMTCallsAbortResponse			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls aborted by Call Service in last one minute"
+		   ::= { callServiceMTCallKPIGroup 15 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.15
+
+callServiceMTCallsErrorResponse			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls for which Call Service sent Return Error in last one minute"
+		   ::= { callServiceMTCallKPIGroup 16 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.16
+
+callServiceMTCallsCalledPartyNotReachable			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls for Called Party Not Reachable in last one minute"
+		   ::= { callServiceMTCallKPIGroup 17 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.17
+
+callServiceMTCallsAlerting			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls for Alerting in last one minute"
+		   ::= { callServiceMTCallKPIGroup 18 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.18
+
+callServiceMTCallsSSPTimeout			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls timed out from SSP in last one minute"
+		   ::= { callServiceMTCallKPIGroup 19 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.19
+
+callServiceMTCallsSSPAborted			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls aborted by SSP in last one minute"
+		   ::= { callServiceMTCallKPIGroup 20 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.20
+
+callServiceMTCallsSSPError			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Calls for which SSP sent Return Error in last one minute"
+		   ::= { callServiceMTCallKPIGroup 21 }											-- 1.3.6.1.4.1.11150.95.1.1.1.2.21
+
+---
+--- MO Call Thresholds
+---
+callServiceMOCallThresholdGroup		OBJECT IDENTIFIER ::= { callServiceCallKPIGroup 3 }		-- 1.3.6.1.4.1.11150.95.1.1.1.3
+
+callServiceMOCallsTimedOutHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO Calls timed out are more than HWM % of the total MO Call attempts an alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 1 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.1
+
+callServiceMOCallsTimedOutLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO Calls timed out fall below LWM % of the total MO Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 2 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.2
+
+callServiceMOCallsReleasedHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO Calls released by SCF are more than HWM % of the total MO Call attempts an alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 3 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.3
+
+callServiceMOCallsReleasedLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of busy MO Calls released by SCF fall below LWM % of the total MO Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 4 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.4
+
+callServiceMOCallsAbortHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO Calls aborted are more than HWM % of the total MO Call attempts an alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 5 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.5
+
+callServiceMOCallsAbortLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of busy MO Calls aborted fall below LWM % of the total MO Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 6 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.6
+
+callServiceMOCallsErrorHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO Calls Return Errors are more than HWM % of the total MO Call attempts an alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 7 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.7
+
+callServiceMOCallsErrorLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of busy MO Calls Return Errors fall below LWM % of the total MO Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 8 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.8
+
+callServiceMOCallsNotAnsweredHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO Calls not answered are more than HWM % of the total MO Call attempts an alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 9 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.9
+
+callServiceMOCallsNotAnsweredLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO Calls not answered fall below LWM % of the total MO Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 10 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.10
+
+callServiceMOCallsBusyHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of busy MO Calls are more than HWM % of the total MO Call attempts an alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 11 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.11
+
+callServiceMOCallsBusyLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of busy MO Calls fall below LWM % of the total MO Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 12 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.12
+
+callServiceMOCallsAbandonedHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO Calls abandoned are more than HWM % of the total MO Call attempts an alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 13 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.13
+
+callServiceMOCallsAbandonedLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO Calls abandoned fall below LWM % of the total MO Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 14 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.14
+
+callServiceMOCallsRouteSelectFailureHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO Call Route select failures are more than HWM % of the total MO Call attempts an alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 15 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.15
+
+callServiceMOCallsRouteSelectFailureLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO Calls Route select failures fall below LWM % of the total MO Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMOCallThresholdGroup 16 }								-- 1.3.6.1.4.1.11150.95.1.1.1.3.16
+
+---
+--- MT Call Thresholds
+---
+callServiceMTCallThresholdGroup		OBJECT IDENTIFIER ::= { callServiceCallKPIGroup 4 }		-- 1.3.6.1.4.1.11150.95.1.1.1.4
+
+callServiceMTCallsTimedOutHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MT Calls timed out are more than HWM % of the total MT Call attempts an alarm is raised"
+		   ::= { callServiceMTCallThresholdGroup 1 }								-- 1.3.6.1.4.1.11150.95.1.1.1.4.1
+
+callServiceMTCallsTimedOutLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MT Calls timed out fall below LWM % of the total MT Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMTCallThresholdGroup 2 }								-- 1.3.6.1.4.1.11150.95.1.1.1.4.2
+
+callServiceMTCallsReleasedHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MT Calls released by SCF are more than HWM % of the total MT Call attempts an alarm is raised"
+		   ::= { callServiceMTCallThresholdGroup 3 }								-- 1.3.6.1.4.1.11150.95.1.1.1.4.3
+
+callServiceMTCallsReleasedLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of busy MT Calls released by SCF fall below LWM % of the total MT Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMTCallThresholdGroup 4 }								-- 1.3.6.1.4.1.11150.95.1.1.1.4.4
+
+callServiceMTCallsAbortHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MT Calls aborted are more than HWM % of the total MT Call attempts an alarm is raised"
+		   ::= { callServiceMTCallThresholdGroup 5 }								-- 1.3.6.1.4.1.11150.95.1.1.1.4.5
+
+callServiceMTCallsAbortLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of busy MT Calls aborted fall below LWM % of the total MT Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMTCallThresholdGroup 6 }								-- 1.3.6.1.4.1.11150.95.1.1.1.4.6
+
+callServiceMTCallsErrorHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MT Calls Return Errors are more than HWM % of the total MT Call attempts an alarm is raised"
+		   ::= { callServiceMTCallThresholdGroup 7 }								-- 1.3.6.1.4.1.11150.95.1.1.1.4.7
+
+callServiceMTCallsErrorLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of busy MT Calls Return Errors fall below LWM % of the total MT Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMTCallThresholdGroup 8 }								-- 1.3.6.1.4.1.11150.95.1.1.1.4.8
+
+callServiceMTCallsNotAnsweredHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MT Calls not answered are more than HWM % of the total MT Call attempts an alarm is raised"
+		   ::= { callServiceMTCallThresholdGroup 9 }								-- 1.3.6.1.4.1.11150.95.1.1.1.4.9
+
+callServiceMTCallsNotAnsweredLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MT Calls not answered fall below LWM % of the total MT Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMTCallThresholdGroup 10 }								-- 1.3.6.1.4.1.11150.95.1.1.1.4.10
+
+callServiceMTCallsBusyHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of busy MT Calls are more than HWM % of the total MT Call attempts an alarm is raised"
+		   ::= { callServiceMTCallThresholdGroup 11 }								-- 1.3.6.1.4.1.11150.95.1.1.1.4.11
+
+callServiceMTCallsBusyLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of busy MT Calls fall below LWM % of the total MT Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMTCallThresholdGroup 12 }								-- 1.3.6.1.4.1.11150.95.1.1.1.4.12
+
+callServiceMTCallsAbandonedHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MT Calls abandoned are more than HWM % of the total MT Call attempts an alarm is raised"
+		   ::= { callServiceMTCallThresholdGroup 13 }								-- 1.3.6.1.4.1.11150.95.1.1.1.4.13
+
+callServiceMTCallsAbandonedLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MT Calls abandoned fall below LWM % of the total MT Call attempts a previously raised alarm is raised"
+		   ::= { callServiceMTCallThresholdGroup 14 }								-- 1.3.6.1.4.1.11150.95.1.1.1.4.14
+
+---
+--- MO Call Abort KPI
+---
+callServiceMOCallAbortGroup			OBJECT IDENTIFIER ::= { callServiceCallKPIGroup 5 }		-- 1.3.6.1.4.1.11150.95.1.1.1.5
+
+callServiceMOCallPAborts			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			"Returns the number of MO P-Aborts received in last one minute"
+		   ::= { callServiceMOCallAbortGroup 1 }											-- 1.3.6.1.4.1.11150.95.1.1.1.5.1
+
+callServiceMOCallUAbortServiceUser			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO U-Aborts with source Service User received in last one minute"
+		   ::= { callServiceMOCallAbortGroup 2 }											-- 1.3.6.1.4.1.11150.95.1.1.1.5.2
+
+callServiceMOCallUAbortServiceProvider			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO U-Aborts with source Service Provider received in last one minute"
+		   ::= { callServiceMOCallAbortGroup 3 }											-- 1.3.6.1.4.1.11150.95.1.1.1.5.3		   
+
+---
+--- MT Call Abort KPI
+---
+callServiceMTCallAbortGroup			OBJECT IDENTIFIER ::= { callServiceCallKPIGroup 6 }		-- 1.3.6.1.4.1.11150.95.1.1.1.6
+
+callServiceMTCallPAborts			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			"Returns the number of MT P-Aborts received in last one minute"
+		   ::= { callServiceMTCallAbortGroup 1 }											-- 1.3.6.1.4.1.11150.95.1.1.1.6.1
+
+callServiceMTCallUAbortServiceUser			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT U-Aborts with source Service User received in last one minute"
+		   ::= { callServiceMTCallAbortGroup 2 }											-- 1.3.6.1.4.1.11150.95.1.1.1.6.2
+
+callServiceMTCallUAbortServiceProvider			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT U-Aborts with source Service Provider received in last one minute"
+		   ::= { callServiceMTCallAbortGroup 3 }											-- 1.3.6.1.4.1.11150.95.1.1.1.6.3
+
+--
+-- Call Service TDP KPI
+--
+callServiceCallRecvTDPGroup			OBJECT IDENTIFIER ::= { callServiceCallKPIGroup 7 }		-- 1.3.6.1.4.1.11150.95.1.1.1.7
+
+callServiceTDPCollectedInfo			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of Trigger Detection points of type Collected Info in last one minute"
+		   ::= { callServiceCallRecvTDPGroup 1 }											-- 1.3.6.1.4.1.11150.95.1.1.1.7.1
+
+callServiceTDPAnalysedInfo			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of Trigger Detection points of type Analysed Info in last one minute"
+		   ::= { callServiceCallRecvTDPGroup 2 }											-- 1.3.6.1.4.1.11150.95.1.1.1.7.2
+
+callServiceTDPRouteSelectFailure			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of Trigger Detection points of type Route Select Failure in last one minute"
+		   ::= { callServiceCallRecvTDPGroup 3 }											-- 1.3.6.1.4.1.11150.95.1.1.1.7.3
+
+callServiceTDPTermAttemptAuthorized			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of Trigger Detection points of type Term Attempt Authorized in last one minute"
+		   ::= { callServiceCallRecvTDPGroup 4 }											-- 1.3.6.1.4.1.11150.95.1.1.1.7.4
+
+callServiceTDPBusy			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of Trigger Detection points of type Busy in last one minute"
+		   ::= { callServiceCallRecvTDPGroup 5 }											-- 1.3.6.1.4.1.11150.95.1.1.1.7.5
+
+callServiceTDPNoAnswer			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of Trigger Detection points of type No Answer in last one minute"
+		   ::= { callServiceCallRecvTDPGroup 6 }											-- 1.3.6.1.4.1.11150.95.1.1.1.7.6		   
+
+---
+--- MO Performance KPI
+---
+callServiceMOPerformanceKPIGroup			OBJECT IDENTIFIER ::= { callServiceCallKPIGroup 8 }		-- 1.3.6.1.4.1.11150.95.1.1.1.8
+
+callServiceAvgMOCallResponseTime			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS obsolete
+		   DESCRIPTION
+			 "Returns the average response time for MO Call in last one minute"
+		   ::= { callServiceMOPerformanceKPIGroup 1 }											-- 1.3.6.1.4.1.11150.95.1.1.1.8.1
+
+callServiceDelayedMOCallResponses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of responses that crossed the expected response time for MO Call in last one minute"
+		   ::= { callServiceMOPerformanceKPIGroup 2 }											-- 1.3.6.1.4.1.11150.95.1.1.1.8.2
+
+---
+--- MT Performance KPI
+---
+callServiceMTPerformanceKPIGroup			OBJECT IDENTIFIER ::= { callServiceCallKPIGroup 9 }		-- 1.3.6.1.4.1.11150.95.1.1.1.8
+
+callServiceAvgMTCallResponseTime			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS obsolete
+		   DESCRIPTION
+			 "Returns the average response time for MT Call in last one minute"
+		   ::= { callServiceMTPerformanceKPIGroup 1 }											-- 1.3.6.1.4.1.11150.95.1.1.1.9.1
+
+callServiceDelayedMTCallResponses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of responses that crossed the expected response time for MT Call in last one minute"
+		   ::= { callServiceMTPerformanceKPIGroup 2 }											-- 1.3.6.1.4.1.11150.95.1.1.1.9.2
+	   
+--
+-- Call Service SMS KPI
+--
+callServiceSMSKPIGroup				OBJECT IDENTIFIER ::= { callServiceTCAPKPIGroup 2 }		-- 1.3.6.1.4.1.11150.95.1.1.2
+
+---
+--- MO SMS KPI
+---
+callServiceMOSMSKPIGroup			OBJECT IDENTIFIER ::= { callServiceSMSKPIGroup 1 }		-- 1.3.6.1.4.1.11150.95.1.1.2.1
+
+callServiceMOSMSAttempts			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO SMS attempts in last one minute"
+		   ::= { callServiceMOSMSKPIGroup 1 }											-- 1.3.6.1.4.1.11150.95.1.1.2.1.1
+
+callServiceMOSMSSubmitted			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO SMS submitted in last one minute"
+		   ::= { callServiceMOSMSKPIGroup 2 }											-- 1.3.6.1.4.1.11150.95.1.1.2.1.2
+
+callServiceMOSMSFailed				OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO SMS failed in last one minute"
+		   ::= { callServiceMOSMSKPIGroup 3 }											-- 1.3.6.1.4.1.11150.95.1.1.2.1.3
+
+callServiceMOSMSTimedOut			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO SMS that timed out in last minute"
+		   ::= { callServiceMOSMSKPIGroup 4 }											-- 1.3.6.1.4.1.11150.95.1.1.2.1.4
+
+callServiceMOSMSReleased			OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO SMS that were released by SCF in last one minute"
+		   ::= { callServiceMOSMSKPIGroup 5 }											-- 1.3.6.1.4.1.11150.95.1.1.2.1.5
+
+callServiceMOSMSAborted				OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO SMS that were aborted in last one minute"
+		   ::= { callServiceMOSMSKPIGroup 6 }											-- 1.3.6.1.4.1.11150.95.1.1.2.1.6
+
+callServiceMOSMSError				OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-only
+           STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO SMS that ended in error in last one minute"
+		   ::= { callServiceMOSMSKPIGroup 7 }											-- 1.3.6.1.4.1.11150.95.1.1.2.1.7
+
+---
+--- MO SMS Thresholds
+---
+callServiceMOSMSThresholdGroup		OBJECT IDENTIFIER ::= { callServiceSMSKPIGroup 2 }		-- 1.3.6.1.4.1.11150.95.1.1.2.2
+
+callServiceMOSMSFailedHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO SMS failed are more than HWM % of the total MO SMS attempts an alarm is raised"
+		   ::= { callServiceMOSMSThresholdGroup 1 }								-- 1.3.6.1.4.1.11150.95.1.1.2.2.1
+
+callServiceMOSMSFailedLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO SMS failed fall below LWM % of the total MO SMS attempts a previously raised alarm is raised"
+		   ::= { callServiceMOSMSThresholdGroup 2 }								-- 1.3.6.1.4.1.11150.95.1.1.2.2.2
+
+callServiceMOSMSTimedOutHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO SMS timed out are more than HWM % of the total MO SMS attempts an alarm is raised"
+		   ::= { callServiceMOSMSThresholdGroup 3 }								-- 1.3.6.1.4.1.11150.95.1.1.2.2.3
+
+callServiceMOSMSTimedOutLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO SMS timed out fall below LWM % of the total MO SMS attempts a previously raised alarm is raised"
+		   ::= { callServiceMOSMSThresholdGroup 4 }								-- 1.3.6.1.4.1.11150.95.1.1.2.2.4
+
+callServiceMOSMSReleasedHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO SMS released by SCF are more than HWM % of the total MO SMS attempts an alarm is raised"
+		   ::= { callServiceMOSMSThresholdGroup 5 }								-- 1.3.6.1.4.1.11150.95.1.1.2.2.5
+
+callServiceMOSMSReleasedLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO SMS released by SCF fall below LWM % of the total MO SMS attempts a previously raised alarm is raised"
+		   ::= { callServiceMOSMSThresholdGroup 6 }								-- 1.3.6.1.4.1.11150.95.1.1.2.2.6
+
+callServiceMOSMSAbortHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO SMS aborted are more than HWM % of the total MO SMS attempts an alarm is raised"
+		   ::= { callServiceMOSMSThresholdGroup 7 }								-- 1.3.6.1.4.1.11150.95.1.1.2.2.7
+
+callServiceMOSMSAbortLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO SMS aborted fall below LWM % of the total MO SMS attempts a previously raised alarm is raised"
+		   ::= { callServiceMOSMSThresholdGroup 8 }								-- 1.3.6.1.4.1.11150.95.1.1.2.2.8
+
+callServiceMOSMSErrorHWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO SMS Return Errors are more than HWM % of the total MO SMS attempts an alarm is raised"
+		   ::= { callServiceMOSMSThresholdGroup 9 }								-- 1.3.6.1.4.1.11150.95.1.1.2.2.9
+
+callServiceMOSMSErrorLWM		OBJECT-TYPE
+           SYNTAX Integer32
+           MAX-ACCESS read-write
+           STATUS current
+		   DESCRIPTION
+			 "If the percent of MO SMS Return Errors fall below LWM % of the total MO SMS attempts a previously raised alarm is raised"
+		   ::= { callServiceMOSMSThresholdGroup 10 }								-- 1.3.6.1.4.1.11150.95.1.1.2.2.10
+		   
+--
+-- Call Service Caches
+--
+callServiceCacheGroup				OBJECT IDENTIFIER ::= { callService-mob 2 }			-- 1.3.6.1.4.1.11150.95.2
+
+callServiceCallControlCacheGroup	OBJECT IDENTIFIER ::= { callServiceCacheGroup 1 }	-- 1.3.6.1.4.1.11150.95.2.1
+
+callServiceCallControlCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS obsolete
+		   DESCRIPTION
+			 "This object is obsolete. It does not return anything useful."
+		   ::= { callServiceCallControlCacheGroup 1 }										-- 1.3.6.1.4.1.11150.95.2.1.1
+
+callServiceCallControlCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the Call Control cache in the
+			 last one minute."
+		   ::= { callServiceCallControlCacheGroup 2 }										-- 1.3.6.1.4.1.11150.95.2.1.2
+
+callServiceCallControlCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in Call Control cache
+			 in the last one minute."
+		   ::= { callServiceCallControlCacheGroup 3 }										-- 1.3.6.1.4.1.11150.95.2.1.3
+
+callServiceCallControlCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The Call Control cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { callServiceCallControlCacheGroup 4 }										-- 1.3.6.1.4.1.11150.95.2.1.4
+
+callServiceCallControlCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX DisplayString
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of Call Control cache."
+		   ::= { callServiceCallControlCacheGroup 5 }										-- 1.3.6.1.4.1.11150.95.2.1.5
+
+callServiceCallControlCacheProps			OBJECT-TYPE
+		   SYNTAX DisplayString
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing Call Control cache configuration properties."
+		   ::= { callServiceCallControlCacheGroup 6 }										-- 1.3.6.1.4.1.11150.95.2.1.6
+
+-- callServiceCallControlCachePrint			OBJECT-TYPE
+--		   SYNTAX Integer32
+--		   MAX-ACCESS read-write
+--		   STATUS current
+--		   DESCRIPTION
+--			 "Dumps the content of the Call Control cache in a file when this parameter is SET
+--			 with a non-zero value. GET on this parameter returns nothing useful."
+--		   ::= { callServiceCallControlCacheGroup 7 }
+
+callServiceEventControlCacheGroup	OBJECT IDENTIFIER ::= { callServiceCacheGroup 2 }		-- 1.3.6.1.4.1.11150.95.2.2
+
+callServiceEventControlCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS obsolete
+		   DESCRIPTION
+			 "This object is obsolete. It does not return anything useful."
+		   ::= { callServiceEventControlCacheGroup 1 }										-- 1.3.6.1.4.1.11150.95.2.2.1
+
+callServiceEventControlCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the Event Control cache in the
+			 last one minute."
+		   ::= { callServiceEventControlCacheGroup 2 }										-- 1.3.6.1.4.1.11150.95.2.2.2
+
+callServiceEventControlCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in Event Control cache
+			 in the last one minute."
+		   ::= { callServiceEventControlCacheGroup 3 }										-- 1.3.6.1.4.1.11150.95.2.2.3
+
+callServiceEventControlCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The Event Control cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { callServiceEventControlCacheGroup 4 }										-- 1.3.6.1.4.1.11150.95.2.2.4
+
+callServiceEventControlCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX DisplayString
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of Event Control cache."
+		   ::= { callServiceEventControlCacheGroup 5 }										-- 1.3.6.1.4.1.11150.95.2.2.5
+
+callServiceEventControlCacheProps			OBJECT-TYPE
+		   SYNTAX DisplayString
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing Event Control cache configuration properties."
+		   ::= { callServiceEventControlCacheGroup 6 }										-- 1.3.6.1.4.1.11150.95.2.2.6
+
+-- callServiceEventControlCachePrint			OBJECT-TYPE
+--		   SYNTAX Integer32
+--		   MAX-ACCESS read-write
+--		   STATUS current
+--		   DESCRIPTION
+--			 "Dumps the content of the Event Control cache in a file when this parameter is SET
+--			 with a non-zero value. GET on this parameter returns nothing useful."
+--		   ::= { callServiceEventControlCacheGroup 7 }
+
+callServiceMessageControlCacheGroup	OBJECT IDENTIFIER ::= { callServiceCacheGroup 3 }		-- 1.3.6.1.4.1.11150.95.2.3
+
+callServiceMessageControlCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS obsolete
+		   DESCRIPTION
+			 "This object is obsolete. It does not return anything useful."
+		   ::= { callServiceMessageControlCacheGroup 1 }										-- 1.3.6.1.4.1.11150.95.2.3.1
+
+callServiceMessageControlCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the Message Control cache in the
+			 last one minute."
+		   ::= { callServiceMessageControlCacheGroup 2 }										-- 1.3.6.1.4.1.11150.95.2.3.2
+
+callServiceMessageControlCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in Message Control cache
+			 in the last one minute."
+		   ::= { callServiceMessageControlCacheGroup 3 }										-- 1.3.6.1.4.1.11150.95.2.3.3
+
+callServiceMessageControlCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The Message Control cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { callServiceMessageControlCacheGroup 4 }										-- 1.3.6.1.4.1.11150.95.2.3.4
+
+callServiceMessageControlCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX DisplayString
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of Message Control cache."
+		   ::= { callServiceMessageControlCacheGroup 5 }										-- 1.3.6.1.4.1.11150.95.2.3.5
+
+callServiceMessageControlCacheProps			OBJECT-TYPE
+		   SYNTAX DisplayString
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing Message Control cache configuration properties."
+		   ::= { callServiceMessageControlCacheGroup 6 }										-- 1.3.6.1.4.1.11150.95.2.3.6
+
+-- callServiceMessageControlCachePrint			OBJECT-TYPE
+--		   SYNTAX Integer32
+--		   MAX-ACCESS read-write
+--		   STATUS current
+--		   DESCRIPTION
+--			 "Dumps the content of the Message Control cache in a file when this parameter is SET
+--			 with a non-zero value. GET on this parameter returns nothing useful."
+--		   ::= { callServiceMessageControlCacheGroup 7 }
+
+callServiceActionChainingCacheGroup	OBJECT IDENTIFIER ::= { callServiceCacheGroup 4 }		-- 1.3.6.1.4.1.11150.95.2.4
+
+callServiceActionChainingCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS obsolete
+		   DESCRIPTION
+			 "This object is obsolete. It does not return anything useful."
+		   ::= { callServiceActionChainingCacheGroup 1 }										-- 1.3.6.1.4.1.11150.95.2.4.1
+
+callServiceActionChainingCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the Action Chaining cache in the
+			 last one minute."
+		   ::= { callServiceActionChainingCacheGroup 2 }										-- 1.3.6.1.4.1.11150.95.2.4.2
+
+callServiceActionChainingCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in Action Chaining cache
+			 in the last one minute."
+		   ::= { callServiceActionChainingCacheGroup 3 }										-- 1.3.6.1.4.1.11150.95.2.4.3
+
+callServiceActionChainingCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The Action Chaining cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { callServiceActionChainingCacheGroup 4 }										-- 1.3.6.1.4.1.11150.95.2.4.4
+
+callServiceActionChainingCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX DisplayString
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of Action Chaining cache."
+		   ::= { callServiceActionChainingCacheGroup 5 }										-- 1.3.6.1.4.1.11150.95.2.4.5
+
+callServiceActionChainingCacheProps			OBJECT-TYPE
+		   SYNTAX DisplayString
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing Action Chaining cache configuration properties."
+		   ::= { callServiceActionChainingCacheGroup 6 }										-- 1.3.6.1.4.1.11150.95.2.4.6
+
+-- callServiceActionChainingCachePrint			OBJECT-TYPE
+--		   SYNTAX Integer32
+--		   MAX-ACCESS read-write
+--		   STATUS current
+--		   DESCRIPTION
+--			 "Dumps the content of the Action Chaining cache in a file when this parameter is SET
+--			 with a non-zero value. GET on this parameter returns nothing useful."
+--		   ::= { callServiceActionChainingCacheGroup 7 }
+
+callServiceActionCacheGroup	OBJECT IDENTIFIER ::= { callServiceCacheGroup 5 }		-- 1.3.6.1.4.1.11150.95.2.5
+
+callServiceActionCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of elements in the Action cache in the instance of CallService."
+		   ::= { callServiceActionCacheGroup 1 }										-- 1.3.6.1.4.1.11150.95.2.5.1
+
+callServiceActionCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the Action cache in the
+			 last one minute."
+		   ::= { callServiceActionCacheGroup 2 }										-- 1.3.6.1.4.1.11150.95.2.5.2
+
+callServiceActionCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in Action cache
+			 in the last one minute."
+		   ::= { callServiceActionCacheGroup 3 }										-- 1.3.6.1.4.1.11150.95.2.5.3
+
+callServiceActionCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The Action cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { callServiceActionCacheGroup 4 }										-- 1.3.6.1.4.1.11150.95.2.5.4
+
+callServiceActionCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX DisplayString
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of Action cache."
+		   ::= { callServiceActionCacheGroup 5 }										-- 1.3.6.1.4.1.11150.95.2.5.5
+
+callServiceActionCacheProps			OBJECT-TYPE
+		   SYNTAX DisplayString
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing Action cache configuration properties."
+		   ::= { callServiceActionCacheGroup 6 }										-- 1.3.6.1.4.1.11150.95.2.5.6
+
+-- callServiceActionCachePrint			OBJECT-TYPE
+--		   SYNTAX Integer32
+--		   MAX-ACCESS read-write
+--		   STATUS current
+--		   DESCRIPTION
+--			 "Dumps the content of the Action cache in a file when this parameter is SET
+--			 with a non-zero value. GET on this parameter returns nothing useful."
+--		   ::= { callServiceActionCacheGroup 7 }
+
+callServiceSMSControlCacheGroup	OBJECT IDENTIFIER ::= { callServiceCacheGroup 6 }	-- 1.3.6.1.4.1.11150.95.2.6
+
+callServiceSMSControlCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS obsolete
+		   DESCRIPTION
+			 "This object is obsolete. It does not return anything useful."
+		   ::= { callServiceSMSControlCacheGroup 1 }										-- 1.3.6.1.4.1.11150.95.2.6.1
+
+callServiceSMSControlCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the SMS Control cache in the
+			 last one minute."
+		   ::= { callServiceSMSControlCacheGroup 2 }										-- 1.3.6.1.4.1.11150.95.2.6.2
+
+callServiceSMSControlCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in SMS Control cache
+			 in the last one minute."
+		   ::= { callServiceSMSControlCacheGroup 3 }										-- 1.3.6.1.4.1.11150.95.2.6.3
+
+callServiceSMSControlCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The SMS Control cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { callServiceSMSControlCacheGroup 4 }										-- 1.3.6.1.4.1.11150.95.2.6.4
+
+callServiceSMSControlCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX DisplayString
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of SMS Control cache."
+		   ::= { callServiceSMSControlCacheGroup 5 }										-- 1.3.6.1.4.1.11150.95.2.6.5
+
+callServiceSMSControlCacheProps			OBJECT-TYPE
+		   SYNTAX DisplayString
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing SMS Control cache configuration properties."
+		   ::= { callServiceSMSControlCacheGroup 6 }										-- 1.3.6.1.4.1.11150.95.2.6.6
+
+-- callServiceSMSControlCachePrint			OBJECT-TYPE
+--		   SYNTAX Integer32
+--		   MAX-ACCESS read-write
+--		   STATUS current
+--		   DESCRIPTION
+--			 "Dumps the content of the SMS Control cache in a file when this parameter is SET
+--			 with a non-zero value. GET on this parameter returns nothing useful."
+--		   ::= { callServiceSMSControlCacheGroup 7 }
+
+callServiceCallDetailsCacheGroup	OBJECT IDENTIFIER ::= { callServiceCacheGroup 7 }	-- 1.3.6.1.4.1.11150.95.2.7
+
+callServiceCallDetailsCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of elements in the Call Details cache in the instance of CallService."
+		   ::= { callServiceCallDetailsCacheGroup 1 }										-- 1.3.6.1.4.1.11150.95.2.7.1
+
+callServiceCallDetailsCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the Call Details cache in the
+			 last one minute."
+		   ::= { callServiceCallDetailsCacheGroup 2 }										-- 1.3.6.1.4.1.11150.95.2.7.2
+
+callServiceCallDetailsCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in Call Details cache
+			 in the last one minute."
+		   ::= { callServiceCallDetailsCacheGroup 3 }										-- 1.3.6.1.4.1.11150.95.2.7.3
+
+callServiceCallDetailsCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The Call Details cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { callServiceCallDetailsCacheGroup 4 }										-- 1.3.6.1.4.1.11150.95.2.7.4
+
+callServiceCallDetailsCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX DisplayString
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of Call Details cache."
+		   ::= { callServiceCallDetailsCacheGroup 5 }										-- 1.3.6.1.4.1.11150.95.2.7.5
+
+callServiceCallDetailsCacheProps			OBJECT-TYPE
+		   SYNTAX DisplayString
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing Call Details cache configuration properties."
+		   ::= { callServiceCallDetailsCacheGroup 6 }										-- 1.3.6.1.4.1.11150.95.2.7.6
+
+-- callServiceCallDetailsCachePrint			OBJECT-TYPE
+--		   SYNTAX Integer32
+--		   MAX-ACCESS read-write
+--		   STATUS current
+--		   DESCRIPTION
+--			 "Dumps the content of the Call Details cache in a file when this parameter is SET
+--			 with a non-zero value. GET on this parameter returns nothing useful."
+--		   ::= { callServiceCallDetailsCacheGroup 7 }
+
+
+--
+-- Call Service Trap Group
+--
+callServiceAlarmModule OBJECT IDENTIFIER ::= { callService-mob 10 }							-- 1.3.6.1.4.1.11150.95.10
+callServiceAlarmGroup  OBJECT IDENTIFIER ::= { callServiceAlarmModule 0 }					-- 1.3.6.1.4.1.11150.95.10.0
+
+--
+-- Call Service Traps
+--
+callServiceTrapMOCallsTimedOut	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO Calls timed out is too high."
+			::= {callServiceAlarmGroup 1}
+
+callServiceTrapMOCallsReleased	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO Calls released by SCF is too high."
+			::= {callServiceAlarmGroup 2}
+
+callServiceTrapMOCallsAborted	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO Calls aborted is too high."
+			::= {callServiceAlarmGroup 3}
+
+callServiceTrapMOCallsError	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO Calls failed due to Return Error is too high."
+			::= {callServiceAlarmGroup 4}
+
+callServiceTrapMOCallsNotAnswered	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO Calls not answered is too high."
+			::= {callServiceAlarmGroup 5}
+
+callServiceTrapMOCallsBusy	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of busy MO Calls is too high."
+			::= {callServiceAlarmGroup 6}
+
+callServiceTrapMOCallsAbandoned	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO Calls abandoned is too high."
+			::= {callServiceAlarmGroup 7}
+
+callServiceTrapMOCallsRouteSelectFailure	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO Calls failed due to Route select failure is too high."
+			::= {callServiceAlarmGroup 8}
+
+callServiceTrapMTCallsTimedOut	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MT Calls timed out is too high."
+			::= {callServiceAlarmGroup 9}
+
+callServiceTrapMTCallsReleased	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MT Calls released by SCF is too high."
+			::= {callServiceAlarmGroup 10}
+
+callServiceTrapMTCallsAborted	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MT Calls aborted is too high."
+			::= {callServiceAlarmGroup 11}
+
+callServiceTrapMTCallsError	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MT Calls failed due to Return Error is too high."
+			::= {callServiceAlarmGroup 12}
+
+callServiceTrapMTCallsNotAnswered	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MT Calls not answered is too high."
+			::= {callServiceAlarmGroup 13}
+
+callServiceTrapMTCallsBusy	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of busy MT Calls is too high."
+			::= {callServiceAlarmGroup 14}
+
+callServiceTrapMTCallsAbandoned	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MT Calls abandoned is too high."
+			::= {callServiceAlarmGroup 15}
+
+callServiceTrapMOSMSFailed		NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of failed MO SMS is too high."
+			::= {callServiceAlarmGroup 16}
+
+callServiceTrapMOSMSTimedOut	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO SMS timed out is too high."
+			::= {callServiceAlarmGroup 17}
+
+callServiceTrapMOSMSReleased	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO SMS released by SCF is too high."
+			::= {callServiceAlarmGroup 18}
+
+callServiceTrapMOSMSAborted	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO SMS aborted is too high."
+			::= {callServiceAlarmGroup 19}
+
+callServiceTrapMOSMSError	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO SMS failed due to Return Error is too high."
+			::= {callServiceAlarmGroup 20}
+
+callServiceTrapMTCallsRouteSelectFailure	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MT Calls failed due to Route select failure is too high."
+			::= {callServiceAlarmGroup 21}
+
+callServiceTrapMOCallsReleaseResponse	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO Calls for which Release was sent to SSP is too high."
+			::= {callServiceAlarmGroup 22}
+
+callServiceTrapMOCallsAbortResponse	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO Calls for which Abort was sent to SSP is too high."
+			::= {callServiceAlarmGroup 23}
+
+callServiceTrapMOCallsErrorResponse	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO Calls for which Return Error was sent to SSP is too high."
+			::= {callServiceAlarmGroup 24}
+
+callServiceTrapMTCallsReleaseResponse	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MT Calls for which Release was sent to SSP is too high."
+			::= {callServiceAlarmGroup 25}
+
+callServiceTrapMTCallsAbortResponse	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MT Calls for which Abort was sent to SSP is too high."
+			::= {callServiceAlarmGroup 26}
+
+callServiceTrapMTCallsErrorResponse	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MT Calls for which Return Error was sent to SSP is too high."
+			::= {callServiceAlarmGroup 27}
+
+callServiceTrapMOCallsCalledPartyNotReachable	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO Calls failed due to Called Party Unreachable is too high."
+			::= {callServiceAlarmGroup 28}
+
+callServiceTrapMTCallsCalledPartyNotReachable	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MT Calls failed due to Called Party Unreachable is too high."
+			::= {callServiceAlarmGroup 29}
+
+callServiceTrapMOCallsSSPTimeouts	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO Calls failed due to SSP timeouts is too high."
+			::= {callServiceAlarmGroup 30}
+
+callServiceTrapMOCallsSSPAborts	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO Calls failed due to SSP aborts is too high."
+			::= {callServiceAlarmGroup 31}
+
+callServiceTrapMOCallsSSPErrors	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MO Calls failed due to SSP Return Errors is too high."
+			::= {callServiceAlarmGroup 32}
+
+callServiceTrapMTCallsSSPTimeouts	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MT Calls failed due to SSP timeouts is too high."
+			::= {callServiceAlarmGroup 33}
+
+callServiceTrapMTCallsSSPAborts	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MT Calls failed due to SSP aborts is too high."
+			::= {callServiceAlarmGroup 34}
+
+callServiceTrapMTCallsSSPErrors	NOTIFICATION-TYPE
+			OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+			            mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+						mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+						mobGenCapacity, mobGenThresholdArmTime}
+			STATUS current
+			DESCRIPTION
+			  "Indicates that the percentage of MT Calls failed due to SSP Return Errors is too high."
+			::= {callServiceAlarmGroup 35}
+
+callServiceTrapHighNumberOfIncomingSIPCalls NOTIFICATION-TYPE
+                        OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+                                    mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+                                                mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+                                                mobGenCapacity, mobGenThresholdArmTime}
+                        STATUS current
+                        DESCRIPTION
+                          "Indicates that the number of incoming SIP Calls (Invites) is too high."
+                        ::= {callServiceAlarmGroup 36}
+
+callServiceTrapHighNumberOfSIPRegister NOTIFICATION-TYPE
+                        OBJECTS { mobGenSequenceNumber, mobGenNotificationId, mobGenSeverity, mobGenDescription, mobGenMachineID,
+                                    mobGenServiceName, mobGenAlarmTime, mobGenAlarmType, mobGenProbableCause,
+                                                mobGenThresholdName, mobGenThresholdLWM, mobGenThresholdHWM, mobGenUtilization,
+                                                mobGenCapacity, mobGenThresholdArmTime}
+                        STATUS current
+                        DESCRIPTION
+                          "High number of SIP REGISTER received in last minute."
+                        ::= {callServiceAlarmGroup 36}
+--
+-- Group to under which customized attributes may be configured
+--
+callServiceCustomGroup	OBJECT IDENTIFIER ::= { callService-mob 99 }			-- 1.3.6.1.4.1.11150.95.99
+
+END

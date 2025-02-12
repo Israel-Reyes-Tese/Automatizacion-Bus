@@ -1,0 +1,220 @@
+	XF-TERMINALSERVER-MIB DEFINITIONS ::= BEGIN
+	IMPORTS
+		OBJECT-GROUP, MODULE-COMPLIANCE
+			FROM SNMPv2-CONF
+		Integer32, IpAddress, OBJECT-TYPE, MODULE-IDENTITY
+			FROM SNMPv2-SMI
+		InterfaceIndex
+			FROM IF-MIB
+		xfIpSau
+			FROM XF-TOP-MIB;
+
+		xfTerminalServerMIB MODULE-IDENTITY
+			LAST-UPDATED "200712070000Z"
+			ORGANIZATION
+				"Ericsson GmbH"
+			CONTACT-INFO
+				"Hansjoerg Hofmann
+				Ericsson GmbH
+				Gerberstr. 33
+				71522 Backnang
+				Germany
+				+497191133377
+				hansjoerg.hofmann@ericsson.com"
+			DESCRIPTION
+				"This MIB contains information on settings
+				for the Terminal Server that are not covered by Ericsson MIBs.
+				Currently the following
+				services are configured:
+				Terminal server
+				"
+			REVISION "200712070000Z"    -- 2007-12-07
+			DESCRIPTION
+				"PA2: fix name confilict with xfTerminalServerConfig xfTerminalServerMode"
+			REVISION "200710040000Z"
+			DESCRIPTION
+				"PA1"
+			::= { xfIpSau 2}
+
+--
+-- Textual conventions
+--
+
+--
+-- Node definitions
+--
+
+		xfTerminalServerObjects OBJECT IDENTIFIER ::= { xfTerminalServerMIB 1 }
+
+-- External objects
+
+-- Objects for the Terminal Server
+
+		xfTerminalServerTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfTerminalServerEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+			"A table containing Terminal Server options."
+			::= { xfTerminalServerObjects 1 }
+
+		xfTerminalServerEntry OBJECT-TYPE
+			SYNTAX XfTerminalServerEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+			"TSC configuration."
+			INDEX{ xfTerminalServerIndex }
+			::= { xfTerminalServerTable 1 }
+
+		XfTerminalServerEntry ::=
+			SEQUENCE {
+			xfTerminalServerIndex			-- 1, Table index
+			InterfaceIndex,
+			xfTerminalServerConfig			-- 2, Determines if the AUX port is configured as server or client (for TS only).
+			INTEGER,
+			xfTerminalServerAddress			-- 3, Determines the remote server IP address (for TS in client-mode only).
+			IpAddress,
+			xfTerminalServerRemotePort		-- 4, Determines the remote server IP port number (for TS in client-mode only).
+			Integer32,
+			xfTerminalServerLocalPort		-- 5, Determines the local port number for the TS server (for TS in server-mode only).
+			Integer32,
+			xfTerminalServerTimeout			-- 6, Determines the TS server disable time in minutes (for TS in server-mode only).
+			Integer32,
+			xfTerminalServerMode			-- 7, Determinates if the serial port is used for accessing MINI-LINK E equipment via the O&M port or if the port is used for tunneling.
+			INTEGER,
+			xfTerminalServerMLEACCLocalPort	-- 8, Indicates port 1 on the local server
+			Integer32,
+			xfTerminalServerMLEACCLocalPort2	-- 9, Indicates port 2 on the local server
+			Integer32
+			}
+
+		xfTerminalServerIndex OBJECT-TYPE
+			SYNTAX InterfaceIndex
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+			"The value of ifIndex for the port."
+			::= { xfTerminalServerEntry 1 }
+
+		xfTerminalServerConfig OBJECT-TYPE
+			SYNTAX INTEGER
+			{
+			server(1),
+			client(2)
+			}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates whether the Terminal Server is in client or server mode"
+			DEFVAL { server }
+			::= { xfTerminalServerEntry 2 }
+
+		xfTerminalServerAddress OBJECT-TYPE
+			SYNTAX IpAddress
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates the IP-Address of the remote server when the Terminal
+				Server is in client mode."
+			::= { xfTerminalServerEntry 3 }
+
+		xfTerminalServerRemotePort OBJECT-TYPE
+			SYNTAX Integer32 (1..65535)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates the port on the remote server"
+			DEFVAL {4000}
+			::= { xfTerminalServerEntry 4 }
+
+		xfTerminalServerLocalPort OBJECT-TYPE
+			SYNTAX Integer32 (1..65535)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates the port on the local server"
+			DEFVAL {4000}
+			::= { xfTerminalServerEntry 5 }
+
+		xfTerminalServerTimeout OBJECT-TYPE
+			SYNTAX Integer32 (1..65535)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates the timeout value on the serial interface after
+				which the TCP session is terminated"
+			DEFVAL {1}
+			::= { xfTerminalServerEntry 6 }
+
+		xfTerminalServerMode OBJECT-TYPE
+			SYNTAX INTEGER
+			{
+			miniLinkMode(1),
+			tunnellingMode(2)
+			}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates whether the serial port is used for accessing MINI-LINK E equipment via the O&M port or if the port is used for tunneling."
+			DEFVAL { miniLinkMode }
+			::= { xfTerminalServerEntry 7 }
+
+		xfTerminalServerMLEACCLocalPort OBJECT-TYPE
+			SYNTAX Integer32 (1..65535)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates port 1 on the local server"
+			DEFVAL {4001}
+			::= { xfTerminalServerEntry 8 }
+
+		xfTerminalServerMLEACCLocalPort2 OBJECT-TYPE
+			SYNTAX Integer32 (1..65535)
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"Indicates port 2 on the local server"
+			DEFVAL {3001}
+			::= { xfTerminalServerEntry 9 }
+
+
+-- conformance information
+
+		xfTerminalServerConformance OBJECT IDENTIFIER ::= { xfTerminalServerMIB 6 }
+
+		xfTerminalServerGroups OBJECT IDENTIFIER ::= { xfTerminalServerConformance 1 }
+		xfTerminalServerCompliances OBJECT IDENTIFIER ::= { xfTerminalServerConformance 2 }
+-- compliance statements
+
+		xfTerminalServerCompliance MODULE-COMPLIANCE
+			STATUS current
+			DESCRIPTION
+				"The compliance statement for SNMP entities which
+				have TerminalServer like interfaces."
+			MODULE -- this module
+				MANDATORY-GROUPS { xfTerminalServerGroups }
+
+			GROUP xfTerminalServerGroup
+			DESCRIPTION
+				"The Ts group is mandatory only for those SNMP
+				entities which have Terminal Server interfaces."
+
+			::= { xfTerminalServerCompliances 1 }
+
+-- units of conformance
+
+		xfTerminalServerGroup OBJECT-GROUP
+			OBJECTS { xfTerminalServerConfig, xfTerminalServerAddress,
+					xfTerminalServerRemotePort, xfTerminalServerLocalPort, xfTerminalServerTimeout,
+					xfTerminalServerMode, xfTerminalServerMLEACCLocalPort, xfTerminalServerMLEACCLocalPort2
+						}
+			STATUS current
+			DESCRIPTION
+				"numbering objects in the MIB"
+			::= { xfTerminalServerGroups 1 }
+
+	END
+
+--
+--

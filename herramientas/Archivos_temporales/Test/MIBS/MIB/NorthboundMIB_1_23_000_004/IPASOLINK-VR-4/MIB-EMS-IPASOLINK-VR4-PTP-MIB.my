@@ -1,0 +1,1176 @@
+    
+    
+MIB-EMS-IPASOLINK-VR4-PTP-MIB DEFINITIONS ::= BEGIN
+    
+    IMPORTS
+        InterfaceIndex, InterfaceIndexOrZero
+            FROM IF-MIB
+        InetAddress, InetAddressType
+            FROM INET-ADDRESS-MIB
+        OBJECT-TYPE
+            FROM RFC-1212
+        Gauge, IpAddress
+            FROM RFC1155-SMI
+        enterprises
+            FROM SNMPv2-SMI
+        DateAndTime, DisplayString, TruthValue
+            FROM SNMPv2-TC;
+    
+    EnableDisableValue ::=
+        INTEGER { invalid(0), disable(1), enable(2) }
+    
+    
+    IpeClockIdentity ::=
+        OCTET STRING (SIZE(0..8))
+    
+    
+    IpeClockIntervalBase2 ::=
+        INTEGER (-128..127)
+    
+    
+    IpeClockPortState ::=
+        INTEGER { invalid(0), initializing(1), faulty(2), disabled(3),
+                        listening(4), preMaster(5), master(6), passive(7),
+                        uncalibrated(8), slave(9) }
+    
+    
+    IpeClockState ::=
+        INTEGER { invalid(0), freerun(1), holdover(2), acquiring(3),
+                        frequencyLocked(4), phaseAligned(5), warmUp(6) }
+    
+    
+    IpeClockTxMode ::=
+        INTEGER { invalid(0), unicast(1), multicast(2), multicastmix(3),
+                        unknown(99) }
+    
+    
+    IpeQualityAccuracy ::=
+        INTEGER { invalid(0), reserved00(1), nanoSecond25(32),
+                        nanoSecond100(33), nanoSecond250(34), microSec1(35),
+                        microSec2dot5(36), microSec10(37), microSec25(38),
+                        microSec100(39), microSec250(40), milliSec1(41),
+                        milliSec2dot5(42), milliSec10(43), milliSec25(44),
+                        milliSec100(45), milliSec250(46), second1(47),
+                        second10(48), secondGreater10(49), unknown(254),
+                        reserved255(255) }
+    
+    
+    IpeQualityClass ::=
+        Gauge (0..255)
+    
+    
+    IpeVlanIndex ::=
+        INTEGER (1..4094)
+    
+    
+    IpeVlanIndexOrZero ::=
+        INTEGER (0..4094)
+    
+    
+    SeverityValue ::=
+        INTEGER { cleared(1), indetermine(2), critical(3), major(4),
+                        minor(5), warning(6), notReport(7) }
+    
+    
+    -- 1.3.6.1.4.1.119
+    nec OBJECT IDENTIFIER
+        ::= { enterprises 119 }
+    
+    -- 1.3.6.1.4.1.119.2
+    nec-mib OBJECT IDENTIFIER
+        ::= { nec 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3
+    necProductDepend OBJECT IDENTIFIER
+        ::= { nec-mib 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69
+    radioEquipment OBJECT IDENTIFIER
+        ::= { necProductDepend 69 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203
+    commonPnms OBJECT IDENTIFIER
+        ::= { radioEquipment 203 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513
+    ipasolinkVr4 OBJECT IDENTIFIER
+        ::= { commonPnms 513 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501
+    pasoNeoIpe-common OBJECT IDENTIFIER
+        ::= { ipasolinkVr4 501 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3
+    alarmStatusGroup OBJECT IDENTIFIER
+        ::= { pasoNeoIpe-common 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47
+    asPtpGroup OBJECT IDENTIFIER
+        ::= { alarmStatusGroup 47 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1
+    asPtpClockGroup OBJECT IDENTIFIER
+        ::= { asPtpGroup 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.1
+    asPtpClockModeTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF AsPtpClockModeEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "This table contains the PTP Clock information."
+        ::= { asPtpClockGroup 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.1.1
+    asPtpClockModeEntry OBJECT-TYPE
+        SYNTAX      AsPtpClockModeEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { asPtpClockModeNEAddress, asPtpClockModeIndex }
+        ::= { asPtpClockModeTable 1 }
+    
+    AsPtpClockModeEntry ::= SEQUENCE {
+        asPtpClockModeIndex             INTEGER,
+        asPtpClockModeNEAddress         IpAddress,
+        asPtpClockProductDescription    DisplayString,
+        asPtpClockRevisionData          DisplayString,
+        asPtpClockRunningState          IpeClockState,
+        asPtpClockQlValue               INTEGER,
+        asPtpClockClockIdentity         IpeClockIdentity
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.1.1.1
+    asPtpClockModeIndex OBJECT-TYPE
+        SYNTAX      INTEGER
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table. The table is created per PTP card.
+             value range : slot number + 1 (iPASOLINK400)
+                         : 1 (iPASOLINK VR series)"
+        ::= { asPtpClockModeEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.1.1.2
+    asPtpClockModeNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved."
+        ::= { asPtpClockModeEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.1.1.3
+    asPtpClockProductDescription OBJECT-TYPE
+        SYNTAX      DisplayString (SIZE(0..64))
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies the Product Description."
+        ::= { asPtpClockModeEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.1.1.4
+    asPtpClockRevisionData OBJECT-TYPE
+        SYNTAX      DisplayString (SIZE(0..32))
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies the revisions for node hardware (HW),
+             firmware (FW), and software (SW)."
+        ::= { asPtpClockModeEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.1.1.5
+    asPtpClockRunningState OBJECT-TYPE
+        SYNTAX      IpeClockState
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies the Clock state returned by PTP engine"
+        ::= { asPtpClockModeEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.1.1.6
+    asPtpClockQlValue OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), qlPrc(1), qlSsuA(2), qlSsuB(3),
+                        qlOriginal(4), qlSec(5), qlDnu(6), qlInvx(7),
+                        qlFailed(8), notAvail(9), qlPrs(20), qlStu(21),
+                        qlSt2(22), qlTnc(23), qlSt3e(24), qlSt3(25),
+                        qlSmc(26), qlSt4(27), qlDus(29) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies the PTP Clock Quality Level."
+        ::= { asPtpClockModeEntry 6 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.1.1.7
+    asPtpClockClockIdentity OBJECT-TYPE
+        SYNTAX      IpeClockIdentity
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies the clock identity."
+        ::= { asPtpClockModeEntry 7 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.4
+    asPtpParentDSTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF AsPtpParentDSEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Table of information about the PTP clock Parent Datasets"
+        ::= { asPtpClockGroup 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.4.1
+    asPtpParentDSEntry OBJECT-TYPE
+        SYNTAX      AsPtpParentDSEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { asPtpParentDSNEAddress, asPtpParentDSIndex }
+        ::= { asPtpParentDSTable 1 }
+    
+    AsPtpParentDSEntry ::= SEQUENCE {
+        asPtpParentDSIndex                      INTEGER,
+        asPtpParentDSNEAddress                  IpAddress,
+        asPtpParentDSPortIdentity               OCTET STRING,
+        asPtpParentDSStatus                     TruthValue,
+        asPtpParentDSOffset                     IpeClockIntervalBase2,
+        asPtpParentDSClockPhChRate              INTEGER,
+        asPtpParentDSGMClockIdentity            IpeClockIdentity,
+        asPtpParentDSGMClockPriority1           INTEGER,
+        asPtpParentDSGMClockPriority2           INTEGER,
+        asPtpParentDSGMClockQualityClass        IpeQualityClass,
+        asPtpParentDSGMClockQualityAccuracy     IpeQualityAccuracy,
+        asPtpParentDSGMClockQualityOffset       Gauge
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.4.1.1
+    asPtpParentDSIndex OBJECT-TYPE
+        SYNTAX      INTEGER
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table. The table is created per PTP card.
+             value range : slot number + 1 (iPASOLINK400)
+                         : 1 (iPASOLINK VR series)"
+        ::= { asPtpParentDSEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.4.1.2
+    asPtpParentDSNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved."
+        ::= { asPtpParentDSEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.4.1.3
+    asPtpParentDSPortIdentity OBJECT-TYPE
+        SYNTAX      OCTET STRING (SIZE(0..10))
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies the value of portIdentity of the port on
+             the master that issues the Sync messages used in synchronizing
+             this clock."
+        ::= { asPtpParentDSEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.4.1.4
+    asPtpParentDSStatus OBJECT-TYPE
+        SYNTAX      TruthValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies the Parent Dataset ParentStats value.
+    
+             This value indicates whether the values of ParentDSOffset and
+             ParentDSClockPhChRate have been measured and are valid.
+             A TRUE value shall indicate valid data."
+        ::= { asPtpParentDSEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.4.1.5
+    asPtpParentDSOffset OBJECT-TYPE
+        SYNTAX      IpeClockIntervalBase2
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies the Parent Dataset
+             ParentOffsetScaledLogVariance value.
+    
+             This value is the variance of the parent clocks phase as measured
+             by the local clock."
+        ::= { asPtpParentDSEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.4.1.6
+    asPtpParentDSClockPhChRate OBJECT-TYPE
+        SYNTAX      INTEGER
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies the clock's parent dataset
+             ParentClockPhaseChangeRate value.
+    
+             This value is an estimate of the parent clocks phase change rate
+             as measured by the slave clock."
+        ::= { asPtpParentDSEntry 6 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.4.1.7
+    asPtpParentDSGMClockIdentity OBJECT-TYPE
+        SYNTAX      IpeClockIdentity
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies the parent dataset Grandmaster clock
+             identity."
+        ::= { asPtpParentDSEntry 7 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.4.1.8
+    asPtpParentDSGMClockPriority1 OBJECT-TYPE
+        SYNTAX      INTEGER (0..255)
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies the parent dataset Grandmaster clock
+             priority1."
+        ::= { asPtpParentDSEntry 8 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.4.1.9
+    asPtpParentDSGMClockPriority2 OBJECT-TYPE
+        SYNTAX      INTEGER (0..255)
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies the parent dataset grandmaster clock
+             priority2."
+        ::= { asPtpParentDSEntry 9 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.4.1.10
+    asPtpParentDSGMClockQualityClass OBJECT-TYPE
+        SYNTAX      IpeQualityClass
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies the parent dataset grandmaster clock
+             quality class."
+        ::= { asPtpParentDSEntry 10 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.4.1.11
+    asPtpParentDSGMClockQualityAccuracy OBJECT-TYPE
+        SYNTAX      IpeQualityAccuracy
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies the parent dataset grandmaster clock
+             quality accuracy."
+        ::= { asPtpParentDSEntry 11 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.4.1.12
+    asPtpParentDSGMClockQualityOffset OBJECT-TYPE
+        SYNTAX      Gauge
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies the parent dataset grandmaster clock
+             quality offset."
+        ::= { asPtpParentDSEntry 12 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7
+    asPtpPortCurrentTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF AsPtpPortCurrentEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Table of information about the clock ports running dataset."
+        ::= { asPtpClockGroup 7 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7.1
+    asPtpPortCurrentEntry OBJECT-TYPE
+        SYNTAX      AsPtpPortCurrentEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { asPtpPortCurrentNEAddress, asPtpPortCurrentIfIndex, asPtpPortCurrentIfNumber }
+        ::= { asPtpPortCurrentTable 1 }
+    
+    AsPtpPortCurrentEntry ::= SEQUENCE {
+        asPtpPortCurrentIfIndex             InterfaceIndex,
+        asPtpPortCurrentIfNumber            INTEGER,
+        asPtpPortCurrentNEAddress           IpAddress,
+        asPtpPortCurrentRole                INTEGER,
+        asPtpPortCurrentState               IpeClockPortState,
+        asPtpPortCurrentSyncOneStep         TruthValue,
+        asPtpPortCurrentIpVersion           INTEGER,
+        asPtpPortCurrentEncapType           INTEGER,
+        asPtpPortCurrentTxMode              IpeClockTxMode,
+        asPtpPortCurrentRxMode              IpeClockTxMode,
+        asPtpPortCurrentPeerAddressType     InetAddressType,
+        asPtpPortCurrentPeerAddress         InetAddress,
+        asPtpPortCurrentNumOfAssocPorts     Gauge
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7.1.1
+    asPtpPortCurrentIfIndex OBJECT-TYPE
+        SYNTAX      InterfaceIndex
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "InterfaceIndex of this table."
+        ::= { asPtpPortCurrentEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7.1.2
+    asPtpPortCurrentIfNumber OBJECT-TYPE
+        SYNTAX      INTEGER (1..32)
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Administrative Number of logical port."
+        ::= { asPtpPortCurrentEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7.1.3
+    asPtpPortCurrentNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved."
+        ::= { asPtpPortCurrentEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7.1.4
+    asPtpPortCurrentRole OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), master(1), slave(2) }
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies the Clock Role."
+        ::= { asPtpPortCurrentEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7.1.5
+    asPtpPortCurrentState OBJECT-TYPE
+        SYNTAX      IpeClockPortState
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies the port state returned by PTP engine."
+        ::= { asPtpPortCurrentEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7.1.6
+    asPtpPortCurrentSyncOneStep OBJECT-TYPE
+        SYNTAX      TruthValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies that one-step clock operation between the
+             PTP master and slave device is enabled."
+        ::= { asPtpPortCurrentEntry 6 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7.1.7
+    asPtpPortCurrentIpVersion OBJECT-TYPE
+        SYNTAX      INTEGER
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifirst the IP version being used for PTP
+             communication (the mapping used)."
+        ::= { asPtpPortCurrentEntry 7 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7.1.8
+    asPtpPortCurrentEncapType OBJECT-TYPE
+        SYNTAX      INTEGER
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies the type of encapsulation if the interface
+             is adding extra layers (eg. VLAN, Pseudowire encapsulation...)
+             for the PTP messages."
+        ::= { asPtpPortCurrentEntry 8 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7.1.9
+    asPtpPortCurrentTxMode OBJECT-TYPE
+        SYNTAX      IpeClockTxMode
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies the clock transmission mode as
+    
+             unicast:       Using unicast commnuication channel.
+             multicast:     Using Multicast communication channel.
+             multicast-mix: Using multicast-unicast communication channel"
+        ::= { asPtpPortCurrentEntry 9 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7.1.10
+    asPtpPortCurrentRxMode OBJECT-TYPE
+        SYNTAX      IpeClockTxMode
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies the clock transmission mode as
+    
+             unicast:       Using unicast commnuication channel.
+             multicast:     Using Multicast communication channel.
+             multicast-mix: Using multicast-unicast communication channel"
+        ::= { asPtpPortCurrentEntry 10 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7.1.11
+    asPtpPortCurrentPeerAddressType OBJECT-TYPE
+        SYNTAX      InetAddressType
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies the current peer's network address used
+             for PTP communication. Based on the scenario and the setup
+             involved, the values might look like these -
+             Scenario                   Value
+             -------------------   ----------------
+             Single Master          master port
+             Multiple Masters       selected master port
+             Single Slave           slave port
+             Multiple Slaves        <empty>
+    
+             (In relevant setups, information on available slaves and
+             available masters will be available through
+             asPtpPortAssociateTable)"
+        ::= { asPtpPortCurrentEntry 11 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7.1.12
+    asPtpPortCurrentPeerAddress OBJECT-TYPE
+        SYNTAX      InetAddress
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies the current peer's network address used
+             for PTP communication. Based on the scenario and the setup
+             involved, the values might look like these -
+             Scenario                   Value
+             -------------------   ----------------
+             Single Master          master port
+             Multiple Masters       selected master port
+             Single Slave           slave port
+             Multiple Slaves        <empty>
+    
+             (In relevant setups, information on available slaves and
+             available masters will be available through
+             asPtpPortAssociateTable)"
+        ::= { asPtpPortCurrentEntry 12 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.7.1.13
+    asPtpPortCurrentNumOfAssocPorts OBJECT-TYPE
+        SYNTAX      Gauge
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies -
+             For a master port - the number of PTP slave sessions (peers)
+             associated with this PTP port.
+             For a slave port - the number of masters available to this slave
+             port (might or might not be peered)."
+        ::= { asPtpPortCurrentEntry 13 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9
+    asPtpUnicastMasterTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF AsPtpUnicastMasterEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "This table contains unicast master node information and are
+             created when the unicast master is registered."
+        ::= { asPtpClockGroup 9 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9.1
+    asPtpUnicastMasterEntry OBJECT-TYPE
+        SYNTAX      AsPtpUnicastMasterEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { asPtpUnicastMasterNEAddress, asPtpUnicastMasterCardIndex, asPtpUnicastMasterIndex }
+        ::= { asPtpUnicastMasterTable 1 }
+    
+    AsPtpUnicastMasterEntry ::= SEQUENCE {
+        asPtpUnicastMasterCardIndex             INTEGER,
+        asPtpUnicastMasterIndex                 INTEGER,
+        asPtpUnicastMasterNEAddress             IpAddress,
+        asPtpUnicastMasterClockId               IpeClockIdentity,
+        asPtpUnicastMasterInetAddressType       InetAddressType,
+        asPtpUnicastMasterInetAddress           InetAddress,
+        asPtpUnicastMasterClockClass            IpeQualityClass,
+        asPtpUnicastMasterStatus                INTEGER,
+        asPtpUnicastMasterLossAnnounceAlarm     SeverityValue,
+        asPtpUnicastMasterLossSyncAlarm         SeverityValue,
+        asPtpUnicastMasterUnusableAlarm         SeverityValue,
+        asPtpUnicastMasterAssociatedIfIndex     InterfaceIndexOrZero,
+        asPtpUnicastMasterAssociatedIfNum       INTEGER
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9.1.1
+    asPtpUnicastMasterCardIndex OBJECT-TYPE
+        SYNTAX      INTEGER
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table. The value is equivalent to slot id.
+             value range : slot number + 1 (iPASOLINK400)
+                         : 1 (iPASOLINK VR series)"
+        ::= { asPtpUnicastMasterEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9.1.2
+    asPtpUnicastMasterIndex OBJECT-TYPE
+        SYNTAX      INTEGER (1..5)
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "This objects specifies the unicast master index."
+        ::= { asPtpUnicastMasterEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9.1.3
+    asPtpUnicastMasterNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved."
+        ::= { asPtpUnicastMasterEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9.1.4
+    asPtpUnicastMasterClockId OBJECT-TYPE
+        SYNTAX      IpeClockIdentity
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Clock Identity of Unicast Master Node."
+        ::= { asPtpUnicastMasterEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9.1.5
+    asPtpUnicastMasterInetAddressType OBJECT-TYPE
+        SYNTAX      InetAddressType
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "Address Type of Unicast Master Node."
+        ::= { asPtpUnicastMasterEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9.1.6
+    asPtpUnicastMasterInetAddress OBJECT-TYPE
+        SYNTAX      InetAddress
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "IP Address of Unicast Master Node."
+        ::= { asPtpUnicastMasterEntry 6 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9.1.7
+    asPtpUnicastMasterClockClass OBJECT-TYPE
+        SYNTAX      IpeQualityClass
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "The Clock Quality Class of the Unicast Master node."
+        ::= { asPtpUnicastMasterEntry 7 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9.1.8
+    asPtpUnicastMasterStatus OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), notSelected(1), selected(2),
+                        forced(3), waitToRestore(4) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "The object specifies the selection status of unicast master as
+    
+             notSelected:master entry is not selected
+             selected:   master entry is selected
+             forced:     master entry is selected by force switch control
+             waitToRestore: master entry is under wait to restore
+    
+    
+             for example, if the master3 is selected by normal selection
+             algorithm, the value of this object will shown below.
+               asPtpUnicastMasterState.1,2,4,5 = notSelected
+               asPtpUnicastMasterState.3 = selected
+             and other example, if the master5 is selected by the forced
+             switch control,
+               asPtpUnicastMasterState.1,2,3,4 = notSelected
+               asPtpUnicastMasterState.5 = forced"
+        ::= { asPtpUnicastMasterEntry 8 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9.1.9
+    asPtpUnicastMasterLossAnnounceAlarm OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies whether the PTSF Loss Announce Alarm is
+             detected for the unicast master."
+        ::= { asPtpUnicastMasterEntry 9 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9.1.10
+    asPtpUnicastMasterLossSyncAlarm OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies whether the PTSF Loss Sync Alarm is
+             detected for the unicast master."
+        ::= { asPtpUnicastMasterEntry 10 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9.1.11
+    asPtpUnicastMasterUnusableAlarm OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies whether the PTSF Unusable Alarm is
+             detected for the unicast master."
+        ::= { asPtpUnicastMasterEntry 11 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9.1.12
+    asPtpUnicastMasterAssociatedIfIndex OBJECT-TYPE
+        SYNTAX      InterfaceIndexOrZero
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "this object specifies the interface which is associated by the
+             unicast master."
+        ::= { asPtpUnicastMasterEntry 12 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.9.1.13
+    asPtpUnicastMasterAssociatedIfNum OBJECT-TYPE
+        SYNTAX      INTEGER (0..5)
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "this object specifies the logical interface number which is
+             associated by the unicast master."
+        ::= { asPtpUnicastMasterEntry 13 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.10
+    asPtpMulticastMasterTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF AsPtpMulticastMasterEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "This table contains multicast master node information.
+             This table is created automatically when
+             provPtpClockUnicastCapability is 'disable' and the logical
+             interface is created."
+        ::= { asPtpClockGroup 10 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.10.1
+    asPtpMulticastMasterEntry OBJECT-TYPE
+        SYNTAX      AsPtpMulticastMasterEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { asPtpMulticastMasterNEAddress, asPtpMulticastMasterIfIndex, asPtpMulticastMasterIfNum }
+        ::= { asPtpMulticastMasterTable 1 }
+    
+    AsPtpMulticastMasterEntry ::= SEQUENCE {
+        asPtpMulticastMasterIfIndex             InterfaceIndex,
+        asPtpMulticastMasterIfNum               INTEGER,
+        asPtpMulticastMasterNEAddress           IpAddress,
+        asPtpMulticastMasterClockId             IpeClockIdentity,
+        asPtpMulticastMasterInetAddressType     InetAddressType,
+        asPtpMulticastMasterInetAddress         InetAddress,
+        asPtpMulticastMasterClockClass          IpeQualityClass,
+        asPtpMulticastMasterStatus              INTEGER,
+        asPtpMulticastMasterLossAnnounceAlarm   SeverityValue,
+        asPtpMulticastMasterLossSyncAlarm       SeverityValue,
+        asPtpMulticastMasterUnusableAlarm       SeverityValue
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.10.1.1
+    asPtpMulticastMasterIfIndex OBJECT-TYPE
+        SYNTAX      InterfaceIndex
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table. This object represents the interface which
+             is associated by the multicast master node."
+        ::= { asPtpMulticastMasterEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.10.1.2
+    asPtpMulticastMasterIfNum OBJECT-TYPE
+        SYNTAX      INTEGER (1..32)
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table. This object represents the locagical
+             interface number which is associated by the multicast master
+             node.
+             range : 1 - 5 (iPASOLINK400), 1 - 32 (iPASOLINK VR series)"
+        ::= { asPtpMulticastMasterEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.10.1.3
+    asPtpMulticastMasterNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved."
+        ::= { asPtpMulticastMasterEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.10.1.4
+    asPtpMulticastMasterClockId OBJECT-TYPE
+        SYNTAX      IpeClockIdentity
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Clock Identity of Muticast Master Node."
+        ::= { asPtpMulticastMasterEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.10.1.5
+    asPtpMulticastMasterInetAddressType OBJECT-TYPE
+        SYNTAX      InetAddressType
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "Address Type of Multicast Master Node."
+        ::= { asPtpMulticastMasterEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.10.1.6
+    asPtpMulticastMasterInetAddress OBJECT-TYPE
+        SYNTAX      InetAddress
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "IP Address of Multicast Master Node."
+        ::= { asPtpMulticastMasterEntry 6 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.10.1.7
+    asPtpMulticastMasterClockClass OBJECT-TYPE
+        SYNTAX      IpeQualityClass
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "The Clock Quality Class of the Multicast Master node."
+        ::= { asPtpMulticastMasterEntry 7 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.10.1.8
+    asPtpMulticastMasterStatus OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), notSelected(1), selected(2),
+                        forced(3) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "The object specifies the selection status of Multicast master as
+    
+             notSelected: node is not selected
+             selected:    node is selected
+             forced:      node is selected by force switch control
+    
+             for example, if the master3 is selected by normal selection
+             algorithm, the value of this object will shown below.
+               asPtpMulticastMasterState.1,2,4,5 = notSelected
+               asPtpMulticastMasterState.3 = selected
+             and other example, if the master5 is selected by the forced
+             switch control,
+               asPtpMulticastMasterState.1,2,3,4 = notSelected
+               asPtpMulticastMasterState.5 = forced"
+        ::= { asPtpMulticastMasterEntry 8 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.10.1.9
+    asPtpMulticastMasterLossAnnounceAlarm OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies whether the PTSF Loss Announce Alarm is
+             detected for the multicast master."
+        ::= { asPtpMulticastMasterEntry 9 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.10.1.10
+    asPtpMulticastMasterLossSyncAlarm OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies whether the PTSF Loss Sync Alarm is
+             detected for the multicast master."
+        ::= { asPtpMulticastMasterEntry 10 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.10.1.11
+    asPtpMulticastMasterUnusableAlarm OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "This object specifies whether the PTSF Unusable Alarm is
+             detected for the multicast master."
+        ::= { asPtpMulticastMasterEntry 11 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.11
+    asPtpSlaveTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF AsPtpSlaveEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "This table contains slave node information and created
+             automatically when the slave node is discovered."
+        ::= { asPtpClockGroup 11 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.11.1
+    asPtpSlaveEntry OBJECT-TYPE
+        SYNTAX      AsPtpSlaveEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { asPtpSlaveNEAddress, asPtpSlaveCardIndex, asPtpSlaveClockId,
+                      asPtpSlaveInetAddressType, asPtpSlaveInetAddress }
+        ::= { asPtpSlaveTable 1 }
+    
+    AsPtpSlaveEntry ::= SEQUENCE {
+        asPtpSlaveCardIndex             INTEGER,
+        asPtpSlaveClockId               IpeClockIdentity,
+        asPtpSlaveInetAddressType       InetAddressType,
+        asPtpSlaveInetAddress           InetAddress,
+        asPtpSlaveNEAddress             IpAddress,
+        asPtpSlaveAssociatedStatus      INTEGER,
+        asPtpSlaveAssociatedIfIndex     InterfaceIndex,
+        asPtpSlaveAssociatedIfNum       INTEGER
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.11.1.1
+    asPtpSlaveCardIndex OBJECT-TYPE
+        SYNTAX      INTEGER
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table. This object specifies slot number of the
+             card which connected to the slave node.
+             value range : slot number + 1 (iPASOLINK400)
+                         : 1 (iPASOLINK VR series)"
+        ::= { asPtpSlaveEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.11.1.2
+    asPtpSlaveClockId OBJECT-TYPE
+        SYNTAX      IpeClockIdentity
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies Clock Identity of slave node."
+        ::= { asPtpSlaveEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.11.1.3
+    asPtpSlaveInetAddressType OBJECT-TYPE
+        SYNTAX      InetAddressType
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies Address type of slave node."
+        ::= { asPtpSlaveEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.11.1.4
+    asPtpSlaveInetAddress OBJECT-TYPE
+        SYNTAX      InetAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "This object specifies IP Address of slave node."
+        ::= { asPtpSlaveEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.11.1.5
+    asPtpSlaveNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved."
+        ::= { asPtpSlaveEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.11.1.6
+    asPtpSlaveAssociatedStatus OBJECT-TYPE
+        SYNTAX      INTEGER { invalid(0), connected(1), notConnected(4) }
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "This object shows the associated Slave node status.
+             When the new node is detected, the new instance will be created
+             and the status is set to 'connected'.
+             When the associated node is removed because of the timeout, the
+             value will be changed to 'timeout' and the instance will be
+             removed. the value 'cancelled' means that the associated node is
+             remove because of disconnect request from slave node."
+        ::= { asPtpSlaveEntry 6 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.11.1.7
+    asPtpSlaveAssociatedIfIndex OBJECT-TYPE
+        SYNTAX      InterfaceIndex
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "this object specifies the interface which is associated by the
+             slave node."
+        ::= { asPtpSlaveEntry 7 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.1.11.1.8
+    asPtpSlaveAssociatedIfNum OBJECT-TYPE
+        SYNTAX      INTEGER (1..32)
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "this object specifies the logical interface number which is
+             associated by the slave node."
+        ::= { asPtpSlaveEntry 8 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2
+    asPtpCardGroup OBJECT IDENTIFIER
+        ::= { asPtpGroup 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2.1
+    asPtpCardTable OBJECT-TYPE
+        SYNTAX      SEQUENCE OF AsPtpCardEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "This table contains the alarm and status information about PTP
+             card."
+        ::= { asPtpCardGroup 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2.1.1
+    asPtpCardEntry OBJECT-TYPE
+        SYNTAX      AsPtpCardEntry
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            ""
+        INDEX       { asPtpCardNEAddress, asPtpCardIndex }
+        ::= { asPtpCardTable 1 }
+    
+    AsPtpCardEntry ::= SEQUENCE {
+        asPtpCardIndex              INTEGER,
+        asPtpCardNEAddress          IpAddress,
+        asPtpCardModuleFail         SeverityValue,
+        asPtpCardComFailAlarm       SeverityValue,
+        asPtpCardUnequipped         SeverityValue,
+        asPtpCardTypeMismatch       SeverityValue,
+        asPtpCardBusErrorTx         SeverityValue,
+        asPtpCardBusErrorRx         SeverityValue,
+        asPtpCardClockFail          SeverityValue,
+        asPtpCardToDin              SeverityValue,
+        asPtpCardPPSin              SeverityValue,
+        asPtpCardToDInformation     DateAndTime
+    }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2.1.1.1
+    asPtpCardIndex OBJECT-TYPE
+        SYNTAX      INTEGER
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "Index of this table. The table is created per PTP card.
+             value range : slot number + 1 (iPASOLINK400)
+                         : 1 (iPASOLINK VR series)"
+        ::= { asPtpCardEntry 1 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2.1.1.2
+    asPtpCardNEAddress OBJECT-TYPE
+        SYNTAX      IpAddress
+        ACCESS      not-accessible
+        STATUS      mandatory
+        DESCRIPTION
+            "reserved."
+        ::= { asPtpCardEntry 2 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2.1.1.3
+    asPtpCardModuleFail OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "MODULE Fail Alarm. The object reports the card doesn't work
+             properly."
+        ::= { asPtpCardEntry 3 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2.1.1.4
+    asPtpCardComFailAlarm OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "COMMUNICATION Fail Alarm. The object reports the failure of the
+             control channel between PTP card and main card."
+        ::= { asPtpCardEntry 4 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2.1.1.5
+    asPtpCardUnequipped OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "UNEQUIPPED Alarm. The object reports the card is not installed
+             properly."
+        ::= { asPtpCardEntry 5 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2.1.1.6
+    asPtpCardTypeMismatch OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "TYPE MISMATCH Alarm. The object reports the installed card is
+             not PTP card."
+        ::= { asPtpCardEntry 6 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2.1.1.7
+    asPtpCardBusErrorTx OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "TX BUS ERROR Alarm. The object reports the failure of the Data
+             traffic channel."
+        ::= { asPtpCardEntry 7 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2.1.1.8
+    asPtpCardBusErrorRx OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "RX BUS ERROR Alarm. The object reports the failure of the Data
+             traffic channel."
+        ::= { asPtpCardEntry 8 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2.1.1.9
+    asPtpCardClockFail OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "PTP CLK FAIL Alarm. The object reports the abnormal temperature
+             around the internal clock."
+        ::= { asPtpCardEntry 9 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2.1.1.10
+    asPtpCardToDin OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "ToD Interface Input Alarm. The object reports the input failure
+             of ToD interface."
+        ::= { asPtpCardEntry 10 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2.1.1.11
+    asPtpCardPPSin OBJECT-TYPE
+        SYNTAX      SeverityValue
+        ACCESS      read-only
+        STATUS      obsolete
+        DESCRIPTION
+            "PPS Interface Input Alarm. The object reports the input failure
+             of PPS interface."
+        ::= { asPtpCardEntry 11 }
+    
+    -- 1.3.6.1.4.1.119.2.3.69.203.513.501.3.47.2.1.1.12
+    asPtpCardToDInformation OBJECT-TYPE
+        SYNTAX      DateAndTime
+        ACCESS      read-only
+        STATUS      mandatory
+        DESCRIPTION
+            "the object reports the time of day information which is
+             announced on the PTP network."
+        ::= { asPtpCardEntry 12 }
+    
+END -- end of module MIB-EMS-IPASOLINK-VR4-PTP-MIB.

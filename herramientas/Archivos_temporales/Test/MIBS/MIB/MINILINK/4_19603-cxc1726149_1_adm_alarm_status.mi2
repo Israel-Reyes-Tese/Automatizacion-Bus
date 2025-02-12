@@ -1,0 +1,1909 @@
+-- No: 4/196 03-CXC 172 6149/1              MANAGEMENT INFORMATION BASE
+-- ======================================================================
+-- Prepared:  XRS/X XRSULFH               Revision A
+-- ======================================================================
+
+XF-ADM-ALARM-STATUS-MIB DEFINITIONS ::= BEGIN
+
+    IMPORTS
+        MODULE-IDENTITY,
+        OBJECT-TYPE
+            FROM SNMPv2-SMI
+
+        TEXTUAL-CONVENTION
+            FROM SNMPv2-TC
+
+        ifIndex
+            FROM IF-MIB
+
+        xfSdhAdm
+            FROM XF-TOP-MIB;
+
+
+       xfAdmAlarmStatusMib MODULE-IDENTITY
+            LAST-UPDATED "201110271200Z"    -- Oct. 27, 2011 at 12:00 GMT
+            ORGANIZATION
+                "EDD/FBM/XBB"
+            CONTACT-INFO
+                "Joachim Hasler "
+             DESCRIPTION
+                "Alarm/Fault manangement information for SDH add-drop multiplexer (ADM).
+
+                ALARM ABBREVIATIONS (in alphabetical order):
+                  - ais:     Alarm indication signal
+                  - deg:     Degraded signal
+                  - exc:     Excessive errors
+                  - lom:     Loss of multiframe
+                  - lop:     Loss of pointer
+                  - los:     Loss of signal
+                  - plm:     Payload mismatch
+                  - rdi:     Remote defect indication
+                  - tim:     Trace identifier mismatch
+                  - uastfe:  far end unavailable state
+                  - uastne:  near end Unavailable state
+                  - ueq:     Unequipped
+                  - k2mism:  K2 mismatch                  
+                "
+           REVISION     "201110271200Z"    -- Oct. 27, 2011 at 12:00 GMT
+           DESCRIPTION
+                "REV PA3:
+                  Added new alarm status bits for k2mism to xfMsTtpAlarmStatus
+                  Added xfMsTtpAlarmSeverityK2mism"
+           REVISION     "200802281200Z"    -- Feb. 28, 2008 at 12:00 GMT
+           DESCRIPTION
+                "REV PA2: Use official MIB module OID (Jens Engel)."
+           REVISION     "200802051000Z"    -- Feb. 05, 2008 at 10:00 GMT
+           DESCRIPTION
+                " UASt Alarm (Unavailable State) added.
+                  If Performance Monitoring is activated at an interface and the unavailable state is entered
+                  at this interface, the alarm shall be set (begin unavailble time).
+                  If the unavailble condition ceases, the alarm ceases as well (end unavailable time).
+                  Unavailable State alarms may appear as near end UASt alarms (uastne) or as far end UASt alarms (uastfe)
+                "
+           REVISION     "200801211000Z"    -- Jan. 21, 2008 at 10:00 GMT
+           DESCRIPTION
+                " Alarm severity codes slightly modified.  Harmonized with XF-VCAT-MIB.
+                "
+           REVISION     "200712051000Z"     -- Dec. 05, 2007 at 10:00 GMT
+           DESCRIPTION
+                "CLEANUP (Jens Engel):
+                  - Replace local ...IfIndex with ifIndex  (OID-change)
+                  - Use AUGMENTS statement for ...AlarmSeverityTables
+                  - Harmonize AlarmStatus bit ordering to be mostly the same
+                    for MsTtp, Au4Ctp, Vc4Ttp, Tu3Ctp, Vc3Ttp, Tu12Ctp, Vc12Ttp:
+                        ais, rdi, exc, deg, tim, ueq, lop, plm, lom.
+                  - AlarmSeverity columns: Change ordering accordingly (OID-change)
+                "
+            REVISION     "200711061000Z"    -- Nov. 06, 2007 at 10:00 GMT
+            DESCRIPTION
+                "CLEANUP: Remove unused-imports (Jens Engel):
+                Integer32, NOTIFICATION-TYPE, MODULE-COMPLIANCE, OBJECT-GROUP."
+            REVISION     "200706120800Z"    -- June 12, 2007 at 08:00 GMT
+            DESCRIPTION
+               "Initial Version"
+            ::= { xfSdhAdm 4 }
+
+
+--
+-- Textual conventions
+--
+
+ XfAlarmSeverity ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION
+        "The various alarm severities."
+    SYNTAX  INTEGER  {
+                clear (0),
+                undetermined (1),
+                warning (2),
+                minor (3),
+                major (4),
+                critical (5)
+                }
+
+
+
+-- MIB Object Definitions
+xfAdmAlarmStatusMibObjects  OBJECT IDENTIFIER ::= { xfAdmAlarmStatusMib 1 }
+
+xfAdmAlarmStatus            OBJECT IDENTIFIER ::= { xfAdmAlarmStatusMibObjects 1 }
+xfAdmAlarmSeverity          OBJECT IDENTIFIER ::= { xfAdmAlarmStatusMibObjects 2 }
+
+
+
+-- xfSdhNe alarm status of interface - SpiOptical
+xfSpiOpticalAlarmStatusTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfSpiOpticalAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all current alarm status for SpiOptical."
+    ::= { xfAdmAlarmStatus 1 }
+
+
+
+xfSpiOpticalAlarmStatusEntry OBJECT-TYPE
+    SYNTAX      XfSpiOpticalAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the particular
+        equipment, related to this interface has been equipped.
+        An entry will be automatically deleted when the particular
+        equipment, related to this interface has been de-equipped."
+    INDEX  { ifIndex }
+    ::= { xfSpiOpticalAlarmStatusTable 1 }
+
+
+XfSpiOpticalAlarmStatusEntry ::=
+    SEQUENCE  {
+        xfSpiOpticalAlarmStatus         BITS
+    }
+
+xfSpiOpticalAlarmStatus OBJECT-TYPE
+    SYNTAX BITS
+    {
+         los0(0),
+         los1(1),
+         los2(2)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION
+        "Status of the Loss of Signal failure.
+        This objects provides information on the alarm status.
+        The severity is indicated by three bits per alarm:
+           bits 012
+                000   clear
+                001   undetermined
+                010   warning
+                011   minor
+                100   major
+                101   critical
+       "
+    ::= { xfSpiOpticalAlarmStatusEntry 1 }
+
+
+
+
+-- xfSdhNe alarm status of interface - SpiElectrical
+
+xfSpiElectricalAlarmStatusTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfSpiElectricalAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all current alarm status for SpiElectrical."
+    ::= { xfAdmAlarmStatus 2 }
+
+
+xfSpiElectricalAlarmStatusEntry OBJECT-TYPE
+    SYNTAX      XfSpiElectricalAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the particular
+        equipment, related to this interface has been equipped.
+        An entry will be automatically deleted when the particular
+        equipment, related to this interface has been de-equipped."
+    INDEX  { ifIndex }
+    ::= { xfSpiElectricalAlarmStatusTable 1 }
+
+XfSpiElectricalAlarmStatusEntry ::=
+    SEQUENCE  {
+        xfSpiElectricalAlarmStatus      BITS
+    }
+
+xfSpiElectricalAlarmStatus OBJECT-TYPE
+    SYNTAX BITS
+    {
+         los0(0),
+         los1(1),
+         los2(2)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION
+        "Status of the Loss of Signal failure.
+        This objects provides information on the alarm status.
+        The severity is indicated by three bits per alarm:
+           bits 012
+                000   clear
+                001   undetermined
+                010   warning
+                011   minor
+                100   major
+                101   critical
+        "
+    ::= { xfSpiElectricalAlarmStatusEntry 1 }
+
+
+
+
+
+
+-- xfSdhNe alarm status of interface - RSTTP
+
+xfRsTtpAlarmStatusTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfRsTtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm status defined for the Regenerator Section."
+    ::= { xfAdmAlarmStatus 3 }
+
+
+
+xfRsTtpAlarmStatusEntry OBJECT-TYPE
+    SYNTAX      XfRsTtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped."
+    INDEX  { ifIndex }
+    ::= { xfRsTtpAlarmStatusTable 1 }
+
+
+XfRsTtpAlarmStatusEntry ::=
+    SEQUENCE  {
+        xfRsTtpAlarmStatus      BITS
+    }
+
+xfRsTtpAlarmStatus OBJECT-TYPE
+    SYNTAX BITS
+    {
+         lof0(0),
+         lof1(1),
+         lof2(2),
+         tim0(3),
+         tim1(4),
+         tim2(5),
+         uastne0(6),
+         uastne1(7),
+         uastne2(8)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION
+        "Status of the Loss of Frame, Trace Identifier Mismatch and
+        Unavailable State near end failure.
+        This objects provides information on the alarm status.
+        The severity is indicated by three bits per alarm:
+          bits 012
+               000   clear
+               001   undetermined
+               010   warning
+               011   minor
+               100   major
+               101   critical
+        "
+    ::= { xfRsTtpAlarmStatusEntry 1 }
+
+
+
+-- xfSdhNe alarm status of interface - MSTTP
+
+xfMsTtpAlarmStatusTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfMsTtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm status defined for the Multiplex Section."
+    ::= { xfAdmAlarmStatus 4 }
+
+
+
+xfMsTtpAlarmStatusEntry OBJECT-TYPE
+    SYNTAX      XfMsTtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped."
+    INDEX  { ifIndex }
+    ::= { xfMsTtpAlarmStatusTable 1 }
+
+
+XfMsTtpAlarmStatusEntry ::=
+    SEQUENCE  {
+        xfMsTtpAlarmStatus      BITS
+    }
+
+xfMsTtpAlarmStatus OBJECT-TYPE
+    SYNTAX BITS
+    {
+         ais0(0),
+         ais1(1),
+         ais2(2),
+         rdi0(3),
+         rdi1(4),
+         rdi2(5),
+         exc0(6),
+         exc1(7),
+         exc2(8),
+         deg0(9),
+         deg1(10),
+         deg2(11),
+         uastne0(12),
+         uastne1(13),
+         uastne2(14),
+         uastfe0(15),
+         uastfe1(16),
+         uastfe2(17),
+         k2mism0(18), 
+         k2mism1(19),
+         k2mism2(20)         
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION
+        "Status of the  MS AIS, Remote Defect Indication, Excessive Errors, Degraded,
+        Unavailable State near end, Unavailable State far end failure and K2 mismatch.
+        This objects provides information on the alarm status.
+        The severity is indicated by three bits per alarm:
+          bits 012
+               000   clear
+               001   undetermined
+               010   warning
+               011   minor
+               100   major
+               101   critical
+        "
+    ::= { xfMsTtpAlarmStatusEntry 1 }
+
+
+
+-- xfSdhNe alarm status of interface - AU4CTP
+
+xfAu4CtpAlarmStatusTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfAu4CtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm status defined for the AU4CTP."
+    ::= { xfAdmAlarmStatus 5 }
+
+
+xfAu4CtpAlarmStatusEntry OBJECT-TYPE
+    SYNTAX      XfAu4CtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped.
+        "
+    INDEX  { ifIndex }
+    ::= { xfAu4CtpAlarmStatusTable 1 }
+
+
+
+XfAu4CtpAlarmStatusEntry ::=
+    SEQUENCE  {
+        xfAu4CtpAlarmStatus                BITS
+    }
+
+
+xfAu4CtpAlarmStatus OBJECT-TYPE
+    SYNTAX BITS
+    {
+         ais0(0),
+         ais1(1),
+         ais2(2),
+         rdi0(3),
+         rdi1(4),
+         rdi2(5),
+         exc0(6),
+         exc1(7),
+         exc2(8),
+         deg0(9),
+         deg1(10),
+         deg2(11),
+         tim0(12),
+         tim1(13),
+         tim2(14),
+         ueq0(15),
+         ueq1(16),
+         ueq2(17),
+         lop0(18),
+         lop1(19),
+         lop2(20),
+         uastne0(21),
+         uastne1(22),
+         uastne2(23),
+         uastfe0(24),
+         uastfe1(25),
+         uastfe2(26)
+     }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION
+        "Status of the AU AIS,  Remote Defect Indication, Excessive Errors, Degraded, VC4 Trace Identifier Mismatch,
+        Unequipped Indication, AU Loss of Pointer, Unavailable State near end and Unavailable State far end failure.
+        This objects provides information on the alarm status.
+        The severity is indicated by three bits per alarm:
+          bits 012
+               000   clear
+               001   undetermined
+               010   warning
+               011   minor
+               100   major
+               101   critical
+        "
+    ::= { xfAu4CtpAlarmStatusEntry 1 }
+
+
+
+-- xfSdhNe alarm status of interface - VC4TTP
+xfVc4TtpAlarmStatusTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfVc4TtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm status defined for the VC4TTP."
+    ::= { xfAdmAlarmStatus 6 }
+
+
+xfVc4TtpAlarmStatusEntry OBJECT-TYPE
+    SYNTAX      XfVc4TtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped or if this interface is allocated to a VCG.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped or if this interface is not allocated to a VCG anymore.
+        "
+    INDEX { ifIndex }
+    ::= { xfVc4TtpAlarmStatusTable 1 }
+
+
+XfVc4TtpAlarmStatusEntry ::=
+    SEQUENCE  {
+        xfVc4TtpAlarmStatus1                BITS,
+        xfVc4TtpAlarmStatus2                BITS
+    }
+
+
+xfVc4TtpAlarmStatus1 OBJECT-TYPE
+    SYNTAX BITS
+    {
+         ais0(0),
+         ais1(1),
+         ais2(2),
+         rdi0(3),
+         rdi1(4),
+         rdi2(5),
+         exc0(6),
+         exc1(7),
+         exc2(8),
+         deg0(9),
+         deg1(10),
+         deg2(11),
+         tim0(12),
+         tim1(13),
+         tim2(14),
+         ueq0(15),
+         ueq1(16),
+         ueq2(17),
+         lop0(18),
+         lop1(19),
+         lop2(20),
+         plm0(21),
+         plm1(22),
+         plm2(23),
+         lom0(24),
+         lom1(25),
+         lom2(26)     }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION
+        "Status of the AU AIS,  Remote Defect Indication, Excessive Errors, Degraded, VC4 Trace Identifier Mismatch,
+        Unequipped Indication, AU Loss of Pointer, Payload Mismatch and Loss of Multiframe failure.
+
+        This objects provides information on the alarm status.
+        The severity is indicated by three bits per alarm:
+          bits 012
+               000   clear
+               001   undetermined
+               010   warning
+               011   minor
+               100   major
+               101   critical
+
+        "
+    ::= { xfVc4TtpAlarmStatusEntry 1 }
+
+xfVc4TtpAlarmStatus2 OBJECT-TYPE
+    SYNTAX BITS
+    {
+         uastne0(0),
+         uastne1(1),
+         uastne2(2),
+         uastfe0(3),
+         uastfe1(4),
+         uastfe2(5)
+     }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION
+        "Status of the Unavailable State near end and Unavailable State far end failure.
+
+        This objects provides information on the alarm status.
+        The severity is indicated by three bits per alarm:
+          bits 012
+               000   clear
+               001   undetermined
+               010   warning
+               011   minor
+               100   major
+               101   critical
+
+        "
+    ::= { xfVc4TtpAlarmStatusEntry 2 }
+
+
+-- xfSdhNe alarm status of interface - TU3CTP
+
+xfTu3CtpAlarmStatusTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfTu3CtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm status defined for the TU3CTP."
+    ::= { xfAdmAlarmStatus 7 }
+
+
+
+xfTu3CtpAlarmStatusEntry OBJECT-TYPE
+    SYNTAX      XfTu3CtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped.
+        "
+    INDEX  { ifIndex }
+    ::= { xfTu3CtpAlarmStatusTable 1 }
+
+
+
+XfTu3CtpAlarmStatusEntry ::=
+    SEQUENCE  {
+        xfTu3CtpAlarmStatus                BITS
+    }
+
+xfTu3CtpAlarmStatus OBJECT-TYPE
+    SYNTAX BITS
+    {
+         ais0(0),
+         ais1(1),
+         ais2(2),
+         rdi0(3),
+         rdi1(4),
+         rdi2(5),
+         exc0(6),
+         exc1(7),
+         exc2(8),
+         deg0(9),
+         deg1(10),
+         deg2(11),
+         tim0(12),
+         tim1(13),
+         tim2(14),
+         ueq0(15),
+         ueq1(16),
+         ueq2(17),
+         lop0(18),
+         lop1(19),
+         lop2(20),
+         uastne0(21),
+         uastne1(22),
+         uastne2(23),
+         uastfe0(24),
+         uastfe1(25),
+         uastfe2(26)
+     }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION
+        "Status of the TU-AIS, Remote Defect Indication, Excessive Errors, Degraded, VC3 Trace Identifier Mismatch, Unequipped Indication,
+        Loss of Pointer, Unavailable State near end and Unavailable State far end failure.
+
+        This objects provides information on the alarm status.
+        The severity is indicated by three bits per alarm:
+          bits 012
+               000   clear
+               001   undetermined
+               010   warning
+               011   minor
+               100   major
+               101   critical
+
+        "
+    ::= { xfTu3CtpAlarmStatusEntry 1 }
+
+
+
+
+-- xfSdhNe alarm status of interface - VC3TTP
+
+xfVc3TtpAlarmStatusTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfVc3TtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm status defined for the VC3TTP."
+    ::= { xfAdmAlarmStatus 8 }
+
+
+xfVc3TtpAlarmStatusEntry OBJECT-TYPE
+    SYNTAX      XfVc3TtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped or if this interface is allocated to a VCG.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped or if this interface is not allocated to a VCG anymore.
+        "
+    INDEX  { ifIndex }
+    ::= { xfVc3TtpAlarmStatusTable 1 }
+
+
+
+XfVc3TtpAlarmStatusEntry ::=
+    SEQUENCE  {
+        xfVc3TtpAlarmStatus                BITS
+    }
+
+
+xfVc3TtpAlarmStatus OBJECT-TYPE
+    SYNTAX BITS
+    {
+         ais0(0),
+         ais1(1),
+         ais2(2),
+         rdi0(3),
+         rdi1(4),
+         rdi2(5),
+         exc0(6),
+         exc1(7),
+         exc2(8),
+         deg0(9),
+         deg1(10),
+         deg2(11),
+         tim0(12),
+         tim1(13),
+         tim2(14),
+         ueq0(15),
+         ueq1(16),
+         ueq2(17),
+         lop0(18),
+         lop1(19),
+         lop2(20),
+         plm0(21),
+         plm1(22),
+         plm2(23),
+         uastne0(24),
+         uastne1(25),
+         uastne2(26),
+         uastfe0(27),
+         uastfe1(28),
+         uastfe2(29)
+     }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION
+        "Status of the TU-AIS, Remote Defect Indication, Excessive Errors, Degraded, VC3 Trace Identifier Mismatch, Unequipped Indication,
+        Loss of Pointer, Payload Mismatch, Unavailable State near end and Unavailable State far end failure.
+
+        This objects provides information on the alarm status.
+        The severity is indicated by three bits per alarm:
+          bits 012
+               000   clear
+               001   undetermined
+               010   warning
+               011   minor
+               100   major
+               101   critical
+
+        "
+    ::= { xfVc3TtpAlarmStatusEntry 1 }
+
+
+-- xfSdhNe alarm status of interface - TU12CTP
+
+xfTu12CtpAlarmStatusTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfTu12CtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm status defined for the TU12CTP."
+    ::= { xfAdmAlarmStatus 9 }
+
+
+
+xfTu12CtpAlarmStatusEntry OBJECT-TYPE
+    SYNTAX      XfTu12CtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped.
+        "
+    INDEX  { ifIndex }
+    ::= { xfTu12CtpAlarmStatusTable 1 }
+
+
+XfTu12CtpAlarmStatusEntry ::=
+    SEQUENCE  {
+        xfTu12CtpAlarmStatus            BITS
+    }
+
+xfTu12CtpAlarmStatus OBJECT-TYPE
+    SYNTAX BITS
+    {
+         ais0(0),
+         ais1(1),
+         ais2(2),
+         rdi0(3),
+         rdi1(4),
+         rdi2(5),
+         exc0(6),
+         exc1(7),
+         exc2(8),
+         deg0(9),
+         deg1(10),
+         deg2(11),
+         tim0(12),
+         tim1(13),
+         tim2(14),
+         ueq0(15),
+         ueq1(16),
+         ueq2(17),
+         lop0(18),
+         lop1(19),
+         lop2(20),
+         lom0(21),
+         lom1(22),
+         lom2(23),
+         uastne0(24),
+         uastne1(25),
+         uastne2(26),
+         uastfe0(27),
+         uastfe1(28),
+         uastfe2(29)
+     }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION
+        "Status of the TU-AIS, Remote Defect Indication, Excessive Errors, Degraded, VC12 Trace Identifier Mismatch, Unequipped Indication,
+        Loss of Pointer, Loss of Multiframe, Unavailable State near end and Unavailable State far end failure.
+
+        This objects provides information on the alarm status.
+        The severity is indicated by three bits per alarm:
+          bits 012
+               000   clear
+               001   undetermined
+               010   warning
+               011   minor
+               100   major
+               101   critical
+        "
+    ::= { xfTu12CtpAlarmStatusEntry 1 }
+
+
+
+-- xfSdhNe alarm status of interface - VC12TTP
+xfVc12TtpAlarmStatusTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfVc12TtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm status defined for the VC12TTP."
+    ::= { xfAdmAlarmStatus 10 }
+
+
+xfVc12TtpAlarmStatusEntry OBJECT-TYPE
+    SYNTAX      XfVc12TtpAlarmStatusEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped or if this interface is allocated to a VCG.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped or if this interface is not allocated to a VCG anymore.
+        "
+    INDEX  { ifIndex }
+    ::= { xfVc12TtpAlarmStatusTable 1 }
+
+
+
+XfVc12TtpAlarmStatusEntry ::=
+    SEQUENCE  {
+        xfVc12TtpAlarmStatus1            BITS,
+        xfVc12TtpAlarmStatus2            BITS
+    }
+
+
+xfVc12TtpAlarmStatus1 OBJECT-TYPE
+    SYNTAX BITS
+    {
+         ais0(0),
+         ais1(1),
+         ais2(2),
+         rdi0(3),
+         rdi1(4),
+         rdi2(5),
+         exc0(6),
+         exc1(7),
+         exc2(8),
+         deg0(9),
+         deg1(10),
+         deg2(11),
+         tim0(12),
+         tim1(13),
+         tim2(14),
+         ueq0(15),
+         ueq1(16),
+         ueq2(17),
+         lop0(18),
+         lop1(19),
+         lop2(20),
+         plm0(21),
+         plm1(22),
+         plm2(23),
+         lom0(24),
+         lom1(25),
+         lom2(26)   }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION
+        "Status of the TU-AIS, Remote Defect Indication, Excessive Errors, Degraded, VC12 Trace Identifier Mismatch, Unequipped Indication,
+        Loss of Pointer, Payload Mismatch and Loss of Multiframe failure.
+
+        This objects provides information on the alarm status.
+        The severity is indicated by three bits per alarm:
+          bits 012
+               000   clear
+               001   undetermined
+               010   warning
+               011   minor
+               100   major
+               101   critical
+
+        "
+    ::= { xfVc12TtpAlarmStatusEntry 1 }
+
+xfVc12TtpAlarmStatus2 OBJECT-TYPE
+    SYNTAX BITS
+    {
+         uastne0(0),
+         uastne1(1),
+         uastne2(2),
+         uastfe0(3),
+         uastfe1(4),
+         uastfe2(5)
+   }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION
+        "Status of the Unavailable State near end and Unavailable State far end failure.
+
+        This objects provides information on the alarm status.
+        The severity is indicated by three bits per alarm:
+          bits 012
+               000   clear
+               001   undetermined
+               010   warning
+               011   minor
+               100   major
+               101   critical
+
+        "
+    ::= { xfVc12TtpAlarmStatusEntry 2 }
+
+
+-- xfSdhNe alarm severity of interface - SpiOptical
+xfSpiOpticalAlarmSeverityTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfSpiOpticalAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all current alarm severity for SpiOptical."
+    ::= { xfAdmAlarmSeverity 1 }
+
+
+xfSpiOpticalAlarmSeverityEntry OBJECT-TYPE
+    SYNTAX      XfSpiOpticalAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the particular
+        equipment, related to this interface has been equipped.
+        An entry will be automatically deleted when the particular
+        equipment, related to this interface has been de-equipped."
+    AUGMENTS { xfSpiOpticalAlarmStatusEntry }
+    ::= { xfSpiOpticalAlarmSeverityTable 1 }
+
+
+XfSpiOpticalAlarmSeverityEntry ::=
+    SEQUENCE  {
+        xfSpiOpticalAlarmSeverityLos            XfAlarmSeverity
+    }
+
+xfSpiOpticalAlarmSeverityLos OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Loss of Signal failure."
+    ::= { xfSpiOpticalAlarmSeverityEntry 1 }
+
+
+
+-- xfSdhNe alarm severity of interface - SpiElectrical
+xfSpiElectricalAlarmSeverityTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfSpiElectricalAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all current alarm severity for SpiElectrical."
+    ::= { xfAdmAlarmSeverity 2 }
+
+
+xfSpiElectricalAlarmSeverityEntry OBJECT-TYPE
+    SYNTAX      XfSpiElectricalAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the particular
+        equipment, related to this interface has been equipped.
+        An entry will be automatically deleted when the particular
+        equipment, related to this interface has been de-equipped."
+    AUGMENTS { xfSpiElectricalAlarmStatusEntry }
+    ::= { xfSpiElectricalAlarmSeverityTable 1 }
+
+
+XfSpiElectricalAlarmSeverityEntry ::=
+    SEQUENCE  {
+        xfSpiElectricalAlarmSeverityLos     XfAlarmSeverity
+    }
+
+xfSpiElectricalAlarmSeverityLos OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Loss of Signal failure."
+    ::= { xfSpiElectricalAlarmSeverityEntry 1 }
+
+
+
+-- xfSdhNe alarm severity of interface - RSTTP
+
+xfRsTtpAlarmSeverityTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfRsTtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm severity defined for the Regenerator Section."
+    ::= { xfAdmAlarmSeverity 3 }
+
+xfRsTtpAlarmSeverityEntry OBJECT-TYPE
+    SYNTAX      XfRsTtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped."
+    AUGMENTS { xfRsTtpAlarmStatusEntry }
+    ::= { xfRsTtpAlarmSeverityTable 1 }
+
+
+XfRsTtpAlarmSeverityEntry ::=
+    SEQUENCE  {
+        xfRsTtpAlarmSeverityLof               XfAlarmSeverity,
+        xfRsTtpAlarmSeverityTim               XfAlarmSeverity,
+        xfRsTtpAlarmSeverityUastne            XfAlarmSeverity
+    }
+
+xfRsTtpAlarmSeverityLof OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Loss of Frame failure."
+    ::= { xfRsTtpAlarmSeverityEntry 1 }
+
+xfRsTtpAlarmSeverityTim OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Trace Identifier Mismatch failure."
+    ::= { xfRsTtpAlarmSeverityEntry 2 }
+
+xfRsTtpAlarmSeverityUastne OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Unavailable State failure."
+    ::= { xfRsTtpAlarmSeverityEntry 3 }
+
+
+-- xfSdhNe alarm severity of interface - MSTTP
+xfMsTtpAlarmSeverityTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfMsTtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm severity defined for the Multiplex Section."
+    ::= { xfAdmAlarmSeverity 4 }
+
+xfMsTtpAlarmSeverityEntry OBJECT-TYPE
+    SYNTAX      XfMsTtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped."
+    AUGMENTS { xfMsTtpAlarmStatusEntry }
+    ::= { xfMsTtpAlarmSeverityTable 1 }
+
+
+XfMsTtpAlarmSeverityEntry ::=
+    SEQUENCE  {
+        xfMsTtpAlarmSeverityAis         XfAlarmSeverity,
+        xfMsTtpAlarmSeverityRdi         XfAlarmSeverity,
+        xfMsTtpAlarmSeverityExc         XfAlarmSeverity,
+        xfMsTtpAlarmSeverityDeg         XfAlarmSeverity,
+        xfMsTtpAlarmSeverityUastne      XfAlarmSeverity,
+        xfMsTtpAlarmSeverityUastfe      XfAlarmSeverity,
+        xfMsTtpAlarmSeverityK2mism		XfAlarmSeverity
+
+    }
+
+
+xfMsTtpAlarmSeverityAis OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Multiplex Section AIS failure."
+    ::= { xfMsTtpAlarmSeverityEntry 1 }
+
+xfMsTtpAlarmSeverityRdi OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Remote Defect Indication failure."
+    ::= { xfMsTtpAlarmSeverityEntry 2 }
+
+xfMsTtpAlarmSeverityExc OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Excessive Errors failure."
+    ::= { xfMsTtpAlarmSeverityEntry 3 }
+
+xfMsTtpAlarmSeverityDeg OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Degraded failure."
+    ::= { xfMsTtpAlarmSeverityEntry 4 }
+
+xfMsTtpAlarmSeverityUastne OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the near end Unavailable State failure."
+    ::= { xfMsTtpAlarmSeverityEntry 5 }
+
+xfMsTtpAlarmSeverityUastfe OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the far end Unavailable State failure."
+    ::= { xfMsTtpAlarmSeverityEntry 6 }   
+    
+xfMsTtpAlarmSeverityK2mism OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the K2 mismatch alarm."
+    ::= { xfMsTtpAlarmSeverityEntry 7 }
+
+
+
+-- xfSdhNe alarm severity of interface - AU4CTP
+
+xfAu4CtpAlarmSeverityTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfAu4CtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm severity defined for the AU4CTP."
+    ::= { xfAdmAlarmSeverity 5 }
+
+xfAu4CtpAlarmSeverityEntry OBJECT-TYPE
+    SYNTAX      XfAu4CtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped.
+        "
+    AUGMENTS { xfAu4CtpAlarmStatusEntry }
+    ::= { xfAu4CtpAlarmSeverityTable 1 }
+
+
+
+XfAu4CtpAlarmSeverityEntry ::=
+    SEQUENCE  {
+        xfAu4CtpAlarmSeverityAis            XfAlarmSeverity,
+        xfAu4CtpAlarmSeverityRdi            XfAlarmSeverity,
+        xfAu4CtpAlarmSeverityExc            XfAlarmSeverity,
+        xfAu4CtpAlarmSeverityDeg            XfAlarmSeverity,
+        xfAu4CtpAlarmSeverityTim            XfAlarmSeverity,
+        xfAu4CtpAlarmSeverityUneq           XfAlarmSeverity,
+        xfAu4CtpAlarmSeverityLop            XfAlarmSeverity,
+        xfAu4CtpAlarmSeverityUastne         XfAlarmSeverity,
+        xfAu4CtpAlarmSeverityUastfe         XfAlarmSeverity
+
+
+    }
+
+
+xfAu4CtpAlarmSeverityAis OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the AU AIS failure."
+    ::= { xfAu4CtpAlarmSeverityEntry 1 }
+
+xfAu4CtpAlarmSeverityRdi OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Remote Defect Indication failure."
+    ::= { xfAu4CtpAlarmSeverityEntry 2 }
+
+xfAu4CtpAlarmSeverityExc OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Excesssive Errors failure."
+    ::= { xfAu4CtpAlarmSeverityEntry 3 }
+
+xfAu4CtpAlarmSeverityDeg OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Degraded failure."
+    ::= { xfAu4CtpAlarmSeverityEntry 4 }
+
+xfAu4CtpAlarmSeverityTim OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the VC4 Trace Identifier Mismatch failure."
+    ::= { xfAu4CtpAlarmSeverityEntry 5 }
+
+xfAu4CtpAlarmSeverityUneq OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Unequipped Indication failure."
+    ::= { xfAu4CtpAlarmSeverityEntry 6 }
+
+xfAu4CtpAlarmSeverityLop OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the AU Loss of Pointer failure."
+    ::= { xfAu4CtpAlarmSeverityEntry 7 }
+
+xfAu4CtpAlarmSeverityUastne OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the near end Unavailable State failure."
+    ::= { xfAu4CtpAlarmSeverityEntry 8 }
+
+xfAu4CtpAlarmSeverityUastfe OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the far end Unavailable State failure."
+    ::= { xfAu4CtpAlarmSeverityEntry 9 }
+
+
+-- xfSdhNe alarm severity of interface - VC4TTP
+
+xfVc4TtpAlarmSeverityTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfVc4TtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm severity defined for the VC4TTP."
+    ::= { xfAdmAlarmSeverity 6 }
+
+xfVc4TtpAlarmSeverityEntry OBJECT-TYPE
+    SYNTAX      XfVc4TtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped or if this interface is allocated to a VCG.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped or if this interface is not allocated to a VCG anymore.
+        "
+    AUGMENTS { xfVc4TtpAlarmStatusEntry }
+    ::= { xfVc4TtpAlarmSeverityTable 1 }
+
+
+
+XfVc4TtpAlarmSeverityEntry ::=
+    SEQUENCE  {
+        xfVc4TtpAlarmSeverityAis            XfAlarmSeverity,
+        xfVc4TtpAlarmSeverityRdi            XfAlarmSeverity,
+        xfVc4TtpAlarmSeverityExc            XfAlarmSeverity,
+        xfVc4TtpAlarmSeverityDeg            XfAlarmSeverity,
+        xfVc4TtpAlarmSeverityTim            XfAlarmSeverity,
+        xfVc4TtpAlarmSeverityUneq           XfAlarmSeverity,
+        xfVc4TtpAlarmSeverityLop            XfAlarmSeverity,
+        xfVc4TtpAlarmSeverityPlm            XfAlarmSeverity,
+        xfVc4TtpAlarmSeverityLom            XfAlarmSeverity,
+        xfVc4TtpAlarmSeverityUastne         XfAlarmSeverity,
+        xfVc4TtpAlarmSeverityUastfe         XfAlarmSeverity
+    }
+
+
+xfVc4TtpAlarmSeverityAis OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the AU AIS failure."
+    ::= { xfVc4TtpAlarmSeverityEntry 1 }
+
+xfVc4TtpAlarmSeverityRdi OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Remote Defect Indication failure."
+    ::= { xfVc4TtpAlarmSeverityEntry 2 }
+
+xfVc4TtpAlarmSeverityExc OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Excesssive Errors failure."
+    ::= { xfVc4TtpAlarmSeverityEntry 3 }
+
+xfVc4TtpAlarmSeverityDeg OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Degraded failure."
+    ::= { xfVc4TtpAlarmSeverityEntry 4 }
+
+xfVc4TtpAlarmSeverityTim OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the VC4 Trace Identifier Mismatch failure."
+    ::= { xfVc4TtpAlarmSeverityEntry 5 }
+
+xfVc4TtpAlarmSeverityUneq OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Unequipped Indication failure."
+    ::= { xfVc4TtpAlarmSeverityEntry 6 }
+
+xfVc4TtpAlarmSeverityLop OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the AU Loss of Pointer failure."
+    ::= { xfVc4TtpAlarmSeverityEntry 7 }
+
+
+xfVc4TtpAlarmSeverityPlm OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Payload Mismatch failure."
+    ::= { xfVc4TtpAlarmSeverityEntry 8 }
+
+xfVc4TtpAlarmSeverityLom OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Loss of Multiframe failure."
+    ::= { xfVc4TtpAlarmSeverityEntry 9 }
+
+xfVc4TtpAlarmSeverityUastne OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the near end Unavailable State failure."
+    ::= { xfVc4TtpAlarmSeverityEntry 10 }
+
+xfVc4TtpAlarmSeverityUastfe OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the far end Unavailable State failure."
+    ::= { xfVc4TtpAlarmSeverityEntry 11 }
+
+-- xfSdhNe alarm severity of interface - TU3CTP
+
+xfTu3CtpAlarmSeverityTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfTu3CtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm severity defined for the TU3CTP."
+    ::= { xfAdmAlarmSeverity 7 }
+
+
+
+xfTu3CtpAlarmSeverityEntry OBJECT-TYPE
+    SYNTAX      XfTu3CtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped.
+        "
+    AUGMENTS { xfTu3CtpAlarmStatusEntry }
+    ::= { xfTu3CtpAlarmSeverityTable 1 }
+
+
+XfTu3CtpAlarmSeverityEntry ::=
+    SEQUENCE  {
+        xfTu3CtpAlarmSeverityAis            XfAlarmSeverity,
+        xfTu3CtpAlarmSeverityRdi            XfAlarmSeverity,
+        xfTu3CtpAlarmSeverityExc            XfAlarmSeverity,
+        xfTu3CtpAlarmSeverityDeg            XfAlarmSeverity,
+        xfTu3CtpAlarmSeverityTim            XfAlarmSeverity,
+        xfTu3CtpAlarmSeverityUneq           XfAlarmSeverity,
+        xfTu3CtpAlarmSeverityLop            XfAlarmSeverity,
+        xfTu3CtpAlarmSeverityUastne         XfAlarmSeverity,
+        xfTu3CtpAlarmSeverityUastfe         XfAlarmSeverity
+    }
+
+
+xfTu3CtpAlarmSeverityAis OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the TU AIS failure."
+    ::= { xfTu3CtpAlarmSeverityEntry 1 }
+
+xfTu3CtpAlarmSeverityRdi OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Remote Defect Indication failure."
+    ::= { xfTu3CtpAlarmSeverityEntry 2 }
+
+xfTu3CtpAlarmSeverityExc OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Excesssive Errors failure."
+    ::= { xfTu3CtpAlarmSeverityEntry 3 }
+
+xfTu3CtpAlarmSeverityDeg OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Degraded failure."
+    ::= { xfTu3CtpAlarmSeverityEntry 4 }
+
+xfTu3CtpAlarmSeverityTim OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the VC3 Trace Identifier Mismatch failure."
+    ::= { xfTu3CtpAlarmSeverityEntry 5 }
+
+xfTu3CtpAlarmSeverityUneq OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Unequipped Indication failure."
+    ::= { xfTu3CtpAlarmSeverityEntry 6 }
+
+
+xfTu3CtpAlarmSeverityLop OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the TU Loss of Pointer failure."
+    ::= { xfTu3CtpAlarmSeverityEntry 7 }
+
+xfTu3CtpAlarmSeverityUastne OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the near end Unavailable State failure."
+    ::= { xfTu3CtpAlarmSeverityEntry 8 }
+
+xfTu3CtpAlarmSeverityUastfe OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the far end Unavailable State failure."
+    ::= { xfTu3CtpAlarmSeverityEntry 9 }
+
+
+-- xfSdhNe alarm severity of interface - VC3TTP
+
+xfVc3TtpAlarmSeverityTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfVc3TtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm severity defined for the VC3TTP."
+    ::= { xfAdmAlarmSeverity 8 }
+
+
+
+xfVc3TtpAlarmSeverityEntry OBJECT-TYPE
+    SYNTAX      XfVc3TtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped or if this interface is allocated to a VCG.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped or if this interface is not allocated to a VCG anymore.
+        "
+    AUGMENTS { xfVc3TtpAlarmStatusEntry }
+    ::= { xfVc3TtpAlarmSeverityTable 1 }
+
+
+XfVc3TtpAlarmSeverityEntry ::=
+    SEQUENCE  {
+        xfVc3TtpAlarmSeverityAis            XfAlarmSeverity,
+        xfVc3TtpAlarmSeverityRdi            XfAlarmSeverity,
+        xfVc3TtpAlarmSeverityExc            XfAlarmSeverity,
+        xfVc3TtpAlarmSeverityDeg            XfAlarmSeverity,
+        xfVc3TtpAlarmSeverityTim            XfAlarmSeverity,
+        xfVc3TtpAlarmSeverityUneq           XfAlarmSeverity,
+        xfVc3TtpAlarmSeverityLop            XfAlarmSeverity,
+        xfVc3TtpAlarmSeverityPlm            XfAlarmSeverity,
+        xfVc3TtpAlarmSeverityUastne         XfAlarmSeverity,
+        xfVc3TtpAlarmSeverityUastfe         XfAlarmSeverity
+    }
+
+
+xfVc3TtpAlarmSeverityAis OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the TU AIS failure.
+        "
+    ::= { xfVc3TtpAlarmSeverityEntry 1 }
+
+xfVc3TtpAlarmSeverityRdi OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Remote Defect Indication failure."
+    ::= { xfVc3TtpAlarmSeverityEntry 2 }
+
+xfVc3TtpAlarmSeverityExc OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Excesssive Errors failure."
+    ::= { xfVc3TtpAlarmSeverityEntry 3 }
+
+xfVc3TtpAlarmSeverityDeg OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Degraded failure."
+    ::= { xfVc3TtpAlarmSeverityEntry 4 }
+
+xfVc3TtpAlarmSeverityTim OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the VC3 Trace Identifier Mismatch failure."
+    ::= { xfVc3TtpAlarmSeverityEntry 5 }
+
+xfVc3TtpAlarmSeverityUneq OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Unequipped Indication failure."
+    ::= { xfVc3TtpAlarmSeverityEntry 6 }
+
+xfVc3TtpAlarmSeverityLop OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the TU Loss of Pointer failure."
+    ::= { xfVc3TtpAlarmSeverityEntry 7 }
+
+xfVc3TtpAlarmSeverityPlm OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Payload Mismatch failure."
+    ::= { xfVc3TtpAlarmSeverityEntry 8 }
+
+xfVc3TtpAlarmSeverityUastne OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the near end Unavailable State failure."
+    ::= { xfVc3TtpAlarmSeverityEntry 9 }
+
+xfVc3TtpAlarmSeverityUastfe OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the far end Unavailable State failure."
+    ::= { xfVc3TtpAlarmSeverityEntry 10 }
+
+-- xfSdhNe alarm severity of interface - TU12CTP
+
+xfTu12CtpAlarmSeverityTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfTu12CtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm severity defined for the TU12CTP."
+    ::= { xfAdmAlarmSeverity 9 }
+
+
+
+xfTu12CtpAlarmSeverityEntry OBJECT-TYPE
+    SYNTAX      XfTu12CtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped.
+        "
+    AUGMENTS { xfTu12CtpAlarmStatusEntry }
+    ::= { xfTu12CtpAlarmSeverityTable 1 }
+
+
+
+XfTu12CtpAlarmSeverityEntry ::=
+    SEQUENCE  {
+        xfTu12CtpAlarmSeverityAis           XfAlarmSeverity,
+        xfTu12CtpAlarmSeverityRdi           XfAlarmSeverity,
+        xfTu12CtpAlarmSeverityExc           XfAlarmSeverity,
+        xfTu12CtpAlarmSeverityDeg           XfAlarmSeverity,
+        xfTu12CtpAlarmSeverityTim           XfAlarmSeverity,
+        xfTu12CtpAlarmSeverityUneq          XfAlarmSeverity,
+        xfTu12CtpAlarmSeverityLop           XfAlarmSeverity,
+        xfTu12CtpAlarmSeverityLom           XfAlarmSeverity,
+        xfTu12CtpAlarmSeverityUastne        XfAlarmSeverity,
+        xfTu12CtpAlarmSeverityUastfe        XfAlarmSeverity
+    }
+
+
+xfTu12CtpAlarmSeverityAis OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the TU AIS failure."
+    ::= { xfTu12CtpAlarmSeverityEntry 1 }
+
+xfTu12CtpAlarmSeverityRdi OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Remote Defect Indication failure."
+    ::= { xfTu12CtpAlarmSeverityEntry 2 }
+
+xfTu12CtpAlarmSeverityExc OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Excesssive Errors failure."
+    ::= { xfTu12CtpAlarmSeverityEntry 3 }
+
+xfTu12CtpAlarmSeverityDeg OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Degraded failure."
+    ::= { xfTu12CtpAlarmSeverityEntry 4 }
+
+xfTu12CtpAlarmSeverityTim OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the VC12 Trace Identifier Mismatch failure."
+    ::= { xfTu12CtpAlarmSeverityEntry 5 }
+
+xfTu12CtpAlarmSeverityUneq OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Unequipped Indication failure."
+    ::= { xfTu12CtpAlarmSeverityEntry 6 }
+
+xfTu12CtpAlarmSeverityLop OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the TU Loss of Pointer failure."
+    ::= { xfTu12CtpAlarmSeverityEntry 7 }
+
+xfTu12CtpAlarmSeverityLom OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Loss of Multiframe failure."
+    ::= { xfTu12CtpAlarmSeverityEntry 8 }
+
+xfTu12CtpAlarmSeverityUastne OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the near end Unavailable State failure."
+    ::= { xfTu12CtpAlarmSeverityEntry 9 }
+
+
+xfTu12CtpAlarmSeverityUastfe OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the far end Unavailable State failure."
+    ::= { xfTu12CtpAlarmSeverityEntry 10 }
+
+-- xfSdhNe alarm severity of interface - VC12TTP
+
+xfVc12TtpAlarmSeverityTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF XfVc12TtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "This table lists all alarm severity defined for the VC12TTP."
+    ::= { xfAdmAlarmSeverity 10 }
+
+
+
+xfVc12TtpAlarmSeverityEntry OBJECT-TYPE
+    SYNTAX      XfVc12TtpAlarmSeverityEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION
+        "An entry will be automatically created only when the
+        particular equipment, related to this interface
+        has been equipped or if this interface is allocated to a VCG.
+        An entry will be automatically deleted when the
+        particular equipment, related to this interface
+        has been de-equipped or if this interface is not allocated to a VCG anymore.
+        "
+    AUGMENTS { xfVc12TtpAlarmStatusEntry }
+    ::= { xfVc12TtpAlarmSeverityTable 1 }
+
+
+
+XfVc12TtpAlarmSeverityEntry ::=
+    SEQUENCE  {
+        xfVc12TtpAlarmSeverityAis           XfAlarmSeverity,
+        xfVc12TtpAlarmSeverityRdi           XfAlarmSeverity,
+        xfVc12TtpAlarmSeverityExc           XfAlarmSeverity,
+        xfVc12TtpAlarmSeverityDeg           XfAlarmSeverity,
+        xfVc12TtpAlarmSeverityTim           XfAlarmSeverity,
+        xfVc12TtpAlarmSeverityUneq          XfAlarmSeverity,
+        xfVc12TtpAlarmSeverityLop           XfAlarmSeverity,
+        xfVc12TtpAlarmSeverityPlm           XfAlarmSeverity,
+        xfVc12TtpAlarmSeverityLom           XfAlarmSeverity,
+        xfVc12TtpAlarmSeverityUastne        XfAlarmSeverity,
+        xfVc12TtpAlarmSeverityUastfe        XfAlarmSeverity
+    }
+
+
+xfVc12TtpAlarmSeverityAis OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the TU AIS failure."
+    ::= { xfVc12TtpAlarmSeverityEntry 1 }
+
+xfVc12TtpAlarmSeverityRdi OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Remote Defect Indication failure."
+    ::= { xfVc12TtpAlarmSeverityEntry 2 }
+
+xfVc12TtpAlarmSeverityExc OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Excesssive Errors failure."
+    ::= { xfVc12TtpAlarmSeverityEntry 3 }
+
+xfVc12TtpAlarmSeverityDeg OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Degraded failure."
+    ::= { xfVc12TtpAlarmSeverityEntry 4 }
+
+xfVc12TtpAlarmSeverityTim OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the VC12 Trace Identifier Mismatch failure."
+    ::= { xfVc12TtpAlarmSeverityEntry 5 }
+
+xfVc12TtpAlarmSeverityUneq OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Unequipped Indication failure."
+    ::= { xfVc12TtpAlarmSeverityEntry 6 }
+
+
+xfVc12TtpAlarmSeverityLop OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the TU Loss of Pointer failure."
+    ::= { xfVc12TtpAlarmSeverityEntry 7 }
+
+xfVc12TtpAlarmSeverityPlm OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Payload Mismatch failure."
+    ::= { xfVc12TtpAlarmSeverityEntry 8 }
+
+xfVc12TtpAlarmSeverityLom OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the Loss of Multiframe failure."
+    ::= { xfVc12TtpAlarmSeverityEntry 9 }
+
+xfVc12TtpAlarmSeverityUastne OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the near end Unavailable State failure."
+    ::= { xfVc12TtpAlarmSeverityEntry 10 }
+
+xfVc12TtpAlarmSeverityUastfe OBJECT-TYPE
+    SYNTAX XfAlarmSeverity
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION
+        "Severity of the far end Unavailable State failure."
+    ::= { xfVc12TtpAlarmSeverityEntry 11 }
+
+END

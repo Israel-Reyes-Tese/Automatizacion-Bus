@@ -1,0 +1,579 @@
+--
+--
+-- Copyright (c) 2006 CA. All rights reserved.
+--
+-- This software and all information contained therein is confidential
+-- and proprietary and shall not be duplicated, used, disclosed or
+-- disseminated in any way except as authorized by the applicable 
+-- license agreement, without the express written permission of CA.
+-- All authorized reproductions must be marked with this language.
+--
+-- EXCEPT AS SET FORTH IN THE APPLICABLE LICENSE AGREEMENT, 
+-- TO THE EXTENT PERMITTED BY APPLICABLE LAW, CA PROVIDES THIS 
+-- SOFTWARE WITHOUT WARRANTY OF ANY KIND, INCLUDING WITHOUT LIMITATION,
+-- ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A 
+-- PARTICULAR PURPOSE. IN NO EVENT WILL CA BE LIABLE TO THE END USER 
+-- OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, DIRECT OR INDIRECT, FROM 
+-- THE USE OF THIS SOFTWARE, INCLUDING WITHOUT LIMITATION, LOST 
+-- PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA 
+-- IS EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE
+--
+--
+--  Date:      12/16/97
+--
+--  Revision:  1.0
+--
+--
+--  Changes:
+--
+--  10/16/06    brad		Updated Description of nhExceptionType
+--  07/11/05    alosikov    PRD #14493 remove mistype double quote
+--  01/08/03	kmj			Added IMPORT statement for DisplayString (PT 27825).
+--  08/12/02	rbm			Added OpenView Severity  to nhLiveAlarm, nhLiveClearAlarm.
+--  06/27/02	smittal		Added nhEventCarrier, nhElementAlias, nhComponent, 
+--							nhDescription to nhLiveAlarm and nhLiveClearAlarm.
+--  05/15/00	karen		reworded descriptions
+--  04/12/00	karen		removed resetDisplayStr
+--  03/29/00	karen		modified health report traps for drilldowns
+--  03/27/00	karen		added duration and problemStart to le trap
+--  03/23/00	leyboi		added drilldown fields to health report traps
+--  03/21/00	karen		changed nhLiveUpdateExceptions -> nhLiveUpdateException
+--  02/02/00	karen		add nhLiveResetExceptions and severity to
+--							nhLiveException and nhLiveClearException 
+--							added nhProfile to exceptions and alarms
+--  01/10/00	karen		removed exceptionKey and techType 
+-- 							added to exceptionId and elementId 
+--  01/03/00	karen		added exceptionKey, techType; removed 
+--							alarmTime, alarmId, elementId
+--  12/13/99	karen		Changed trigger to alarm
+--  11/01/99	karen		Modified traps for live exceptions (again)
+--  11/01/99	karen		Modified traps for live exceptions
+--  11/01/99	karen		Added traps for live exceptions
+--  10/05/98	aludlam		Added netHealthException
+--	12/16/97	leyboi		Initial version
+--
+----------------------------------------------------------------------
+
+DiagnosticsMonitor DEFINITIONS ::= BEGIN
+
+IMPORTS	
+	enterprises, IpAddress		FROM RFC1155-SMI
+	OBJECT-TYPE					FROM RFC-1212
+	DisplayString				FROM RFC1213-MIB
+	TRAP-TYPE					FROM RFC-1215;
+
+concord								OBJECT IDENTIFIER ::= { enterprises 149 }
+
+netHealth							OBJECT IDENTIFIER ::= { concord 2 }
+
+netHealthMib						OBJECT IDENTIFIER ::= { netHealth 1 }	
+nhSysInfo								OBJECT IDENTIFIER ::= { netHealth 2 }	
+nhArgs								OBJECT IDENTIFIER ::= { netHealth 3 }	
+nhdTraps							OBJECT IDENTIFIER ::= { netHealthMib 1 }
+
+
+nhdServer							OBJECT IDENTIFIER ::= { nhdTraps 1 }
+nhdError							OBJECT IDENTIFIER ::= { nhdTraps 2 }
+
+-- HP OpenView MIB objects
+hp 			OBJECT IDENTIFIER ::= { enterprises 11 }
+nm			OBJECT IDENTIFIER ::= { hp 2 }
+openView		OBJECT IDENTIFIER ::= { nm 17 }
+openViewTrapVars 	OBJECT IDENTIFIER ::= { openView 2 }
+
+openViewSeverity OBJECT-TYPE
+	SYNTAX	OCTET STRING
+	ACCESS	read-only
+	STATUS	mandatory
+	DESCRIPTION
+		"The OpenView event severity associated with the trap/event.
+
+		 This object cannot be retrieved from the SNMP agent."
+	::= { openViewTrapVars 5 }
+
+-- MIB Object Identifiers
+
+nhServerIp OBJECT-TYPE
+    SYNTAX	IpAddress
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object specifies the IP address of the  
+             eHealth server."
+	::= { nhSysInfo 1 }
+
+nhServerName OBJECT-TYPE
+    SYNTAX	DisplayString
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object specifies the name of the  
+             eHealth server."
+	::= { nhSysInfo 2 }
+
+nhServerPort OBJECT-TYPE
+    SYNTAX	INTEGER
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object specifies the port number of the  
+             eHealth server."
+	::= { nhSysInfo 3 }
+
+nhElementIp OBJECT-TYPE
+    SYNTAX	IpAddress
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object specifies the IP address of a 
+             eHealth element."
+	::= { nhArgs 1 }
+
+nhElementName OBJECT-TYPE
+    SYNTAX	DisplayString
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object specifies the name of a 
+             eHealth element."
+	::= { nhArgs 2 }
+
+nhElementId OBJECT-TYPE
+    SYNTAX	INTEGER
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object specifies the database identifier of a eHealth
+			 element."
+	::= { nhArgs 3 }
+
+nhStartTime OBJECT-TYPE
+    SYNTAX	INTEGER
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is the UTC time that the exception or alarm was 
+			 detected by LiveExceptions."
+	::= { nhArgs 4 }
+
+nhExceptionType OBJECT-TYPE
+	SYNTAX	DisplayString
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object specifies the algorithm(s) used to detect the 
+			 alarm. The algorithms are as follows (where the MIB object
+			 contests are specified in ()). 
+			 Time Over Threshold 		(timeOverThreshold)
+			 Deviation From Normal 		(unusualValue)
+			 Dynamic Threshold 			(dynamicThreshold)
+			 Availability < 100% 		(unavailable)
+			 Reachability < 100%		(unreachable)
+			 Polled Events 				(polledEvents)
+			 Basic Event				(basicEvent)
+			 Rate Event					(rateEvent)
+			 Time Over Threshold Event 	(timeOverThresholdevent)"
+	::= { nhArgs 5 }
+
+nhVariable OBJECT-TYPE
+    SYNTAX	DisplayString
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object defines the variable(s) used in the rule 
+			 that created the alarm."
+	::= { nhArgs 6 }
+
+nhSeverity OBJECT-TYPE
+    SYNTAX	INTEGER {
+ 		normal		(1),
+ 		warning		(2),
+ 		minor		(3),
+ 		major		(4),
+ 		critical	(5)
+ 	}
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is the severity level of the alarm. The user 
+			 can view/modify the severity of a rule in the LiveExceptions
+			 Rule Editor."
+	::= { nhArgs 7 }
+
+nhGroup OBJECT-TYPE
+    SYNTAX	DisplayString
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object defines the group that LiveExceptions is monitoring and
+			 that contains the element that has an alarm or exception. This object
+			 value will be blank if LiveExceptions is monitoring a group list."
+	::= { nhArgs 8 }
+
+nhGroupList OBJECT-TYPE
+    SYNTAX	DisplayString
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object defines the group list that LiveExceptions is monitoring and
+			 that contains the element that has an alarm or exception. This object
+			 value will be blank if LiveExceptions is monitoring a group."
+	::= { nhArgs 9 }
+
+nhDisplayStr OBJECT-TYPE
+    SYNTAX	DisplayString
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object describes the rule which triggered the alarm. This field
+		     is blank for exceptions. The Rule Message can be viewed/modified
+			 in the LiveExceptions Rule Editor."
+	::= { nhArgs 10 }
+
+nhExceptionId OBJECT-TYPE
+    SYNTAX	INTEGER
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object defines a unique ID for the exception (Profile ID)
+			 or the alarm (Alarm ID). It is used to run eHealth reports."
+	::= { nhArgs 11 }
+
+nhTechType OBJECT-TYPE
+    SYNTAX	DisplayString
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object defines the technology type of the group or group list."
+	::= { nhArgs 12 }
+
+nhResetTime OBJECT-TYPE
+    SYNTAX	INTEGER
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is the UTC time that the LiveExceptions server started."
+	::= { nhArgs 13 }
+
+nhProfile OBJECT-TYPE
+    SYNTAX	DisplayString
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is the name of the profile for this alarm or exception."
+	::= { nhArgs 14 }
+
+nhProblemStartTime OBJECT-TYPE
+    SYNTAX	INTEGER
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is the UTC time when the threshold was first crossed and
+			 that later resulted in an alarm or exception for that element."
+	::= { nhArgs 15 }
+
+nhProblemDuration OBJECT-TYPE
+    SYNTAX	INTEGER
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is the amount of time (in seconds) spent over the 
+			 threshold since the problem start time (the time the threshold was  
+			 first crossed)."
+	::= { nhArgs 16 }
+
+nhEventCarrier OBJECT-TYPE
+    SYNTAX	DisplayString
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is a description of the event that triggered the alarm. 
+			 It includes the protocol over which the event occurred (such as Trap), 
+			 and the protocol-specific name of the event (such as linkDown)."
+	::= { nhArgs 17 }
+
+nhElementAlias OBJECT-TYPE
+    SYNTAX	DisplayString
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object specifies the alias name of a eHealth element."
+	::= { nhArgs 18 }
+
+nhComponent OBJECT-TYPE
+    SYNTAX	DisplayString
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object specifies part of the device or system that is the subject of an event."
+	::= { nhArgs 19 }
+
+nhDescription OBJECT-TYPE
+    SYNTAX	DisplayString
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object specifies additional information about an alarm. This object 
+			 has value only if your eHealth system has Live Health - Fault Manager."
+	::= { nhArgs 20 }
+
+nhAlarmOccurId OBJECT-TYPE
+    SYNTAX	INTEGER
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is the alarm occurence id of the alarm"
+	::= { nhArgs 21 }
+
+nhProfileId OBJECT-TYPE
+    SYNTAX	INTEGER
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is the profileId for this alarm or exception."
+	::= { nhArgs 22 }
+
+nhElementBasetype OBJECT-TYPE
+    SYNTAX	DisplayString
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is the base element type of the element
+			generating the alarm"
+	::= { nhArgs 23 }
+
+nhdErrorDate OBJECT-TYPE
+    SYNTAX	OCTET STRING
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is the date the exception occurred."
+	::= { nhdError 1 }							
+
+nhdErrorTime OBJECT-TYPE
+    SYNTAX	OCTET STRING
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is the time the exception occurred."
+	::= { nhdError 2  }
+
+nhdErrorCode OBJECT-TYPE
+    SYNTAX	OCTET STRING
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is the variable that has caused the exception."
+	::= { nhdError 3 }
+
+nhdErrorMessage OBJECT-TYPE
+    SYNTAX	OCTET STRING
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object describes the reason for the exception."
+	::= { nhdError 5 }
+
+nhdServerIp OBJECT-TYPE
+    SYNTAX	IpAddress
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is the IP address of the element that has the exception."
+	::= { nhdServer 1 }
+
+nhdServerName OBJECT-TYPE
+    SYNTAX	OCTET STRING
+	ACCESS  read-only
+	STATUS  mandatory
+	DESCRIPTION
+		    "This object is the name of the element that has the exception."
+	::= { nhdServer 2 }
+
+netHealthInfo TRAP-TYPE
+	ENTERPRISE	concord
+	VARIABLES	{ nhdErrorDate, nhdErrorTime,
+				  nhdErrorCode, nhdErrorMessage, 
+				  nhdServerIp, nhdServerName, nhServerPort, nhElementId			
+				}
+	DESCRIPTION
+		"An event (not an error) has occurred in eHealth.
+		 This trap is an informational message from the eHealth 
+		 Diagnostic Monitor. No action is required."
+	::= 15
+
+netHealthWarning TRAP-TYPE
+	ENTERPRISE	concord
+	VARIABLES	{ nhdErrorDate, nhdErrorTime,
+				  nhdErrorCode, nhdErrorMessage,
+				  nhdServerIp, nhdServerName		
+				}
+	DESCRIPTION
+		"An error has occurred in eHealth.
+		 Polling will continue, please investigate as 
+		 soon as possible. This trap is sent from the eHealth 
+		 Diagnostic Monitor."
+	::= 16
+
+netHealthReset TRAP-TYPE
+	ENTERPRISE	concord
+	VARIABLES	{ nhdErrorDate, nhdErrorTime,
+				  nhdErrorCode, nhdErrorMessage,
+				  nhdServerIp, nhdServerName		
+				}
+	DESCRIPTION
+		"A system critical error has occurred in eHealth.
+		 Polling may not occur. Restart the eHealth servers as
+		 soon as possible. This trap is sent from the eHealth 
+		 Diagnostic Monitor."
+	::= 17
+
+netHealthUrgent TRAP-TYPE
+	ENTERPRISE	concord
+	VARIABLES	{ nhdErrorDate, nhdErrorTime,
+				  nhdErrorCode, nhdErrorMessage,
+				  nhdServerIp, nhdServerName		
+				}
+	DESCRIPTION
+		"A system critical error has occurred in eHealth.
+		 Polling may not occur. System administrator intervention 
+		 is required. This trap is sent from the eHealth 
+		 Diagnostic Monitor."
+	::= 18
+
+netHealthException TRAP-TYPE
+ENTERPRISE	concord
+VARIABLES	{ nhdErrorDate, nhdErrorTime,
+nhdErrorCode, nhdErrorMessage,
+nhdServerName, nhdServerIp, nhServerPort, nhElementId,
+nhServerIp	
+}
+DESCRIPTION
+"A scheduled eHealth report has detected one or more health
+exceptions for an element."
+::= 19
+
+-- nhLiveException is deprecated
+--				  openViewSeverity (1.3.6.1.4.1.11.2.17.2.5.0) 
+--				  is also sent in this trap
+nhLiveException TRAP-TYPE
+	ENTERPRISE	concord
+	VARIABLES	{ nhServerIp, nhServerName,
+				  nhServerPort, nhElementIp, nhElementName, 
+				  nhElementId,
+				  nhStartTime,
+				  nhDisplayStr,	
+				  nhGroup, nhGroupList,
+				  nhSeverity,
+				  nhProfile,
+				  nhExceptionId, nhTechType
+				}
+	DESCRIPTION
+		"A eHealth exception has occurred. This trap
+		 sends generic information about an exception when it first becomes
+		 active. Deprecated in eHealth 5.6 Release."
+	::= 20
+
+
+nhLiveAlarm TRAP-TYPE
+	ENTERPRISE	concord
+	VARIABLES	{ nhServerIp, nhServerName,
+				  nhServerPort, nhElementIp, nhElementName, 
+				  nhElementId,
+				  nhStartTime,
+				  nhDisplayStr,	
+				  nhGroup, nhGroupList,	
+				  nhExceptionType, nhVariable,
+				  nhSeverity,
+				  openViewSeverity,
+				  nhProfile,
+				  nhExceptionId, nhTechType,
+				  nhEventCarrier, nhElementAlias,
+				  nhComponent, nhDescription,
+				  nhAlarmOccurId, nhProfileId, nhElementBasetype
+				}
+	DESCRIPTION
+		"A eHealth alarm has occurred. This trap
+		 sends detailed information about an alarm."
+	::= 21
+
+-- nhLiveClearException is deprecated
+--				  openViewSeverity (1.3.6.1.4.1.11.2.17.2.5.0) 
+--				  is also sent in this trap
+nhLiveClearException TRAP-TYPE
+	ENTERPRISE	concord
+	VARIABLES	{ nhServerIp, nhServerName,
+				  nhServerPort, nhElementIp, nhElementName, 
+				  nhElementId,
+				  nhStartTime, 
+				  nhDisplayStr,	
+				  nhGroup, nhGroupList,		
+				  nhSeverity,
+				  nhProfile,
+				  nhExceptionId, nhTechType,
+				  nhProblemStartTime, nhProblemDuration
+				}
+	DESCRIPTION
+		"A eHealth exception has been cleared. The conditions causing
+		 the corresponding exception no longer exist. Deprecated in eHealth 5.6 Release."
+	::= 22
+
+nhLiveClearAlarm TRAP-TYPE
+	ENTERPRISE	concord
+	VARIABLES	{ nhServerIp, nhServerName,
+				  nhServerPort, nhElementIp, nhElementName, 
+				  nhElementId,
+				  nhStartTime,
+				  nhDisplayStr,	
+				  nhGroup, nhGroupList,	
+				  nhExceptionType, nhVariable,
+				  nhSeverity,
+				  openViewSeverity,
+				  nhProfile,
+				  nhExceptionId, nhTechType,
+				  nhProblemStartTime, nhProblemDuration,
+  				  nhEventCarrier, nhElementAlias,
+				  nhComponent, nhDescription,
+				  nhAlarmOccurId
+				}
+	DESCRIPTION
+		"A eHealth alarm has been cleared. The conditions causing
+		 the corresponding alarm no longer exist."
+	::= 23
+
+-- nhLiveUpdateException is deprecated
+--				  openViewSeverity (1.3.6.1.4.1.11.2.17.2.5.0) 
+--				  is also sent in this trap
+nhLiveUpdateException TRAP-TYPE
+	ENTERPRISE	concord
+	VARIABLES	{ nhServerIp, nhServerName,
+				  nhServerPort, nhElementIp, nhElementName, 
+				  nhElementId,
+				  nhStartTime,
+				  nhDisplayStr,	
+				  nhGroup, nhGroupList,
+				  nhSeverity,
+				  nhProfile,
+				  nhExceptionId, nhTechType
+				}
+	DESCRIPTION
+		"The severity of a eHealth exception has changed. 
+		 Deprecated in eHealth 5.6 Release."
+	::= 24
+
+nhLiveResetExceptions TRAP-TYPE
+	ENTERPRISE	concord
+	VARIABLES	{ nhServerIp, nhServerName,
+				  nhServerPort, nhResetTime
+				}
+	DESCRIPTION
+		    "The LiveExceptions server has restarted. All LiveExceptions alarms 
+		     and exceptions sent before this time will NOT be cleared automatically. All trap 
+			 destinations should reset any pre-existing eHealth exceptions 
+			 and alarms by setting them to a clear state or unhighlighting
+			 any icons."
+	::= 25
+
+END
+
+

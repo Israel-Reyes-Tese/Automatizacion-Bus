@@ -215,7 +215,10 @@ sub create_entry_with_label_and_button {
 
 # Function to create an alert with picture, label, and button(s)
 sub create_alert_with_picture_label_and_button {
-    my ($parent, $title, $message, $type) = @_;
+    my ($parent, $title, $message, $type, $texto_b_l, $text_b_r) = @_;
+    $texto_b_l //= 'Si';  # Valor predeterminado si no se proporciona
+    $text_b_r //= 'No';  # Valor predeterminado si no se proporciona
+
     my $alert_window = $parent->Toplevel();
     $alert_window->title($title);
     $alert_window->geometry('300x200+400+200');
@@ -264,24 +267,46 @@ sub create_alert_with_picture_label_and_button {
     # Capture all events to this window
     $alert_window->grab();
 
-    if ($type eq 'success' || $type eq 'error') {
-        $button_frame->Button(-text => 'Aceptar', -command => sub { $alert_window->destroy() }, 
+    if ($type eq 'success') {
+        
+        $button_frame->Button(-text => 'Continuar', -command => sub { $alert_window->destroy() }, 
         -bg => $herramientas::Estilos::modern_button_bg, 
         -fg => $herramientas::Estilos::modern_button_fg, 
         -font => $herramientas::Estilos::modern_button_font,
         -activebackground => $herramientas::Estilos::modern_button_active_bg, 
         -activeforeground => $herramientas::Estilos::modern_button_active_fg
         )->pack(-side => 'top', -padx => 10, -pady => 5);
-    } elsif ($type eq 'question') {
+
+
+    }  elsif ($type eq 'error') {
+
+        $button_frame->Button(-text => 'Continuar', -command => sub { $alert_window->destroy() }, 
+        -bg => $herramientas::Estilos::modern_button_bg, 
+        -fg => $herramientas::Estilos::modern_button_fg, 
+        -font => $herramientas::Estilos::modern_button_font,
+        -activebackground => $herramientas::Estilos::modern_button_active_bg, 
+        -activeforeground => $herramientas::Estilos::modern_button_active_fg
+        )->pack(-side => 'top', -padx => 10, -pady => 5);
+        
+        $button_frame->Button(-text => 'Detener', -command => sub { $alert_window->destroy(); $parent->destroy() },
+        -bg => $herramientas::Estilos::modern_button_bg,
+        -fg => $herramientas::Estilos::modern_button_fg,
+        -font => $herramientas::Estilos::modern_button_font,
+        -activebackground => $herramientas::Estilos::modern_button_active_bg,
+        -activeforeground => $herramientas::Estilos::modern_button_active_fg
+        )->pack(-side => 'top', -padx => 10, -pady => 5);
+
+
+    }  elsif ($type eq 'question') {
         my $response;
-        $button_frame->Button(-text => 'Si', -command => sub { $alert_window->destroy(); $response = 1; }, 
+        $button_frame->Button(-text => $texto_b_l, -command => sub { $alert_window->destroy(); $response = 1; }, 
             -bg => $herramientas::Estilos::modern_button_bg, 
             -fg => $herramientas::Estilos::modern_button_fg, 
             -font => $herramientas::Estilos::modern_button_font,
             -activebackground => $herramientas::Estilos::modern_button_active_bg, 
             -activeforeground => $herramientas::Estilos::modern_button_active_fg
         )->pack(-side => 'left', -padx => 10, -pady => 5);
-        $button_frame->Button(-text => 'No', -command => sub { $alert_window->destroy(); $response = 0; }, 
+        $button_frame->Button(-text => $text_b_r, -command => sub { $alert_window->destroy(); $response = 0; }, 
             -bg => $herramientas::Estilos::modern_button_bg, 
             -fg => $herramientas::Estilos::modern_button_fg, 
             -font => $herramientas::Estilos::modern_button_font,

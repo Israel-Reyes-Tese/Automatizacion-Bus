@@ -1,0 +1,1824 @@
+--
+-- Mobileum VPE MIB definition.
+-- Release : 2.0
+-- Revision : 
+-- Revision date : 
+--
+-- This specification is supplied "AS IS," and no warranty,
+-- either expressed or implied, as to the use, operation, condition,
+-- or performance of the specification, is made by the publisher.
+--
+-- Publisher: Mobileum Inc., USA
+-- **************************************************************
+
+Roamware-VPE20-V2-MIB DEFINITIONS ::= BEGIN
+IMPORTS
+MODULE-IDENTITY, OBJECT-TYPE, NOTIFICATION-TYPE, enterprises,
+    TimeTicks, Counter32, IpAddress, Integer32
+        FROM SNMPv2-SMI
+    DisplayString
+        FROM SNMPv2-TC
+	OBJECT-GROUP
+        FROM SNMPv2-CONF
+		roamware, mobGenSeverity, mobGenDescription, mobGenPoolName, mobGenMachineID,
+	mobGenRemoteHostAddr, mobGenRemotePort, mobGenAlarmTime, mobGenThresholdValue,
+	mobGenSequenceNumber, mobGenNotificationId, mobGenServiceName, mobGenAlarmType, mobGenProbableCause,
+	mobGenCacheName, mobGenErrorText, mobGenThresholdLWM, mobGenThresholdHWM,
+	mobGenThresholdArmTime, mobGenThresholdName, mobGenUtilization, mobGenCapacity,
+	mobGenSourcePath, mobGenTargetPath, mobGenInstanceName, mobGenRole, mobGenFeatureName
+		FROM Roamware-SDS-V2-MIB;
+		
+vf-mob			MODULE-IDENTITY
+	LAST-UPDATED "201111080000Z"
+	ORGANIZATION "Roamware Inc."
+	CONTACT-INFO "info@roamware.com"
+	DESCRIPTION  "This is the top level entry for Roamware VPE 2.0"
+	REVISION     "201111080000Z"
+	DESCRIPTION  "Initial version."
+	::= { roamware 123 }		
+
+--
+-- VPE Caches Group
+--
+vfCacheGroup					OBJECT IDENTIFIER ::= { vf-mob 201 }					-- 1.3.6.1.4.1.11150.123.201
+
+
+vfPercentDistCache					OBJECT IDENTIFIER ::= { vfCacheGroup 1 }	-- 1.3.6.1.4.1.11150.123.201.1
+
+vfPercentDistCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the Percentage Distribution cache."
+		   ::= { vfPercentDistCache 1 }										-- 1.3.6.1.4.1.11150.123.201.1.1
+
+vfPercentDistCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The Percentage Distribution cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfPercentDistCache 2 }										-- 1.3.6.1.4.1.11150.123.201.1.2
+
+vfPercentDistCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of Percentage Distribution cache."
+		   ::= { vfPercentDistCache 3 }										-- 1.3.6.1.4.1.11150.123.201.1.3
+		   
+vfPercentDistCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the Percentage Distribution cache in the
+			 last one minute."
+		   ::= { vfPercentDistCache 4 }										-- 1.3.6.1.4.1.11150.123.201.1.4
+
+vfPercentDistCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in Percentage Distribution cache
+			 in the last one minute."
+		   ::= { vfPercentDistCache 5 }										-- 1.3.6.1.4.1.11150.123.201.1.5
+
+vfPercentDistCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing Percentage Distribution cache configuration properties."
+		   ::= { vfPercentDistCache 6 }										-- 1.3.6.1.4.1.11150.123.201.1.6
+
+
+vfMrfAnncTypeCache							OBJECT IDENTIFIER ::= { vfCacheGroup 2 }	-- 1.3.6.1.4.1.11150.123.201.2
+
+vfMrfAnncTypeCacheCount					OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS obsolete
+		   DESCRIPTION
+			 "This object returns the number of elements in the MRF announcement type cache."
+		   ::= { vfMrfAnncTypeCache 1 }										-- 1.3.6.1.4.1.11150.123.201.2.1
+
+vfMrfAnncTypeCacheCmdRefresh				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The MRF announcement type cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfMrfAnncTypeCache 2 }										-- 1.3.6.1.4.1.11150.123.201.2.2
+
+vfMrfAnncTypeCacheRefreshTime				OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of MRF announcement type cache."
+		   ::= { vfMrfAnncTypeCache 3 }										-- 1.3.6.1.4.1.11150.123.201.2.3
+		   
+vfMrfAnncTypeCacheMemHits					OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the MRF announcement type cache in the
+			 last one minute."
+		   ::= { vfMrfAnncTypeCache 4 }										-- 1.3.6.1.4.1.11150.123.201.2.4
+
+vfMrfAnncTypeCacheMisses					OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in MRF announcement type cache
+			 in the last one minute."
+		   ::= { vfMrfAnncTypeCache 5 }										-- 1.3.6.1.4.1.11150.123.201.2.5
+
+vfMrfAnncTypeCacheProps					OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing MRF announcement type cache configuration properties."
+		   ::= { vfMrfAnncTypeCache 6 }										-- 1.3.6.1.4.1.11150.123.201.2.6	
+
+
+vfHomeNetworkCache	OBJECT IDENTIFIER ::= { vfCacheGroup 3 }	-- 1.3.6.1.4.1.11150.123.201.3
+
+vfHomeNetworkCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS obsolete
+		   DESCRIPTION
+			 "This object returns the number of elements in the Home Network cache."
+		   ::= { vfHomeNetworkCache 1 }										-- 1.3.6.1.4.1.11150.123.201.3.1
+
+vfHomeNetworkCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The Home Network cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfHomeNetworkCache 2 }										-- 1.3.6.1.4.1.11150.123.201.3.2
+
+vfHomeNetworkCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of Home Network cache."
+		   ::= { vfHomeNetworkCache 3 }										-- 1.3.6.1.4.1.11150.123.201.3.3
+		   
+vfHomeNetworkCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the Home Network cache in the
+			 last one minute."
+		   ::= { vfHomeNetworkCache 4 }										-- 1.3.6.1.4.1.11150.123.201.3.4
+
+vfHomeNetworkCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in Home Network cache
+			 in the last one minute."
+		   ::= { vfHomeNetworkCache 5 }										-- 1.3.6.1.4.1.11150.123.201.3.5
+
+vfHomeNetworkCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing Home Network cache configuration properties."
+		   ::= { vfHomeNetworkCache 6 }										-- 1.3.6.1.4.1.11150.123.201.3.6	
+
+
+vfDenyAllowListCache 	OBJECT IDENTIFIER ::= { vfCacheGroup 4 }	-- 1.3.6.1.4.1.11150.123.201.4
+
+vfDenyAllowListCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS obsolete
+		   DESCRIPTION
+			 "This object returns the number of elements in the DenyList AllowList cache."
+		   ::= { vfDenyAllowListCache 1 }										-- 1.3.6.1.4.1.11150.123.201.4.1
+
+vfDenyAllowListCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The DenyList AllowList cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfDenyAllowListCache 2 }										-- 1.3.6.1.4.1.11150.123.201.4.2
+
+vfDenyAllowListCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of DenyList AllowList cache."
+		   ::= { vfDenyAllowListCache 3 }										-- 1.3.6.1.4.1.11150.123.201.4.3
+		   
+vfDenyAllowListCacheMemHits			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the DenyList AllowList cache in the
+			 last one minute."
+		   ::= { vfDenyAllowListCache 4 }										-- 1.3.6.1.4.1.11150.123.201.4.4
+
+vfDenyAllowListCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in DenyList AllowList cache
+			 in the last one minute."
+		   ::= { vfDenyAllowListCache 5 }										-- 1.3.6.1.4.1.11150.123.201.4.5
+
+vfDenyAllowListCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing DenyList AllowList cache configuration properties."
+		   ::= { vfDenyAllowListCache 6 }										-- 1.3.6.1.4.1.11150.123.201.4.6
+
+vfWorkFlowCache		 	    OBJECT IDENTIFIER ::= { vfCacheGroup 5 }			-- 1.3.6.1.4.1.11150.123.201.5
+
+vfWorkFlowCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the VPE Workflow Cache."
+		   ::= { vfWorkFlowCache 1 }										-- 1.3.6.1.4.1.11150.123.201.5.1
+
+vfWorkFlowCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The VPE Workflow Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfWorkFlowCache 2 }										-- 1.3.6.1.4.1.11150.123.201.5.2
+
+vfWorkFlowCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of VPE Workflow Cache."
+		   ::= { vfWorkFlowCache 3 }										-- 1.3.6.1.4.1.11150.123.201.5.3
+		   
+vfWorkFlowCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the VPE Workflow Cache in the
+			 last one minute."
+		   ::= { vfWorkFlowCache 4 }										-- 1.3.6.1.4.1.11150.123.201.5.4
+
+vfWorkFlowCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in VPE Workflow Cache
+			 in the last one minute."
+		   ::= { vfWorkFlowCache 5 }										-- 1.3.6.1.4.1.11150.123.201.5.5
+
+vfWorkFlowCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing VPE Workflow Cache configuration properties."
+		   ::= { vfWorkFlowCache 6 }							-- 1.3.6.1.4.1.11150.123.201.5.6	
+
+
+
+vfAllowanceTempCache				OBJECT IDENTIFIER ::= { vfCacheGroup 6 }		-- 1.3.6.1.4.1.11150.123.201.6
+
+
+vfAllowanceTempCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the VPE AllowanceTemp Cache."
+		   ::= { vfAllowanceTempCache 1 }					-- 1.3.6.1.4.1.11150.123.201.6.1
+
+vfAllowanceTempCacheCmdRefresh			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The VPE AllowanceTemp Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfAllowanceTempCache 2 }					-- 1.3.6.1.4.1.11150.123.201.6.2
+
+vfAllowanceTempCacheRefreshTime			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of VPE AllowanceTemp Cache."
+		   ::= { vfAllowanceTempCache 3 }					-- 1.3.6.1.4.1.11150.123.201.6.3
+		   
+vfAllowanceTempCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the VPE AllowanceTemp Cache in the
+			 last one minute."
+		   ::= { vfAllowanceTempCache 4 }					-- 1.3.6.1.4.1.11150.123.201.6.4
+
+vfAllowanceTempCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in VPE AllowanceTemp Cache
+			 in the last one minute."
+		   ::= { vfAllowanceTempCache 5 }					-- 1.3.6.1.4.1.11150.123.201.6.5
+
+vfAllowanceTempCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing VPE AllowanceTemp Cache configuration properties."
+		   ::= { vfAllowanceTempCache 6 }					-- 1.3.6.1.4.1.11150.123.201.6.6		    
+
+
+vfCallActionCache				OBJECT IDENTIFIER ::= { vfCacheGroup 7 }		-- 1.3.6.1.4.1.11150.123.201.7
+
+
+vfCallActionCacheCount				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the VPE Call Action Cache."
+		   ::= { vfCallActionCache 1 }					-- 1.3.6.1.4.1.11150.123.201.7.1
+
+vfCallActionCacheCmdRefresh			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The VPE Call Action Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfCallActionCache 2 }					-- 1.3.6.1.4.1.11150.123.201.7.2
+
+vfCallActionCacheRefreshTime			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of VPE Call Action Cache."
+		   ::= { vfCallActionCache 3 }					-- 1.3.6.1.4.1.11150.123.201.7.3
+		   
+vfCallActionCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the VPE Call Action Cache in the
+			 last one minute."
+		   ::= { vfCallActionCache 4 }					-- 1.3.6.1.4.1.11150.123.201.7.4
+
+vfCallActionCacheMisses				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in VPE Call Action Cache
+			 in the last one minute."
+		   ::= { vfCallActionCache 5 }					-- 1.3.6.1.4.1.11150.123.201.7.5
+
+vfCallActionCacheProps				OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing VPE Call Action Cache configuration properties."
+		   ::= { vfCallActionCache 6 }					-- 1.3.6.1.4.1.11150.123.201.7.6
+
+
+
+vfThresholdTempCache				OBJECT IDENTIFIER ::= { vfCacheGroup 8 }		-- 1.3.6.1.4.1.11150.123.201.8
+
+
+vfThresholdTempCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the VPE ThresholdTemp Cache."
+		   ::= { vfThresholdTempCache 1 }					-- 1.3.6.1.4.1.11150.123.201.8.1
+
+vfThresholdTempCacheCmdRefresh			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The VPE ThresholdTemp Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfThresholdTempCache 2 }					-- 1.3.6.1.4.1.11150.123.201.8.2
+
+vfThresholdTempCacheRefreshTime			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of VPE ThresholdTemp Cache."
+		   ::= { vfThresholdTempCache 3 }					-- 1.3.6.1.4.1.11150.123.201.8.3
+		   
+vfThresholdTempCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the VPE ThresholdTemp Cache in the
+			 last one minute."
+		   ::= { vfThresholdTempCache 4 }					-- 1.3.6.1.4.1.11150.123.201.8.4
+
+vfThresholdTempCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in VPE ThresholdTemp Cache
+			 in the last one minute."
+		   ::= { vfThresholdTempCache 5 }					-- 1.3.6.1.4.1.11150.123.201.8.5
+
+vfThresholdTempCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing VPE ThresholdTemp Cache configuration properties."
+		   ::= { vfThresholdTempCache 6 }					-- 1.3.6.1.4.1.11150.123.201.8.6
+
+
+vfThresholdMgmtCache				OBJECT IDENTIFIER ::= { vfCacheGroup 9 }		-- 1.3.6.1.4.1.11150.123.201.9
+
+
+vfThresholdMgmtCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the VPE ThresholdMgmt Cache."
+		   ::= { vfThresholdMgmtCache 1 }					-- 1.3.6.1.4.1.11150.123.201.9.1
+
+vfThresholdMgmtCacheCmdRefresh			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The VPE ThresholdMgmt Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfThresholdMgmtCache 2 }					-- 1.3.6.1.4.1.11150.123.201.9.2
+
+vfThresholdMgmtCacheRefreshTime			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of VPE ThresholdMgmt Cache."
+		   ::= { vfThresholdMgmtCache 3 }					-- 1.3.6.1.4.1.11150.123.201.9.3
+		   
+vfThresholdMgmtCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the ThresholdMgmt Cache in the
+			 last one minute."
+		   ::= { vfThresholdMgmtCache 4 }					-- 1.3.6.1.4.1.11150.123.201.9.4
+
+vfThresholdMgmtCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in VPE ThresholdMgmt Cache
+			 in the last one minute."
+		   ::= { vfThresholdMgmtCache 5 }					-- 1.3.6.1.4.1.11150.123.201.9.5
+
+vfThresholdMgmtCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing VPE ThresholdMgmt Cache configuration properties."
+		   ::= { vfThresholdMgmtCache 6 }					-- 1.3.6.1.4.1.11150.123.201.9.6
+
+
+
+vfUsageMeteringCache				OBJECT IDENTIFIER ::= { vfCacheGroup 10 }		-- 1.3.6.1.4.1.11150.123.201.10
+
+
+vfUsageMeteringCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the VPE Usage Metering Cache."
+		   ::= { vfUsageMeteringCache 1 }					-- 1.3.6.1.4.1.11150.123.201.10.1
+
+vfUsageMeteringCacheCmdRefresh			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The VPE Usage Metering Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfUsageMeteringCache 2 }					-- 1.3.6.1.4.1.11150.123.201.10.2
+
+vfUsageMeteringCacheRefreshTime			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of VPE Usage Metering Cache."
+		   ::= { vfUsageMeteringCache 3 }					-- 1.3.6.1.4.1.11150.123.201.10.3
+		   
+vfUsageMeteringCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the Usage Metering Cache in the
+			 last one minute."
+		   ::= { vfUsageMeteringCache 4 }					-- 1.3.6.1.4.1.11150.123.201.10.4
+
+vfUsageMeteringCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in VPE Usage Metering Cache
+			 in the last one minute."
+		   ::= { vfUsageMeteringCache 5 }					-- 1.3.6.1.4.1.11150.123.201.10.5
+
+vfUsageMeteringCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing VPE Usage Metering Cache configuration properties."
+		   ::= { vfUsageMeteringCache 6 }					-- 1.3.6.1.4.1.11150.123.201.10.6
+
+
+
+vfCurrentUsageCache				OBJECT IDENTIFIER ::= { vfCacheGroup 11 }		-- 1.3.6.1.4.1.11150.123.201.11
+
+
+vfCurrentUsageCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the VPE Current Usage Cache."
+		   ::= { vfCurrentUsageCache 1 }					-- 1.3.6.1.4.1.11150.123.201.11.1
+
+vfCurrentUsageCacheCmdRefresh			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The VPE Current Usage Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfCurrentUsageCache 2 }					-- 1.3.6.1.4.1.11150.123.201.11.2
+
+vfCurrentUsageCacheRefreshTime			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of VPE Current Usage Cache."
+		   ::= { vfCurrentUsageCache 3 }					-- 1.3.6.1.4.1.11150.123.201.11.3
+		   
+vfCurrentUsageCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the VPE Current Usage Cache in the
+			 last one minute."
+		   ::= { vfCurrentUsageCache 4 }					-- 1.3.6.1.4.1.11150.123.201.11.4
+
+vfCurrentUsageCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in VPE Current Usage Cache
+			 in the last one minute."
+		   ::= { vfCurrentUsageCache 5 }					-- 1.3.6.1.4.1.11150.123.201.11.5
+
+vfCurrentUsageCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing VPE Current Usage Cache configuration properties."
+		   ::= { vfCurrentUsageCache 6 }					-- 1.3.6.1.4.1.11150.123.201.11.6
+
+vfExceptionListCache		 	    OBJECT IDENTIFIER ::= { vfCacheGroup 12 }			-- 1.3.6.1.4.1.11150.123.201.12
+
+vfExceptionListCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the VPE Exception List Cache."
+		   ::= { vfExceptionListCache 1 }										-- 1.3.6.1.4.1.11150.123.201.12.1
+
+vfExceptionListCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The VPE Exception List Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfExceptionListCache 2 }										-- 1.3.6.1.4.1.11150.123.201.12.2
+
+vfExceptionListCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of VPE Exception List Cache."
+		   ::= { vfExceptionListCache 3 }										-- 1.3.6.1.4.1.11150.123.201.12.3
+		   
+vfExceptionListCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the VPE Exception List Cache in the
+			 last one minute."
+		   ::= { vfExceptionListCache 4 }										-- 1.3.6.1.4.1.11150.123.201.12.4
+
+vfExceptionListCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in VPE Exception List Cache
+			 in the last one minute."
+		   ::= { vfExceptionListCache 5 }										-- 1.3.6.1.4.1.11150.123.201.12.5
+
+vfExceptionListCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing VPE Exception List Cache configuration properties."
+		   ::= { vfExceptionListCache 6 }										-- 1.3.6.1.4.1.11150.123.201.12.6	
+
+vfEmailTempCache		 	    OBJECT IDENTIFIER ::= { vfCacheGroup 13 }			-- 1.3.6.1.4.1.11150.123.201.13
+
+vfEmailTempCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the VPE Email Template Cache."
+		   ::= { vfEmailTempCache 1 }										-- 1.3.6.1.4.1.11150.123.201.13.1
+
+vfEmailTempCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The VPE Email Template Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfEmailTempCache 2 }										-- 1.3.6.1.4.1.11150.123.201.13.2
+
+vfEmailTempCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of VPE Email Template Cache."
+		   ::= { vfEmailTempCache 3 }										-- 1.3.6.1.4.1.11150.123.201.13.3
+		   
+vfEmailTempCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the VPE Email Template Cache in the
+			 last one minute."
+		   ::= { vfEmailTempCache 4 }										-- 1.3.6.1.4.1.11150.123.201.13.4
+
+vfEmailTempCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in VPE Email Template Cache
+			 in the last one minute."
+		   ::= { vfEmailTempCache 5 }										-- 1.3.6.1.4.1.11150.123.201.13.5
+
+vfEmailTempCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing VPE Email Template Cache configuration properties."
+		   ::= { vfEmailTempCache 6 }										-- 1.3.6.1.4.1.11150.123.201.13.6		
+
+vfSMSTempCache		 	    OBJECT IDENTIFIER ::= { vfCacheGroup 14 }			-- 1.3.6.1.4.1.11150.123.201.14
+
+vfSMSTempCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the VPE SMS Template Cache."
+		   ::= { vfSMSTempCache 1 }										-- 1.3.6.1.4.1.11150.123.201.14.1
+
+vfSMSTempCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The VPE SMS Template Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfSMSTempCache 2 }										-- 1.3.6.1.4.1.11150.123.201.14.2
+
+vfSMSTempCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of VPE SMS Template Cache."
+		   ::= { vfSMSTempCache 3 }										-- 1.3.6.1.4.1.11150.123.201.14.3
+		   
+vfSMSTempCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the VPE SMS Template Cache in the
+			 last one minute."
+		   ::= { vfSMSTempCache 4 }										-- 1.3.6.1.4.1.11150.123.201.14.4
+
+vfSMSTempCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in VPE SMS Template Cache
+			 in the last one minute."
+		   ::= { vfSMSTempCache 5 }										-- 1.3.6.1.4.1.11150.123.201.14.5
+
+vfSMSTempCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing VPE SMS Template Cache configuration properties."
+		   ::= { vfSMSTempCache 6 }										-- 1.3.6.1.4.1.11150.123.201.14.6	
+
+vfMaxCallCounterCache		 	    OBJECT IDENTIFIER ::= { vfCacheGroup 15 }			-- 1.3.6.1.4.1.11150.123.201.15
+
+vfMaxCallCounterCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the VPE Max Call Counter Cache."
+		   ::= { vfMaxCallCounterCache 1 }										-- 1.3.6.1.4.1.11150.123.201.15.1
+
+vfMaxCallCounterCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The VPE Max Call Counter Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfMaxCallCounterCache 2 }										-- 1.3.6.1.4.1.11150.123.201.15.2
+
+vfMaxCallCounterCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of VPE Max Call Counter Cache."
+		   ::= { vfMaxCallCounterCache 3 }										-- 1.3.6.1.4.1.11150.123.201.15.3
+		   
+vfMaxCallCounterCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the VPE Max Call Counter Cache in the
+			 last one minute."
+		   ::= { vfMaxCallCounterCache 4 }										-- 1.3.6.1.4.1.11150.123.201.15.4
+
+vfMaxCallCounterCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in VPE Max Call Counter Cache
+			 in the last one minute."
+		   ::= { vfMaxCallCounterCache 5 }										-- 1.3.6.1.4.1.11150.123.201.15.5
+
+vfMaxCallCounterCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing VPE Max Call Counter Cache configuration properties."
+		   ::= { vfMaxCallCounterCache 6 }										-- 1.3.6.1.4.1.11150.123.201.15.6	
+
+vfGroupCache					OBJECT IDENTIFIER ::= { vfCacheGroup 16 }	-- 1.3.6.1.4.1.11150.123.201.16
+
+vfGroupCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the Group cache."
+		   ::= { vfGroupCache 1 }										-- 1.3.6.1.4.1.11150.123.201.16.1
+
+vfGroupCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The Group cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfGroupCache 2 }										-- 1.3.6.1.4.1.11150.123.201.16.2
+
+vfGroupCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of Group cache."
+		   ::= { vfGroupCache 3 }										-- 1.3.6.1.4.1.11150.123.201.16.3
+		   
+vfGroupCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the Group cache in the
+			 last one minute."
+		   ::= { vfGroupCache 4 }										-- 1.3.6.1.4.1.11150.123.201.16.4
+
+vfGroupCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in Group cache
+			 in the last one minute."
+		   ::= { vfGroupCache 5 }										-- 1.3.6.1.4.1.11150.123.201.16.5
+
+vfGroupCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing Group cache configuration properties."
+		   ::= { vfGroupCache 6 }										-- 1.3.6.1.4.1.11150.123.201.16.6		   
+
+vfNumberingPlanCache					OBJECT IDENTIFIER ::= { vfCacheGroup 17 }	-- 1.3.6.1.4.1.11150.123.201.17
+
+vfNumberingPlanCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the Numbering plan cache."
+		   ::= { vfNumberingPlanCache 1 }										-- 1.3.6.1.4.1.11150.123.201.17.1
+
+vfNumberingPlanCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The Numbering plan cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfNumberingPlanCache 2 }										-- 1.3.6.1.4.1.11150.123.201.17.2
+
+vfNumberingPlanCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of Numbering plan cache."
+		   ::= { vfNumberingPlanCache 3 }										-- 1.3.6.1.4.1.11150.123.201.17.3
+		   
+vfNumberingPlanCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the Numbering plan cache in the
+			 last one minute."
+		   ::= { vfNumberingPlanCache 4 }										-- 1.3.6.1.4.1.11150.123.201.17.4
+
+vfNumberingPlanCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in Numbering plan cache
+			 in the last one minute."
+		   ::= { vfNumberingPlanCache 5 }										-- 1.3.6.1.4.1.11150.123.201.17.5
+
+vfNumberingPlanCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing Numbering plan cache configuration properties."
+		   ::= { vfNumberingPlanCache 6 }										-- 1.3.6.1.4.1.11150.123.201.17.6		   
+
+vfTrunkIDCache					OBJECT IDENTIFIER ::= { vfCacheGroup 18 }	-- 1.3.6.1.4.1.11150.123.201.18
+
+vfTrunkIDCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the Trunk ID Cache."
+		   ::= { vfTrunkIDCache 1 }										-- 1.3.6.1.4.1.11150.123.201.18.1
+
+vfTrunkIDCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The Trunk ID Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfTrunkIDCache 2 }										-- 1.3.6.1.4.1.11150.123.201.18.2
+
+vfTrunkIDCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of Trunk ID Cache."
+		   ::= { vfTrunkIDCache 3 }										-- 1.3.6.1.4.1.11150.123.201.18.3
+		   
+vfTrunkIDCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the Trunk ID Cache in the
+			 last one minute."
+		   ::= { vfTrunkIDCache 4 }										-- 1.3.6.1.4.1.11150.123.201.18.4
+
+vfTrunkIDCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in Trunk ID Cache
+			 in the last one minute."
+		   ::= { vfTrunkIDCache 5 }										-- 1.3.6.1.4.1.11150.123.201.18.5
+
+vfTrunkIDCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing Trunk ID Cache configuration properties."
+		   ::= { vfTrunkIDCache 6 }										-- 1.3.6.1.4.1.11150.123.201.18.6		   
+		   
+vfRouteSetCache					OBJECT IDENTIFIER ::= { vfCacheGroup 19 }	-- 1.3.6.1.4.1.11150.123.201.19
+
+vfRouteSetCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the RouteSet Cache."
+		   ::= { vfRouteSetCache 1 }										-- 1.3.6.1.4.1.11150.123.201.19.1
+
+vfRouteSetCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The RouteSet Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfRouteSetCache 2 }										-- 1.3.6.1.4.1.11150.123.201.19.2
+
+vfRouteSetCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of RouteSet Cache."
+		   ::= { vfRouteSetCache 3 }										-- 1.3.6.1.4.1.11150.123.201.19.3
+		   
+vfRouteSetCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the RouteSet Cache in the
+			 last one minute."
+		   ::= { vfRouteSetCache 4 }										-- 1.3.6.1.4.1.11150.123.201.19.4
+
+vfRouteSetCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in RouteSet Cache
+			 in the last one minute."
+		   ::= { vfRouteSetCache 5 }										-- 1.3.6.1.4.1.11150.123.201.19.5
+
+vfRouteSetCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing RouteSet Cache configuration properties."
+		   ::= { vfRouteSetCache 6 }										-- 1.3.6.1.4.1.11150.123.201.19.6		   
+		   
+		   
+vfRoutePerDistCache					OBJECT IDENTIFIER ::= { vfCacheGroup 20 }	-- 1.3.6.1.4.1.11150.123.201.20
+
+vfRoutePerDistCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the Route Percentage Distribution Cache."
+		   ::= { vfRoutePerDistCache 1 }										-- 1.3.6.1.4.1.11150.123.201.20.1
+
+vfRoutePerDistCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The Route Percentage Distribution Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfRoutePerDistCache 2 }										-- 1.3.6.1.4.1.11150.123.201.20.2
+
+vfRoutePerDistCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of Route Percentage Distribution Cache."
+		   ::= { vfRoutePerDistCache 3 }										-- 1.3.6.1.4.1.11150.123.201.20.3
+		   
+vfRoutePerDistCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the Route Percentage Distribution Cache in the
+			 last one minute."
+		   ::= { vfRoutePerDistCache 4 }										-- 1.3.6.1.4.1.11150.123.201.20.4
+
+vfRoutePerDistCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in Route Percentage Distribution Cache
+			 in the last one minute."
+		   ::= { vfRoutePerDistCache 5 }										-- 1.3.6.1.4.1.11150.123.201.20.5
+
+vfRoutePerDistCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing Route Percentage Distribution Cache configuration properties."
+		   ::= { vfRoutePerDistCache 6 }										-- 1.3.6.1.4.1.11150.123.201.20.6		   
+		   
+vfSTIRASCache					OBJECT IDENTIFIER ::= { vfCacheGroup 21 }	-- 1.3.6.1.4.1.11150.123.201.21
+
+vfSTIRASCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the STIR AS Cache."
+		   ::= { vfSTIRASCache 1 }										-- 1.3.6.1.4.1.11150.123.201.21.1
+
+vfSTIRASCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The STIR AS Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfSTIRASCache 2 }										-- 1.3.6.1.4.1.11150.123.201.21.2
+
+vfSTIRASCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of STIR AS Cache."
+		   ::= { vfSTIRASCache 3 }										-- 1.3.6.1.4.1.11150.123.201.21.3
+		   
+vfSTIRASCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the STIR AS Cache in the
+			 last one minute."
+		   ::= { vfSTIRASCache 4 }										-- 1.3.6.1.4.1.11150.123.201.21.4
+
+vfSTIRASCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in STIR AS Cache
+			 in the last one minute."
+		   ::= { vfSTIRASCache 5 }										-- 1.3.6.1.4.1.11150.123.201.21.5
+
+vfSTIRASCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing STIR AS Cache configuration properties."
+		   ::= { vfSTIRASCache 6 }										-- 1.3.6.1.4.1.11150.123.201.21.6		   
+		   
+vfSTIRVSCache					OBJECT IDENTIFIER ::= { vfCacheGroup 22 }	-- 1.3.6.1.4.1.11150.123.201.22
+
+vfSTIRVSCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the STIR VS Cache."
+		   ::= { vfSTIRVSCache 1 }										-- 1.3.6.1.4.1.11150.123.201.22.1
+
+vfSTIRVSCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The STIR VS Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfSTIRVSCache 2 }										-- 1.3.6.1.4.1.11150.123.201.22.2
+
+vfSTIRVSCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of STIR VS Cache."
+		   ::= { vfSTIRVSCache 3 }										-- 1.3.6.1.4.1.11150.123.201.22.3
+		   
+vfSTIRVSCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the STIR VS Cache in the
+			 last one minute."
+		   ::= { vfSTIRVSCache 4 }										-- 1.3.6.1.4.1.11150.123.201.22.4
+
+vfSTIRVSCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in STIR VS Cache
+			 in the last one minute."
+		   ::= { vfSTIRVSCache 5 }										-- 1.3.6.1.4.1.11150.123.201.22.5
+
+vfSTIRVSCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing STIR VS Cache configuration properties."
+		   ::= { vfSTIRVSCache 6 }										-- 1.3.6.1.4.1.11150.123.201.22.6		
+
+vfSIPHeaderCache					OBJECT IDENTIFIER ::= { vfCacheGroup 23 }	-- 1.3.6.1.4.1.11150.123.201.23
+
+vfSIPHeaderCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the VFSIPHeader Cache."
+		   ::= { vfSIPHeaderCache 1 }										-- 1.3.6.1.4.1.11150.123.201.23.1
+
+vfSIPHeaderCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The VFSIPHeader Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfSIPHeaderCache 2 }										-- 1.3.6.1.4.1.11150.123.201.23.2
+
+vfSIPHeaderCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of VFSIPHeader Cache."
+		   ::= { vfSIPHeaderCache 3 }										-- 1.3.6.1.4.1.11150.123.201.23.3
+		   
+vfSIPHeaderCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the VFSIPHeader Cache in the
+			 last one minute."
+		   ::= { vfSIPHeaderCache 4 }										-- 1.3.6.1.4.1.11150.123.201.23.4
+
+vfSIPHeaderCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in VFSIPHeader Cache
+			 in the last one minute."
+		   ::= { vfSIPHeaderCache 5 }										-- 1.3.6.1.4.1.11150.123.201.23.5
+
+vfSIPHeaderCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing VFSIPHeader Cache configuration properties."
+		   ::= { vfSIPHeaderCache 6 }										-- 1.3.6.1.4.1.11150.123.201.23.6			      
+
+vfNANPCache					OBJECT IDENTIFIER ::= { vfCacheGroup 24 }	-- 1.3.6.1.4.1.11150.123.201.24
+
+vfNANPCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the VFNANP Cache."
+		   ::= { vfNANPCache 1 }										-- 1.3.6.1.4.1.11150.123.201.24.1
+
+vfNANPCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The VFNANP Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfNANPCache 2 }										-- 1.3.6.1.4.1.11150.123.201.24.2
+
+vfNANPCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of VFNANP Cache."
+		   ::= { vfNANPCache 3 }										-- 1.3.6.1.4.1.11150.123.201.24.3
+		   
+vfNANPCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the VFNANP Cache in the
+			 last one minute."
+		   ::= { vfNANPCache 4 }										-- 1.3.6.1.4.1.11150.123.201.24.4
+
+vfNANPCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in VFNANP Cache
+			 in the last one minute."
+		   ::= { vfNANPCache 5 }										-- 1.3.6.1.4.1.11150.123.201.24.5
+
+vfNANPCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing VFNANP Cache configuration properties."
+		   ::= { vfNANPCache 6 }										-- 1.3.6.1.4.1.11150.123.201.24.6			      
+
+vfTrunkGroupCache					OBJECT IDENTIFIER ::= { vfCacheGroup 25 }	-- 1.3.6.1.4.1.11150.123.201.25
+
+vfTrunkGroupCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the VFTrunkGroup Cache."
+		   ::= { vfTrunkGroupCache 1 }										-- 1.3.6.1.4.1.11150.123.201.25.1
+
+vfTrunkGroupCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The VFTrunkGroup Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfTrunkGroupCache 2 }										-- 1.3.6.1.4.1.11150.123.201.25.2
+
+vfTrunkGroupCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of VFTrunkGroup Cache."
+		   ::= { vfTrunkGroupCache 3 }										-- 1.3.6.1.4.1.11150.123.201.25.3
+		   
+vfTrunkGroupCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the VFTrunkGroup Cache in the
+			 last one minute."
+		   ::= { vfTrunkGroupCache 4 }										-- 1.3.6.1.4.1.11150.123.201.25.4
+
+vfTrunkGroupCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in VFTrunkGroup Cache
+			 in the last one minute."
+		   ::= { vfTrunkGroupCache 5 }										-- 1.3.6.1.4.1.11150.123.201.25.5
+
+vfTrunkGroupCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing VFTrunkGroup Cache configuration properties."
+		   ::= { vfTrunkGroupCache 6 }										-- 1.3.6.1.4.1.11150.123.201.25.6			      
+
+vfAsVsNwSettingCache					OBJECT IDENTIFIER ::= { vfCacheGroup 26 }	-- 1.3.6.1.4.1.11150.123.201.26
+
+vfAsVsNwSettingCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the vfAsVsNwSetting Cache."
+		   ::= { vfAsVsNwSettingCache 1 }										-- 1.3.6.1.4.1.11150.123.201.26.1
+
+vfAsVsNwSettingCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The vfAsVsNwSetting Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfAsVsNwSettingCache 2 }										-- 1.3.6.1.4.1.11150.123.201.26.2
+
+vfAsVsNwSettingCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of vfAsVsNwSetting Cache."
+		   ::= { vfAsVsNwSettingCache 3 }										-- 1.3.6.1.4.1.11150.123.201.26.3
+		   
+vfAsVsNwSettingCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the vfAsVsNwSetting Cache in the
+			 last one minute."
+		   ::= { vfAsVsNwSettingCache 4 }										-- 1.3.6.1.4.1.11150.123.201.26.4
+
+vfAsVsNwSettingCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in vfAsVsNwSetting Cache
+			 in the last one minute."
+		   ::= { vfAsVsNwSettingCache 5 }										-- 1.3.6.1.4.1.11150.123.201.26.5
+
+vfAsVsNwSettingCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing vfAsVsNwSetting Cache configuration properties."
+		   ::= { vfAsVsNwSettingCache 6 }										-- 1.3.6.1.4.1.11150.123.201.26.6	
+
+vfPrefixCache					OBJECT IDENTIFIER ::= { vfCacheGroup 26 }	-- 1.3.6.1.4.1.11150.123.201.27
+
+vfPrefixCacheCount			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "This object returns the number of elements in the vfPrefix Cache."
+		   ::= { vfPrefixCache 1 }										-- 1.3.6.1.4.1.11150.123.201.27.1
+
+vfPrefixCacheCmdRefresh		OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-write
+		   STATUS current
+		   DESCRIPTION
+			 "The vfPrefix Cache is refreshed when this parameter is SET with a non-zero value.
+			 GET on this parameter returns nothing useful."
+		   ::= { vfPrefixCache 2 }										-- 1.3.6.1.4.1.11150.123.201.27.2
+
+vfPrefixCacheRefreshTime		OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string containing the last refresh date/time of vfPrefix Cache."
+		   ::= { vfPrefixCache 3 }										-- 1.3.6.1.4.1.11150.123.201.27.3
+		   
+vfPrefixCacheMemHits			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was found in the vfPrefix Cache in the
+			 last one minute."
+		   ::= { vfPrefixCache 4 }										-- 1.3.6.1.4.1.11150.123.201.27.4
+
+vfPrefixCacheMisses			OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of times a parameter was not found in vfPrefix Cache
+			 in the last one minute."
+		   ::= { vfPrefixCache 5 }										-- 1.3.6.1.4.1.11150.123.201.27.5
+
+vfPrefixCacheProps			OBJECT-TYPE
+		   SYNTAX OCTET STRING
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns a string showing vfPrefix Cache configuration properties."
+		   ::= { vfPrefixCache 6 }										-- 1.3.6.1.4.1.11150.123.201.27.6	
+		   
+--
+-- VPE MT KPI Group
+--
+vfMTKPIGroup						OBJECT IDENTIFIER ::= { vf-mob 202 }						-- 1.3.6.1.4.1.11150.123.202
+
+--
+-- VPE KPI Group
+--
+vfMTCallKPIGroup				OBJECT IDENTIFIER ::= { vfMTKPIGroup 1 }					-- 1.3.6.1.4.1.11150.123.202.1
+
+
+vfMTCallAttempts				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Call attempts in last one minute"
+		   ::= { vfMTCallKPIGroup 1 }											-- 1.3.6.1.4.1.11150.123.202.1.1
+		   
+vfMTCallReleaseFixedError				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Call Released with Fixed Error in last one minute"
+		   ::= { vfMTCallKPIGroup 2 }											-- 1.3.6.1.4.1.11150.123.202.1.2
+
+vfMTCall302Redirected				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Call 302 Redirected in last one minute after applying VPE logic"
+		   ::= { vfMTCallKPIGroup 3 }											-- 1.3.6.1.4.1.11150.123.202.1.3
+
+vfMTCall305Redirected				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Call 305 Redirected in last one minute after applying VPE logic"
+		   ::= { vfMTCallKPIGroup 4 }											-- 1.3.6.1.4.1.11150.123.202.1.4
+
+vfMTCallCLIContinue				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Call CLI Continued in last one minute after applying VPE logic"
+		   ::= { vfMTCallKPIGroup 5 }											-- 1.3.6.1.4.1.11150.123.202.1.5
+
+vfMTCallIPIVR				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Call IP IVR in last one minute after applying VPE logic"
+		   ::= { vfMTCallKPIGroup 6 }											-- 1.3.6.1.4.1.11150.123.202.1.6
+
+vfMTCallTELIVR				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Call TEL IVR in last one minute after applying VPE logic"
+		   ::= { vfMTCallKPIGroup 7 }											-- 1.3.6.1.4.1.11150.123.202.1.7
+
+vfMTCallContinued				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Call Continued in last one minute after applying VPE logic"
+		   ::= { vfMTCallKPIGroup 8 }											-- 1.3.6.1.4.1.11150.123.202.1.8
+
+vfMTCallMRFAnnouncement				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Call MRF Announcement in last one minute after applying VPE logic"
+		   ::= { vfMTCallKPIGroup 9 }											-- 1.3.6.1.4.1.11150.123.202.1.9
+
+VFMTCallReleaseAfter				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Call released after in last one minute after applying VPE logic"
+		   ::= { vfMTCallKPIGroup 10 }											-- 1.3.6.1.4.1.11150.123.202.1.10
+
+VFMTCallRelRandomError				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MT Call released with random code in last one minute after applying VPE logic"
+		   ::= { vfMTCallKPIGroup 11 }											-- 1.3.6.1.4.1.11150.123.202.1.11		   
+
+
+--
+-- VPE MO KPI Group
+--
+vfMOKPIGroup						OBJECT IDENTIFIER ::= { vf-mob 203 }						-- 1.3.6.1.4.1.11150.123.203
+
+vfMOCallKPIGroup				OBJECT IDENTIFIER ::= { vfMOKPIGroup 1 }					-- 1.3.6.1.4.1.11150.123.203.1
+
+
+vfMOCallAttempts				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Call attempts in last one minute"
+		   ::= { vfMOCallKPIGroup 1 }											-- 1.3.6.1.4.1.11150.123.203.1.1
+
+vfMOCallReleaseFixedError				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Call Released with Fixed Error in last one minute"
+		   ::= { vfMOCallKPIGroup 2 }											-- 1.3.6.1.4.1.11150.123.203.1.2
+
+vfMOCall302Redirected				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Call 302 Rdirected in last one minute after applying VPE logic"
+		   ::= { vfMOCallKPIGroup 3 }											-- 1.3.6.1.4.1.11150.123.203.1.3
+
+vfMOCall305Redirected				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Call 305 Redirected in last one minute after applying VPE logic"
+		   ::= { vfMOCallKPIGroup 4 }											-- 1.3.6.1.4.1.11150.123.203.1.4
+
+vfMOCallCLIContinue				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Call CLI Continued in last one minute after applying VPE logic"
+		   ::= { vfMOCallKPIGroup 5 }											-- 1.3.6.1.4.1.11150.123.203.1.5
+
+vfMOCallIPIVR				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Call IP IVR in last one minute after applying VPE logic"
+		   ::= { vfMOCallKPIGroup 6 }											-- 1.3.6.1.4.1.11150.123.203.1.6
+
+vfMOCallTELIVR				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Call TEL IVR in last one minute after applying VPE logic"
+		   ::= { vfMOCallKPIGroup 7 }											-- 1.3.6.1.4.1.11150.123.203.1.7
+
+vfMOCallContinued				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Call Continued in last one minute after applying VPE logic"
+		   ::= { vfMOCallKPIGroup 8 }											-- 1.3.6.1.4.1.11150.123.203.1.8
+
+vfMOCallMRFAnnouncement				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Call MRF Announcement in last one minute after applying VPE logic"
+		   ::= { vfMOCallKPIGroup 9 }											-- 1.3.6.1.4.1.11150.123.203.1.9
+
+VFMOCallReleaseAfter				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Call released after in last one minute after applying VPE logic"
+		   ::= { vfMOCallKPIGroup 10 }											-- 1.3.6.1.4.1.11150.123.203.1.10	
+
+VFMOCallRelRandomError				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of MO Call released with random code in last one minute after applying VPE logic"
+		   ::= { vfMOCallKPIGroup 11 }											-- 1.3.6.1.4.1.11150.123.203.1.11		   	   
+
+--
+-- VPE Transit KPI Group
+--
+vfTransitKPIGroup						OBJECT IDENTIFIER ::= { vf-mob 204 }						-- 1.3.6.1.4.1.11150.123.204
+
+vfTransitCallKPIGroup				OBJECT IDENTIFIER ::= { vfTransitKPIGroup 1 }					-- 1.3.6.1.4.1.11150.123.204.1
+
+
+vfTransitCallAttempts				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of Transit Call attempts in last one minute"
+		   ::= { vfTransitCallKPIGroup 1 }											-- 1.3.6.1.4.1.11150.123.204.1.1
+
+vfTransitCallReleaseFixedError				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of Transit Call Released with Fixed Error in last one minute"
+		   ::= { vfTransitCallKPIGroup 2 }											-- 1.3.6.1.4.1.11150.123.204.1.2
+
+vfTransitCall302Redirected				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of Transit Call 302 Rdirected in last one minute after applying VPE logic"
+		   ::= { vfTransitCallKPIGroup 3 }											-- 1.3.6.1.4.1.11150.123.204.1.3
+
+vfTransitCall305Redirected				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of Transit Call 305 Redirected in last one minute after applying VPE logic"
+		   ::= { vfTransitCallKPIGroup 4 }											-- 1.3.6.1.4.1.11150.123.204.1.4
+
+vfTransitCallCLIContinue				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of Transit Call CLI Continued in last one minute after applying VPE logic"
+		   ::= { vfTransitCallKPIGroup 5 }											-- 1.3.6.1.4.1.11150.123.204.1.5
+
+vfTransitCallIPIVR				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of Transit Call IP IVR in last one minute after applying VPE logic"
+		   ::= { vfTransitCallKPIGroup 6 }											-- 1.3.6.1.4.1.11150.123.204.1.6
+
+vfTransitCallTELIVR				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of Transit Call TEL IVR in last one minute after applying VPE logic"
+		   ::= { vfTransitCallKPIGroup 7 }											-- 1.3.6.1.4.1.11150.123.204.1.7
+
+vfTransitCallContinued				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of Transit Call Continued in last one minute after applying VPE logic"
+		   ::= { vfTransitCallKPIGroup 8 }											-- 1.3.6.1.4.1.11150.123.204.1.8
+
+vfTransitCallMRFAnnouncement				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of Transit Call MRF Announcement in last one minute after applying VPE logic"
+		   ::= { vfTransitCallKPIGroup 9 }											-- 1.3.6.1.4.1.11150.123.204.1.9		   
+
+VFTransitCallReleaseAfter				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of Transit Call released after in last one minute after applying VPE logic"
+		   ::= { vfTransitCallKPIGroup 10 }											-- 1.3.6.1.4.1.11150.123.204.1.10
+
+VFTransitCallRelRandomError				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Returns the number of Transit Call released with random code in last one minute after applying VPE logic"
+		   ::= { vfTransitCallKPIGroup 11 }											-- 1.3.6.1.4.1.11150.123.204.1.11		   
+
+
+vfUsageThreshold				OBJECT IDENTIFIER ::= { vf-mob 205 }						-- 1.3.6.1.4.1.11150.123.205
+
+vfUsageThresholdGrp				OBJECT IDENTIFIER ::= { vfUsageThreshold 1 }					-- 1.3.6.1.4.1.11150.123.205.1
+
+
+vfUsageThresholdReached				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Send when threshold level is reached for subscriber"
+		   ::= { vfUsageThresholdGrp 1 }											-- 1.3.6.1.4.1.11150.123.205.1.1
+
+--
+-- VPE Traps
+--
+ 
+vfTrapsModule OBJECT IDENTIFIER ::= { vf-mob 206 }                         -- 1.3.6.1.4.1.11150.123.206
+vfTrapsGroup OBJECT IDENTIFIER ::= { vfTrapsModule 1 }                    -- 1.3.6.1.4.1.11150.123.206.1
+
+vfCertificateExpiry				OBJECT-TYPE
+		   SYNTAX Integer32
+		   MAX-ACCESS read-only
+		   STATUS current
+		   DESCRIPTION
+			 "Certifcate expiry is apporaching"
+		   ::= { vfTrapsGroup 1 }											-- 1.3.6.1.4.1.11150.123.206.1.1
+		   
+--
+-- Group to under which customized attributes may be configured
+--
+
+vfCustomGroup			OBJECT IDENTIFIER ::= { vf-mob 299 }			-- 1.3.6.1.4.1.11150.123.299
+
+END

@@ -1,0 +1,495 @@
+--
+--
+--   No. 2/196 03-CRH 109 172/1               MANAGEMENT INFORMATION BASE
+--   =====================================================================
+--   Prepared:  EAB/MÖ/JT/ME EMWJEGE          Revision S
+--   =====================================================================
+--   Copyright (C)Ericsson AB 2004.
+--   All rights reserved.
+--   =====================================================================
+--  
+-- 
+             
+	XF-MCR-MIB DEFINITIONS ::= BEGIN         
+
+		IMPORTS 
+			OBJECT-TYPE, MODULE-IDENTITY, Integer32
+				FROM SNMPv2-SMI
+			MODULE-COMPLIANCE, OBJECT-GROUP
+				FROM SNMPv2-CONF
+			TEXTUAL-CONVENTION
+				FROM SNMPv2-TC
+			xfMCR			
+				FROM XF-TOP-MIB;
+	
+	
+		xfMCRMIB MODULE-IDENTITY
+			LAST-UPDATED "201210161000Z"
+			ORGANIZATION
+				"Ericsson AB"
+			CONTACT-INFO
+				"
+				Claes Jegeras
+				Ericsson AB
+				Transmission & Transport Networks
+				SE-431 84  Molndal
+				Sweden
+				+46317475851
+				Claes.Jegeras@ericsson.com
+				"
+			DESCRIPTION
+				"
+				This MIB is the top level MIB for MCR Link in MINI LINK Traffic Node.
+			
+				MMU2 is a MINI-LINK Traffic Node MCR Modem Unit, 
+				it can work alone in a 1+0 configuration or, 
+				together with another MMU2 and a SMU2,
+				in a 1+1 configuration. 
+				See XF-TMU-MIB (xfTMU).
+				
+				SMU2is a MINI-LINK MCR Protection and Co siting Unit, allowing
+				together with two MMU2s a 1+1 MCR configuration. SMU2 can also be 
+				configured to co-site an external ML-E equipment. 
+				See XF-PCU-MIB (xfPCU).
+				
+				The syntax (textual conventions) of unique MCR MOs is specified here.
+				"
+
+			REVISION "201210161000Z"
+			DESCRIPTION             
+				"
+				Rev. S		XRSPAHO Fixed smilint warning: revision not in reverse chronological order.
+				"
+			REVISION "200705071000Z"
+			DESCRIPTION             
+				"
+				Rev. N		Added new xfPCUMode called protectionE3Front.
+				"
+			REVISION "200510251000Z"
+			DESCRIPTION             
+				"
+				Rev. M		Added XfMCRDcnClock and XfMCRDcnClockCapability for SMU2.
+				"
+			REVISION "200403301000Z"
+			DESCRIPTION             
+				"
+				Rev. L		Made MO XfMCRDCCUsage obsolete.
+				"
+			REVISION "200401151000Z"
+			DESCRIPTION             
+				"
+				Rev. K		New decimal class (from 155 19).
+				"
+			REVISION "200304111000Z"
+			DESCRIPTION             
+				"
+				Rev. K		Some imports were missing.
+				" 				
+			REVISION "200304101000Z"
+			DESCRIPTION             
+				"
+				Rev. J		Added MO xfMCRBusy.
+				"				
+			REVISION "200212161000Z"
+			DESCRIPTION             
+				"
+				Rev. G		Added notConfigured to textual convention XfMCRMode.
+				"   
+			REVISION "200211121000Z"
+            DESCRIPTION
+                "
+				Rev. F		Added textual conventions xfMCRSeverityLevel 
+							(Alarm Status Indicator for alarms made by CSS) and 
+							xfTMUSeverityTrapEnable.
+							Made xfMCRDCCTable obsolete. 
+							Updated descriptions with the right product names (MMU2 and SMU2).
+				"
+			REVISION "200208161000Z"
+            DESCRIPTION
+                "
+				Rev. E		Made MO xfMCRpppEnable in the xfMCRDCCTable obsolete
+				"               
+			REVISION "200207041000Z"
+            DESCRIPTION
+                "
+				Rev. D		Added MO xfMCRpppEnable to the xfMCRDCCTable
+							Renamed XfMCRAmmsize to xfMCRTerminalBoards
+				"                     
+			REVISION "200204291000Z"
+            DESCRIPTION
+                "
+				Rev. C		Added MO xfMCRDCCifIndexRelated to the xfMCRDCCTable
+				"       
+			REVISION "200112191000Z"
+			DESCRIPTION
+                "
+				Rev. B  	Added conformance. Corrected errors found by smilint.
+						  	Added other(1) to enumerations.
+				"
+			REVISION "200112121000Z"
+			DESCRIPTION
+				"
+				Rev. A 		Initial version, some MOs will be 
+							read-write in future releases
+                "
+
+			::= { xfMCR 1 }
+		
+	
+--
+-- Textual conventions
+--    
+
+		XfMCRTerminalBoards ::= TEXTUAL-CONVENTION
+		STATUS current
+		DESCRIPTION
+			"
+			xfMCRTerminalBoards is the number of MCR boards per terminal in the XF.
+			oneBoard      : 1 board per terminal, 1+0 configuration
+			twoBoards     : 2 boards per terminal, 1+1 with two boards
+			threeBoards   : 3 boards per terminal, 1+1 with three boards
+			fourBoards    : 4 boards per terminal, currently not used 
+			"
+		SYNTAX INTEGER
+		{		
+			other(1),
+			oneBoard(2),
+			twoBoards(3),
+			threeBoards(4),
+			fourBoards(5)		
+		}
+		 
+		XfMCRProtectionMode ::= TEXTUAL-CONVENTION
+		STATUS current
+		DESCRIPTION
+			"
+			xfMCRProtectionMode is set from the application according to data
+			read from the TMU.
+			"
+		SYNTAX INTEGER
+		{		
+			other(1),
+			unprotected(2),
+			protected(3)
+		}
+		
+		XfMCRCapacity ::= TEXTUAL-CONVENTION
+		STATUS current
+		DESCRIPTION
+			"
+			xfTMUCapacity is set from the application according to data
+			read from the TMU.
+			"
+		SYNTAX INTEGER
+		{		
+			other(1),
+			twoE1(2),
+			oneE2(3),
+			twoE2(4),
+			oneE1oneE3(5)
+		} 
+		
+		XfMCROMMode ::= TEXTUAL-CONVENTION
+		STATUS current
+		DESCRIPTION
+			"
+			xfMCROMMode controls the O&M-switch on a MCR board.
+			An inserted active O&M-cable assert the OM_REQUEST signal.
+			The O&M-switch is controlled via PCI with the signal SWITCH_MODE.
+			
+			auto(1) means that an inserted MSM, LSU or Netman at the front 
+			of a PCU in a 1+1 configuration automatically is connected 
+			to the CPU and that the Netman internal access point is switched 
+			over to the nearby TMU. 
+			This mode is only valid in a 1+1 configuration.
+			
+			local(2) means that an inserted MSM, LSU or Netman at the front
+			is connected to the CPU
+			
+			netman(3) means that the Netman internal access point is connected 
+			to the CPU.
+			
+			accessServer(4) means that the Netman internal access point is 
+			connected to the front O&M-port.
+			"
+		SYNTAX INTEGER
+		{
+			other(1),
+			auto(2),
+			local(3),
+			netman(4),
+			accessServer(5)
+		}         
+				
+		XfMCRMode ::= TEXTUAL-CONVENTION
+		STATUS current
+		DESCRIPTION
+			"
+			This MO controls the PCU board configuration.
+			cosite: PCU acts as a co-siting board, ML-E parts are shut off
+			protection: PCU acts like a protection board (default).
+			notConfigured: PCU is not configured yet
+			protectionE3Front: PCU acts like a protection board with E3 interface enabled on front.
+			"
+		SYNTAX INTEGER
+		{
+			other(1),
+			cosite(2),
+			protection(3),
+			notConfigured(4),
+			protectionE3Front(5)
+		}         
+		
+		XfMCROMTimeout ::= TEXTUAL-CONVENTION
+		STATUS current
+		DESCRIPTION
+			"
+			xfTMUOMTimeout (minutes) is the time out for OM_DETECT. 
+			I.e. no received communication from the front O&M-port 
+			leads to a disconnection. 
+			0 indicates no time out.
+			"
+		SYNTAX Integer32 (0..60)    
+		
+		XfMCRUartBaudrate ::= TEXTUAL-CONVENTION
+		STATUS current
+		DESCRIPTION
+			"
+			xfMCRUartBaudrate is the PCI Uart baudrate. 
+			In case of LSU via LAN the PCI baudrate has to be re-configured 
+			during the LSU sequence (LSU starts with 1200 baud, 
+			after initial settings to the CPU it continues with 19200).
+			"
+		SYNTAX INTEGER     
+ 		{
+			other(1),
+			netman1200(2),
+			lsu19200(3)
+		}      
+	
+
+		XfMCRChannel ::= TEXTUAL-CONVENTION
+		STATUS obsolete
+		DESCRIPTION
+			"
+			xfMCRDCCChannel shows if the DCC channel 
+			is Data or Octet synch. 
+			MCR AIM sets the MO when registering the channel to the BUSK. 
+			data: row is for service channel data port.
+			octet: row is for service channel octet synch port.
+			"
+		SYNTAX INTEGER     
+ 		{
+			other(1),
+			data(2),
+			octet(3)
+		}     
+		
+		XfMCROctetSynch ::= TEXTUAL-CONVENTION
+		STATUS obsolete
+		DESCRIPTION
+			"
+			xfMCROctetSynch controls the number of BUSK ports per 
+			service channel.
+			The operator must know if the external equipment using 
+			the ML-E service channel has octet data or not.
+			notOctetSynch: one BUSK port per SC (Data).
+			octetSynch: two BUSK ports per SC (Data and octet synch).
+			"
+		SYNTAX INTEGER     
+		{
+			other(1),
+			notOctetSynch(2),
+			octetSynch(3)
+		}       
+			
+		XfMCRSynch ::= TEXTUAL-CONVENTION
+		STATUS obsolete
+		DESCRIPTION
+			"
+			xfMCRSynch controls the number of time-slot per port for the service channels.
+			The operator must know if the external equipment using the ML-E service channel
+			is synched to XF or not.
+			notSynch: two time slots per BUSK port per SC (Data and synch).
+			synch: one BUSK port per SC (Data).
+			"
+		SYNTAX INTEGER     
+ 		{
+			other(1),
+			notSynch(2),
+			synch(3)
+		}		
+		
+		XfMCROnceRunning ::= TEXTUAL-CONVENTION
+		STATUS current
+		DESCRIPTION     
+			"
+			If a TMU is removed in 1+1 configuration, MCR AIM must still have 
+			the backplane interface enabled. 
+			The read-only MO xfPCUOnceRunning will be set at the initial 
+			successful installation of the 1+1 MCR Link, i.e. three boards.
+			"               
+		SYNTAX INTEGER
+ 		{
+			other(1),
+			notRunning(2),
+			onceRunning(3)
+		}  
+		
+		XfMCRpppEnable ::= TEXTUAL-CONVENTION
+		STATUS obsolete
+		DESCRIPTION
+			"
+			XfMCRpppEnable controls whether or not a DCC shall be 
+			DCN (pppEnabled) or SC (pppDisabled).
+			"
+		SYNTAX INTEGER
+ 		{
+			other(1),
+			pppEnabled(2),
+			pppDisabled(3)
+		}
+		
+		XfMCRDCCUsage ::= TEXTUAL-CONVENTION
+		STATUS obsolete
+		DESCRIPTION
+			"
+			xfTMUDCCUsage determines the usage of the two DCC channels. 
+			It is set by the manager. It determines the number of DCN 
+			and ML-E SC (service channel).
+			
+			allDCN: both DCC are XF DCN channels.
+			oneDCNoneSC: the first DCC is XF DCN, the second ML-E SC.
+			allSC: both DCC are ML-E SC
+			
+			If a ML-E SC is configured it has to be set up. 
+			A row in the xfTMUDCCTable is created by the application and 
+			configured by the manager.
+			The ML-E SC must then be traffic routed (cross connect).
+			"
+		SYNTAX INTEGER
+		{
+			other(1),
+			allDCN(2),
+			oneDCNoneSC(3),
+			allSC(4)
+		}
+            				
+		XfMCRSeverityTrapEnable ::= TEXTUAL-CONVENTION
+		STATUS current
+		DESCRIPTION
+			"
+			XfMCRSeverityTrapEnable controls whether to send a trap or not
+			when the severity reported by CSS changes. 
+			"
+		SYNTAX INTEGER
+ 		{
+			enable(1),
+			disable(2)
+		}
+		
+		XfMCRSeverityLevel ::= TEXTUAL-CONVENTION
+		STATUS current
+		DESCRIPTION
+			"Gives information on the severity level of the CSS alarm.
+			Severity is indicated by three bits:
+			bits 012
+			     000   clear
+			     001   undetermined
+			     010   warning
+			     011   minor
+			     100   major
+			     101   critical
+			"
+		SYNTAX BITS
+		{
+			severityLevel0(0),
+			severityLevel1(1),
+			severityLevel2(2)
+		}
+
+		XfMCRDcnClock ::= TEXTUAL-CONVENTION
+		STATUS current
+		DESCRIPTION
+			"This object control the DCN Clock of the PCU in co-site.
+			The TX clock can be set as co- or contra-directional. In
+			co-directional the internal clock is used. In contra-
+			directional the clock is locked on to the data rate of the RX signal.
+			"
+		SYNTAX INTEGER          
+		{
+			other(1),
+			coDirectional(2),
+			contraDirectional(3)
+		}
+
+		XfMCRDcnClockCapability ::= TEXTUAL-CONVENTION
+		STATUS current
+		DESCRIPTION
+			"This shows the supported XfMCRDcnClock settings.
+			"
+		SYNTAX INTEGER          
+		{
+			other(1),
+			noContraDirectional(2),
+			supportContraDirectional(3)
+		}		
+					
+--
+-- Node definitions in previous revisions
+--
+------------------------------------------------------------------------------
+-- xfMCRDCCTable OBJECT-TYPE ::= { xfMCRObjects 1 }  Do not re-use!
+------------------------------------------------------------------------------
+
+	xfMCRObjects OBJECT IDENTIFIER ::= { xfMCRMIB 1 }
+	xfMCRConformance OBJECT IDENTIFIER ::= { xfMCRMIB 2 }
+			
+	 
+      
+       	xfMCRBusy OBJECT-TYPE
+		SYNTAX INTEGER
+		{
+			busy(1),
+			notBusy(2)
+		}
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"
+			This object indicates whether the MCR functionality is busy or not. 
+			The MCR functionality can be busy re-configuring; 
+			MO response will not be immediate.   	
+			"
+			
+       ::= { xfMCRObjects 2 }
+       
+--
+-- Conformance
+--
+	xfMCRCompliances OBJECT IDENTIFIER ::= { xfMCRConformance 1 }
+
+	xfMCRGroups OBJECT IDENTIFIER ::= { xfMCRConformance 2 }
+
+   	xfMCRFullCompliance MODULE-COMPLIANCE
+       		STATUS      current
+       		DESCRIPTION
+           		"The compliance statement for SNMP entities which
+            		implement everything."
+       		MODULE -- This Module
+           	MANDATORY-GROUPS { xfMCRCompleteGroup }
+       		::= { xfMCRCompliances 1 }
+       	       		
+       		
+	xfMCRCompleteGroup OBJECT-GROUP
+       	OBJECTS 
+       	{
+			xfMCRBusy	
+		}
+		STATUS      current
+       		DESCRIPTION
+           		"A collection of all current objects in this MIB
+			 module."
+		::= { xfMCRGroups 1 } 
+		
+	END

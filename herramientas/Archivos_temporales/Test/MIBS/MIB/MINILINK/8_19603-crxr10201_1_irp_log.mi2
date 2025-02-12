@@ -1,0 +1,350 @@
+-- No. 8/196 03-CRXR 102 01/1                MANAGEMENT INFORMATION BASE
+-- =====================================================================
+-- Prepared:  ETO/I/NT ETOALL                 Revision   D
+-- =====================================================================
+-- Copyright
+-- +++++++++
+-- 
+-- (c) Ericsson AS 2002. All rights reserved. No part of this document 
+-- may be reproduced in any form without the written permission of the 
+-- copyright holder.
+-- 
+-- Information
+-- +++++++++++
+-- 
+-- This document is mainly intended for internal development and contains 
+-- references to other documents. This document might however, after 
+-- agreement with Ericsson, be delivered to customers to serve as 
+-- information for design.
+-- All referenced documents are however Ericsson internal and are not 
+-- intended for customers or end users and will thus not be delivered 
+-- externally.
+--  
+-- Disclaimer
+-- ++++++++++
+-- The content of this document is subject to revision without notice 
+-- due to continued progress in methodology, design, and manufacturing. 
+-- Ericsson shall have no liability for any error or damage of any kind 
+-- resulting from the use of this document. 
+-- 
+-- =====================================================================
+-- 
+--   
+-- 
+-- 
+
+	XF-IRP-NOTIFICATION-LOG-MIB DEFINITIONS ::= BEGIN
+ 
+		IMPORTS
+			ProbableCause, PerceivedSeverity, ManagedObjectClass, ManagedObjectInstance			
+				FROM ERICSSON-ALARM-IRP-MIB			
+			OBJECT-GROUP, MODULE-COMPLIANCE, NOTIFICATION-GROUP			
+				FROM SNMPv2-CONF			
+			Integer32, OBJECT-TYPE, MODULE-IDENTITY, NOTIFICATION-TYPE			
+				FROM SNMPv2-SMI			
+			DisplayString, DateAndTime, TEXTUAL-CONVENTION			
+				FROM SNMPv2-TC			
+			xfPlatform			
+				FROM XF-TOP-MIB;
+	
+	
+		xfIRPNotificationLogMIB MODULE-IDENTITY 
+			LAST-UPDATED "200408260835Z"		-- August 26, 2004 at 08:35 GMT
+			ORGANIZATION 
+				"Ericsson-Norway"
+			CONTACT-INFO 
+				" "
+			DESCRIPTION 
+				"This MIB provides a notification log for Ericsson 
+				IRP-alike notification traps. "
+			REVISION "200408260835Z"		-- August 26, 2004 at 08:35 GMT
+			DESCRIPTION 
+				"D Changed header"
+			REVISION "200306191001Z"		-- June 19, 2003 at 10:01 GMT
+			DESCRIPTION 
+				"C
+				Small corrections"
+			REVISION "200203071340Z"		-- March 07, 2002 at 13:40 GMT
+			DESCRIPTION 
+				"B
+				Made event atttibutes
+				more irp alarm compatible.
+				Next to last sub-identifier
+				was made 0
+				Changed contact address
+				Changed length of MOI and MOC
+				strings
+				Changed xfLogLastId range
+				Added compliance
+				Added trap oid in log
+				"
+			REVISION "200110101211Z"		-- October 10, 2001 at 12:11 GMT
+			DESCRIPTION 
+				"A Initial Revision"
+			::= { xfPlatform 5 }
+
+		
+	
+--
+-- Textual conventions
+--
+	
+		XfTypeOfEvent ::= TEXTUAL-CONVENTION
+			STATUS current
+			DESCRIPTION 
+				"Event type as specified in ITU recommendations X.730,
+				X.733 and X.736."
+			SYNTAX INTEGER
+				{
+				unknown(0),
+				attributeValueChange(1),
+				communicationsAlarm(2),
+				environmentalAlarm(3),
+				equipmentAlarm(4),
+				objectCreation(6),
+				objectDeletion(7),
+				processingErrorAlarm(10),
+				qualityOfServiceAlarm(11),
+				integrityViolation(15),
+				operationalViolation(16),
+				physicalViolation(17),
+				securityServiceViolation(18),
+				timeDomainViolation(19),
+				stateChange(20)
+				}
+
+	
+--
+-- Node definitions
+--
+	
+		xfNotificationLogObjects OBJECT IDENTIFIER ::= { xfIRPNotificationLogMIB 1 }
+
+		
+		xfLogLastId OBJECT-TYPE
+			SYNTAX Integer32 (0..2147483647)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This object indicates the notification identifier of 
+				the last entry in the list.0 indicates no
+				notifications sent."
+			::= { xfNotificationLogObjects 3 }
+
+		
+		xfNotificationLogTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfNotificationLogEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Table containing last sent notifications."
+			::= { xfNotificationLogObjects 4 }
+
+		
+		xfNotificationLogEntry OBJECT-TYPE
+			SYNTAX XfNotificationLogEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"One entry in the table holds one notification."
+			INDEX { xfNotificationId }
+			::= { xfNotificationLogTable 1 }
+
+		
+		XfNotificationLogEntry ::=
+			SEQUENCE { 
+				xfNotificationId
+					Integer32,
+				xfNotificationTrapType
+					OBJECT IDENTIFIER,
+				xfNotificationManagedObjectClass
+					ManagedObjectClass,
+				xfNotificationManagedObjectInstance
+					ManagedObjectInstance,
+				xfNotificationEventTime
+					DateAndTime,
+				xfNotificationEventType
+					XfTypeOfEvent,
+				xfNotificationAlarmId
+					Integer32,
+				xfNotificationProbableCause
+					ProbableCause,
+				xfNotificationPerceivedSeverity
+					PerceivedSeverity,
+				xfNotificationSpecificProblem
+					DisplayString
+			 }
+
+		xfNotificationId OBJECT-TYPE
+			SYNTAX Integer32 (1..2147483647)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Same notificationId as in alarm IRP."
+			::= { xfNotificationLogEntry 1 }
+
+		
+		xfNotificationTrapType OBJECT-TYPE
+			SYNTAX OBJECT IDENTIFIER
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This object indicates which notification type 
+				was used to send the alarm/event, e.g. the
+				IRP alarmNew."
+			::= { xfNotificationLogEntry 2 }
+
+		
+		xfNotificationManagedObjectClass OBJECT-TYPE
+			SYNTAX ManagedObjectClass
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This object identifies the class of network 
+				resources to which the subject notification is related.
+				See for naming convention 
+				2/155 19-CRXR102 01/1 XF-BNS:SNMP Objects"
+			::= { xfNotificationLogEntry 3 }
+
+		
+		xfNotificationManagedObjectInstance OBJECT-TYPE
+			SYNTAX ManagedObjectInstance
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This object identifies the instance (of a class) of
+				network resource to which the subject notification is 
+				related.
+				See for naming convention :
+				2/155 19-CRXR102 01/1 XF-BNS:SNMP Objects
+				The string will be truncated in the log to a length of 
+				50. However in the trap the complete string will be sent."
+			::= { xfNotificationLogEntry 4 }
+
+		
+		xfNotificationEventTime OBJECT-TYPE
+			SYNTAX DateAndTime
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This object represents the time of occurrence of the 
+				subject notification. The time indication is in UTC 
+				(Co-ordinated Universal Time)."
+			::= { xfNotificationLogEntry 5 }
+
+		
+		xfNotificationEventType OBJECT-TYPE
+			SYNTAX XfTypeOfEvent
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This object represents the type of event according 
+				to the ITU recommendations X.721/X.730/X.733/X.736."
+			::= { xfNotificationLogEntry 6 }
+
+		
+		xfNotificationAlarmId OBJECT-TYPE
+			SYNTAX Integer32 (0..1000000)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This object uniquely identifies an entry in the  Alarm 
+				Table. It increases every time a new alarm occurs. Due 
+				to cleared alarms the index will not be contiguous. 
+				When the maximum is reached , the value of this object 
+				rolls over to 1.
+				The value 0 is used for events."
+			::= { xfNotificationLogEntry 7 }
+
+		
+		xfNotificationProbableCause OBJECT-TYPE
+			SYNTAX ProbableCause
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"See ERICSSON-ALARM-IRP-MIB alarmProbableCause."
+			::= { xfNotificationLogEntry 8 }
+
+		
+		xfNotificationPerceivedSeverity OBJECT-TYPE
+			SYNTAX PerceivedSeverity
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"See ERICSSON-ALARM-IRP-MIB alarmPerceivedSeverity."
+			::= { xfNotificationLogEntry 9 }
+
+		
+		xfNotificationSpecificProblem OBJECT-TYPE
+			SYNTAX DisplayString (SIZE (0..80))
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"See ERICSSON-ALARM-IRP-MIB alarmSpecificProblem.The string in 
+				the log will be truncated  to a length of 30. However
+				in the trap the complete string will be sent."
+			::= { xfNotificationLogEntry 10 }
+
+		
+		xfNotificationLogConformance OBJECT IDENTIFIER ::= { xfIRPNotificationLogMIB 2 }
+
+		
+		xfNotificationLogCompliances OBJECT IDENTIFIER ::= { xfNotificationLogConformance 1 }
+
+		
+		xfNotificationLogFullCompliance MODULE-COMPLIANCE
+			STATUS current
+			DESCRIPTION 
+				"The compliance statement for SNMP entities which
+				implement everything."
+			MODULE -- this module
+				MANDATORY-GROUPS { xfNotificationLogGroup, xfNotificationLogEventGroup }
+			::= { xfNotificationLogCompliances 1 }
+
+		
+		xfNotificationLogGroups OBJECT IDENTIFIER ::= { xfNotificationLogConformance 2 }
+
+		
+		xfNotificationLogGroup OBJECT-GROUP
+			OBJECTS { xfLogLastId, xfNotificationId, xfNotificationManagedObjectClass, xfNotificationManagedObjectInstance, xfNotificationEventTime, 
+				xfNotificationEventType, xfNotificationAlarmId, xfNotificationProbableCause, xfNotificationPerceivedSeverity, xfNotificationSpecificProblem, 
+				xfNotificationTrapType }
+			STATUS current
+			DESCRIPTION 
+				"Description."
+			::= { xfNotificationLogGroups 1 }
+
+		
+		xfNotificationLogEventGroup NOTIFICATION-GROUP
+			NOTIFICATIONS { xfEvent }
+			STATUS current
+			DESCRIPTION 
+				"Description."
+			::= { xfNotificationLogGroups 2 }
+
+		
+		xfNotificationLogEvents OBJECT IDENTIFIER ::= { xfIRPNotificationLogMIB 3 }
+
+		
+		xfNotificationPrefix OBJECT IDENTIFIER ::= { xfNotificationLogEvents 0 }
+
+		
+		xfEvent NOTIFICATION-TYPE
+			OBJECTS { xfNotificationId, xfNotificationAlarmId, xfNotificationManagedObjectClass, xfNotificationManagedObjectInstance, xfNotificationEventTime, 
+				xfNotificationEventType, xfNotificationProbableCause, xfNotificationPerceivedSeverity, xfNotificationSpecificProblem }
+			STATUS current
+			DESCRIPTION 
+				"This notification supports IRP alike objectCreation, objectDeletion and 
+				attributeValueChange events. The actual attribute for which the value 
+				has changed is not described in the event, so the manager must get this 
+				info from the object after reception of the trap. This is done to limit 
+				the number of different traps to be logged."
+			::= { xfNotificationPrefix 1 }
+
+		
+	
+	END
+
+--
+-- 8_19603-crxr10201_1_irp_log.mi2
+--

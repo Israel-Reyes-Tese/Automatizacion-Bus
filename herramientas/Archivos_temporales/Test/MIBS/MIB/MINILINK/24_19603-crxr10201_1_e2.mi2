@@ -1,0 +1,341 @@
+-- No.24/196 03-CRXR 102 01/1                MANAGEMENT INFORMATION BASE
+-- =====================================================================
+-- Prepared:  ETO/I/NT ETOALL                 Revision   B
+-- =====================================================================
+-- Copyright
+-- +++++++++
+-- 
+-- (c) Ericsson AS 2002. All rights reserved. No part of this document 
+-- may be reproduced in any form without the written permission of the 
+-- copyright holder.
+-- 
+-- Information
+-- +++++++++++
+-- 
+-- This document is mainly intended for internal development and contains 
+-- references to other documents. This document might however, after 
+-- agreement with Ericsson, be delivered to customers to serve as 
+-- information for design.
+-- All referenced documents are however Ericsson internal and are not 
+-- intended for customers or end users and will thus not be delivered 
+-- externally.
+--  
+-- Disclaimer
+-- ++++++++++
+-- The content of this document is subject to revision without notice 
+-- due to continued progress in methodology, design, and manufacturing. 
+-- Ericsson shall have no liability for any error or damage of any kind 
+-- resulting from the use of this document. 
+-- 
+-- =====================================================================
+-- 
+
+	XF-E2-MIB DEFINITIONS ::= BEGIN
+ 
+		IMPORTS
+			ifIndex			
+				FROM IF-MIB			
+			OBJECT-GROUP, MODULE-COMPLIANCE			
+				FROM SNMPv2-CONF			
+			Integer32, OBJECT-TYPE, MODULE-IDENTITY			
+				FROM SNMPv2-SMI			
+			TimeStamp			
+				FROM SNMPv2-TC			
+			xfPDH			
+				FROM XF-TOP-MIB;
+	
+	
+		xfE2Mib MODULE-IDENTITY 
+			LAST-UPDATED "200408260909Z"		-- August 26, 2004 at 09:09 GMT
+			ORGANIZATION 
+				"Ericsson-Norway"
+			CONTACT-INFO 
+				" "
+			DESCRIPTION 
+				"E2 MIB provides information on the status and configuration of 
+				E2 interfaces in the MINI-LINK Traffic Node."
+			REVISION "200408260909Z"		-- August 26, 2004 at 09:09 GMT
+			DESCRIPTION 
+				"B changed header"
+			REVISION "200306191300Z"		-- June 19, 2003 at 13:00 GMT
+			DESCRIPTION 
+				"A
+				First revision"
+			::= { xfPDH 3 }
+
+		
+	
+	
+--
+-- Node definitions
+--
+	
+--  Node definitions
+-- 
+		xfE2ConfigObjects OBJECT IDENTIFIER ::= { xfE2Mib 1 }
+
+		
+		xfE2ConfigTable OBJECT-TYPE
+			SYNTAX SEQUENCE OF XfE2ConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Configuartion and status table for E2 interfaces."
+			::= { xfE2ConfigObjects 1 }
+
+		
+		xfE2ConfigEntry OBJECT-TYPE
+			SYNTAX XfE2ConfigEntry
+			MAX-ACCESS not-accessible
+			STATUS current
+			DESCRIPTION
+				"Entry in the table."
+			INDEX { ifIndex }
+			::= { xfE2ConfigTable 1 }
+
+		
+		XfE2ConfigEntry ::=
+			SEQUENCE { 
+				xfE2LineStatus
+					INTEGER,
+				xfE2AlarmStatus
+					BITS,
+				xfE2LineStatusLastChanged
+					TimeStamp,
+				xfE2LineStatusChangeTrapEnable
+					Integer32,
+				xfE2LoopbackConfig
+					INTEGER,
+				xfE2LoopBackStatus
+					INTEGER,
+				xfE2AISDetection
+					INTEGER
+			 }
+
+		xfE2LineStatus OBJECT-TYPE
+			SYNTAX INTEGER (1..131071)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This variable indicates the Line Status of the
+				interface.  It contains loopback, failure,
+				received 'alarm' and transmitted 'alarms
+				information.
+				 	
+				The xfE2LineStatus is a bit map represented as a
+				sum, therefore, it can represent multiple failures
+				(alarms) and a LoopbackState simultaneously.
+				 	
+				e2NoAlarm must be set if and only if no other
+				flag is set.
+				 	
+				If the dsx1loopbackState bit is set, the loopback
+				in effect can be determined from the
+				xfE2loopbackConfig object.
+				The various bit positions are:
+				1         e2NoAlarm           No alarm present
+				2         e2RcvFarEndLOF      Far end LOF 
+				4         e2XmtFarEndLOF      Near end sending LOF Indication
+				8         e2RcvAIS            Far end sending AIS
+				16        e2XmtAIS            Near end sending AIS
+				32        e2LossOfFrame       Near end LOF 
+				64        e2LossOfSignal      Near end Loss Of Signal
+				128       e2LoopbackState     Near end is looped
+				256       not used
+				512       not used
+				1024      not used
+				2048      e2RcvTestCode       Near End detects a test code
+				4096      e2OtherFailure      any line status not defined here
+				8192      e2UnavailSigState   Near End in Unavailable Signal
+				                              State
+				16384     e2NetEquipOOS       Carrier Equipment Out of Service
+				32768     e2RcvPayloadAIS     DS2 Payload AIS
+				65536     e2Ds2PerfThreshold  DS2 Performance Threshold
+				 	                      Exceeded
+				"
+			::= { xfE2ConfigEntry 1 }
+
+		
+		xfE2AlarmStatus OBJECT-TYPE
+			SYNTAX BITS
+				{
+				e2RxAIS0(0),
+				e2RxAIS1(1),
+				e2RxAIS2(2),
+				e2LOS0(3),
+				e2LOS1(4),
+				e2LOS2(5),
+				e2UnavailableState0(6),
+				e2UnavailableState1(7),
+				e2UnavailableState2(8),
+				e2ES15m0(9),
+				e2ES15m1(10),
+				e2ES15m2(11),
+				e2SES15m0(12),
+				e2SES15m1(13),
+				e2SES15m2(14),
+				e2ES24h0(15),
+				e2ES24h1(16),
+				e2ES24h2(17),
+				e2SES24h0(18),
+				e2SES24h1(19),
+				e2SES24h2(20),
+				e2EquipmentOoS0(21),
+				e2EquipmentOoS1(22),
+				e2EquipmentOoS2(23),
+				e2TxAIS0(24),
+				e2TxAIS1(25),
+				e2TxAIS2(26),
+				e2LOF0(27),
+				e2LOF1(28),
+				e2LOF2(29)
+				}
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Gives information on the alarm status of a E2 interface.
+				Severity is indicated by three bits per alarm:
+				bits 012
+				     000   clear
+				     001   undetermined
+				     010   warning
+				     011   minor
+				     100   major
+				     101   critical
+				the followinf severities are assigned to the alarms:
+				e2RxAIS -> major
+				e2TxAIS -> major
+				e2LOS   -> critical
+				e2LOF   -> critical
+				equipmentOoS -> not used yet
+				
+				
+				"
+			::= { xfE2ConfigEntry 2 }
+
+		
+		xfE2LineStatusLastChanged OBJECT-TYPE
+			SYNTAX TimeStamp
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"The value of MIB II's sysUpTime object at the
+				time this E2 entered its current line status
+				state.  If the current state was entered prior to
+				the last re-initialization of the proxy-agent,
+				then this object contains a zero value.
+				"
+			::= { xfE2ConfigEntry 3 }
+
+		
+		xfE2LineStatusChangeTrapEnable OBJECT-TYPE
+			SYNTAX Integer32
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"Inidicates whether sending of notifications is enabled. 
+				The value of this object is a direct copy of the 
+				ifLinkUpDownTrapEnable objects value.
+				"
+			::= { xfE2ConfigEntry 4 }
+
+		
+		xfE2LoopbackConfig OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				e2NoLoop(1),
+				e2LineLoop(3),
+				e2LocalLoop(5),
+				e2DualLoop(6)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"This object is used to set a loop on the physical E2 
+				interface.
+				e2NoLoop(1)
+				  No loops set
+				e2LineLoop(3)
+				  Line Loop is as close as possible to 
+				  the physical connector looping outward, 
+				  i.e. back to the link.
+				e2LocalLoop(5)
+				  Local Loop is as close as possible to 
+				  the physical connector looping inward, 
+				  i.e. back to backplane.
+				e2DualLoop(6)
+				  Both Line and Local Loop"
+			DEFVAL { e2NoLoop }
+			::= { xfE2ConfigEntry 5 }
+
+		
+		xfE2LoopBackStatus OBJECT-TYPE
+			SYNTAX INTEGER (1..127)
+			MAX-ACCESS read-only
+			STATUS current
+			DESCRIPTION
+				"This variable represents the current state of the
+				loopback on the E2 interface.  It contains
+				information about loopbacks established by a
+				manager and remotely from the far end.
+					
+				The xfE2ConfigLoopbackStatus is a bit map represented as
+				a sum, therefore is can represent multiple
+				loopbacks simultaneously.
+				 	
+				The various bit positions are:
+				 	 1  e2NoLoop
+				 	 4  e2LineLoop
+				 	 8  e2OtherLoop
+				 	16  e2LocalLoop
+				"
+			::= { xfE2ConfigEntry 6 }
+
+		
+		xfE2AISDetection OBJECT-TYPE
+			SYNTAX INTEGER
+				{
+				enable(1),
+				disable(2)
+				}
+			MAX-ACCESS read-write
+			STATUS current
+			DESCRIPTION
+				"When true AIS detection is enabled for unstructured E2s."
+			::= { xfE2ConfigEntry 7 }
+
+		
+		xfE2Conformance OBJECT IDENTIFIER ::= { xfE2Mib 2 }
+
+		
+		xfE2Compliance OBJECT IDENTIFIER ::= { xfE2Conformance 1 }
+
+		
+--  this module
+		xfE2ConfigCompliance MODULE-COMPLIANCE
+			STATUS current
+			DESCRIPTION 
+				"All xfE2ConfigTable Objects implemented."
+			MODULE -- this module
+				MANDATORY-GROUPS { xfE2ConfigGroup }
+			::= { xfE2Compliance 1 }
+
+		
+		xfE2Groups OBJECT IDENTIFIER ::= { xfE2Conformance 2 }
+
+		
+		xfE2ConfigGroup OBJECT-GROUP
+			OBJECTS { xfE2LineStatus, xfE2AlarmStatus, xfE2LineStatusLastChanged, xfE2LineStatusChangeTrapEnable, xfE2LoopbackConfig, 
+				xfE2LoopBackStatus, xfE2AISDetection }
+			STATUS current
+			DESCRIPTION 
+				"All xfE2ConfigTable objects"
+			::= { xfE2Groups 1 }
+
+		
+	
+	END
+
+--
+-- 24_19603-crxr10201_1_e2.mi2
+--

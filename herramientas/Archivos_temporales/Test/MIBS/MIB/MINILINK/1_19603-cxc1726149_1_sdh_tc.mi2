@@ -1,0 +1,84 @@
+-- No: 1/196 03-CXC 172 6149/1              MANAGEMENT INFORMATION BASE
+-- ======================================================================
+-- Prepared:  EDD/XMB/SWD   EDD             Revision A
+-- ======================================================================
+
+XF-SDH-TC-MIB DEFINITIONS ::= BEGIN
+
+    IMPORTS
+        MODULE-IDENTITY, Integer32, Unsigned32  FROM SNMPv2-SMI
+        TEXTUAL-CONVENTION              FROM SNMPv2-TC
+        xfSdhAdm                        FROM XF-TOP-MIB;
+
+    xfSdhTcMIB  MODULE-IDENTITY
+        LAST-UPDATED    "200802281200Z"    -- Feb. 28, 2008 at 12:00 GMT
+        ORGANIZATION    "Ericsson Communications Germany"
+        CONTACT-INFO
+            "Jens Engel
+             Postal: Ericsson
+             Gerberstrasse 33
+             71522 Backnang
+             Germany
+             Phone:  +49 7191/13-3981
+             Email:  Jens.Engel@ericsson.com"
+        DESCRIPTION
+            "This MIB module provides common SDH-specific types
+            to simplify reuse in other SDH-specific SNMP-MIBs."
+        REVISION     "200802281200Z"    -- Feb. 28, 2008 at 12:00 GMT
+        DESCRIPTION
+           "REV PA2: Use official MIB module OID (Jens Engel)."
+        REVISION     "200801221000Z"    -- Jan. 22, 2008 at 10:00 GMT
+        DESCRIPTION
+           "Correction (Joachim Hasler):
+            - XfSdhSignalLabel: Change value range to 0..255 (was: 0..65535)."
+        REVISION     "200712181200Z"    -- Dec. 16, 2007 at 12:00 GMT
+        DESCRIPTION
+           "Correction (Jens Engel):
+              - Remove duplicate MODULE-IDENTITY import."
+        REVISION     "200712161200Z"    -- Dec. 16, 2007 at 12:00 GMT
+        DESCRIPTION
+           "Cleanup (Herbert Leuwer):
+            - Added XfTimeDurationSeconds.
+            - Added XfTimeDuration100Millis."
+        REVISION    "200711170800Z"
+        DESCRIPTION
+            "INITIAL: Version 1.0.
+            BASED-ON: XF-ADM-CONFIG-MIB, refactored out to simplify reuse."
+        ::= { xfSdhAdm 1 }
+
+
+XfSdhTrailTrace ::= TEXTUAL-CONVENTION
+    -- XXX DISPLAY-HINT "a*"
+    STATUS  current
+    DESCRIPTION
+        "SDH path/trail trace information.
+        The value consists normally only of textual, printable ASCII characters.
+        NOTE: The string is internally padded to maximum size."
+    SYNTAX  OCTET STRING ( SIZE (0..15) )
+
+XfSdhSignalLabel ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "x"
+    STATUS  current
+    DESCRIPTION
+        "SDH SignalLabel.
+        The byte contains the normal SignalLabel information
+        (from V5-Byte or C2-Byte depending on VC type).
+        In case of extended signal label to be used, the byte contains
+        the extended SignalLabel information (from K4-Byte)."
+    SYNTAX Integer32 (0..255)
+
+
+XfTimeDurationSeconds ::= TEXTUAL-CONVENTION
+    STATUS          current
+    DESCRIPTION
+        "Time duration in 1 second resolution."
+    SYNTAX Unsigned32 (0..2147483647)
+
+XfTimeDuration100Millis ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT    "d-1"   -- SHOW: 12.3 for value=123.
+    STATUS          current
+    DESCRIPTION
+        "Time duration in 100 milliseconds resolution."
+    SYNTAX Unsigned32 (0..2147483647)
+
+END
