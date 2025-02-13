@@ -1,4 +1,3 @@
-cpanm https://github.com/Lamprecht/perl-tk.git@Strawberry-5.38-patch 
 cpanm Tk::FileDialog
 cpanm Tk::JComboBox
 cpanm Tk::TableMatrix
@@ -7,6 +6,4 @@ cpanm Log::Dispatch
 cpanm Proc::Background
 cpanm IPC::Run
 cpanm PAR::Packer
-# Opcionales
-#cpanm Net::SNMPTrapd
-#cpanm Digest::MurmurHash
+cpanm https://github.com/Lamprecht/perl-tk.git@Strawberry-5.38-patch 

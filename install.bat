@@ -3,16 +3,20 @@ REM 1. Instalar módulos desde requirements.txt
 powershell -Command "Get-Content requirements.txt | Where-Object { $_ -notmatch '^\s*#' -and $_ -match 'cpanm' } | ForEach-Object { $_.Split(' ')[1] } | ForEach-Object { cpanm $_ }"
 
 REM 2. Buscar ruta de Tk/FileDialog.pm y aplicar parche
-perl -e "use File::Find; find(sub { print \$File::Find::name if /FileDialog\.pm$/ }, @INC)" > tmp.txt
-set /p filepath=<tmp.txt
-del tmp.txt
+set filepath=C:/Strawberry/perl/site/lib/Tk/FileDialog.pm
+set patchfile=herramientas\Archivos_temporales\Parche\Librerias\FileDialog.pm
 
-if "%filepath%"=="" (
-    echo Error: No se encontró Tk/FileDialog.pm en @INC
+if not exist "%filepath%" (
+    echo Error: No se encontró Tk/FileDialog.pm en la ruta especificada
     exit /b 1
 )
 
-REM 3. Reemplazar $ por $^W usando Perl (método robusto)
-perl -i -pe "s/\x17/\$^W/g" "%filepath%"
+REM Reemplazar el contenido del archivo principal con el archivo de parche
+copy /Y "%patchfile%" "%filepath%"
+
+if %errorlevel% neq 0 (
+    echo Error: No se pudo aplicar el parche
+    exit /b 1
+)
 
 echo ¡Parche aplicado en %filepath%!
