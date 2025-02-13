@@ -11,6 +11,10 @@ then
         echo "Por favor, instale cpanm y vuelva a ejecutar el script."
         exit 1
     fi
+else
+    echo "cpanm está instalado y se puede utilizar."
+    echo "Ubicación de cpanm: $(command -v cpanm)"
+    echo "Ejemplo de uso: cpanm --version"
 fi
 
 # Verificar si el archivo requirements.txt existe en la raíz del proyecto
