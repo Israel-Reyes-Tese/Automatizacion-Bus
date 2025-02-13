@@ -1,1273 +1,3569 @@
 ----------------------------------- OBJECT_IDENTITIES ---------------------------
-zeroDotZero:
-  STATUS: current
+snmpPrivProtocols:
+  OID:  snmpFrameworkAdmin 2 
   TYPE: OBJECT-IDENTITY
+  STATUS: current
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  DESCRIPTION: Registration point for standards-track privacy
+protocols used in SNMP Management Frameworks.
+
+
+MODULE-IDENTITY,:
+  STATUS: 
+  DESCRIPTION: The SNMP Management Architecture MIB"
+REVISION        "199901190000Z"
+DESCRIPTION     
+"Updated editors' addresses, fixed typos.
+Published as RFC2571.
+"
+REVISION        "199711200000Z"
+DESCRIPTION     
+"The initial version, published in RFC 2271.
+
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpModules 10 
+  TYPE: OBJECT-IDENTITY
+
+ericssonModules:
+  TYPE: OBJECT-IDENTITY
+  OID:  ericsson 183 
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  DESCRIPTION: ericssonModules provides a root object identifier
+from which MODULE-IDENTITY values may be assigned
+for Ericsson Group-wide MIB modules.
+  STATUS: current
+
+snmpAuthProtocols:
+  TYPE: OBJECT-IDENTITY
+  OID:  snmpFrameworkAdmin 1 
+  DESCRIPTION: Registration point for standards-track
+authentication protocols used in SNMP Management
+Frameworks.
+
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  STATUS: current
+
+enterprises,:
+  DESCRIPTION: This very small module is made available so that
+developers within the Ericsson community can import the
+'ericsson' name into their own MIB modules. In addition,
+it includes the top-level node for Ericsson Group-wide
+MIB modules.
+Document number: 1/196 03-CXC 172 7549, Rev A"
+REVISION  "200810170000Z"
+DESCRIPTION "Added email contact address, ericssonModules"
+REVISION  "200205280000Z"
+DESCRIPTION "Initial version of this MIB module.
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  STATUS: 
+  TYPE: OBJECT-IDENTITY
+  OID:  enterprises 193 
+
+zeroDotZero:
   OID:  0 0 
-  ARCHIVO: SNMPv2-SMI
+  TYPE: OBJECT-IDENTITY
+  STATUS: current
   DESCRIPTION: A value used for null identifiers.
+  ARCHIVO: SNMPv2-SMI
 
 ----------------------------------- FIN DE OBJECT_IDENTITIES -----------------------------------
 ----------------------------------- OBJECT_TYPES ---------------------------
-notifyManagedObjectInstanceName:
-  SYNTAX: DisplayString (SIZE (0..255))
-  OID:  ntsAttribute 9 
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  DESCRIPTION: This object identifies the MO instance name of network resource to which the notification is related.
+eriAlarmXNObjAdditionalInfo:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: This is a scalar variable only used in
+notifications. It is size ranged with a smaller
+size than the corresponding type used in the
+active alarm table. This is in order to make sure
+that all alarm information will fit into one UDP
+packet. The additional info can be further
+appended by using the dedicated append
+notification.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
   TYPE: OBJECT-TYPE
+  SYNTAX: EriAdditionalInfo
+  OID:  eriAlarmXNotifObjects 4 
   MAX_ACCESS: accessible-for-notify
-  INDEX: INDEX no encontrado
   STATUS: current
 
-messageCode:
-  STATUS: current
+eriAlarmXSumWarning:
   INDEX: INDEX no encontrado
+  DESCRIPTION: This object shows the number of currently active
+alarms with perceived severity 'warning'. Note
+that only stateful alarms are included.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
   TYPE: OBJECT-TYPE
-  MAX_ACCESS: accessible-for-notify
-  DESCRIPTION: the ems error code.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: Integer32
-  OID:  alarmIRPInfo 5 
-
-notifyTimeZoneID:
-  SYNTAX: DisplayString (SIZE (0..50))
-  OID:  ntsAttribute 12 
-  INDEX: INDEX no encontrado
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  DESCRIPTION: This object represents the NE's TimeZoneID. 
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-
-alarmProbableCause:
-  DESCRIPTION: This object represents the probable cause 
-of the current.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
+  OID:  eriAlarmXSummary 5 
   MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-  INDEX: INDEX no encontrado
+  SYNTAX: Gauge32
   STATUS: current
-  SYNTAX: ProbableCause
-  OID:  currentAlarmEntry 5 
 
-alarmEventTime:
-  OID:  currentAlarmEntry 3 
-  SYNTAX: DateAndTime
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-only
-  DESCRIPTION: This object represents the event time of the subject alarm.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  INDEX: INDEX no encontrado
-
-alarmAdditionalText:
-  STATUS: current
-  INDEX: INDEX no encontrado
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents some arbitrary additional 
-information of the alarm.
-  OID:  currentAlarmEntry 8 
-  SYNTAX: AdditionalText
-
-cleiCode:
-  STATUS: current
-  INDEX: INDEX no encontrado
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-only
-  DESCRIPTION: This object represents the CLEI Code of the MO instance of 
-network resource. 
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: DisplayString (SIZE (0..50))
-  OID:  currentAlarmEntry 19 
-
-alarmManagedObjectInstanceName:
-  INDEX: INDEX no encontrado
-  STATUS: current
-  DESCRIPTION: This object identifies the MO instance name of 
-network resource to which the alarm is 
-related.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-  SYNTAX: DisplayString (SIZE (0..255))
-  OID:  currentAlarmEntry 15 
-
-alarmSystemTypeCauseExcludeFilter:
-  SYNTAX: OCTET STRING (SIZE (0..512))
-  OID:  alarmFilterCondition 11 
-  MAX_ACCESS: read-write
-  TYPE: OBJECT-TYPE
-  DESCRIPTION: This object filters alarm according to the alarm system type and northbound alarm code.  uses '[]' as splitter between alarm system type and northbound alarm code .for example: [6,716][11,351] means : System type is 6 and the northbound alarm code for 716, system type 11 and northbound alarm code of 351 is not sent.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  INDEX: INDEX no encontrado
-
-alarmComment:
-  STATUS: current
-  INDEX: INDEX no encontrado
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-write
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents alarm comment.
-  SYNTAX: DisplayString (SIZE (0..255))
-  OID:  currentAlarmEntry 10 
-
-notifyId:
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  DESCRIPTION: This object represents the number id of the notification. 
+eriAlarmXNObjMoreAdditionalText:
+  SYNTAX: TruthValue
+  OID:  eriAlarmXNotifObjects 2 
   MAX_ACCESS: accessible-for-notify
   TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: This is a scalar variable only used in
+notifications. It tells the management system
+that the additional text will be appended by
+subsequent append additional text notifications.
+NOTE: this object exists simply because of the
+limitations of PDU size inherent in SNMP over
+UDP, which limits the size of the PDU+headers to
+under 1500 octets.  Otherwise, the notification
+will be fragmented.
+
+eriAlarmNObjAppendedAdditionalInfo:
+  DESCRIPTION: This scalar variable is used for spillover of
+the additional info in the append trap.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
   INDEX: INDEX no encontrado
   STATUS: current
-  SYNTAX: DisplayString (SIZE (0..50))
-  OID:  ntsAttribute 16 
-
-alarmWarningNumber:
-  OID:  alarmCount 5 
-  SYNTAX: Integer32
-  INDEX: INDEX no encontrado
-  STATUS: current
-  DESCRIPTION: This object determines the number of currently 
-active alarms with perceived severity 'warning'.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
   TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-only
-
-notifyCustomAttr2:
-  SYNTAX: DisplayString
-  OID:  ntsAttribute 19 
-  TYPE: OBJECT-TYPE
+  SYNTAX: EriAppendedAdditionalInfo
+  OID:  eriAlarmNotifObjects 7 
   MAX_ACCESS: accessible-for-notify
-  DESCRIPTION: This object identifies the second custom attribute information of notification
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  STATUS: current
-  INDEX: INDEX no encontrado
 
-alarmOtherInfo:
-  SYNTAX: DisplayString (SIZE (0..255))
-  OID:  currentAlarmEntry 25 
+eriAlarmXActiveResourceId:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: In case the alarm refers to an object which is
+instrumented by SNMP this variable indicates the
+corresponding OID for the YANG resource instance.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmXActiveAlarmEntry 14 
+  SYNTAX: ResourceId
+  MAX_ACCESS: read-only
+  STATUS: current
+
+snmpNotifyEntry:
+  DESCRIPTION: An entry in this table selects a set of management targets
+which should receive notifications, as well as the type of
+notification which should be sent to each selected
+management target.
+Entries in the snmpNotifyTable are created and
+deleted using the snmpNotifyRowStatus object.
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  INDEX:  IMPLIED snmpNotifyName 
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  snmpNotifyTable 1 
+  SYNTAX: SnmpNotifyEntry
+  MAX_ACCESS: not-accessible
+
+snmpTargetAddrTagList:
+  DESCRIPTION: This object contains a list of tag values which are
+used to select target addresses for a particular
+operation.
+  ARCHIVO: SNMP-TARGET-MIB
   INDEX: INDEX no encontrado
   STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents the custom properity of the alarm. 
+  TYPE: OBJECT-TYPE
+  OID:  snmpTargetAddrEntry 6 
+  SYNTAX: SnmpTagList
+  MAX_ACCESS: read-create
+
+eriAlarmXNObjSourceIdentifierType:
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: This is a scalar variable only used in notifications.
+It tells the management system the type of Identifier
+for the Source that raised the notification.
+This is needed for deployments where the Source IP 
+Address of the IP packet does not reflect the original 
+source of the alarm.
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  SYNTAX: EriAlarmSourceIdentifierType
+  OID:  eriAlarmXNotifObjects 8 
+  MAX_ACCESS: accessible-for-notify
+
+snmpTargetAddrEntry:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  snmpTargetAddrTable 1 
+  SYNTAX: SnmpTargetAddrEntry
+  MAX_ACCESS: not-accessible
+  ARCHIVO: SNMP-TARGET-MIB
+  DESCRIPTION: A transport address to be used in the generation
+of SNMP operations.
+Entries in the snmpTargetAddrTable are created and
+deleted using the snmpTargetAddrRowStatus object.
+  INDEX:  IMPLIED snmpTargetAddrName 
+
+eriAlarmActiveProbableCause:
   TYPE: OBJECT-TYPE
   MAX_ACCESS: read-only
-
-alarmSeverityFilter:
+  OID:  eriAlarmActiveAlarmEntry 9 
+  SYNTAX: EriProbableCause
   STATUS: current
   INDEX: INDEX no encontrado
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-write
-  DESCRIPTION: This object filters alarm according to the alarm severity.The alarm of specifical severity will be sent.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: SeverityFilter
-  OID:  alarmFilterCondition 5 
+  DESCRIPTION: The probable cause for the alarm originally
+defined by X.733 and subsequent standards. See
+also the ERICSSON-ALARM-PC-MIB. Due to the
+history of problems in maintaining a standardized
+probable cause the probable cause is not unique.
+A best effort mapping of the alarm to existing
+probable causes are used.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
 
-alarmIndeterminateNumber:
-  STATUS: current
-  INDEX: INDEX no encontrado
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object determines the number of currently 
-active alarms with perceived severity 'indeterminate'.
-  OID:  alarmCount 1 
-  SYNTAX: Integer32
-
-notifyCodeName:
-  SYNTAX: DisplayString (SIZE (0..255))
-  OID:  ntsAttribute 8 
-  INDEX: INDEX no encontrado
-  STATUS: current
-  DESCRIPTION: This object represents an notification code name
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-
-alarmSystemType:
-  SYNTAX: DisplayString (SIZE (0..5))
-  OID:  currentAlarmEntry 16 
-  STATUS: current
-  INDEX: INDEX no encontrado
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents systemtype.
-
-alarmSpecificProblem:
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents the vendor specific problem 
-.
-  STATUS: current
-  INDEX: INDEX no encontrado
-  OID:  currentAlarmEntry 7 
-  SYNTAX: DisplayString (SIZE (0..255))
-
-notifyTimeZoneOffset:
-  SYNTAX: Integer32
-  OID:  ntsAttribute 13 
-  DESCRIPTION: This object represents the NE's TimeZoneOffset. 
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: accessible-for-notify
-  INDEX: INDEX no encontrado
-  STATUS: current
-
-alarmCriticalNumber:
-  OID:  alarmCount 2 
-  SYNTAX: Integer32
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object determines the number of currently 
-active alarms with perceived severity 'critical'.
-  STATUS: current
-  INDEX: INDEX no encontrado
-
-notifyCustomAttr9:
-  DESCRIPTION: This object identifies the ninth custom attribute information of notification
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-  INDEX: INDEX no encontrado
-  STATUS: current
-  OID:  ntsAttribute 26 
-  SYNTAX: DisplayString
-
-alarmPerceivedSeverity:
-  STATUS: current
-  INDEX: INDEX no encontrado
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-write
-  DESCRIPTION: This object represents the perceived severity of 
-the alarm.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: PerceivedSeverity
-  OID:  currentAlarmEntry 6 
-
-notifyMocObjectInstance:
-  SYNTAX: DisplayString (SIZE (0..255))
-  OID:  ntsAttribute 17 
-  DESCRIPTION: This object identifies the SUB MO instance of network resource to which the notification is related.
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: accessible-for-notify
-  INDEX: INDEX no encontrado
-  STATUS: current
-
-notifyCustomAttr1:
-  OID:  ntsAttribute 18 
-  SYNTAX: DisplayString
-  INDEX: INDEX no encontrado
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  DESCRIPTION: This object identifies the first custom attribute information of notification
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-
-notifyManagedObjectInstance:
-  SYNTAX: ManagedObjectInstance
-  OID:  ntsAttribute 3 
-  DESCRIPTION: This object identifies the MO instance of network resource to which the notification is related.
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-  INDEX: INDEX no encontrado
-  STATUS: current
-
-notifyNeIP:
-  OID:  ntsAttribute 11 
-  SYNTAX: DisplayString (SIZE (0..60))
-  DESCRIPTION: This object identifies the IP of network resource to which the notification is related.
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-  INDEX: INDEX no encontrado
-  STATUS: current
-
-alarmTypeExcludeFilter:
-  MAX_ACCESS: read-write
-  TYPE: OBJECT-TYPE
-  DESCRIPTION: This object filters alarm according to the alarm type.  uses ',' as splitter between alarm types .for example: 1,2 means :The alarms of specifical type  of 1 and 2,those will not be sent. 
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  STATUS: current
-  INDEX: INDEX no encontrado
-  SYNTAX: OCTET STRING (SIZE (0..512))
-  OID:  alarmFilterCondition 7 
-
-sendNotificationId:
-  OID:  alarmIRPInfo 2 
-  SYNTAX: Integer32
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represent the notification identifier
-of current send notification ( AlarmNew,AlarmCleared,AlarmAckChange,AlarmCommentChange,AlarmSync)
-The agent shall store the notification identifier
-of the last send FM notification in this object
-immediately after sending the notification.
-The manager can retrieve the current value of this
-object to detect lost notifications. This mechanism
-can be used by the manager when no notification
-is received for a certain time (e.g. 10 minutes)
-to evaluate whether a synchronization should be performed. 
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: accessible-for-notify
-  INDEX: INDEX no encontrado
-  STATUS: current
-
-notifyCustomAttr3:
-  STATUS: current
-  INDEX: INDEX no encontrado
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-  DESCRIPTION: This object identifies the third custom attribute information of notification
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  SYNTAX: DisplayString
-  OID:  ntsAttribute 20 
-
-alarmCodeName:
-  OID:  currentAlarmEntry 14 
-  SYNTAX: DisplayString (SIZE (0..255))
-  DESCRIPTION: This object represents an alarm code name
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-  INDEX: INDEX no encontrado
-  STATUS: current
-
-dSTSaving:
-  OID:  currentAlarmEntry 22 
-  SYNTAX: Integer32
-  INDEX: INDEX no encontrado
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents the NE's DSTSaving. 
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-
-notifyProbableCause:
-  INDEX: INDEX no encontrado
-  STATUS: current
-  DESCRIPTION: This object represents the probable cause of the current.
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-  SYNTAX: ProbableCause
-  OID:  ntsAttribute 4 
-
-csIRPHeartbeatPeriod:
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-write
-  DESCRIPTION: It specifies the time between two emissions of heartbeat
-notifications. A value of zero implies there is no heartbeat
-emission. The unit is second.
-Range: value range of heartbeat period
-is from 5 second to 300 second, 0 is also a legal value.
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  STATUS: current
-  INDEX: INDEX no encontrado
-  OID:  csIRPInfo 2 
-  SYNTAX: INTEGER
-
-notifyCustomAttr4:
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-  DESCRIPTION: This object identifies the fourth custom attribute information of notification
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  STATUS: current
-  INDEX: INDEX no encontrado
-  SYNTAX: DisplayString
-  OID:  ntsAttribute 21 
-
-notifyCustomAttr6:
-  STATUS: current
-  INDEX: INDEX no encontrado
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: accessible-for-notify
-  DESCRIPTION: This object identifies the sixth custom attribute information of notification
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  SYNTAX: DisplayString
-  OID:  ntsAttribute 23 
-
-notifyAid:
-  SYNTAX: DisplayString (SIZE (0..255))
-  OID:  ntsAttribute 15 
-  DESCRIPTION: This object represents an notification AID
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-  INDEX: INDEX no encontrado
-  STATUS: current
-
-timeZoneOffset:
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents the NE's TimeZoneOffset. 
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-  INDEX: INDEX no encontrado
-  STATUS: current
-  OID:  currentAlarmEntry 21 
-  SYNTAX: Integer32
-
-alarmEventType:
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents the type of event.
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-  INDEX: INDEX no encontrado
-  STATUS: current
-  OID:  currentAlarmEntry 4 
-  SYNTAX: TypeOfEvent
-
-alarmSystemTypeCodeExcludeFilter:
-  SYNTAX: OCTET STRING (SIZE (0..512))
-  OID:  alarmFilterCondition 9 
-  INDEX: INDEX no encontrado
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object filters alarm according to the alarm system type and alarm code.  uses '[]' as splitter between alarm system type and alarm code .for example: [6,1000][11,1200] means : System type is 6 and the alarm code for 1000, system type 11 and alarm code of 1200 is not sent.
-  MAX_ACCESS: read-write
-  TYPE: OBJECT-TYPE
-
-alarmIndex:
-  SYNTAX: Integer32(0..2147483647)
-  OID:  currentAlarmEntry 9 
-  INDEX: INDEX no encontrado
-  STATUS: current
-  DESCRIPTION: This object uniquely identifies an entry in the 
-Active Alarm Table. It increases every time a new alarm 
-occurs. Due to cleared alarms the index will not be 
-contiguous. When the maximum is reached of 
-Integer32, the value of this object rolls over to 1. 
-The actor must use 'alarmEventTime' to sort on 
-chronological order.
-The alarmIndex object is read-only ,and it
-is used as index in the Active Alarm Table. 
-The alarmIndex facilities the way to extract 
-the corresponding value from a notification where 
-the object is included.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-
-notifyCustomAttr10:
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  DESCRIPTION: This object identifies the tenth custom attribute information of notification
-  STATUS: current
-  INDEX: INDEX no encontrado
-  OID:  ntsAttribute 27 
-  SYNTAX: DisplayString
-
-systemDN:
-  STATUS: current
-  INDEX: INDEX no encontrado
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-  DESCRIPTION: This object carries the Distinguished Name (DN) of the system 
-which generates the Notification.
-The combination of notificationId and systemDN uniquely 
-identifies each notification.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  SYNTAX: ManagedObjectInstance
-  OID:  alarmIRPInfo 3 
-
-notifySystemType:
-  SYNTAX: DisplayString (SIZE (0..5))
-  OID:  ntsAttribute 10 
-  INDEX: INDEX no encontrado
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  DESCRIPTION: This object represents systemtype.
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-
-notifyEventTime:
-  OID:  ntsAttribute 1 
-  SYNTAX: DateAndTime
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  DESCRIPTION: This object represents the time of occurrence of the notification.
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-  INDEX: INDEX no encontrado
-  STATUS: current
-
-notifyAdditionalText:
-  OID:  ntsAttribute 6 
-  SYNTAX: DisplayString (SIZE (0..255))
-  INDEX: INDEX no encontrado
-  STATUS: current
-  DESCRIPTION: This object represents some arbitrary additional information of the notification.
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-
-alarmMocObjectInstance:
-  STATUS: current
-  INDEX: INDEX no encontrado
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object identifies the SUB MO instance of 
-network resource to which the alarm is 
-related.
-  OID:  currentAlarmEntry 26 
-  SYNTAX: DisplayString (SIZE (0..255))
-
-alarmFilterEnable:
-  SYNTAX: Integer32
-  OID:  alarmFilter 1 
-  INDEX: INDEX no encontrado
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: Alarm Filter enable or false,0 means false,while 1 means true.
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-write
-
-notifyCustomAttr7:
-  SYNTAX: DisplayString
-  OID:  ntsAttribute 24 
-  DESCRIPTION: This object identifies the seventh custom attribute information of notification
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-  INDEX: INDEX no encontrado
-  STATUS: current
-
-ntsNotificationFilterEnable:
-  INDEX: INDEX no encontrado
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  DESCRIPTION: Notification Filter enable or false,0 means false,while 1 means true.
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-write
-  SYNTAX: Integer32
-  OID:  ntsNotificationFilter 1 
-
-notifySpecificProblem:
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  DESCRIPTION: This object represents the vendor specific problem.
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: accessible-for-notify
-  INDEX: INDEX no encontrado
-  STATUS: current
-  OID:  ntsAttribute 5 
-  SYNTAX: DisplayString (SIZE (0..255))
-
-alarmId:
-  INDEX: INDEX no encontrado
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents an alarm in EMS using 
-the private format of vendor
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-  SYNTAX: DisplayString (SIZE (0..255))
-  OID:  currentAlarmEntry 1 
-
-alarmMajorNumber:
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object determines the number of currently 
-active alarms with perceived severity 'major'.
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-  INDEX: INDEX no encontrado
-  STATUS: current
-  OID:  alarmCount 3 
-  SYNTAX: Integer32
-
-alarmNetype:
-  OID:  currentAlarmEntry 12 
-  SYNTAX: DisplayString (SIZE (0..50))
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents an alarm netype
-  STATUS: current
-  INDEX: INDEX no encontrado
-
-rowStatus:
+snmpNotifyFilterEntry:
   TYPE: OBJECT-TYPE
   MAX_ACCESS: not-accessible
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: TControls and reflects the  status  of  rows  in   this table 
+  OID:  snmpNotifyFilterTable 1 
+  SYNTAX: SnmpNotifyFilterEntry
   STATUS: current
   INDEX: INDEX no encontrado
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  DESCRIPTION: An element of a filter profile.
+Entries in the snmpNotifyFilterTable are created and
+deleted using the snmpNotifyFilterRowStatus object.
+
+snmpTargetAddrTimeout:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  snmpTargetAddrEntry 4 
+  SYNTAX: TimeInterval
+  MAX_ACCESS: read-create
+  ARCHIVO: SNMP-TARGET-MIB
+  DESCRIPTION: This object should reflect the expected maximum round
+trip time for communicating with the transport address
+defined by this row.  When a message is sent to this
+address, and a response (if one is expected) is not
+received within this time period, an implementation
+may assume that the response will not be delivered.
+Note that the time interval that an application waits
+for a response may actually be derived from the value
+of this object.  The method for deriving the actual time
+interval is implementation dependent.  One such method
+is to derive the expected round trip time based on a
+particular retransmission algorithm and on the number
+of timeouts which have occurred.  The type of message may
+also be considered when deriving expected round trip
+times for retransmissions.  For example, if a message is
+being sent with a securityLevel that indicates both
+authentication and privacy, the derived value may be
+increased to compensate for extra processing time spent
+during authentication and encryption processing.
+  INDEX: INDEX no encontrado
+
+eriAlarmXAlertYangNodeInstance:
+  SYNTAX: EriPath
+  OID:  eriAlarmXAlertEntry 5 
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: An Abridged YANG Instance-Identifier that references a
+resource within the Managed Element.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+
+snmpNotifyRowStatus:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The status of this conceptual row.
+To create a row in this table, a manager must
+set this object to either createAndGo(4) or
+createAndWait(5).
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  OID:  snmpNotifyEntry 5 
+  MAX_ACCESS: read-create
   SYNTAX: RowStatus
-  OID:  currentAlarmEntry 13 
+  TYPE: OBJECT-TYPE
+  STATUS: current
 
-ntsNotificationCodesIncludeFilter:
+eriAlarmSumMinor:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: This object shows the number of currently active
+alarms with perceived severity 'minor'. Note
+that only stateful alarms are included.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  TYPE: OBJECT-TYPE
+  SYNTAX: Gauge32
+  OID:  eriAlarmSummary 4 
+  MAX_ACCESS: read-only
+  STATUS: current
+
+eriAlarmSumMajor:
+  STATUS: current
+  SYNTAX: Gauge32
+  OID:  eriAlarmSummary 3 
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: This object shows the number of currently active
+alarms with perceived severity 'major'. Note
+that only stateful alarms are included.
+  INDEX: INDEX no encontrado
+
+snmpEngineBoots:
+  TYPE: OBJECT-TYPE
+  OID:  snmpEngine 2 
+  SYNTAX: Integer32 (1..2147483647)
+  MAX_ACCESS: read-only
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  DESCRIPTION: The number of times that the SNMP engine has
+(re-)initialized itself since snmpEngineID
+was last configured.
+
+
+snmpNotifyTag:
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  DESCRIPTION: This object contains a single tag value which is used
+to select entries in the snmpTargetAddrTable.  Any entry
+in the snmpTargetAddrTable which contains a tag value
+which is equal to the value of an instance of this
+object is selected.  If this object contains a value
+of zero length, no entries are selected.
   INDEX: INDEX no encontrado
   STATUS: current
-  DESCRIPTION: This object filters notification according to the system type and notification code.  uses ',' as splitter between alarm codes .for example: 10001,10002 means :The alarm of specifical  system type code of 10001 and 10002 will not be sent. 
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
+  SYNTAX: SnmpTagValue
+  OID:  snmpNotifyEntry 2 
+  MAX_ACCESS: read-create
   TYPE: OBJECT-TYPE
+
+snmpEngineTime:
+  DESCRIPTION: The number of seconds since the value of
+the snmpEngineBoots object last changed.
+When incrementing this object's value would
+cause it to exceed its maximum,
+snmpEngineBoots is incremented as if a
+re-initialization had occurred, and this
+object's value consequently reverts to zero.
+
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  snmpEngine 3 
+  MAX_ACCESS: read-only
+  SYNTAX: Integer32 (0..2147483647)
+
+new:
+  DESCRIPTION: Initial version of this MIB module.
+Document number: 11/196 03-CXC 172 7549, Rev A.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  INDEX: INDEX no encontrado
+  STATUS: STATUS no encontrado
+  TYPE: OBJECT-TYPE
+  OID:  ericssonModules 6 
+  MAX_ACCESS: MAX-ACCESS no encontrado
+  SYNTAX: SYNTAX no encontrado
+
+snmpTargetParamsSecurityLevel:
+  SYNTAX: SnmpSecurityLevel
+  OID:  snmpTargetParamsEntry 5 
+  MAX_ACCESS: read-create
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: SNMP-TARGET-MIB
+  DESCRIPTION: The Level of Security to be used when generating
+SNMP messages using this entry.
+
+eriAlarmAlertResourceId:
+  STATUS: current
+  MAX_ACCESS: read-only
+  OID:  eriAlarmAlertEntry 11 
+  SYNTAX: ResourceId
+  TYPE: OBJECT-TYPE
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: In case the alert refers to an object which is
+instrumented by SNMP this variable indicates the
+corresponding OID for the managed object.
+  INDEX: INDEX no encontrado
+
+eriAlarmHbInterval:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The notification eriAlarmHeartBeatNotif will be
+sent every eriAlarmHbInterval. Managers can
+subscribe to the notification using the SNMP
+framework MIBS by using the snmpNotifyName
+'heartbeat'. (SNMP-NOTIFICATION-MIB,
+snmpNotifyTable)
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmHeartBeat 1 
+  SYNTAX: Unsigned32
   MAX_ACCESS: read-write
-  OID:  ntsNotificationFilterCondition 1 
-  SYNTAX: OCTET STRING (SIZE (0..512))
+  STATUS: current
 
-lastSendNotificationId:
-  DESCRIPTION: This object represent the notification identifier
-of last send notification ( AlarmNew, AlarmCleared,AlarmAckChange,AlarmCommentChange)
-The agent shall store the notification identifier
-of the last send FM notification in this object
-immediately after sending the notification.
-The manager can retrieve the current value of this
-object to detect lost notifications. This mechanism
-can be used by the manager when no notification
-is received for a certain time (e.g. 10 minutes)
-to evaluate whether a synchronization should be performed. 
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
+eriAlarmAlertIndex:
+  DESCRIPTION: Index in the alert table.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
   INDEX: INDEX no encontrado
   STATUS: current
-  SYNTAX: Integer32
-  OID:  alarmIRPInfo 4 
-
-alarmManagedObjectInstance:
-  INDEX: INDEX no encontrado
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object identifies the MO instance of 
-network resource to which the alarm is 
-related.
+  MAX_ACCESS: not-accessible
+  OID:  eriAlarmAlertEntry 1 
+  SYNTAX: EriAlarmIndex
   TYPE: OBJECT-TYPE
+
+eriAlarmAlertProbableCause:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The probable cause, originally defined by X.733
+and subsequent standards.
+See also the ERICSSON-ALARM-PC-MIB. Due to the
+history of problems in maintaining a standardized
+probable cause the probable cause is not unique.
+A best effort mapping of the alert to existing
+probable causes are used.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
   MAX_ACCESS: read-only
-  SYNTAX: ManagedObjectInstance
-  OID:  currentAlarmEntry 2 
-
-timeZoneID:
-  OID:  currentAlarmEntry 20 
-  SYNTAX: DisplayString (SIZE (0..50))
+  OID:  eriAlarmAlertEntry 8 
+  SYNTAX: EriProbableCause
+  TYPE: OBJECT-TYPE
   STATUS: current
+
+snmpNotifyFilterTable:
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  DESCRIPTION: The table of filter profiles.  Filter profiles are used
+to determine whether particular management targets should
+receive particular notifications.
+When a notification is generated, it must be compared
+with the filters associated with each management target
+which is configured to receive notifications, in order to
+determine whether it may be sent to each such management
+target.
+A more complete discussion of notification filtering
+can be found in section 6. of [RFC2573].
   INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  snmpNotifyObjects 3 
+  MAX_ACCESS: not-accessible
+  SYNTAX: SEQUENCE OF SnmpNotifyFilterEntry
+
+snmpNotifyType:
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  DESCRIPTION: This object determines the type of notification to
+be generated for entries in the snmpTargetAddrTable
+selected by the corresponding instance of
+snmpNotifyTag.  This value is only used when
+generating notifications, and is ignored when
+using the snmpTargetAddrTable for other purposes.
+If the value of this object is trap(1), then any
+messages generated for selected rows will contain
+Unconfirmed-Class PDUs.
+If the value of this object is inform(2), then any
+messages generated for selected rows will contain
+Confirmed-Class PDUs.
+Note that if an SNMP entity only supports
+generation of Unconfirmed-Class PDUs (and not
+Confirmed-Class PDUs), then this object may be
+read-only.
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  snmpNotifyEntry 3 
+  SYNTAX: INTEGER { trap(1), inform(2) }
+  MAX_ACCESS: read-create
+
+eriAlarmAlertMajorType:
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: In combination with eriAlarmAlertMinorType, this
+provides unique identification of the alert.
+This is a simplification of the different X.733
+and 3GPP alarm IRP alarm correlation mechanisms
+based on EventType, ProbableCause,
+SpecificProblem and NotificationId.
+  SYNTAX: EriAlarmType
+  OID:  eriAlarmAlertEntry 2 
   MAX_ACCESS: read-only
   TYPE: OBJECT-TYPE
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents the NE's TimeZoneID. 
+  STATUS: current
 
-notifyNetype:
-  OID:  ntsAttribute 7 
-  SYNTAX: DisplayString (SIZE (0..50))
+snmpNotifyStorageType:
+  DESCRIPTION: The storage type for this conceptual row.
+  ARCHIVO: SNMP-NOTIFICATION-MIB
   INDEX: INDEX no encontrado
   STATUS: current
-  DESCRIPTION: This object represents an notification netype
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  MAX_ACCESS: accessible-for-notify
+  MAX_ACCESS: read-create
+  OID:  snmpNotifyEntry 4 
+  SYNTAX: StorageType
   TYPE: OBJECT-TYPE
 
-alarmNumber:
-  OID:  alarmCount 6 
-  SYNTAX: Integer32
-  STATUS: current
-  INDEX: INDEX no encontrado
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-only
-  DESCRIPTION: This object determines the total number of 
-currently active alarms, i.e. the total number
-of entries in the Active Alarm Table.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-
-alarmIrpVersion:
-  OID:  alarmIRPInfo 1 
-  SYNTAX: DisplayString (SIZE (0..20))
+eriAlarmXHbInterval:
+  DESCRIPTION: The notification eriAlarmXHeartBeatNotif will be
+sent every eriAlarmXHbInterval. Managers can
+subscribe to the notification using the SNMP
+framework MIBS by using the snmpNotifyName
+'heartbeat'. (SNMP-NOTIFICATION-MIB,
+snmpNotifyTable)
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
   INDEX: INDEX no encontrado
   STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents the version of the Alarm IRP
-SNMPv2 Solution Set supported by the agent.
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-
-alarmServerityExcludeFilter:
-  INDEX: INDEX no encontrado
-  STATUS: current
-  DESCRIPTION: This object filters alarm according to the alarm serverity.  uses ',' as splitter between alarm serverity .for example: 1,2 means : The alarms of specifical  serverity of 1 and 2 will not  be sent. 
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
+  OID:  eriAlarmXHeartBeat 1 
   MAX_ACCESS: read-write
+  SYNTAX: Unsigned32
   TYPE: OBJECT-TYPE
-  SYNTAX: OCTET STRING (SIZE (0..512))
-  OID:  alarmFilterCondition 8 
 
-id:
-  SYNTAX: DisplayString (SIZE (0..50))
-  OID:  currentAlarmEntry 24 
-  DESCRIPTION: This object represents the number id of the alarm. 
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  MAX_ACCESS: read-only
+eriAlarmAlertEntry:
+  STATUS: current
   TYPE: OBJECT-TYPE
+  OID:  eriAlarmAlertTable 1 
+  SYNTAX: EriAlarmAlertEntry
+  MAX_ACCESS: not-accessible
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: One entry in the table holds one alert for a
+given resource. Rows in this table are created
+when a new alert is detected. Rows are deleted
+by the instrumentation at a predefined size or
+age.
+  INDEX:  eriAlarmAlertIndex 
+
+eriAlarmAlertSeverity:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmAlertEntry 9 
+  MAX_ACCESS: read-only
+  SYNTAX: ItuPerceivedSeverity
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: The severity of the alert as defined by X.733
   INDEX: INDEX no encontrado
+
+eriAlarmXAlertLastChanged:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  SYNTAX: DateAndTime
+  OID:  eriAlarmXAlerts 2 
+  MAX_ACCESS: read-only
+  DESCRIPTION: A time stamp when the alert table was last
+changed. Can be used by a manager to initiate a
+an update of alerts procedure.
+NOTE: All fields of the DateAndTime MUST be
+filled out, including the hours and minutes from
+UTC. As such, the value should be 11 octets
+long.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  INDEX: INDEX no encontrado
+
+eriAlarmXAlertEntry:
+  INDEX:  eriAlarmXAlertIndex 
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: One entry in the table holds one alert for a
+given resource. Rows in this table are created
+when a new alert is detected. Rows are deleted
+by the instrumentation        at a predefined size or
+age.
+  OID:  eriAlarmXAlertTable 1 
+  MAX_ACCESS: not-accessible
+  SYNTAX: EriAlarmXAlertEntry
+  TYPE: OBJECT-TYPE
   STATUS: current
 
-alarmCode:
-  SYNTAX: DisplayString (SIZE (0..50))
-  OID:  currentAlarmEntry 11 
+eriAlarmActiveOrigAdditionalText:
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmActiveAlarmEntry 13 
+  SYNTAX: EriLargeAdditionalText
+  MAX_ACCESS: read-only
   STATUS: current
   INDEX: INDEX no encontrado
+  DESCRIPTION: A user-friendly text describing the alarm. The
+text is both static depending on the alarm type
+(probable cause), and dynamic depending on
+managed object and other conditions. This is the
+original text as reported by the first alarm
+notification, after which it is not altered.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+
+eriAlarmXActiveAdditionalInfo:
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: Additional Information for the alarm,
+structured in a way that is suitable for
+machine to machine communication.
+This string is longer than the corresponding
+varbind in the notification in order to manage
+large strings.
+  SYNTAX: EriLargeAdditionalInfo
+  OID:  eriAlarmXActiveAlarmEntry 15 
   MAX_ACCESS: read-only
   TYPE: OBJECT-TYPE
-  DESCRIPTION: This object represents an alarm code
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
+  STATUS: current
 
-currentAlarmEntry:
+eriAlarmAlertNumber:
+  OID:  eriAlarmAlerts 1 
+  SYNTAX: Unsigned32
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The number of rows in the alert table.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+
+snmpNotifyFilterProfileTable:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: This table is used to associate a notification filter
+profile with a particular set of target parameters.
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  TYPE: OBJECT-TYPE
+  SYNTAX: SEQUENCE OF SnmpNotifyFilterProfileEntry
+  OID:  snmpNotifyObjects 2 
+  MAX_ACCESS: not-accessible
+  STATUS: current
+
+eriAlarmActiveAlarmTable:
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmActiveAlarms 5 
+  SYNTAX: SEQUENCE OF EriAlarmActiveAlarmEntry
+  MAX_ACCESS: not-accessible
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: This table list all active alarms in the system.
+The aspect is the resource view of the alarms,
+not the administrative states and processes
+performed by users. The number of entries,
+active alarms, can be read in
+eriAlarmActiveNumber. Entries are created when a
+resource has a new alarm state. If the same
+resource has several active alarms, with
+different Alarm Types, this will be represented
+as separate rows. Rows disappear whenever the
+alarm is cleared in the resource.
+Rows can be changed when an alarm changes severity,
+additional text or additional info. Alarms where
+the clear state cannot be detected by the resource
+are not represented in this table.
+The contents of the active alarm table can also
+be fetched using file transfer.
+eriAlarmActiveTableURL provides a URL to the
+file.
+
+eriAlarmXActiveAdditionalText:
+  DESCRIPTION: A user-friendly text describing the alarm. The
+text is both static depending on the alarm type
+(probable cause), and dynamic depending on
+YANG resource instance and other conditions.
+This string is longer than the corresponding
+varbind in the notification in order to manage
+large strings.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  SYNTAX: EriLargeAdditionalText
+  OID:  eriAlarmXActiveAlarmEntry 12 
+  MAX_ACCESS: read-only
+
+snmpTargetSpinLock:
+  TYPE: OBJECT-TYPE
+  OID:  snmpTargetObjects 1 
+  SYNTAX: TestAndIncr
+  MAX_ACCESS: read-write
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: This object is used to facilitate modification of table
+entries in the SNMP-TARGET-MIB module by multiple
+managers.  In particular, it is useful when modifying
+the value of the snmpTargetAddrTagList object.
+The procedure for modifying the snmpTargetAddrTagList
+object is as follows:
+1.  Retrieve the value of snmpTargetSpinLock and
+of snmpTargetAddrTagList.
+2.  Generate a new value for snmpTargetAddrTagList.
+3.  Set the value of snmpTargetSpinLock to the
+retrieved value, and the value of
+snmpTargetAddrTagList to the new value.  If
+the set fails for the snmpTargetSpinLock
+object, go back to step 1.
+  ARCHIVO: SNMP-TARGET-MIB
+
+eriAlarmAlertAdditionalInfo:
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: Additional Information for the alert,
+structured in a way that is suitable for
+machine to machine communication.
+This string is longer than the corresponding
+varbind in the notification in order to manage
+large strings.
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmAlertEntry 12 
+  MAX_ACCESS: read-only
+  SYNTAX: EriLargeAdditionalInfo
+  STATUS: current
+
+snmpNotifyFilterType:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: This object indicates whether the family of filter subtrees
+defined by this entry are included in or excluded from a
+filter.  A more detailed discussion of the use of this
+object can be found in section 6. of [RFC2573].
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  OID:  snmpNotifyFilterEntry 3 
+  SYNTAX: INTEGER { included(1), excluded(2) }
+  MAX_ACCESS: read-create
+  TYPE: OBJECT-TYPE
+  STATUS: current
+
+eriAlarmXNObjAdditionalText:
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmXNotifObjects 1 
+  SYNTAX: EriAdditionalText
+  MAX_ACCESS: accessible-for-notify
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: This is a scalar variable only used in
+notifications. It is size ranged with a smaller
+size than the corresponding type used in the
+active alarm table. This is in order to make sure
+that all alarm information will fit into one UDP
+packet. The additional text can be further
+appended by using the dedicated append
+notification.
+
+eriAlarmActiveOriginalEventTime:
+  SYNTAX: DateAndTime
+  OID:  eriAlarmActiveAlarmEntry 8 
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: The time-stamp of the original alarm raise
+notification.
+NOTE: All fields of the DateAndTime MUST be
+filled out, including the hours and minutes from
+UTC. As such, the value should be 11 octets
+long.
+
+eriAlarmXSumCritical:
+  OID:  eriAlarmXSummary 2 
+  MAX_ACCESS: read-only
+  SYNTAX: Gauge32
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: This object shows the number of currently active
+alarms with perceived severity 'critical'. Note
+that only stateful alarms are included.
+
+eriAlarmAlertLastChanged:
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: A timestamp when the alert table was last
+changed. Can be used by a manager to initiate a
+an update of alerts procedure.
+NOTE: All fields of the DateAndTime MUST be
+filled out, including the hours and minutes from
+UTC. As such, the value should be 11 octets
+long.
+  OID:  eriAlarmAlerts 2 
+  MAX_ACCESS: read-only
+  SYNTAX: DateAndTime
+  TYPE: OBJECT-TYPE
+  STATUS: current
+
+eriAlarmXActiveProbableCause:
+  MAX_ACCESS: read-only
+  OID:  eriAlarmXActiveAlarmEntry 9 
+  SYNTAX: EriProbableCause
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: The probable cause for the alarm originally
+defined by X.733 and subsequent standards. See
+also the ERICSSON-ALARM-PC-MIB. Due to the
+history of problems in maintaining a standardized
+probable cause the probable cause is not unique.
+A best effort mapping of the alarm to existing
+probable causes        are used.
+
+eriAlarmActiveManagedObject:
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: The 3GPP naming convention shall be used as
+format for the managed object parameter. Note
+that the granularity must be good enough to
+guarantee unique alarm states and relevant
+resource identification to the operator.
+NOTE: The DN should be *relative* to the nodes
+*own* root.
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmActiveAlarmEntry 5 
+  SYNTAX: EriMO
+  MAX_ACCESS: read-only
+
+eriAlarmXActiveTableURL:
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: A URL pointing to a location where the contents
+of the alarm table can be retrieved as a file.
+The actual format of the file is out of the scope
+of this MIB and can be found in the system
+documentation. A Uniform Resource Locator in
+accordance with RFC 4248. A string of length
+zero means that the agent does not have a URL to
+provide.
+  INDEX: INDEX no encontrado
+  STATUS: current
+  OID:  eriAlarmXActiveAlarms 4 
+  SYNTAX: SnmpAdminString
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+
+snmpNotifyFilterProfileEntry:
+  OID:  snmpNotifyFilterProfileTable 1 
+  SYNTAX: SnmpNotifyFilterProfileEntry
   MAX_ACCESS: not-accessible
   TYPE: OBJECT-TYPE
-  DESCRIPTION: One entry in the table holds one current alarm.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
   STATUS: current
-  INDEX:  alarmIndex 
-  SYNTAX: AlarmEntry
-  OID:  currentAlarmTable 1 
+  INDEX:  IMPLIED snmpTargetParamsName 
+  DESCRIPTION: An entry in this table indicates the name of the filter
+profile to be used when generating notifications using
+the corresponding entry in the snmpTargetParamsTable.
+Entries in the snmpNotifyFilterProfileTable are created
+and deleted using the snmpNotifyFilterProfileRowStatus
+object.
+  ARCHIVO: SNMP-NOTIFICATION-MIB
 
-notifyCode:
-  STATUS: current
+snmpTargetParamsName:
   INDEX: INDEX no encontrado
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  DESCRIPTION: This object represents an notification code
-  SYNTAX: DisplayString (SIZE (0..50))
-  OID:  ntsAttribute 2 
-
-alarmNeIP:
-  DESCRIPTION: This object identifies the IP of 
-network resource to which the alarm is 
-related.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-  INDEX: INDEX no encontrado
-  STATUS: current
-  OID:  currentAlarmEntry 17 
-  SYNTAX: DisplayString (SIZE (0..60))
-
-notifyCustomAttr5:
-  OID:  ntsAttribute 22 
-  SYNTAX: DisplayString
-  STATUS: current
-  INDEX: INDEX no encontrado
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: accessible-for-notify
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  DESCRIPTION: This object identifies the fifth custom attribute information of notification
-
-alarmTypeFilter:
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object filters alarm according to the alarm type.The alarm of specifical type will be sent.
-  MAX_ACCESS: read-write
-  TYPE: OBJECT-TYPE
-  INDEX: INDEX no encontrado
-  STATUS: current
-  OID:  alarmFilterCondition 4 
-  SYNTAX: TypeFilter
-
-alarmPosition1OrPostion2ExcludeFilter:
-  SYNTAX: OCTET STRING (SIZE (0..1024))
-  OID:  alarmFilterCondition 10 
-  INDEX: INDEX no encontrado
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object filters alarm according to the alarm position1 or position2.  uses ',' as splitter between alarm position1 or poistion2. for example: CommonTopoObject=107-1417765074750,CommonTopoObject=100-1416791386500 means : Position1 is CommonTopoObject=107-1417765074750 and the position2 for CommonTopoObject=100-1416791386500, position1 CommonTopoObject=107-1417765074750 or position2 of CommonTopoObject=100-1416791386500 is not sent.
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-write
-
-clearAlarm:
-  INDEX: INDEX no encontrado
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object clear alarm ,use alarm's alarmPerceivedSeverity and id. for example 'PerceivedSeverity:2;Id:123' or  'PerceivedSeverity:3,4;' 
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-write
-  SYNTAX: OCTET STRING (SIZE (0..1024))
-  OID: alarmOperation 4 
-
-csIRPVersion:
-  INDEX: INDEX no encontrado
-  STATUS: current
-  DESCRIPTION: This object represents the version of the CS IRP
-SNMPv2 Solution Set supported by the agent.
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  MAX_ACCESS: read-only
-  TYPE: OBJECT-TYPE
-  SYNTAX: DisplayString (SIZE (0..20))
-  OID:  csIRPInfo 1 
-
-notifyCustomAttr8:
-  INDEX: INDEX no encontrado
-  STATUS: current
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  DESCRIPTION: This object identifies the eighth custom attribute information of notification
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-  OID:  ntsAttribute 25 
-  SYNTAX: DisplayString
-
-alarmMinorNumber:
-  STATUS: current
-  INDEX: INDEX no encontrado
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-only
-  DESCRIPTION: This object determines the number of currently 
-active alarms with perceived severity 'minor'.
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  OID:  alarmCount 4 
-  SYNTAX: Integer32
-
-aid:
-  STATUS: current
-  INDEX: INDEX no encontrado
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: read-only
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represents an alarm AID
-  OID:  currentAlarmEntry 23 
-  SYNTAX: DisplayString (SIZE (0..255))
-
-syncUniqueId:
-  SYNTAX: Integer32
-  OID:  alarmIRPInfo 6 
-  MAX_ACCESS: accessible-for-notify
-  TYPE: OBJECT-TYPE
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: This object represent the sync identifier of the same alarm sync operation. 
-  STATUS: current
-  INDEX: INDEX no encontrado
-
-alarmCodesExcludeFilter:
-  INDEX: INDEX no encontrado
-  STATUS: current
-  DESCRIPTION: This object filters alarm according to the alarm code.  uses ',' as splitter between alarm codes .for example: 10001,10002 means :The alarm of specifical  code of 10001 and 10002 will not be sent. 
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  MAX_ACCESS: read-write
-  TYPE: OBJECT-TYPE
-  OID:  alarmFilterCondition 6 
-  SYNTAX: OCTET STRING (SIZE (0..512))
-
-notifyDSTSaving:
-  SYNTAX: Integer32
-  OID:  ntsAttribute 14 
-  TYPE: OBJECT-TYPE
-  MAX_ACCESS: accessible-for-notify
-  DESCRIPTION: This object represents the NE's DSTSaving. 
-  ARCHIVO: zxcomc-snmp-notificationirp-mib-v1.0.txt
-  STATUS: current
-  INDEX: INDEX no encontrado
-
-alarmAck:
-  INDEX: INDEX no encontrado
-  STATUS: current
-  DESCRIPTION: Ack AlarmData or UnAckAlarmData
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  MAX_ACCESS: read-write
-  TYPE: OBJECT-TYPE
-  OID:  currentAlarmEntry 18 
-  SYNTAX: AckStatus
-
-currentAlarmTable:
-  STATUS: current
-  INDEX: INDEX no encontrado
+  ARCHIVO: SNMP-TARGET-MIB
+  DESCRIPTION: The locally arbitrary, but unique identifier associated
+with this snmpTargetParamsEntry.
   TYPE: OBJECT-TYPE
   MAX_ACCESS: not-accessible
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: Table with information about the current alarms in the system.
-  OID:  alarmIRP 3 
-  SYNTAX: SEQUENCE OF AlarmEntry
+  OID:  snmpTargetParamsEntry 1 
+  SYNTAX: SnmpAdminString (SIZE(1..32))
+  STATUS: current
+
+eriAlarmXActiveMajorType:
+  MAX_ACCESS: read-only
+  OID:  eriAlarmXActiveAlarmEntry 2 
+  SYNTAX: EriAlarmType
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: In combination with eriAlarmXActiveMinorType,
+this provides a unique identification of the
+fault type. Different YANG Schema Nodes and
+instances can share alarm types, but if the same
+YANG resource instance reports the same alarm type, 
+it is to be considered as the same alarm state. 
+The alarm type is a simplification of the different
+X.733 and 3GPP alarm IRP alarm correlation
+mechanisms based on EventType, ProbableCause,
+SpecificProblem and NotificationId. For systems
+where eriAlarmXActiveMajorType is not needed for
+identification purposes, it is not used and MUST
+be zero-valued.
+
+eriAlarmActiveSeverity:
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: The severity of the alarm as defined by X.733.
+Note that this may not be the original severity
+since the alarm may have changed severity.
+  TYPE: OBJECT-TYPE
+  SYNTAX: ItuPerceivedSeverity
+  OID:  eriAlarmActiveAlarmEntry 10 
+  MAX_ACCESS: read-only
+  STATUS: current
+
+eriAlarmXActiveSeverity:
+  OID:  eriAlarmXActiveAlarmEntry 10 
+  SYNTAX: ItuPerceivedSeverity
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The severity of the alarm as defined by X.733.
+Note that this might not be the original severity
+since the alarm might have changed severity.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+
+eriAlarmActiveAdditionalInfo:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  MAX_ACCESS: read-only
+  OID:  eriAlarmActiveAlarmEntry 15 
+  SYNTAX: EriLargeAdditionalInfo
+  DESCRIPTION: Additional Information for the alarm,
+structured in a way that is suitable for
+machine to machine communication.
+This string is longer than the corresponding
+varbind in the notification in order to manage
+large strings.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  INDEX: INDEX no encontrado
+
+eriAlarmAlertEventType:
+  DESCRIPTION: The event type as defined in X.733/X.736.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  SYNTAX: IANAItuEventType
+  OID:  eriAlarmAlertEntry 6 
+  MAX_ACCESS: read-only
+
+eriAlarmActiveMinorType:
+  DESCRIPTION: In combination with with
+eriAlarmActiveMajorType, this provides a unique
+identification of the fault type, not including
+the managed object. Different managed object
+types and instances can share alarm types, but if
+the same managed object reports the same alarm
+type it is to be considered as the same alarm
+state. The alarm type is a simplification of the
+different X.733 and 3GPP alarm IRP alarm
+correlation mechanisms based on EventType,
+ProbableCause, SpecificProblem and
+NotificationId.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  INDEX: INDEX no encontrado
+  STATUS: current
+  OID:  eriAlarmActiveAlarmEntry 3 
+  MAX_ACCESS: read-only
+  SYNTAX: EriAlarmType
+  TYPE: OBJECT-TYPE
+
+eriAlarmXActiveSpecificProblem:
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: This is a clear-text unique identification of
+the alarm type. There is a one-to-one mapping
+between eriAlarmXActiveSpecificProblem and
+[eriAlarmXActiveMajorType,eriAlarmXActiveMinorType]
+  INDEX: INDEX no encontrado
+  STATUS: current
+  SYNTAX: EriAlarmSpecificProblem
+  OID:  eriAlarmXActiveAlarmEntry 4 
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+
+snmpTargetAddrName:
+  OID:  snmpTargetAddrEntry 1 
+  SYNTAX: SnmpAdminString (SIZE(1..32))
+  MAX_ACCESS: not-accessible
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The locally arbitrary, but unique identifier associated
+with this snmpTargetAddrEntry.
+  ARCHIVO: SNMP-TARGET-MIB
+
+eriAlarmActiveSpecificProblem:
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: This is a clear-text unique identification of
+the alarm type. There is a one-to-one mapping
+between eriAlarmActiveSpecificProblem and
+[eriAlarmActiveMajorType,eriAlarmActiveMinorType]
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  MAX_ACCESS: read-only
+  OID:  eriAlarmActiveAlarmEntry 4 
+  SYNTAX: EriAlarmSpecificProblem
+
+eriAlarmSumCritical:
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: This object shows the number of currently active
+alarms with perceived severity 'critical'. Note
+that only stateful alarms are included.
+  SYNTAX: Gauge32
+  OID:  eriAlarmSummary 2 
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+  STATUS: current
+
+eriAlarmXAlertSpecificProblem:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: This is a clear-text unique identification of
+the alert type. There is a one-to-one mapping
+between eriAlarmXAlertSpecificProblem and
+[eriAlarmXAlertMajorType, eriAlarmXAlertMinorType]
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  SYNTAX: EriAlarmSpecificProblem
+  OID:  eriAlarmXAlertEntry 4 
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+  STATUS: current
+
+eriAlarmAlertManagedObject:
+  DESCRIPTION: The 3GPP naming convention shall be used as
+format for the managed object parameter. Note
+that the granularity must be good enough to
+guarantee relevant resource identification to the
+operator.
+NOTE: The DN should be *relative* to the nodes
+*own* root.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmAlertEntry 5 
+  MAX_ACCESS: read-only
+  SYNTAX: EriMO
+
+eriAlarmAlertTable:
+  STATUS: current
+  OID:  eriAlarmAlerts 5 
+  SYNTAX: SEQUENCE OF EriAlarmAlertEntry
+  MAX_ACCESS: not-accessible
+  TYPE: OBJECT-TYPE
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: This table lists the last alerts in the system.
+An alert is a stateless event, that is no clear
+notification will be sent. Rows in this table are
+created when a new alert event is detected. Rows
+are deleted by the instrumentation at a
+predefined size or age.
+  INDEX: INDEX no encontrado
+
+eriAlarmActiveLastSequenceNo:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmActiveAlarms 3 
+  SYNTAX: EriAlarmSequenceNumber
+  MAX_ACCESS: read-only
+  DESCRIPTION: The last used sequence number for a alarm state
+change notification. A management system can poll
+this variable in order to detect lost alarm
+change notifications.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  INDEX: INDEX no encontrado
+
+snmpTargetParamsRowStatus:
+  OID:  snmpTargetParamsEntry 7 
+  MAX_ACCESS: read-create
+  SYNTAX: RowStatus
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The status of this conceptual row.
+To create a row in this table, a manager must
+set this object to either createAndGo(4) or
+createAndWait(5).
+Until instances of all corresponding columns are
+appropriately configured, the value of the
+corresponding instance of the snmpTargetParamsRowStatus
+column is 'notReady'.
+In particular, a newly created row cannot be made
+active until the corresponding
+snmpTargetParamsMPModel,
+snmpTargetParamsSecurityModel,
+snmpTargetParamsSecurityName,
+and snmpTargetParamsSecurityLevel have all been set.
+The following objects may not be modified while the
+value of this object is active(1):
+- snmpTargetParamsMPModel
+- snmpTargetParamsSecurityModel
+- snmpTargetParamsSecurityName
+- snmpTargetParamsSecurityLevel
+An attempt to set these objects while the value of
+snmpTargetParamsRowStatus is active(1) will result in
+an inconsistentValue error.
+  ARCHIVO: SNMP-TARGET-MIB
+
+eriAlarmXActiveNumber:
+  OID:  eriAlarmXActiveAlarms 1 
+  SYNTAX: Unsigned32
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: This object shows the total number of currently
+active alarms, that is the total number of entries
+in the Alarm Table.
+
+eriAlarmActiveAlarmEntry:
+  OID:  eriAlarmActiveAlarmTable 1 
+  SYNTAX: EriAlarmActiveAlarmEntry
+  MAX_ACCESS: not-accessible
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: One entry in the table holds one active alarm
+for a given resource. Entries are created by the
+system when a resource has a new alarm state.
+Entries are deleted by the system when a resource
+alarm state is cleared.
+Alarm severity, additional text and additional
+info can later be changed in a row.
+
+snmpNotifyFilterSubtree:
+  OID:  snmpNotifyFilterEntry 1 
+  SYNTAX: OBJECT IDENTIFIER
+  MAX_ACCESS: not-accessible
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The MIB subtree which, when combined with the corresponding
+instance of snmpNotifyFilterMask, defines a family of
+subtrees which are included in or excluded from the
+filter profile.
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+
+eriAlarmXAlertMinorType:
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmXAlertEntry 3 
+  SYNTAX: EriAlarmType
+  MAX_ACCESS: read-only
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: In combination with eriAlarmXAlertMajorType, this
+provides a unique identification of the alert.
+This is a simplification of the different X.733
+and 3GPP alarm IRP alarm correlation mechanisms
+based on EventType, ProbableCause,
+SpecificProblem and NotificationId.
+
+eriAlarmXSumMinor:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  MAX_ACCESS: read-only
+  OID:  eriAlarmXSummary 4 
+  SYNTAX: Gauge32
+  DESCRIPTION: This object shows the number of currently active
+alarms with perceived severity 'minor'. Note
+that only stateful alarms are included.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  INDEX: INDEX no encontrado
+
+eriAlarmXAlertSeverity:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The severity of the alert as defined by X.733
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  TYPE: OBJECT-TYPE
+  MAX_ACCESS: read-only
+  OID:  eriAlarmXAlertEntry 9 
+  SYNTAX: ItuPerceivedSeverity
+  STATUS: current
+
+eriAlarmXAlertProbableCause:
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: The probable cause, originally defined by X.733 
+and subsequent standards.
+See also the ERICSSON-ALARM-PC-MIB. Due to the
+history of problems in maintaining a standardized
+probable cause the probable cause is not unique.
+A best effort mapping of the alert to existing
+probable causes are used.
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmXAlertEntry 8 
+  MAX_ACCESS: read-only
+  SYNTAX: EriProbableCause
+  STATUS: current
+
+eriAlarmXActiveOriginalEventTime:
+  STATUS: current
+  OID:  eriAlarmXActiveAlarmEntry 8 
+  MAX_ACCESS: read-only
+  SYNTAX: DateAndTime
+  TYPE: OBJECT-TYPE
+  DESCRIPTION: The time stamp of the original alarm raise
+notification.
+NOTE: All fields of the DateAndTime MUST be
+filled out, including the hours and minutes from
+UTC. As such, the value should be 11 octets
+long.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  INDEX: INDEX no encontrado
+
+snmpEngineMaxMessageSize:
+  DESCRIPTION: The maximum length in octets of an SNMP message
+which this SNMP engine can send or receive and
+process, determined as the minimum of the maximum
+message size values supported among all of the
+transports available to and supported by the engine.
+
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  INDEX: INDEX no encontrado
+  STATUS: current
+  SYNTAX: Integer32 (484..2147483647)
+  OID:  snmpEngine 4 
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+
+eriAlarmNObjMoreAdditionalInfo:
+  DESCRIPTION: This is a scalar variable only used in
+notifications. It tells the management system
+that the additional info will be appended by
+subsequent append additional info notifications.
+NOTE: this object exists simply because of the
+limitations of PDU size inherent in SNMP over
+UDP, which limits the size of the PDU+headers to
+under 1500 octets. Otherwise, the notification
+will be fragmented.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  INDEX: INDEX no encontrado
+  STATUS: current
+  OID:  eriAlarmNotifObjects 5 
+  SYNTAX: TruthValue
+  MAX_ACCESS: accessible-for-notify
+  TYPE: OBJECT-TYPE
+
+eriAlarmNObjMoreAdditionalText:
+  STATUS: current
+  MAX_ACCESS: accessible-for-notify
+  OID:  eriAlarmNotifObjects 2 
+  SYNTAX: TruthValue
+  TYPE: OBJECT-TYPE
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: This is a scalar variable only used in
+notifications. It tells the management system
+that the additional text will be appended by
+subsequent append additional text notifications.
+NOTE: this object exists simply because of the
+limitations of PDU size inherent in SNMP over
+UDP, which limits the size of the PDU+headers to
+under 1500 octets. Otherwise, the notification
+will be fragmented.
+  INDEX: INDEX no encontrado
+
+eriAlarmXActiveIndex:
+  DESCRIPTION: A unique value, greater than zero, for each
+alarm. It is recommended that values are
+assigned contiguously starting from 1. The value
+for each alarm must remain constant at least from
+one re-initialization of the entity to the next
+re-initialization. Note that this index should
+not be used for alarm synchronization purposes
+since the 'logical' index for an alarm is
+- eriAlarmXActiveMajorType
+- eriAlarmXActiveMinorType
+- eriAlarmXActiveYangNodeInstance
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmXActiveAlarmEntry 1 
+  MAX_ACCESS: not-accessible
+  SYNTAX: EriAlarmIndex
+
+eriAlarmNObjResourceId:
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: This is a scalar variable only used in
+notifications. It tells the management system
+that there is an SNMP-based Resource ID (OID)
+that identifies the alarming resource. NOTE:
+this object exists simply because of the
+limitations of PDU size inherent in SNMP over
+UDP, which limits the size of the PDU+headers to
+under 1500 octets. Otherwise, the notification
+will be fragmented.
+  SYNTAX: TruthValue
+  OID:  eriAlarmNotifObjects 3 
+  MAX_ACCESS: accessible-for-notify
+  TYPE: OBJECT-TYPE
+  STATUS: current
+
+snmpTargetAddrTable:
+  INDEX: INDEX no encontrado
+  ARCHIVO: SNMP-TARGET-MIB
+  DESCRIPTION: A table of transport addresses to be used in the generation
+of SNMP messages.
+  OID:  snmpTargetObjects 2 
+  MAX_ACCESS: not-accessible
+  SYNTAX: SEQUENCE OF SnmpTargetAddrEntry
+  TYPE: OBJECT-TYPE
+  STATUS: current
+
+eriAlarmActiveEventType:
+  OID:  eriAlarmActiveAlarmEntry 6 
+  MAX_ACCESS: read-only
+  SYNTAX: IANAItuEventType
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: The event type as defined in X.733/X.736.
+
+eriAlarmActiveNumber:
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: This object shows the total number of currently
+active alarms, i.e. the total number of entries
+in the Alarm Table.
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  SYNTAX: Unsigned32
+  OID:  eriAlarmActiveAlarms 1 
+  MAX_ACCESS: read-only
+
+eriAlarmXActiveOriginalSeverity:
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmXActiveAlarmEntry 11 
+  MAX_ACCESS: read-only
+  SYNTAX: ItuPerceivedSeverity
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The original severity as reported by the alarm
+raise notification.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+
+eriAlarmXAlertEventTime:
+  DESCRIPTION: A time stamp of the alert. NOTE: All fields of
+the DateAndTime MUST be filled out, including the
+hours and minutes from UTC. As such, the value
+should be 11 octets long.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  SYNTAX: DateAndTime
+  OID:  eriAlarmXAlertEntry 7 
+  MAX_ACCESS: read-only
+
+snmpTargetParamsStorageType:
+  STATUS: current
+  OID:  snmpTargetParamsEntry 6 
+  MAX_ACCESS: read-create
+  SYNTAX: StorageType
+  TYPE: OBJECT-TYPE
+  ARCHIVO: SNMP-TARGET-MIB
+  DESCRIPTION: The storage type for this conceptual row.
+  INDEX: INDEX no encontrado
+
+snmpTargetParamsTable:
+  INDEX: INDEX no encontrado
+  ARCHIVO: SNMP-TARGET-MIB
+  DESCRIPTION: A table of SNMP target information to be used
+in the generation of SNMP messages.
+  TYPE: OBJECT-TYPE
+  OID:  snmpTargetObjects 3 
+  MAX_ACCESS: not-accessible
+  SYNTAX: SEQUENCE OF SnmpTargetParamsEntry
+  STATUS: current
+
+eriAlarmActiveMajorType:
+  MAX_ACCESS: read-only
+  OID:  eriAlarmActiveAlarmEntry 2 
+  SYNTAX: EriAlarmType
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: In combination with eriAlarmActiveMinorType,
+this provides a unique identification of the
+fault type. Different managed object types and
+instances can share alarm types, but if the same
+managed object reports the same alarm type, it is
+to be considered as the same alarm state. The
+alarm type is a simplification of the different
+X.733 and 3GPP alarm IRP alarm correlation
+mechanisms based on EventType, ProbableCause,
+SpecificProblem and NotificationId. For systems
+where eriAlarmActiveMajorType is not needed for
+identification purposes, it is not used and MUST
+be zero-valued.
+
+snmpNotifyFilterProfileName:
+  OID:  snmpNotifyFilterProfileEntry 1 
+  MAX_ACCESS: read-create
+  SYNTAX: SnmpAdminString (SIZE(1..32))
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The name of the filter profile to be used when generating
+notifications using the corresponding entry in the
+snmpTargetAddrTable.
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+
+snmpNotifyFilterStorageType:
+  TYPE: OBJECT-TYPE
+  OID:  snmpNotifyFilterEntry 4 
+  SYNTAX: StorageType
+  MAX_ACCESS: read-create
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  DESCRIPTION: The storage type of this conceptual row.
+
+eriAlarmNObjAdditionalText:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: This is a scalar variable only used in
+notifications. It is size ranged with a smaller
+size than the corresponding type used in the
+active alarm table. This is in order to make sure
+that all alarm information will fit into one UDP
+packet. The additional text can be further
+appended by using the dedicated append
+notification.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  OID:  eriAlarmNotifObjects 1 
+  MAX_ACCESS: accessible-for-notify
+  SYNTAX: EriAdditionalText
+  TYPE: OBJECT-TYPE
+  STATUS: current
+
+snmpNotifyFilterProfileRowStatus:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The status of this conceptual row.
+To create a row in this table, a manager must
+set this object to either createAndGo(4) or
+createAndWait(5).
+Until instances of all corresponding columns are
+appropriately configured, the value of the
+corresponding instance of the
+snmpNotifyFilterProfileRowStatus column is 'notReady'.
+In particular, a newly created row cannot be made
+active until the corresponding instance of
+snmpNotifyFilterProfileName has been set.
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  TYPE: OBJECT-TYPE
+  SYNTAX: RowStatus
+  OID:  snmpNotifyFilterProfileEntry 3 
+  MAX_ACCESS: read-create
+  STATUS: current
+
+eriAlarmXSumIndeterminate:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: This object shows the number of currently active
+alarms with perceived severity 'indeterminate'.
+Note that only stateful alarms are included.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmXSummary 1 
+  MAX_ACCESS: read-only
+  SYNTAX: Gauge32
+  STATUS: current
+
+snmpTargetAddrStorageType:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The storage type for this conceptual row.
+  ARCHIVO: SNMP-TARGET-MIB
+  TYPE: OBJECT-TYPE
+  MAX_ACCESS: read-create
+  OID:  snmpTargetAddrEntry 8 
+  SYNTAX: StorageType
+  STATUS: current
+
+eriAlarmXAlertAdditionalInfo:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: Additional Information for the alert,
+structured in a way that is suitable for
+machine to machine communication.
+This string is longer than the corresponding
+varbind in the notification in order to manage
+large strings.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  OID:  eriAlarmXAlertEntry 12 
+  MAX_ACCESS: read-only
+  SYNTAX: EriLargeAdditionalInfo
+  TYPE: OBJECT-TYPE
+  STATUS: current
+
+snmpUnknownContexts:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  MAX_ACCESS: read-only
+  OID:  snmpTargetObjects 5 
+  SYNTAX: Counter32
+  ARCHIVO: SNMP-TARGET-MIB
+  DESCRIPTION: The total number of packets received by the SNMP
+engine which were dropped because the context
+contained in the message was unknown.
+  INDEX: INDEX no encontrado
+
+eriAlarmXActiveMinorType:
+  DESCRIPTION: In combination with with
+eriAlarmXActiveMajorType, this provides a unique
+identification of the fault type, not including
+the YANG Schema Node. Different YANG Schema Nodes 
+and instances can share alarm types, but if the 
+same YANG resource instance reports the same alarm
+type it is to be considered as the same alarm
+state. The alarm type is a simplification of the
+different X.733 and 3GPP alarm IRP alarm
+correlation mechanisms based on EventType,
+ProbableCause, SpecificProblem and
+NotificationId.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmXActiveAlarmEntry 3 
+  MAX_ACCESS: read-only
+  SYNTAX: EriAlarmType
+
+snmpNotifyFilterRowStatus:
+  OID:  snmpNotifyFilterEntry 5 
+  MAX_ACCESS: read-create
+  SYNTAX: RowStatus
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The status of this conceptual row.
+To create a row in this table, a manager must
+set this object to either createAndGo(4) or
+createAndWait(5).
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+
+eriAlarmActiveTableURL:
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: A URL pointing to a location where the contents
+of the alarm table can be retrieved as a file.
+The actual format of the file is out of the scope
+of this MIB and can be found in the system
+documentation. A Uniform Resource Locator in
+accordance with RFC 4248. A string of length
+zero means that the agent does not have a URL to
+provide.
+  INDEX: INDEX no encontrado
+  STATUS: current
+  OID:  eriAlarmActiveAlarms 4 
+  MAX_ACCESS: read-only
+  SYNTAX: SnmpAdminString
+  TYPE: OBJECT-TYPE
+
+eriAlarmAlertEventTime:
+  MAX_ACCESS: read-only
+  OID:  eriAlarmAlertEntry 7 
+  SYNTAX: DateAndTime
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: A time stamp of the alert. NOTE: All fields of
+the DateAndTime MUST be filled out, including the
+hours and minutes from UTC. As such, the value
+should be 11 octets long.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+
+eriAlarmXNObjSourceIdentifier:
+  DESCRIPTION: This is a scalar variable only used in notifications.
+It tells the management system the Identifier for the 
+Source that raised the notification.
+This is needed for deployments where the Source IP 
+Address of the IP packet does not reflect the original 
+source of the alarm.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  INDEX: INDEX no encontrado
+  STATUS: current
+  OID:  eriAlarmXNotifObjects 9 
+  MAX_ACCESS: accessible-for-notify
+  SYNTAX: SnmpAdminString
+  TYPE: OBJECT-TYPE
+
+eriAlarmXAlertTable:
+  OID:  eriAlarmXAlerts 5 
+  SYNTAX: SEQUENCE OF EriAlarmXAlertEntry
+  MAX_ACCESS: not-accessible
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: This table lists the last alerts in the system.
+An alert is a stateless event, that is no clear
+notification will be sent. Rows in this table are
+created when a new alert event is detected. Rows
+are deleted by the instrumentation at a
+predefined size or age.
+
+eriAlarmAlertMinorType:
+  TYPE: OBJECT-TYPE
+  MAX_ACCESS: read-only
+  OID:  eriAlarmAlertEntry 3 
+  SYNTAX: EriAlarmType
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: In combination with eriAlarmAlertMajorType, this
+provides a unique identification of the alert.
+This is a simplification of the different X.733
+and 3GPP alarm IRP alarm correlation mechanisms
+based on EventType, ProbableCause,
+SpecificProblem and NotificationId.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+
+snmpTargetAddrRowStatus:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The status of this conceptual row.
+To create a row in this table, a manager must
+set this object to either createAndGo(4) or
+createAndWait(5).
+Until instances of all corresponding columns are
+appropriately configured, the value of the
+corresponding instance of the snmpTargetAddrRowStatus
+column is 'notReady'.
+In particular, a newly created row cannot be made
+active until the corresponding instances of
+snmpTargetAddrTDomain, snmpTargetAddrTAddress, and
+snmpTargetAddrParams have all been set.
+The following objects may not be modified while the
+value of this object is active(1):
+- snmpTargetAddrTDomain
+- snmpTargetAddrTAddress
+An attempt to set these objects while the value of
+snmpTargetAddrRowStatus is active(1) will result in
+an inconsistentValue error.
+  ARCHIVO: SNMP-TARGET-MIB
+  TYPE: OBJECT-TYPE
+  MAX_ACCESS: read-create
+  OID:  snmpTargetAddrEntry 9 
+  SYNTAX: RowStatus
+  STATUS: current
+
+eriAlarmXAlertNumber:
+  SYNTAX: Unsigned32
+  OID:  eriAlarmXAlerts 1 
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: The number of rows in the alert table.
+
+snmpTargetAddrRetryCount:
+  TYPE: OBJECT-TYPE
+  OID:  snmpTargetAddrEntry 5 
+  MAX_ACCESS: read-create
+  SYNTAX: Integer32 (0..255)
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: This object specifies a default number of retries to be
+attempted when a response is not received for a generated
+message.  An application may provide its own retry count,
+in which case the value of this object is ignored.
+  ARCHIVO: SNMP-TARGET-MIB
+
+eriAlarmXAlertEventType:
+  MAX_ACCESS: read-only
+  OID:  eriAlarmXAlertEntry 6 
+  SYNTAX: IANAItuEventType
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The event type as defined in X.733/X.736.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+
+eriAlarmXNObjRecordType:
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmXNotifObjects 6 
+  MAX_ACCESS: accessible-for-notify
+  SYNTAX: EriAlarmRecordType
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: This is a scalar variable only used in
+notifications. It tells the management system
+whether the alarm record being reported in the
+notification represents a new alarm instance
+or an update of an existing alarm instance.
+
+snmpTargetParamsSecurityModel:
+  DESCRIPTION: The Security Model to be used when generating SNMP
+messages using this entry.  An implementation may
+choose to return an inconsistentValue error if an
+attempt is made to set this variable to a value
+for a security model which the implementation does
+not support.
+  ARCHIVO: SNMP-TARGET-MIB
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  MAX_ACCESS: read-create
+  OID:  snmpTargetParamsEntry 3 
+  SYNTAX: SnmpSecurityModel (1..2147483647)
+
+snmpNotifyFilterMask:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  snmpNotifyFilterEntry 2 
+  MAX_ACCESS: read-create
+  SYNTAX: OCTET STRING (SIZE(0..16))
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  DESCRIPTION: The bit mask which, in combination with the corresponding
+instance of snmpNotifyFilterSubtree, defines a family of
+subtrees which are included in or excluded from the
+filter profile.
+Each bit of this bit mask corresponds to a
+sub-identifier of snmpNotifyFilterSubtree, with the
+most significant bit of the i-th octet of this octet
+string value (extended if necessary, see below)
+corresponding to the (8*i - 7)-th sub-identifier, and
+the least significant bit of the i-th octet of this
+octet string corresponding to the (8*i)-th
+sub-identifier, where i is in the range 1 through 16.
+Each bit of this bit mask specifies whether or not
+the corresponding sub-identifiers must match when
+determining if an OBJECT IDENTIFIER matches this
+family of filter subtrees; a '1' indicates that an
+exact match must occur; a '0' indicates 'wild card',
+i.e., any sub-identifier value matches.
+Thus, the OBJECT IDENTIFIER X of an object instance
+is contained in a family of filter subtrees if, for
+each sub-identifier of the value of
+snmpNotifyFilterSubtree, either:
+the i-th bit of snmpNotifyFilterMask is 0, or
+the i-th sub-identifier of X is equal to the i-th
+sub-identifier of the value of
+snmpNotifyFilterSubtree.
+If the value of this bit mask is M bits long and
+there are more than M sub-identifiers in the
+corresponding instance of snmpNotifyFilterSubtree,
+then the bit mask is extended with 1's to be the
+required length.
+Note that when the value of this object is the
+zero-length string, this extension rule results in
+a mask of all-1's being used (i.e., no 'wild card'),
+and the family of filter subtrees is the one
+subtree uniquely identified by the corresponding
+instance of snmpNotifyFilterSubtree.
+  INDEX: INDEX no encontrado
+
+eriAlarmXActiveOrigAdditionalText:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmXActiveAlarmEntry 13 
+  MAX_ACCESS: read-only
+  SYNTAX: EriLargeAdditionalText
+  DESCRIPTION: A user-friendly text describing the alarm. The
+text is both static depending on the alarm type
+(probable cause), and dynamic depending on
+YANG resource instance and other conditions. This is the
+original text as reported by the first alarm
+notification, after which it is not altered.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  INDEX: INDEX no encontrado
+
+snmpTargetParamsSecurityName:
+  INDEX: INDEX no encontrado
+  ARCHIVO: SNMP-TARGET-MIB
+  DESCRIPTION: The securityName which identifies the Principal on
+whose behalf SNMP messages will be generated using
+this entry.
+  TYPE: OBJECT-TYPE
+  OID:  snmpTargetParamsEntry 4 
+  SYNTAX: SnmpAdminString
+  MAX_ACCESS: read-create
+  STATUS: current
+
+eriAlarmXAlertMajorType:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: In combination with eriAlarmXAlertMinorType, this
+provides unique identification of the alert.
+This is a simplification of the different X.733
+and 3GPP alarm IRP alarm correlation mechanisms
+based on EventType, ProbableCause,
+SpecificProblem and NotificationId.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  OID:  eriAlarmXAlertEntry 2 
+  MAX_ACCESS: read-only
+  SYNTAX: EriAlarmType
+  TYPE: OBJECT-TYPE
+  STATUS: current
+
+snmpTargetAddrTAddress:
+  SYNTAX: TAddress
+  OID:  snmpTargetAddrEntry 3 
+  MAX_ACCESS: read-create
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: This object contains a transport address.  The format of
+this address depends on the value of the
+snmpTargetAddrTDomain object.
+  ARCHIVO: SNMP-TARGET-MIB
+
+snmpNotifyFilterProfileStorType:
+  INDEX: INDEX no encontrado
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  DESCRIPTION: The storage type of this conceptual row.
+  TYPE: OBJECT-TYPE
+  OID:  snmpNotifyFilterProfileEntry 2 
+  SYNTAX: StorageType
+  MAX_ACCESS: read-create
+  STATUS: current
+
+eriAlarmXAlertAdditionalText:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: A user-friendly text describing the alert. The
+text is both static depending on the alert type
+and dynamic depending on YANG resource instance 
+and other conditions.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  OID:  eriAlarmXAlertEntry 10 
+  MAX_ACCESS: read-only
+  SYNTAX: EriLargeAdditionalText
+  TYPE: OBJECT-TYPE
+  STATUS: current
+
+snmpTargetParamsEntry:
+  ARCHIVO: SNMP-TARGET-MIB
+  DESCRIPTION: A set of SNMP target information.
+Entries in the snmpTargetParamsTable are created and
+deleted using the snmpTargetParamsRowStatus object.
+  INDEX:  IMPLIED snmpTargetParamsName 
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  snmpTargetParamsTable 1 
+  SYNTAX: SnmpTargetParamsEntry
+  MAX_ACCESS: not-accessible
+
+eriAlarmActiveEventTime:
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmActiveAlarmEntry 7 
+  SYNTAX: DateAndTime
+  MAX_ACCESS: read-only
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: A time stamp of the alarm state change event.
+Note that this variable represents the last
+change of the alarm state, like changed severity,
+additional text/info. If the alarm has not changed
+state this variable represents the alarm raise
+time and will be the same as originalEventTime.
+NOTE: All fields of the DateAndTime MUST be
+filled out, including the hours and minutes from
+UTC. As such, the value should be 11 octets
+long.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+
+eriAlarmXSumMajor:
+  STATUS: current
+  SYNTAX: Gauge32
+  OID:  eriAlarmXSummary 3 
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+  DESCRIPTION: This object shows the number of currently active
+alarms with perceived severity 'major'. Note
+that only stateful alarms are included.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  INDEX: INDEX no encontrado
+
+eriAlarmXActiveLastSequenceNo:
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: The last used sequence number for a alarm state
+change notification. A management system can poll
+this variable in order to detect lost alarm
+change notifications.
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmXActiveAlarms 3 
+  SYNTAX: EriAlarmSequenceNumber
+  MAX_ACCESS: read-only
+  STATUS: current
+
+eriAlarmXAlertTableURL:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmXAlerts 4 
+  SYNTAX: SnmpAdminString
+  MAX_ACCESS: read-only
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: A URL pointing to a location where the contents
+of alert table can be retrieved as a file. The
+format of the file is out of the scope of this
+MIB and system dependant. A Uniform Resource
+Locator in accordance with RFC 4248.
+  INDEX: INDEX no encontrado
+
+snmpTargetAddrTDomain:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: This object indicates the transport type of the address
+contained in the snmpTargetAddrTAddress object.
+  ARCHIVO: SNMP-TARGET-MIB
+  OID:  snmpTargetAddrEntry 2 
+  MAX_ACCESS: read-create
+  SYNTAX: TDomain
+  TYPE: OBJECT-TYPE
+  STATUS: current
+
+snmpNotifyTable:
+  INDEX: INDEX no encontrado
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  DESCRIPTION: This table is used to select management targets which should
+receive notifications, as well as the type of notification
+which should be sent to each selected management target.
+  SYNTAX: SEQUENCE OF SnmpNotifyEntry
+  OID:  snmpNotifyObjects 1 
+  MAX_ACCESS: not-accessible
+  TYPE: OBJECT-TYPE
+  STATUS: current
+
+eriAlarmXAlertIndex:
+  MAX_ACCESS: not-accessible
+  OID:  eriAlarmXAlertEntry 1 
+  SYNTAX: EriAlarmIndex
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: Index in the alert table.
+
+eriAlarmAlertSpecificProblem:
+  DESCRIPTION: This is a clear-text unique identification of
+the alert type. There is a one-to-one mapping
+between eriAlarmAlertSpecificProblem and
+[eriAlarmAlertMajorType, eriAlarmAlertMinorType]
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  INDEX: INDEX no encontrado
+  STATUS: current
+  SYNTAX: EriAlarmSpecificProblem
+  OID:  eriAlarmAlertEntry 4 
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+
+eriAlarmAlertTableURL:
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: A URL pointing to a location where the contents
+of alert table can be retrieved as a file. The
+format of the file is out of the scope of this
+MIB and system dependant. A Uniform Resource
+Locator in accordance with RFC 4248.
+  INDEX: INDEX no encontrado
+  STATUS: current
+  OID:  eriAlarmAlerts 4 
+  SYNTAX: SnmpAdminString
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+
+eriAlarmActiveAdditionalText:
+  OID:  eriAlarmActiveAlarmEntry 12 
+  MAX_ACCESS: read-only
+  SYNTAX: EriLargeAdditionalText
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: A user friendly text describing the alarm. The
+text is both static depending on the alarm type
+(probable cause), and dynamic depending on
+managed object instance and other conditions.
+This string is longer than the corresponding
+varbind in the notification in order to manage
+large strings.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+
+eriAlarmXNObjMoreAdditionalInfo:
+  STATUS: current
+  SYNTAX: TruthValue
+  OID:  eriAlarmXNotifObjects 5 
+  MAX_ACCESS: accessible-for-notify
+  TYPE: OBJECT-TYPE
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: This is a scalar variable only used in
+notifications. It tells the management system
+that the additional info will be appended by
+subsequent append additional info notifications.
+NOTE: this object exists simply because of the
+limitations of PDU size inherent in SNMP over
+UDP, which limits the size of the PDU+headers to
+under 1500 octets.  Otherwise, the notification
+will be fragmented.
+  INDEX: INDEX no encontrado
+
+eriAlarmXNObjAppendedAdditionalInfo:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  MAX_ACCESS: accessible-for-notify
+  OID:  eriAlarmXNotifObjects 7 
+  SYNTAX: EriAppendedAdditionalInfo
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: This scalar variable is used for spillover of
+the additional info in the append trap.
+  INDEX: INDEX no encontrado
+
+eriAlarmXActiveAlarmTable:
+  OID:  eriAlarmXActiveAlarms 5 
+  SYNTAX: SEQUENCE OF EriAlarmXActiveAlarmEntry
+  MAX_ACCESS: not-accessible
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: This table list all active alarms in the system.
+The aspect is the resource view of the alarms,
+not the administrative states and processes
+performed by users. The number of entries,
+active alarms, can be read in
+eriAlarmXActiveNumber. Entries are created when a
+resource has a new alarm state. If the same
+resource has several active alarms, with
+different Alarm Types, this will be represented
+as separate rows. Rows disappear whenever the
+alarm is cleared in the resource.
+Rows can be changed when an alarm changes severity,
+additional text or additional info. Alarms where
+the clear state cannot be detected by the resource
+are not represented in this table.
+The contents of the active alarm table can also
+be fetched using file transfer.
+eriAlarmXActiveTableURL provides a URL to the
+file.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+
+eriAlarmAlertLastSequenceNo:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  SYNTAX: EriAlarmSequenceNumber
+  OID:  eriAlarmAlerts 3 
+  MAX_ACCESS: read-only
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: The last sequence number used in alert
+notifications. This can be used to detect a lost
+notification.
+  INDEX: INDEX no encontrado
+
+eriAlarmAlertAdditionalText:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  MAX_ACCESS: read-only
+  OID:  eriAlarmAlertEntry 10 
+  SYNTAX: EriLargeAdditionalText
+  DESCRIPTION: A user friendly text describing the alert. The
+text is both static depending on the alert type
+and dynamic depending on managed object and other
+conditions.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  INDEX: INDEX no encontrado
+
+eriAlarmNObjAdditionalInfo:
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmNotifObjects 4 
+  MAX_ACCESS: accessible-for-notify
+  SYNTAX: EriAdditionalInfo
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: This is a scalar variable only used in
+notifications. It is size ranged with a smaller
+size than the corresponding type used in the
+active alarm table. This is in order to make sure
+that all alarm information will fit into one UDP
+packet. The additional info can be further
+appended by using the dedicated append
+notification.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+
+eriAlarmSumWarning:
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  SYNTAX: Gauge32
+  OID:  eriAlarmSummary 5 
+  MAX_ACCESS: read-only
+  DESCRIPTION: This object shows the number of currently active
+alarms with perceived severity 'warning'. Note
+that only stateful alarms are included.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  INDEX: INDEX no encontrado
+
+eriAlarmXAlertResourceId:
+  MAX_ACCESS: read-only
+  OID:  eriAlarmXAlertEntry 11 
+  SYNTAX: ResourceId
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: In case the alert refers to an object which is
+instrumented by SNMP this variable indicates the
+corresponding OID for the YANG resource instance.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+
+snmpNotifyName:
+  DESCRIPTION: The locally arbitrary, but unique identifier associated
+with this snmpNotifyEntry.
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  SYNTAX: SnmpAdminString (SIZE(1..32))
+  OID:  snmpNotifyEntry 1 
+  MAX_ACCESS: not-accessible
+
+eriAlarmActiveOriginalSeverity:
+  OID:  eriAlarmActiveAlarmEntry 11 
+  MAX_ACCESS: read-only
+  SYNTAX: ItuPerceivedSeverity
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The original severity as reported by the alarm
+raise notification.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+
+snmpUnavailableContexts:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The total number of packets received by the SNMP
+engine which were dropped because the context
+contained in the message was unavailable.
+  ARCHIVO: SNMP-TARGET-MIB
+  OID:  snmpTargetObjects 4 
+  SYNTAX: Counter32
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+  STATUS: current
+
+eriAlarmXActiveYangNodeInstance:
+  MAX_ACCESS: read-only
+  OID:  eriAlarmXActiveAlarmEntry 5 
+  SYNTAX: EriPath
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: An Abridged YANG Instance-Identifier that references
+the alarming resource within the Managed Element.
+
+snmpTargetAddrParams:
+  INDEX: INDEX no encontrado
+  ARCHIVO: SNMP-TARGET-MIB
+  DESCRIPTION: The value of this object identifies an entry in the
+snmpTargetParamsTable.  The identified entry
+contains SNMP parameters to be used when generating
+messages to be sent to this transport address.
+  TYPE: OBJECT-TYPE
+  OID:  snmpTargetAddrEntry 7 
+  SYNTAX: SnmpAdminString (SIZE(1..32))
+  MAX_ACCESS: read-create
+  STATUS: current
+
+snmpEngineID:
+  TYPE: OBJECT-TYPE
+  OID:  snmpEngine 1 
+  MAX_ACCESS: read-only
+  SYNTAX: SnmpEngineID
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  DESCRIPTION: An SNMP engine's administratively-unique identifier.
+
+
+eriAlarmXActiveAlarmEntry:
+  INDEX: INDEX no encontrado
+  DESCRIPTION: One entry in the table holds one active alarm
+for a given resource. Entries are created by the
+system when a resource has a new alarm state.
+Entries are deleted by the system when a resource
+alarm state is cleared.
+Alarm severity, additional text and additional  
+info can later be changed in a row.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  TYPE: OBJECT-TYPE
+  SYNTAX: EriAlarmXActiveAlarmEntry
+  OID:  eriAlarmXActiveAlarmTable 1 
+  MAX_ACCESS: not-accessible
+  STATUS: current
+
+eriAlarmActiveIndex:
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: A unique value, greater than zero, for each
+alarm. It is recommended that values are
+assigned contiguously starting from 1. The value
+for each alarm must remain constant at least from
+one re-initialization of the entity to the next
+re-initialization. Note that this index should
+not be used for alarm synchronization purposes
+since the 'logical' index for an alarm is
+- eriAlarmActiveMajorType
+- eriAlarmActiveMinorType
+- eriAlarmActiveManagedObject
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmActiveAlarmEntry 1 
+  MAX_ACCESS: not-accessible
+  SYNTAX: EriAlarmIndex
+
+eriAlarmNObjRecordType:
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: This is a scalar variable only used in
+notifications. It tells the management system
+whether the alarm record being reported in the
+notification represents a new alarm instance
+or an update of an existing alarm instance.
+  INDEX: INDEX no encontrado
+  STATUS: current
+  TYPE: OBJECT-TYPE
+  SYNTAX: EriAlarmRecordType
+  OID:  eriAlarmNotifObjects 6 
+  MAX_ACCESS: accessible-for-notify
+
+eriAlarmActiveLastChanged:
+  DESCRIPTION: A timestamp when the active alarm table was last
+changed. The value can be used by a manager to
+initiate an alarm resynchronization procedure.
+NOTE: All fields of the DateAndTime MUST be
+filled out, including the hours and minutes from
+UTC. As such, the value should be 11 octets
+long.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  INDEX: INDEX no encontrado
+  STATUS: current
+  MAX_ACCESS: read-only
+  OID:  eriAlarmActiveAlarms 2 
+  SYNTAX: DateAndTime
+  TYPE: OBJECT-TYPE
+
+eriAlarmXActiveEventType:
+  TYPE: OBJECT-TYPE
+  SYNTAX: IANAItuEventType
+  OID:  eriAlarmXActiveAlarmEntry 6 
+  MAX_ACCESS: read-only
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: The event type as defined in X.733/X.736.
+
+eriAlarmXNObjResourceId:
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: This is a scalar variable only used in
+notifications. It tells the management system
+that there is an SNMP-based Resource ID (OID)
+that identifies the alarming resource.  NOTE:
+this object exists simply because of the
+limitations of PDU size inherent in SNMP over
+UDP, which limits the size of the PDU+headers to
+under 1500 octets.  Otherwise, the notification
+will be fragmented.
+  SYNTAX: TruthValue
+  OID:  eriAlarmXNotifObjects 3 
+  MAX_ACCESS: accessible-for-notify
+  TYPE: OBJECT-TYPE
+  STATUS: current
+
+snmpTargetParamsMPModel:
+  OID:  snmpTargetParamsEntry 2 
+  MAX_ACCESS: read-create
+  SYNTAX: SnmpMessageProcessingModel
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: The Message Processing Model to be used when generating
+SNMP messages using this entry.
+  ARCHIVO: SNMP-TARGET-MIB
+
+eriAlarmXActiveEventTime:
+  DESCRIPTION: A time stamp of the alarm state change event.
+Note that this variable represents the last
+change of the alarm state, like changed severity
+or additional text/info. If the alarm has not changed
+state this variable represents the alarm raise
+time and will be the same as originalEventTime.
+NOTE: All fields of the DateAndTime MUST be
+filled out, including the hours and minutes from
+UTC. As such, the value should be 11 octets
+long.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  INDEX: INDEX no encontrado
+  STATUS: current
+  SYNTAX: DateAndTime
+  OID:  eriAlarmXActiveAlarmEntry 7 
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+
+eriAlarmSumIndeterminate:
+  TYPE: OBJECT-TYPE
+  SYNTAX: Gauge32
+  OID:  eriAlarmSummary 1 
+  MAX_ACCESS: read-only
+  STATUS: current
+  INDEX: INDEX no encontrado
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: This object shows the number of currently active
+alarms with perceived severity 'indeterminate'.
+Note that only stateful alarms are included.
+
+eriAlarmXAlertLastSequenceNo:
+  STATUS: current
+  OID:  eriAlarmXAlerts 3 
+  MAX_ACCESS: read-only
+  SYNTAX: EriAlarmSequenceNumber
+  TYPE: OBJECT-TYPE
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION: The last sequence number used in alert
+notifications. This can be used to detect a lost
+notification.
+  INDEX: INDEX no encontrado
+
+eriAlarmXActiveLastChanged:
+  TYPE: OBJECT-TYPE
+  OID:  eriAlarmXActiveAlarms 2 
+  SYNTAX: DateAndTime
+  MAX_ACCESS: read-only
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: A time stamp when the active alarm table was last
+changed. The value can be used by a manager to
+initiate an alarm resynchronization procedure.
+NOTE: All fields of the DateAndTime MUST be
+filled out, including the hours and minutes from
+UTC. As such, the value should be 11 octets
+long.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+
+eriAlarmActiveResourceId:
+  SYNTAX: ResourceId
+  OID:  eriAlarmActiveAlarmEntry 14 
+  MAX_ACCESS: read-only
+  TYPE: OBJECT-TYPE
+  STATUS: current
+  INDEX: INDEX no encontrado
+  DESCRIPTION: In case the alarm refers to an object which is
+instrumented by SNMP this variable indicates the
+corresponding OID for the managed object.
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
 
 ----------------------------------- FIN DE OBJECT_TYPES -----------------------------------
 ----------------------------------- OBJECT_IDENTIFIERS ---------------------------
-alarmIRP:
-  OID:  alarm 1 
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+snmpNotifyConformance:
+  OID:  snmpNotificationMIB 3 
   TYPE: OBJECT IDENTIFIER
+  Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+
+eriAlarmCompliances:
+  TYPE: OBJECT IDENTIFIER
+  OID:  eriAlarmConformance 1 
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
   Nivel_Busqueda: 1
 
-csIRP:
+eriAlarmNotifications:
+  OID:  ericssonAlarmMIB 2 
   TYPE: OBJECT IDENTIFIER
-  OID:  alarm 4 
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
   Nivel_Busqueda: 1
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
 
-ntsNotifications:
+mgmt:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 2
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  notificationIRP 2 
-  Nivel_Busqueda: 1
+  OID:  internet 2 
 
-alarmNotificationProfile:
+eriAlarmXSummary:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
   Nivel_Busqueda: 1
-  OID:  alarmNotifications 1 
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  TYPE: OBJECT IDENTIFIER
+  OID:  eriAlarmXObjects 1 
+
+snmpProxys:
+  TYPE: OBJECT IDENTIFIER
+  OID:  snmpV2 2 
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 2
+
+snmpFrameworkAdmin:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 2
+  TYPE: OBJECT IDENTIFIER
+  OID:  snmpFrameworkMIB 1 
+
+snmpNotifyObjects:
+  Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  OID:  snmpNotificationMIB 1 
   TYPE: OBJECT IDENTIFIER
 
-alarmConformance:
-  TYPE: OBJECT IDENTIFIER
-  OID:  alarmIRP 5 
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+eriAlarmConformance:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
   Nivel_Busqueda: 1
+  TYPE: OBJECT IDENTIFIER
+  OID:  ericssonAlarmMIB 4 
+
+eriAlarmXGroups:
+  OID:  eriAlarmXConformance 2 
+  TYPE: OBJECT IDENTIFIER
+  Nivel_Busqueda: 1
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+
+eriAlarmXConformance:
+  OID:  ericssonAlarmXpathMIB 4 
+  TYPE: OBJECT IDENTIFIER
+  Nivel_Busqueda: 1
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+
+snmpFrameworkMIBCompliances:
+  OID:  snmpFrameworkMIBConformance 1 
+  TYPE: OBJECT IDENTIFIER
+  Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+
+SYNTAX:
+  Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  OID: OID no encontrado
+  TYPE: OBJECT IDENTIFIER
 
 snmpModules:
   OID:  snmpV2 3 
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
   TYPE: OBJECT IDENTIFIER
   Nivel_Busqueda: 2
-
-csNotifications:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  csIRP 2 
-  Nivel_Busqueda: 1
-
-notificationIRP:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  alarm 10 
-  Nivel_Busqueda: 1
-
-alarmIRPInfo:
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  alarmIRP 1 
-  TYPE: OBJECT IDENTIFIER
-  Nivel_Busqueda: 1
-
-alarmFilter:
-  Nivel_Busqueda: 1
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  alarmIRP 6 
-
-alarmGroups:
-  Nivel_Busqueda: 1
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  alarmConformance 2 
-
-internet:
-  Nivel_Busqueda: 2
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  dod 1 
-
-experimental:
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  internet 3 
-  TYPE: OBJECT IDENTIFIER
-  Nivel_Busqueda: 2
-
-directory:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  internet 1 
-  Nivel_Busqueda: 2
-
-snmpDomains:
-  Nivel_Busqueda: 2
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  snmpV2 1 
-
-private:
-  OID:  internet 4 
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  TYPE: OBJECT IDENTIFIER
-  Nivel_Busqueda: 2
-
-ntsNotificationFilter:
-  Nivel_Busqueda: 1
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  notificationIRP 3 
-
-mib-2:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  mgmt 1 
-  Nivel_Busqueda: 2
-
-ntsNotificationProfile:
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  ntsNotifications 1 
-  Nivel_Busqueda: 1
-
-csIRPInfo:
-  Nivel_Busqueda: 1
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  csIRP 1 
-
-snmpV2:
-  Nivel_Busqueda: 2
-  OID:  internet 6 
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  TYPE: OBJECT IDENTIFIER
-
-dod:
-  Nivel_Busqueda: 2
-  TYPE: OBJECT IDENTIFIER
-  OID:  org 6 
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-
-alarmCompliances:
-  Nivel_Busqueda: 1
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  alarmConformance 1 
-
-ntsNotificationFilterCondition:
-  TYPE: OBJECT IDENTIFIER
-  OID:  ntsNotificationFilter 2
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  Nivel_Busqueda: 1
-
-alarmNotifications:
-  Nivel_Busqueda: 1
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  alarmIRP 4 
-  TYPE: OBJECT IDENTIFIER
-
-mgmt:
-  Nivel_Busqueda: 2
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  internet 2 
-
-org:
-  Nivel_Busqueda: 2
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  iso 3 
-
-alarmOperation:
-  Nivel_Busqueda: 1
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  alarmIRP 7 
-  TYPE: OBJECT IDENTIFIER
-
-SYNTAX:
-  TYPE: OBJECT IDENTIFIER
-  OID: OID no encontrado
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  Nivel_Busqueda: 2
-
-ntsAttribute:
-  Nivel_Busqueda: 1
-  TYPE: OBJECT IDENTIFIER
-  OID:  notificationIRP 1 
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-
-security:
-  Nivel_Busqueda: 2
-  OID:  internet 5 
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  TYPE: OBJECT IDENTIFIER
-
-alarm:
-  Nivel_Busqueda: 1
-  TYPE: OBJECT IDENTIFIER
-  OID:  zteMIB 4101 
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-
-alarmFilterCondition:
-  OID:  alarmFilter 3
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  TYPE: OBJECT IDENTIFIER
-  Nivel_Busqueda: 1
-
-csNotificationProfile:
-  Nivel_Busqueda: 1
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  OID:  csNotifications 1 
-
-alarmCount:
-  OID:  alarmIRP 2 
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  TYPE: OBJECT IDENTIFIER
-  Nivel_Busqueda: 1
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
 
 enterprises:
   Nivel_Busqueda: 2
-  TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
   OID:  private 1 
+  TYPE: OBJECT IDENTIFIER
+
+snmpFrameworkMIBConformance:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 2
+  TYPE: OBJECT IDENTIFIER
+  OID:  snmpFrameworkMIB 3 
+
+eriAlarmXObjects:
+  TYPE: OBJECT IDENTIFIER
+  OID:  ericssonAlarmXpathMIB 1 
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 1
+
+snmpTargetCompliances:
+  TYPE: OBJECT IDENTIFIER
+  OID:  snmpTargetConformance 1 
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 2
+
+eriAlarmObjects:
+  TYPE: OBJECT IDENTIFIER
+  OID:  ericssonAlarmMIB 1 
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 1
+
+snmpNotifyGroups:
+  Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  OID:  snmpNotifyConformance 2 
+  TYPE: OBJECT IDENTIFIER
+
+eriAlarmXCompliances:
+  OID:  eriAlarmXConformance 1 
+  TYPE: OBJECT IDENTIFIER
+  Nivel_Busqueda: 1
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
 
 transmission:
   TYPE: OBJECT IDENTIFIER
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
   OID:  mib-2 10 
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
   Nivel_Busqueda: 2
 
-snmpProxys:
-  OID:  snmpV2 2 
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
+eriAlarmXHeartBeat:
+  TYPE: OBJECT IDENTIFIER
+  OID:  eriAlarmXObjects 5 
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 1
+
+security:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 2
+  TYPE: OBJECT IDENTIFIER
+  OID:  internet 5 
+
+private:
+  OID:  internet 4 
   TYPE: OBJECT IDENTIFIER
   Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+
+eriAlarmXAlerts:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 1
+  TYPE: OBJECT IDENTIFIER
+  OID:  eriAlarmXObjects 4 
+
+org:
+  OID:  iso 3 
+  TYPE: OBJECT IDENTIFIER
+  Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+
+snmpDomains:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 2
+  TYPE: OBJECT IDENTIFIER
+  OID:  snmpV2 1 
+
+eriAlarmAlerts:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 1
+  TYPE: OBJECT IDENTIFIER
+  OID:  eriAlarmObjects 4 
+
+eriAlarmGroups:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 1
+  TYPE: OBJECT IDENTIFIER
+  OID:  eriAlarmConformance 2 
+
+eriAlarmXNotifications:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 1
+  TYPE: OBJECT IDENTIFIER
+  OID:  ericssonAlarmXpathMIB 2 
+
+snmpEngine:
+  TYPE: OBJECT IDENTIFIER
+  OID:  snmpFrameworkMIBObjects 1 
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 2
+
+eriAlarmNotifsPrefix:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 1
+  TYPE: OBJECT IDENTIFIER
+  OID:  eriAlarmNotifications 0 
+
+snmpTargetConformance:
+  Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  OID:  snmpTargetMIB 3 
+  TYPE: OBJECT IDENTIFIER
+
+eriAlarmXNotifsPrefix:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 1
+  TYPE: OBJECT IDENTIFIER
+  OID:  eriAlarmXNotifications 0 
+
+snmpV2:
+  Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  OID:  internet 6 
+  TYPE: OBJECT IDENTIFIER
+
+eriAlarmHeartBeat:
+  TYPE: OBJECT IDENTIFIER
+  OID:  eriAlarmObjects 5 
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 1
+
+dod:
+  OID:  org 6 
+  TYPE: OBJECT IDENTIFIER
+  Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+
+directory:
+  TYPE: OBJECT IDENTIFIER
+  OID:  internet 1 
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 2
+
+internet:
+  OID:  dod 1 
+  TYPE: OBJECT IDENTIFIER
+  Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+
+snmpTargetObjects:
+  TYPE: OBJECT IDENTIFIER
+  OID:  snmpTargetMIB 1 
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 2
+
+mib-2:
+  TYPE: OBJECT IDENTIFIER
+  OID:  mgmt 1 
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 2
+
+snmpTargetGroups:
+  OID:  snmpTargetConformance 2 
+  TYPE: OBJECT IDENTIFIER
+  Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+
+experimental:
+  OID:  internet 3 
+  TYPE: OBJECT IDENTIFIER
+  Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+
+eriAlarmNotifObjects:
+  OID:  eriAlarmObjects 2 
+  TYPE: OBJECT IDENTIFIER
+  Nivel_Busqueda: 1
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+
+eriAlarmXActiveAlarms:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 1
+  TYPE: OBJECT IDENTIFIER
+  OID:  eriAlarmXObjects 3 
+
+snmpNotifyCompliances:
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 2
+  TYPE: OBJECT IDENTIFIER
+  OID:  snmpNotifyConformance 1 
+
+eriAlarmXNotifObjects:
+  OID:  eriAlarmXObjects 2 
+  TYPE: OBJECT IDENTIFIER
+  Nivel_Busqueda: 1
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+
+snmpFrameworkMIBGroups:
+  Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  OID:  snmpFrameworkMIBConformance 2 
+  TYPE: OBJECT IDENTIFIER
+
+eriAlarmSummary:
+  Nivel_Busqueda: 1
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  OID:  eriAlarmObjects 1 
+  TYPE: OBJECT IDENTIFIER
+
+snmpFrameworkMIBObjects:
+  Nivel_Busqueda: 2
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  OID:  snmpFrameworkMIB 2 
+  TYPE: OBJECT IDENTIFIER
+
+eriAlarmActiveAlarms:
+  TYPE: OBJECT IDENTIFIER
+  OID:  eriAlarmObjects 3 
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  Nivel_Busqueda: 1
 
 ----------------------------------- FIN DE OBJECT_IDENTIFIERS -----------------------------------
 ----------------------------------- MODULE_IDENTITIES ---------------------------
-zteMIB:
-  CONTACT_INFO: E-mail: wu.chunhui@mail.zte.com.cn
-  DESCRIPTION_2: Alarm IRP V2.0
-  ORGANIZATION: ZTE Corp. Ltd .
-  REVISION_1: 200512310000Z
-  ARCHIVO: zxcomc-snmp-irp-common-mib.txt
+ericssonAlarmMIB:
+  OID:  ericssonModules 4 
+  ORGANIZATION: Ericsson AB
+  DESCRIPTION_2: Fixed CONFORMANCE GROUPS issue by separating
+recently added OBJECT-TYPES into new
+CONFORMANCE GROUPS.
+Added new GROUPS:
+eriAlarmActiveAlarmsAdditionalInfoGroup,
+eriAlarmAlertsAdditionalInfoGroup,
+eriAlarmRecordTypeGroup.
+Added more detail to DESCRIPTION for each REVISION.
+Document number: 5/196 03-CXC 172 7549, Rev E.
+  REVISION_5: 200810170000Z
+  DESCRIPTION_1: This MIB Module is an Ericsson-wide SNMP
+interface for managing alarms. Main inputs to
+the MIB design are the 3GPP Alarm IRP and X.733.
+However, an important restriction is that the MIB
+only represents the resource view and not
+management activities like acknowledgment, etc.
+It describes generic notifications used to send
+alarm state changes and a table which represents
+the current active alarms in the system. The MIB
+supports both stateful alarms and stateless
+alerts.
+It is important to identify clearly what is to be
+considered the same alarm object instance. All
+unique alarm *types* are identified by
+'AlarmType'. An AlarmType is a one-to-one
+mapping with X.733 EventType, ProbabableCause and
+SpecificProblem. A pair of integers are used to
+specify the alarm type.
+A unique alarm object *instance* is the
+combination of managed object and AlarmType. In
+this way, there is no ambiguity about how alarm
+and alarm clear correlation should be performed:
+the same managed object instance and AlarmType
+shall be used. The same is true for changing
+existing alarm states. Severity, Additional Text
+and Additional Info can be changed on an existing
+alarm.
+For stateful alarms there are notifications to
+report a new alarm and a cleared alarm. Changing
+an alarm is done via the new alarm notification.
+The management system shall match the alarm by
+using alarm type and managed object instance in
+the same way as for clear notifications.
+The MIB has different notifications for different
+severities in order to support SNMP managers
+which maps severities based on notification
+identifiers. For stateless alerts, there are
+generic notifications to send the alerts
+with different severities.
+NOTE - Updated Definition of Alerts in TEA (The
+Ericsson Architecture):
+Alerts are used by service management systems
+to evaluate service impact, and are only applicable
+to very specific state changes with potential service
+impact like restart and redundancy shifts.
+Alerts SHALL NOT be used for fault indication.
+Alerts should always have Perceived Severity
+Indeterminate, and should only be sent using
+eriAlarmIndAlert notification. The other severity
+alert notifications should not be used, and are
+only present in this specification for
+backward compatibility reasons.
+A table lists all active alarms so that a manager
+can read an initial state and also perform an
+alarm resynchronization procedure. There is also
+a table of latest stateless alerts. Since the
+stateless alerts do not have a corresponding
+clear message, the table size is limited by the
+agent instrumentation.
+The MIB supports two approaches for detecting
+lost notifications:
+- sequence numbers are used in the alarm
+notifications, and are shown in the active
+alarm table. The last used sequence number can
+be read in a scalar variable
+- a time stamp indicates the last time alarm
+tables were updated.
+Heartbeat mechanisms are supported both in pull
+and push mode:
+- Pull: the classical SNMP polling where a
+manager polls a scalar variable, for example
+the last sequence number used
+- Push: the agent can be configured to send
+heartbeat notifications. These contains the
+last used sequence numbers.
+Document number: 5/196 03-CXC 172 7549.
+  CONTACT_INFO: EEIEMY
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  LAST_UPDATED: 201708110000Z
+  REVISION_4: 201606240000Z
+  REVISION_1: 201708110000Z
   TYPE: MODULE-IDENTITY
-  DESCRIPTION_1: This SNMP MIB-module specifies the SNMP Solution Set
-of 3GPP Alarm Integration Reference Point (IRP),
-this MIB-module complies with the SNMPV2C
-  OID:  enterprises 3902 
-  LAST_UPDATED: 200512310000Z
+  DESCRIPTION_6: Initial version of this MIB module.
+Document number: 5/196 03-CXC 172 7549, Rev A.
+  DESCRIPTION_3: Increased overall size of Additional Info.
+Added new OBJECT-TYPE:
+eriAlarmNObjAppendedAdditionalInfo.
+Added new IMPORT:
+EriAppendedAdditionalInfo.
+Document number: 5/196 03-CXC 172 7549, Rev D.
+  DESCRIPTION_5: Updated as part of ERICSSON ALARM MIB 2.0 package.
+Incorporated updated definition of Alerts according
+to The Ericsson Architecture (TEA).
+Document number: 5/196 03-CXC 172 7549, Rev B.
+  REVISION_3: 201704130000Z
+  REVISION_2: 201705190000Z
+  DESCRIPTION_4: Updated as part of ERICSSON ALARM MIB 2.1 package.
+Added new OBJECT-TYPES:
+eriAlarmNObjAdditionalInfo,
+eriAlarmNObjMoreAdditionalInfo,
+eriAlarmNObjRecordType,
+eriAlarmActiveAdditionalInfo,
+eriAlarmAlertAdditionalInfo.
+Added new IMPORTS:
+EriAdditionalInfo,
+EriLargeAdditionalInfo,
+EriAlarmRecordType.
+Document number: 5/196 03-CXC 172 7549, Rev C.
+
+snmpFrameworkMIB:
+  CONTACT_INFO: WG-EMail:   snmpv3@tis.com
+Subscribe:  majordomo@tis.com
+In message body:  subscribe snmpv3
+Chair:      Russ Mundy
+TIS Labs at Network Associates
+postal:     3060 Washington Rd
+Glenwood MD 21738
+USA
+EMail:      mundy@tis.com
+phone:      +1 301-854-6889
+Co-editor   Dave Harrington
+Cabletron Systems, Inc.
+postal:     Post Office Box 5005
+Mail Stop: Durham
+35 Industrial Way
+Rochester, NH 03867-5005
+USA
+EMail:      dbh@ctron.com
+phone:      +1 603-337-7357
+Co-editor   Randy Presuhn
+BMC Software, Inc.
+postal:     965 Stewart Drive
+Sunnyvale, CA 94086
+USA
+EMail:      randy_presuhn@bmc.com
+phone:      +1 408-616-3100
+Co-editor:  Bert Wijnen
+IBM T.J. Watson Research
+postal:     Schagen 33
+3461 GL Linschoten
+Netherlands
+EMail:      wijnen@vnet.ibm.com
+phone:      +31 348-432-794
+
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  DESCRIPTION_1: The SNMP Management Architecture MIB
+  DESCRIPTION_2: Updated editors' addresses, fixed typos.
+Published as RFC2571.
+
+  ORGANIZATION: SNMPv3 Working Group
+  OID:  snmpModules 10 
+  REVISION_2: 199711200000Z
+  DESCRIPTION_3: The initial version, published in RFC 2271.
+
+  TYPE: MODULE-IDENTITY
+  REVISION_1: 199901190000Z
+  LAST_UPDATED: 199901190000Z
+
+ericssonAlarmXpathMIB:
+  CONTACT_INFO: Ericsson first line support by email.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  DESCRIPTION_1: This MIB Module is an Ericsson-wide SNMP
+interface for managing alarms. Main inputs to
+the MIB design are the 3GPP Alarm IRP and X.733.
+However, an important restriction is that the MIB
+only represents the resource view and not
+management activities like acknowledgment, etc.
+It describes generic notifications used to send
+alarm state changes and a table which represents
+the current active alarms in the system. The MIB
+supports both stateful alarms and stateless
+alerts.
+It is important to identify clearly what is to be
+considered the same alarm object instance. All
+unique alarm *types* are identified by
+'AlarmType'. An AlarmType is a one-to-one
+mapping with X.733 EventType, ProbabableCause and
+SpecificProblem. A pair of integers are used to
+specify the alarm type.
+A unique alarm object *instance* is the
+combination of YangNodeInstance and AlarmType. 
+In this way, there is no ambiguity about how alarm
+and alarm clear correlation should be performed:
+the same YANG resource instance and AlarmType
+shall be used. The same is true for changing
+existing alarm states. Severity, Additional Text 
+and Additional Info can be changed on an existing
+alarm.
+For stateful alarms there are notifications to
+report a new alarm and a cleared alarm. Changing
+an alarm is done through the new alarm notification.
+The management system shall match the alarm by
+using alarm type and YangNodeInstance
+in the same way as for clear notifications.
+The MIB has different notifications for different
+severities in order to support SNMP managers
+which maps severities based on notification
+identifiers. For stateless alerts, there are
+generic notifications to send the alerts
+with different severities.
+NOTE - Updated Definition of Alerts in TEA (The 
+Ericsson Architecture):
+Alerts are used by service management systems 
+to evaluate service impact, and are only applicable 
+to very specific state changes with potential service
+impact like restart and redundancy shifts. 
+Alerts SHALL NOT be used for fault indication.
+Alerts should always have Perceived Severity
+Indeterminate, and should only be sent using
+eriAlarmXIndAlert notification. The other severity
+alert notifications should not be used, and are
+only present in this specification for
+backward compatibility reasons.
+A table lists all active alarms so that a manager
+can read an initial state and also perform an
+alarm resynchronization procedure. There is also
+a table of latest stateless alarms. Since the
+stateless alarms do not have a corresponding
+clear message, the table size is limited by the
+agent instrumentation.
+The MIB supports two approaches for detecting
+lost notifications:
+- sequence numbers are used in the alarm
+notifications, and are shown in the active
+alarm table. The last used sequence number can
+be read in a scalar variable
+- a time stamp indicates the last time alarm
+tables were updated.
+Heartbeat mechanisms are supported both in pull
+and push mode:
+- Pull: the classical SNMP polling where a
+manager polls a scalar variable, for example
+the last sequence number used
+- Push: the agent can be configured to send
+heartbeat notifications. These contains the
+last used sequence numbers.
+Document number: 11/196 03-CXC 172 7549.
+  REVISION_5: 201606240000Z
+  DESCRIPTION_2: New revision to avoid disambiguities, because 
+accidentally two different Rev. D were created: 
+-  One with the change indicated below for the 
+previous revision and a change for CONTACT-INFO 
+-  One with only the change for CONTACT-INFO
+Rev. E contains all the above changes. Additionally
+TAB characters converted to SPACE characters.
+Editorial improvements in DESCRIPTION elements.
+Document number: 11/196 03-CXC 172 7549, Rev E.
+  ORGANIZATION: Ericsson AB
+  OID:  ericssonModules 6 
+  DESCRIPTION_4: Fixed duplicate object names issue, by replacing
+prefix eriAlarm with prefix eriAlarmX where needed.
+Increased overall size of Additional Info. 
+Added new OBJECT-TYPE:
+eriAlarmXNObjAppendedAdditionalInfo.
+Added new IMPORT: 
+EriAppendedAdditionalInfo.
+Fixed CONFORMANCE GROUPS issue by separating
+recently added OBJECT-TYPES into new
+CONFORMANCE GROUPS.
+Added new GROUPS:
+eriAlarmXActiveAlarmsAdditionalInfoGroup,
+eriAlarmXAlertsAdditionalInfoGroup,
+eriAlarmXRecordTypeGroup.
+Added more detail to DESCRIPTION for each REVISION.
+Document number: 11/196 03-CXC 172 7549, Rev C.
+  REVISION_2: 202106160000Z
+  REVISION_3: 201708110000Z
+  DESCRIPTION_5: Updated as part of ERICSSON ALARM MIB 2.1 package.
+Added new OBJECT-TYPES:
+eriAlarmNObjAdditionalInfo, 
+eriAlarmNObjMoreAdditionalInfo, 
+eriAlarmNObjRecordType,
+eriAlarmActiveAdditionalInfo, 
+eriAlarmAlertAdditionalInfo.
+Added new IMPORTS:
+EriAdditionalInfo, 
+EriLargeAdditionalInfo, 
+EriAlarmRecordType.
+Document number: 11/196 03-CXC 172 7549, Rev B.
+  DESCRIPTION_3: Added new GROUP:
+eriAlarmXSourceIdentifierGroup
+Added new OBJECT-TYPES:
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier.
+Added new IMPORT:
+EriAlarmSourceIdentifierType. 
+Document number: 11/196 03-CXC 172 7549, Rev D.
+  DESCRIPTION_6: Initial version of this MIB module.
+Document number: 11/196 03-CXC 172 7549, Rev A.
+  TYPE: MODULE-IDENTITY
+  REVISION_1: 202303300000Z
+  REVISION_4: 201704130000Z
+  LAST_UPDATED: 202303300000Z
+
+ericssonAlarmTCMIB:
+  DESCRIPTION_1: This MIB defines textual conventions used by the
+ERICSSON-ALARM-MIB.
+Document number: 3/196 03-CXC 172 7549
+  CONTACT_INFO: EEIEMY
+  ARCHIVO: ERICSSON-ALARM-TC-MIB.mib
+  REVISION_5: 200810170000Z
+  ORGANIZATION: Ericsson AB
+  OID:  ericssonModules 3 
+  DESCRIPTION_2: Updated as part of ERICSSON ALARM MIB 3.0 package.
+Updated to remove author's name.
+Document number: 3/196 03-CXC 172 7549, Rev E.
+  DESCRIPTION_4: Updated as part of ERICSSON ALARM MIB 2.1 package.
+Updated with reference to TEA.
+Document number: 3/196 03-CXC 172 7549, Rev C.
+  REVISION_2: 201705180000Z
+  REVISION_3: 201703310000Z
+  DESCRIPTION_6: Initial version of this MIB module.
+  DESCRIPTION_3: Updated to increase size of Additional Info.
+Document number: 3/196 03-CXC 172 7549, Rev D.
+  DESCRIPTION_5: Updated as part of ERICSSON ALARM MIB 2.0 package.
+Updated header.
+Document number: 3/196 03-CXC 172 7549, Rev B.
+  REVISION_4: 201606240000Z
+  LAST_UPDATED: 201708110000Z
+  REVISION_1: 201708110000Z
+  TYPE: MODULE-IDENTITY
+
+ericssonAlarmPCMIB:
+  REVISION_1: 201806270000Z
+  TYPE: MODULE-IDENTITY
+  REVISION_4: 200810170000Z
+  LAST_UPDATED: 201806270000Z
+  DESCRIPTION_5: Initial version of this MIB module.
+Document number: 4/196 03-CXC 172 7549, Rev A.
+  DESCRIPTION_3: Minor Header and Description updates.
+Document number: 4/196 03-CXC 172 7549, Rev C.
+  REVISION_2: 201703310000Z
+  REVISION_3: 201606240000Z
+  DESCRIPTION_4: Removed individual original author names.
+Document number: 4/196 03-CXC 172 7549, Rev B.
+  DESCRIPTION_2: Added the following value from RFC 3877:
+other (1024).
+Added from the set of 'Enterprise added values'
+from ERICSSON-ROUTER-ALARM-TC MIB.
+Updated Reference documents in DESCRIPTION.
+Added more detail to DESCRIPTION for each REVISION.
+Document number: 4/196 03-CXC 172 7549, Rev D.
+  ORGANIZATION: Ericsson AB
+  OID:  ericssonModules 2 
+  CONTACT_INFO: EEIEMY
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+  DESCRIPTION_1: This is a module with the single purpose of
+maintaining a global definition of probable cause
+values. Due to the history of probable cause
+usage, probable cause alone is not unique enough
+to identify an alarm type. This document is
+compiled from known sources of information.
+Others may be added, but existing definitions
+MUST NOT be changed.
+Document number: 4/196 03-CXC 172 7549.
+
+ericsson:
+  DESCRIPTION_3: Initial version of this MIB module.
+  TYPE: MODULE-IDENTITY
+  REVISION_1: 200810170000Z
+  LAST_UPDATED: 200810170000Z
+  REVISION_2: 200205280000Z
+  DESCRIPTION_2: Added email contact address, ericssonModules
+  ORGANIZATION: Ericsson AB
+  OID:  enterprises 193 
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  CONTACT_INFO: Email: <snmp.mib.contact@ericsson.com>
+  DESCRIPTION_1: This very small module is made available so that
+developers within the Ericsson community can import the
+'ericsson' name into their own MIB modules. In addition,
+it includes the top-level node for Ericsson Group-wide
+MIB modules.
+Document number: 1/196 03-CXC 172 7549, Rev A
+
+snmpNotificationMIB:
+  DESCRIPTION_2: Clarifications, published as
+RFC2573
+  OID:  snmpModules 13 
+  ORGANIZATION: IETF SNMPv3 Working Group
+  CONTACT_INFO: WG-email:   snmpv3@lists.tislabs.com
+Subscribe:  majordomo@lists.tislabs.com
+In message body:  subscribe snmpv3
+Chair:      Russ Mundy
+Trusted Information Systems
+Postal:     3060 Washington Rd
+Glenwood MD 21738
+USA
+EMail:      mundy@tislabs.com
+Phone:      +1-301-854-6889
+Co-editor:  David B. Levi
+SNMP Research, Inc.
+Postal:     3001 Kimberlin Heights Road
+Knoxville, TN 37920-9716
+EMail:      levi@snmp.com
+Phone:      +1 423 573 1434
+Co-editor:  Paul Meyer
+Secure Computing Corporation
+Postal:     2675 Long Lake Road
+Roseville, MN 55113
+EMail:      paul_meyer@securecomputing.com
+Phone:      +1 651 628 1592
+Co-editor:  Bob Stewart
+Cisco Systems, Inc.
+Postal:     170 West Tasman Drive
+San Jose, CA 95134-1706
+EMail:      bstewart@cisco.com
+Phone:      +1 603 654 2686
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  DESCRIPTION_1: This MIB module defines MIB objects which provide
+mechanisms to remotely configure the parameters
+used by an SNMP entity for the generation of
+notifications.
+  DESCRIPTION_3: The initial revision, published as RFC2273.
+  REVISION_1: 199808040000Z
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 199808040000Z
+  REVISION_2: 199707140000Z
+
+ericssonTCMIB:
+  REVISION_2: 201704130000Z
+  REVISION_3: 201606240000Z
+  DESCRIPTION_4: Updated version of this MIB module. Included XPath
+instance identifier.
+Document number: 2/196 03-CXC 172 7549, Rev B.
+  REVISION_1: 201708110000Z
+  TYPE: MODULE-IDENTITY
+  REVISION_4: 200810170000Z
+  LAST_UPDATED: 201708110000Z
+  DESCRIPTION_5: Initial version of this MIB module.
+  DESCRIPTION_3: Updated REFERENCE clause for EriPath:
+- Added YANG module ericsson-yang-types;
+- Updated YANG RFC reference to YANG 1.1 RFC.
+Document number: 2/196 03-CXC 172 7549, Rev C.
+  CONTACT_INFO: EEIEMY
+  ARCHIVO: ERICSSON-TC-MIB.mib
+  DESCRIPTION_1: This MIB document includes textual conventions
+that can be used by all of the Ericsson group.
+The intention is to have shared definitions such
+that integration and SNMP development are made
+easier.
+  DESCRIPTION_2: Updated description for EriPath;
+Added more detail to DESCRIPTION for each REVISION
+Removed author's name.
+Document number: 2/196 03-CXC 172 7549, Rev D.
+  ORGANIZATION: Ericsson AB
+  OID:  ericssonModules 1 
+
+snmpTargetMIB:
+  REVISION_1: 199808040000Z
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 199808040000Z
+  DESCRIPTION_3: The initial revision, published as RFC2273.
+  REVISION_2: 199707140000Z
+  DESCRIPTION_2: Clarifications, published as
+RFC2573.
+  ORGANIZATION: IETF SNMPv3 Working Group
+  OID:  snmpModules 12 
+  CONTACT_INFO: WG-email:   snmpv3@lists.tislabs.com
+Subscribe:  majordomo@lists.tislabs.com
+In message body:  subscribe snmpv3
+Chair:      Russ Mundy
+Trusted Information Systems
+Postal:     3060 Washington Rd
+Glenwood MD 21738
+USA
+EMail:      mundy@tislabs.com
+Phone:      +1-301-854-6889
+Co-editor:  David B. Levi
+SNMP Research, Inc.
+Postal:     3001 Kimberlin Heights Road
+Knoxville, TN 37920-9716
+EMail:      levi@snmp.com
+Phone:      +1 423 573 1434
+Co-editor:  Paul Meyer
+Secure Computing Corporation
+Postal:     2675 Long Lake Road
+Roseville, MN 55113
+EMail:      paul_meyer@securecomputing.com
+Phone:      +1 651 628 1592
+Co-editor:  Bob Stewart
+Cisco Systems, Inc.
+Postal:     170 West Tasman Drive
+San Jose, CA 95134-1706
+EMail:      bstewart@cisco.com
+Phone:      +1 603 654 2686
+  ARCHIVO: SNMP-TARGET-MIB
+  DESCRIPTION_1: This MIB module defines MIB objects which provide
+mechanisms to remotely configure the parameters used
+by an SNMP entity for the generation of SNMP messages.
+
+which:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 
+  OID:  ericsson 183 
+  ORGANIZATION: 
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+  CONTACT_INFO: 
 
 ----------------------------------- FIN DE MODULE_IDENTITIES -----------------------------------
 ----------------------------------- MODULE_COMPLIANCE ---------------------------
-alarmCompliance:
-  TYPE: MODULE-COMPLIANCE
-  ARCHIVO: zxcomc-snmp-alarmirp-mib-v1.1.txt
-  DESCRIPTION: A collection of objects that are required for
-compliance to the ALARM-IRP.
-  OID:  alarmCompliances 1 
+snmpTargetCommandResponderCompliance:
+  DESCRIPTION: The compliance statement for SNMP entities which include
+a command responder application.
+  ARCHIVO: SNMP-TARGET-MIB
   STATUS: current
+  TYPE: MODULE-COMPLIANCE
+  MODULE: HASH(0x1bcb03034f8)
+  OID:  snmpTargetCompliances 1 
+
+snmpNotifyBasicFiltersCompliance:
+  DESCRIPTION: The compliance statement for SNMP entities which implement
+SNMP Unconfirmed-Class notifications with filtering, and
+read-create operations on all related tables.
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  STATUS: current
+  TYPE: MODULE-COMPLIANCE
+  MODULE: HASH(0x1bcb0308be0)
+  OID:  snmpNotifyCompliances 2 
+
+eriAlarmXBasicAlarmsCompliance:
+  STATUS: current
+  DESCRIPTION: Minimal compliance for the Ericsson Alarm MIB.
+Minimal compliance is to support heartbeat,
+active alarm list, and alarm notifications for
+raise and clear.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  OID: eriAlarmXCompliances 1
+  TYPE: MODULE-COMPLIANCE
+  MODULE: HASH(0x1bcb0ad5be8)
 
 NOTIFICATION-GROUP,:
   STATUS: current
-  OID:  alarm 4 
-  ARCHIVO: zxcomc-snmp-csirp-mib.txt
-  DESCRIPTION: This object represents the version of the CS IRP
-SNMPv2 Solution Set supported by the agent.
+  DESCRIPTION: This MIB Module is an Ericsson-wide SNMP
+interface for managing alarms. Main inputs to
+the MIB design are the 3GPP Alarm IRP and X.733.
+However, an important restriction is that the MIB
+only represents the resource view and not
+management activities like acknowledgment, etc.
+It describes generic notifications used to send
+alarm state changes and a table which represents
+the current active alarms in the system. The MIB
+supports both stateful alarms and stateless
+alerts.
+It is important to identify clearly what is to be
+considered the same alarm object instance. All
+unique alarm *types* are identified by
+'AlarmType'. An AlarmType is a one-to-one
+mapping with X.733 EventType, ProbabableCause and
+SpecificProblem. A pair of integers are used to
+specify the alarm type.
+A unique alarm object *instance* is the
+combination of YangNodeInstance and AlarmType. 
+In this way, there is no ambiguity about how alarm
+and alarm clear correlation should be performed:
+the same YANG resource instance and AlarmType
+shall be used. The same is true for changing
+existing alarm states. Severity, Additional Text 
+and Additional Info can be changed on an existing
+alarm.
+For stateful alarms there are notifications to
+report a new alarm and a cleared alarm. Changing
+an alarm is done through the new alarm notification.
+The management system shall match the alarm by
+using alarm type and YangNodeInstance
+in the same way as for clear notifications.
+The MIB has different notifications for different
+severities in order to support SNMP managers
+which maps severities based on notification
+identifiers. For stateless alerts, there are
+generic notifications to send the alerts
+with different severities.
+NOTE - Updated Definition of Alerts in TEA (The 
+Ericsson Architecture):
+Alerts are used by service management systems 
+to evaluate service impact, and are only applicable 
+to very specific state changes with potential service
+impact like restart and redundancy shifts. 
+Alerts SHALL NOT be used for fault indication.
+Alerts should always have Perceived Severity
+Indeterminate, and should only be sent using
+eriAlarmXIndAlert notification. The other severity
+alert notifications should not be used, and are
+only present in this specification for
+backward compatibility reasons.
+A table lists all active alarms so that a manager
+can read an initial state and also perform an
+alarm resynchronization procedure. There is also
+a table of latest stateless alarms. Since the
+stateless alarms do not have a corresponding
+clear message, the table size is limited by the
+agent instrumentation.
+The MIB supports two approaches for detecting
+lost notifications:
+- sequence numbers are used in the alarm
+notifications, and are shown in the active
+alarm table. The last used sequence number can
+be read in a scalar variable
+- a time stamp indicates the last time alarm
+tables were updated.
+Heartbeat mechanisms are supported both in pull
+and push mode:
+- Pull: the classical SNMP polling where a
+manager polls a scalar variable, for example
+the last sequence number used
+- Push: the agent can be configured to send
+heartbeat notifications. These contains the
+last used sequence numbers.
+Document number: 11/196 03-CXC 172 7549.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+  OID:  ericssonModules 6 
   TYPE: MODULE-COMPLIANCE
+
+eriAlarmBasicAlarmsCompliance:
+  STATUS: current
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+  DESCRIPTION: Minimal compliance for the Ericsson Alarm MIB.
+Minimal compliance is to support heartbeat,
+active alarm list, and alarm notifications for
+raise and clear.
+  OID: eriAlarmCompliances 1
+  MODULE: HASH(0x1bcb03093f0)
+  TYPE: MODULE-COMPLIANCE
+
+snmpNotifyFullCompliance:
+  TYPE: MODULE-COMPLIANCE
+  MODULE: HASH(0x1bcb0308f28)
+  OID:  snmpNotifyCompliances 3 
+  DESCRIPTION: The compliance statement for SNMP entities which either
+implement only SNMP Confirmed-Class notifications, or both
+SNMP Unconfirmed-Class and Confirmed-Class notifications,
+plus filtering and read-create operations on all related
+tables.
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  STATUS: current
+
+snmpNotifyBasicCompliance:
+  STATUS: current
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+  DESCRIPTION: The compliance statement for minimal SNMP entities which
+implement only SNMP Unconfirmed-Class notifications and
+read-create operations on only the snmpTargetAddrTable.
+  OID:  snmpNotifyCompliances 1 
+  MODULE: HASH(0x1bcb0312be8)
+  TYPE: MODULE-COMPLIANCE
+
+snmpFrameworkMIBCompliance:
+  STATUS: current
+  DESCRIPTION: The compliance statement for SNMP engines which
+implement the SNMP Management Framework MIB.
+
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+  OID:  snmpFrameworkMIBCompliances 1 
+  TYPE: MODULE-COMPLIANCE
+  MODULE: HASH(0x1bcb03070c8)
 
 ----------------------------------- FIN DE MODULE_COMPLIANCE -----------------------------------
 ----------------------------------- ALARM_TRAPS ---------------------------
-alarmListRebuild:
-  STATUS: current
+eriAlarmCleared:
   TYPE: NOTIFICATION-TYPE
-  DESCRIPTION: This notification is sent when ems re-establish the connection to nms.
-  OBJECTS: systemDN 
-  VARIABLES: No se encontraron variables
   ENTERPRISE: No se encontró la empresa
-  OID: alarmNotificationProfile 5
-
-alarmNew:
-  OBJECTS: alarmEventTime, sendNotificationId, lastSendNotificationId, systemDN, alarmCode, alarmManagedObjectInstance, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem, alarmAdditionalText, alarmNetype, alarmIndex, alarmId, alarmCodeName, alarmManagedObjectInstanceName, alarmSystemType, alarmNeIP, alarmAck, cleiCode, timeZoneID, timeZoneOffset, dSTSaving, aid, id, alarmMocObjectInstance, alarmComment, alarmOtherInfo 
+  OID: eriAlarmNotifsPrefix 7
   VARIABLES: No se encontraron variables
-  ENTERPRISE: No se encontró la empresa
-  OID: alarmNotificationProfile 1
-  STATUS: current
-  TYPE: NOTIFICATION-TYPE
-  DESCRIPTION: This notification is sent when a new Alarm is  generated and stored in the Active Alarm Table.  Note that the notification does not include all objects for the corresponding entry in the Alarm  Table. The reason is that some environments may have  problems with large PDUs. Thus, the notification  receiver must get the missing objects from the Active Alarm Table. The value 'cleared' for the PerceivedSeverity is not allowed for an alarm notification.
-
-alarmCleared:
-  OBJECTS: alarmEventTime, sendNotificationId, lastSendNotificationId, systemDN, alarmCode, alarmManagedObjectInstance, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem, alarmAdditionalText, alarmNetype, alarmIndex, alarmId, alarmCodeName, alarmManagedObjectInstanceName, alarmSystemType, alarmNeIP, alarmAck, cleiCode, timeZoneID, timeZoneOffset, dSTSaving, aid, id, alarmMocObjectInstance, alarmComment, alarmOtherInfo 
-  VARIABLES: No se encontraron variables
-  OID: alarmNotificationProfile 2
-  ENTERPRISE: No se encontró la empresa
-  STATUS: current
-  TYPE: NOTIFICATION-TYPE
-  DESCRIPTION: This notification is generated when an alarm is  cleared. A cleared alarm is removed from the  Active Alarm Table and is no longer accessible. It's impossible to retrieve an cleared alarm from Active Alarm Table any more.
-
-alarmAckChange:
-  OBJECTS: alarmEventTime, sendNotificationId, lastSendNotificationId, systemDN, alarmCode, alarmManagedObjectInstance, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem, alarmAdditionalText, alarmNetype, alarmIndex, alarmId, alarmCodeName, alarmManagedObjectInstanceName, alarmSystemType, alarmNeIP, alarmAck, cleiCode, timeZoneID, timeZoneOffset, dSTSaving, aid, id, alarmMocObjectInstance, alarmComment, alarmOtherInfo 
-  VARIABLES: No se encontraron variables
-  ENTERPRISE: No se encontró la empresa
-  OID: alarmNotificationProfile 3
-  STATUS: current
-  TYPE: NOTIFICATION-TYPE
-  DESCRIPTION: This notification is sent when alarm's status was changed,acknowledged or unacknowledged.
-
-alarmSyncEnd:
-  ENTERPRISE: No se encontró la empresa
-  OID: alarmNotificationProfile 12
-  VARIABLES: No se encontraron variables
-  OBJECTS:  systemDN, syncUniqueId 
-  DESCRIPTION: This notification is sent after send all alarmSync trap to nms.
-  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: This notification is sent when a resource detects a cleared alarm state. The combination of ManagedObject and MajorType/MinorType is always unique and shall be used by management systems to correlate alarm and alarm clear. The corresponding row in the alarm table will be deleted, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. Note that it should not be required to send an append trap for a cleared alarm. Those varbinds which flag that an append trap will follow are kept here for backward compatibility reasons.
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
   STATUS: current
 
-alarmServiceChange:
+eriAlarmIndeterminate:
+  OID: eriAlarmNotifsPrefix 1
   VARIABLES: No se encontraron variables
-  ENTERPRISE: No se encontró la empresa
-  OID: alarmNotificationProfile 10
-  OBJECTS: alarmEventTime, sendNotificationId, lastSendNotificationId, systemDN, alarmCode, alarmManagedObjectInstance, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem, alarmAdditionalText, alarmNetype, alarmIndex, alarmId, alarmCodeName, alarmManagedObjectInstanceName, alarmSystemType, alarmNeIP, alarmAck, cleiCode, timeZoneID, timeZoneOffset, dSTSaving, aid, id, alarmMocObjectInstance, alarmComment, alarmOtherInfo                 
   TYPE: NOTIFICATION-TYPE
-  DESCRIPTION: This notification is sent when alarm's path was changed.
+  ENTERPRISE: No se encontró la empresa
+  STATUS: current
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity indeterminate. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table. The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
+
+eriAlarmAlarmListRebuilt:
+  VARIABLES: No se encontraron variables
+  OID: eriAlarmNotifsPrefix 30
+  ENTERPRISE: No se encontró la empresa
+  TYPE: NOTIFICATION-TYPE
+  STATUS: current
+  OBJECTS: eriAlarmActiveTableURL 
+  DESCRIPTION: This notification is sent when the active alarm list has reached a stable situation after a restart or after a system internal audit process. It is an indication to the manager to perform a alarm resynchronization procedure.
+
+eriAlarmXWarnAlert:
+  ENTERPRISE: No se encontró la empresa
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: No se encontraron variables
+  OID: eriAlarmXNotifsPrefix 11
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity warning. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
   STATUS: current
 
-alarmCommentChange:
-  STATUS: current
-  DESCRIPTION: This notification is sent when alarm's content of comment was changed.
+eriAlarmXAppendAlertInfo:
   TYPE: NOTIFICATION-TYPE
-  OBJECTS: alarmEventTime, sendNotificationId, lastSendNotificationId, systemDN, alarmCode, alarmManagedObjectInstance, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem, alarmAdditionalText, alarmNetype, alarmIndex, alarmId, alarmCodeName, alarmManagedObjectInstanceName, alarmSystemType, alarmNeIP, alarmAck, cleiCode, timeZoneID, timeZoneOffset, dSTSaving, aid, id, alarmMocObjectInstance, alarmComment, alarmOtherInfo                 
   ENTERPRISE: No se encontró la empresa
-  OID: alarmNotificationProfile 4
+  OID: eriAlarmXNotifsPrefix 15
+  VARIABLES: No se encontraron variables
+  DESCRIPTION: This notification is sent in order to append further info to an alert notification. It might be additional text or a resource ID (OID) identifying the alarming resource using an OID. This complements information sent in a previous notification. If additional text/info is sent, do not confuse this with an actual change of additional text/info which is reported using the eriAlarmXAlert<severity> notification. A zero-length string value for eriAlarmXNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmXNObjAppendedAdditionalInfo means that no additional info is being sent in this notification. A null OID (0.0) value for eriAlarmXAlertResourceId means that no resource ID is being sent in this notification.
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXNObjAdditionalText, eriAlarmXAlertResourceId, eriAlarmXNObjAppendedAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  STATUS: current
+
+eriAlarmMajor:
+  VARIABLES: No se encontraron variables
+  OID: eriAlarmNotifsPrefix 4
+  ENTERPRISE: No se encontró la empresa
+  TYPE: NOTIFICATION-TYPE
+  STATUS: current
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity major. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+
+eriAlarmXAppendInfo:
+  OID: eriAlarmXNotifsPrefix 8
+  VARIABLES: No se encontraron variables
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: No se encontró la empresa
+  STATUS: current
+  DESCRIPTION: This notification is sent in order to append further info to an alarm notification. It might be additional text, additional info or a resource ID  (OID) identifying the alarming resource using an OID. If additional text/info is sent, do not confuse this with an actual change of additional text/info which  is reported using the eriAlarmX<severity> notification.  A zero-length string value for eriAlarmXNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmXNObjAppendedAdditionalInfo means that no additional info is being sent in this notification. A null OID (0.0) value for eriAlarmXActiveResourceId means that no resource ID is being sent in this notification.
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXNObjAdditionalText, eriAlarmXActiveResourceId, eriAlarmXNObjAppendedAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+
+eriAlarmXMinor:
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: No se encontró la empresa
+  OID: eriAlarmXNotifsPrefix 3
+  VARIABLES: No se encontraron variables
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity minor. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  STATUS: current
+
+eriAlarmXMajor:
+  ENTERPRISE: No se encontró la empresa
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: No se encontraron variables
+  OID: eriAlarmXNotifsPrefix 4
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity major. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
+  STATUS: current
+
+eriAlarmXIndAlert:
+  STATUS: current
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity indeterminate. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  VARIABLES: No se encontraron variables
+  OID: eriAlarmXNotifsPrefix 10
+  ENTERPRISE: No se encontró la empresa
+  TYPE: NOTIFICATION-TYPE
+
+eriAlarmXIndeterminate:
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: No se encontró la empresa
+  OID: eriAlarmXNotifsPrefix 1
+  VARIABLES: No se encontraron variables
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity indeterminate. The notification is also used to change severity, additional text and/or additional  info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance  and MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table. The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  STATUS: current
+
+eriAlarmXWarning:
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: No se encontró la empresa
+  OID: eriAlarmXNotifsPrefix 2
+  VARIABLES: No se encontraron variables
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity warning. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  STATUS: current
+
+eriAlarmXCleared:
+  OID: eriAlarmXNotifsPrefix 7
+  VARIABLES: No se encontraron variables
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: No se encontró la empresa
+  STATUS: current
+  DESCRIPTION: This notification is sent when a resource detects a cleared alarm state. The combination of YangNodeInstance and MajorType/MinorType is always unique and shall be used by management systems to correlate alarm and alarm clear.  The corresponding row in the alarm table will be deleted, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications.  Note that it should not be required to send an append trap for a cleared alarm. Those varbinds which flag that an append trap will follow are  kept here for backward compatibility reasons.
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+
+eriAlarmXCritical:
+  VARIABLES: No se encontraron variables
+  OID: eriAlarmXNotifsPrefix 5
+  ENTERPRISE: No se encontró la empresa
+  TYPE: NOTIFICATION-TYPE
+  STATUS: current
+  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity critical. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
+
+eriAlarmMinorAlert:
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity minor. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  STATUS: current
+  ENTERPRISE: No se encontró la empresa
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: No se encontraron variables
+  OID: eriAlarmNotifsPrefix 12
+
+eriAlarmIndAlert:
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity indeterminate. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  STATUS: current
+  ENTERPRISE: No se encontró la empresa
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: No se encontraron variables
+  OID: eriAlarmNotifsPrefix 10
+
+eriAlarmMinor:
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity minor. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
+  STATUS: current
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: No se encontró la empresa
+  OID: eriAlarmNotifsPrefix 3
   VARIABLES: No se encontraron variables
 
-ntsNotificationNew:
-  OBJECTS: notifyEventTime, sendNotificationId, lastSendNotificationId, systemDN, notifyCode, notifyManagedObjectInstance, notifyProbableCause, notifySpecificProblem, notifyAdditionalText, notifyNetype, notifyCodeName, notifyManagedObjectInstanceName, notifySystemType, notifyNeIP, notifyTimeZoneID, notifyTimeZoneOffset, notifyDSTSaving, notifyAid, notifyId, notifyMocObjectInstance, notifyCustomAttr1, notifyCustomAttr2, notifyCustomAttr3, notifyCustomAttr4, notifyCustomAttr5, notifyCustomAttr6, notifyCustomAttr7, notifyCustomAttr8, notifyCustomAttr9, notifyCustomAttr10  
+eriAlarmXCriticalAlert:
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity critical. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  STATUS: current
   ENTERPRISE: No se encontró la empresa
-  OID: ntsNotificationProfile 1
+  TYPE: NOTIFICATION-TYPE
   VARIABLES: No se encontraron variables
-  STATUS: current
-  DESCRIPTION: This notification is sent when a new notification is generated.
-  TYPE: NOTIFICATION-TYPE
+  OID: eriAlarmXNotifsPrefix 14
 
-alarmManagedObjectInstanceNameChange:
-  DESCRIPTION: This notification is sent when alarm's subname1 was changed.
+eriAlarmAppendAlertInfo:
   TYPE: NOTIFICATION-TYPE
-  STATUS: current
-  OID: alarmNotificationProfile 9
   ENTERPRISE: No se encontró la empresa
+  OID: eriAlarmNotifsPrefix 15
   VARIABLES: No se encontraron variables
-  OBJECTS: alarmEventTime, sendNotificationId, lastSendNotificationId, systemDN, alarmCode, alarmManagedObjectInstance, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem, alarmAdditionalText, alarmNetype, alarmIndex, alarmId, alarmCodeName, alarmManagedObjectInstanceName, alarmSystemType, alarmNeIP, alarmAck, cleiCode, timeZoneID, timeZoneOffset, dSTSaving, aid, id, alarmMocObjectInstance, alarmComment, alarmOtherInfo                 
-
-alarmSyncStart:
+  DESCRIPTION: This notification is sent in order to append further info to an alert notification. It might be additional text or a resource ID (OID) identifying the alarming resource using an OID. This complements information sent in a previous notification. If additional text/info is sent, do not confuse this with an actual change of additional text/info which is reported using the eriAlarmAlert<severity> notification. A zero-length string value for eriAlarmNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmNObjAppendedAdditionalInfo means that no additional info is being sent in this notification. A null OID (0.0) value for eriAlarmAlertResourceId means that no resource ID is being sent in this notification.
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmNObjAdditionalText, eriAlarmAlertResourceId, eriAlarmNObjAppendedAdditionalInfo 
   STATUS: current
-  TYPE: NOTIFICATION-TYPE
-  DESCRIPTION: This notification is sent before send alarmSync trap to nms.
-  OBJECTS:  systemDN, syncUniqueId 
-  VARIABLES: No se encontraron variables
-  OID: alarmNotificationProfile 11
-  ENTERPRISE: No se encontró la empresa
 
-heartbeatNotification:
-  OBJECTS:  csIRPHeartbeatPeriod 
-  VARIABLES: No se encontraron variables
-  OID: csNotificationProfile 1
-  ENTERPRISE: No se encontró la empresa
+eriAlarmXMinorAlert:
   STATUS: current
-  TYPE: NOTIFICATION-TYPE
-  DESCRIPTION: If the value of csIRPHeartbeatPeriod equals 0,then  no heartbeat notification will be generated. If the value of csIRPHeartbeatPeriod is bigger than 0 ,the heartbeat notification should be issued when the inner timer of heartbeat has reached ,and the timer  would be resetted.
-
-messageInfo:
-  STATUS: current
-  TYPE: NOTIFICATION-TYPE
-  DESCRIPTION: This notification is sent when ems on an abnormal situation.
-  OBJECTS: systemDN, messageCode  
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity minor. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  OID: eriAlarmXNotifsPrefix 12
   VARIABLES: No se encontraron variables
-  OID: alarmNotificationProfile 7
+  TYPE: NOTIFICATION-TYPE
   ENTERPRISE: No se encontró la empresa
 
-alarmSync:
-  DESCRIPTION: This notification is generated when set syncAlarm successfully.  The alarmManagedObjectInstance of all alarms are in line with user setting.
+eriAlarmAppendInfo:
+  VARIABLES: No se encontraron variables
+  OID: eriAlarmNotifsPrefix 8
+  ENTERPRISE: No se encontró la empresa
   TYPE: NOTIFICATION-TYPE
   STATUS: current
-  ENTERPRISE: No se encontró la empresa
-  OID: alarmNotificationProfile 6
-  VARIABLES: No se encontraron variables
-  OBJECTS:  alarmEventTime, sendNotificationId, lastSendNotificationId, systemDN, alarmCode, alarmManagedObjectInstance, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem, alarmAdditionalText, alarmNetype, alarmIndex, alarmId, alarmCodeName, alarmManagedObjectInstanceName, alarmSystemType, alarmNeIP, alarmAck, cleiCode, timeZoneID, timeZoneOffset, dSTSaving, aid, id, alarmMocObjectInstance, alarmComment, alarmOtherInfo 
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmNObjAdditionalText, eriAlarmActiveResourceId, eriAlarmNObjAppendedAdditionalInfo 
+  DESCRIPTION: This notification is sent in order to append further info to an alarm notification. It might be additional text, additional info or a resource ID (OID) identifying the alarming resource using an OID. If additional text/info is sent, do not confuse this with an actual change of additional text/info which is reported using the eriAlarm<severity> notification. A zero-length string value for eriAlarmNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmNObjAppendedAdditionalInfo means that no appended additional info is being sent in this notification. A null OID (0.0) value for eriAlarmActiveResourceId means that no resource ID is being sent in this notification.
 
-alarmSeverityChange:
+eriAlarmXMajorAlert:
+  STATUS: current
+  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity major. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  VARIABLES: No se encontraron variables
+  OID: eriAlarmXNotifsPrefix 13
+  ENTERPRISE: No se encontró la empresa
+  TYPE: NOTIFICATION-TYPE
+
+eriAlarmHeartBeatNotif:
+  STATUS: current
+  DESCRIPTION: This is a heartbeat notification with interval according to the eriAlarmHbInterval. It contains the last sequence numbers used for alarms and alarm events. These varbinds can be used to detect lost notifications. The notification eriAlarmHeartBeatNotif will be sent every eriAlarmHbInterval. Managers can subscribe to the notification using the SNMP framework MIBS by using the snmpNotifyName 'heartbeat'. (SNMP-NOTIFICATION-MIB, snmpNotifyTable).
+  OBJECTS:  eriAlarmActiveLastSequenceNo, eriAlarmAlertLastSequenceNo, eriAlarmActiveLastChanged, eriAlarmAlertLastChanged 
+  OID: eriAlarmNotifsPrefix 20
+  VARIABLES: No se encontraron variables
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: No se encontró la empresa
+
+eriAlarmWarning:
+  STATUS: current
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity warning. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
+  OID: eriAlarmNotifsPrefix 2
+  VARIABLES: No se encontraron variables
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: No se encontró la empresa
+
+eriAlarmXHeartBeatNotif:
+  STATUS: current
+  DESCRIPTION: This is a heartbeat notification with interval according to the eriAlarmXHbInterval. It contains the last sequence numbers used for alarms and alarm events. These varbinds can be used to detect lost notifications. The notification eriAlarmXHeartBeatNotif will be sent every eriAlarmXHbInterval. Managers can subscribe to the notification using the SNMP framework MIBS by using the snmpNotifyName 'heartbeat'. (SNMP-NOTIFICATION-MIB, snmpNotifyTable).
+  OBJECTS:  eriAlarmXActiveLastSequenceNo, eriAlarmXAlertLastSequenceNo, eriAlarmXActiveLastChanged, eriAlarmXAlertLastChanged, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  OID: eriAlarmXNotifsPrefix 20
+  VARIABLES: No se encontraron variables
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: No se encontró la empresa
+
+eriAlarmCritical:
+  STATUS: current
+  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity critical. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
+  OID: eriAlarmNotifsPrefix 5
+  VARIABLES: No se encontraron variables
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: No se encontró la empresa
+
+eriAlarmMajorAlert:
+  STATUS: current
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity major. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+  OID: eriAlarmNotifsPrefix 13
+  VARIABLES: No se encontraron variables
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: No se encontró la empresa
+
+eriAlarmWarnAlert:
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity warning. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
   STATUS: current
   TYPE: NOTIFICATION-TYPE
-  DESCRIPTION: This notification is sent when alarm's severity was changed.
-  OBJECTS: alarmEventTime, sendNotificationId, lastSendNotificationId, systemDN, alarmCode, alarmManagedObjectInstance, alarmEventType, alarmProbableCause, alarmPerceivedSeverity, alarmSpecificProblem, alarmAdditionalText, alarmNetype, alarmIndex, alarmId, alarmCodeName, alarmManagedObjectInstanceName, alarmSystemType, alarmNeIP, alarmAck, cleiCode, timeZoneID, timeZoneOffset, dSTSaving, aid, id, alarmMocObjectInstance, alarmComment, alarmOtherInfo                 
-  VARIABLES: No se encontraron variables
-  OID: alarmNotificationProfile 8
   ENTERPRISE: No se encontró la empresa
+  OID: eriAlarmNotifsPrefix 11
+  VARIABLES: No se encontraron variables
+
+eriAlarmXAlarmListRebuilt:
+  TYPE: NOTIFICATION-TYPE
+  ENTERPRISE: No se encontró la empresa
+  OID: eriAlarmXNotifsPrefix 30
+  VARIABLES: No se encontraron variables
+  DESCRIPTION: This notification is sent when the active alarm list has reached a stable situation after a restart or after a system internal audit process. It is an indication to the manager to perform a alarm resynchronization procedure.
+  OBJECTS: eriAlarmXActiveTableURL, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  STATUS: current
+
+eriAlarmCriticalAlert:
+  ENTERPRISE: No se encontró la empresa
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: No se encontraron variables
+  OID: eriAlarmNotifsPrefix 14
+  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
+  DESCRIPTION: This notification is sent when a resource detects a new alert with severity critical. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  STATUS: current
 
 ----------------------------------- FIN DE ALARM_TRAPS -----------------------------------
 ----------------------------------- OID_NODES ---------------------------
-3902: HASH(0x1f6f7657e18)
+193: HASH(0x1bcb09b74d8)

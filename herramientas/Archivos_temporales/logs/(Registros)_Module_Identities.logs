@@ -1,40 +1,743 @@
-#----------------------------------- MODULE IDENTITY  zteMIB  ---------------------------#
+#----------------------------------- MODULE IDENTITY  ericssonAlarmMIB  ---------------------------#
 Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: zteMIB
-zteMIB MODULE-IDENTITY
-LAST-UPDATED "200512310000Z"
-ORGANIZATION "ZTE Corp. Ltd ."
+Nombre del objeto: ericssonAlarmMIB
+ericssonAlarmMIB MODULE-IDENTITY
+LAST-UPDATED "201708110000Z"
+ORGANIZATION "Ericsson AB"
 CONTACT-INFO
-"E-mail: wu.chunhui@mail.zte.com.cn"
+"EEIEMY"
 DESCRIPTION
-"This SNMP MIB-module specifies the SNMP Solution Set
-of 3GPP Alarm Integration Reference Point (IRP),
-this MIB-module complies with the SNMPV2C"
-REVISION "200512310000Z"
-DESCRIPTION "Alarm IRP V2.0"
-::= { enterprises 3902 }
+"This MIB Module is an Ericsson-wide SNMP
+interface for managing alarms. Main inputs to
+the MIB design are the 3GPP Alarm IRP and X.733.
+However, an important restriction is that the MIB
+only represents the resource view and not
+management activities like acknowledgment, etc.
+It describes generic notifications used to send
+alarm state changes and a table which represents
+the current active alarms in the system. The MIB
+supports both stateful alarms and stateless
+alerts.
+It is important to identify clearly what is to be
+considered the same alarm object instance. All
+unique alarm *types* are identified by
+'AlarmType'. An AlarmType is a one-to-one
+mapping with X.733 EventType, ProbabableCause and
+SpecificProblem. A pair of integers are used to
+specify the alarm type.
+A unique alarm object *instance* is the
+combination of managed object and AlarmType. In
+this way, there is no ambiguity about how alarm
+and alarm clear correlation should be performed:
+the same managed object instance and AlarmType
+shall be used. The same is true for changing
+existing alarm states. Severity, Additional Text
+and Additional Info can be changed on an existing
+alarm.
+For stateful alarms there are notifications to
+report a new alarm and a cleared alarm. Changing
+an alarm is done via the new alarm notification.
+The management system shall match the alarm by
+using alarm type and managed object instance in
+the same way as for clear notifications.
+The MIB has different notifications for different
+severities in order to support SNMP managers
+which maps severities based on notification
+identifiers. For stateless alerts, there are
+generic notifications to send the alerts
+with different severities.
+NOTE - Updated Definition of Alerts in TEA (The
+Ericsson Architecture):
+Alerts are used by service management systems
+to evaluate service impact, and are only applicable
+to very specific state changes with potential service
+impact like restart and redundancy shifts.
+Alerts SHALL NOT be used for fault indication.
+Alerts should always have Perceived Severity
+Indeterminate, and should only be sent using
+eriAlarmIndAlert notification. The other severity
+alert notifications should not be used, and are
+only present in this specification for
+backward compatibility reasons.
+A table lists all active alarms so that a manager
+can read an initial state and also perform an
+alarm resynchronization procedure. There is also
+a table of latest stateless alerts. Since the
+stateless alerts do not have a corresponding
+clear message, the table size is limited by the
+agent instrumentation.
+The MIB supports two approaches for detecting
+lost notifications:
+- sequence numbers are used in the alarm
+notifications, and are shown in the active
+alarm table. The last used sequence number can
+be read in a scalar variable
+- a time stamp indicates the last time alarm
+tables were updated.
+Heartbeat mechanisms are supported both in pull
+and push mode:
+- Pull: the classical SNMP polling where a
+manager polls a scalar variable, for example
+the last sequence number used
+- Push: the agent can be configured to send
+heartbeat notifications. These contains the
+last used sequence numbers.
+Document number: 5/196 03-CXC 172 7549."
+REVISION "201708110000Z"
+DESCRIPTION
+"Fixed CONFORMANCE GROUPS issue by separating
+recently added OBJECT-TYPES into new
+CONFORMANCE GROUPS.
+Added new GROUPS:
+eriAlarmActiveAlarmsAdditionalInfoGroup,
+eriAlarmAlertsAdditionalInfoGroup,
+eriAlarmRecordTypeGroup.
+Added more detail to DESCRIPTION for each REVISION.
+Document number: 5/196 03-CXC 172 7549, Rev E."
+REVISION "201705190000Z"
+DESCRIPTION
+"Increased overall size of Additional Info.
+Added new OBJECT-TYPE:
+eriAlarmNObjAppendedAdditionalInfo.
+Added new IMPORT:
+EriAppendedAdditionalInfo.
+Document number: 5/196 03-CXC 172 7549, Rev D."
+REVISION "201704130000Z"
+DESCRIPTION
+"Updated as part of ERICSSON ALARM MIB 2.1 package.
+Added new OBJECT-TYPES:
+eriAlarmNObjAdditionalInfo,
+eriAlarmNObjMoreAdditionalInfo,
+eriAlarmNObjRecordType,
+eriAlarmActiveAdditionalInfo,
+eriAlarmAlertAdditionalInfo.
+Added new IMPORTS:
+EriAdditionalInfo,
+EriLargeAdditionalInfo,
+EriAlarmRecordType.
+Document number: 5/196 03-CXC 172 7549, Rev C."
+REVISION "201606240000Z"
+DESCRIPTION
+"Updated as part of ERICSSON ALARM MIB 2.0 package.
+Incorporated updated definition of Alerts according
+to The Ericsson Architecture (TEA).
+Document number: 5/196 03-CXC 172 7549, Rev B."
+REVISION "200810170000Z"
+DESCRIPTION
+"Initial version of this MIB module.
+Document number: 5/196 03-CXC 172 7549, Rev A."
+::= { ericssonModules 4 }
 
-#----------------------------------- MODULE IDENTITY  zteMIB  ---------------------------#
+#----------------------------------- MODULE IDENTITY  ericssonTCMIB  ---------------------------#
 Tipo de objeto: MODULE-IDENTITY
-Nombre del objeto: zteMIB
-zteMIB MODULE-IDENTITY
-LAST-UPDATED "200512310000Z"
-ORGANIZATION "ZTE Corp. Ltd ."
+Nombre del objeto: ericssonTCMIB
+ericssonTCMIB MODULE-IDENTITY
+LAST-UPDATED "201708110000Z"
+ORGANIZATION "Ericsson AB"
 CONTACT-INFO
-"E-mail: wu.chunhui@mail.zte.com.cn"
+"EEIEMY"
 DESCRIPTION
-"This SNMP MIB-module specifies the SNMP Solution Set
-of 3GPP Alarm Integration Reference Point (IRP),
-this MIB-module complies with the SNMPV2C"
-REVISION "200512310000Z"
-DESCRIPTION "Alarm IRP V2.0"
-::= { enterprises 3902 }
+"This MIB document includes textual conventions
+that can be used by all of the Ericsson group.
+The intention is to have shared definitions such
+that integration and SNMP development are made
+easier."
+REVISION "201708110000Z"
+DESCRIPTION
+"Updated description for EriPath;
+Added more detail to DESCRIPTION for each REVISION
+Removed author's name.
+Document number: 2/196 03-CXC 172 7549, Rev D."
+REVISION "201704130000Z"
+DESCRIPTION
+"Updated REFERENCE clause for EriPath:
+- Added YANG module ericsson-yang-types;
+- Updated YANG RFC reference to YANG 1.1 RFC.
+Document number: 2/196 03-CXC 172 7549, Rev C."
+REVISION "201606240000Z"
+DESCRIPTION
+"Updated version of this MIB module. Included XPath
+instance identifier.
+Document number: 2/196 03-CXC 172 7549, Rev B."
+REVISION "200810170000Z"
+DESCRIPTION
+"Initial version of this MIB module."
+::= { ericssonModules 1 }
 
------------------------------------ zteMIB ---------------------------
-zteMIB:
+#----------------------------------- MODULE IDENTITY  Integer32,  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: Integer32,
+#----------------------------------- MODULE IDENTITY  snmpFrameworkMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: snmpFrameworkMIB
+snmpFrameworkMIB MODULE-IDENTITY
+LAST-UPDATED    "199901190000Z"
+ORGANIZATION    
+"SNMPv3 Working Group"
+CONTACT-INFO    
+"WG-EMail:   snmpv3@tis.com
+Subscribe:  majordomo@tis.com
+In message body:  subscribe snmpv3
+Chair:      Russ Mundy
+TIS Labs at Network Associates
+postal:     3060 Washington Rd
+Glenwood MD 21738
+USA
+EMail:      mundy@tis.com
+phone:      +1 301-854-6889
+Co-editor   Dave Harrington
+Cabletron Systems, Inc.
+postal:     Post Office Box 5005
+Mail Stop: Durham
+35 Industrial Way
+Rochester, NH 03867-5005
+USA
+EMail:      dbh@ctron.com
+phone:      +1 603-337-7357
+Co-editor   Randy Presuhn
+BMC Software, Inc.
+postal:     965 Stewart Drive
+Sunnyvale, CA 94086
+USA
+EMail:      randy_presuhn@bmc.com
+phone:      +1 408-616-3100
+Co-editor:  Bert Wijnen
+IBM T.J. Watson Research
+postal:     Schagen 33
+3461 GL Linschoten
+Netherlands
+EMail:      wijnen@vnet.ibm.com
+phone:      +31 348-432-794
+"
+DESCRIPTION     
+"The SNMP Management Architecture MIB"
+REVISION        "199901190000Z"
+DESCRIPTION     
+"Updated editors' addresses, fixed typos.
+Published as RFC2571.
+"
+REVISION        "199711200000Z"
+DESCRIPTION     
+"The initial version, published in RFC 2271.
+"
+::= { snmpModules 10 }
+
+#----------------------------------- MODULE IDENTITY  ericsson  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: ericsson
+ericsson MODULE-IDENTITY
+LAST-UPDATED "200810170000Z"
+ORGANIZATION
+"Ericsson AB"
+CONTACT-INFO
+"Email: <snmp.mib.contact@ericsson.com>"
+DESCRIPTION
+"This very small module is made available so that
+developers within the Ericsson community can import the
+'ericsson' name into their own MIB modules. In addition,
+it includes the top-level node for Ericsson Group-wide
+MIB modules.
+Document number: 1/196 03-CXC 172 7549, Rev A"
+REVISION  "200810170000Z"
+DESCRIPTION "Added email contact address, ericssonModules"
+REVISION  "200205280000Z"
+DESCRIPTION "Initial version of this MIB module."
+::= { enterprises 193 }
+
+#----------------------------------- MODULE IDENTITY  which  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: which
+from which MODULE-IDENTITY values may be assigned
+for Ericsson Group-wide MIB modules."
+::= { ericsson 183 }
+
+#----------------------------------- MODULE IDENTITY  snmpNotificationMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: snmpNotificationMIB
+snmpNotificationMIB MODULE-IDENTITY
+LAST-UPDATED    "199808040000Z"
+ORGANIZATION    
+"IETF SNMPv3 Working Group"
+CONTACT-INFO    
+"WG-email:   snmpv3@lists.tislabs.com
+Subscribe:  majordomo@lists.tislabs.com
+In message body:  subscribe snmpv3
+Chair:      Russ Mundy
+Trusted Information Systems
+Postal:     3060 Washington Rd
+Glenwood MD 21738
+USA
+EMail:      mundy@tislabs.com
+Phone:      +1-301-854-6889
+Co-editor:  David B. Levi
+SNMP Research, Inc.
+Postal:     3001 Kimberlin Heights Road
+Knoxville, TN 37920-9716
+EMail:      levi@snmp.com
+Phone:      +1 423 573 1434
+Co-editor:  Paul Meyer
+Secure Computing Corporation
+Postal:     2675 Long Lake Road
+Roseville, MN 55113
+EMail:      paul_meyer@securecomputing.com
+Phone:      +1 651 628 1592
+Co-editor:  Bob Stewart
+Cisco Systems, Inc.
+Postal:     170 West Tasman Drive
+San Jose, CA 95134-1706
+EMail:      bstewart@cisco.com
+Phone:      +1 603 654 2686"
+DESCRIPTION     
+"This MIB module defines MIB objects which provide
+mechanisms to remotely configure the parameters
+used by an SNMP entity for the generation of
+notifications."
+REVISION        "199808040000Z"
+DESCRIPTION     
+"Clarifications, published as
+RFC2573"
+REVISION        "199707140000Z"
+DESCRIPTION     
+"The initial revision, published as RFC2273."
+::= { snmpModules 13 }
+
+#----------------------------------- MODULE IDENTITY  ericssonAlarmXpathMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: ericssonAlarmXpathMIB
+ericssonAlarmXpathMIB MODULE-IDENTITY
+LAST-UPDATED "202303300000Z"
+ORGANIZATION "Ericsson AB"
+CONTACT-INFO
+"Ericsson first line support by email."
+DESCRIPTION
+"This MIB Module is an Ericsson-wide SNMP
+interface for managing alarms. Main inputs to
+the MIB design are the 3GPP Alarm IRP and X.733.
+However, an important restriction is that the MIB
+only represents the resource view and not
+management activities like acknowledgment, etc.
+It describes generic notifications used to send
+alarm state changes and a table which represents
+the current active alarms in the system. The MIB
+supports both stateful alarms and stateless
+alerts.
+It is important to identify clearly what is to be
+considered the same alarm object instance. All
+unique alarm *types* are identified by
+'AlarmType'. An AlarmType is a one-to-one
+mapping with X.733 EventType, ProbabableCause and
+SpecificProblem. A pair of integers are used to
+specify the alarm type.
+A unique alarm object *instance* is the
+combination of YangNodeInstance and AlarmType. 
+In this way, there is no ambiguity about how alarm
+and alarm clear correlation should be performed:
+the same YANG resource instance and AlarmType
+shall be used. The same is true for changing
+existing alarm states. Severity, Additional Text 
+and Additional Info can be changed on an existing
+alarm.
+For stateful alarms there are notifications to
+report a new alarm and a cleared alarm. Changing
+an alarm is done through the new alarm notification.
+The management system shall match the alarm by
+using alarm type and YangNodeInstance
+in the same way as for clear notifications.
+The MIB has different notifications for different
+severities in order to support SNMP managers
+which maps severities based on notification
+identifiers. For stateless alerts, there are
+generic notifications to send the alerts
+with different severities.
+NOTE - Updated Definition of Alerts in TEA (The 
+Ericsson Architecture):
+Alerts are used by service management systems 
+to evaluate service impact, and are only applicable 
+to very specific state changes with potential service
+impact like restart and redundancy shifts. 
+Alerts SHALL NOT be used for fault indication.
+Alerts should always have Perceived Severity
+Indeterminate, and should only be sent using
+eriAlarmXIndAlert notification. The other severity
+alert notifications should not be used, and are
+only present in this specification for
+backward compatibility reasons.
+A table lists all active alarms so that a manager
+can read an initial state and also perform an
+alarm resynchronization procedure. There is also
+a table of latest stateless alarms. Since the
+stateless alarms do not have a corresponding
+clear message, the table size is limited by the
+agent instrumentation.
+The MIB supports two approaches for detecting
+lost notifications:
+- sequence numbers are used in the alarm
+notifications, and are shown in the active
+alarm table. The last used sequence number can
+be read in a scalar variable
+- a time stamp indicates the last time alarm
+tables were updated.
+Heartbeat mechanisms are supported both in pull
+and push mode:
+- Pull: the classical SNMP polling where a
+manager polls a scalar variable, for example
+the last sequence number used
+- Push: the agent can be configured to send
+heartbeat notifications. These contains the
+last used sequence numbers.
+Document number: 11/196 03-CXC 172 7549."
+REVISION "202303300000Z"
+DESCRIPTION
+"New revision to avoid disambiguities, because 
+accidentally two different Rev. D were created: 
+-  One with the change indicated below for the 
+previous revision and a change for CONTACT-INFO 
+-  One with only the change for CONTACT-INFO
+Rev. E contains all the above changes. Additionally
+TAB characters converted to SPACE characters.
+Editorial improvements in DESCRIPTION elements.
+Document number: 11/196 03-CXC 172 7549, Rev E."
+REVISION "202106160000Z"
+DESCRIPTION
+"Added new GROUP:
+eriAlarmXSourceIdentifierGroup
+Added new OBJECT-TYPES:
+eriAlarmXNObjSourceIdentifierType,
+eriAlarmXNObjSourceIdentifier.
+Added new IMPORT:
+EriAlarmSourceIdentifierType. 
+Document number: 11/196 03-CXC 172 7549, Rev D."
+REVISION "201708110000Z"
+DESCRIPTION
+"Fixed duplicate object names issue, by replacing
+prefix eriAlarm with prefix eriAlarmX where needed.
+Increased overall size of Additional Info. 
+Added new OBJECT-TYPE:
+eriAlarmXNObjAppendedAdditionalInfo.
+Added new IMPORT: 
+EriAppendedAdditionalInfo.
+Fixed CONFORMANCE GROUPS issue by separating
+recently added OBJECT-TYPES into new
+CONFORMANCE GROUPS.
+Added new GROUPS:
+eriAlarmXActiveAlarmsAdditionalInfoGroup,
+eriAlarmXAlertsAdditionalInfoGroup,
+eriAlarmXRecordTypeGroup.
+Added more detail to DESCRIPTION for each REVISION.
+Document number: 11/196 03-CXC 172 7549, Rev C."
+REVISION "201704130000Z"
+DESCRIPTION
+"Updated as part of ERICSSON ALARM MIB 2.1 package.
+Added new OBJECT-TYPES:
+eriAlarmNObjAdditionalInfo, 
+eriAlarmNObjMoreAdditionalInfo, 
+eriAlarmNObjRecordType,
+eriAlarmActiveAdditionalInfo, 
+eriAlarmAlertAdditionalInfo.
+Added new IMPORTS:
+EriAdditionalInfo, 
+EriLargeAdditionalInfo, 
+EriAlarmRecordType.
+Document number: 11/196 03-CXC 172 7549, Rev B."
+REVISION "201606240000Z"
+DESCRIPTION
+"Initial version of this MIB module.
+Document number: 11/196 03-CXC 172 7549, Rev A."
+::= { ericssonModules 6 }
+
+#----------------------------------- MODULE IDENTITY  ericssonAlarmTCMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: ericssonAlarmTCMIB
+ericssonAlarmTCMIB MODULE-IDENTITY
+LAST-UPDATED "201708110000Z"
+ORGANIZATION "Ericsson AB"
+CONTACT-INFO
+"EEIEMY"
+DESCRIPTION
+"This MIB defines textual conventions used by the
+ERICSSON-ALARM-MIB.
+Document number: 3/196 03-CXC 172 7549"
+REVISION "201708110000Z"
+DESCRIPTION
+"Updated as part of ERICSSON ALARM MIB 3.0 package.
+Updated to remove author's name.
+Document number: 3/196 03-CXC 172 7549, Rev E."
+REVISION "201705180000Z"
+DESCRIPTION
+"Updated to increase size of Additional Info.
+Document number: 3/196 03-CXC 172 7549, Rev D."
+REVISION "201703310000Z"
+DESCRIPTION
+"Updated as part of ERICSSON ALARM MIB 2.1 package.
+Updated with reference to TEA.
+Document number: 3/196 03-CXC 172 7549, Rev C."
+REVISION "201606240000Z"
+DESCRIPTION
+"Updated as part of ERICSSON ALARM MIB 2.0 package.
+Updated header.
+Document number: 3/196 03-CXC 172 7549, Rev B."
+REVISION "200810170000Z"
+DESCRIPTION
+"Initial version of this MIB module."
+::= { ericssonModules 3 }
+
+#----------------------------------- MODULE IDENTITY  Integer32,  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: Integer32,
+#----------------------------------- MODULE IDENTITY  snmpTargetMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: snmpTargetMIB
+snmpTargetMIB MODULE-IDENTITY
+LAST-UPDATED    "199808040000Z"
+ORGANIZATION    
+"IETF SNMPv3 Working Group"
+CONTACT-INFO    
+"WG-email:   snmpv3@lists.tislabs.com
+Subscribe:  majordomo@lists.tislabs.com
+In message body:  subscribe snmpv3
+Chair:      Russ Mundy
+Trusted Information Systems
+Postal:     3060 Washington Rd
+Glenwood MD 21738
+USA
+EMail:      mundy@tislabs.com
+Phone:      +1-301-854-6889
+Co-editor:  David B. Levi
+SNMP Research, Inc.
+Postal:     3001 Kimberlin Heights Road
+Knoxville, TN 37920-9716
+EMail:      levi@snmp.com
+Phone:      +1 423 573 1434
+Co-editor:  Paul Meyer
+Secure Computing Corporation
+Postal:     2675 Long Lake Road
+Roseville, MN 55113
+EMail:      paul_meyer@securecomputing.com
+Phone:      +1 651 628 1592
+Co-editor:  Bob Stewart
+Cisco Systems, Inc.
+Postal:     170 West Tasman Drive
+San Jose, CA 95134-1706
+EMail:      bstewart@cisco.com
+Phone:      +1 603 654 2686"
+DESCRIPTION     
+"This MIB module defines MIB objects which provide
+mechanisms to remotely configure the parameters used
+by an SNMP entity for the generation of SNMP messages."
+REVISION        "199808040000Z"
+DESCRIPTION     
+"Clarifications, published as
+RFC2573."
+REVISION        "199707140000Z"
+DESCRIPTION     
+"The initial revision, published as RFC2273."
+::= { snmpModules 12 }
+
+#----------------------------------- MODULE IDENTITY  ericssonAlarmPCMIB  ---------------------------#
+Tipo de objeto: MODULE-IDENTITY
+Nombre del objeto: ericssonAlarmPCMIB
+ericssonAlarmPCMIB MODULE-IDENTITY
+LAST-UPDATED "201806270000Z"
+ORGANIZATION "Ericsson AB"
+CONTACT-INFO
+"EEIEMY"
+DESCRIPTION
+"This is a module with the single purpose of
+maintaining a global definition of probable cause
+values. Due to the history of probable cause
+usage, probable cause alone is not unique enough
+to identify an alarm type. This document is
+compiled from known sources of information.
+Others may be added, but existing definitions
+MUST NOT be changed.
+Document number: 4/196 03-CXC 172 7549."
+REVISION "201806270000Z"
+DESCRIPTION
+"Added the following value from RFC 3877:
+other (1024).
+Added from the set of 'Enterprise added values'
+from ERICSSON-ROUTER-ALARM-TC MIB.
+Updated Reference documents in DESCRIPTION.
+Added more detail to DESCRIPTION for each REVISION.
+Document number: 4/196 03-CXC 172 7549, Rev D."
+REVISION "201703310000Z"
+DESCRIPTION
+"Minor Header and Description updates.
+Document number: 4/196 03-CXC 172 7549, Rev C."
+REVISION "201606240000Z"
+DESCRIPTION
+"Removed individual original author names.
+Document number: 4/196 03-CXC 172 7549, Rev B."
+REVISION "200810170000Z"
+DESCRIPTION
+"Initial version of this MIB module.
+Document number: 4/196 03-CXC 172 7549, Rev A."
+::= { ericssonModules 2 }
+
+----------------------------------- ericssonAlarmMIB ---------------------------
+ericssonAlarmMIB:
   TYPE: MODULE-IDENTITY
-  LAST_UPDATED: 200512310000Z
-  ORGANIZATION: ZTE Corp. Ltd .
-  CONTACT_INFO: E-mail: wu.chunhui@mail.zte.com.cn
-  ARCHIVO: zxcomc-snmp-irp-common-mib.txt
+  LAST_UPDATED: 201708110000Z
+  ORGANIZATION: Ericsson AB
+  CONTACT_INFO: EEIEMY
+  ARCHIVO: ERICSSON-ALARM-MIB.mib
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpFrameworkMIB ---------------------------
+snmpFrameworkMIB:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 199901190000Z
+  ORGANIZATION: SNMPv3 Working Group
+  CONTACT_INFO: WG-EMail:   snmpv3@tis.com
+Subscribe:  majordomo@tis.com
+In message body:  subscribe snmpv3
+Chair:      Russ Mundy
+TIS Labs at Network Associates
+postal:     3060 Washington Rd
+Glenwood MD 21738
+USA
+EMail:      mundy@tis.com
+phone:      +1 301-854-6889
+Co-editor   Dave Harrington
+Cabletron Systems, Inc.
+postal:     Post Office Box 5005
+Mail Stop: Durham
+35 Industrial Way
+Rochester, NH 03867-5005
+USA
+EMail:      dbh@ctron.com
+phone:      +1 603-337-7357
+Co-editor   Randy Presuhn
+BMC Software, Inc.
+postal:     965 Stewart Drive
+Sunnyvale, CA 94086
+USA
+EMail:      randy_presuhn@bmc.com
+phone:      +1 408-616-3100
+Co-editor:  Bert Wijnen
+IBM T.J. Watson Research
+postal:     Schagen 33
+3461 GL Linschoten
+Netherlands
+EMail:      wijnen@vnet.ibm.com
+phone:      +31 348-432-794
+
+  ARCHIVO: SNMP-FRAMEWORK-MIB
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ericssonAlarmXpathMIB ---------------------------
+ericssonAlarmXpathMIB:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 202303300000Z
+  ORGANIZATION: Ericsson AB
+  CONTACT_INFO: Ericsson first line support by email.
+  ARCHIVO: ERICSSON-ALARM-XPATH-MIB.mib
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ericssonAlarmTCMIB ---------------------------
+ericssonAlarmTCMIB:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 201708110000Z
+  ORGANIZATION: Ericsson AB
+  CONTACT_INFO: EEIEMY
+  ARCHIVO: ERICSSON-ALARM-TC-MIB.mib
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ericssonAlarmPCMIB ---------------------------
+ericssonAlarmPCMIB:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 201806270000Z
+  ORGANIZATION: Ericsson AB
+  CONTACT_INFO: EEIEMY
+  ARCHIVO: ERICSSON-ALARM-PC-MIB.mib
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ericsson ---------------------------
+ericsson:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 200810170000Z
+  ORGANIZATION: Ericsson AB
+  CONTACT_INFO: Email: <snmp.mib.contact@ericsson.com>
+  ARCHIVO: ERICSSON-TOP-MIB.mib
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpNotificationMIB ---------------------------
+snmpNotificationMIB:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 199808040000Z
+  ORGANIZATION: IETF SNMPv3 Working Group
+  CONTACT_INFO: WG-email:   snmpv3@lists.tislabs.com
+Subscribe:  majordomo@lists.tislabs.com
+In message body:  subscribe snmpv3
+Chair:      Russ Mundy
+Trusted Information Systems
+Postal:     3060 Washington Rd
+Glenwood MD 21738
+USA
+EMail:      mundy@tislabs.com
+Phone:      +1-301-854-6889
+Co-editor:  David B. Levi
+SNMP Research, Inc.
+Postal:     3001 Kimberlin Heights Road
+Knoxville, TN 37920-9716
+EMail:      levi@snmp.com
+Phone:      +1 423 573 1434
+Co-editor:  Paul Meyer
+Secure Computing Corporation
+Postal:     2675 Long Lake Road
+Roseville, MN 55113
+EMail:      paul_meyer@securecomputing.com
+Phone:      +1 651 628 1592
+Co-editor:  Bob Stewart
+Cisco Systems, Inc.
+Postal:     170 West Tasman Drive
+San Jose, CA 95134-1706
+EMail:      bstewart@cisco.com
+Phone:      +1 603 654 2686
+  ARCHIVO: SNMP-NOTIFICATION-MIB
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- ericssonTCMIB ---------------------------
+ericssonTCMIB:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 201708110000Z
+  ORGANIZATION: Ericsson AB
+  CONTACT_INFO: EEIEMY
+  ARCHIVO: ERICSSON-TC-MIB.mib
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- snmpTargetMIB ---------------------------
+snmpTargetMIB:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 199808040000Z
+  ORGANIZATION: IETF SNMPv3 Working Group
+  CONTACT_INFO: WG-email:   snmpv3@lists.tislabs.com
+Subscribe:  majordomo@lists.tislabs.com
+In message body:  subscribe snmpv3
+Chair:      Russ Mundy
+Trusted Information Systems
+Postal:     3060 Washington Rd
+Glenwood MD 21738
+USA
+EMail:      mundy@tislabs.com
+Phone:      +1-301-854-6889
+Co-editor:  David B. Levi
+SNMP Research, Inc.
+Postal:     3001 Kimberlin Heights Road
+Knoxville, TN 37920-9716
+EMail:      levi@snmp.com
+Phone:      +1 423 573 1434
+Co-editor:  Paul Meyer
+Secure Computing Corporation
+Postal:     2675 Long Lake Road
+Roseville, MN 55113
+EMail:      paul_meyer@securecomputing.com
+Phone:      +1 651 628 1592
+Co-editor:  Bob Stewart
+Cisco Systems, Inc.
+Postal:     170 West Tasman Drive
+San Jose, CA 95134-1706
+EMail:      bstewart@cisco.com
+Phone:      +1 603 654 2686
+  ARCHIVO: SNMP-TARGET-MIB
+----------------------------------- Final de segmento -----------------------------------
+----------------------------------- which ---------------------------
+which:
+  TYPE: MODULE-IDENTITY
+  LAST_UPDATED: 
+  ORGANIZATION: 
+  CONTACT_INFO: 
+  ARCHIVO: ERICSSON-TOP-MIB.mib
 ----------------------------------- Final de segmento -----------------------------------
