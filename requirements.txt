@@ -11,3 +11,6 @@ cpanm PAR::Packer
 # Opcionales
 #cpanm Net::SNMPTrapd
 #cpanm Digest::MurmurHash
+
+# Instalar dependencias
+# Comando : cpanm --installdeps .
