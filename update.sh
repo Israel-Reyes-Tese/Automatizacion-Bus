@@ -13,6 +13,6 @@ else
 fi
 
 # Empaquetar el script Perl en un ejecutable
-pp -o AutoManage.exe AutoManage.pl
+pp -o AutoManage.exe -M Tk -M Tk::FileDialog -M Tk::JComboBox -M Tk::TableMatrix -M Log::Log4perl -M Log::Dispatch -M Proc::Background -M IPC::Run -M PAR::Packer AutoManage.pl
 
 echo "Actualización completada."
