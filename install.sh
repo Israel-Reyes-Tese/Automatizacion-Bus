@@ -1,39 +1,18 @@
-#!/bin/bash
+@echo off
+REM 1. Instalar módulos desde requirements.txt
+powershell -Command "Get-Content requirements.txt | Where-Object { $_ -notmatch '^\s*#' -and $_ -match 'cpanm' } | ForEach-Object { $_.Split(' ')[1] } | ForEach-Object { cpanm $_ }"
 
-# Verificar si cpanm está instalado
-if ! command -v cpanm &> /dev/null
-then
-    read -p "cpanm no está instalado. ¿Desea instalarlo ahora? (s/n): " respuesta
-    if [[ "$respuesta" == "s" || "$respuesta" == "S" ]]; then
-        echo "Instalando cpanm..."
-        curl -L https://cpanmin.us | perl - --sudo App::cpanminus
-    else
-        echo "Por favor, instale cpanm y vuelva a ejecutar el script."
-        exit 1
-    fi
-else
-    echo "cpanm está instalado y se puede utilizar."
-    echo "Ubicación de cpanm: $(command -v cpanm)"
-    echo "Ejemplo de uso: cpanm --version"
-fi
+REM 2. Buscar ruta de Tk/FileDialog.pm y aplicar parche
+perl -e "use File::Find; find(sub { print \$File::Find::name if /FileDialog\.pm$/ }, @INC)" > tmp.txt
+set /p filepath=<tmp.txt
+del tmp.txt
 
-# Verificar si el archivo requirements.txt existe en la raíz del proyecto
-if [ ! -f "$(pwd)/requirements.txt" ]; then
-    echo "El archivo requirements.txt no se encuentra en la raíz del proyecto."
-    exit 1
-fi
+if "%filepath%"=="" (
+    echo Error: No se encontró Tk/FileDialog.pm en @INC
+    exit /b 1
+)
 
-# Leer las dependencias del archivo requirements.txt
-dependencies=$(cat "$(pwd)/requirements.txt")
+REM 3. Reemplazar $ por $^W usando Perl (método robusto)
+perl -i -pe "s/\x17/\$^W/g" "%filepath%"
 
-# Verificar e instalar cada dependencia
-for dep in $dependencies; do
-    if ! perl -M$dep -e 1 &> /dev/null; then
-        echo "Instalando $dep..."
-        cpanm $dep
-    else
-        echo "$dep ya está instalado."
-    fi
-done
-
-echo "Dependencias verificadas e instaladas correctamente."
+echo ¡Parche aplicado en %filepath%!
