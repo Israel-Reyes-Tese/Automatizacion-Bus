@@ -6,4 +6,5 @@ cpanm Log::Dispatch
 cpanm Proc::Background
 cpanm IPC::Run
 cpanm PAR::Packer
+cpanm Win32::MsgBox
 cpanm https://github.com/Lamprecht/perl-tk.git@Strawberry-5.38-patch 

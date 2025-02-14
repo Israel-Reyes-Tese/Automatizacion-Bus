@@ -13,7 +13,7 @@ my @modules = (
     'Log::Dispatch',
     'Proc::Background',
     'IPC::Run',
-    'PAR::Packer'
+    'PAR::Packer', 
 );
 
 my %module_to_zip = (
@@ -27,6 +27,7 @@ my %module_to_zip = (
 my $patch_dir = 'herramientas/Archivos_temporales/Parche/Librerias';
 my $temp_dir = 'herramientas/Archivos_temporales/Parche/Librerias/temp';
 
+# Primera validación de las dependencias
 foreach my $module (@modules) {
     eval "use $module";
     if ($@) {
@@ -76,48 +77,54 @@ foreach my $module (keys %module_to_zip) {
     }
 }
 
-# Aplicar parche a Tk/FileDialog.pm
-my $filedialog_path = 'C:/Strawberry/perl/site/lib/Tk/FileDialog.pm';
-if (-e $filedialog_path) {
-    open my $fh, '<', $filedialog_path or die "Could not open '$filedialog_path' for reading: $!";
-    my @lines = <$fh>;
-    close $fh;
-
-    open $fh, '>', $filedialog_path or die "Could not open '$filedialog_path' for writing: $!";
-    my $inside_isnum = 0;
-    foreach my $line (@lines) {
-        if ($line =~ /^sub IsNum/) {
-            print $fh "sub IsNum {\n";
-            print $fh "    my(\$parm) = \@_;\n";
-            print $fh "    my(\$warnSave) = \$^W;\n";
-            print $fh "    \$^W = 0;\n";
-            print $fh "    my(\$res) = ((\$parm + 0) eq \$parm);\n";
-            print $fh "    \$^W = \$warnSave;\n";
-            print $fh "    return \$res;\n";
-            print $fh "}\n";
-            $inside_isnum = 1;
-        } elsif ($inside_isnum) {
-            if ($line =~ /^\}/) {
-                $inside_isnum = 0;
-            }
-        } else {
-            print $fh $line;
-        }
-    }
-    close $fh;
-    print "Patched 'sub IsNum' in $filedialog_path\n";
-} else {
-    print "Error: $filedialog_path does not exist.\n";
-}
-
-# Validación adicional
+# Patch Tk::FileDialog
 eval {
     require Tk::FileDialog;
     Tk::FileDialog->import();
     print "Tk::FileDialog loaded successfully.\n";
+
 };
 if ($@) {
     print "Error loading Tk::FileDialog: $@\n";
+    # Aplicar parche a Tk/FileDialog.pm
+    my $filedialog_path = 'C:/Strawberry/perl/site/lib/Tk/FileDialog.pm';
+    if (-e $filedialog_path) {
+        open my $fh, '<', $filedialog_path or die "Could not open '$filedialog_path' for reading: $!";
+        my @lines = <$fh>;
+        close $fh;
+        
+        open $fh, '>', $filedialog_path or do {
+            print("No se pudo aplicar el parche automáticamente. Por favor, copie el contenido de la carpeta:\n$patch_dir\na la carpeta:\n$filedialog_path", 48, "Error");
+            system("explorer $patch_dir");
+            system("explorer C:/Strawberry/perl/site/lib/Tk");
+            die "Could not open '$filedialog_path' for writing: $!";
+        };
+
+        my $inside_isnum = 0;
+        foreach my $line (@lines) {
+            if ($line =~ /^sub IsNum/) {
+                print $fh "sub IsNum {\n";
+                print $fh "    my(\$parm) = \@_;\n";
+                print $fh "    my(\$warnSave) = \$^W;\n";
+                print $fh "    \$^W = 0;\n";
+                print $fh "    my(\$res) = ((\$parm + 0) eq \$parm);\n";
+                print $fh "    \$^W = \$warnSave;\n";
+                print $fh "    return \$res;\n";
+                print $fh "}\n";
+                $inside_isnum = 1;
+            } elsif ($inside_isnum) {
+                if ($line =~ /^\}/) {
+                    $inside_isnum = 0;
+                }
+            } else {
+                print $fh $line;
+            }
+        }
+        close $fh;
+        print "Patched 'sub IsNum' in $filedialog_path\n";
+    } else {
+        print "Error: $filedialog_path does not exist.\n";
+    }
 }
 
 print "All modules are validated and patched if necessary.\n";
