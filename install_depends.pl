@@ -95,8 +95,13 @@ if ($@) {
         
         open $fh, '>', $filedialog_path or do {
             print("No se pudo aplicar el parche automáticamente. Por favor, copie el contenido de la carpeta:\n$patch_dir\na la carpeta:\n$filedialog_path", 48, "Error");
-            system("explorer $patch_dir");
-            system("explorer C:/Strawberry/perl/site/lib/Tk");
+            # Abrir carpetas en el Explorador de Windows
+            #system("cd  \"C:\Strawberry\perl\site\lib\Tk");
+            system("start C:\\Strawberry\\perl\\site\\lib\\Tk\\FileDialog.pm");
+            system("start herramientas\\Archivos_temporales\\Parche\\Librerias\\FileDialog(Parche).pm");
+
+
+
             die "Could not open '$filedialog_path' for writing: $!";
         };
 
