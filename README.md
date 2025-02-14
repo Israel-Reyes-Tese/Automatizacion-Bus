@@ -5,12 +5,24 @@ Scripts automatizacion de los procesos de los que se ejecutan en los buses
 
 
 # Notas de instalacion de dependencias y errores conocidos
+# Librerias instaladas
+- perl -MTk -MData::Dumper -e "print Dumper(\%INC)" 
+- perl -MTk::FileDialog -MData::Dumper -e "print Dumper(\%INC)"
+# Validar una sola 
+- perl -MTk -MData::Dumper -e "print Dumper(\$Tk::VERSION)"
+
 - cpanm
 Tk.pm
 # cpanm Tk
 - CPAN shell
 ## perl -MCPAN -e shell
 ## install Tk
+
+# cpan Tk
+
+-- "C:\Strawberry\perl\site\lib\Tk.pod"
+-- "C:\Strawberry\perl\site\lib\Tk"
+-- "C:\Strawberry\perl\site\lib\Tk.pm"
 
 - URL
 # cpanm  https://github.com/Lamprecht/perl-tk.git@Strawberry-5.38-patch 
@@ -83,11 +95,14 @@ Digest/MurmurHash.pm
 
 
 IPC/Run.pm
-# cpanm IPC::Run
+# cpanm IPC::Run 
+# "C:\Strawberry\perl\vendor\lib\IPC"
+# "C:\Strawberry\perl\lib\IPC"
 
 Proc/Background.pm
 # cpanm Proc::Background
-
+# "C:\Strawberry\perl\site\lib\Proc"
+ 
 
 
 Log/Dispatch/File.pm
