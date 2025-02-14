@@ -1,782 +1,1454 @@
 ----------------------------------- ALARM TRAPS ---------------------------
-eriAlarmCritical:
-  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
-  eriAlarmActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventType
-  eriAlarmActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMinorType
-  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
-  eriAlarmNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjRecordType
-  eriAlarmActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventTime
-  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
-  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
-  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
-  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
-  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
-  eriAlarmActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveProbableCause
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastSequenceNo
-  eriAlarmActiveManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveManagedObject
-  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
-  eriAlarmActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveSpecificProblem
-  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
-  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
-  eriAlarmActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMajorType
-  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
-  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
-  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
+cellSynchronizationFailure:
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
 
-eriAlarmMajorAlert:
-  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
-  eriAlarmAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMinorType
-  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
-  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
-  eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
-  eriAlarmAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventTime
-  eriAlarmAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertSpecificProblem
-  eriAlarmAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertLastSequenceNo
-  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
-  eriAlarmAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMajorType
-  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
-  eriAlarmAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventType
-  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
-  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
-  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
-  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmAlertManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertManagedObject
-  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
-  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
-  eriAlarmAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertProbableCause
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+outOfMemory:
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
 
-eriAlarmXAlarmListRebuilt:
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXActiveTableURL(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveTableURL
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
-  eriAlarmXActiveTableURL: 1.3.6.1.4.1.193.183.6.1.3.4
+operatorCertificateExpired:
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
 
-eriAlarmWarnAlert:
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-  eriAlarmAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventType
-  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
-  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
-  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
-  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmAlertManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertManagedObject
-  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
-  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
-  eriAlarmAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertProbableCause
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventTime
-  eriAlarmAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertSpecificProblem
-  eriAlarmAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertLastSequenceNo
-  eriAlarmAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMajorType
-  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
-  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
-  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
-  eriAlarmAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMinorType
-  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
-  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
-  eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
+cellOffAlarm:
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
 
-eriAlarmCriticalAlert:
-  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
-  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
-  eriAlarmAlertManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertManagedObject
-  eriAlarmAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertProbableCause
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventType
-  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
-  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
-  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
-  eriAlarmAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMinorType
-  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
-  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
-  eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
-  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
-  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
-  eriAlarmAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertSpecificProblem
-  eriAlarmAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventTime
-  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
-  eriAlarmAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMajorType
-  eriAlarmAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertLastSequenceNo
+ipsecTunnelExpiry:
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
 
-eriAlarmHeartBeatNotif:
-  eriAlarmActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastSequenceNo
-  eriAlarmAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertLastSequenceNo
-  eriAlarmAlertLastChanged: 1.3.6.1.4.1.193.183.4.1.4.2
-  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
-  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
-  eriAlarmActiveLastChanged: 1.3.6.1.4.1.193.183.4.1.3.2
-  eriAlarmAlertLastChanged(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertLastChanged
-  eriAlarmActiveLastChanged(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastChanged
+errorAccessingFile:
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
 
-eriAlarmWarning:
-  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
-  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
-  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
-  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
-  eriAlarmActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveSpecificProblem
-  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
-  eriAlarmActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMajorType
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
-  eriAlarmActiveManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveManagedObject
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastSequenceNo
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveProbableCause
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
-  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
-  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
-  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
-  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
-  eriAlarmActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventTime
-  eriAlarmActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventType
-  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
-  eriAlarmActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMinorType
-  eriAlarmNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjRecordType
-  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
+dbSlaveConnectionAlarm:
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
 
-eriAlarmXHeartBeatNotif:
-  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
-  eriAlarmXActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastSequenceNo
-  eriAlarmXAlertLastChanged(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertLastChanged
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXActiveLastChanged(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastChanged
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
-  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
-  eriAlarmXAlertLastChanged: 1.3.6.1.4.1.193.183.6.1.4.2
-  eriAlarmXActiveLastChanged: 1.3.6.1.4.1.193.183.6.1.3.2
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
-  eriAlarmXAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertLastSequenceNo
+forcedReboot:
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
 
-eriAlarmXMinorAlert:
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
-  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
-  eriAlarmXAlertYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertYangNodeInstance
-  eriAlarmXAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMinorType
-  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
-  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
-  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
-  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
-  eriAlarmXAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMajorType
-  eriAlarmXAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertSpecificProblem
-  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
-  eriAlarmXAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertLastSequenceNo
-  eriAlarmXAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertProbableCause
-  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
-  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventTime
-  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
-  eriAlarmXAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventType
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
-  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+cCMSServerConnectionFailure:
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
 
-eriAlarmAppendInfo:
-  eriAlarmActiveManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveManagedObject
-  eriAlarmActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMinorType
-  eriAlarmNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.7
-  eriAlarmActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMajorType
-  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
-  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
-  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
-  eriAlarmActiveResourceId: 1.3.6.1.4.1.193.183.4.1.3.5.1.14
-  eriAlarmNObjAppendedAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAppendedAdditionalInfo
-  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
-  eriAlarmActiveResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveResourceId
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+pciCollision:
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
 
-eriAlarmXMajorAlert:
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
-  eriAlarmXAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventType
-  eriAlarmXAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventTime
-  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
-  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMinorType
-  eriAlarmXAlertYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertYangNodeInstance
-  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
-  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
-  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
-  eriAlarmXAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMajorType
-  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
-  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
-  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
-  eriAlarmXAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertProbableCause
-  eriAlarmXAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertLastSequenceNo
-  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
-  eriAlarmXAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertSpecificProblem
+cellOnAlarm:
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
 
-eriAlarmMinor:
-  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
-  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
-  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
-  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
-  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
-  eriAlarmActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventType
-  eriAlarmNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjRecordType
-  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
-  eriAlarmActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMinorType
-  eriAlarmActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventTime
-  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveSpecificProblem
-  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
-  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
-  eriAlarmActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMajorType
-  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
-  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
-  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
-  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
-  eriAlarmActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveProbableCause
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastSequenceNo
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmActiveManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveManagedObject
+radioOnAlarm:
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
 
-eriAlarmIndAlert:
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-  eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertProbableCause
-  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
-  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
-  eriAlarmAlertManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertManagedObject
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
-  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
-  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
-  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
-  eriAlarmAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventType
-  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
-  eriAlarmAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMajorType
-  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
-  eriAlarmAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertLastSequenceNo
-  eriAlarmAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertSpecificProblem
-  eriAlarmAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventTime
-  eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
-  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
-  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
-  eriAlarmAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMinorType
-  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
+hardDiskUsageIsHigh:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
 
-eriAlarmAppendAlertInfo:
-  eriAlarmAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMinorType
-  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
-  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
-  eriAlarmNObjAppendedAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAppendedAdditionalInfo
-  eriAlarmAlertManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertManagedObject
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmAlertResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertResourceId
-  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
-  eriAlarmAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMajorType
-  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
-  eriAlarmNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.7
-  eriAlarmAlertResourceId: 1.3.6.1.4.1.193.183.4.1.4.5.1.11
+singleMmeConnectionIsDown:
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
 
-eriAlarmXCriticalAlert:
-  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventType
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
-  eriAlarmXAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventTime
-  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
-  eriAlarmXAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMajorType
-  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
-  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
-  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertProbableCause
-  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
-  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
-  eriAlarmXAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertLastSequenceNo
-  eriAlarmXAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertSpecificProblem
-  eriAlarmXAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMinorType
-  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
-  eriAlarmXAlertYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertYangNodeInstance
-  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
-  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
+configurationOrCustomizingErrror:
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
 
-eriAlarmXIndeterminate:
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
-  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
-  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventTime
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveSpecificProblem
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
-  eriAlarmXActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastSequenceNo
-  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMajorType
-  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
-  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
-  eriAlarmXActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMinorType
-  eriAlarmXActiveYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveYangNodeInstance
-  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
-  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
-  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
-  eriAlarmXActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventType
-  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
-  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
-  eriAlarmXActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveProbableCause
-  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
-  eriAlarmXNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjRecordType
+sctpFailure:
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
 
-eriAlarmXWarning:
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
-  eriAlarmXActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastSequenceNo
-  eriAlarmXActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMajorType
-  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
-  eriAlarmXActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMinorType
-  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
-  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
-  eriAlarmXActiveYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveYangNodeInstance
-  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
-  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
-  eriAlarmXActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventType
-  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
-  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
-  eriAlarmXActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveProbableCause
-  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
-  eriAlarmXNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjRecordType
-  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
-  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventTime
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveSpecificProblem
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
+dnsResolutionFailure:
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
 
-eriAlarmXCleared:
-  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
-  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
-  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventTime
-  eriAlarmXActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveSpecificProblem
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
-  eriAlarmXActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastSequenceNo
-  eriAlarmXActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMajorType
-  eriAlarmXActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMinorType
-  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
-  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
-  eriAlarmXActiveYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveYangNodeInstance
-  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
-  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
-  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
-  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
-  eriAlarmXActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventType
-  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveProbableCause
+killSwitch:
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
 
-eriAlarmXCritical:
-  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
-  eriAlarmXActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMajorType
-  eriAlarmXActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastSequenceNo
-  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
-  eriAlarmXActiveYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveYangNodeInstance
-  eriAlarmXActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMinorType
-  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
-  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
-  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
-  eriAlarmXActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventType
-  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
-  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
-  eriAlarmXNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjRecordType
-  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
-  eriAlarmXActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveProbableCause
-  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
-  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
-  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventTime
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
-  eriAlarmXActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveSpecificProblem
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
+systemInformationConfigurationFailure:
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
 
-eriAlarmMinorAlert:
-  eriAlarmAlertProbableCause: 1.3.6.1.4.1.193.183.4.1.4.5.1.8
-  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
-  eriAlarmAlertMajorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.2
-  eriAlarmAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMinorType
-  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
-  eriAlarmAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertMajorType
-  eriAlarmAlertMinorType: 1.3.6.1.4.1.193.183.4.1.4.5.1.3
-  eriAlarmAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertLastSequenceNo
-  eriAlarmAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertSpecificProblem
-  eriAlarmAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventTime
-  eriAlarmAlertManagedObject: 1.3.6.1.4.1.193.183.4.1.4.5.1.5
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
-  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
-  eriAlarmAlertLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.4.3
-  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
-  eriAlarmAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertEventType
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertProbableCause
-  eriAlarmAlertEventTime: 1.3.6.1.4.1.193.183.4.1.4.5.1.7
-  eriAlarmAlertEventType: 1.3.6.1.4.1.193.183.4.1.4.5.1.6
-  eriAlarmAlertManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmAlerts eriAlarmAlertTable eriAlarmAlertEntry eriAlarmAlertManagedObject
-  eriAlarmAlertSpecificProblem: 1.3.6.1.4.1.193.183.4.1.4.5.1.4
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
+ipsecTunnelIkeSaExpiry:
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
 
-eriAlarmXMinor:
-  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
-  eriAlarmXActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventType
-  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
-  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
-  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
-  eriAlarmXNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjRecordType
-  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
-  eriAlarmXActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveProbableCause
-  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
-  eriAlarmXActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMajorType
-  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastSequenceNo
-  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
-  eriAlarmXActiveYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveYangNodeInstance
-  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
-  eriAlarmXActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMinorType
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
-  eriAlarmXActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventTime
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
-  eriAlarmXActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveSpecificProblem
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
-  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+aAeMSConnectionNoResponse:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
 
-eriAlarmXIndAlert:
-  eriAlarmXAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventType
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
-  eriAlarmXAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventTime
-  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
-  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
-  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
-  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
-  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
-  eriAlarmXAlertYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertYangNodeInstance
-  eriAlarmXAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMinorType
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
-  eriAlarmXAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertProbableCause
-  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
-  eriAlarmXAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertSpecificProblem
-  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
-  eriAlarmXAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertLastSequenceNo
-  eriAlarmXAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMajorType
-  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
-  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
+memoryUsageIsHigh:
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
 
-eriAlarmXMajor:
-  eriAlarmXActiveSpecificProblem: 1.3.6.1.4.1.193.183.6.1.3.5.1.4
-  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
-  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
-  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
-  eriAlarmXActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventType
-  eriAlarmXNObjRecordType: 1.3.6.1.4.1.193.183.6.1.2.6
-  eriAlarmXNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjRecordType
-  eriAlarmXActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveProbableCause
-  eriAlarmXActiveEventTime: 1.3.6.1.4.1.193.183.6.1.3.5.1.7
-  eriAlarmXActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveLastSequenceNo
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXActiveEventType: 1.3.6.1.4.1.193.183.6.1.3.5.1.6
-  eriAlarmXActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMajorType
-  eriAlarmXActiveLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.3.3
-  eriAlarmXActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMinorType
-  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
-  eriAlarmXActiveYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveYangNodeInstance
-  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveEventTime
-  eriAlarmXActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveSpecificProblem
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXActiveProbableCause: 1.3.6.1.4.1.193.183.6.1.3.5.1.9
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
-  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
+casaHeMSSmallCellGWAlarm:
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
 
-eriAlarmCleared:
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
-  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
-  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
-  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
-  eriAlarmActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMajorType
-  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
-  eriAlarmActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveSpecificProblem
-  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-  eriAlarmActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveProbableCause
-  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
-  eriAlarmActiveManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveManagedObject
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastSequenceNo
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
-  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
-  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
-  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
-  eriAlarmActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMinorType
-  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
-  eriAlarmActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventType
-  eriAlarmActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventTime
+thresholdCrossedRLF:
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
 
-eriAlarmIndeterminate:
-  eriAlarmNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjRecordType
-  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
-  eriAlarmActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMinorType
-  eriAlarmActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventType
-  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
-  eriAlarmActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventTime
-  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
-  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
-  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
-  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-  eriAlarmActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveProbableCause
-  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
-  eriAlarmActiveManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveManagedObject
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastSequenceNo
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
-  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
-  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
-  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
-  eriAlarmActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMajorType
-  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
-  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
-  eriAlarmActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveSpecificProblem
-  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
+networkInterfaceAlarm:
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
 
-eriAlarmAlarmListRebuilt:
-  eriAlarmActiveTableURL(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveTableURL
-  eriAlarmActiveTableURL: 1.3.6.1.4.1.193.183.4.1.3.4
+cpuTemperatureUnacceptable:
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
 
-eriAlarmXWarnAlert:
-  eriAlarmXNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.2
-  eriAlarmXNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalText
-  eriAlarmXNObjAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.4
-  eriAlarmXAlertProbableCause: 1.3.6.1.4.1.193.183.6.1.4.5.1.8
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.5
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXAlertEventTime: 1.3.6.1.4.1.193.183.6.1.4.5.1.7
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
-  eriAlarmXAlertEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventType
-  eriAlarmXAlertEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertEventTime
-  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
-  eriAlarmXAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMajorType
-  eriAlarmXNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalInfo
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjMoreAdditionalInfo
-  eriAlarmXNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjResourceId
-  eriAlarmXAlertSpecificProblem: 1.3.6.1.4.1.193.183.6.1.4.5.1.4
-  eriAlarmXAlertProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertProbableCause
-  eriAlarmXAlertLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertLastSequenceNo
-  eriAlarmXAlertEventType: 1.3.6.1.4.1.193.183.6.1.4.5.1.6
-  eriAlarmXAlertSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertSpecificProblem
-  eriAlarmXAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMinorType
-  eriAlarmXAlertYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertYangNodeInstance
-  eriAlarmXAlertLastSequenceNo: 1.3.6.1.4.1.193.183.6.1.4.3
-  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
-  eriAlarmXNObjResourceId: 1.3.6.1.4.1.193.183.6.1.2.3
-  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
-  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
+remoteAeMSsStatusAlarm:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
 
-eriAlarmXAppendAlertInfo:
-  eriAlarmXAlertMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMajorType
-  eriAlarmXAlertResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertResourceId
-  eriAlarmXNObjAppendedAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAppendedAdditionalInfo
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
-  eriAlarmXNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.7
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXAlertMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertMinorType
-  eriAlarmXAlertYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXAlerts eriAlarmXAlertTable eriAlarmXAlertEntry eriAlarmXAlertYangNodeInstance
-  eriAlarmXAlertMajorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.2
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
-  eriAlarmXAlertYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.4.5.1.5
-  eriAlarmXAlertResourceId: 1.3.6.1.4.1.193.183.6.1.4.5.1.11
-  eriAlarmXAlertMinorType: 1.3.6.1.4.1.193.183.6.1.4.5.1.3
-  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
+dbArbiterConnectionAlarm:
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
 
-eriAlarmMajor:
-  eriAlarmActiveEventTime(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventTime
-  eriAlarmNObjRecordType: 1.3.6.1.4.1.193.183.4.1.2.6
-  eriAlarmActiveEventType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveEventType
-  eriAlarmNObjRecordType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjRecordType
-  eriAlarmActiveSpecificProblem: 1.3.6.1.4.1.193.183.4.1.3.5.1.4
-  eriAlarmActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMinorType
-  eriAlarmNObjMoreAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalText
-  eriAlarmActiveEventTime: 1.3.6.1.4.1.193.183.4.1.3.5.1.7
-  eriAlarmNObjResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjResourceId
-  eriAlarmActiveLastSequenceNo: 1.3.6.1.4.1.193.183.4.1.3.3
-  eriAlarmNObjMoreAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.5
-  eriAlarmActiveLastSequenceNo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveLastSequenceNo
-  eriAlarmNObjMoreAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.2
-  eriAlarmActiveManagedObject(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveManagedObject
-  eriAlarmActiveEventType: 1.3.6.1.4.1.193.183.4.1.3.5.1.6
-  eriAlarmActiveProbableCause(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveProbableCause
-  eriAlarmNObjResourceId: 1.3.6.1.4.1.193.183.4.1.2.3
-  eriAlarmActiveMajorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.2
-  eriAlarmActiveSpecificProblem(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveSpecificProblem
-  eriAlarmActiveManagedObject: 1.3.6.1.4.1.193.183.4.1.3.5.1.5
-  eriAlarmActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmActiveAlarms eriAlarmActiveAlarmTable eriAlarmActiveAlarmEntry eriAlarmActiveMajorType
-  eriAlarmNObjMoreAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjMoreAdditionalInfo
-  eriAlarmNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalText
-  eriAlarmNObjAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmObjects eriAlarmNotifObjects eriAlarmNObjAdditionalInfo
-  eriAlarmNObjAdditionalInfo: 1.3.6.1.4.1.193.183.4.1.2.4
-  eriAlarmActiveProbableCause: 1.3.6.1.4.1.193.183.4.1.3.5.1.9
-  eriAlarmActiveMinorType: 1.3.6.1.4.1.193.183.4.1.3.5.1.3
-  eriAlarmNObjAdditionalText: 1.3.6.1.4.1.193.183.4.1.2.1
+dspOrPhyCrash:
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
 
-eriAlarmXAppendInfo:
-  eriAlarmXNObjSourceIdentifier: 1.3.6.1.4.1.193.183.6.1.2.9
-  eriAlarmXActiveResourceId(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveResourceId
-  eriAlarmXNObjAppendedAdditionalInfo(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAppendedAdditionalInfo
-  eriAlarmXActiveYangNodeInstance: 1.3.6.1.4.1.193.183.6.1.3.5.1.5
-  eriAlarmXNObjAppendedAdditionalInfo: 1.3.6.1.4.1.193.183.6.1.2.7
-  eriAlarmXNObjAdditionalText: 1.3.6.1.4.1.193.183.6.1.2.1
-  eriAlarmXNObjSourceIdentifier(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifier
-  eriAlarmXActiveResourceId: 1.3.6.1.4.1.193.183.6.1.3.5.1.14
-  eriAlarmXActiveMajorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMajorType
-  eriAlarmXNObjSourceIdentifierType: 1.3.6.1.4.1.193.183.6.1.2.8
-  eriAlarmXActiveMajorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.2
-  eriAlarmXNObjAdditionalText(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjAdditionalText
-  eriAlarmXActiveYangNodeInstance(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveYangNodeInstance
-  eriAlarmXActiveMinorType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXActiveAlarms eriAlarmXActiveAlarmTable eriAlarmXActiveAlarmEntry eriAlarmXActiveMinorType
-  eriAlarmXActiveMinorType: 1.3.6.1.4.1.193.183.6.1.3.5.1.3
-  eriAlarmXNObjSourceIdentifierType(nombre): org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXObjects eriAlarmXNotifObjects eriAlarmXNObjSourceIdentifierType
+tr069NotDetected:
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+
+thresholdCrossedLowSINR:
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+
+ipsecTunnelIsDown:
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+
+criticalConfigurationFailure:
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+
+cpuCyclesLimitExceeded:
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+
+holdoverPeriodExpiration:
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+
+watchdogNotDetected:
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+
+deviceOnlineAlarm:
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+
+gpsSynchronizationLost:
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+
+haCommunicationAlarm:
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+
+l2NotDetected:
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+
+administrativeReboot:
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+
+paTemperatureUnacceptable:
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+
+mmeConnectionIsDown:
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+
+l1StartTimeout:
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+
+rebootLoop:
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+
+flashMemoryUsage:
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+
+cpuUsageIsHigh:
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+
+synchronizationLostWithAllSources:
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+
+pciConfusion:
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+
+invalidPhyOrRfConfiguration:
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+
+clockSynchronizationProblem:
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+
+maxMMEAttemptsExceeded:
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+
+oOAMProxyRestarted:
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+
+deviceOfflineAlarm:
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+
+failedBackingUpConfigurationFile:
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+
+congestion:
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+
+lanError:
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+
+kpiAgentNotDetected:
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+
+reTransmissionRateExcessive:
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+
+radioOffAlarm:
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+
+overTheAirSynchronizationLost:
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+
+dbReplicationAlarm:
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+
+paBiasingFailure:
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+
+unauthorisedAccessAttempt:
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+
+l3NotDetected:
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+
+failedRestoringConfigurationFile:
+  specificProblem(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects specificProblem
+  notificationType: 1.3.6.1.4.1.20858.10.104.101.1.3
+  neIdentity: 1.3.6.1.4.1.20858.10.104.101.1.1
+  eventType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventType
+  probableCause(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects probableCause
+  specificProblem: 1.3.6.1.4.1.20858.10.104.101.1.6
+  eventType: 1.3.6.1.4.1.20858.10.104.101.1.4
+  alarmID: 1.3.6.1.4.1.20858.10.104.101.1.2
+  additionalText(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalText
+  eventTime: 1.3.6.1.4.1.20858.10.104.101.1.10
+  notificationType(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects notificationType
+  additionalInformation: 1.3.6.1.4.1.20858.10.104.101.1.9
+  probableCause: 1.3.6.1.4.1.20858.10.104.101.1.5
+  eventTime(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects eventTime
+  additionalText: 1.3.6.1.4.1.20858.10.104.101.1.8
+  additionalInformation(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects additionalInformation
+  perceivedSeverity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects perceivedSeverity
+  perceivedSeverity: 1.3.6.1.4.1.20858.10.104.101.1.7
+  neIdentity(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects neIdentity
+  alarmID(nombre): 1 casaHeMSAlarmMib casaHeMSAlarmObjects alarmID
 
 ----------------------------------- FIN DE ALARM_TRAPS -----------------------------------

@@ -1,242 +1,538 @@
 ----------------------------------- ALARM TRAPS ---------------------------
-eriAlarmXCleared:
-  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
-  DESCRIPTION: This notification is sent when a resource detects a cleared alarm state. The combination of YangNodeInstance and MajorType/MinorType is always unique and shall be used by management systems to correlate alarm and alarm clear.  The corresponding row in the alarm table will be deleted, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications.  Note that it should not be required to send an append trap for a cleared alarm. Those varbinds which flag that an append trap will follow are  kept here for backward compatibility reasons.
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXCleared
-  TYPE: NOTIFICATION-TYPE
+remoteAeMSsStatusAlarm:
   VARIABLES: No se encontraron variables
-  OID: 1.3.6.1.4.1.193.183.6.2.0.7
-
-eriAlarmXIndeterminate:
-  TYPE: NOTIFICATION-TYPE
-  OID: 1.3.6.1.4.1.193.183.6.2.0.1
-  VARIABLES: No se encontraron variables
-  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity indeterminate. The notification is also used to change severity, additional text and/or additional  info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance  and MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table. The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
-  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXIndeterminate
-
-eriAlarmXWarning:
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXWarning
-  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
-  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity warning. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
-  VARIABLES: No se encontraron variables
-  OID: 1.3.6.1.4.1.193.183.6.2.0.2
+  DESCRIPTION: Remote AeMSs down
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm remoteAeMSsStatusAlarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.15
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
   TYPE: NOTIFICATION-TYPE
 
-eriAlarmMinorAlert:
+dbArbiterConnectionAlarm:
   VARIABLES: No se encontraron variables
-  OID: 1.3.6.1.4.1.193.183.4.2.0.12
-  TYPE: NOTIFICATION-TYPE
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmMinorAlert
-  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
-  DESCRIPTION: This notification is sent when a resource detects a new alert with severity minor. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
-
-eriAlarmXCritical:
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXCritical
-  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity critical. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
-  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
-  OID: 1.3.6.1.4.1.193.183.6.2.0.5
-  VARIABLES: No se encontraron variables
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.6
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm dbArbiterConnectionAlarm
+  DESCRIPTION: AeMS DB arbiter connection alarm
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
   TYPE: NOTIFICATION-TYPE
 
-eriAlarmXMinor:
-  OID: 1.3.6.1.4.1.193.183.6.2.0.3
+networkInterfaceAlarm:
   VARIABLES: No se encontraron variables
   TYPE: NOTIFICATION-TYPE
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXMinor
-  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity minor. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
-  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  DESCRIPTION: AeMS Network interface alarm
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm networkInterfaceAlarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.7
 
-eriAlarmXIndAlert:
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXIndAlert
-  DESCRIPTION: This notification is sent when a resource detects a new alert with severity indeterminate. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
-  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
-  OID: 1.3.6.1.4.1.193.183.6.2.0.10
+cpuTemperatureUnacceptable:
   VARIABLES: No se encontraron variables
-  TYPE: NOTIFICATION-TYPE
-
-eriAlarmXMajor:
-  OID: 1.3.6.1.4.1.193.183.6.2.0.4
-  VARIABLES: No se encontraron variables
-  TYPE: NOTIFICATION-TYPE
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXMajor
-  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity major. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmXNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of YangNodeInstance and  MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmXActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmXNObjMoreAdditionalText varbind, and sent with eriAlarmXAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmXNObjMoreAdditionalInfo varbind, and sent with eriAlarmXAppendInfo.  (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information.  In that case, eriAlarmXNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmXAppendInfo notification.
-  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXActiveSpecificProblem, eriAlarmXActiveLastSequenceNo, eriAlarmXActiveEventType, eriAlarmXActiveEventTime, eriAlarmXActiveProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjRecordType, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
-
-eriAlarmIndeterminate:
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmIndeterminate
-  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity indeterminate. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can be used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table. The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
-  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
-  OID: 1.3.6.1.4.1.193.183.4.2.0.1
-  VARIABLES: No se encontraron variables
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm cpuTemperatureUnacceptable
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.15
+  DESCRIPTION: CPU Temperature exceeds defined threshold
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
   TYPE: NOTIFICATION-TYPE
 
-eriAlarmCleared:
+thresholdCrossedLowSINR:
   VARIABLES: No se encontraron variables
-  OID: 1.3.6.1.4.1.193.183.4.2.0.7
+  DESCRIPTION: The MAC has too many low SINR events
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm thresholdCrossedLowSINR
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.21
   TYPE: NOTIFICATION-TYPE
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmCleared
-  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
-  DESCRIPTION: This notification is sent when a resource detects a cleared alarm state. The combination of ManagedObject and MajorType/MinorType is always unique and shall be used by management systems to correlate alarm and alarm clear. The corresponding row in the alarm table will be deleted, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. Note that it should not be required to send an append trap for a cleared alarm. Those varbinds which flag that an append trap will follow are kept here for backward compatibility reasons.
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
 
-eriAlarmAlarmListRebuilt:
-  OID: 1.3.6.1.4.1.193.183.4.2.0.30
-  VARIABLES: No se encontraron variables
+tr069NotDetected:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.45
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm tr069NotDetected
+  DESCRIPTION: Self-healing agent monitors processes and raises alarm if it detects the process dying
   TYPE: NOTIFICATION-TYPE
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmAlarmListRebuilt
-  DESCRIPTION: This notification is sent when the active alarm list has reached a stable situation after a restart or after a system internal audit process. It is an indication to the manager to perform a alarm resynchronization procedure.
-  OBJECTS: eriAlarmActiveTableURL 
-
-eriAlarmMajor:
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmMajor
-  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity major. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
-  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
-  OID: 1.3.6.1.4.1.193.183.4.2.0.4
-  VARIABLES: No se encontraron variables
-  TYPE: NOTIFICATION-TYPE
-
-eriAlarmXAppendAlertInfo:
-  TYPE: NOTIFICATION-TYPE
-  OID: 1.3.6.1.4.1.193.183.6.2.0.15
-  VARIABLES: No se encontraron variables
-  DESCRIPTION: This notification is sent in order to append further info to an alert notification. It might be additional text or a resource ID (OID) identifying the alarming resource using an OID. This complements information sent in a previous notification. If additional text/info is sent, do not confuse this with an actual change of additional text/info which is reported using the eriAlarmXAlert<severity> notification. A zero-length string value for eriAlarmXNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmXNObjAppendedAdditionalInfo means that no additional info is being sent in this notification. A null OID (0.0) value for eriAlarmXAlertResourceId means that no resource ID is being sent in this notification.
-  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXNObjAdditionalText, eriAlarmXAlertResourceId, eriAlarmXNObjAppendedAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXAppendAlertInfo
-
-eriAlarmXWarnAlert:
-  TYPE: NOTIFICATION-TYPE
-  VARIABLES: No se encontraron variables
-  OID: 1.3.6.1.4.1.193.183.6.2.0.11
-  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
-  DESCRIPTION: This notification is sent when a resource detects a new alert with severity warning. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXWarnAlert
-
-eriAlarmXAppendInfo:
-  DESCRIPTION: This notification is sent in order to append further info to an alarm notification. It might be additional text, additional info or a resource ID  (OID) identifying the alarming resource using an OID. If additional text/info is sent, do not confuse this with an actual change of additional text/info which  is reported using the eriAlarmX<severity> notification.  A zero-length string value for eriAlarmXNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmXNObjAppendedAdditionalInfo means that no additional info is being sent in this notification. A null OID (0.0) value for eriAlarmXActiveResourceId means that no resource ID is being sent in this notification.
-  OBJECTS:  eriAlarmXActiveYangNodeInstance, eriAlarmXActiveMajorType, eriAlarmXActiveMinorType, eriAlarmXNObjAdditionalText, eriAlarmXActiveResourceId, eriAlarmXNObjAppendedAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXAppendInfo
-  TYPE: NOTIFICATION-TYPE
-  OID: 1.3.6.1.4.1.193.183.6.2.0.8
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
   VARIABLES: No se encontraron variables
 
-eriAlarmMajorAlert:
-  DESCRIPTION: This notification is sent when a resource detects a new alert with severity major. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
-  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmMajorAlert
+dspOrPhyCrash:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.27
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm dspOrPhyCrash
+  DESCRIPTION: the DSPs running the PHY crashes
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
   TYPE: NOTIFICATION-TYPE
-  OID: 1.3.6.1.4.1.193.183.4.2.0.13
   VARIABLES: No se encontraron variables
 
-eriAlarmCritical:
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmCritical
-  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity critical. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
-  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
-  OID: 1.3.6.1.4.1.193.183.4.2.0.5
+ipsecTunnelIsDown:
   VARIABLES: No se encontraron variables
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel fails
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm ipsecTunnelIsDown
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.35
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
   TYPE: NOTIFICATION-TYPE
 
-eriAlarmXAlarmListRebuilt:
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXAlarmListRebuilt
-  OBJECTS: eriAlarmXActiveTableURL, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
-  DESCRIPTION: This notification is sent when the active alarm list has reached a stable situation after a restart or after a system internal audit process. It is an indication to the manager to perform a alarm resynchronization procedure.
-  VARIABLES: No se encontraron variables
-  OID: 1.3.6.1.4.1.193.183.6.2.0.30
+criticalConfigurationFailure:
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
   TYPE: NOTIFICATION-TYPE
-
-eriAlarmWarnAlert:
-  DESCRIPTION: This notification is sent when a resource detects a new alert with severity warning. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
-  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmWarnAlert
-  TYPE: NOTIFICATION-TYPE
-  OID: 1.3.6.1.4.1.193.183.4.2.0.11
+  DESCRIPTION: L3 process detects this situation and raises alarm if mandatory EPC configuration parameters are not configured
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm criticalConfigurationFailure
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.47
   VARIABLES: No se encontraron variables
 
-eriAlarmCriticalAlert:
+holdoverPeriodExpiration:
+  DESCRIPTION: L3 process raises the alarm when the eNB is working for all the holdover time without re-synchronizing
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm holdoverPeriodExpiration
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.39
   TYPE: NOTIFICATION-TYPE
-  VARIABLES: No se encontraron variables
-  OID: 1.3.6.1.4.1.193.183.4.2.0.14
-  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
-  DESCRIPTION: This notification is sent when a resource detects a new alert with severity critical. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmCriticalAlert
-
-eriAlarmWarning:
-  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity warning. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
-  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmWarning
-  TYPE: NOTIFICATION-TYPE
-  OID: 1.3.6.1.4.1.193.183.4.2.0.2
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
   VARIABLES: No se encontraron variables
 
-eriAlarmHeartBeatNotif:
+watchdogNotDetected:
   TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.46
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm watchdogNotDetected
+  DESCRIPTION: Linux system monitorize system self-healing agent and reboots the eNB
   VARIABLES: No se encontraron variables
-  OID: 1.3.6.1.4.1.193.183.4.2.0.20
-  OBJECTS:  eriAlarmActiveLastSequenceNo, eriAlarmAlertLastSequenceNo, eriAlarmActiveLastChanged, eriAlarmAlertLastChanged 
-  DESCRIPTION: This is a heartbeat notification with interval according to the eriAlarmHbInterval. It contains the last sequence numbers used for alarms and alarm events. These varbinds can be used to detect lost notifications. The notification eriAlarmHeartBeatNotif will be sent every eriAlarmHbInterval. Managers can subscribe to the notification using the SNMP framework MIBS by using the snmpNotifyName 'heartbeat'. (SNMP-NOTIFICATION-MIB, snmpNotifyTable).
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmHeartBeatNotif
 
-eriAlarmXHeartBeatNotif:
+cpuCyclesLimitExceeded:
+  VARIABLES: No se encontraron variables
+  DESCRIPTION: CPU usage exceeds defined threshold
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm cpuCyclesLimitExceeded
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.8
   TYPE: NOTIFICATION-TYPE
-  VARIABLES: No se encontraron variables
-  OID: 1.3.6.1.4.1.193.183.6.2.0.20
-  OBJECTS:  eriAlarmXActiveLastSequenceNo, eriAlarmXAlertLastSequenceNo, eriAlarmXActiveLastChanged, eriAlarmXAlertLastChanged, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
-  DESCRIPTION: This is a heartbeat notification with interval according to the eriAlarmXHbInterval. It contains the last sequence numbers used for alarms and alarm events. These varbinds can be used to detect lost notifications. The notification eriAlarmXHeartBeatNotif will be sent every eriAlarmXHbInterval. Managers can subscribe to the notification using the SNMP framework MIBS by using the snmpNotifyName 'heartbeat'. (SNMP-NOTIFICATION-MIB, snmpNotifyTable).
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXHeartBeatNotif
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
 
-eriAlarmXMinorAlert:
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXMinorAlert
-  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
-  DESCRIPTION: This notification is sent when a resource detects a new alert with severity minor. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+deviceOnlineAlarm:
   VARIABLES: No se encontraron variables
-  OID: 1.3.6.1.4.1.193.183.6.2.0.12
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.9
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm deviceOnlineAlarm
+  DESCRIPTION: Small Cell online alarm
   TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
 
-eriAlarmAppendInfo:
-  OID: 1.3.6.1.4.1.193.183.4.2.0.8
-  VARIABLES: No se encontraron variables
+gpsSynchronizationLost:
   TYPE: NOTIFICATION-TYPE
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmAppendInfo
-  DESCRIPTION: This notification is sent in order to append further info to an alarm notification. It might be additional text, additional info or a resource ID (OID) identifying the alarming resource using an OID. If additional text/info is sent, do not confuse this with an actual change of additional text/info which is reported using the eriAlarm<severity> notification. A zero-length string value for eriAlarmNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmNObjAppendedAdditionalInfo means that no appended additional info is being sent in this notification. A null OID (0.0) value for eriAlarmActiveResourceId means that no resource ID is being sent in this notification.
-  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmNObjAdditionalText, eriAlarmActiveResourceId, eriAlarmNObjAppendedAdditionalInfo 
-
-eriAlarmXMajorAlert:
-  TYPE: NOTIFICATION-TYPE
-  OID: 1.3.6.1.4.1.193.183.6.2.0.13
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.11
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm gpsSynchronizationLost
+  DESCRIPTION: GPS synchronization lost
   VARIABLES: No se encontraron variables
-  DESCRIPTION: This notification is sent when a resource detects a new alert with severity major. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
-  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXMajorAlert
 
-eriAlarmMinor:
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmMinor
-  OBJECTS:  eriAlarmActiveManagedObject, eriAlarmActiveMajorType, eriAlarmActiveMinorType, eriAlarmActiveSpecificProblem, eriAlarmActiveLastSequenceNo, eriAlarmActiveEventType, eriAlarmActiveEventTime, eriAlarmActiveProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo, eriAlarmNObjRecordType 
-  DESCRIPTION: This notification is sent when a resource detects a new alarm state with severity minor. The notification is also used to change severity, additional text and/or additional info of an alarm. The eriAlarmNObjRecordType varbind will indicate whether this is a new alarm instance or a change to an existing alarm instance. The combination of ManagedObject and MajorType/MinorType is always unique and can used by management systems to correlate alarm, alarm change, and alarm clear. A corresponding row will be created in the Alarm Table, (eriAlarmActiveAlarmTable). The sequence number will increase for every notification and can be used to detect lost notifications. A management system should be prepared for appending text to additional text, indicated by the eriAlarmNObjMoreAdditionalText varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional text.) A management system should be prepared for appending text to additional info, indicated by the eriAlarmNObjMoreAdditionalInfo varbind, and sent with eriAlarmAppendInfo. (Note do not confuse this with a change of additional info.) A management system should also be prepared to receive a resource ID (OID) identifying the alarming resource if the system sending the notification can provide that information. In that case, eriAlarmNObjResourceId will be set to 'true' and the resource ID will be sent in an eriAlarmAppendInfo notification.
+l2NotDetected:
   VARIABLES: No se encontraron variables
-  OID: 1.3.6.1.4.1.193.183.4.2.0.3
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm l2NotDetected
+  DESCRIPTION: L2 not detected
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.2
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
   TYPE: NOTIFICATION-TYPE
 
-eriAlarmIndAlert:
+haCommunicationAlarm:
   VARIABLES: No se encontraron variables
-  OID: 1.3.6.1.4.1.193.183.4.2.0.10
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
   TYPE: NOTIFICATION-TYPE
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmIndAlert
-  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmAlertSpecificProblem, eriAlarmAlertLastSequenceNo, eriAlarmAlertEventType, eriAlarmAlertEventTime, eriAlarmAlertProbableCause, eriAlarmNObjAdditionalText, eriAlarmNObjMoreAdditionalText, eriAlarmNObjResourceId, eriAlarmNObjAdditionalInfo, eriAlarmNObjMoreAdditionalInfo 
-  DESCRIPTION: This notification is sent when a resource detects a new alert with severity indeterminate. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm haCommunicationAlarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.4
+  DESCRIPTION: AeMS HA communication alarm
 
-eriAlarmAppendAlertInfo:
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmMIB eriAlarmNotifications eriAlarmNotifsPrefix eriAlarmAppendAlertInfo
-  OBJECTS:  eriAlarmAlertManagedObject, eriAlarmAlertMajorType, eriAlarmAlertMinorType, eriAlarmNObjAdditionalText, eriAlarmAlertResourceId, eriAlarmNObjAppendedAdditionalInfo 
-  DESCRIPTION: This notification is sent in order to append further info to an alert notification. It might be additional text or a resource ID (OID) identifying the alarming resource using an OID. This complements information sent in a previous notification. If additional text/info is sent, do not confuse this with an actual change of additional text/info which is reported using the eriAlarmAlert<severity> notification. A zero-length string value for eriAlarmNObjAdditionalText means that no additional text is being sent in this notification. A zero-length string value for eriAlarmNObjAppendedAdditionalInfo means that no additional info is being sent in this notification. A null OID (0.0) value for eriAlarmAlertResourceId means that no resource ID is being sent in this notification.
+administrativeReboot:
   VARIABLES: No se encontraron variables
-  OID: 1.3.6.1.4.1.193.183.4.2.0.15
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  DESCRIPTION: OAM process will send this informational alarm upon administrative reboot
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm administrativeReboot
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.40
+
+paTemperatureUnacceptable:
+  VARIABLES: No se encontraron variables
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm paTemperatureUnacceptable
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.16
+  DESCRIPTION: The tempeature in the PA exceeds the defined threshold
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
   TYPE: NOTIFICATION-TYPE
 
-eriAlarmXCriticalAlert:
-  OID: 1.3.6.1.4.1.193.183.6.2.0.14
+l1StartTimeout:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.26
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm l1StartTimeout
+  DESCRIPTION: the protocol stack cannot start L1 process in DSPs
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: No se encontraron variables
+
+mmeConnectionIsDown:
+  VARIABLES: No se encontraron variables
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: MME connection is down
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm mmeConnectionIsDown
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.5
+
+operatorCertificateExpired:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm operatorCertificateExpired
+  DESCRIPTION: System raises the alarm when the Operator certificate cannot be renewed
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.38
+  VARIABLES: No se encontraron variables
+
+cellSynchronizationFailure:
+  VARIABLES: No se encontraron variables
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.12
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm cellSynchronizationFailure
+  DESCRIPTION: Cell synchronization failure
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+
+outOfMemory:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.19
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm outOfMemory
+  DESCRIPTION: RAM usage is high and surpassed the defined threshold
+  VARIABLES: No se encontraron variables
+
+errorAccessingFile:
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.7
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm errorAccessingFile
+  DESCRIPTION: Error accessing file
+  VARIABLES: No se encontraron variables
+
+dbSlaveConnectionAlarm:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.5
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm dbSlaveConnectionAlarm
+  DESCRIPTION: AeMS DB slave connection alarm
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  VARIABLES: No se encontraron variables
+
+cellOffAlarm:
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm cellOffAlarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.12
+  DESCRIPTION: Small Cell cellOff alarm
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  VARIABLES: No se encontraron variables
+
+ipsecTunnelExpiry:
+  VARIABLES: No se encontraron variables
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm ipsecTunnelExpiry
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the tunnel rekeying fails
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.36
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+
+forcedReboot:
+  VARIABLES: No se encontraron variables
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.41
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm forcedReboot
+  DESCRIPTION: Self-healing agent raises this alarm upon detection of major failure requiring a reboot
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+
+pciCollision:
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm pciCollision
+  DESCRIPTION: The eNB is configured with the same PCI as another neighbor cell
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.23
+  VARIABLES: No se encontraron variables
+
+cCMSServerConnectionFailure:
+  DESCRIPTION: System raises the alarm when the Operator certificate server cannot be connected. This alarm has been deprecated on AeMS.
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm cCMSServerConnectionFailure
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.49
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: No se encontraron variables
+
+casaHeMSHeartBeatMsg:
+  VARIABLES: No se encontraron variables
+  DESCRIPTION: Casa HeMS HeartBeat Msg
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSHeartBeatMsg
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.4
+  OBJECTS: No se encontraron objetos
+  TYPE: NOTIFICATION-TYPE
+
+cellOnAlarm:
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm cellOnAlarm
+  DESCRIPTION: Small Cell cellOn alarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.13
+  VARIABLES: No se encontraron variables
+
+hardDiskUsageIsHigh:
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: AeMS Hard disk usage is high
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm hardDiskUsageIsHigh
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.3
+  VARIABLES: No se encontraron variables
+
+radioOnAlarm:
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm radioOnAlarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.11
+  DESCRIPTION: Small Cell radioOn alarm
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  VARIABLES: No se encontraron variables
+
+dnsResolutionFailure:
+  VARIABLES: No se encontraron variables
+  DESCRIPTION: System raises this alarm upon failure to resolve the IP addresses of a FQDN
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm dnsResolutionFailure
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.44
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+
+singleMmeConnectionIsDown:
+  DESCRIPTION: Single MME connection is down
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm singleMmeConnectionIsDown
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.34
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: No se encontraron variables
+
+configurationOrCustomizingErrror:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.18
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm configurationOrCustomizingErrror
+  DESCRIPTION: The configuration received from OAM interfaces (EMS, CLI, HTTP etc) is wrong
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  VARIABLES: No se encontraron variables
+
+sctpFailure:
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.13
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm sctpFailure
+  DESCRIPTION: SCTP connection failure
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: No se encontraron variables
+
+killSwitch:
+  DESCRIPTION: An external signal is activated when detetecting power supply outage, and this signal reaches the self-healing process, which raises alarm and gracefully halts the eNB
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm killSwitch
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.25
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: No se encontraron variables
+
+systemInformationConfigurationFailure:
+  VARIABLES: No se encontraron variables
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm systemInformationConfigurationFailure
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.31
+  DESCRIPTION: System information configuration failure
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+
+aAeMSConnectionNoResponse:
+  VARIABLES: No se encontraron variables
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.50
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm aAeMSConnectionNoResponse
+  DESCRIPTION: System raises the alarm when the eNB cannot connect to AeMS server
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+
+ipsecTunnelIkeSaExpiry:
+  VARIABLES: No se encontraron variables
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm ipsecTunnelIkeSaExpiry
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.37
+  DESCRIPTION: System monitors IPsec tunnel and raises the alarm when the IKE rekeying fails
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+
+memoryUsageIsHigh:
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm memoryUsageIsHigh
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.1
+  DESCRIPTION: AeMS Memory usage is high
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: No se encontraron variables
+
+thresholdCrossedRLF:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm thresholdCrossedRLF
+  DESCRIPTION: The MAC has too many RLF s
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.20
+  VARIABLES: No se encontraron variables
+
+casaHeMSSmallCellGWAlarm:
+  VARIABLES: No se encontraron variables
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.3
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellGWAlarm
+  DESCRIPTION: Casa HeMS SmallCell-GW Alarm
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+
+congestion:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  DESCRIPTION: RRM overload
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm congestion
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.6
+  VARIABLES: No se encontraron variables
+
+lanError:
+  VARIABLES: No se encontraron variables
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm lanError
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.14
+  DESCRIPTION: Ethernet error
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+
+kpiAgentNotDetected:
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm kpiAgentNotDetected
+  DESCRIPTION: KPI Agent not detected
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.3
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  VARIABLES: No se encontraron variables
+
+reTransmissionRateExcessive:
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm reTransmissionRateExcessive
+  DESCRIPTION: The MAC has an excessive rate of NACKs
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.9
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  VARIABLES: No se encontraron variables
+
+radioOffAlarm:
+  VARIABLES: No se encontraron variables
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm radioOffAlarm
+  DESCRIPTION: Small Cell radioOff alarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.10
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+
+overTheAirSynchronizationLost:
+  VARIABLES: No se encontraron variables
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm overTheAirSynchronizationLost
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.10
+  DESCRIPTION: Syncrhonization with the macro OTA is lost
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+
+dbReplicationAlarm:
+  VARIABLES: No se encontraron variables
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.14
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm dbReplicationAlarm
+  DESCRIPTION: DB replication failed
+
+paBiasingFailure:
+  VARIABLES: No se encontraron variables
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm paBiasingFailure
+  DESCRIPTION: The PA board was not able to properly biasing
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.22
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+
+unauthorisedAccessAttempt:
+  VARIABLES: No se encontraron variables
+  DESCRIPTION: Someone or some process did attempt unsuccesfully to login the web interface
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm unauthorisedAccessAttempt
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.17
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+
+failedRestoringConfigurationFile:
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  DESCRIPTION: Any process of eNB raises this alarm if it gets error while restoring a corrupted configuration file
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm failedRestoringConfigurationFile
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.33
+  VARIABLES: No se encontraron variables
+
+l3NotDetected:
+  VARIABLES: No se encontraron variables
+  DESCRIPTION: L3 not detected
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm l3NotDetected
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.1
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+
+rebootLoop:
+  VARIABLES: No se encontraron variables
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm rebootLoop
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.43
+  DESCRIPTION: System raises this alarm upon detection of several continious reboots in a short period of time
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+
+flashMemoryUsage:
   VARIABLES: No se encontraron variables
   TYPE: NOTIFICATION-TYPE
-  OID_NAME: org dod internet private enterprises ericsson ericssonModules ericssonAlarmXpathMIB eriAlarmXNotifications eriAlarmXNotifsPrefix eriAlarmXCriticalAlert
-  DESCRIPTION: This notification is sent when a resource detects a new alert with severity critical. A corresponding row will be created in the Alert Table. The sequence number will increase for every notification and can be used to detect lost notifications.
-  OBJECTS:  eriAlarmXAlertYangNodeInstance, eriAlarmXAlertMajorType, eriAlarmXAlertMinorType, eriAlarmXAlertSpecificProblem, eriAlarmXAlertLastSequenceNo, eriAlarmXAlertEventType, eriAlarmXAlertEventTime, eriAlarmXAlertProbableCause, eriAlarmXNObjAdditionalText, eriAlarmXNObjMoreAdditionalText, eriAlarmXNObjResourceId, eriAlarmXNObjAdditionalInfo, eriAlarmXNObjMoreAdditionalInfo, eriAlarmXNObjSourceIdentifierType, eriAlarmXNObjSourceIdentifier 
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm flashMemoryUsage
+  DESCRIPTION: Flash memory usage
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.4
+
+synchronizationLostWithAllSources:
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.29
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm synchronizationLostWithAllSources
+  DESCRIPTION: the synchornization is lost and the eNB passes to holdover mode
+  VARIABLES: No se encontraron variables
+
+invalidPhyOrRfConfiguration:
+  VARIABLES: No se encontraron variables
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.30
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm invalidPhyOrRfConfiguration
+  DESCRIPTION: Invalid PHY or RF configuration
+
+pciConfusion:
+  VARIABLES: No se encontraron variables
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm pciConfusion
+  DESCRIPTION: The eNB detects that it is configurted with the same PCI as another neighbor of second ring cell
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.24
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+
+cpuUsageIsHigh:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.2
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm cpuUsageIsHigh
+  DESCRIPTION: AeMS CPU usage is high
+  VARIABLES: No se encontraron variables
+
+clockSynchronizationProblem:
+  VARIABLES: No se encontraron variables
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm clockSynchronizationProblem
+  DESCRIPTION: Cell not synchronized
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.28
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+
+maxMMEAttemptsExceeded:
+  VARIABLES: No se encontraron variables
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm maxMMEAttemptsExceeded
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.42
+  DESCRIPTION: L3 process is responsible to handle connection with MME, so it raises the alarm if the connection is lost with all MMEs and the maximum number of retries is reached
+
+deviceOfflineAlarm:
+  VARIABLES: No se encontraron variables
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  DESCRIPTION: Small Cell offline alarm
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSystemAlarm deviceOfflineAlarm
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.1.8
+
+oOAMProxyRestarted:
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  TYPE: NOTIFICATION-TYPE
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.48
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm oOAMProxyRestarted
+  DESCRIPTION: Kill OAM proxy process to force the generation of the alarm
+  VARIABLES: No se encontraron variables
+
+failedBackingUpConfigurationFile:
+  TYPE: NOTIFICATION-TYPE
+  OBJECTS: neIdentity, alarmID, notificationType, eventType, probableCause, specificProblem, perceivedSeverity, additionalText, additionalInformation, eventTime
+  OID_NAME: 1 casaHeMSAlarmMib casaHeMSAlarmTraps casaHeMSSmallCellAlarm failedBackingUpConfigurationFile
+  DESCRIPTION: Any process of eNB raises this alarm if it gets error while backing up a file
+  OID: 1.3.6.1.4.1.20858.10.104.101.2.2.32
+  VARIABLES: No se encontraron variables
 
 ----------------------------------- FIN DE ALARM_TRAPS -----------------------------------
